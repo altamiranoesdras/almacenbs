@@ -14,9 +14,9 @@ class CreateCompra1hDetallesTable extends Migration
     public function up()
     {
         Schema::create('compra_1h_detalles', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('1h_id')->index('fk_compra_1h_detalles_compra_1h1_idx');
-            $table->unsignedInteger('item_id')->index('fk_compra_1h_detalles_items1_idx');
+            $table->id();
+            $table->unsignedBigInteger('1h_id')->index('fk_compra_1h_detalles_compra_1h1_idx');
+            $table->unsignedBigInteger('item_id')->index('fk_compra_1h_detalles_items1_idx');
             $table->decimal('precio', 15, 5);
             $table->decimal('cantidad', 15, 5);
             $table->integer('folio_almacen');

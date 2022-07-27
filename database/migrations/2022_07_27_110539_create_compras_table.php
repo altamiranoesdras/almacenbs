@@ -14,18 +14,18 @@ class CreateComprasTable extends Migration
     public function up()
     {
         Schema::create('compras', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('tipo_id')->index('fk_compras_compras_tipos1_idx');
-            $table->unsignedInteger('proveedor_id')->index('fk_compra_proveedores1_idx');
+            $table->id();
+            $table->unsignedBigInteger('tipo_id')->index('fk_compras_compras_tipos1_idx');
+            $table->unsignedBigInteger('proveedor_id')->index('fk_compra_proveedores1_idx');
             $table->string('codigo', 45)->nullable();
             $table->integer('correlativo')->nullable();
             $table->date('fecha_documento')->nullable()->comment('Fecha del docuemnto de  la Factura');
             $table->date('fecha_ingreso')->nullable()->comment('Fecha de ingreso al sistema');
             $table->string('serie', 45)->nullable();
             $table->string('numero', 20)->nullable();
-            $table->unsignedInteger('estado_id')->index('fk_compras_compra_estados1_idx');
-            $table->unsignedInteger('usuario_crea')->index('user_id');
-            $table->unsignedInteger('usuario_recibe')->nullable()->index('fk_compras_users2_idx');
+            $table->unsignedBigInteger('estado_id')->index('fk_compras_compra_estados1_idx');
+            $table->unsignedBigInteger('usuario_crea')->index('user_id');
+            $table->unsignedBigInteger('usuario_recibe')->nullable()->index('fk_compras_users2_idx');
             $table->text('observaciones')->nullable();
             $table->timestamps();
             $table->softDeletes();

@@ -14,7 +14,7 @@ class CreateCompraEstadosTable extends Migration
     public function up()
     {
         Schema::create('compra_estados', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('nombre', 45)->unique('descripcion_UNIQUE');
             $table->timestamps();
             $table->softDeletes();

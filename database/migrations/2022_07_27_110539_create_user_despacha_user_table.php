@@ -14,8 +14,8 @@ class CreateUserDespachaUserTable extends Migration
     public function up()
     {
         Schema::create('user_despacha_user', function (Blueprint $table) {
-            $table->unsignedInteger('user_sol')->index('fk_users_has_users_users1_idx');
-            $table->unsignedInteger('user_des')->index('fk_users_has_users_users2_idx');
+            $table->unsignedBigInteger('user_sol')->index('fk_users_has_users_users1_idx');
+            $table->unsignedBigInteger('user_des')->index('fk_users_has_users_users2_idx');
             $table->primary(['user_sol', 'user_des']);
         });
     }

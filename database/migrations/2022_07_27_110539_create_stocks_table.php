@@ -14,8 +14,8 @@ class CreateStocksTable extends Migration
     public function up()
     {
         Schema::create('stocks', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('item_id')->index('fk_igresos_items1_idx');
+            $table->id();
+            $table->unsignedBigInteger('item_id')->index('fk_igresos_items1_idx');
             $table->string('lote', 25)->nullable();
             $table->timestamp('fecha_ing')->useCurrent();
             $table->date('fecha_vence')->nullable();

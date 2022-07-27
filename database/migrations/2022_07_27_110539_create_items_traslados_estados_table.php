@@ -14,7 +14,7 @@ class CreateItemsTrasladosEstadosTable extends Migration
     public function up()
     {
         Schema::create('items_traslados_estados', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('nombre')->unique('nombre_UNIQUE');
             $table->timestamps();
             $table->softDeletes();

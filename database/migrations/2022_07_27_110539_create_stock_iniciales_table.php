@@ -14,10 +14,10 @@ class CreateStockInicialesTable extends Migration
     public function up()
     {
         Schema::create('stock_iniciales', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('item_id')->index('fk_inistocks_items1_idx');
+            $table->id();
+            $table->unsignedBigInteger('item_id')->index('fk_inistocks_items1_idx');
             $table->decimal('cantidad', 12, 4);
-            $table->unsignedInteger('user_id')->index('fk_inistocks_users1_idx');
+            $table->unsignedBigInteger('user_id')->index('fk_inistocks_users1_idx');
             $table->timestamps();
             $table->softDeletes();
         });

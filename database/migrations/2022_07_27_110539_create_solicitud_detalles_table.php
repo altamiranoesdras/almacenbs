@@ -14,9 +14,9 @@ class CreateSolicitudDetallesTable extends Migration
     public function up()
     {
         Schema::create('solicitud_detalles', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('solicitud_id')->index('fk_solicitud_detalles_solicitudes1_idx');
-            $table->unsignedInteger('item_id')->index('fk_solicitud_detalles_items1_idx');
+            $table->id();
+            $table->unsignedBigInteger('solicitud_id')->index('fk_solicitud_detalles_solicitudes1_idx');
+            $table->unsignedBigInteger('item_id')->index('fk_solicitud_detalles_items1_idx');
             $table->decimal('cantidad', 12);
             $table->decimal('precio', 12)->nullable();
             $table->timestamps();

@@ -17,13 +17,13 @@ class CreateItemsTrasladosTable extends Migration
             $table->bigIncrements('id');
             $table->string('codigo');
             $table->integer('correlativo');
-            $table->unsignedInteger('item_origen')->index('fk_items_traslados_items1_idx');
+            $table->unsignedBigInteger('item_origen')->index('fk_items_traslados_items1_idx');
             $table->decimal('cantidad_origen', 14)->nullable();
-            $table->unsignedInteger('item_destino')->index('fk_items_traslados_items2_idx');
+            $table->unsignedBigInteger('item_destino')->index('fk_items_traslados_items2_idx');
             $table->decimal('cantidad_destino', 14)->nullable();
             $table->text('observaciones')->nullable();
-            $table->unsignedInteger('user_id')->index('fk_items_traslados_users1_idx');
-            $table->unsignedInteger('estado_id')->index('fk_items_traslados_estados1_idx');
+            $table->unsignedBigInteger('user_id')->index('fk_items_traslados_users1_idx');
+            $table->unsignedBigInteger('estado_id')->index('fk_items_traslados_estados1_idx');
             $table->timestamps();
             $table->softDeletes();
         });

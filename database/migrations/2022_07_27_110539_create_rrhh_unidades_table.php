@@ -14,7 +14,7 @@ class CreateRrhhUnidadesTable extends Migration
     public function up()
     {
         Schema::create('rrhh_unidades', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('nombre')->unique('nombre_UNIQUE');
             $table->enum('activa', ['si', 'no'])->nullable();
             $table->timestamps();

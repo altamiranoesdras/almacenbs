@@ -14,9 +14,9 @@ class CreateEquivalenciasTable extends Migration
     public function up()
     {
         Schema::create('equivalencias', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('item_origen')->index('fk_equivalencias_items1_idx');
-            $table->unsignedInteger('item_destino')->index('fk_equivalencias_items2_idx');
+            $table->id();
+            $table->unsignedBigInteger('item_origen')->index('fk_equivalencias_items1_idx');
+            $table->unsignedBigInteger('item_destino')->index('fk_equivalencias_items2_idx');
             $table->decimal('cantidad', 12);
             $table->timestamps();
             $table->softDeletes();

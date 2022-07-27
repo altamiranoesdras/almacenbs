@@ -15,7 +15,7 @@ class CreateKardexsTable extends Migration
     {
         Schema::create('kardexs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('item_id')->index('fk_kardexs_items1_idx');
+            $table->unsignedBigInteger('item_id')->index('fk_kardexs_items1_idx');
             $table->integer('model_id');
             $table->string('model_type');
             $table->decimal('cantidad', 14);
@@ -24,7 +24,7 @@ class CreateKardexsTable extends Migration
             $table->string('responsable')->nullable();
             $table->text('observacion')->nullable();
             $table->tinyInteger('impreso')->nullable()->default(0);
-            $table->unsignedInteger('usuario_id')->index('fk_kardexs_users1_idx');
+            $table->unsignedBigInteger('usuario_id')->index('fk_kardexs_users1_idx');
             $table->timestamps();
             $table->softDeletes();
         });

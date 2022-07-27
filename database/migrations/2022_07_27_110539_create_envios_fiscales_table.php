@@ -14,7 +14,7 @@ class CreateEnviosFiscalesTable extends Migration
     public function up()
     {
         Schema::create('envios_fiscales', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->integer('nuemero_constancia');
             $table->string('serie_constancia', 10);
             $table->date('fecha');

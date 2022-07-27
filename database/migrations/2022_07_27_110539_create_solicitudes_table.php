@@ -14,16 +14,16 @@ class CreateSolicitudesTable extends Migration
     public function up()
     {
         Schema::create('solicitudes', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('codigo')->nullable();
             $table->integer('correlativo')->nullable();
             $table->text('justificacion')->nullable();
-            $table->unsignedInteger('unidad_id')->index('fk_solicitudes_rrhh_unidades1_idx');
-            $table->unsignedInteger('usuario_crea')->index('fk_solicitudes_users1_idx');
-            $table->unsignedInteger('usuario_solicita')->nullable()->index('fk_solicitudes_users4_idx');
-            $table->unsignedInteger('usuario_autoriza')->nullable()->index('fk_solicitudes_users3_idx');
-            $table->unsignedInteger('usuario_aprueba')->nullable()->index('fk_solicitudes_users5_idx');
-            $table->unsignedInteger('usuario_despacha')->nullable()->index('fk_solicitudes_users2_idx');
+            $table->unsignedBigInteger('unidad_id')->index('fk_solicitudes_rrhh_unidades1_idx');
+            $table->unsignedBigInteger('usuario_crea')->index('fk_solicitudes_users1_idx');
+            $table->unsignedBigInteger('usuario_solicita')->nullable()->index('fk_solicitudes_users4_idx');
+            $table->unsignedBigInteger('usuario_autoriza')->nullable()->index('fk_solicitudes_users3_idx');
+            $table->unsignedBigInteger('usuario_aprueba')->nullable()->index('fk_solicitudes_users5_idx');
+            $table->unsignedBigInteger('usuario_despacha')->nullable()->index('fk_solicitudes_users2_idx');
             $table->string('firma_requiere')->nullable();
             $table->string('firma_autoriza')->nullable();
             $table->string('firma_aprueba')->nullable();
@@ -34,7 +34,7 @@ class CreateSolicitudesTable extends Migration
             $table->dateTime('fecha_almacen_firma')->nullable();
             $table->dateTime('fecha_informa')->nullable();
             $table->dateTime('fecha_despacha')->nullable();
-            $table->unsignedInteger('estado_id')->index('fk_solicitudes_solicitud_estados1_idx');
+            $table->unsignedBigInteger('estado_id')->index('fk_solicitudes_solicitud_estados1_idx');
             $table->timestamps();
             $table->softDeletes();
         });

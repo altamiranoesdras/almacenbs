@@ -14,8 +14,8 @@ class CreateItemHasCategoriaTable extends Migration
     public function up()
     {
         Schema::create('item_has_categoria', function (Blueprint $table) {
-            $table->unsignedInteger('item_id')->index('fk_icategorias_has_items_items1_idx');
-            $table->unsignedInteger('categoria_id')->index('fk_icategorias_has_items_icategorias1_idx');
+            $table->unsignedBigInteger('item_id')->index('fk_icategorias_has_items_items1_idx');
+            $table->unsignedBigInteger('categoria_id')->index('fk_icategorias_has_items_icategorias1_idx');
             $table->primary(['item_id', 'categoria_id']);
         });
     }

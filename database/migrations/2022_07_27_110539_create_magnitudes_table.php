@@ -14,7 +14,7 @@ class CreateMagnitudesTable extends Migration
     public function up()
     {
         Schema::create('magnitudes', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('nombre', 100)->unique('nombre_UNIQUE');
             $table->timestamps();
             $table->softDeletes();
