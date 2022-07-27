@@ -69,6 +69,91 @@ Route::group(['prefix' => 'admin','middleware' => ['role:Admin|Superadmin|Develo
 
 
 
+
+    Route::resource('compraEstados', App\Http\Controllers\CompraEstadoController::class);
+
+
+    Route::resource('proveedors', App\Http\Controllers\ProveedorController::class);
+
+
+    Route::resource('compraTipos', App\Http\Controllers\CompraTipoController::class);
+
+
+    Route::resource('compras', App\Http\Controllers\CompraController::class);
+
+
+    Route::resource('itemCategorias', App\Http\Controllers\ItemCategoriaController::class);
+
+
+    Route::resource('marcas', App\Http\Controllers\MarcaController::class);
+
+
+    Route::resource('magnituds', App\Http\Controllers\MagnitudController::class);
+
+
+    Route::resource('unimeds', App\Http\Controllers\UnimedController::class);
+
+
+    Route::resource('renglons', App\Http\Controllers\RenglonController::class);
+
+
+    Route::resource('items', App\Http\Controllers\ItemController::class);
+
+
+    Route::resource('compraDetalles', App\Http\Controllers\CompraDetalleController::class);
+
+
+    Route::resource('denominacions', App\Http\Controllers\DenominacionController::class);
+
+
+    Route::resource('divisas', App\Http\Controllers\DivisaController::class);
+
+
+    Route::resource('equivalencias', App\Http\Controllers\EquivalenciaController::class);
+
+
+    Route::resource('stockInicials', App\Http\Controllers\StockInicialController::class);
+
+
+    Route::resource('itemTrasladoEstados', App\Http\Controllers\ItemTrasladoEstadoController::class);
+
+
+    Route::resource('itemTraslados', App\Http\Controllers\ItemTrasladoController::class);
+
+
+    Route::resource('kardexes', App\Http\Controllers\KardexController::class);
+
+
+    Route::resource('solicitudEstados', App\Http\Controllers\SolicitudEstadoController::class);
+
+
+    Route::resource('rrhhUnidads', App\Http\Controllers\RrhhUnidadController::class);
+
+
+    Route::resource('solicituds', App\Http\Controllers\SolicitudController::class);
+
+
+    Route::resource('solicitudDetalles', App\Http\Controllers\SolicitudDetalleController::class);
+
+
+    Route::resource('stocks', App\Http\Controllers\StockController::class);
+
+
+    Route::resource('stockTransaccions', App\Http\Controllers\StockTransaccionController::class);
+
+
+    Route::resource('userDespachaUsers', App\Http\Controllers\UserDespachaUserController::class);
+
+
+    Route::resource('envioFiscals', App\Http\Controllers\EnvioFiscalController::class);
+
+
+    Route::resource('compra1hs', App\Http\Controllers\Compra1hController::class);
+
+
+    Route::resource('compra1hDetalles', App\Http\Controllers\Compra1hDetalleController::class);
+
+
 });
 
 
