@@ -19,7 +19,7 @@ class ProveedorApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/proveedors', $proveedor
+            '/api/proveedores', $proveedor
         );
 
         $this->assertApiResponse($proveedor);
@@ -34,7 +34,7 @@ class ProveedorApiTest extends TestCase
 
         $this->response = $this->json(
             'GET',
-            '/api/proveedors/'.$proveedor->id
+            '/api/proveedores/'.$proveedor->id
         );
 
         $this->assertApiResponse($proveedor->toArray());
@@ -50,7 +50,7 @@ class ProveedorApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/proveedors/'.$proveedor->id,
+            '/api/proveedores/'.$proveedor->id,
             $editedProveedor
         );
 
@@ -66,13 +66,13 @@ class ProveedorApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/proveedors/'.$proveedor->id
+             '/api/proveedores/'.$proveedor->id
          );
 
         $this->assertApiSuccess();
         $this->response = $this->json(
             'GET',
-            '/api/proveedors/'.$proveedor->id
+            '/api/proveedores/'.$proveedor->id
         );
 
         $this->response->assertStatus(404);

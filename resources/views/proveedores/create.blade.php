@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page',__('Edit Proveedor'))
+@section('title_page',__('New Proveedor'))
 
 @section('content')
 
@@ -8,12 +8,12 @@
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col">
-                    <h1>{{__('Edit Proveedor')}}</h1>
+                <div class="col-sm-6">
+                    <h1>{{__('New Proveedor')}}</h1>
                 </div>
-                <div class="col">
+                <div class="col ">
                     <a class="btn btn-outline-info float-right"
-                       href="{{route('proveedors.index')}}">
+                       href="{{route('proveedores.index')}}">
                         <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span class="d-none d-sm-inline">{{__('List')}}</span>
                     </a>
                 </div>
@@ -24,20 +24,18 @@
     <div class="content">
         <div class="container-fluid">
 
-
             @include('layouts.partials.request_errors')
 
             <div class="card">
                 <div class="card-body">
-
-                   {!! Form::model($proveedor, ['route' => ['proveedors.update', $proveedor->id], 'method' => 'patch','class' => 'wait-on-submit']) !!}
+                    {!! Form::open(['route' => 'proveedores.store','class' => 'wait-on-submit']) !!}
                         <div class="form-row">
 
-                            @include('proveedors.fields')
+                            @include('proveedores.fields')
 
                             <!-- Submit Field -->
                             <div class="form-group col-sm-12 text-right">
-                                <a href="{!! route('proveedors.index') !!}" class="btn btn-outline-secondary">
+                                <a href="{!! route('proveedores.index') !!}" class="btn btn-outline-secondary">
                                     Cancelar
                                 </a>
                                 &nbsp;
@@ -46,8 +44,7 @@
                                 </button>
                             </div>
                         </div>
-
-                   {!! Form::close() !!}
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>

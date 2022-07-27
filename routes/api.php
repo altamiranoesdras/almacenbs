@@ -26,7 +26,7 @@ Route::group(['as'=>'api.'], function () {
         Route::resource('compra_estados', App\Http\Controllers\API\CompraEstadoAPIController::class);
 
 
-        Route::resource('proveedors', App\Http\Controllers\API\ProveedorAPIController::class);
+        Route::resource('proveedores', App\Http\Controllers\API\ProveedorAPIController::class);
 
 
         Route::resource('compra_tipos', App\Http\Controllers\API\CompraTipoAPIController::class);
