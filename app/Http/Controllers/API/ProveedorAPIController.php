@@ -18,7 +18,7 @@ class ProveedorAPIController extends AppBaseController
 {
     /**
      * Display a listing of the Proveedor.
-     * GET|HEAD /proveedors
+     * GET|HEAD /proveedores
      *
      * @param Request $request
      * @return Response
@@ -41,7 +41,7 @@ class ProveedorAPIController extends AppBaseController
 
     /**
      * Store a newly created Proveedor in storage.
-     * POST /proveedors
+     * POST /proveedores
      *
      * @param CreateProveedorAPIRequest $request
      *
@@ -59,7 +59,7 @@ class ProveedorAPIController extends AppBaseController
 
     /**
      * Display the specified Proveedor.
-     * GET|HEAD /proveedors/{id}
+     * GET|HEAD /proveedores/{id}
      *
      * @param int $id
      *
@@ -79,7 +79,7 @@ class ProveedorAPIController extends AppBaseController
 
     /**
      * Update the specified Proveedor in storage.
-     * PUT/PATCH /proveedors/{id}
+     * PUT/PATCH /proveedores/{id}
      *
      * @param int $id
      * @param UpdateProveedorAPIRequest $request
@@ -103,7 +103,7 @@ class ProveedorAPIController extends AppBaseController
 
     /**
      * Remove the specified Proveedor from storage.
-     * DELETE /proveedors/{id}
+     * DELETE /proveedores/{id}
      *
      * @param int $id
      *

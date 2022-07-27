@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title> @yield("title_page") - {{config('app.name')}} </title>
+    <title> @yield("htmlheader_title") - {{config('app.name')}} </title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -27,7 +27,7 @@
             position: absolute;
             left: 0;
             top: 0;
-            background: url("{{getFondoLogin()}}") no-repeat;
+            background: url("{{asset('/img/fondo_login.png')}}") no-repeat;
             background-size: cover;
             -moz-background-size: cover;
             -webkit-background-size: cover;

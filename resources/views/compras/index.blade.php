@@ -1,47 +1,161 @@
 @extends('layouts.app')
 
-@section('title_page',__('Compras'))
+@section('htmlheader_title')
+	LISTADO DE COMPRAS
+@endsection
+
+@include('layouts.plugins.select2')
 
 @section('content')
-
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+    <div class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Compras</h1>
-                </div>
-                <div class="col-sm-6">
+            <div class="row">
+                <div class="col">
+                    <h1 class="m-0 text-dark">LISTADO DE COMPRAS</h1>
+                </div><!-- /.col -->
+                <div class="col">
                     <ol class="breadcrumb float-right">
                         <li class="breadcrumb-item">
                             <a class="btn btn-outline-success"
                                 href="{!! route('compras.create') !!}">
                                 <i class="fa fa-plus"></i>
-                                <span class="d-none d-sm-inline">{{__('New')}}</span>
+                                <span class="d-none d-sm-inline">Nueva Compra</span>
                             </a>
                         </li>
                     </ol>
-                </div>
-            </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
         </div><!-- /.container-fluid -->
-    </section>
+    </div>
+    <!-- /.content-header -->
 
+    <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
-            <div class="clearfix"></div>
+
+
+            <div class="row">
+                <div class="col">
+                    <div class="card card-outline card-success">
+                        <div class="card-header p-1">
+                            <h3 class="card-title">Filtros</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body p-2">
+                            {!! Form::open(['rout' => 'compras.index','method' => 'get', 'id' => 'form-filter-compras']) !!}
+                            <div class="form-row">
+                                <div class="form-group col-sm-4">
+                                    {!! Form::label('proveedor_id','Proveedor: ') !!}
+                                    {!!
+                                        Form::select(
+                                            'proveedor_id',
+                                            slc(\App\Models\Proveedor::class,'nombre','id',null)
+                                            , $proveedor_id ?? null
+                                            , ['id'=>'proveedores','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
+                                        )
+                                    !!}
+                                </div>
+
+                                <div class="form-group col-sm-2">
+                                    {!! Form::label('del', 'Del:') !!}
+                                    {!! Form::date('del', $del, ['class' => 'form-control fecha']) !!}
+                                </div>
+                                <div class="form-group col-sm-2">
+                                    {!! Form::label('al', 'Al:') !!}
+                                    {!! Form::date('al', $al, ['class' => 'form-control fecha']) !!}
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    {!! Form::label('item_id','Artículo: ') !!}
+                                    {!!
+                                        Form::select(
+                                            'item_id',
+                                            slc(\App\Models\Item::enTienda(),'nombre','id',null)
+                                            , $item_id ?? null
+                                            , ['id'=>'items','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
+                                        )
+                                    !!}
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    {!! Form::label('estado_id','Estado: ') !!}
+                                    {!!
+                                        Form::select(
+                                            'estado_id',
+                                            slc(\App\Models\Cestado::class,'nombre','id',null)
+                                            , $estado_id ?? null
+                                            , ['id'=>'estados','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
+                                        )
+                                    !!}
+                                </div>
+
+                                @can('filtrar por bodega compras')
+                                <div class="form-group col-sm-3">
+                                    {!! Form::label('tienda_id','Bodega: ') !!}
+                                    {!!
+                                        Form::select(
+                                            'tienda_id',
+                                            slc(\App\Models\Tienda::class,'nombre','id',null)
+                                            , $tienda_id ?? null
+                                            , ['id'=>'tiendas','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
+                                        )
+                                    !!}
+                                </div>
+                                @endcan
+
+                                <div class="form-group col-sm-3">
+                                    {!! Form::label('codigo', 'Codigo:') !!}
+                                    {!! Form::text('codigo', null, ['class' => 'form-control']) !!}
+                                </div>
 
 
 
-            <div class="clearfix"></div>
-            <div class="card card-primary">
-                <div class="card-body">
-                        @include('compras.table')
+                                <div class="form-group col-sm-3 pl-3">
+                                    {!! Form::label('boton','&nbsp;') !!}
+                                    <div>
+                                        <button type="submit" id="boton" class="btn btn-info">Filtrar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            {!! Form::close() !!}
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
                 </div>
             </div>
-            <div class="text-center">
-                
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                           @include('compras.table')
+                            <h3 class="text-muted">
+                                Total <span id="count_rows"></span>   registros  <span class="text-success"><span id="total_filtro"></span></span>
+                            </h3>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col-md-6 -->
             </div>
+            <!-- /.row -->
         </div>
+        <!-- /.container-fluid -->
     </div>
+    <!-- /.content -->
 @endsection
 
+
+@push('scripts')
+    <script>
+
+
+        $(function () {
+            $('#form-filter-compras').submit(function(e){
+
+                e.preventDefault();
+                table = window.LaravelDataTables["dataTableBuilder"];
+
+                table.draw();
+            });
+        })
+    </script>
+@endpush

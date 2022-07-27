@@ -1,53 +1,67 @@
 @extends('layouts.app')
 
-@section('title_page',__('New Item'))
+@include('layouts.plugins.select2')
+@include('layouts.plugins.bootstrap_fileinput')
+
+@section('htmlheader_title')
+	Crear Artículo
+@endsection
 
 @section('content')
-
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+    <div class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>{{__('New Item')}}</h1>
-                </div>
+            <div class="row">
+                <div class="col">
+                    <h1 class="m-0 text-dark">
+                        Crear Artículo
+                    </h1>
+                </div><!-- /.col -->
                 <div class="col ">
                     <a class="btn btn-outline-info float-right"
                        href="{{route('items.index')}}">
-                        <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span class="d-none d-sm-inline">{{__('List')}}</span>
+                        <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span class="d-none d-sm-inline">Listado</span>
                     </a>
-                </div>
-            </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
         </div><!-- /.container-fluid -->
-    </section>
+    </div>
+    <!-- /.content-header -->
 
+    <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
 
-            @include('layouts.partials.request_errors')
+            @include('adminlte-templates::common.errors')
 
-            <div class="card">
-                <div class="card-body">
-                    {!! Form::open(['route' => 'items.store','class' => 'wait-on-submit']) !!}
-                        <div class="form-row">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            {!! Form::open(['route' => 'items.store',"enctype"=>"multipart/form-data","autocomplete"=>"off"]) !!}
+                                <div class="form-row">
 
-                            @include('items.fields')
-
-                            <!-- Submit Field -->
-                            <div class="form-group col-sm-12 text-right">
-                                <a href="{!! route('items.index') !!}" class="btn btn-outline-secondary">
-                                    Cancelar
-                                </a>
-                                &nbsp;
-                                <button type="submit" class="btn btn-outline-success">
-                                    <i class="fa fa-floppy-o"></i> Guardar
-                                </button>
-                            </div>
+                                    @include('items.fields')
+                                    <!-- Submit Field -->
+                                    <div class="form-group col-sm-12">
+                                        <button type="submit" onClick="this.form.submit(); this.disabled=true;" class="btn btn-outline-success">Guardar</button>
+                                        <a href="{!! route('items.index') !!}" class="btn btn-outline-default">Cancelar</a>
+                                    </div>
+                                </div>
+                            {!! Form::close() !!}
                         </div>
-                    {!! Form::close() !!}
+                    </div>
+                    <!-- /.card -->
                 </div>
+                <!-- /.col-md-6 -->
             </div>
+            <!-- /.row -->
         </div>
+        <!-- /.container-fluid -->
     </div>
+    <!-- /.content -->
 
+    @include('items.modal_form_marcas')
+    @include('unimeds.modal_create')
+    @include('icategorias.modal_form_create')
 @endsection

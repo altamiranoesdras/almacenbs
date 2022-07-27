@@ -1,47 +1,53 @@
 @extends('layouts.app')
 
-@section('title_page',__('Items'))
+@section('htmlheader_title')
+    Artículos
+@endsection
 
 @section('content')
-
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+    <div class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Items</h1>
-                </div>
-                <div class="col-sm-6">
+            <div class="row">
+                <div class="col">
+                    <h1 class="m-0 text-dark">Artículos</h1>
+                </div><!-- /.col -->
+                <div class="col">
                     <ol class="breadcrumb float-right">
                         <li class="breadcrumb-item">
                             <a class="btn btn-outline-success"
                                 href="{!! route('items.create') !!}">
                                 <i class="fa fa-plus"></i>
-                                <span class="d-none d-sm-inline">{{__('New')}}</span>
+                                <span class="d-none d-sm-inline">Agregar Nuevo</span>
                             </a>
                         </li>
                     </ol>
-                </div>
-            </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
         </div><!-- /.container-fluid -->
-    </section>
+    </div>
+    <!-- /.content-header -->
 
+    <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
-            <div class="clearfix"></div>
 
 
-
-            <div class="clearfix"></div>
-            <div class="card card-primary">
-                <div class="card-body">
-                        @include('items.table')
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                           @include('items.table')
+                        </div>
+                    </div>
+                    <!-- /.card -->
                 </div>
+                <!-- /.col-md-6 -->
             </div>
-            <div class="text-center">
-                
-            </div>
+            <!-- /.row -->
         </div>
+        <!-- /.container-fluid -->
     </div>
+    <!-- /.content -->
 @endsection
 

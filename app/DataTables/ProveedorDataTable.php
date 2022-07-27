@@ -24,14 +24,14 @@ class ProveedorDataTable extends DataTable
 
                  $id = $proveedor->id;
 
-                 return view('proveedors.datatables_actions',compact('proveedor','id'))->render();
+                 return view('proveedores.datatables_actions',compact('proveedor','id'))->render();
              })
              ->editColumn('id',function (Proveedor $proveedor){
 
                  return $proveedor->id;
 
                  //se debe crear la vista modal_detalles
-                 //return view('proveedors.modal_detalles',compact('proveedor'))->render();
+                 //return view('proveedores.modal_detalles',compact('proveedor'))->render();
 
              })
             ->rawColumns(['action','id']);

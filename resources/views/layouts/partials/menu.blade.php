@@ -1,4 +1,4 @@
-@can('all option menu')
+@can('todas las opciones menu')
     @foreach($opciones ?? App\Models\Option::padres()->with('children')->get() as $option)
         <li class="nav-item {{$option->hasTreeview()}} {{$option->openTreeView()}}">
             <a href="{{rutaOpcion($option)}}" class="nav-link {{$option->active()}}">

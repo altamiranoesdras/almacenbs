@@ -26,13 +26,40 @@
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
-    <!--            Estilos inyectados
-    ------------------------------------------------------------------------>
+
+    <style>
+        .bg-main {
+            color: #ffffff !important;
+            background-color: #28A745 !important;
+        }
+
+
+        @-webkit-keyframes flash-main-header {
+            0% {
+                background-color: Yellow;
+            }
+            15% {
+                background-color: #28A745;
+            }
+            100% {
+                background-color: #28A745;
+            }
+        }
+
+        .flash-main-header {
+            -webkit-animation-name: flash-main-header;
+            -webkit-animation-duration: 3000ms;
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-iteration-count: infinite;
+        }
+    </style>
+    <!--App css-->
     @yield('css')
     @stack('css')
 
+
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed @stack('sidebar_class')">
 <div class="wrapper">
 
 

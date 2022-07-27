@@ -21,10 +21,16 @@ class CompraEstado extends Model
     use HasFactory;
 
     public $table = 'compra_estados';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
+
+    const TEMPORAL =   1;
+    const CREADA =     2;
+    const RECIBIDA =   3;
+    const CANCELADA =  4;
+    const ANULADA =    5;
 
     protected $dates = ['deleted_at'];
 

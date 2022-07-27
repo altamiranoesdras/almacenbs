@@ -1,60 +1,61 @@
-<!-- Tipo Id Field -->
-{!! Form::label('tipo_id', 'Tipo Id:') !!}
-{!! $compra->tipo_id !!}<br>
 
+<!-- Tipo Field -->
+{!! Form::label('tipo', 'Tipo:') !!}
+{!! $compra->tipo->nombre ?? '' !!}
+<br>
 
-<!-- Proveedor Id Field -->
-{!! Form::label('proveedor_id', 'Proveedor Id:') !!}
-{!! $compra->proveedor_id !!}<br>
-
-
-<!-- Codigo Field -->
-{!! Form::label('codigo', 'Codigo:') !!}
-{!! $compra->codigo !!}<br>
-
-
-<!-- Correlativo Field -->
-{!! Form::label('correlativo', 'Correlativo:') !!}
-{!! $compra->correlativo !!}<br>
-
-
-<!-- Fecha Documento Field -->
-{!! Form::label('fecha_documento', 'Fecha Documento:') !!}
-{!! $compra->fecha_documento !!}<br>
-
-
-<!-- Fecha Ingreso Field -->
-{!! Form::label('fecha_ingreso', 'Fecha Ingreso:') !!}
-{!! $compra->fecha_ingreso !!}<br>
-
+<!-- Proveedore Id Field -->
+{!! Form::label('proveedor', 'Proveedor :') !!}
+{!! $compra->proveedor->nombre ?? '' !!}
+<br>
 
 <!-- Serie Field -->
-{!! Form::label('serie', 'Serie:') !!}
-{!! $compra->serie !!}<br>
+{!! Form::label('serie', 'N/S:') !!}
+{!! $compra->numero !!}-{!! $compra->serie !!}
 
+<br>
 
-<!-- Numero Field -->
-{!! Form::label('numero', 'Numero:') !!}
-{!! $compra->numero !!}<br>
+<!-- Fecha ingreso Plan Field-->
+{!! Form::label('fecha_ingreso_plan', 'Fecha entrega a bodega:') !!}
+{!! $compra->fecha_ingreso_plan!!}
 
+<br>
 
-<!-- Estado Id Field -->
-{!! Form::label('estado_id', 'Estado Id:') !!}
-{!! $compra->estado_id !!}<br>
+<!-- Fecha ingreso Field-->
+{!! Form::label('fecha_ingreso', 'Fecha Recepción:') !!}
+{!! $compra->fecha_ingreso!!}
 
+<br>
 
-<!-- Usuario Crea Field -->
-{!! Form::label('usuario_crea', 'Usuario Crea:') !!}
-{!! $compra->usuario_crea !!}<br>
+<!-- Fecha del documento Field -->
+{!! Form::label('fecha', 'Fecha del documento:') !!}
+{!! $compra->fecha!!}
 
+<br>
 
-<!-- Usuario Recibe Field -->
-{!! Form::label('usuario_recibe', 'Usuario Recibe:') !!}
-{!! $compra->usuario_recibe !!}<br>
+<!-- Fecha Credito Field-->
+{!! Form::label('fecha_limite_credito', 'Fecha de pago:') !!}
+{!! $compra->fecha_limite_credito!!}
 
+<br>
 
-<!-- Observaciones Field -->
+<!-- Cestado Id Field -->
+{!! Form::label('cestado', 'Estado:') !!}
+{!! $compra->estado->nombre !!}
+<br>
+
+<!-- Cestado Id Field -->
 {!! Form::label('observaciones', 'Observaciones:') !!}
-{!! $compra->observaciones !!}<br>
+{!! $compra->observaciones !!}
+<br>
 
+{{--<!-- Created At Field -->--}}
+{{--{!! Form::label('created_at', 'Creado el:') !!}--}}
+{{--{!! $compra->created_at !!}--}}
+{{--<br>--}}
+{{--<!-- Updated At Field -->--}}
+{{--{!! Form::label('updated_at', 'Actualizado el:') !!}--}}
+{{--{!! $compra->updated_at !!}--}}
+{{--<br>--}}
+{{--<br>--}}
 

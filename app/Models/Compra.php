@@ -38,13 +38,13 @@ class Compra extends Model
     use HasFactory;
 
     public $table = 'compras';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
-
     protected $dates = ['deleted_at'];
 
+    protected $appends = ['codigo'];
 
 
     public $fillable = [
@@ -119,7 +119,7 @@ class Compra extends Model
      **/
     public function proveedor()
     {
-        return $this->belongsTo(\App\Models\Proveedore::class, 'proveedor_id');
+        return $this->belongsTo(\App\Models\Proveedor::class, 'proveedor_id');
     }
 
     /**
@@ -159,6 +159,118 @@ class Compra extends Model
      **/
     public function compraDetalles()
     {
-        return $this->hasMany(\App\Models\CompraDetalle::class, 'compra_id');
+        return $this->hasMany(CompraDetalle::class)->withTrashed();
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function detalles()
+    {
+        return $this->hasMany(CompraDetalle::class,'compra_id','id');
+    }
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     **/
+    public function ventas()
+    {
+        return $this->belongsToMany(Venta::class, 'compra_venta');
+    }
+
+
+    public function getTotalAttribute()
+    {
+        return $this->sub_total - ($this->descuento_monto ?? 0);
+    }
+
+
+    public function precioPromedioItems()
+    {
+        foreach ($this->compraDetalles as $index => $compraDetalle) {
+
+            $item = $compraDetalle->item;
+
+            if($compraDetalle->precio > 0){
+
+                $item->precio_promedio = $item->precioPromedio();
+                $item->save();
+            }
+        }
+    }
+
+    public function getCodigoAttribute()
+    {
+        return 'CPA-'.$this->created_at->year.'-'.$this->correlativo;
+    }
+
+
+    public function scopeDelUser($query,$user=null)
+    {
+        $user = $user ?? auth()->user()->id ?? null;
+
+        if ($user){
+
+            return $query->where('user_id',$user);
+        }
+
+        return $query;
+    }
+
+
+    public function getSubTotalAttribute()
+    {
+        return $this->detalles->sum(function ($det){
+            return $det->cantidad*$det->precio;
+        });
+    }
+
+    public function getTotalVentaAttribute()
+    {
+
+        return $this->detalles->sum(function ($det){
+            return $det->cantidad*$det->item->precio_venta;
+        });
+
+    }
+
+
+    public function procesaIngreso()
+    {
+
+        /**
+         * @var CompraDetalle $detalle
+         */
+        foreach ($this->detalles as $detalle){
+            $detalle->ingreso();
+        }
+
+        $this->cestado_id = CompraEstado::RECIBIDA;
+        $this->fecha_ingreso = hoyDb();
+        $this->save();
+
+        $this->precioPromedioItems();
+    }
+
+    public function scopeDelItem($query,$item)
+    {
+        return $query->whereIn('id', function($q) use ($item){
+            $q->select('compra_id')->from('compra_detalles')->where('item_id',$item);
+        });
+    }
+
+    public function scopeTemporal($q)
+    {
+        $q->where('estado_id',CompraEstado::TEMPORAL);
+    }
+
+    public function scopeDelUsuarioCrea($q,$user=null)
+    {
+        $user = $user ?? auth()->user() ?? auth('api')->user();
+
+
+        $q->where('usuario_crea',$user->id);
+    }
+
 }

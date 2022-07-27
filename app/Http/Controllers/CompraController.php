@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Requests\CreateCompraRequest;
 use App\Http\Requests\UpdateCompraRequest;
 use App\Models\Compra;
+use App\Models\CompraEstado;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
@@ -40,7 +41,9 @@ class CompraController extends AppBaseController
      */
     public function create()
     {
-        return view('compras.create');
+        $temporal = $this->compraTemporal();
+
+        return view('compras.create',compact('temporal'));
     }
 
     /**
@@ -156,5 +159,22 @@ class CompraController extends AppBaseController
         Flash::success('Compra deleted successfully.');
 
         return redirect(route('compras.index'));
+    }
+
+    public function compraTemporal()
+    {
+
+        $user = auth()->user();
+
+        $compra = Compra::temporal()->delUsuarioCrea()->first();
+
+        if (!$compra){
+            $compra =  Compra::create([
+                'usuario_crea' => $user->id,
+                'estado_id' => CompraEstado::TEMPORAL,
+            ]);
+        }
+
+        return $compra;
     }
 }
