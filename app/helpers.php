@@ -395,3 +395,349 @@ function separaNombreCompleto($nombre_completo){
     }
 
 }
+
+/**
+ * Cambia el formato de una fecha d/m/Y a Y-m-d
+ * @param null $fecha
+ * @param string $separador el de la fecha introducida
+ * @param string $divisor el de la fecha a devolver
+ * @return null|string
+ */
+function fechaDb($fecha=NULL, $separador='/', $divisor="-"){
+
+    if(is_null($fecha))
+        return NULL;
+
+    $tmp=explode("$separador",$fecha);
+
+    return $tmp[2].$divisor.$tmp[1].$divisor.$tmp[0];
+}
+
+/**
+ * Cambia el formato de una fecha Y-m-d a d/m/Y
+ * @param null $fecha
+ * @param string $separador el de la fecha introducida
+ * @param string $divisor el de la fecha a devolver
+ * @return null|string
+ */
+function fecha($fecha=NULL, $separador='-', $divisor="/"){
+
+    if(is_null($fecha))
+        return NULL;
+
+    $tmp=explode("$separador",$fecha);
+
+    return $tmp[2].$divisor.$tmp[1].$divisor.$tmp[0];
+}
+
+/**
+ * Devuelve la fecha de hoy en formato config('app.timezone' 'd/m/Y'
+ * @return string
+ */
+function hoy(){
+
+    return \Carbon\Carbon::now(config('app.timezone'))->format('d/m/Y');
+}
+
+/**
+ * Devuelve la fecha de hoy en formato config('app.timezone' 'd/m/Y'
+ * @return string
+ */
+function hoyYmas($dias){
+
+    return \Carbon\Carbon::now(config('app.timezone'))->addDays($dias)->format('d/m/Y');
+}
+
+/**
+ * Devuelve la fecha de hoy en formato config('app.timezone' 'Y-m-d' para guardar en la base de datos
+ * @return string
+ */
+function hoyDb($diasExtras=null){
+
+    $fecha = Carbon::now(config('app.timezone'));
+
+    if(isset($diasExtras)){
+        $fecha->addDay($diasExtras);
+    }
+
+    return $fecha->format('Y-m-d');
+}
+
+
+function diasMes($anio=0,$mes=0){
+
+    if(!$mes && !$anio)
+        return false;
+
+    return cal_days_in_month ( CAL_GREGORIAN , $mes , $anio );
+
+}
+
+function diasMesActual(){
+
+    $fechaActual= hoy();
+
+    list($dia,$mes,$anio)=explode('/',$fechaActual);
+
+    return diasMes($anio,$mes);
+
+}
+
+function arrayDias(){
+    $dias=['domingo','lunes','martes','miércoles','jueves','viernes','sábado','domingo',];
+
+    return $dias;
+}
+
+function diaLetras($dia=NULL){
+    if(is_null($dia))
+        return 'día invalido';
+
+    $dias=arrayDias();
+
+    return $dias[$dia];
+}
+
+
+/**
+ * Devuelve la fecha y hora actual en el formato necesario para guardar en la base de datos (Y-m-d h:m:s)
+ * @return string
+ */
+function fechaHoraActualDb(){
+    return Carbon::now()->toDateTimeString();
+}
+
+/**
+ * Devuelve la fecha y hora actual en formato 'd/m/Y H:m:s'
+ * @return string
+ */
+function fechaHoraActual(){
+
+    return Carbon::now()->format('d/m/Y H:i:s');
+}
+
+/**
+ * Elimina los ceros decimales de un numero
+ * @return string
+ */
+function noCerosDecimales($numero){
+
+    list($entero,$decimal)=explode('.',$numero);
+
+    return ($decimal>0) ? $numero : $entero;
+}
+
+/**
+ * Convierte un archivo a su valor binario
+ * @param $file
+ * @return mixed
+ */
+function fileToBinary($file){
+    return $file->openFile()->fread($file->getSize());
+}
+
+/**
+ * Devuelve el src para etiqueta <img> en base a imágenes binarias
+ * @param $img
+ * @return string
+ */
+function srcImgBynary($img){
+    return "data:".$img->type.";base64,".base64_encode($img->data);
+}
+
+/**
+ * Format bytes to kb, mb, gb, tb
+ *
+ * @param  integer $size
+ * @param  integer $precision
+ * @return integer
+ */
+function formatBytes($size, $precision = 2)
+{
+    if ($size > 0) {
+        $size = (int) $size;
+        $base = log($size) / log(1024);
+        $suffixes = array(' bytes', ' KB', ' MB', ' GB', ' TB');
+
+        return round(pow(1024, $base - floor($base)), $precision) . $suffixes[floor($base)];
+    } else {
+        return $size;
+    }
+}
+
+function diasEntreFechas($fini,$ffin){
+    $datetime1 = new DateTime($fini);
+    $datetime2 = new DateTime($ffin);
+    $interval = $datetime1->diff($datetime2);
+
+//    return $interval->format('%R%a');
+    return $interval->format('%a');
+}
+
+function fechaExpiraLicencia(){
+    $licencia = \App\Models\Licencia::first();
+
+    return is_null($licencia) ? null : $licencia->fecha_expira;
+}
+
+function diasRestanteLicencia(){
+
+    return diasEntreFechas(hoyDb(),fechaExpiraLicencia());
+}
+
+function licenciaEsPrueba(){
+    $licencia = \App\Models\Licencia::first();
+
+    return is_null($licencia) ? false : $licencia->prueba;
+}
+
+function diaSemana($fecha){
+    $f=Carbon::parse($fecha);
+
+    return diaLetras($f->dayOfWeek);
+}
+
+function fechaHoraLtn($fecha){
+
+    return date('d/m/Y H:i:s A',strtotime($fecha));
+}
+
+function mesActual(){
+
+    $fechaActual= hoy();
+
+    list($dia,$mes,$anio)=explode('/',$fechaActual);
+
+    return $mes;
+
+}
+
+function mesActualLtr(){
+    return mesLetras(mesActual());
+}
+
+function iniMes(){
+
+    list($dia,$mes,$anio)=explode('/',hoy());
+
+    return '01/'.$mes.'/'.$anio;
+}
+
+function iniMesDb(){
+
+    list($dia,$mes,$anio)=explode('/',hoy());
+
+    return $anio.'-'.$mes.'-01';
+}
+
+function mesActualBetween(){
+    $del = Carbon::createFromFormat('Y-m-d H:i:s', iniMesDb().'00:00:00');
+    $al = Carbon::createFromFormat('Y-m-d H:i:s', fechaHoraActualDb());
+
+    return [$del,$al];
+}
+
+function delAlBetween($del,$al){
+    $del = Carbon::createFromFormat('Y-m-d H:i:s', fechaDb($del).'00:00:00');
+    $al = Carbon::createFromFormat('Y-m-d H:i:s', fechaDb($al).Carbon::now()->format('H:i:s'));
+
+    return [$del,$al];
+}
+
+function formatVueSelect($collection,$label='name'){
+
+    $collection = $collection->map(function ($item) use ($label){
+
+        $item = $item->toArray();
+        return [
+            'label' => $item[$label],
+            'id' => $item['id']
+        ];
+    });
+
+    return json_encode($collection);
+}
+
+function mailsAdmins(){
+
+    $mails = [];
+
+    //recorrido de todos los usuarios admin
+    foreach (User::admins()->get() as $index => $u) {
+        if($u->email){
+            $mails[]= $u->email;
+        }
+    }
+
+    return $mails;
+}
+
+function ceros($numero,$cantidadCeros){
+    return str_pad($numero,$cantidadCeros,"0",STR_PAD_LEFT);
+}
+
+function errorException(Exception $exception){
+    if (auth()->user()->can('depurar')){
+        throw new \Exception($exception);
+    }
+
+    $msg = Auth::user()->isAdmin() ? $exception->getMessage() : 'Hubo un error intente de nuevo';
+
+    flash('Error: '.$msg)->error()->important();
+}
+
+function existeCredencialesSat(){
+    return config('app.sat_avuser')!='' && config('app.sat_avpass')!='' && config('app.sat_dtepass');
+}
+
+function colorComaraStocks($valor){
+
+
+    switch ($valor){
+        case 2:
+            return 'success';
+            break;
+        case 1:
+            return 'warning';
+            break;
+        case 0:
+            return 'danger';
+            break;
+    }
+}
+
+function textComparaStocks($valor){
+
+    switch ($valor){
+        case 2:
+            return 'Bueno';
+            break;
+        case 1:
+            return 'Malo';
+            break;
+        case 0:
+            return 'Muy Malo';
+            break;
+    }
+}
+
+function getSloganNegocio(){
+    return config('app.slogan_negocio');
+}
+
+function getNombreNegocio(){
+    return config('app.nombre_negocio');
+}
+
+function getPbx(){
+    return config('app.tel_negocio');
+}
+
+function getCorreoNegocio(){
+    return config('app.mail_negocio');
+}
+
+function getDireccionNegocio(){
+    return config('app.dire_negocio').', '.config('app.muni_negocio').', '.config('app.depto_negocio');
+
+}
