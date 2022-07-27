@@ -15,8 +15,8 @@ class CreateComprasTable extends Migration
     {
         Schema::create('compras', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('tipo_id')->index('fk_compras_compras_tipos1_idx');
-            $table->unsignedBigInteger('proveedor_id')->index('fk_compra_proveedores1_idx');
+            $table->unsignedBigInteger('tipo_id')->nullable()->index('fk_compras_compras_tipos1_idx');
+            $table->unsignedBigInteger('proveedor_id')->nullable()->index('fk_compra_proveedores1_idx');
             $table->string('codigo', 45)->nullable();
             $table->integer('correlativo')->nullable();
             $table->date('fecha_documento')->nullable()->comment('Fecha del docuemnto de  la Factura');
