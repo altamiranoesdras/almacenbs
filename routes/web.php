@@ -2,16 +2,44 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BusinessProfileController;
+use App\Http\Controllers\Compra1hController;
+use App\Http\Controllers\Compra1hDetalleController;
+use App\Http\Controllers\CompraController;
+use App\Http\Controllers\CompraDetalleController;
+use App\Http\Controllers\CompraEstadoController;
+use App\Http\Controllers\CompraTipoController;
 use App\Http\Controllers\ConfigurationController;
+use App\Http\Controllers\DenominacionController;
+use App\Http\Controllers\DivisaController;
+use App\Http\Controllers\EnvioFiscalController;
+use App\Http\Controllers\EquivalenciaController;
 use App\Http\Controllers\HomeAdminController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ItemCategoriaController;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ItemTrasladoController;
+use App\Http\Controllers\ItemTrasladoEstadoController;
+use App\Http\Controllers\KardexController;
+use App\Http\Controllers\MagnitudController;
+use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\OptionController;
 use App\Http\Controllers\PassportClientsController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\PruebaApiController;
+use App\Http\Controllers\RenglonController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\RrhhUnidadController;
+use App\Http\Controllers\SolicitudController;
+use App\Http\Controllers\SolicitudDetalleController;
+use App\Http\Controllers\SolicitudEstadoController;
+use App\Http\Controllers\StockController;
+use App\Http\Controllers\StockInicialController;
+use App\Http\Controllers\StockTransaccionController;
+use App\Http\Controllers\UnimedController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserDespachaUserController;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes(['verify' => true]);
@@ -24,7 +52,7 @@ Route::get('login/{driver}/callback', [LoginController::class,'handleProviderCal
 /**
  * Rutas admin
  */
-Route::group(['prefix' => 'admin','middleware' => ['role:Admin|Superadmin|Developer','auth']], function () {
+Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
 
     Route::group(['as' => 'admin.'],function (){
@@ -70,88 +98,78 @@ Route::group(['prefix' => 'admin','middleware' => ['role:Admin|Superadmin|Develo
 
 
 
-    Route::resource('compraEstados', App\Http\Controllers\CompraEstadoController::class);
+    Route::resource('compraEstados', CompraEstadoController::class);
 
 
-    Route::resource('proveedors', App\Http\Controllers\ProveedorController::class);
+    Route::resource('proveedores', ProveedorController::class);
 
 
-    Route::resource('compraTipos', App\Http\Controllers\CompraTipoController::class);
+    Route::resource('compraTipos', CompraTipoController::class);
 
 
-    Route::resource('compras', App\Http\Controllers\CompraController::class);
+    Route::resource('compras', CompraController::class);
 
 
-    Route::resource('itemCategorias', App\Http\Controllers\ItemCategoriaController::class);
+    Route::resource('itemCategorias', ItemCategoriaController::class);
 
 
-    Route::resource('marcas', App\Http\Controllers\MarcaController::class);
+    Route::resource('marcas', MarcaController::class);
 
 
-    Route::resource('magnituds', App\Http\Controllers\MagnitudController::class);
+    Route::resource('magnituds', MagnitudController::class);
 
 
-    Route::resource('unimeds', App\Http\Controllers\UnimedController::class);
+    Route::resource('unimeds', UnimedController::class);
 
 
-    Route::resource('renglons', App\Http\Controllers\RenglonController::class);
+    Route::resource('renglons', RenglonController::class);
 
 
-    Route::resource('items', App\Http\Controllers\ItemController::class);
+    Route::resource('items', ItemController::class);
 
 
-    Route::resource('compraDetalles', App\Http\Controllers\CompraDetalleController::class);
+    Route::resource('compraDetalles', CompraDetalleController::class);
 
 
-    Route::resource('denominacions', App\Http\Controllers\DenominacionController::class);
+    Route::resource('denominacions', DenominacionController::class);
 
 
-    Route::resource('divisas', App\Http\Controllers\DivisaController::class);
+    Route::resource('divisas', DivisaController::class);
 
 
-    Route::resource('equivalencias', App\Http\Controllers\EquivalenciaController::class);
+    Route::resource('equivalencias', EquivalenciaController::class);
 
 
-    Route::resource('stockInicials', App\Http\Controllers\StockInicialController::class);
+    Route::resource('stockInicials', StockInicialController::class);
 
 
-    Route::resource('itemTrasladoEstados', App\Http\Controllers\ItemTrasladoEstadoController::class);
+    Route::resource('itemTrasladoEstados', ItemTrasladoEstadoController::class);
 
 
-    Route::resource('itemTraslados', App\Http\Controllers\ItemTrasladoController::class);
+    Route::resource('itemTraslados', ItemTrasladoController::class);
 
 
-    Route::resource('kardexes', App\Http\Controllers\KardexController::class);
+    Route::resource('kardexes', KardexController::class);
 
 
-    Route::resource('solicitudEstados', App\Http\Controllers\SolicitudEstadoController::class);
+    Route::resource('solicitudEstados', SolicitudEstadoController::class);
 
 
-    Route::resource('rrhhUnidads', App\Http\Controllers\RrhhUnidadController::class);
+    Route::resource('rrhhUnidades', RrhhUnidadController::class);
 
 
-    Route::resource('solicituds', App\Http\Controllers\SolicitudController::class);
+    Route::resource('solicituds', SolicitudController::class);
 
 
-    Route::resource('solicitudDetalles', App\Http\Controllers\SolicitudDetalleController::class);
+    Route::resource('userDespachaUsers', UserDespachaUserController::class);
 
 
-    Route::resource('stocks', App\Http\Controllers\StockController::class);
+    Route::resource('envioFiscals', EnvioFiscalController::class);
 
 
-    Route::resource('stockTransaccions', App\Http\Controllers\StockTransaccionController::class);
+    Route::resource('compra1hs', Compra1hController::class);
 
 
-    Route::resource('userDespachaUsers', App\Http\Controllers\UserDespachaUserController::class);
-
-
-    Route::resource('envioFiscals', App\Http\Controllers\EnvioFiscalController::class);
-
-
-    Route::resource('compra1hs', App\Http\Controllers\Compra1hController::class);
-
-
-    Route::resource('compra1hDetalles', App\Http\Controllers\Compra1hDetalleController::class);
 
 
 });

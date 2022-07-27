@@ -149,7 +149,7 @@ window.deleteItemDt = (data) =>{
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, elimínalo\n!'
+        confirmButtonText: 'Sí\n!'
     }).then((result) => {
         if (result.value) {
             $("#delete-form"+id).submit();

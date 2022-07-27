@@ -1,15 +1,6 @@
 const mix = require('laravel-mix');
 
-/*
- |--------------------------------------------------------------------------
- | Mix Asset Management
- |--------------------------------------------------------------------------
- |
- | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel application. By default, we are compiling the Sass
- | file for the application as well as bundling up all the JS files.
- |
- */
+require('dotenv').config();
 
 mix.js('resources/js/app.js', 'public/js')
     .vue({ version: 2 })
@@ -21,15 +12,8 @@ mix.js('resources/js/app.js', 'public/js')
     .copy('node_modules/admin-lte/dist/js/demo.js','public/js')
 
     .copy('node_modules/admin-lte/plugins/fullcalendar/main.min.css','public/plugins/fullcalendar')
-    // .copy('node_modules/admin-lte/plugins/fullcalendar-daygrid/main.min.css','public/plugins/fullcalendar-daygrid')
-    // .copy('node_modules/admin-lte/plugins/fullcalendar-timegrid/main.min.css','public/plugins/fullcalendar-timegrid')
-    // .copy('node_modules/admin-lte/plugins/fullcalendar-bootstrap/main.min.css','public/plugins/fullcalendar-bootstrap')
 
     .copy('node_modules/admin-lte/plugins/fullcalendar/main.min.js','public/plugins/fullcalendar')
-    // .copy('node_modules/admin-lte/plugins/fullcalendar-interaction/main.min.js','public/plugins/fullcalendar-interaction')
-    // .copy('node_modules/admin-lte/plugins/fullcalendar-daygrid/main.min.js','public/plugins/fullcalendar-daygrid')
-    // .copy('node_modules/admin-lte/plugins/fullcalendar-timegrid/main.min.js','public/plugins/fullcalendar-timegrid')
-    // .copy('node_modules/admin-lte/plugins/fullcalendar-bootstrap/main.min.js','public/plugins/fullcalendar-bootstrap')
 
 
     .copy('node_modules/bootstrap-fileinput','public/plugins/bootstrap-fileinput')

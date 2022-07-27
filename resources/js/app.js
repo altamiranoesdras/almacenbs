@@ -1,25 +1,8 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
 
 require('./bootstrap');
 
 window.Vue = require('vue').default;
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
-// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 require('admin-lte/plugins/jquery-ui/jquery-ui.min');
 
@@ -108,3 +91,48 @@ import { VTooltip, VPopover, VClosePopover } from 'v-tooltip';
 Vue.directive('tooltip', VTooltip);
 Vue.directive('close-popover', VClosePopover);
 Vue.component('v-popover', VPopover);
+
+
+
+function validateNotification() {
+    // Let's check if the browser supports notifications
+    if (!("Notification" in window)) {
+        console.warn("Este navegador no admite notificaciones de escritorio");
+
+        return null;
+    }
+
+    // Let's check whether notification permissions have already been granted
+    else if (Notification.permission === "granted") {
+        // If it's okay let's create a notification
+        // notificacionEjemplo();
+    }
+
+    // Otherwise, we need to ask the user for permission
+    else if (Notification.permission !== 'denied') {
+        Notification.requestPermission(function (permission) {
+            // If the user accepts, let's create a notification
+            if (permission === "granted") {
+                notificacionEjemplo();
+            }
+        });
+    }
+
+    // At last, if the user has denied notifications, and you
+    // want to be respectful there is no need to bother them any more.
+}
+
+function notificacionEjemplo() {
+    new Notification("asi se mostraran las notificaciones!");
+}
+
+validateNotification();
+
+window.swal = require('sweetalert2')
+
+$('[data-toggle="tooltip"]').tooltip();
+
+
+import SelectItems from "./components/SelectItems";
+Vue.component('select-items', SelectItems);
+
