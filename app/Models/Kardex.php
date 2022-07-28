@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -31,9 +31,12 @@ class Kardex extends Model
     use HasFactory;
 
     public $table = 'kardexs';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
+
+    const TIPO_INGRESO = 'ingreso';
+    const TIPO_SALIDA = 'salida';
 
 
     protected $dates = ['deleted_at'];

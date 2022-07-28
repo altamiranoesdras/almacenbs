@@ -13,6 +13,7 @@ class CompraEstadosTableSeeder extends Seeder
      */
     public function run()
     {
+        \DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
 
         \DB::table('compra_estados')->delete();
@@ -59,6 +60,8 @@ class CompraEstadosTableSeeder extends Seeder
                 'deleted_at' => NULL,
             ),
         ));
+
+        \DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
 
     }

@@ -1,20 +1,7 @@
 <ul class="list-group">
     <li class="list-group-item pb-0 pl-2 pr-2">
         <div class="form-group col-sm-12">
-            <label for="proveedores" class="control-label">
-                Proveedor:
-                <a  data-toggle="modal" href="#modal-form-proveedores" tabindex="1000">Nuevo</a>
-            </label>
-
-
-            {!!
-                Form::select(
-                    'proveedor_id',
-                    select(\App\Models\Proveedor::class,'nombre','id',null,null)
-                    , null
-                    , ['id'=>'models','class' => 'form-control select2-simple','style'=>'width: 100%']
-                )
-            !!}
+            <select-proveedor v-model="proveedor" label="Proveedor"></select-proveedor>
         </div>
     </li>
 
@@ -23,15 +10,7 @@
     ------------------------------------------------------------------------>
     <li class="list-group-item pt-1 pb-1 text-bold ">
         <div class="row">
-            <div class="col-sm-7 pl-1">
-                <div class="input-group ">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Descuento %</span>
-                    </div>
-                    <input type="number" name="descuento" v-model="descuento" class="form-control input-sm" step="any">
-                </div>
-            </div>
-            <div class="col-sm-5 text-lg">
+            <div class="col-sm-12 text-lg">
                 Total
                 <span class="float-right" >
                     {{dvs()}} <span v-text="numf(total.toFixed(cantidadDecimalesPrecio))"></span>
@@ -52,20 +31,7 @@
 
     <li class="list-group-item pb-0 pl-2 pr-2">
         <div class="form-group col-sm-12">
-            <div class="input-group ">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">Tipo</span>
-                </div>
-
-                {!!
-                    Form::select(
-                        'tipo_id',
-                        select(\App\Models\CompraTipo::class,'nombre','id',null,null)
-                        , null
-                        , ['id'=>'models','class' => 'form-control select2-simple','style'=>'width: 100%']
-                    )
-                !!}
-            </div>
+            <select-compra-tipo v-model="tipo" label="Tipo"></select-compra-tipo>
         </div>
     </li>
     <li class="list-group-item pb-0 pl-2 pr-2" v-show="tipoComprobante=='2'">
@@ -93,21 +59,7 @@
                 Ingreso inmediato
                 <input type="hidden" name="ingreso_inmediato" :value="ingreso_inmediato ? 1 : 0">
                 <span class="float-right">
-             <toggle-button v-model="ingreso_inmediato"
-                            :sync="true"
-                            :labels="{checked: 'SI', unchecked: 'NO'}"
-                            :height="25"
-                            :width="50"
-                            :value="false"
-             />
-        </span>
-            </div>
-
-            <div class="form-group col-sm-5 py-0 m-0">
-                Crédito
-                <input type="hidden" name="credito" :value="credito ? 1 : 0">
-                <span class="float-right">
-                     <toggle-button v-model="credito"
+                     <toggle-button v-model="ingreso_inmediato"
                                     :sync="true"
                                     :labels="{checked: 'SI', unchecked: 'NO'}"
                                     :height="25"
@@ -116,6 +68,7 @@
                      />
                 </span>
             </div>
+
         </div>
 
     </li>

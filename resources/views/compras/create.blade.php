@@ -5,10 +5,7 @@
 
 @include('layouts.plugins.select2')
 @include('layouts.xtra_condensed_css')
-@include('layouts.plugins.bootstrap_datetimepicker')
 @include('layouts.plugins.bootstrap_fileinput')
-@include('compras.script')
-
 @push('sidebar_class','sidebar-collapse')
 
 @section('content')
@@ -55,10 +52,13 @@
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="form-group">
-                                    <a class="success" data-toggle="modal" href="#modal-form-items" tabindex="1000">Crear Nuevo</a>
-                                    <select  id="items" class="form-control" multiple="multiple" size="10" style="width: 100%;">
-                                        <option value=""> -- Select One -- </option>
-                                    </select>
+                                    <select-items
+                                        api="{{route('api.items.index')}}"
+                                        tienda="1"
+                                        v-model="itemSelect"
+                                        ref="multiselect"
+                                    >
+                                    </select-items>
                                 </div>
 
                                 <div class="row pt-3">
@@ -144,3 +144,156 @@
     @include('items.modal_form_create')
 
 @endsection
+
+@push('scripts')
+    <!--    Scripts compras
+------------------------------------------------->
+    <script >
+        vm = new Vue({
+            el: '#root',
+            created: function() {
+                this.getDets();
+            },
+            data: {
+                detalles: [],
+                nuevoDetalle: {
+                    compra_id: '{{$temporal->id}}',
+                    item_id: '',
+                    cantidad: '1',
+                    fecha_ven: '',
+                    precio: '',
+                },
+                detalleEdita: {
+                    id: '',
+                    compra_id: '',
+                    item_id: '',
+                    cantidad: '',
+                    fecha_ven: '',
+                    precio: '',
+                },
+                loadingBtnUpdateDet: false,
+                loadingBtnAdd: false,
+                idEliminando: '',
+                tipoComprobante: '2',
+                recibido:0,
+                picked:'F',
+                credito: false,
+                ingreso_inmediato: false,
+                fecha_ingreso_plan: "{{hoyDb() ?? old('fecha_ingreso_plan')}}",
+                abono_ini: null,
+                descuento: 0,
+                proveedor: null,
+                tipo: null,
+            },
+            methods: {
+
+                numf: function(numero){
+                    return number_format(numero)
+                },
+                getDets: function(page) {
+                    var urlKeeps = '{{route('api.compra_detalles.index',$temporal->id)}}';
+                    axios.get(urlKeeps).then(response => {
+                        this.detalles = response.data.data;
+                        this.loadingBtnAdd= false;
+                        this.idEliminando = '';
+                    });
+                },
+                createDet: function() {
+                    this.loadingBtnAdd= true;
+                    var url= '{{route("api.compra_detalles.store")}}';
+
+                    axios.post(url, this.nuevoDetalle ).then(response => {
+                        this.getDets();
+
+                        this.nuevoDetalle.item_id = '';
+                        this.nuevoDetalle.cantidad = '1';
+                        this.nuevoDetalle.precio = '';
+
+                        iziTs(response.data.message); //mensaje
+                        slc2item.empty().trigger('change');
+                        slc2item.select2('open');
+                        $("#div-info-item").html('');
+
+                    }).catch(error => {
+                        iziTe(error.response.data.message);
+                        this.loadingBtnAdd= false;
+                    });
+                },
+                editDet: function(det) {
+                    this.detalleEdita.id = det.id;
+                    this.detalleEdita.temp_compra_id = det.temp_compra_id;
+                    this.detalleEdita.item_id = det.item_id;
+                    this.detalleEdita.cantidad = det.cantidad;
+                    this.detalleEdita.precio = det.precio;
+
+                    $('#modalEditDetalle').modal('show');
+                },
+                updateDet: function(id) {
+                    this.loadingBtnUpdateDet= true;
+                    var url = '{{url('api/compra_detalles')}}' + '/' + id;
+
+                    axios.put(url, this.detalleEdita).then(response => {
+                        this.getDets();
+                        $('#modalEditDetalle').modal('hide');
+                        iziTs(response.data.message);
+                        this.loadingBtnUpdateDet= false;
+                    }).catch(error => {
+                        iziTe(error.response.data.message);
+                        this.loadingBtnUpdateDet= false;
+                    });
+                },
+                deleteDet: function(det) {
+                    this.idEliminando = det.id;
+                    var url = '{{url('api/compra_detalles')}}' + '/' + det.id;
+
+                    axios.delete(url).then(response => {
+                        this.getDets();
+                        iziTs(response.data.message);
+                    });
+                },
+                procesar: function () {
+                    if(this.totalitems>=1){
+                        $('#modal-confirma-procesar').modal('show');
+                    }else {
+                        iziTe('No hay ningún artículo en este ingreso')
+                    }
+                }
+            },
+            computed: {
+                total: function () {
+                    var t=0;
+                    $.each(this.detalles,function (i,det) {
+                        t+=(det.cantidad*det.precio);
+                    });
+
+                    if (this.descuento>0){
+                        t=t-(t*(this.descuento/100))
+                    }
+
+                    return t;
+                },
+
+                totalitems: function () {
+                    var t=0;
+                    $.each(this.detalles,function (i,det) {
+                        t+=(det.cantidad*1);
+                    });
+
+                    return t;
+                },
+                cantidadDecimalesPrecio: function () {
+                    return '{{config('app.cantidad_decimales_precio')}}';
+                }
+            },
+            watch:{
+                ingreso_inmediato(val){
+                    if(val){
+                        this.fecha_ingreso_plan = '{{hoyDb()}}'
+                    }
+
+                }
+            }
+
+        });
+    </script>
+@endpush

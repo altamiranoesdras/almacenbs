@@ -6,6 +6,7 @@ use App\Models\Option;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class UsersTableSeeder extends Seeder
 {
@@ -16,8 +17,9 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
-
+        DB::table('users')->delete();
 
         //Usuario admin
         User::factory(1)->create([
@@ -63,13 +65,7 @@ class UsersTableSeeder extends Seeder
 
         });
 
-        User::factory(6)->create([
-            "password" => bcrypt("123")
-        ])->each(function (User $user){
-            $user->syncRoles(Role::USER);
-            $user->options()->sync(Option::pluck('id')->toArray());
-            $user->shortcuts()->sync([3,4,5,6]);
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
-        });
     }
 }

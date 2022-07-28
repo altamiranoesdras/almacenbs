@@ -22,17 +22,14 @@ class ProveedorFactory extends Factory
     public function definition()
     {
         return [
-            'nit' => $this->faker->word,
-        'nombre' => $this->faker->word,
-        'razon_social' => $this->faker->word,
-        'correo' => $this->faker->word,
-        'telefono_movil' => $this->faker->word,
-        'telefono_oficina' => $this->faker->word,
-        'direccion' => $this->faker->text,
-        'observaciones' => $this->faker->text,
-        'created_at' => $this->faker->date('Y-m-d H:i:s'),
-        'updated_at' => $this->faker->date('Y-m-d H:i:s'),
-        'deleted_at' => $this->faker->date('Y-m-d H:i:s')
+            'nit' => $this->faker->randomNumber(  8),
+            'nombre' => $this->faker->name,
+            'razon_social' => $this->faker->company,
+            'correo' => $this->faker->email,
+            'telefono_movil' => $this->faker->randomNumber(8),
+            'telefono_oficina' => $this->faker->randomNumber(8),
+            'direccion' => $this->faker->address,
+            'observaciones' => ''
         ];
     }
 }

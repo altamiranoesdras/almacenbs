@@ -42,15 +42,6 @@
                 <b class="pull-right" v-text="' {{ dvs() }} '+numf(total.toFixed(cantidadDecimalesPrecio))"></b>
             </td>
         </tr>
-
-        @can('ver ganancia compra')
-        <tr>
-            <td colspan="6" >
-                <b>Ganancia</b>
-                <b class="pull-right" v-text="' {{ dvs() }} '+numf(ganancia.toFixed(cantidadDecimalesPrecio))"></b>
-            </td>
-        </tr>
-        @endcan
         </tfoot>
 
     </table>

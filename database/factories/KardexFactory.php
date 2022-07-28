@@ -1,40 +1,22 @@
 <?php
 
-namespace Database\Factories;
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+use App\Model;
 use App\Models\Kardex;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Tienda;
+use App\Models\User;
+use Faker\Generator as Faker;
 
-class KardexFactory extends Factory
-{
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = Kardex::class;
-
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
-    public function definition()
-    {
-        return [
-            'item_id' => $this->faker->word,
-        'model_id' => $this->faker->randomDigitNotNull,
-        'model_type' => $this->faker->word,
-        'cantidad' => $this->faker->word,
-        'tipo' => $this->faker->word,
-        'codigo' => $this->faker->word,
-        'responsable' => $this->faker->word,
-        'observacion' => $this->faker->text,
-        'impreso' => $this->faker->word,
-        'usuario_id' => $this->faker->word,
-        'created_at' => $this->faker->date('Y-m-d H:i:s'),
-        'updated_at' => $this->faker->date('Y-m-d H:i:s'),
-        'deleted_at' => $this->faker->date('Y-m-d H:i:s')
-        ];
-    }
-}
+$factory->define(Model::class, function (Faker $faker) {
+    return [
+        'tienda_id' => Tienda::all()->random()->id,
+        'kardexable_id' => $faker->randomDigitNotNull,
+        'kardexable_type' => $faker->word,
+        'cantidad' => $faker->randomDigitNotNull,
+        'tipo' => $faker->randomElement([Kardex::TIPO_INGRESO,Kardex::TIPO_SALIDA]),
+        'codigo' => $faker->randomDigitNotNull,
+        'responsable' => null,
+        'user_id' => User::all()->random()->id
+    ];
+});

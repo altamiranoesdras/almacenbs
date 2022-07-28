@@ -22,11 +22,10 @@ class ItemCategoriaFactory extends Factory
     public function definition()
     {
         return [
-            'nombre' => $this->faker->word,
-        'descripcion' => $this->faker->text,
-        'created_at' => $this->faker->date('Y-m-d H:i:s'),
-        'updated_at' => $this->faker->date('Y-m-d H:i:s'),
-        'deleted_at' => $this->faker->date('Y-m-d H:i:s')
+            'nombre' => $this->faker->unique()->randomElement(['oficina','kits','iluminación','herramienta','cosmeticos']),
+            'descripcion' => $this->faker->text,
+            'created_at' => $this->faker->date('Y-m-d H:i:s'),
+            'updated_at' => $this->faker->date('Y-m-d H:i:s'),
         ];
     }
 }

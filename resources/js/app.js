@@ -136,3 +136,8 @@ $('[data-toggle="tooltip"]').tooltip();
 import SelectItems from "./components/SelectItems";
 Vue.component('select-items', SelectItems);
 
+import SelectProveedor from "./components/SelectProveedor";
+Vue.component('select-proveedor', SelectProveedor);
+
+import SelectCompraTipo from "./components/SelectCompraTipo";
+Vue.component('select-compra-tipo',SelectCompraTipo)

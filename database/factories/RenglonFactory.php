@@ -23,10 +23,10 @@ class RenglonFactory extends Factory
     {
         return [
             'numero' => $this->faker->randomDigitNotNull,
-        'descripcion' => $this->faker->text,
-        'created_at' => $this->faker->date('Y-m-d H:i:s'),
-        'updated_at' => $this->faker->date('Y-m-d H:i:s'),
-        'deleted_at' => $this->faker->date('Y-m-d H:i:s')
+            'descripcion' => $this->faker->text,
+            'created_at' => $this->faker->date('Y-m-d H:i:s'),
+            'updated_at' => $this->faker->date('Y-m-d H:i:s'),
+
         ];
     }
 }

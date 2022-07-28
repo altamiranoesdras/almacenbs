@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
  * Class Item
@@ -41,19 +43,41 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string $ubicacion
  * @property boolean $perecedero
  */
-class Item extends Model
+class Item extends Model implements HasMedia
 {
-    use SoftDeletes;
+    use SoftDeletes,InteractsWithMedia;
 
     use HasFactory;
 
     public $table = 'items';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
 
     protected $dates = ['deleted_at'];
+
+    protected $appends= ['text','img','thumb'];
+
+    protected $with = ['unimed','marca','stocks','media'];
+
+    public static $withoutAppends = false;
+
+    public function scopeWithoutAppends($query)
+    {
+        self::$withoutAppends = true;
+
+        return $query;
+    }
+
+    protected function getArrayableAppends()
+    {
+        if (self::$withoutAppends){
+            return [];
+        }
+
+        return parent::getArrayableAppends();
+    }
 
 
 
@@ -189,7 +213,7 @@ class Item extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      **/
-    public function itemCategoria2s()
+    public function categorias()
     {
         return $this->belongsToMany(\App\Models\ItemCategoria::class, 'item_has_categoria');
     }

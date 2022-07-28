@@ -13,7 +13,6 @@ class DivisaSeeder extends Seeder
      */
     public function run()
     {
-        factory(Divisa::class,1)->create(['simbolo' => 'Q','nombre' => 'Quetzal GTM']);
-        factory(Divisa::class,1)->create(['simbolo' => '$','nombre' => 'Dolar USD']);
+        Divisa::factory()->count(1)->create(['simbolo' => 'Q','nombre' => 'Quetzal GTM']);
     }
 }
