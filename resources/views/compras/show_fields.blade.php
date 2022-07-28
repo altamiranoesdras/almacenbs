@@ -39,12 +39,12 @@
 
 <br>
 
-<!-- Cestado Id Field -->
-{!! Form::label('cestado', 'Estado:') !!}
+<!-- Estado Id Field -->
+{!! Form::label('estado', 'Estado:') !!}
 {!! $compra->estado->nombre !!}
 <br>
 
-<!-- Cestado Id Field -->
+<!-- CompraEstado Id Field -->
 {!! Form::label('observaciones', 'Observaciones:') !!}
 {!! $compra->observaciones !!}
 <br>

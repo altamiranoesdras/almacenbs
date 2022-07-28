@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @version July 27, 2022, 12:25 pm CST
  *
  * @property \App\Models\Item $item
- * @property \App\Models\Solicitude $solicitud
+ * @property \App\Models\Solicitud $solicitud
  * @property integer $solicitud_id
  * @property integer $item_id
  * @property number $cantidad

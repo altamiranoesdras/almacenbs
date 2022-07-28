@@ -10,7 +10,7 @@
      </a>
 
     @can('anular ingreso de compra')
-        @if($compra->cestado_id != \App\Models\Cestado::ANULADA && $compra->cestado_id == \App\Models\Cestado::RECIBIDA )
+        @if($compra->estado_id != \App\Models\CompraEstado::ANULADA && $compra->estado_id == \App\Models\CompraEstado::RECIBIDA )
             <a href="#" onclick="deleteItemDt(this)" data-id="{{$compra->id}}" data-toggle="tooltip" title="Anular Ingreso" class='btn btn-outline-danger btn-xs'>
                 <i class="fa fa-undo-alt"></i>
             </a>
@@ -24,7 +24,7 @@
     @endcan
 
     @can('cancelar solicitud de compra')
-        @if($compra->cestado_id == \App\Models\Cestado::CREADA )
+        @if($compra->estado_id == \App\Models\CompraEstado::CREADA )
             {{--<a href="#modal-delete-{{$compra->id}}" data-toggle="modal" class='btn btn-danger btn-xs'>--}}
                 {{--<i class="far fa-trash-alt" data-toggle="tooltip" title="Eliminar Solicitud de Compra"></i>--}}
             {{--</a>--}}
@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    @if($compra->cestado_id == \App\Models\Cestado::CREADA)
+                    @if($compra->estado_id == \App\Models\CompraEstado::CREADA)
                         <a href="{{route('compra.ingreso', $compra->id)}}" ><div class="btn btn-outline-success" >Ingresar</div></a>
                     @else
                         <h4><span class="badge badge-info">{{ $compra->estado->nombre}}</span></h4>

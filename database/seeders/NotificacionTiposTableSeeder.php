@@ -15,7 +15,7 @@ class NotificacionTiposTableSeeder extends Seeder
     {
 
 
-        \DB::table('notificacion_tipos')->delete();
+        \DB::table('notificacion_tipos')->truncate();
 
         \DB::table('notificacion_tipos')->insert(array (
             0 =>

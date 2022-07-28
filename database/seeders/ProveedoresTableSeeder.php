@@ -17,7 +17,7 @@ class ProveedoresTableSeeder extends Seeder
     {
 
 
-        \DB::table('proveedores')->delete();
+        \DB::table('proveedores')->truncate();
 
 
         if(App::environment()=='local'){

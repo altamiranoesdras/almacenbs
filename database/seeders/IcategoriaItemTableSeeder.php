@@ -15,7 +15,7 @@ class IcategoriaItemTableSeeder extends Seeder
     {
 
 
-        \DB::table('icategoria_item')->delete();
+        \DB::table('icategoria_item')->truncate();
 
         \DB::table('icategoria_item')->insert(array (
             0 =>

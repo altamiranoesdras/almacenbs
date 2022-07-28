@@ -16,7 +16,7 @@ class ConfigurationsTableSeeder extends Seeder
     {
 
 
-        \DB::table('configurations')->delete();
+        \DB::table('configurations')->truncate();
 
         \DB::table('configurations')->insert(array (
             0 =>

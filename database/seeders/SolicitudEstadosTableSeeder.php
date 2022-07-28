@@ -15,7 +15,7 @@ class SolicitudEstadosTableSeeder extends Seeder
     {
 
 
-        \DB::table('solicitud_estados')->delete();
+        \DB::table('solicitud_estados')->truncate();
 
         \DB::table('solicitud_estados')->insert(array (
             0 =>

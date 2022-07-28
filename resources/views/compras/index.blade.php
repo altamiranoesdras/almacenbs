@@ -50,7 +50,7 @@
                                     {!!
                                         Form::select(
                                             'proveedor_id',
-                                            slc(\App\Models\Proveedor::class,'nombre','id',null)
+                                            select(\App\Models\Proveedor::class,'nombre','id',null)
                                             , $proveedor_id ?? null
                                             , ['id'=>'proveedores','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
                                         )
@@ -70,7 +70,7 @@
                                     {!!
                                         Form::select(
                                             'item_id',
-                                            slc(\App\Models\Item::enTienda(),'nombre','id',null)
+                                            select(\App\Models\Item::class,'nombre','id',null)
                                             , $item_id ?? null
                                             , ['id'=>'items','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
                                         )
@@ -81,26 +81,14 @@
                                     {!!
                                         Form::select(
                                             'estado_id',
-                                            slc(\App\Models\Cestado::class,'nombre','id',null)
+                                            select(\App\Models\CompraEstado::class,'nombre','id',null)
                                             , $estado_id ?? null
                                             , ['id'=>'estados','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
                                         )
                                     !!}
                                 </div>
 
-                                @can('filtrar por bodega compras')
-                                <div class="form-group col-sm-3">
-                                    {!! Form::label('tienda_id','Bodega: ') !!}
-                                    {!!
-                                        Form::select(
-                                            'tienda_id',
-                                            slc(\App\Models\Tienda::class,'nombre','id',null)
-                                            , $tienda_id ?? null
-                                            , ['id'=>'tiendas','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
-                                        )
-                                    !!}
-                                </div>
-                                @endcan
+
 
                                 <div class="form-group col-sm-3">
                                     {!! Form::label('codigo', 'Codigo:') !!}

@@ -17,7 +17,7 @@ class CompraTiposTableSeeder extends Seeder
     {
 
 
-        \DB::table('compra_tipos')->delete();
+        \DB::table('compra_tipos')->truncate();
 
 
         CompraTipo::factory()->count(1)->create(['nombre' => 'FACTURA']);

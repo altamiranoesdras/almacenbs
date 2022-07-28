@@ -20,7 +20,7 @@ class MarcasTableSeeder extends Seeder
         if (app()->environment()=='local'){
 
 
-            DB::table('marcas')->delete();
+            DB::table('marcas')->truncate();
 
             Marca::factory()->count(5)->create()->each(function (Marca $marca){
 

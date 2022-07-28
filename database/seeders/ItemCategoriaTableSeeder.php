@@ -18,7 +18,7 @@ class ItemCategoriaTableSeeder extends Seeder
 
         if (app()->environment()=='local'){
 
-            DB::table('item_categorias')->delete();
+            DB::table('item_categorias')->truncate();
 
             ItemCategoria::factory()->count(5)->create()->each(function (ItemCategoria $icategoria){
 

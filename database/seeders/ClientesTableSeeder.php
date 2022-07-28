@@ -14,7 +14,7 @@ class ClientesTableSeeder extends Seeder
     {
 
 
-        \DB::table('clientes')->delete();
+        \DB::table('clientes')->truncate();
 
         \DB::table('clientes')->insert(array (
             0 =>

@@ -16,7 +16,7 @@ class UnimedsTableSeeder extends Seeder
     {
 
 
-        DB::table('unimeds')->delete();
+        DB::table('unimeds')->truncate();
 
         DB::table('unimeds')->insert(array (
             0 =>

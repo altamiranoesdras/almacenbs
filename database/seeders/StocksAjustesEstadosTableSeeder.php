@@ -16,7 +16,7 @@ class StocksAjustesEstadosTableSeeder extends Seeder
     {
         \DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
-        \DB::table('stocks_ajustes_estados')->delete();
+        \DB::table('stocks_ajustes_estados')->truncate();
 
         \DB::table('stocks_ajustes_estados')->insert(array (
             0 =>

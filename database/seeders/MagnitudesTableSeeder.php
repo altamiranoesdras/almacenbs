@@ -15,7 +15,7 @@ class MagnitudesTableSeeder extends Seeder
     {
 
 
-        \DB::table('magnitudes')->delete();
+        \DB::table('magnitudes')->truncate();
 
         \DB::table('magnitudes')->insert(array (
             0 =>

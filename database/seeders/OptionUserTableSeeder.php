@@ -15,7 +15,7 @@ class OptionUserTableSeeder extends Seeder
     {
 
 
-        \DB::table('option_user')->delete();
+        \DB::table('option_user')->truncate();
 
         \DB::table('option_user')->insert(array (
             0 =>

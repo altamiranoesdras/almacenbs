@@ -148,7 +148,7 @@
                             <div class="card-body" style="padding: 0px;">
 
                                 @include('compras.fields')
-
+                                
                             </div>
                         </div><!-- /.row -->
                     </div>

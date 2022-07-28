@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -127,6 +128,67 @@ class User extends Authenticatable implements  MustVerifyEmail,HasMedia
 //        dd($this->id,$opcionesDirectas->toArray(),$opcionesPorRol->toArray(),$allOptions->toArray());
 
         return $allOptions;
+    }
+
+
+    public function scopeNoClientes($query){
+        return $query->whereHas('roles',function ($q){
+            $q->where('id','!=',Role::CLIENTE);
+        })->orWhereDoesntHave('roles');
+    }
+
+    public function scopeAdmins($query){
+        return $query->role(Role::ADMIN);
+    }
+
+    public function isSuperAdmin(){
+
+        return $this->hasRole(Role::SUPERADMIN);
+    }
+
+    public function isAdmin(){
+
+        return $this->hasRole(Role::ADMIN);
+    }
+
+    public function isDev(){
+
+        return $this->hasRole(Role::DEVELOPER);
+    }
+
+    public function usersDespacha(){
+        return $this->belongsToMany(User::class, 'user_despacha_user','user_des', 'user_sol');
+    }
+
+    public function usersSolicita(){
+        return $this->belongsToMany(User::class, 'user_despacha_user','user_sol','user_des');
+    }
+
+
+    public function notificaciones()
+    {
+        return $this->hasMany(Notificacione::class,'user_id','id');
+    }
+
+    public function tiempoUltimaNotificacion($tipo=null)
+    {
+        $query = $this->notificaciones()
+            ->orderBy('created_at','asc');
+
+        if($tipo){
+            $query->deTipo($tipo);
+        }
+
+        $notificacion = $query->first();
+
+        if($notificacion){
+            $fecha = new Date($notificacion->created_at);
+
+            return $fecha->diffForHumans(Carbon::now(),1);
+        }
+
+
+        return '';
     }
 
 

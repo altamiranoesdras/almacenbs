@@ -395,7 +395,7 @@ class Item extends Model implements HasMedia
             /**
              * @var CompraDetalle $det
              */
-            if ($det->compra->cestado_id==Cestado::RECIBIDA){
+            if ($det->compra->estado_id==CompraEstado::RECIBIDA){
                 return $det;
             }
         });
@@ -406,13 +406,9 @@ class Item extends Model implements HasMedia
     public function getSalidasStock()
     {
 
-        $egresos = $this->ventaDetalles->filter(function ($det){
+        $egresos = $this->solicitudDetalles->filter(function (SolicitudDetalle $det){
 
-
-            /**
-             * @var VentaDetalle $det
-             */
-            if ($det->venta->vestado_id!=Cestado::ANULADA){
+            if ($det->solicitud->estado_id!=SolicitudEstado::ANULADA){
                 return $det;
             }
         });

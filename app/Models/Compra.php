@@ -97,8 +97,8 @@ class Compra extends Model
         'fecha_ingreso' => 'nullable',
         'serie' => 'nullable|string|max:45',
         'numero' => 'nullable|string|max:20',
-        'estado_id' => 'required',
-        'usuario_crea' => 'required',
+        'estado_id' => 'nullable',
+        'usuario_crea' => 'nullable',
         'usuario_recibe' => 'nullable',
         'observaciones' => 'nullable|string',
         'created_at' => 'nullable',
@@ -246,7 +246,7 @@ class Compra extends Model
             $detalle->ingreso();
         }
 
-        $this->cestado_id = CompraEstado::RECIBIDA;
+        $this->estado_id = CompraEstado::RECIBIDA;
         $this->fecha_ingreso = hoyDb();
         $this->save();
 

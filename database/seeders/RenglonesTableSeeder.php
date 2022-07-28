@@ -18,7 +18,7 @@ class RenglonesTableSeeder extends Seeder
     {
 
 
-        DB::table('renglones')->delete();
+        DB::table('renglones')->truncate();
 
         Renglon::factory()->count(10)->create();
 

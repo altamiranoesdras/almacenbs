@@ -15,7 +15,7 @@ class OptionsTableSeeder extends Seeder
     public function run()
     {
 
-        \DB::table('options')->delete();
+        \DB::table('options')->truncate();
 
         \DB::table('options')->insert(array (
             0 =>

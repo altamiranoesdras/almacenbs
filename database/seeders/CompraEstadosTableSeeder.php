@@ -15,7 +15,7 @@ class CompraEstadosTableSeeder extends Seeder
     {
 
 
-        \DB::table('compra_estados')->delete();
+        \DB::table('compra_estados')->truncate();
 
         \DB::table('compra_estados')->insert(array (
             0 =>
