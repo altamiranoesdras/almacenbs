@@ -74,7 +74,9 @@ class CompraDataTable extends DataTable
     public function query(Compra $model)
     {
 
-        $query = $model->newQuery()->with(['detalles.item','tipo','usuarioCrea','estado','proveedor']);
+        $query = $model->newQuery()
+            ->noTemporal()
+            ->with(['detalles.item','tipo','usuarioCrea','estado','proveedor']);
 
         $user = Auth::user();
 

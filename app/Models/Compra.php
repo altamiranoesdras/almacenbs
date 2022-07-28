@@ -273,4 +273,8 @@ class Compra extends Model
         $q->where('usuario_crea',$user->id);
     }
 
+    public function scopeNoTemporal($q)
+    {
+        $q->where('estado_id','!=',CompraEstado::TEMPORAL);
+    }
 }
