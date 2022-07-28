@@ -14,7 +14,6 @@ class MagnitudesTableSeeder extends Seeder
     public function run()
     {
 
-        \DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
         \DB::table('magnitudes')->delete();
 
@@ -53,7 +52,6 @@ class MagnitudesTableSeeder extends Seeder
             ),
         ));
 
-        \DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
     }
 }

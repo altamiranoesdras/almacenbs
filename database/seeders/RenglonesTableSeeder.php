@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Renglon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class RenglonesTableSeeder extends Seeder
 {
@@ -17,9 +18,10 @@ class RenglonesTableSeeder extends Seeder
     {
 
 
-        \DB::table('renglones')->delete();
+        DB::table('renglones')->delete();
 
         Renglon::factory()->count(10)->create();
+
 
     }
 }

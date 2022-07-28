@@ -19,6 +19,7 @@ class MarcasTableSeeder extends Seeder
 
         if (app()->environment()=='local'){
 
+
             DB::table('marcas')->delete();
 
             Marca::factory()->count(5)->create()->each(function (Marca $marca){
@@ -27,6 +28,7 @@ class MarcasTableSeeder extends Seeder
                     $marca->addMediaFromUrl("https://picsum.photos/600/400")->toMediaCollection('marcas');
                 }
             });
+
         }
 
 

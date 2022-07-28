@@ -2,6 +2,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class UnimedsTableSeeder extends Seeder
 {
@@ -15,9 +16,9 @@ class UnimedsTableSeeder extends Seeder
     {
 
 
-        \DB::table('unimeds')->delete();
+        DB::table('unimeds')->delete();
 
-        \DB::table('unimeds')->insert(array (
+        DB::table('unimeds')->insert(array (
             0 =>
             array (
                 'id' => 1,

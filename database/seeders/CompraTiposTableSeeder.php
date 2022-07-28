@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CompraTipo;
 use Illuminate\Database\Seeder;
 
 class CompraTiposTableSeeder extends Seeder
@@ -14,11 +15,12 @@ class CompraTiposTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('compra_tipos')->delete();
-        
-        
-        
+
+
+        CompraTipo::factory()->count(1)->create(['nombre' => 'FACTURA']);
+
     }
 }

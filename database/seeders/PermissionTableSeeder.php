@@ -15,7 +15,6 @@ class PermissionTableSeeder extends Seeder
     public function run()
     {
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
         Permission::truncate();
 
@@ -65,6 +64,5 @@ class PermissionTableSeeder extends Seeder
         Permission::create(['name' => 'ver todas las ventas']);
         Permission::create(['name' => 'ver todas las compras']);
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }
