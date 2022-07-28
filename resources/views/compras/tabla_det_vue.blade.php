@@ -15,23 +15,23 @@
             <td colspan="6"><span class="help-block text-center">No se ha agregado ningún artículo</span></td>
         </tr>
         <tr v-for="detalle in detalles" class="text-sm">
-            <td>@{{ detalle.item.nombre }}</td>
-            <td>{{ dvs() }}@{{ numf(detalle.precio) }}</td>
-            <td>@{{ numf(detalle.cantidad) }}</td>
-            <td>@{{ detalle.fecha_ven }}</td>
-            <td>{{ dvs() }}@{{ numf(detalle.sub_total.toFixed(cantidadDecimalesPrecio)) }}</td>
+            <td v-text="detalle.item.nombre"></td>
+            <td v-text="dvs + nfp(detalle.precio)"></td>
+            <td v-text="nf(detalle.cantidad)"></td>
+            <td v-text="detalle.fecha_vence"></td>
+            <td v-text="dvs + nfp(detalle.sub_total)"></td>
             <td width="10px">
                 {{--<button type="button" class="btn btn-info btn-xs" @click="editDet(detalle)">--}}
                     {{--<i class="fa fa-edit"></i>--}}
                 {{--</button>--}}
-                <button type="button" class='btn btn-danger btn-xs' @click="deleteDet(detalle)" :disabled="(idEliminando===detalle.id)">
-                    <span v-show="(idEliminando===detalle.id)" >
-                        <i  class="fa fa-sync-alt fa-spin"></i>
-                    </span>
-                    <span v-show="!(idEliminando===detalle.id)" >
-                        <i class="fa fa-trash-alt"></i>
-                    </span>
-                </button>
+{{--                <button type="button" class='btn btn-danger btn-xs' @click="deleteDet(detalle)" :disabled="(idEliminando===detalle.id)">--}}
+{{--                    <span v-show="(idEliminando===detalle.id)" >--}}
+{{--                        <i  class="fa fa-sync-alt fa-spin"></i>--}}
+{{--                    </span>--}}
+{{--                    <span v-show="!(idEliminando===detalle.id)" >--}}
+{{--                        <i class="fa fa-trash-alt"></i>--}}
+{{--                    </span>--}}
+{{--                </button>--}}
             </td>
         </tr>
         </tbody>
@@ -39,7 +39,7 @@
         <tr>
             <td colspan="6" >
                 <b>Total</b>
-                <b class="pull-right" v-text="' {{ dvs() }} '+numf(total.toFixed(cantidadDecimalesPrecio))"></b>
+                <b class="pull-right" v-text="dvs + nfp(total)"></b>
             </td>
         </tr>
         </tfoot>

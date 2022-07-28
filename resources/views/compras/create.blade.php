@@ -62,37 +62,60 @@
                                 </div>
 
                                 <div class="row pt-3">
+
                                     <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" data-toggle="tooltip" title="Fecha Vence">FV</span>
                                             </div>
-                                            <input v-model="nuevoDetalle.fecha_ven" id="fv-new-det" type="date" name="fecha_ven"  class="form-control"  data-toggle="tooltip" title="Doble Enter para agregar">
+                                            <input
+                                                v-model="editedItem.fecha_ven"
+                                                type="date"
+                                                class="form-control"
+                                                @keydown.enter.prevent="siguienteCampo('cantidad')"
+                                            >
                                         </div>
                                     </div>
+
                                     <div class="form-group col-xs-12 col-sm-3 col-md-3 col-lg-3">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" data-toggle="tooltip" title="Cantidad">Cant</span>
                                             </div>
-                                            <input v-model="nuevoDetalle.cantidad" type="number" min="0" step="1" name="cantidad" id="cant-new-det"  class="form-control"  value="1" data-toggle="tooltip" title="Doble Enter para agregar">
+                                            <input
+                                                v-model="editedItem.cantidad"
+                                                type="number"
+                                                min="0" step="any"
+                                                class="form-control"
+                                                ref="cantidad"
+                                                @keydown.enter.prevent="siguienteCampo('precio')"
+                                            >
                                         </div>
                                     </div>
+
                                     <div class="form-group  col-xs-12 col-sm-5 col-md-5 col-lg-5">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" data-toggle="tooltip" title="Precio compra">{{ dvs() }}</span>
                                             </div>
-                                            <input v-model="nuevoDetalle.precio" type="number" min="0" step="1" id="precio-new-det" class="form-control" placeholder="Precio compra" data-toggle="tooltip" title="Doble Enter para agregar">
+                                            <input
+                                                v-model="editedItem.precio"
+                                                type="number"
+                                                min="0" step="any"
+                                                ref="precio"
+                                                class="form-control"
+                                                placeholder="Precio compra"
+                                                @keydown.enter.prevent="save"
+                                            >
                                             <span class="input-group-append">
-                                                    <button type="button" id="btn-agregar" class="btn btn-success" v-on:click.prevent="createDet" :disabled="loadingBtnAdd" >
-                                                        <span v-show="loadingBtnAdd" >
-                                                            <i class="fa fa-sync-alt fa-spin"></i>
-                                                        </span>
-                                                        <span v-show="!loadingBtnAdd" class="glyphicon glyphicon-plus"></span>
-                                                        Agregar
-                                                    </button>
-                                                </span>
+                                                <button type="button" id="btn-agregar" class="btn btn-success" @click.prevent="save" :disabled="loading" >
+                                                    <span v-show="loading" >
+                                                        <i class="fa fa-sync-alt fa-spin"></i>
+                                                    </span>
+                                                    <span v-show="!loading" class="glyphicon glyphicon-plus"></span>
+                                                    Agregar
+                                                </button>
+                                            </span>
                                         </div><!-- /input-group -->
 
                                     </div>
@@ -152,123 +175,130 @@
         vm = new Vue({
             el: '#root',
             created: function() {
-                this.getDets();
+                this.getItems();
             },
             data: {
+                itemSelect: null,
+
                 detalles: [],
-                nuevoDetalle: {
-                    compra_id: '{{$temporal->id}}',
-                    item_id: '',
-                    cantidad: '1',
-                    fecha_ven: '',
-                    precio: '',
+
+                editedItem: {
+                    id : 0,
+                    compra_id : @json($temporal->id),
                 },
-                detalleEdita: {
-                    id: '',
-                    compra_id: '',
+                defaultItem: {
+                    id : 0,
+                    compra_id : @json($temporal->id),
                     item_id: '',
-                    cantidad: '',
+                    cantidad: 0,
                     fecha_ven: '',
-                    precio: '',
+                    precio: 0,
                 },
-                loadingBtnUpdateDet: false,
-                loadingBtnAdd: false,
+                loading: false,
+
                 idEliminando: '',
-                tipoComprobante: '2',
-                recibido:0,
-                picked:'F',
-                credito: false,
                 ingreso_inmediato: false,
+
                 fecha_ingreso_plan: "{{hoyDb() ?? old('fecha_ingreso_plan')}}",
-                abono_ini: null,
-                descuento: 0,
-                proveedor: null,
-                tipo: null,
+
+                proveedor: @json($compra->proveedor ?? \App\Models\Proveedor::find(old('proveedor_id')) ?? null),
+                tipo: @json($compra->tipo ?? \App\Models\CompraTipo::find(old('tipo_id')) ?? null),
+
             },
             methods: {
 
-                numf: function(numero){
-                    return number_format(numero)
+                nfp: function(numero){
+                    return number_format(numero,@json(config('app.cantidad_decimales_precio')))
                 },
-                getDets: function(page) {
-                    var urlKeeps = '{{route('api.compra_detalles.index',$temporal->id)}}';
-                    axios.get(urlKeeps).then(response => {
-                        this.detalles = response.data.data;
-                        this.loadingBtnAdd= false;
-                        this.idEliminando = '';
-                    });
+                nf: function(numero){
+                    return number_format(numero,@json(config('app.cantidad_decimales')))
                 },
-                createDet: function() {
-                    this.loadingBtnAdd= true;
-                    var url= '{{route("api.compra_detalles.store")}}';
+                getId(item){
+                    if(item)
+                        return item.id;
 
-                    axios.post(url, this.nuevoDetalle ).then(response => {
-                        this.getDets();
-
-                        this.nuevoDetalle.item_id = '';
-                        this.nuevoDetalle.cantidad = '1';
-                        this.nuevoDetalle.precio = '';
-
-                        iziTs(response.data.message); //mensaje
-                        slc2item.empty().trigger('change');
-                        slc2item.select2('open');
-                        $("#div-info-item").html('');
-
-                    }).catch(error => {
-                        iziTe(error.response.data.message);
-                        this.loadingBtnAdd= false;
-                    });
+                    return null
                 },
-                editDet: function(det) {
-                    this.detalleEdita.id = det.id;
-                    this.detalleEdita.temp_compra_id = det.temp_compra_id;
-                    this.detalleEdita.item_id = det.item_id;
-                    this.detalleEdita.cantidad = det.cantidad;
-                    this.detalleEdita.precio = det.precio;
+                editItem (item) {
+                    $("#"+this.id).modal('show');
+                    this.editedItem = Object.assign({}, item);
 
-                    $('#modalEditDetalle').modal('show');
                 },
-                updateDet: function(id) {
-                    this.loadingBtnUpdateDet= true;
-                    var url = '{{url('api/compra_detalles')}}' + '/' + id;
+                close () {
+                    $("#"+this.id).modal('hide');
+                    this.loading = false;
+                    setTimeout(() => {
+                        this.editedItem = Object.assign({}, this.defaultItem);
+                    }, 300)
+                },
 
-                    axios.put(url, this.detalleEdita).then(response => {
-                        this.getDets();
-                        $('#modalEditDetalle').modal('hide');
-                        iziTs(response.data.message);
-                        this.loadingBtnUpdateDet= false;
-                    }).catch(error => {
-                        iziTe(error.response.data.message);
-                        this.loadingBtnUpdateDet= false;
-                    });
-                },
-                deleteDet: function(det) {
-                    this.idEliminando = det.id;
-                    var url = '{{url('api/compra_detalles')}}' + '/' + det.id;
+                async getItems () {
 
-                    axios.delete(url).then(response => {
-                        this.getDets();
-                        iziTs(response.data.message);
-                    });
+                    try {
+
+                        var res = await axios.get(route('api.compra_detalles.index'));
+
+                        this.detalles  = res.data.data;
+
+                    }catch (e) {
+                        notifyErrorApi(e);
+                    }
+
                 },
+                async save () {
+
+                    this.loading = true;
+
+
+                    try {
+
+                        this.editedItem.item_id = this.getId(this.itemSelect);
+                        const data = this.editedItem;
+
+                        if(this.editedItem.id === 0){
+
+                            var res = await axios.post(route('api.compra_detalles.store'),data);
+
+                        }else {
+
+                            var res = await axios.patch(route('api.compra_detalles.update',this.editedItem.id),data);
+
+                        }
+
+                        logI(res.data);
+                        iziTs(res.data.message);
+
+                        this.getItems();
+
+                    }catch (e) {
+                        notifyErrorApi(e);
+                        this.loading = false;
+                    }
+
+                },
+
                 procesar: function () {
                     if(this.totalitems>=1){
                         $('#modal-confirma-procesar').modal('show');
                     }else {
                         iziTe('No hay ningún artículo en este ingreso')
                     }
+                },
+                siguienteCampo: function (campo){
+                    $(this.$refs[campo]).focus().select();
                 }
             },
             computed: {
+
+                dvs: function(){
+                    return @json(dvs())
+                },
                 total: function () {
                     var t=0;
-                    $.each(this.detalles,function (i,det) {
-                        t+=(det.cantidad*det.precio);
-                    });
 
-                    if (this.descuento>0){
-                        t=t-(t*(this.descuento/100))
-                    }
+                    $.each(this.detalles,function (i,det) {
+                        t+=det.sub_total;
+                    });
 
                     return t;
                 },
@@ -281,8 +311,13 @@
 
                     return t;
                 },
-                cantidadDecimalesPrecio: function () {
-                    return '{{config('app.cantidad_decimales_precio')}}';
+
+                esFactura(){
+                    if (this.tipo){
+                        return this.tipo.id= @json(\App\Models\CompraTipo::FACTURA)
+                    }
+
+                    return false;
                 }
             },
             watch:{

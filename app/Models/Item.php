@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * Class Item
@@ -264,5 +266,259 @@ class Item extends Model implements HasMedia
     public function stocks()
     {
         return $this->hasMany(\App\Models\Stock::class, 'item_id');
+    }
+
+    /**
+     *MÉTODOS Y MUTADORES
+     */
+
+    /**
+     * Verifica si el item esta en el detalle de una compra
+     * @return bool
+     */
+    public function estaEnUnaCompra(){
+
+        return $this->getEntradasStock() > 0 ? true : false;
+    }
+
+    /**
+     * Verifica si el item esta en el detalle de una venta
+     * @return bool
+     */
+    public function estaEnUnaSolicitud(){
+
+        return $this->getSalidasStock() > 0 ? true : false;
+    }
+
+    public function getTextAttribute()
+    {
+        $codigo = $this->codigo ? $this->codigo : 'sin codigo';
+        return $codigo.' / '.$this->nombre;
+    }
+
+
+    public function precioPromedio()
+    {
+
+        $promedio = $this->compraDetalles->sum('sub_total') / $this->compraDetalles->sum('cantidad');
+
+        return round($promedio,2);
+    }
+
+
+    public function getImgAttribute()
+    {
+        $media = $this->getMedia('items')->last();
+        return $media ? $media->getUrl() : asset('img/default.svg');
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+            ->width(270)
+            ->height(270);
+    }
+
+    public function getThumbAttribute()
+    {
+        $media = $this->getMedia('items')->last();
+        return $media ? $media->getUrl('thumb') : asset('img/default.svg');
+    }
+
+    public function relacionados($cantidad)
+    {
+        $items = Item::whereHas('categorias',function ($q){
+
+            $q->whereIn('id',$this->categorias->pluck('id'));
+
+        })->whereNotIn('id',[$this->id])->with(['media'])->web()->get();
+
+        return $items->count() > 2 ? $items->random($cantidad) : $items->random($items->count());
+    }
+
+
+
+
+    /**
+     *SCOPES
+     */
+
+
+
+    public function scopeDeCategoria($query,$categoria)
+    {
+        return $query->whereIn('id', function($q) use ($categoria){
+            $q->select('item_id')->from('icategoria_item')->where('icategoria_id',$categoria)->whereNull('deleted_at');
+        });
+    }
+
+    public function scopeDeMarca($query,$marca)
+    {
+        return $query->where('marca_id', $marca);
+    }
+
+
+    public function esNuevo()
+    {
+        $crado = Carbon::parse($this->created_at);
+
+        return config('app.dias_producto_es_nuevo') >= Carbon::now()->diffInDays($crado);
+    }
+
+
+
+    public function getStockCalculado()
+    {
+        $stock = 0;
+
+        $stockIni = $this->getStockInicial();
+        $totalCompras = $this->getEntradasStock();
+        $totalVentas = $this->getSalidasStock();
+
+
+        if ($this->inventariable)
+            return ($stockIni+$totalCompras )- $totalVentas;
+        else
+            return $stockIni;
+    }
+
+    public function getStockInicial()
+    {
+        return $this->stocks->sortBy('fecha_ing')->first()->kardex->cantidad ?? 0;
+    }
+
+    public function getEntradasStock()
+    {
+        $ingresos = $this->compraDetalles->filter(function ($det){
+
+
+            /**
+             * @var CompraDetalle $det
+             */
+            if ($det->compra->cestado_id==Cestado::RECIBIDA){
+                return $det;
+            }
+        });
+
+        return $ingresos->sum('cantidad');
+    }
+
+    public function getSalidasStock()
+    {
+
+        $egresos = $this->ventaDetalles->filter(function ($det){
+
+
+            /**
+             * @var VentaDetalle $det
+             */
+            if ($det->venta->vestado_id!=Cestado::ANULADA){
+                return $det;
+            }
+        });
+
+        return $egresos->sum('cantidad');
+
+    }
+
+    public function getStockSegunKardex()
+    {
+        $kardex = $this->kardexs;
+
+        $saldo = 0;
+
+        foreach ($kardex as $index => $det) {
+            $saldo+=$det->ingreso-=$det->salida;
+        }
+
+        return $saldo;
+    }
+
+
+    public function kardexs()
+    {
+        return $this->hasMany(Kardex::class,'item_id');
+    }
+
+    public function valorComparaStocks()
+    {
+        return valoresIgualesArray($this->getStockSegunKardex(),[(string) $this->stockTienda(), (string) $this->getStockCalculado()]);
+    }
+
+    public function puedeEditarNombre()
+    {
+        return !$this->estaEnUnaCompra() && !$this->estaEnUnaSolicitud();
+    }
+
+    public function puedeEditarStock()
+    {
+        return !$this->estaEnUnaCompra() && !$this->estaEnUnaSolicitud();
+    }
+
+    public function puedeEditarPrecioPromedio()
+    {
+        return $this->compraDetalles->count() == 0;
+    }
+
+    public function actualizaOregistraStcokInicial($cantidad,$tienda=null,$fecha_vence=null)
+    {
+
+        if(!$this->inventariable)
+            return null;
+
+        $tienda = session('tienda') ?? request()->tienda ?? $tienda;
+
+        /**
+         * @var Stock $stock
+         */
+        $stock =  $this->stocks->where('item_id',$this->id)
+            ->where('tienda_id',$tienda)
+            ->sortBy('orden_salida')
+            ->sortBy('fecha_ven')
+            ->sortBy('created_at')
+            ->sortBy('id')
+            ->first();
+
+        if($stock){
+
+            $stock->cantidad = $cantidad;
+            $stock->cnt_ini = $cantidad;
+            $stock->save();
+
+        }else{
+
+            $stock= Stock::create([
+                'tienda_id' => $tienda,
+                'item_id' => $this->id,
+                'lote' =>  null,
+                'fecha_ven' => $fecha_vence,
+                'cantidad' =>  $cantidad,
+                'cnt_ini' =>  $cantidad,
+                'orden_salida' => 0
+            ]);
+
+        }
+
+
+        if ($stock->kardex){
+            $stock->kardex()->update(['cantidad' => $cantidad]);
+        }else{
+
+            if ($cantidad > 0){
+                $stock->kardex()->create([
+                    'tienda_id'=> $stock->tienda_id,
+                    'item_id' => $stock->item_id,
+                    'cantidad' => $stock->cantidad,
+                    'tipo' => Kardex::TIPO_INGRESO,
+                    'codigo' => $stock->id,
+                    'responsable' => 'Stock Inicial',
+                    'user_id' => auth()->user()->id
+                ]);
+            }
+        }
+
+
+        return $stock;
+
     }
 }

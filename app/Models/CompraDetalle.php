@@ -34,7 +34,7 @@ class CompraDetalle extends Model
 
     protected $dates = ['deleted_at'];
 
-
+    protected $appends =['sub_total'];
 
     public $fillable = [
         'compra_id',
@@ -70,11 +70,8 @@ class CompraDetalle extends Model
         'item_id' => 'required',
         'cantidad' => 'required|numeric',
         'precio' => 'required|numeric',
-        'descuento' => 'required|numeric',
+        'descuento' => 'nullable|numeric',
         'fecha_ven' => 'nullable',
-        'created_at' => 'nullable',
-        'updated_at' => 'nullable',
-        'deleted_at' => 'nullable'
     ];
 
     /**
@@ -91,5 +88,96 @@ class CompraDetalle extends Model
     public function item()
     {
         return $this->belongsTo(\App\Models\Item::class, 'item_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     **/
+    public function stocks()
+    {
+        return $this->belongsToMany(Stock::class, 'ingresos')->withPivot('cantidad');
+    }
+
+    public function getSubTotalAttribute()
+    {
+        return $this->precio * $this->cantidad;
+    }
+
+    public function kardex()
+    {
+        return $this->morphOne(Kardex::class,'kardexable');
+    }
+
+    public function getCodigoAttribute()
+    {
+        $codigo = $this->compra->codigo;
+
+//        if ($this->compra->serie && $this->compra->numero){
+//            $codigo = $this->compra->serie.' / '.$this->compra->numero;
+//        }
+
+        return $codigo;
+    }
+
+    public function getResponsableAttribute()
+    {
+        $codigo = $this->compra->proveedor->nombre;
+
+
+        return $codigo;
+    }
+
+    public function ingreso()
+    {
+
+        if(!$this->item->inventariable)
+            return null;
+
+        /**
+         * @var Stock $stock
+         */
+        $stock =  $this->item->stocks->where('item_id',$this->id)
+            ->where('tienda_id',$this->compra->tienda_id)
+            ->where('fecha_ven',$this->fecha_ven)
+            ->sortBy('orden_salida')
+            ->sortBy('fecha_ven')
+            ->sortBy('created_at')
+            ->sortBy('id')
+            ->first();
+
+        if($stock){
+
+            $stock->cantidad += $this->cantidad;
+            $stock->save();
+
+        }else{
+
+            $stock= Stock::create([
+                'tienda_id' => $this->compra->tienda_id,
+                'item_id' => $this->item->id,
+                'lote' =>  null,
+                'fecha_ven' => $this->fecha_ven,
+                'cantidad' =>  $this->cantidad,
+                'cnt_ini' =>  $this->cantidad,
+                'orden_salida' => 0
+            ]);
+
+        }
+
+        $this->kardex()->create([
+            'tienda_id' => $this->compra->tienda_id,
+            'item_id' => $this->item->id,
+            'cantidad' => $this->cantidad,
+            'tipo' => Kardex::TIPO_INGRESO,
+            'codigo' => $this->codigo,
+            'responsable' => $this->respnsable,
+            'user_id' => auth()->user()->id ?? User::PRINCIPAL
+        ]);
+
+        $this->stocks()->syncWithoutDetaching([
+            $stock->id => ['cantidad' => $this->cantidad]
+        ]);
+
+        return $stock;
     }
 }

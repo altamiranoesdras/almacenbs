@@ -13,7 +13,7 @@
             <div class="col-sm-12 text-lg">
                 Total
                 <span class="float-right" >
-                    {{dvs()}} <span v-text="numf(total.toFixed(cantidadDecimalesPrecio))"></span>
+                    {{dvs()}} <span v-text="nfp(total)"></span>
                 </span>
             </div>
         </div>
@@ -34,7 +34,7 @@
             <select-compra-tipo v-model="tipo" label="Tipo"></select-compra-tipo>
         </div>
     </li>
-    <li class="list-group-item pb-0 pl-2 pr-2" v-show="tipoComprobante=='2'">
+    <li class="list-group-item pb-0 pl-2 pr-2" v-show="esFactura">
         <div class="form-group col-sm-12">
             <div class="input-group ">
                 <div class="input-group-prepend">
@@ -73,21 +73,7 @@
 
     </li>
 
-    <li class="list-group-item pb-0 " v-show="credito">
 
-        <div class="row">
-
-            <div class="form-group col-sm-6 ">
-                {!! Form::label('fecha_limite_credito', 'Fecha Pago:') !!}
-                {!! Form::date('fecha_limite_credito', hoyDb(30), ['class' => 'form-control']) !!}
-            </div>
-            <div class="form-group col-sm-6 ">
-                {!! Form::label('fecha_ingreso_plan', 'Abono inicial:') !!}
-                <input type="text" name="monto_ini" id="" class="form-control" title="Abono inicial" placeholder="Abono inicial (Opcional)" v-model="abono_ini">
-            </div>
-        </div>
-
-    </li>
     <li class="list-group-item pb-0 ">
 
         <div class="row">
