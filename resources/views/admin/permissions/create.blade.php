@@ -28,7 +28,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    {!! Form::open(['route' => 'permissions.store','class' => 'wait-on-submit']) !!}
+                    {!! Form::open(['route' => 'permissions.store','class' => 'esperar']) !!}
                         <div class="form-row">
 
                             @include('admin.permissions.fields')

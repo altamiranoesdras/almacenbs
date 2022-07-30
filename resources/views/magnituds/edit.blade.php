@@ -30,7 +30,7 @@
             <div class="card">
                 <div class="card-body">
 
-                   {!! Form::model($magnitud, ['route' => ['magnituds.update', $magnitud->id], 'method' => 'patch','class' => 'wait-on-submit']) !!}
+                   {!! Form::model($magnitud, ['route' => ['magnituds.update', $magnitud->id], 'method' => 'patch','class' => 'esperar']) !!}
                         <div class="form-row">
 
                             @include('magnituds.fields')

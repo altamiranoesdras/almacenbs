@@ -29,7 +29,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    {!! Form::open(['route' => 'roles.store','class' => 'wait-on-submit']) !!}
+                    {!! Form::open(['route' => 'roles.store','class' => 'esperar']) !!}
                         <div class="form-row">
 
                             @include('admin.roles.fields')

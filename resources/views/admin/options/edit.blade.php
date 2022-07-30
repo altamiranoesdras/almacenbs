@@ -30,7 +30,7 @@
             <div class="card">
                 <div class="card-body">
 
-                   {!! Form::model($option, ['route' => ['options.update', $option->id], 'method' => 'patch','class' => 'wait-on-submit']) !!}
+                   {!! Form::model($option, ['route' => ['options.update', $option->id], 'method' => 'patch','class' => 'esperar']) !!}
                         <div class="form-row">
 
                             @include('admin.options.fields')

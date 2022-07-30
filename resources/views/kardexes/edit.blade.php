@@ -30,7 +30,7 @@
             <div class="card">
                 <div class="card-body">
 
-                   {!! Form::model($kardex, ['route' => ['kardexes.update', $kardex->id], 'method' => 'patch','class' => 'wait-on-submit']) !!}
+                   {!! Form::model($kardex, ['route' => ['kardexes.update', $kardex->id], 'method' => 'patch','class' => 'esperar']) !!}
                         <div class="form-row">
 
                             @include('kardexes.fields')

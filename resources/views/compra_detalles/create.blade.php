@@ -28,7 +28,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    {!! Form::open(['route' => 'compraDetalles.store','class' => 'wait-on-submit']) !!}
+                    {!! Form::open(['route' => 'compraDetalles.store','class' => 'esperar']) !!}
                         <div class="form-row">
 
                             @include('compra_detalles.fields')

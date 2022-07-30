@@ -29,7 +29,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    {!! Form::open(['route' => 'users.store', "enctype"=>"multipart/form-data",'class' => 'wait-on-submit']) !!}
+                    {!! Form::open(['route' => 'users.store', "enctype"=>"multipart/form-data",'class' => 'esperar']) !!}
                         <div class="form-row">
 
                             @include('admin.users.fields')

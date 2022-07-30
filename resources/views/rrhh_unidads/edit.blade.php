@@ -30,7 +30,7 @@
             <div class="card">
                 <div class="card-body">
 
-                   {!! Form::model($rrhhUnidad, ['route' => ['rrhhUnidads.update', $rrhhUnidad->id], 'method' => 'patch','class' => 'wait-on-submit']) !!}
+                   {!! Form::model($rrhhUnidad, ['route' => ['rrhhUnidads.update', $rrhhUnidad->id], 'method' => 'patch','class' => 'esperar']) !!}
                         <div class="form-row">
 
                             @include('rrhh_unidads.fields')

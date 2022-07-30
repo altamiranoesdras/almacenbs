@@ -38,7 +38,7 @@
                                   method="post"
                                   enctype='multipart/form-data'
                                   autocomplete='off'
-                                  class='wait-on-submit'
+                                  class='esperar'
                             >
                                 @csrf
                                 <div class="form-row">

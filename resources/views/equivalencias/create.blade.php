@@ -28,7 +28,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    {!! Form::open(['route' => 'equivalencias.store','class' => 'wait-on-submit']) !!}
+                    {!! Form::open(['route' => 'equivalencias.store','class' => 'esperar']) !!}
                         <div class="form-row">
 
                             @include('equivalencias.fields')

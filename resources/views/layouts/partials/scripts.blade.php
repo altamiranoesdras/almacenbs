@@ -156,7 +156,7 @@
 
     $(function () {
 
-        $(".form-loading-on-submit,.wait-on-submit").submit(function( event ) {
+        $(".form-loading-on-submit,.esperar").submit(function( event ) {
 
             Swal.fire({
                 title: 'Espera por favor...',

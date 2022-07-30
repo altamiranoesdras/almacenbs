@@ -30,7 +30,7 @@
             <div class="card">
                 <div class="card-body">
 
-                   {!! Form::model($divisa, ['route' => ['divisas.update', $divisa->id], 'method' => 'patch','class' => 'wait-on-submit']) !!}
+                   {!! Form::model($divisa, ['route' => ['divisas.update', $divisa->id], 'method' => 'patch','class' => 'esperar']) !!}
                         <div class="form-row">
 
                             @include('divisas.fields')

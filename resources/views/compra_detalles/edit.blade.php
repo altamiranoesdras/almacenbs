@@ -30,7 +30,7 @@
             <div class="card">
                 <div class="card-body">
 
-                   {!! Form::model($compraDetalle, ['route' => ['compraDetalles.update', $compraDetalle->id], 'method' => 'patch','class' => 'wait-on-submit']) !!}
+                   {!! Form::model($compraDetalle, ['route' => ['compraDetalles.update', $compraDetalle->id], 'method' => 'patch','class' => 'esperar']) !!}
                         <div class="form-row">
 
                             @include('compra_detalles.fields')

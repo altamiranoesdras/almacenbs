@@ -30,7 +30,7 @@
             <div class="card">
                 <div class="card-body">
 
-                   {!! Form::model($envioFiscal, ['route' => ['envioFiscals.update', $envioFiscal->id], 'method' => 'patch','class' => 'wait-on-submit']) !!}
+                   {!! Form::model($envioFiscal, ['route' => ['envioFiscals.update', $envioFiscal->id], 'method' => 'patch','class' => 'esperar']) !!}
                         <div class="form-row">
 
                             @include('envio_fiscals.fields')

@@ -38,14 +38,17 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            {!! Form::open(['route' => 'items.store',"enctype"=>"multipart/form-data","autocomplete"=>"off"]) !!}
+                            {!! Form::open(['route' => 'items.store','class' => 'esperar',"enctype"=>"multipart/form-data","autocomplete"=>"off"]) !!}
                                 <div class="form-row">
 
                                     @include('items.fields')
                                     <!-- Submit Field -->
-                                    <div class="form-group col-sm-12">
-                                        <button type="submit" onClick="this.form.submit(); this.disabled=true;" class="btn btn-outline-success">Guardar</button>
-                                        <a href="{!! route('items.index') !!}" class="btn btn-outline-default">Cancelar</a>
+                                    <div class="form-group col-sm-12 text-right">
+                                        <a href="{!! route('items.index') !!}" class="btn btn-outline-secondary mr-3">Cancelar</a>
+                                        <button type="submit" class="btn btn-outline-success">
+                                            <i class="fa fa-save"></i>
+                                            Guardar
+                                        </button>
                                     </div>
                                 </div>
                             {!! Form::close() !!}

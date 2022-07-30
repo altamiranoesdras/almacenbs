@@ -31,7 +31,7 @@
             <div class="card">
                 <div class="card-body">
 
-                   {!! Form::model($role, ['route' => ['roles.update', $role->id], 'method' => 'patch','class' => 'wait-on-submit']) !!}
+                   {!! Form::model($role, ['route' => ['roles.update', $role->id], 'method' => 'patch','class' => 'esperar']) !!}
                         <div class="form-row">
 
                             @include('admin.roles.fields')

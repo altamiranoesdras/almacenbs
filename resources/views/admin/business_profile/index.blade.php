@@ -29,7 +29,7 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <form action="{{route('profile.business.store')}}" method="post" class="wait-on-submit" enctype="multipart/form-data">
+                    <form action="{{route('profile.business.store')}}" method="post" class="esperar" enctype="multipart/form-data">
                         @csrf
                         <div class="card">
                             <div class="card-header p-2">

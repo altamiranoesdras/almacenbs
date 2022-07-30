@@ -43,7 +43,7 @@
                                     <!-- Submit Field -->
                                     <div class="form-group col-sm-12">
                                         <button type="submit" onClick="this.form.submit(); this.disabled=true;" class="btn btn-outline-success">Guardar</button>
-                                        <a href="{!! route('compras.index') !!}" class="btn btn-outline-default">Cancelar</a>
+                                        <a href="{!! route('compras.index') !!}" class="btn btn-outline-secondary">Cancelar</a>
                                     </div>
                                 </div>
 

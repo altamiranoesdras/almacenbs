@@ -217,7 +217,7 @@ window.notifyErrorApi = (e) =>{
 Vue.prototype.$eventBus = new Vue();
 
 
-$(".wait-on-submit").submit(function( event ) {
+$(".esperar").submit(function( event ) {
 
     Swal.fire({
         title: 'Espera por favor...',

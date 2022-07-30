@@ -28,7 +28,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    {!! Form::open(['route' => 'envioFiscals.store','class' => 'wait-on-submit']) !!}
+                    {!! Form::open(['route' => 'envioFiscals.store','class' => 'esperar']) !!}
                         <div class="form-row">
 
                             @include('envio_fiscals.fields')
