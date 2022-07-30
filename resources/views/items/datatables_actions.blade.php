@@ -2,9 +2,11 @@
 <a href="{{ route('items.show', $item->id) }}" class='btn btn-default btn-xs' data-toggle="tooltip" title="Ver">
     <i class="fa fa-eye"></i>
 </a>
-<a href="{{ route('items.clonar', $item->id) }}" class='btn btn-default btn-xs' data-toggle="tooltip" title="Copiar articulo">
-    <i class="fa fa-clone"></i>
-</a>
+
+{{--<a href="{{ route('items.clonar', $item->id) }}" class='btn btn-default btn-xs' data-toggle="tooltip" title="Copiar articulo">--}}
+{{--    <i class="fa fa-clone"></i>--}}
+{{--</a>--}}
+
 <a href="{{ route('items.edit', $item->id) }}" class='btn btn-info btn-xs' data-toggle="tooltip" title="Editar">
     <i class="fa fa-edit"></i>
 </a>

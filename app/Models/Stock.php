@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -96,8 +97,305 @@ class Stock extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function stocksTransacciones()
+    public function transaccion()
     {
-        return $this->hasMany(\App\Models\StocksTransaccione::class, 'stock_id');
+        return $this->hasMany(\App\Models\StockTransaccion::class, 'stock_id');
+    }
+
+
+    public function scopeDeTienda($query,$tienda=null){
+
+        $tienda = $tienda ?? session('tienda');
+
+        return $query->where('tienda_id',$tienda);
+    }
+
+    public function scopeConStock($query)
+    {
+        $query->where('cantidad','>',0);
+    }
+
+    public function scopeVencidos($query)
+    {
+        $hoy = Carbon::now()->format('Y-m-d');
+
+        return $query->orWhere('fecha_ven','<',$hoy)->conStock();
+    }
+
+    public function scopeQuedanMeses($query,$meses){
+
+        $fechaFin = Carbon::now()->addMonth($meses)->format('Y-m-d');
+        $fechaIni = Carbon::now()->format('Y-m-d');
+
+        return $query->conStock()->whereBetween('fecha_ven',[$fechaIni,$fechaFin])->vencidos();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     **/
+    public function ventaDetalles()
+    {
+        return $this->belongsToMany(\App\Models\VentaDetalle::class, 'egresos');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     **/
+    public function compraDetalles()
+    {
+        return $this->belongsToMany(\App\Models\CompraDetalle::class, 'ingresos');
+    }
+
+    public function solicitudEgresoDetalles()
+    {
+        return $this->belongsToMany(SolicitudDetalle::class, 'egreso_solicitud');
+    }
+
+    public function solicitudIngresoDetalles()
+    {
+        return $this->belongsToMany(SolicitudDetalle::class, 'ingreso_solicitud');
+    }
+
+
+    /**
+     * Realiza un egreso del stock en base al orden de salida definido, si no esta definido un orden de salida egresa
+     * los de menor fecha de vencimiento
+     * @param null $item
+     * @param int $cantida
+     * @param null $detalleVenta
+     * @param null $tienda
+     * @param null $lote
+     * @param null $fechaVence
+     * @return array|bool
+     */
+    public function egreso($item=null,$cantida=0,$detalleVenta=null,$tienda=null){
+
+        $cantida=$cantida*-1;
+
+        //Sin no se envía la tienda se toma la de la sesión del usuario
+//        $tienda = !$tienda ? Auth::user()->empleado->tienda->id : $tienda;
+        $tienda = session('tienda') ?? request()->tienda ?? $tienda;
+
+        $stocks = Stock::where('item_id',$item)
+            ->where('tienda_id',$tienda)
+            ->where('cantidad','>',0)
+            ->orderBy('orden_salida')
+            ->orderBy('fecha_ven')
+            ->orderBy('created_at')
+            ->orderBy('id')
+            ->get();
+
+        if($stocks){
+
+            $egresos = collect();
+            foreach ($stocks as $key => $stock) {
+
+                $cantida=($cantida+$stock->cantidad);
+
+                $nuevoStock = $cantida<0 ? 0 : $cantida;
+
+                $rebajado= $cantida<=0 ? $stock->cantidad : ($cantida-$stock->cantidad)*-1;
+
+//                    dump('cantida: '.$cantida.' nuevo stock: '.$nuevoStock.' rebajado:'.$rebajado);
+
+                if($rebajado>0){
+                    $egresos[]= [$detalleVenta => ['cantidad' => $rebajado]];
+                    $stock->cantidad= $nuevoStock;
+
+                    $stock->save();
+                    if($detalleVenta){
+                        $stock->ventaDetalles()->syncWithoutDetaching([$detalleVenta => ['cantidad' => $rebajado]]);
+                    }
+                }
+
+                if($cantida>0)
+                    break;
+            }
+
+            return $egresos;
+
+        }else{
+
+            return false;
+        }
+
+
+    }
+
+    /**
+     * Realiza un ingreso al stock, si existe un stock para el item en la tienda se suma a la cantidad existente si no,
+     * se crea un nuevo registro
+     * @param null $item
+     * @param int $cantida
+     * @param null $detalleCompra
+     * @param null $lote
+     * @param null $fechaVence
+     * @param null $tienda
+     * @return mixed
+     */
+    public function ingreso($item=null,$cantida=0,$detalleCompra=null,$lote=null,$fechaVence=null,$tienda=null){
+
+        //Sin no se envía la tienda se toma la de la sesión del usuario
+//        $tienda = !$tienda ? Auth::user()->empleado->tienda->id : $tienda;
+        $tienda = session('tienda') ?? request()->tienda ?? $tienda;
+
+        $stock = Stock::where('tienda_id',$tienda)
+            ->where('item_id',$item)
+            ->where('lote',$lote)
+            ->where('fecha_ven',$fechaVence)
+            ->get();
+
+        //Si hay un registro existente
+        if($stock->count() > 0){
+
+            $stock= $stock[0];
+
+            $stock->cantidad = $stock->cantidad + $cantida;
+            $stock->save();
+            if ($detalleCompra){
+                $stock->compraDetalles()->syncWithoutDetaching([$detalleCompra => ['cantidad' => $cantida]]);
+            }
+        }
+
+        //Si no hay ningún registro
+        if($stock->count()==0){
+            $datos = [
+                'tienda_id' => $tienda,
+                'item_id' => $item,
+                'lote' =>  $lote,
+                'fecha_ven' => $fechaVence,
+                'cantidad' =>  $cantida,
+                'cnt_ini' =>  $cantida,
+                'orden_salida' => 0
+            ];
+
+            $stock= $this->create($datos);
+
+            if ($detalleCompra){
+                $stock->compraDetalles()->syncWithoutDetaching([$detalleCompra => ['cantidad' => $cantida]]);
+            }
+        }
+
+        return $stock;
+
+    }
+
+
+    public function egresoSolicitud($item=null,$cantida=0,$detalleSolicitud=null,$tienda=null){
+
+        $cantida=$cantida*-1;
+
+        //Sin no se envía la tienda se toma la de la sesión del usuario
+//        $tienda = !$tienda ? Auth::user()->empleado->tienda->id : $tienda;
+        $tienda = session('tienda') ?? request()->tienda ?? $tienda;
+
+        $stocks = Stock::where('item_id',$item)
+            ->where('tienda_id',$tienda)
+            ->where('cantidad','>',0)
+            ->orderBy('orden_salida')
+            ->orderBy('fecha_ven')
+            ->orderBy('created_at')
+            ->orderBy('id')
+            ->get();
+
+        if($stocks){
+
+            $egresos = collect();
+            foreach ($stocks as $key => $stock) {
+
+                $cantida=($cantida+$stock->cantidad);
+
+                $nuevoStock = $cantida<0 ? 0 : $cantida;
+
+                $rebajado= $cantida<=0 ? $stock->cantidad : ($cantida-$stock->cantidad)*-1;
+
+//                    dump('cantida: '.$cantida.' nuevo stock: '.$nuevoStock.' rebajado:'.$rebajado);
+
+                if($rebajado>0){
+                    $egresos[]= [$detalleSolicitud => ['cantidad' => $rebajado]];
+                    $stock->cantidad= $nuevoStock;
+
+                    $stock->save();
+                    if($detalleSolicitud){
+                        $stock->solicitudEgresoDetalles()->syncWithoutDetaching([$detalleSolicitud => ['cantidad' => $rebajado]]);
+                    }
+                }
+
+                if($cantida>0)
+                    break;
+            }
+
+            return $stock;
+
+        }else{
+
+            return false;
+        }
+
+
+    }
+
+    public function ingresoSolicitud($item=null,$cantida=0,$detalleSolicitud=null,$lote=null,$fechaVence=null,$tienda=null){
+
+        //Sin no se envía la tienda se toma la de la sesión del usuario
+//        $tienda = !$tienda ? Auth::user()->empleado->tienda->id : $tienda;
+        $tienda = session('tienda') ?? request()->tienda ?? $tienda;
+
+        $stock = Stock::where('tienda_id',$tienda)
+            ->where('item_id',$item)
+            ->where('lote',$lote)
+            ->where('fecha_ven',$fechaVence)
+            ->get();
+
+        //Si hay un registro existente
+        if($stock->count() > 0){
+
+            $stock= $stock[0];
+
+            $stock->cantidad = $stock->cantidad + $cantida;
+            $stock->save();
+            if ($detalleSolicitud){
+                $stock->solicitudIngresoDetalles()->syncWithoutDetaching([$detalleSolicitud => ['cantidad' => $cantida]]);
+            }
+        }
+
+        //Si no hay ningún registro
+        if($stock->count()==0){
+            $datos = [
+                'tienda_id' => $tienda,
+                'item_id' => $item,
+                'lote' =>  $lote,
+                'fecha_ven' => $fechaVence,
+                'cantidad' =>  $cantida,
+                'cnt_ini' =>  $cantida,
+                'orden_salida' => 0
+            ];
+
+            $stock= $this->create($datos);
+
+            if ($detalleSolicitud){
+                $stock->solicitudIngresoDetalles()->syncWithoutDetaching([$detalleSolicitud => ['cantidad' => $cantida]]);
+            }
+        }
+
+        return $stock;
+
+    }
+
+
+    public function kardex()
+    {
+        return $this->morphOne(Kardex::class,'model');
+    }
+
+
+    public function getCodigoAttribute()
+    {
+        return $this->lote ?? $this->id;
+    }
+
+    public function getResponsableAttribute()
+    {
+        return 'STOCK INICIAL';
     }
 }

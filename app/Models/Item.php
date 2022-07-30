@@ -138,7 +138,7 @@ class Item extends Model implements HasMedia
         'categoria_id' => 'nullable',
         'precio_venta' => 'nullable|numeric',
         'precio_compra' => 'required|numeric',
-        'precio_promedio' => 'required|numeric',
+        'precio_promedio' => 'nullable|numeric',
         'stock_minimo' => 'nullable|numeric',
         'stock_maximo' => 'nullable|numeric',
         'ubicacion' => 'nullable|string|max:45',
@@ -217,7 +217,7 @@ class Item extends Model implements HasMedia
      **/
     public function categorias()
     {
-        return $this->belongsToMany(\App\Models\ItemCategoria::class, 'item_has_categoria');
+        return $this->belongsToMany(\App\Models\ItemCategoria::class, 'item_has_categoria','item_id','categoria_id');
     }
 
     /**

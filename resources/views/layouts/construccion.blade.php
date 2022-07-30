@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('htmlheader_title')
+@section('title_page')
     En construcción
 @endsection
 

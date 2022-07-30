@@ -24,14 +24,14 @@
                 {{--<button type="button" class="btn btn-info btn-xs" @click="editDet(detalle)">--}}
                     {{--<i class="fa fa-edit"></i>--}}
                 {{--</button>--}}
-{{--                <button type="button" class='btn btn-danger btn-xs' @click="deleteDet(detalle)" :disabled="(idEliminando===detalle.id)">--}}
-{{--                    <span v-show="(idEliminando===detalle.id)" >--}}
-{{--                        <i  class="fa fa-sync-alt fa-spin"></i>--}}
-{{--                    </span>--}}
-{{--                    <span v-show="!(idEliminando===detalle.id)" >--}}
-{{--                        <i class="fa fa-trash-alt"></i>--}}
-{{--                    </span>--}}
-{{--                </button>--}}
+                <button type="button" class='btn btn-danger btn-xs' @click="deleteItem(detalle)" :disabled="(idEliminando===detalle.id)">
+                    <span v-show="(idEliminando===detalle.id)" >
+                        <i  class="fa fa-sync-alt fa-spin"></i>
+                    </span>
+                    <span v-show="!(idEliminando===detalle.id)" >
+                        <i class="fa fa-trash-alt"></i>
+                    </span>
+                </button>
             </td>
         </tr>
         </tbody>

@@ -14,7 +14,6 @@ class StocksAjustesEstadosTableSeeder extends Seeder
      */
     public function run()
     {
-        \DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
         \DB::table('stocks_ajustes_estados')->truncate();
 
@@ -53,7 +52,6 @@ class StocksAjustesEstadosTableSeeder extends Seeder
             ),
         ));
 
-        \DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
     }
 }

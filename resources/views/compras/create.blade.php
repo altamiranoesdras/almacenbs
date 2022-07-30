@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('htmlheader_title','Compra o Ingreso')
+@section('title_page','Compra o Ingreso')
 
 
 @include('layouts.plugins.select2')
@@ -148,7 +148,7 @@
                             <div class="card-body" style="padding: 0px;">
 
                                 @include('compras.fields')
-                                
+
                             </div>
                         </div><!-- /.row -->
                     </div>
@@ -174,6 +174,9 @@
     <script >
         vm = new Vue({
             el: '#root',
+            mounted() {
+                this.abreSelectorItems();
+            },
             created: function() {
                 this.getItems();
             },
@@ -208,10 +211,12 @@
             methods: {
 
                 nfp: function(numero){
-                    return number_format(numero,@json(config('app.cantidad_decimales_precio')))
+                    let decimales = parseInt(@json(config('app.cantidad_decimales_precio')));
+                    return number_format(numero,decimales)
                 },
                 nf: function(numero){
-                    return number_format(numero,@json(config('app.cantidad_decimales')))
+                    let decimales = parseInt(@json(config('app.cantidad_decimales')));
+                    return number_format(numero,decimales)
                 },
                 getId(item){
                     if(item)
@@ -265,15 +270,34 @@
 
                         }
 
-                        logI(res.data);
-                        iziTs(res.data.message);
 
+                        iziTs(res.data.message);
+                        this.editedItem = Object.assign({}, this.defaultItem);
+                        this.abreSelectorItems();
                         this.getItems();
 
                     }catch (e) {
                         notifyErrorApi(e);
                         this.loading = false;
                     }
+
+                },
+                async deleteItem(item) {
+
+                    this.idEliminando = item.id;
+                    try{
+                        let res = await  axios.delete(route('api.compra_detalles.destroy',item.id))
+                        logI(res.data);
+
+                        iziTs(res.data.message);
+                        this.getItems();
+
+
+                    }catch (e){
+                        notifyErrorApi(e);
+                        this.idEliminando = '';
+                    }
+
 
                 },
 
@@ -286,6 +310,10 @@
                 },
                 siguienteCampo: function (campo){
                     $(this.$refs[campo]).focus().select();
+                },
+                abreSelectorItems () {
+                    this.$refs.multiselect.$refs.multiselect.$el.focus();
+
                 }
             },
             computed: {
@@ -326,7 +354,18 @@
                         this.fecha_ingreso_plan = '{{hoyDb()}}'
                     }
 
-                }
+                },
+                itemSelect (item) {
+
+                    if (item){
+
+                        this.editedItem.precio = item.precio_compra;
+                        this.editedItem.item_id = item.id;
+                        $(this.$refs.cantidad).focus().select();
+                    }else{
+                        this.nuevoDetalle = Object.assign({}, this.itemDefault);
+                    }
+                },
             }
 
         });

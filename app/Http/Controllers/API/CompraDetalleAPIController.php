@@ -59,7 +59,7 @@ class CompraDetalleAPIController extends AppBaseController
         /** @var CompraDetalle $compraDetalle */
         $compraDetalle = CompraDetalle::create($input);
 
-        return $this->sendResponse($compraDetalle->toArray(), 'Compra Detalle guardado exitosamente');
+        return $this->sendResponse($compraDetalle->toArray(), 'Detalle agregado!');
     }
 
     /**
@@ -76,7 +76,7 @@ class CompraDetalleAPIController extends AppBaseController
         $compraDetalle = CompraDetalle::find($id);
 
         if (empty($compraDetalle)) {
-            return $this->sendError('Compra Detalle no encontrado');
+            return $this->sendError('Detalle no encontrado');
         }
 
         return $this->sendResponse($compraDetalle->toArray(), 'Compra Detalle retrieved successfully');
@@ -97,7 +97,7 @@ class CompraDetalleAPIController extends AppBaseController
         $compraDetalle = CompraDetalle::find($id);
 
         if (empty($compraDetalle)) {
-            return $this->sendError('Compra Detalle no encontrado');
+            return $this->sendError('Detalle no encontrado');
         }
 
         $compraDetalle->fill($request->all());
@@ -122,11 +122,11 @@ class CompraDetalleAPIController extends AppBaseController
         $compraDetalle = CompraDetalle::find($id);
 
         if (empty($compraDetalle)) {
-            return $this->sendError('Compra Detalle no encontrado');
+            return $this->sendError('Detalle no encontrado');
         }
 
         $compraDetalle->delete();
 
-        return $this->sendSuccess('Compra Detalle deleted successfully');
+        return $this->sendSuccess('Detalle eliminado!');
     }
 }

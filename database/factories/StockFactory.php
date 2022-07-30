@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Item;
 use App\Models\Stock;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -21,17 +22,23 @@ class StockFactory extends Factory
      */
     public function definition()
     {
+        $cantidad = rand(20,70);
+
+        $fechaVence = \Carbon\Carbon::now()->addMonth(5);
+
+        $fechaVence = $fechaVence->subDay(rand(5,25));
+
         return [
-            'item_id' => $this->faker->word,
-        'lote' => $this->faker->word,
-        'fecha_ing' => $this->faker->date('Y-m-d H:i:s'),
-        'fecha_vence' => $this->faker->word,
-        'precio_compra' => $this->faker->word,
-        'cantidad' => $this->faker->word,
-        'cantidad_inicial' => $this->faker->word,
-        'orden_salida' => $this->faker->word,
-        'created_at' => $this->faker->date('Y-m-d H:i:s'),
-        'updated_at' => $this->faker->date('Y-m-d H:i:s'),
+            'item_id' => Item::all()->random()->id,
+            'lote' => $this->faker->word,
+            'fecha_ing' => $this->faker->date('Y-m-d H:i:s'),
+            'fecha_vence' => $fechaVence,
+            'precio_compra' => 0,
+            'cantidad' => $cantidad,
+            'cantidad_inicial' => $cantidad,
+            'orden_salida' => 1,
+            'created_at' => $this->faker->date('Y-m-d H:i:s'),
+            'updated_at' => $this->faker->date('Y-m-d H:i:s'),
 
         ];
     }

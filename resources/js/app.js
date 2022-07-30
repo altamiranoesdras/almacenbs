@@ -141,3 +141,12 @@ Vue.component('select-proveedor', SelectProveedor);
 
 import SelectCompraTipo from "./components/SelectCompraTipo";
 Vue.component('select-compra-tipo',SelectCompraTipo)
+
+import SelectMarca from "./components/SelectMarca";
+Vue.component('select-marca',SelectMarca)
+
+import SelectRenglon from "./components/SelectRenglon";
+Vue.component('select-renglon',SelectRenglon)
+
+import SelectUnimed from "./components/SelectUnimed";
+Vue.component('select-unimed',SelectUnimed)

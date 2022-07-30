@@ -34,32 +34,32 @@ class ItemsTableSeeder extends Seeder
             Item::factory()->count(5)->create()
                 ->each(function (Item $item) {
 
-//                    $stock = rand(20,40);
-//
-//                    factory(Stock::class,1)->create([
-//                        'item_id' => $item->id,
-//                        'cantidad' => $stock,
-//                        'cnt_ini' => $stock,
-//                    ])->each(function (Stock $stock){
-//                        $stock->kardex()->create([
-//                            'item_id' => $stock->item_id,
-//                            'cantidad' => $stock->cantidad,
-//                            'tipo' => Kardex::TIPO_INGRESO,
-//                            'user_id' => 1,
-//                            'codigo' => $stock->id,
-//                            'responsable' => 'Stock Inicial'
-//                        ]);
-//
-//                    });
+                    $stock = rand(20,40);
 
-//                    $item->categorias()->attach(ItemCategoria::pluck('id')->random(4));
-//
-//
-//                    if (config('app.seed_img')){
-//
-//                        $item->addMediaFromUrl("https://picsum.photos/600/400")->toMediaCollection('items');
-//                        $item->addMediaFromUrl("https://picsum.photos/600/400")->toMediaCollection('items');
-//                    }
+                    Stock::factory()->count(1)->create([
+                        'item_id' => $item->id,
+                        'cantidad' => $stock,
+                        'cantidad_inicial' => $stock,
+                    ])->each(function (Stock $stock){
+                        $stock->kardex()->create([
+                            'item_id' => $stock->item_id,
+                            'cantidad' => $stock->cantidad,
+                            'tipo' => Kardex::TIPO_INGRESO,
+                            'usuario_id' => 1,
+                            'codigo' => $stock->id,
+                            'responsable' => 'Stock Inicial'
+                        ]);
+
+                    });
+
+                    $item->categorias()->attach(ItemCategoria::pluck('id')->random(4));
+
+
+                    if (config('app.seed_img',true)){
+
+                        $item->addMediaFromUrl("https://picsum.photos/600/400")->toMediaCollection('items');
+                        $item->addMediaFromUrl("https://picsum.photos/600/400")->toMediaCollection('items');
+                    }
 
 
 

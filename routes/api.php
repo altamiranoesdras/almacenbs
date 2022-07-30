@@ -47,7 +47,7 @@ Route::group(['as'=>'api.'], function () {
         Route::resource('unimeds', App\Http\Controllers\API\UnimedAPIController::class);
 
 
-        Route::resource('renglons', App\Http\Controllers\API\RenglonAPIController::class);
+        Route::resource('renglones', App\Http\Controllers\API\RenglonAPIController::class);
 
 
         Route::resource('items', App\Http\Controllers\API\ItemAPIController::class);

@@ -4,7 +4,7 @@
 @include('layouts.plugins.select2')
 @include('layouts.plugins.bootstrap_fileinput')
 
-@section('htmlheader_title')
+@section('title_page')
 	Editar {{$item->nombre}}
 @endsection
 
@@ -67,5 +67,5 @@
 
     @include('items.modal_form_marcas')
     @include('unimeds.modal_create')
-    @include('icategorias.modal_form_create')
+    @include('item_categorias.modal_form_create')
 @endsection

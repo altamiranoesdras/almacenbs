@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('htmlheader_title','Reporte Artículos Próximos A Vencer')
+@section('title_page','Reporte Artículos Próximos A Vencer')
 
 @section('content')
     <!-- Content Header (Page header) -->

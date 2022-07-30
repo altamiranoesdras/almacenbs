@@ -30,6 +30,7 @@ class Renglon extends Model
     protected $dates = ['deleted_at'];
 
 
+    protected $appends = ['text'];
 
     public $fillable = [
         'numero',
@@ -66,5 +67,10 @@ class Renglon extends Model
     public function items()
     {
         return $this->hasMany(\App\Models\Item::class, 'renglon_id');
+    }
+
+    public function getTextAttribute()
+    {
+        return $this->numero." - ".str_limit($this->descripcion,50);
     }
 }
