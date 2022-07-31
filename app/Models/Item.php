@@ -479,7 +479,7 @@ class Item extends Model implements HasMedia
         if($stock){
 
             $stock->cantidad = $cantidad;
-            $stock->cnt_ini = $cantidad;
+            $stock->cantidad_inicial = $cantidad;
             $stock->save();
 
         }else{
@@ -490,7 +490,7 @@ class Item extends Model implements HasMedia
                 'lote' =>  null,
                 'fecha_ven' => $fecha_vence,
                 'cantidad' =>  $cantidad,
-                'cnt_ini' =>  $cantidad,
+                'cantidad_inicial' =>  $cantidad,
                 'orden_salida' => 0
             ]);
 
@@ -509,7 +509,7 @@ class Item extends Model implements HasMedia
                     'tipo' => Kardex::TIPO_INGRESO,
                     'codigo' => $stock->id,
                     'responsable' => 'Stock Inicial',
-                    'user_id' => auth()->user()->id
+                    'usuario_id' => auth()->user()->id
                 ]);
             }
         }

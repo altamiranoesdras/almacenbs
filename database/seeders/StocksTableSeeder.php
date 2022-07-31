@@ -29,38 +29,38 @@ class StocksTableSeeder extends Seeder
                 factory(\App\Models\Stock::class,1)->create([
                     'item_id' => $item->id,
                     'cantidad' => $stock,
-                    'cnt_ini' => $stock,
+                    'cantidad_inicial' => $stock,
                     'tienda_id'=> Tienda::PRINCIPAL
                 ]);
                 factory(\App\Models\Stock::class,1)->create([
                     'item_id' => $item->id,
                     'cantidad' => $stock,
-                    'cnt_ini' => $stock,
+                    'cantidad_inicial' => $stock,
                     'tienda_id'=> Tienda::BODEGA_PRODUCCION
                 ]);
             }else{
                 factory(\App\Models\Stock::class,1)->create([
                     'item_id' => $item->id,
                     'cantidad' => $stock,
-                    'cnt_ini' => $stock,
+                    'cantidad_inicial' => $stock,
                     'tienda_id'=> Tienda::LOCAL_1
                 ]);
                 factory(\App\Models\Stock::class,1)->create([
                     'item_id' => $item->id,
                     'cantidad' => $stock,
-                    'cnt_ini' => $stock,
+                    'cantidad_inicial' => $stock,
                     'tienda_id'=> Tienda::LOCAL_2
                 ]);
                 factory(\App\Models\Stock::class,1)->create([
                     'item_id' => $item->id,
                     'cantidad' => $stock,
-                    'cnt_ini' => $stock,
+                    'cantidad_inicial' => $stock,
                     'tienda_id'=> Tienda::LOCAL_3
                 ]);
             }
 
 
-//            factory(\App\Models\Stock::class,1)->create(['item_id' => $item->id,'cantidad' => $stock2,'cnt_ini' => $stock2]);
+//            factory(\App\Models\Stock::class,1)->create(['item_id' => $item->id,'cantidad' => $stock2,'cantidad_inicial' => $stock2]);
             factory(\App\Models\Inistock::class,1)->create(['item_id' => $item->id,'cantidad' => $stock]);
         }
 

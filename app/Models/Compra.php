@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \App\Models\User $usuarioRecibe
  * @property \App\Models\CompraEstado $estado
  * @property \Illuminate\Database\Eloquent\Collection $compra1hs
- * @property \Illuminate\Database\Eloquent\Collection $compraDetalles
+ * @property \Illuminate\Database\Eloquent\Collection $detalles
  * @property integer $tipo_id
  * @property integer $proveedor_id
  * @property string $codigo
@@ -152,14 +152,6 @@ class Compra extends Model
     public function compra1hs()
     {
         return $this->hasMany(\App\Models\Compra1h::class, 'compra_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     **/
-    public function compraDetalles()
-    {
-        return $this->hasMany(CompraDetalle::class)->withTrashed();
     }
 
     /**

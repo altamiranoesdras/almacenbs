@@ -678,7 +678,7 @@ function ceros($numero,$cantidadCeros){
 
 function errorException(Exception $exception){
     if (auth()->user()->can('depurar')){
-        throw new \Exception($exception);
+        throw new $exception;
     }
 
     $msg = Auth::user()->isAdmin() ? $exception->getMessage() : 'Hubo un error intente de nuevo';

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\UseStockTransaccion;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,7 +23,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class CompraDetalle extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes,UseStockTransaccion;
 
     use HasFactory;
 
@@ -105,7 +106,7 @@ class CompraDetalle extends Model
 
     public function kardex()
     {
-        return $this->morphOne(Kardex::class,'kardexable');
+        return $this->morphOne(Kardex::class,'model');
     }
 
     public function getCodigoAttribute()
@@ -158,7 +159,7 @@ class CompraDetalle extends Model
                 'lote' =>  null,
                 'fecha_ven' => $this->fecha_ven,
                 'cantidad' =>  $this->cantidad,
-                'cnt_ini' =>  $this->cantidad,
+                'cantidad_inicial' =>  $this->cantidad,
                 'orden_salida' => 0
             ]);
 
@@ -171,13 +172,24 @@ class CompraDetalle extends Model
             'tipo' => Kardex::TIPO_INGRESO,
             'codigo' => $this->codigo,
             'responsable' => $this->respnsable,
-            'user_id' => auth()->user()->id ?? User::PRINCIPAL
+            'usuario_id' => auth()->user()->id ?? User::PRINCIPAL
         ]);
 
-        $this->stocks()->syncWithoutDetaching([
-            $stock->id => ['cantidad' => $this->cantidad]
-        ]);
+        $this->addStockTransaccion(StockTransaccion::INGRESO,$stock->id,$this->cantidad,$this->precio);
 
         return $stock;
+    }
+
+    public function anular()
+    {
+        $this->kardex()->delete();
+        /**
+         * @var StockTransaccion $transacion
+         */
+        foreach ($this->transaccionesStock as $index => $transacion) {
+
+            $transacion->revertir();
+
+        }
     }
 }

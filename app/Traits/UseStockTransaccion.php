@@ -5,9 +5,17 @@ namespace App\Traits;
 
 
 use App\Models\StockTransaccion;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use function PHPUnit\Framework\isNull;
 
+/**
+ * Class CompraDetalle
+ * @package App\Models
+ * @version July 27, 2022, 12:22 pm CST
+ *
+ * @property Collection $transaccionesStock
+ */
 trait UseStockTransaccion
 {
     /**

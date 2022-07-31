@@ -21,7 +21,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class StockTransaccion extends Model
 {
-    use SoftDeletes;
 
     use HasFactory;
 
@@ -30,6 +29,8 @@ class StockTransaccion extends Model
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
+    const INGRESO = 'ingreso';
+    const EGRESO = 'egreso';
 
     protected $dates = ['deleted_at'];
 
@@ -81,5 +82,20 @@ class StockTransaccion extends Model
     public function stock()
     {
         return $this->belongsTo(\App\Models\Stock::class, 'stock_id');
+    }
+
+    public function revertir()
+    {
+        if ($this->tipo == self::EGRESO) {
+
+            $this->stock->cantidad += $this->cantidad;
+
+        }
+        if ($this->tipo == self::INGRESO) {
+
+            $this->stock->cantidad -= $this->cantidad;
+        }
+
+        $this->stock->save();
     }
 }

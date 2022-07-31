@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Requests\CreateCompraRequest;
 use App\Http\Requests\UpdateCompraRequest;
 use App\Models\Compra;
+use App\Models\CompraDetalle;
 use App\Models\CompraEstado;
 use App\Models\Item;
 use App\Models\Proveedor;
@@ -111,7 +112,7 @@ class CompraController extends AppBaseController
         /** @var Compra $compra */
         $compra = Compra::create($input);
 
-        Flash::success('Compra guardado exitosamente.');
+        flash()->success('Compra guardado exitosamente.');
 
         return redirect(route('compras.index'));
     }
@@ -129,7 +130,7 @@ class CompraController extends AppBaseController
         $compra = Compra::find($id);
 
         if (empty($compra)) {
-            Flash::error('Compra no encontrado');
+            flash()->error('Compra no encontrado');
 
             return redirect(route('compras.index'));
         }
@@ -150,7 +151,7 @@ class CompraController extends AppBaseController
         $compra = Compra::find($id);
 
         if (empty($compra)) {
-            Flash::error('Compra no encontrado');
+            flash()->error('Compra no encontrado');
 
             return redirect(route('compras.index'));
         }
@@ -172,7 +173,7 @@ class CompraController extends AppBaseController
         $compra = Compra::find($id);
 
         if (empty($compra)) {
-            Flash::error('Compra no encontrado');
+            flash()->error('Compra no encontrado');
 
             return redirect(route('compras.index'));
         }
@@ -242,14 +243,14 @@ class CompraController extends AppBaseController
         $compra = Compra::find($id);
 
         if (empty($compra)) {
-            Flash::error('Compra no encontrado');
+            flash()->error('Compra no encontrado');
 
             return redirect(route('compras.index'));
         }
 
         $compra->delete();
 
-        Flash::success('Compra deleted successfully.');
+        flash()->success('Compra deleted successfully.');
 
         return redirect(route('compras.index'));
     }
@@ -296,21 +297,18 @@ class CompraController extends AppBaseController
         try {
             DB::beginTransaction();
 
-            $compra->cestado_id = Cestado::ANULADA;
+            $compra->estado_id = CompraEstado::ANULADA;
             $compra->save();
-            $detalles = $compra->compraDetalles;
-            $compra->compraDetalles()->delete();
 
-            //Regresa las cantidades de los lotes en tabla stocks
-            foreach ($detalles as $det){
-                foreach ($det->stocks as $stock){
-                    $stock->cantidad = $stock->cantidad - $stock->pivot->cantidad;
-                    $stock->save();
-                }
 
-                $det->kardex()->delete();
+            /**
+             * @var CompraDetalle $detatlle
+             */
+            foreach ($compra->detalles as $detatlle){
+                $detatlle->anular();
             }
 
+//            $compra->detalles()->delete();
 //            $compra->precioPromedioItems();
 
 
@@ -318,13 +316,8 @@ class CompraController extends AppBaseController
         } catch (\Exception $exception) {
             DB::rollBack();
 
-            if (Auth::user()->isDev()){
-                throw new \Exception($exception);
-            }
+            errorException($exception);
 
-            $msg = Auth::user()->isAdmin() ? $exception->getMessage() : 'Hubo un error intente de nuevo';
-
-            flash('Error: '.$msg)->error()->important();
             return redirect()->back();
         }
 
@@ -332,7 +325,7 @@ class CompraController extends AppBaseController
         DB::commit();
 
 
-        Flash::success('Listo! compra anulada.');
+        flash()->success('Listo! compra anulada.');
 
         return redirect(route('compras.index'));
     }
@@ -406,7 +399,7 @@ class CompraController extends AppBaseController
                 compras c inner join compra_detalles d on c.id= d.compra_id
             where
                 month(c.fecha_ingreso)=MONTH(CURDATE())
-                and c.cestado_id  in($recibidas)
+                and c.estado_id  in($recibidas)
                 and c.deleted_at IS NULL
             group by
                 1

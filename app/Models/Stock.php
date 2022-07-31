@@ -265,7 +265,7 @@ class Stock extends Model
                 'lote' =>  $lote,
                 'fecha_ven' => $fechaVence,
                 'cantidad' =>  $cantida,
-                'cnt_ini' =>  $cantida,
+                'cantidad_inicial' =>  $cantida,
                 'orden_salida' => 0
             ];
 
@@ -367,7 +367,7 @@ class Stock extends Model
                 'lote' =>  $lote,
                 'fecha_ven' => $fechaVence,
                 'cantidad' =>  $cantida,
-                'cnt_ini' =>  $cantida,
+                'cantidad_inicial' =>  $cantida,
                 'orden_salida' => 0
             ];
 
