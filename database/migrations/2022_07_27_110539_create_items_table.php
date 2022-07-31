@@ -28,6 +28,7 @@ class CreateItemsTable extends Migration
             $table->decimal('stock_minimo', 14, 6)->nullable();
             $table->decimal('stock_maximo', 14, 6)->nullable();
             $table->string('ubicacion', 45)->nullable();
+            $table->boolean('inventariable')->nullable()->default(1);
             $table->boolean('perecedero')->nullable()->default(0);
             $table->timestamps();
             $table->softDeletes();

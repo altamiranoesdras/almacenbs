@@ -14,7 +14,7 @@ class AddForeignKeysToUnimedsTable extends Migration
     public function up()
     {
         Schema::table('unimeds', function (Blueprint $table) {
-            $table->foreign('magnitude_id', 'fk_unimeds_magnitudes1')->references('id')->on('magnitudes')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('magnitud_id', 'fk_unimeds_magnitudes1')->references('id')->on('magnitudes')->onUpdate('NO ACTION')->onDelete('NO ACTION');
         });
     }
 

@@ -97,6 +97,7 @@ class Item extends Model implements HasMedia
         'stock_minimo',
         'stock_maximo',
         'ubicacion',
+        'inventariable',
         'perecedero'
     ];
 

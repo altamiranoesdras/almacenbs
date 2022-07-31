@@ -3,10 +3,9 @@
 namespace App\DataTables;
 
 use App\Models\Item;
-use App\extensiones\DataTable;
-use App\VistaItem;
-use Yajra\DataTables\EloquentDataTable;
+use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\Services\DataTable;
 
 class ItemDataTable extends DataTable
 {
@@ -18,24 +17,17 @@ class ItemDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        $dataTable = new EloquentDataTable($query);
 
-        return $dataTable
-            ->addColumn('action', function ($item){
-                return view('items.datatables_actions',compact('item'))->render();
-            })
-            ->editColumn('marca_nombre', function ($item){
-                return $item->marca->nombre ?? 'Sin marca';
-            })
-            ->editColumn('unimed_nombre', function ($item){
-                return $item->unimed->nombre ?? 'Sin U/M';
-            })
-            ->editColumn('precio_venta',function ($data){
-                return nfp($data->precio_venta);
+        return datatables()
+            ->eloquent($query)
+            ->addColumn('action', function(Item $item){
 
+                 $id = $item->id;
+
+                 return view('items.datatables_actions',compact('item','id'))->render();
             })
             ->editColumn('precio_compra',function ($data){
-                return nfp($data->precio_compra);
+                return dvs().' '.nfp($data->precio_compra);
 
             })
             ->editColumn('stock',function ($item){
@@ -50,12 +42,12 @@ class ItemDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Post $model
+     * @param \App\Models\Item $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Item $model)
     {
-        return $model->newQuery()->with(['stocks']);
+        return $model->newQuery()->select('items.*')->with(['stocks','renglon','marca','unimed']);
     }
 
     /**
@@ -66,24 +58,37 @@ class ItemDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-            ->columns($this->getColumns())
-            ->minifiedAjax()
-            ->addAction(['width' => '15%','printable' => false, 'title' => 'Acción'])
-            ->parameters([
-                'dom'     => 'Bfrtip',
-                'order'   => [[0, 'desc']],
-                'language' => ['url' => asset('js/SpanishDataTables.json')],
-                //'scrollX' => false,
-                'stateSave' => true,
-                'responsive' => true,
-                'buttons' => [
-                    ['extend' => 'create', 'text' => '<i class="fa fa-plus"></i> <span class="d-none d-sm-inline">Crear</span>'],
-                    ['extend' => 'print', 'text' => '<i class="fa fa-print"></i> <span class="d-none d-sm-inline">Imprimir</span>'],
-                    ['extend' => 'reload', 'text' => '<i class="fa fa-sync-alt"></i> <span class="d-none d-sm-inline">Recargar</span>'],
-                    ['extend' => 'reset', 'text' => '<i class="fa fa-undo"></i> <span class="d-none d-sm-inline">Reiniciar</span>'],
-                    ['extend' => 'export', 'text' => '<i class="fa fa-download"></i> <span class="d-none d-sm-inline">Exportar</span>'],
-                ],
-            ]);
+                    ->columns($this->getColumns())
+                    ->minifiedAjax()
+                    ->ajax([
+                        'data' => "function(data) { formatDataDataTables($('#formFiltersDatatables').serializeArray(), data);   }"
+                    ])
+                    ->info(true)
+                    ->language(['url' => asset('js/SpanishDataTables.json')])
+                    ->responsive(true)
+                    ->orderBy(1,'desc')
+                    ->stateSave(true)
+                    ->dom('
+                        <"row mb-2"
+                            <"col-sm-12 col-md-6" B>
+                            <"col-sm-12 col-md-6" f>
+                        >
+                        rt
+                        <"row"
+                            <"col-sm-6 order-2 order-sm-1" ip>
+                            <"col-sm-6 order-1 order-sm-2 text-right" l>
+
+                        >
+                    ')
+                    ->buttons(
+
+                        Button::make('print')
+                            ->text('<i class="fa fa-print"></i> <span class="d-none d-sm-inline">Imprimir</span>'),
+                        Button::make('reset')
+                            ->text('<i class="fa fa-undo"></i> <span class="d-none d-sm-inline">Reiniciar</span>'),
+                        Button::make('export')
+                            ->text('<i class="fa fa-download"></i> <span class="d-none d-sm-inline">Exportar</span>'),
+                    );
     }
 
     /**
@@ -94,14 +99,25 @@ class ItemDataTable extends DataTable
     protected function getColumns()
     {
         return [
-//            'imagen' ,
-            Column::make('código')->name('codigo')->data('codigo'),
-            Column::make('nombre')->name('nombre')->data('nombre'),
-            Column::make('precio_v')->name('precio_venta')->data('precio_venta'),
-            Column::make('marca')->name('marca.nombre')->data('marca_nombre'),
-            Column::make('U/M')->name('unimed.nombre')->data('unimed_nombre'),
-            Column::make('stock')->searchable(false),
-            Column::make('ubicación')->name('ubicacion')->data('ubicacion'),
+            Column::make('imagen'),
+            Column::make('codigo'),
+            Column::make('nombre'),
+            Column::make('renglon')->name('renglon.numero')->data('renglon.numero'),
+            Column::make('renglon_descripcion')
+                ->name('renglon.descripcion')
+                ->data('renglon.descripcion')
+                ->visible(false)
+                ->exportable(false),
+            Column::make('marca')->name('marca.nombre')->data('marca.nombre'),
+            Column::make('U/M')->name('unimed.nombre')->data('unimed.nombre'),
+            Column::make('stock'),
+            Column::make('precio_compra'),
+            Column::make('ubicacion'),
+            Column::computed('action')
+                            ->exportable(false)
+                            ->printable(false)
+                            ->width('15%')
+                            ->addClass('text-center'),
         ];
     }
 
@@ -112,6 +128,6 @@ class ItemDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'itemsdatatable_' . time();
+        return 'items_'  . date('YmdHis');
     }
 }

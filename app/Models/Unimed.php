@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property \App\Models\Magnitude $magnitude
  * @property \Illuminate\Database\Eloquent\Collection $items
- * @property integer $magnitude_id
+ * @property integer $magnitud_id
  * @property string $simbolo
  * @property string $nombre
  */
@@ -34,7 +34,7 @@ class Unimed extends Model
 
 
     public $fillable = [
-        'magnitude_id',
+        'magnitud_id',
         'simbolo',
         'nombre'
     ];
@@ -46,7 +46,7 @@ class Unimed extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'magnitude_id' => 'integer',
+        'magnitud_id' => 'integer',
         'simbolo' => 'string',
         'nombre' => 'string'
     ];
@@ -57,7 +57,7 @@ class Unimed extends Model
      * @var array
      */
     public static $rules = [
-        'magnitude_id' => 'required',
+        'magnitud_id' => 'required',
         'simbolo' => 'required|string|max:10',
         'nombre' => 'required|string|max:45',
         'created_at' => 'nullable',
@@ -68,9 +68,9 @@ class Unimed extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
-    public function magnitude()
+    public function magnitud()
     {
-        return $this->belongsTo(\App\Models\Magnitude::class, 'magnitude_id');
+        return $this->belongsTo(\App\Models\Magnitud::class, 'magnitud_id');
     }
 
     /**

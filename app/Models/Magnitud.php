@@ -61,6 +61,6 @@ class Magnitud extends Model
      **/
     public function unimeds()
     {
-        return $this->hasMany(\App\Models\Unimed::class, 'magnitude_id');
+        return $this->hasMany(\App\Models\Unimed::class, 'magnitud_id');
     }
 }

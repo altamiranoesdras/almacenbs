@@ -1,6 +1,6 @@
 <!-- Magnitude Id Field -->
-{!! Form::label('magnitude_id', 'Magnitude Id:') !!}
-{!! $unimed->magnitude_id !!}<br>
+{!! Form::label('magnitud_id', 'Magnitude:') !!}
+{!! $unimed->magnitud->nombre ?? '' !!}<br>
 
 
 <!-- Simbolo Field -->

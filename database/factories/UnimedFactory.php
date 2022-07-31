@@ -22,7 +22,7 @@ class UnimedFactory extends Factory
     public function definition()
     {
         return [
-            'magnitude_id' => $this->faker->word,
+            'magnitud_id' => $this->faker->word,
         'simbolo' => $this->faker->word,
         'nombre' => $this->faker->word,
         'created_at' => $this->faker->date('Y-m-d H:i:s'),

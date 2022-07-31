@@ -30,9 +30,6 @@ class UnimedDataTable extends DataTable
 
                  return $unimed->id;
 
-                 //se debe crear la vista modal_detalles
-                 //return view('unimeds.modal_detalles',compact('unimed'))->render();
-
              })
             ->rawColumns(['action','id']);
 
@@ -46,7 +43,7 @@ class UnimedDataTable extends DataTable
      */
     public function query(Unimed $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()->with(['magnitud']);
     }
 
     /**
@@ -98,7 +95,7 @@ class UnimedDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('magnitude_id'),
+            Column::make('magnitud')->data('magnitud.nombre')->name('magnitud.nombre'),
             Column::make('simbolo'),
             Column::make('nombre'),
             Column::computed('action')
