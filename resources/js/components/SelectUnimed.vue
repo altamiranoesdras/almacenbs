@@ -142,7 +142,7 @@ export default {
 
             try {
 
-                var res = await axios.get(route('api.unimedes.index'));
+                var res = await axios.get(route('api.unimeds.index'));
 
                 this.items_api  = res.data.data;
 

@@ -290,4 +290,129 @@ class CompraController extends AppBaseController
 
         return 1;
     }
+
+    public function anular(Compra $compra){
+
+        try {
+            DB::beginTransaction();
+
+            $compra->cestado_id = Cestado::ANULADA;
+            $compra->save();
+            $detalles = $compra->compraDetalles;
+            $compra->compraDetalles()->delete();
+
+            //Regresa las cantidades de los lotes en tabla stocks
+            foreach ($detalles as $det){
+                foreach ($det->stocks as $stock){
+                    $stock->cantidad = $stock->cantidad - $stock->pivot->cantidad;
+                    $stock->save();
+                }
+
+                $det->kardex()->delete();
+            }
+
+//            $compra->precioPromedioItems();
+
+
+
+        } catch (\Exception $exception) {
+            DB::rollBack();
+
+            if (Auth::user()->isDev()){
+                throw new \Exception($exception);
+            }
+
+            $msg = Auth::user()->isAdmin() ? $exception->getMessage() : 'Hubo un error intente de nuevo';
+
+            flash('Error: '.$msg)->error()->important();
+            return redirect()->back();
+        }
+
+
+        DB::commit();
+
+
+        Flash::success('Listo! compra anulada.');
+
+        return redirect(route('compras.index'));
+    }
+
+    public function ingreso($id){
+
+
+        try {
+            DB::beginTransaction();
+
+            $compra = Compra::with('detalles.item.stocks')->find($id);
+
+            $compra->procesaIngreso();
+
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            if (Auth::user()->isDev()){
+                dd($exception->getMessage(),$exception->getLine());
+            }
+
+            $msg = Auth::user()->isAdmin() ? $exception->getMessage() : 'Hubo un error intente de nuevo';
+
+            flash('Error: '.$msg)->error()->important();
+            return redirect()->back();
+        }
+
+
+        DB::commit();
+
+        flash('Ingreso Realizado')->success();
+
+        if($compra){
+            //Mail::send(new RecepcionCompra($compra));
+        }
+
+        return redirect(route('compras.index'));
+
+    }
+
+    public function pdf(Compra $compra){
+
+//        dd('este es el metodo que genera el pdf', $compra->toArray());
+
+        $pdf = App::make('snappy.pdf.wrapper');
+
+        $view = \View::make('compras.pdf', compact('compra'))->render();
+        $footer = \View::make('compras.pdf_footer')->render();
+
+        $pdf->loadHTML($view)
+            ->setPaper('letter')
+            ->setOrientation('portrait')
+            ->setOption('footer-html',utf8_decode($footer))
+            ->setOption('margin-top',2)
+            ->setOption('margin-bottom',10)
+            ->setOption('margin-left',2)
+            ->setOption('margin-right',2)
+            ->stream('report.pdf');
+        return $pdf->inline();
+
+    }
+
+    public function rptComprasDiarias(){
+
+        $diasMes=diasMesActual();
+        $recibidas = Cestado::RECIBIDA;
+
+        $results = DB::select( DB::raw("
+            select
+                date(c.fecha_ingreso) dia,sum((d.cantidad* d.precio)) monto
+            from
+                compras c inner join compra_detalles d on c.id= d.compra_id
+            where
+                month(c.fecha_ingreso)=MONTH(CURDATE())
+                and c.cestado_id  in($recibidas)
+                and c.deleted_at IS NULL
+            group by
+                1
+        ") );
+
+        return view('reportes.compras.rpt_compras_dia', compact('results'));
+    }
+
 }

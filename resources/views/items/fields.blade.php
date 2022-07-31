@@ -104,32 +104,16 @@
 
                             <!-- Unimed Id Field -->
                             <div class="form-group col-sm-6">
-                                <label for="marca_id" class="control-label">Unidad de Medida: <a class="success" data-toggle="modal" href="#modal-form-unimeds" tabindex="1000">nueva</a></label>
-                                {!!
-                                    Form::select(
-                                        'unimed_id',
-                                        \App\Models\Unimed::pluck('nombre','id')->toArray()
-                                        , null
-                                        , ['class' => 'form-control select2-simple',"id" => 'unimeds','multiple'=>'multiple','style'=>'width: 100%']
-                                    )
-                                !!}
+                                <select-unimed v-model="unimed" label="Unidad de medida"></select-unimed>
                             </div>
 
                             <!-- Marca Id Field -->
                             <div class="form-group col-sm-6">
-                                <label for="marca_id" class="control-label">Marca: <a class="success" data-toggle="modal" href="#modal-form-marcas" tabindex="1000">nueva</a></label>
-                                {!!
-                                    Form::select(
-                                        'marca_id',
-                                        \App\Models\Marca::pluck('nombre','id')->toArray(),
-                                        null,
-                                        ['class' => 'form-control select2-simple','id'=>'marcas','multiple'=>"multiple",'style'=>'width: 100%']
-                                    )
-                                !!}
+                                <select-marca v-model="marca" label="Marca"></select-marca>
                             </div>
 
                             <!-- Ubicacion Field -->
-                            <div class="form-group col-sm-4">
+                            <div class="form-group col-sm-12">
                                 {!! Form::label('ubicacion', 'Ubicacion:') !!}
                                 {!! Form::text('ubicacion', null, ['class' => 'form-control']) !!}
                             </div>

@@ -17,7 +17,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  *
  * @property \App\Models\Unimed $unimed
  * @property \App\Models\ItemCategoria $categoria
- * @property \App\Models\Renglone $renglon
+ * @property \App\Models\Renglon $renglon
  * @property \App\Models\Marca $marca
  * @property \Illuminate\Database\Eloquent\Collection $compra1hDetalles
  * @property \Illuminate\Database\Eloquent\Collection $compraDetalles
@@ -169,7 +169,7 @@ class Item extends Model implements HasMedia
      **/
     public function renglon()
     {
-        return $this->belongsTo(\App\Models\Renglone::class, 'renglon_id');
+        return $this->belongsTo(\App\Models\Renglon::class, 'renglon_id');
     }
 
     /**

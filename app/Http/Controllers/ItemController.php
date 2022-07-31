@@ -7,12 +7,16 @@ use App\Http\Requests;
 use App\Http\Requests\CreateItemRequest;
 use App\Http\Requests\UpdateItemRequest;
 use App\Models\Item;
+use App\Models\User;
+use App\Traits\ItemTrait;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\DB;
 use Response;
 
 class ItemController extends AppBaseController
 {
+    use ItemTrait;
 
     public function __construct()
     {
@@ -52,12 +56,35 @@ class ItemController extends AppBaseController
      */
     public function store(CreateItemRequest $request)
     {
-        $input = $request->all();
 
-        /** @var Item $item */
-        $item = Item::create($input);
+        /**
+         * @var User $user
+         */
+        $user = auth()->user();
 
-        Flash::success('Item guardado exitosamente.');
+        try {
+            DB::beginTransaction();
+
+            $this->procesarStore($request);
+
+        } catch (\Exception $exception) {
+            DB::rollBack();
+
+            if ($user->isDev()){
+                throw $exception;
+            }
+
+            $msg = $user->isAdmin() ? $exception->getMessage() : 'Hubo un error intente de nuevo';
+
+            flash('Error: '.$msg)->error()->important();
+
+            return redirect()->back();
+        }
+
+
+        DB::commit();
+
+        flash('Item guardado exitosamente.')->success();
 
         return redirect(route('items.index'));
     }

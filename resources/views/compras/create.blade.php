@@ -51,7 +51,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <div class="form-group">
+                                <div class="form-group mb-4">
                                     <select-items
                                         api="{{route('api.items.index')}}"
                                         tienda="1"
@@ -66,7 +66,9 @@
                                     <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text" data-toggle="tooltip" title="Fecha Vence">FV</span>
+                                                <span class="input-group-text" data-toggle="tooltip" title="Fecha Vence">
+                                                    Fecha Vence
+                                                </span>
                                             </div>
                                             <input
                                                 v-model="editedItem.fecha_ven"
@@ -105,12 +107,12 @@
                                                 ref="precio"
                                                 class="form-control"
                                                 placeholder="Precio compra"
-                                                @keydown.enter.prevent="save"
+                                                @keydown.enter.prevent="siguienteCampo('agregar')"
                                             >
                                             <span class="input-group-append">
-                                                <button type="button" id="btn-agregar" class="btn btn-success" @click.prevent="save" :disabled="loading" >
+                                                <button type="button" ref="agregar" class="btn btn-success" @click.prevent="save" :disabled="loading" >
                                                     <span v-show="loading" >
-                                                        <i class="fa fa-sync-alt fa-spin"></i>
+                                                        <i class="fa fa-spinner fa-spin"></i>
                                                     </span>
                                                     <span v-show="!loading" class="glyphicon glyphicon-plus"></span>
                                                     Agregar
@@ -249,6 +251,9 @@
                         notifyErrorApi(e);
                     }
 
+                    this.loading = false;
+
+
                 },
                 async save () {
 
@@ -309,9 +314,16 @@
                     }
                 },
                 siguienteCampo: function (campo){
-                    $(this.$refs[campo]).focus().select();
+
+                    if (campo=='agregar'){
+                        $(this.$refs[campo]).focus().select();
+                    }else {
+
+                        $(this.$refs[campo]).focus().select();
+                    }
                 },
                 abreSelectorItems () {
+                    this.itemSelect = null;
                     this.$refs.multiselect.$refs.multiselect.$el.focus();
 
                 }

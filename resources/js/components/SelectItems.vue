@@ -3,7 +3,7 @@
       <multiselect
           v-model="item"
           ref="multiselect"
-          placeholder="Ingrese código,nombre o descripción para la búsqueda"
+          placeholder="Buscador de articulos"
           label="nombre"
           track-by="id"
           open-direction="bottom"
@@ -15,12 +15,16 @@
           :internal-search="false"
           :clear-on-select="true"
           :close-on-select="true"
+          :allow-empty="false"
           :options-limit="20"
           :max-height="600"
           :show-no-results="false"
           :hide-selected="false"
           @search-change="asyncFind"
           @select="clear"
+          selectLabel="Presione enter para selecionar"
+          selectedLabel="Seleccionado"
+          deselectLabel="Presione enter para remover"
       >
 
 
@@ -87,6 +91,11 @@
           </template>
 
           <span slot="noResult">Oops! No se encontraron elementos. Considere cambiar la consulta de búsqueda.</span>
+
+
+          <template slot="noOptions">
+              Ingrese código,nombre o descripción para la búsqueda
+          </template>
 
       </multiselect>
   </div>
