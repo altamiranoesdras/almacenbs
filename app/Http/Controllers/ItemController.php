@@ -279,7 +279,7 @@ class ItemController extends AppBaseController
 
         flash('Datos Importados con Exito!')->success();
 
-        return redirect(route('items.import.view'));
+        return redirect(route('items.importar'));
 
     }
 }

@@ -50,7 +50,7 @@
                                             <div class="form-group col-sm-3">
                                                 <label for="">&nbsp;</label>
                                                 <a class="btn btn-outline-success"
-                                                   href="{!! asset('plantilla_importar_articulos.xlsx') !!}">
+                                                   href="{{ asset('plantilla_importar_articulos.xlsx') }}">
                                                     <i class="fa fa-download"></i>
                                                     <span class="d-none d-sm-inline">Descargar Plantilla</span>
                                                 </a>

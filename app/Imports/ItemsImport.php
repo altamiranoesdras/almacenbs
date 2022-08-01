@@ -50,7 +50,7 @@ class ItemsImport implements ToCollection, WithHeadingRow
 
 
 
-            if($row['nombre'] && $row['precio_venta'] && $row['stockexistencias']!==''){
+            if($row['nombre'] && $row['precio_compra'] && $row['stockexistencias']!==''){
 
 
                 if ($row['marca']!='') {

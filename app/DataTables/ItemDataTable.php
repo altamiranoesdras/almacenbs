@@ -30,7 +30,13 @@ class ItemDataTable extends DataTable
                 return dvs().' '.nfp($data->precio_compra);
 
             })
-            ->editColumn('stock',function ($item){
+            ->editColumn('marca.nombre',function (Item $item){
+                return $item->marca->nombre ?? '';
+            })
+            ->editColumn('unimed.nombre',function (Item $item){
+                return $item->unimed->nombre ?? '';
+            })
+            ->editColumn('stock',function (Item $item){
                 return $item->stocks->sum('cantidad');
             })
             ->editColumn('imagen',function (Item $item){
