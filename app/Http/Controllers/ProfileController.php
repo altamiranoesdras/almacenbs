@@ -52,4 +52,13 @@ class ProfileController extends Controller
         return response()->json($user->toArray());
 
     }
+
+    public function removeAvatar(User $user)
+    {
+        $user->clearMediaCollection('avatars');
+
+        flash('Listo.')->success();
+
+        return redirect(route('profile'));
+    }
 }

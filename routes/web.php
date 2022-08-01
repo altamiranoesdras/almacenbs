@@ -82,6 +82,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('profile', [ProfileController::class,'index'])->name('profile');
     Route::patch('profile/{user}', [ProfileController::class,'update'])->name('profile.update');
     Route::post('profile/{user}/edit/avatar', [ProfileController::class,'editAvatar'])->name('profile.edit.avatar');
+    Route::get('profile/{user}/remove/avatar', [ProfileController::class,'removeAvatar'])->name('profile.remove.avatar');
+
 
     Route::resource('users', UserController::class);
     Route::get('user/{user}/menu', [UserController::class,'menu'])->name('user.menu');;
