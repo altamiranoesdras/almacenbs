@@ -19,7 +19,7 @@ class MagnitudApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/magnituds', $magnitud
+            '/api/magnitudes', $magnitud
         );
 
         $this->assertApiResponse($magnitud);
@@ -34,7 +34,7 @@ class MagnitudApiTest extends TestCase
 
         $this->response = $this->json(
             'GET',
-            '/api/magnituds/'.$magnitud->id
+            '/api/magnitudes/'.$magnitud->id
         );
 
         $this->assertApiResponse($magnitud->toArray());
@@ -50,7 +50,7 @@ class MagnitudApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/magnituds/'.$magnitud->id,
+            '/api/magnitudes/'.$magnitud->id,
             $editedMagnitud
         );
 
@@ -66,13 +66,13 @@ class MagnitudApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/magnituds/'.$magnitud->id
+             '/api/magnitudes/'.$magnitud->id
          );
 
         $this->assertApiSuccess();
         $this->response = $this->json(
             'GET',
-            '/api/magnituds/'.$magnitud->id
+            '/api/magnitudes/'.$magnitud->id
         );
 
         $this->response->assertStatus(404);

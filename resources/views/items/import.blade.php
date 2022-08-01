@@ -34,7 +34,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{route('items.import')}}" id="formImport"
+                            <form action="{{route('items.importar.store')}}" id="formImport"
                                   method="post"
                                   enctype='multipart/form-data'
                                   autocomplete='off'

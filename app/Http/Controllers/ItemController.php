@@ -6,12 +6,16 @@ use App\DataTables\ItemDataTable;
 use App\Http\Requests;
 use App\Http\Requests\CreateItemRequest;
 use App\Http\Requests\UpdateItemRequest;
+use App\Imports\ItemsImport;
 use App\Models\Item;
 use App\Models\User;
 use App\Traits\ItemTrait;
+use Exception;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Validators\ValidationException;
 use Response;
 
 class ItemController extends AppBaseController
@@ -183,5 +187,99 @@ class ItemController extends AppBaseController
         Flash::success('Item deleted successfully.');
 
         return redirect(route('items.index'));
+    }
+
+    public function precioCostoCeroView()
+    {
+        $items = Item::where('precio_compra',0)->orderBy('icategoria_id')->get();
+        return view('items.precio_compra_cero',compact('items'));
+    }
+
+    public function precioCostoCeroStore(Request $request)
+    {
+        $precios = $request->precios;
+        foreach ($request->items as $i => $itemId){
+
+            $item = Item::find($itemId);
+            if($precios[$i]){
+//                dump('Editar precio compra de '.$item->nombre.': '.$item->precio_compra.' => '.$precios[$i]);
+                $item->precio_compra = $precios[$i];
+                $item->save();
+            }
+        }
+
+//        dd();
+
+        $items = Item::where('precio_compra',0)->orderBy('icategoria_id')->get();
+        return redirect(route('items.precio.compra.cero'));
+    }
+
+    public function importar()
+    {
+
+        return view('items.import');
+
+    }
+
+    public function importarStore(Request $request)
+    {
+
+
+
+        try {
+
+            DB::beginTransaction();
+
+
+            $import = new ItemsImport();
+
+
+            $import->import($request->file('file'));
+
+
+
+            $codigosExistentes = $import->getCodigosExistentes();
+
+
+        }
+        catch (ValidationException $e) {
+            DB::rollBack();
+            $erros = array();
+            foreach ($e->failures() as $failure) {
+                $erros[] = "Error en fila ".$failure->row().": ".implode($failure->errors());
+            }
+
+            flash('error', 'Ocurrio un error al intentar importar los datos!')->error();
+
+            return redirect()->back()->withErrors(['REVISA EL ENCABEZADO Y/O PIE DEL ARCHIVO.', 'Ocurrio un error en los datos y/o la estructura del archivo.', $erros]);
+        }
+        catch (Exception $e){
+
+
+            DB::rollBack();
+
+            throw $e;
+
+            return redirect()->back()->withErrors(['ERROR AL TRATAR DE LEER EL ARCHIVO.','REVISA QUE EL ARCHIVO TENGA EL FORMATO CORRECTO.']);
+        }
+
+        DB::commit();
+
+
+
+        if ($codigosExistentes->count() > 0){
+            flash('error', 'Ocurrio un error al intentar importar los datos!')->error();
+
+
+            $codigosExistentes->prepend('NO SE INSERTARON LOS SIGUIENTES REGISTROS PORQUE YA EXISTE EL CÓDIGO');
+
+            return redirect()->back()->withErrors($codigosExistentes->toArray());
+        }
+
+
+        flash('Datos Importados con Exito!')->success();
+
+        return redirect(route('items.import.view'));
+
     }
 }

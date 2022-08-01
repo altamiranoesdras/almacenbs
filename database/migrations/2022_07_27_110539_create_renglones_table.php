@@ -15,7 +15,7 @@ class CreateRenglonesTable extends Migration
     {
         Schema::create('renglones', function (Blueprint $table) {
             $table->id();
-            $table->integer('numero')->nullable();
+            $table->string('numero')->unique();
             $table->text('descripcion')->nullable();
             $table->timestamps();
             $table->softDeletes();

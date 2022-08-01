@@ -18,7 +18,7 @@ class MagnitudAPIController extends AppBaseController
 {
     /**
      * Display a listing of the Magnitud.
-     * GET|HEAD /magnituds
+     * GET|HEAD /magnitudes
      *
      * @param Request $request
      * @return Response
@@ -41,7 +41,7 @@ class MagnitudAPIController extends AppBaseController
 
     /**
      * Store a newly created Magnitud in storage.
-     * POST /magnituds
+     * POST /magnitudes
      *
      * @param CreateMagnitudAPIRequest $request
      *
@@ -59,7 +59,7 @@ class MagnitudAPIController extends AppBaseController
 
     /**
      * Display the specified Magnitud.
-     * GET|HEAD /magnituds/{id}
+     * GET|HEAD /magnitudes/{id}
      *
      * @param int $id
      *
@@ -79,7 +79,7 @@ class MagnitudAPIController extends AppBaseController
 
     /**
      * Update the specified Magnitud in storage.
-     * PUT/PATCH /magnituds/{id}
+     * PUT/PATCH /magnitudes/{id}
      *
      * @param int $id
      * @param UpdateMagnitudAPIRequest $request
@@ -103,7 +103,7 @@ class MagnitudAPIController extends AppBaseController
 
     /**
      * Remove the specified Magnitud from storage.
-     * DELETE /magnituds/{id}
+     * DELETE /magnitudes/{id}
      *
      * @param int $id
      *

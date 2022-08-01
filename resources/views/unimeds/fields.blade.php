@@ -6,7 +6,7 @@
             'magnitud_id',
             select(\App\Models\Magnitud::class,'nombre','id',null,null)
             , null
-            , ['id'=>'magnituds','class' => 'form-control select2-simplge','style'=>'width: 100%']
+            , ['id'=>'magnitudes','class' => 'form-control select2-simplge','style'=>'width: 100%']
         )
     !!}
 </div>

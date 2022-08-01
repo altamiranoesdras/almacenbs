@@ -119,7 +119,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::resource('marcas', MarcaController::class);
 
 
-    Route::resource('magnituds', MagnitudController::class);
+    Route::resource('magnitudes', MagnitudController::class);
 
 
     Route::resource('unimeds', UnimedController::class);
@@ -127,6 +127,9 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     Route::resource('renglons', RenglonController::class);
 
+
+    Route::get('items/import', [ItemController::class,'importar'])->name('items.importar');
+    Route::post('items/import', [ItemController::class,'importarStore'])->name('items.importar.store');
 
     Route::resource('items', ItemController::class);
 

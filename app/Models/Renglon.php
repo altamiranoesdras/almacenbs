@@ -44,7 +44,7 @@ class Renglon extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'numero' => 'integer',
+        'numero' => 'string',
         'descripcion' => 'string'
     ];
 
@@ -54,11 +54,8 @@ class Renglon extends Model
      * @var array
      */
     public static $rules = [
-        'numero' => 'nullable|integer',
+        'numero' => 'required|string',
         'descripcion' => 'nullable|string',
-        'created_at' => 'nullable',
-        'updated_at' => 'nullable',
-        'deleted_at' => 'nullable'
     ];
 
     /**

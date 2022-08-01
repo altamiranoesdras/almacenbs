@@ -15,7 +15,7 @@
                     <ol class="breadcrumb float-right">
                         <li class="breadcrumb-item">
                             <a class="btn btn-outline-success"
-                                href="{!! route('magnituds.create') !!}">
+                                href="{!! route('magnitudes.create') !!}">
                                 <i class="fa fa-plus"></i>
                                 <span class="d-none d-sm-inline">{{__('New')}}</span>
                             </a>
@@ -35,11 +35,11 @@
             <div class="clearfix"></div>
             <div class="card card-primary">
                 <div class="card-body">
-                        @include('magnituds.table')
+                        @include('magnitudes.table')
                 </div>
             </div>
             <div class="text-center">
-                
+
             </div>
         </div>
     </div>

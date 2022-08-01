@@ -24,14 +24,14 @@ class MagnitudDataTable extends DataTable
 
                  $id = $magnitud->id;
 
-                 return view('magnituds.datatables_actions',compact('magnitud','id'))->render();
+                 return view('magnitudes.datatables_actions',compact('magnitud','id'))->render();
              })
              ->editColumn('id',function (Magnitud $magnitud){
 
                  return $magnitud->id;
 
                  //se debe crear la vista modal_detalles
-                 //return view('magnituds.modal_detalles',compact('magnitud'))->render();
+                 //return view('magnitudes.modal_detalles',compact('magnitud'))->render();
 
              })
             ->rawColumns(['action','id']);

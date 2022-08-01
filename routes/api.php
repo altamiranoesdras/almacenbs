@@ -41,7 +41,7 @@ Route::group(['as'=>'api.'], function () {
         Route::resource('marcas', App\Http\Controllers\API\MarcaAPIController::class);
 
 
-        Route::resource('magnituds', App\Http\Controllers\API\MagnitudAPIController::class);
+        Route::resource('magnitudes', App\Http\Controllers\API\MagnitudAPIController::class);
 
 
         Route::resource('unimeds', App\Http\Controllers\API\UnimedAPIController::class);

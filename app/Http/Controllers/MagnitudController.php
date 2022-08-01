@@ -30,7 +30,7 @@ class MagnitudController extends AppBaseController
      */
     public function index(MagnitudDataTable $magnitudDataTable)
     {
-        return $magnitudDataTable->render('magnituds.index');
+        return $magnitudDataTable->render('magnitudes.index');
     }
 
     /**
@@ -40,7 +40,7 @@ class MagnitudController extends AppBaseController
      */
     public function create()
     {
-        return view('magnituds.create');
+        return view('magnitudes.create');
     }
 
     /**
@@ -59,7 +59,7 @@ class MagnitudController extends AppBaseController
 
         Flash::success('Magnitud guardado exitosamente.');
 
-        return redirect(route('magnituds.index'));
+        return redirect(route('magnitudes.index'));
     }
 
     /**
@@ -77,10 +77,10 @@ class MagnitudController extends AppBaseController
         if (empty($magnitud)) {
             Flash::error('Magnitud no encontrado');
 
-            return redirect(route('magnituds.index'));
+            return redirect(route('magnitudes.index'));
         }
 
-        return view('magnituds.show')->with('magnitud', $magnitud);
+        return view('magnitudes.show')->with('magnitud', $magnitud);
     }
 
     /**
@@ -98,10 +98,10 @@ class MagnitudController extends AppBaseController
         if (empty($magnitud)) {
             Flash::error('Magnitud no encontrado');
 
-            return redirect(route('magnituds.index'));
+            return redirect(route('magnitudes.index'));
         }
 
-        return view('magnituds.edit')->with('magnitud', $magnitud);
+        return view('magnitudes.edit')->with('magnitud', $magnitud);
     }
 
     /**
@@ -120,7 +120,7 @@ class MagnitudController extends AppBaseController
         if (empty($magnitud)) {
             Flash::error('Magnitud no encontrado');
 
-            return redirect(route('magnituds.index'));
+            return redirect(route('magnitudes.index'));
         }
 
         $magnitud->fill($request->all());
@@ -128,7 +128,7 @@ class MagnitudController extends AppBaseController
 
         Flash::success('Magnitud actualizado con éxito.');
 
-        return redirect(route('magnituds.index'));
+        return redirect(route('magnitudes.index'));
     }
 
     /**
@@ -148,13 +148,13 @@ class MagnitudController extends AppBaseController
         if (empty($magnitud)) {
             Flash::error('Magnitud no encontrado');
 
-            return redirect(route('magnituds.index'));
+            return redirect(route('magnitudes.index'));
         }
 
         $magnitud->delete();
 
         Flash::success('Magnitud deleted successfully.');
 
-        return redirect(route('magnituds.index'));
+        return redirect(route('magnitudes.index'));
     }
 }
