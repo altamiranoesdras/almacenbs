@@ -1,8 +1,13 @@
+@section('css')
+    @include('layouts.datatables_css')
+@endsection
 
+<div class="table-responsive">
+    {!! $dataTable->table(['width' => '100%']) !!}
+</div>
 
-{!! $dataTable->table(['width' => '100%', 'class' => 'table table-striped table-bordered']) !!}
-
-@push('scripts')
+@section('scripts')
+    @include('layouts.datatables_js')
     {!! $dataTable->scripts() !!}
     <script>
         $(function () {
@@ -11,9 +16,8 @@
             //Cuando dibuja la tabla
             dt.on( 'draw.dt', function () {
                 $(this).addClass('table-sm table-striped table-bordered table-hover');
-                $('[data-toggle="tooltip"]').tooltip();
             });
 
         })
     </script>
-@endpush
+@endsection

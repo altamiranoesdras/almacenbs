@@ -46,7 +46,7 @@ class ItemTrasladoDataTable extends DataTable
      */
     public function query(ItemTraslado $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()->with(['itemOrigen','itemDestino','estado']);
     }
 
     /**
@@ -99,14 +99,11 @@ class ItemTrasladoDataTable extends DataTable
     {
         return [
             Column::make('codigo'),
-            Column::make('correlativo'),
-            Column::make('item_origen'),
+            Column::make('item_origen')->data('item_origen.nombre')->name('itemOrigen.nombre'),
             Column::make('cantidad_origen'),
-            Column::make('item_destino'),
+            Column::make('item_destino')->data('item_destino.nombre')->name('itemDestino.nombre'),
             Column::make('cantidad_destino'),
-            Column::make('observaciones'),
-            Column::make('user_id'),
-            Column::make('estado_id'),
+            Column::make('estado')->name('estado.nombre')->data('estado.nombre'),
             Column::computed('action')
                             ->exportable(false)
                             ->printable(false)

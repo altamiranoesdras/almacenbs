@@ -52,6 +52,9 @@
             -webkit-animation-timing-function: linear;
             -webkit-animation-iteration-count: infinite;
         }
+        .esperar {
+
+        }
     </style>
     <!--App css-->
     @yield('css')

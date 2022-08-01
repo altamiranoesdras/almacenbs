@@ -1,23 +1,45 @@
-@can('Ver Item Traslados')
-<a href="{{ route('itemTraslados.show', $id) }}" data-toggle="tooltip" title="Ver" class='btn btn-default btn-sm'>
-    <i class="fa fa-eye"></i>
-</a>
+
+<span data-toggle="tooltip" title="Ver" >
+    <button class='btn btn-default btn-xs' data-toggle="modal" data-target="#modalShowitemTraslados{{$id}}">
+        <i class="fa fa-eye"></i>
+    </button>
+</span>
+
+{{--<a href="{{ route('itemTraslados.edit', $id) }}" class='btn btn-info btn-xs' data-toggle="tooltip" title="Editar">--}}
+{{--    <i class="fa fa-edit"></i>--}}
+{{--</a>--}}
+
+@can('anular traslado entre productos')
+    @if($itemTraslado->puedeAnular() )
+        <a href="#" onclick="deleteItemDt(this)" data-id="{{$itemTraslado->id}}" data-toggle="tooltip" title="Anular Ingreso" class='btn btn-outline-danger btn-xs'>
+            <i class="fa fa-undo-alt"></i>
+        </a>
+
+
+        <form action="{{ route('itemTraslados.anular', $itemTraslado->id)}}" method="POST" id="delete-form{{$itemTraslado->id}}">
+            @method('POST')
+            @csrf
+        </form>
+    @endif
 @endcan
 
-@can('Editar Item Traslados')
-<a href="{{ route('itemTraslados.edit', $id) }}" data-toggle="tooltip" title="Editar" class='btn btn-outline-info btn-sm'>
-    <i class="fa fa-edit"></i>
-</a>
-@endcan
-
-@can('Eliminar Item Traslados')
-<a href="#" onclick="deleteItemDt(this)" data-id="{{$id}}" data-toggle="tooltip" title="Eliminar" class='btn btn-outline-danger btn-sm'>
-    <i class="fa fa-trash-alt"></i>
-</a>
 
 
-<form action="{{ route('itemTraslados.destroy', $id)}}" method="POST" id="delete-form{{$id}}">
-    @method('DELETE')
-    @csrf
-</form>
-@endcan
+<!-- Modal Show -->
+<div class="modal fade" id="modalShowitemTraslados{{$id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modelTitleId">
+                    Item Traslado
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @include('item_traslados.show_fields',['itemTraslado' => $itemTraslado])
+            </div>
+        </div>
+    </div>
+</div>

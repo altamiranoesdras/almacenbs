@@ -1,53 +1,64 @@
 @extends('layouts.app')
 
-@section('title_page',__('New Item Traslado'))
+@section('title_page')
+	Traslado enter unidades
+@endsection
 
 @section('content')
-
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+    <div class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>{{__('New Item Traslado')}}</h1>
-                </div>
+            <div class="row">
+                <div class="col">
+                    <h1 class="m-0 text-dark">
+                        Nuevo Traslado Producto a Producto
+                    </h1>
+                </div><!-- /.col -->
                 <div class="col ">
                     <a class="btn btn-outline-info float-right"
                        href="{{route('itemTraslados.index')}}">
-                        <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span class="d-none d-sm-inline">{{__('List')}}</span>
+                        <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span class="d-none d-sm-inline">Listado Traslados</span>
                     </a>
-                </div>
-            </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
         </div><!-- /.container-fluid -->
-    </section>
+    </div>
+    <!-- /.content-header -->
 
+    <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
 
-            @include('layouts.partials.request_errors')
+            @include('adminlte-templates::common.errors')
 
-            <div class="card">
-                <div class="card-body">
-                    {!! Form::open(['route' => 'itemTraslados.store','class' => 'esperar']) !!}
-                        <div class="form-row">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            {!! Form::open(['route' => 'itemTraslados.store','class' => 'esperar']) !!}
 
-                            @include('item_traslados.fields')
+                                @include('item_traslados.fields')
 
-                            <!-- Submit Field -->
-                            <div class="form-group col-sm-12 text-right">
-                                <a href="{!! route('itemTraslados.index') !!}" class="btn btn-outline-secondary">
-                                    Cancelar
-                                </a>
-                                &nbsp;
-                                <button type="submit" class="btn btn-outline-success">
-                                    <i class="fa fa-floppy-o"></i> Guardar
-                                </button>
-                            </div>
+                                <br>
+                                <div class="form-row">
+                                        <!-- Submit Field -->
+                                    <div class="form-group col-sm-12 text-right">
+                                        <a href="{!! route('itemTraslados.index') !!}" class="btn btn-outline-secondary mr-3">Cancelar</a>
+                                        <button type="submit" class="btn btn-outline-success ">Guardar</button>
+                                    </div>
+                                </div>
+                            {!! Form::close() !!}
                         </div>
-                    {!! Form::close() !!}
+                    </div>
+                    <!-- /.card -->
                 </div>
+                <!-- /.col-md-6 -->
             </div>
+            <!-- /.row -->
         </div>
+        <!-- /.container-fluid -->
     </div>
+    <!-- /.content -->
+
 
 @endsection

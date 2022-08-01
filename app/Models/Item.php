@@ -471,7 +471,7 @@ class Item extends Model implements HasMedia
         $stock =  $this->stocks->where('item_id',$this->id)
             ->where('tienda_id',$tienda)
             ->sortBy('orden_salida')
-            ->sortBy('fecha_ven')
+            ->sortBy('fecha_vence')
             ->sortBy('created_at')
             ->sortBy('id')
             ->first();
@@ -488,7 +488,7 @@ class Item extends Model implements HasMedia
                 'tienda_id' => $tienda,
                 'item_id' => $this->id,
                 'lote' =>  null,
-                'fecha_ven' => $fecha_vence,
+                'fecha_vence' => $fecha_vence,
                 'cantidad' =>  $cantidad,
                 'cantidad_inicial' =>  $cantidad,
                 'orden_salida' => 0

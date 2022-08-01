@@ -25,7 +25,7 @@ class EquivalenciaAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $query = Equivalencia::query();
+        $query = Equivalencia::with(['itemOrigen','itemDestino']);
 
         if ($request->get('skip')) {
             $query->skip($request->get('skip'));
@@ -33,6 +33,7 @@ class EquivalenciaAPIController extends AppBaseController
         if ($request->get('limit')) {
             $query->limit($request->get('limit'));
         }
+
 
         $equivalencias = $query->get();
 
@@ -123,5 +124,19 @@ class EquivalenciaAPIController extends AppBaseController
         $equivalencia->delete();
 
         return $this->sendSuccess('Equivalencia deleted successfully');
+    }
+
+    public function item($id)
+    {
+        /** @var Equivalencia $equivalencia */
+        $equivalencia = Equivalencia::with(['itemOrigen','itemDestino'])
+            ->where('item_origen',$id)
+            ->first();
+
+        if (empty($equivalencia)) {
+            return $this->sendError('El articulo no tiene registrada equivalencia');
+        }
+
+        return $this->sendResponse($equivalencia->toArray(), 'Equivalencia: 1 '.$equivalencia->itemOrigen->nombre.'= '.$equivalencia->cantidad.' '.$equivalencia->itemDestino->nombre);
     }
 }

@@ -119,7 +119,7 @@ class Stock extends Model
     {
         $hoy = Carbon::now()->format('Y-m-d');
 
-        return $query->orWhere('fecha_ven','<',$hoy)->conStock();
+        return $query->orWhere('fecha_vence','<',$hoy)->conStock();
     }
 
     public function scopeQuedanMeses($query,$meses){
@@ -127,7 +127,7 @@ class Stock extends Model
         $fechaFin = Carbon::now()->addMonth($meses)->format('Y-m-d');
         $fechaIni = Carbon::now()->format('Y-m-d');
 
-        return $query->conStock()->whereBetween('fecha_ven',[$fechaIni,$fechaFin])->vencidos();
+        return $query->conStock()->whereBetween('fecha_vence',[$fechaIni,$fechaFin])->vencidos();
     }
 
     /**
@@ -180,7 +180,7 @@ class Stock extends Model
             ->where('tienda_id',$tienda)
             ->where('cantidad','>',0)
             ->orderBy('orden_salida')
-            ->orderBy('fecha_ven')
+            ->orderBy('fecha_vence')
             ->orderBy('created_at')
             ->orderBy('id')
             ->get();
@@ -242,7 +242,7 @@ class Stock extends Model
         $stock = Stock::where('tienda_id',$tienda)
             ->where('item_id',$item)
             ->where('lote',$lote)
-            ->where('fecha_ven',$fechaVence)
+            ->where('fecha_vence',$fechaVence)
             ->get();
 
         //Si hay un registro existente
@@ -263,7 +263,7 @@ class Stock extends Model
                 'tienda_id' => $tienda,
                 'item_id' => $item,
                 'lote' =>  $lote,
-                'fecha_ven' => $fechaVence,
+                'fecha_vence' => $fechaVence,
                 'cantidad' =>  $cantida,
                 'cantidad_inicial' =>  $cantida,
                 'orden_salida' => 0
@@ -293,7 +293,7 @@ class Stock extends Model
             ->where('tienda_id',$tienda)
             ->where('cantidad','>',0)
             ->orderBy('orden_salida')
-            ->orderBy('fecha_ven')
+            ->orderBy('fecha_vence')
             ->orderBy('created_at')
             ->orderBy('id')
             ->get();
@@ -344,7 +344,7 @@ class Stock extends Model
         $stock = Stock::where('tienda_id',$tienda)
             ->where('item_id',$item)
             ->where('lote',$lote)
-            ->where('fecha_ven',$fechaVence)
+            ->where('fecha_vence',$fechaVence)
             ->get();
 
         //Si hay un registro existente
@@ -365,7 +365,7 @@ class Stock extends Model
                 'tienda_id' => $tienda,
                 'item_id' => $item,
                 'lote' =>  $lote,
-                'fecha_ven' => $fechaVence,
+                'fecha_vence' => $fechaVence,
                 'cantidad' =>  $cantida,
                 'cantidad_inicial' =>  $cantida,
                 'orden_salida' => 0

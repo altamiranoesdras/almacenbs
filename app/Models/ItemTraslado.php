@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\UseStockTransaccion;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -30,6 +31,7 @@ class ItemTraslado extends Model
     use SoftDeletes;
 
     use HasFactory;
+    use UseStockTransaccion;
 
     public $table = 'items_traslados';
 
@@ -77,18 +79,11 @@ class ItemTraslado extends Model
      * @var array
      */
     public static $rules = [
-        'codigo' => 'required|string|max:255',
-        'correlativo' => 'required|integer',
         'item_origen' => 'required',
-        'cantidad_origen' => 'nullable|numeric',
+        'cantidad_origen' => 'required|numeric',
         'item_destino' => 'required',
-        'cantidad_destino' => 'nullable|numeric',
+        'cantidad_destino' => 'required|numeric',
         'observaciones' => 'nullable|string',
-        'user_id' => 'required',
-        'estado_id' => 'required',
-        'created_at' => 'nullable',
-        'updated_at' => 'nullable',
-        'deleted_at' => 'nullable'
     ];
 
     /**
@@ -104,7 +99,7 @@ class ItemTraslado extends Model
      **/
     public function estado()
     {
-        return $this->belongsTo(\App\Models\ItemsTrasladosEstado::class, 'estado_id');
+        return $this->belongsTo(\App\Models\ItemTrasladoEstado::class, 'estado_id');
     }
 
     /**
@@ -121,5 +116,136 @@ class ItemTraslado extends Model
     public function itemOrigen()
     {
         return $this->belongsTo(\App\Models\Item::class, 'item_origen');
+    }
+
+
+    public function kardex()
+    {
+        return $this->morphOne(Kardex::class,'model');
+    }
+
+    public function procesarEgreso()
+    {
+
+        if (!$this->itemOrigen->inventariable)
+            throw new  \Exception("El articulo ".$this->itemOrigen->text." no es inventariable");
+
+
+        $cantidad = $this->cantidad_origen*-1;
+
+        $stocks = $this->itemOrigen->stocks
+            ->where('cantidad','>',0)
+            ->sortBy('orden_salida')
+            ->sortBy('fecha_vence')
+            ->sortBy('created_at')
+            ->sortBy('id');
+
+
+        foreach ($stocks as $key => $stock) {
+
+            /**
+             * @var Stock $stock
+             */
+            $cantidad=($cantidad+$stock->cantidad);
+
+            $nuevoStock = $cantidad<0 ? 0 : $cantidad;
+
+            $rebajado= $cantidad<=0 ? $stock->cantidad : ($cantidad-$stock->cantidad)*-1;
+
+
+            if($rebajado>0){
+                $stock->cantidad= $nuevoStock;
+
+                $stock->save();
+
+                $this->addStockTransaccion(StockTransaccion::EGRESO,$stock->id,$this->cantidad_origen,$this->itemOrigen->precio_compra);
+            }
+
+            if($cantidad>0)
+                break;
+        }
+
+        $this->kardex()->create([
+            'item_id' => $this->itemOrigen->id,
+            'cantidad' => $this->cantidad_origen,
+            'tipo' => Kardex::TIPO_SALIDA,
+            'codigo' => $this->codigo,
+            'responsable' => "Traslado a articulo: ".$this->itemDestino->text,
+            'usuario_id' => auth()->user()->id
+        ]);
+
+        return $stocks;
+
+    }
+
+    public function procesarIngreso()
+    {
+        if (!$this->itemDestino->inventariable)
+            throw new  \Exception("El articulo ".$this->itemDestino->text." no es inventariable");
+
+        /**
+         * @var Stock $stock
+         */
+        $stock =  $this->itemDestino->stocks
+            ->sortBy('orden_salida')
+            ->sortBy('fecha_vence')
+            ->sortBy('created_at')
+            ->sortBy('id')
+            ->first();
+
+        if($stock){
+
+            $stock->cantidad += $this->cantidad_destino;
+            $stock->save();
+
+        }else{
+
+            $stock= Stock::create([
+                'item_id' => $this->itemDestino->id,
+                'lote' =>  null,
+                'fecha_vence' => null,
+                'cantidad' =>  $this->cantidad_destino,
+                'cnt_ini' =>  $this->cantidad_destino,
+                'orden_salida' => 0
+            ]);
+
+        }
+
+        $this->kardex()->create([
+            'item_id' => $this->itemDestino->id,
+            'cantidad' => $this->cantidad_destino,
+            'tipo' => Kardex::TIPO_INGRESO,
+            'codigo' => $this->codigo,
+            'responsable' => "Traslado desde articulo: ".$this->itemDestino->text,
+            'usuario_id' => auth()->user()->id
+        ]);
+
+        $this->addStockTransaccion(StockTransaccion::INGRESO,$stock->id,$this->cantidad_destino,$this->itemDestino->precio_compra);
+
+        return $stock;
+    }
+
+
+    public function puedeAnular()
+    {
+        return $this->estado_id != \App\Models\ItemTrasladoEstado::ANULADO && $this->estado_id == \App\Models\ItemTrasladoEstado::PROCESADO;
+    }
+
+    public function anular()
+    {
+        $this->estado_id = ItemTrasladoEstado::ANULADO;
+        $this->save();
+
+        $this->kardex()->delete();
+
+        /**
+         * @var StockTransaccion $transacion
+         */
+        foreach ($this->transaccionesStock as $index => $transacion) {
+
+            $transacion->revertir();
+
+        }
+
     }
 }

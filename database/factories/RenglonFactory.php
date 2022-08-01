@@ -22,7 +22,7 @@ class RenglonFactory extends Factory
     public function definition()
     {
         return [
-            'numero' => $this->faker->randomDigitNotNull,
+            'numero' => $this->faker->unique()->randomElement(['091','080','029','011','175','098','099','100','122','200']),
             'descripcion' => $this->faker->text,
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s'),

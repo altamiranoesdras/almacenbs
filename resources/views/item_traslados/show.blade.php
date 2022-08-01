@@ -1,35 +1,46 @@
 @extends('layouts.app')
 
-@section('title_page',__('Item Traslado'))
+@section('title_page')
+	Item Traslado
+@endsection
 
 @section('content')
-
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+    <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>{{__('Item Traslado')}}</h1>
-                </div>
-                <div class="col-sm-6">
-
-                </div>
-            </div>
+                <div class="col-sm-12">
+                    <h1 class="m-0 text-dark">Item Traslado</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
         </div><!-- /.container-fluid -->
-    </section>
+    </div>
+    <!-- /.content-header -->
 
+
+    <!-- Main content -->
     <div class="content">
-        <div class="card card-primary">
-            <div class="card-body">
-                <div class="row">
-                    <div class="form-group col-sm-12">
-                        @include('item_traslados.show_fields')
-                        <a href="{{ route('itemTraslados.index') }}" class="btn btn-default">
-                        {{__('Back')}}
-                        </a>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                           @include('item_traslados.show_fields')
+                        </div>
                     </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col-md-6 -->
+            </div>
+            <!-- /.row -->
+
+            <div class="row">
+                <div class="form-group col-sm-12">
+                <a href="{!! route('itemTraslados.index') !!}" class="btn btn-default">Regresar</a>
                 </div>
             </div>
         </div>
+        <!-- /.container-fluid -->
     </div>
+    <!-- /.content -->
 @endsection

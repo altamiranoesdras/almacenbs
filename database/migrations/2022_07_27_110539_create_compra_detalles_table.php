@@ -20,7 +20,7 @@ class CreateCompraDetallesTable extends Migration
             $table->decimal('cantidad', 12);
             $table->decimal('precio', 12);
             $table->decimal('descuento', 12)->default(0.00);
-            $table->date('fecha_ven')->nullable();
+            $table->date('fecha_vence')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CompraTiposTableSeeder::class);
         $this->call(RenglonesTableSeeder::class);
 
-
+        $this->call(ItemsTrasladosEstadosTableSeeder::class);
         $this->call(DivisaSeeder::class);
 
 

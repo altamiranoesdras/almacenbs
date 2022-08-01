@@ -30,8 +30,8 @@
 
 <!-- Fecha Ven Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('fecha_ven', 'Fecha Ven:') !!}
-    {!! Form::text('fecha_ven', null, ['class' => 'form-control','id'=>'fecha_ven']) !!}
+    {!! Form::label('fecha_vence', 'Fecha Ven:') !!}
+    {!! Form::text('fecha_vence', null, ['class' => 'form-control','id'=>'fecha_vence']) !!}
 </div>
 
 @push('page_scripts')

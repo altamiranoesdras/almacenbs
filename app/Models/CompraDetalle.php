@@ -43,7 +43,7 @@ class CompraDetalle extends Model
         'cantidad',
         'precio',
         'descuento',
-        'fecha_ven'
+        'fecha_vence'
     ];
 
     /**
@@ -58,7 +58,7 @@ class CompraDetalle extends Model
         'cantidad' => 'decimal:2',
         'precio' => 'decimal:2',
         'descuento' => 'decimal:2',
-        'fecha_ven' => 'date'
+        'fecha_vence' => 'date'
     ];
 
     /**
@@ -72,7 +72,7 @@ class CompraDetalle extends Model
         'cantidad' => 'required|numeric',
         'precio' => 'required|numeric',
         'descuento' => 'nullable|numeric',
-        'fecha_ven' => 'nullable',
+        'fecha_vence' => 'nullable',
     ];
 
     /**
@@ -139,9 +139,9 @@ class CompraDetalle extends Model
          */
         $stock =  $this->item->stocks->where('item_id',$this->id)
             ->where('tienda_id',$this->compra->tienda_id)
-            ->where('fecha_ven',$this->fecha_ven)
+            ->where('fecha_vence',$this->fecha_ven)
             ->sortBy('orden_salida')
-            ->sortBy('fecha_ven')
+            ->sortBy('fecha_vence')
             ->sortBy('created_at')
             ->sortBy('id')
             ->first();
@@ -157,7 +157,7 @@ class CompraDetalle extends Model
                 'tienda_id' => $this->compra->tienda_id,
                 'item_id' => $this->item->id,
                 'lote' =>  null,
-                'fecha_ven' => $this->fecha_ven,
+                'fecha_vence' => $this->fecha_ven,
                 'cantidad' =>  $this->cantidad,
                 'cantidad_inicial' =>  $this->cantidad,
                 'orden_salida' => 0

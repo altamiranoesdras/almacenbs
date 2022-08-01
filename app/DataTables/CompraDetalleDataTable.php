@@ -103,7 +103,7 @@ class CompraDetalleDataTable extends DataTable
             Column::make('cantidad'),
             Column::make('precio'),
             Column::make('descuento'),
-            Column::make('fecha_ven'),
+            Column::make('fecha_vence'),
             Column::computed('action')
                             ->exportable(false)
                             ->printable(false)

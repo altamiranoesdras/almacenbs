@@ -1,56 +1,65 @@
 @extends('layouts.app')
 
-@section('title_page',__('Edit Item Traslado'))
+@section('title_page')
+	Editar Item Traslado
+@endsection
 
 @section('content')
-
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+    <div class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
+            <div class="row">
                 <div class="col">
-                    <h1>{{__('Edit Item Traslado')}}</h1>
-                </div>
+                    <h1 class="m-0 text-dark">
+                        Editar Item Traslado
+                    </h1>
+                </div><!-- /.col -->
                 <div class="col">
                     <a class="btn btn-outline-info float-right"
                        href="{{route('itemTraslados.index')}}">
-                        <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span class="d-none d-sm-inline">{{__('List')}}</span>
+                        <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span class="d-none d-sm-inline">Listado</span>
                     </a>
-                </div>
-            </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
         </div><!-- /.container-fluid -->
-    </section>
+    </div>
+    <!-- /.content-header -->
 
+    <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
 
+            @include('adminlte-templates::common.errors')
 
-            @include('layouts.partials.request_errors')
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
 
-            <div class="card">
-                <div class="card-body">
+                           {!! Form::model($itemTraslado, ['route' => ['itemTraslados.update', $itemTraslado->id], 'method' => 'patch','class' => 'esperar']) !!}
+                                <div class="form-row">
 
-                   {!! Form::model($itemTraslado, ['route' => ['itemTraslados.update', $itemTraslado->id], 'method' => 'patch','class' => 'esperar']) !!}
-                        <div class="form-row">
+                                    @include('item_traslados.fields')
+                                    <!-- Submit Field -->
+                                    <div class="form-group col-sm-12">
+                                        <button type="submit"  class="btn btn-outline-success">Guardar</button>
+                                        <a href="{!! route('itemTraslados.index') !!}" class="btn btn-outline-default">Cancelar</a>
+                                    </div>
+                                </div>
 
-                            @include('item_traslados.fields')
+                           {!! Form::close() !!}
 
-                            <!-- Submit Field -->
-                            <div class="form-group col-sm-12 text-right">
-                                <a href="{!! route('itemTraslados.index') !!}" class="btn btn-outline-secondary">
-                                    Cancelar
-                                </a>
-                                &nbsp;
-                                <button type="submit" class="btn btn-outline-success">
-                                    <i class="fa fa-floppy-o"></i> Guardar
-                                </button>
-                            </div>
                         </div>
-
-                   {!! Form::close() !!}
+                    </div>
+                    <!-- /.card -->
                 </div>
+                <!-- /.col-md-6 -->
             </div>
+            <!-- /.row -->
         </div>
+        <!-- /.container-fluid -->
     </div>
+    <!-- /.content -->
+
 
 @endsection

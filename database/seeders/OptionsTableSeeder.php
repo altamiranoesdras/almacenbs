@@ -263,7 +263,7 @@ class OptionsTableSeeder extends Seeder
                 'id' => 16,
                 'option_id' => 13,
                 'nombre' => 'Categorías',
-                'ruta' => 'icategorias.index',
+                'ruta' => 'itemCategorias.index',
                 'descripcion' => 'Administración de las categorías de los articulos',
                 'icono_l' => 'fa-folder',
                 'icono_r' => NULL,
@@ -327,7 +327,7 @@ class OptionsTableSeeder extends Seeder
                 'id' => 20,
                 'option_id' => 13,
                 'nombre' => 'Importar Excel',
-                'ruta' => 'items.import.view',
+                'ruta' => 'items.importar',
                 'descripcion' => NULL,
                 'icono_l' => 'fa-file-import',
                 'icono_r' => NULL,
@@ -368,7 +368,7 @@ class OptionsTableSeeder extends Seeder
                 'dev' => 0,
                 'created_at' => '2018-09-09 19:53:29',
                 'updated_at' => '2022-07-27 12:48:06',
-                'deleted_at' => NULL,
+                'deleted_at' => '2022-07-27 12:48:06',
             ),
             22 =>
             array (

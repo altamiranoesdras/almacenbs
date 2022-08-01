@@ -154,6 +154,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::resource('itemTrasladoEstados', ItemTrasladoEstadoController::class);
 
 
+    Route::post('itemTraslados/anular/{itemTraslado}', [ItemTrasladoController::class,'anular'])->name('itemTraslados.anular');
     Route::resource('itemTraslados', ItemTrasladoController::class);
 
 

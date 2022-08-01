@@ -33,11 +33,6 @@
 {!! $itemTraslado->observaciones !!}<br>
 
 
-<!-- User Id Field -->
-{!! Form::label('user_id', 'User Id:') !!}
-{!! $itemTraslado->user_id !!}<br>
-
-
 <!-- Estado Id Field -->
 {!! Form::label('estado_id', 'Estado Id:') !!}
 {!! $itemTraslado->estado_id !!}<br>

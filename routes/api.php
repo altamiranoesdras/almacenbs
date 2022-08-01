@@ -4,6 +4,36 @@ use App\Http\Controllers\API\OptionAPIController;
 use App\Http\Controllers\API\PermissionAPIController;
 use App\Http\Controllers\API\RoleAPIController;
 use App\Http\Controllers\API\UserAPIController;
+
+use App\Http\Controllers\API\CompraEstadoAPIController;
+use App\Http\Controllers\API\ProveedorAPIController;
+use App\Http\Controllers\API\CompraTipoAPIController;
+use App\Http\Controllers\API\CompraAPIController;
+use App\Http\Controllers\API\ItemCategoriaAPIController;
+use App\Http\Controllers\API\MarcaAPIController;
+use App\Http\Controllers\API\MagnitudAPIController;
+use App\Http\Controllers\API\UnimedAPIController;
+use App\Http\Controllers\API\RenglonAPIController;
+use App\Http\Controllers\API\ItemAPIController;
+use App\Http\Controllers\API\CompraDetalleAPIController;
+use App\Http\Controllers\API\DenominacionAPIController;
+use App\Http\Controllers\API\DivisaAPIController;
+use App\Http\Controllers\API\EquivalenciaAPIController;
+use App\Http\Controllers\API\StockInicialAPIController;
+use App\Http\Controllers\API\ItemTrasladoEstadoAPIController;
+use App\Http\Controllers\API\ItemTrasladoAPIController;
+use App\Http\Controllers\API\KardexAPIController;
+use App\Http\Controllers\API\SolicitudEstadoAPIController;
+use App\Http\Controllers\API\RrhhUnidadAPIController;
+use App\Http\Controllers\API\SolicitudAPIController;
+use App\Http\Controllers\API\SolicitudDetalleAPIController;
+use App\Http\Controllers\API\StockAPIController;
+use App\Http\Controllers\API\StockTransaccionAPIController;
+use App\Http\Controllers\API\UserDespachaUserAPIController;
+use App\Http\Controllers\API\EnvioFiscalAPIController;
+use App\Http\Controllers\API\Compra1hAPIController;
+use App\Http\Controllers\API\Compra1hDetalleAPIController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::group(['as'=>'api.'], function () {
@@ -23,88 +53,89 @@ Route::group(['as'=>'api.'], function () {
         Route::get('user/remove/shortcut/{user}', [UserAPIController::class,'removeShortcut'])->name('users.remove_shortcut');
 
 
-        Route::resource('compra_estados', App\Http\Controllers\API\CompraEstadoAPIController::class);
+        Route::resource('compra_estados', CompraEstadoAPIController::class);
 
 
-        Route::resource('proveedores', App\Http\Controllers\API\ProveedorAPIController::class);
+        Route::resource('proveedores', ProveedorAPIController::class);
 
 
-        Route::resource('compra_tipos', App\Http\Controllers\API\CompraTipoAPIController::class);
+        Route::resource('compra_tipos', CompraTipoAPIController::class);
 
 
-        Route::resource('compras', App\Http\Controllers\API\CompraAPIController::class);
+        Route::resource('compras', CompraAPIController::class);
 
 
-        Route::resource('item_categorias', App\Http\Controllers\API\ItemCategoriaAPIController::class);
+        Route::resource('item_categorias', ItemCategoriaAPIController::class);
 
 
-        Route::resource('marcas', App\Http\Controllers\API\MarcaAPIController::class);
+        Route::resource('marcas', MarcaAPIController::class);
 
 
-        Route::resource('magnitudes', App\Http\Controllers\API\MagnitudAPIController::class);
+        Route::resource('magnitudes', MagnitudAPIController::class);
 
 
-        Route::resource('unimeds', App\Http\Controllers\API\UnimedAPIController::class);
+        Route::resource('unimeds', UnimedAPIController::class);
 
 
-        Route::resource('renglones', App\Http\Controllers\API\RenglonAPIController::class);
+        Route::resource('renglones', RenglonAPIController::class);
 
 
-        Route::resource('items', App\Http\Controllers\API\ItemAPIController::class);
+        Route::resource('items', ItemAPIController::class);
 
 
-        Route::resource('compra_detalles', App\Http\Controllers\API\CompraDetalleAPIController::class);
+        Route::resource('compra_detalles', CompraDetalleAPIController::class);
 
 
-        Route::resource('denominacions', App\Http\Controllers\API\DenominacionAPIController::class);
+        Route::resource('denominacions', DenominacionAPIController::class);
 
 
-        Route::resource('divisas', App\Http\Controllers\API\DivisaAPIController::class);
+        Route::resource('divisas', DivisaAPIController::class);
 
 
-        Route::resource('equivalencias', App\Http\Controllers\API\EquivalenciaAPIController::class);
+        Route::get('equivalencias/item/{item}', [EquivalenciaAPIController::class,'item'])->name('equivalencia.item');
+        Route::resource('equivalencias', EquivalenciaAPIController::class);
 
 
-        Route::resource('stock_inicials', App\Http\Controllers\API\StockInicialAPIController::class);
+        Route::resource('stock_inicials', StockInicialAPIController::class);
 
 
-        Route::resource('item_traslado_estados', App\Http\Controllers\API\ItemTrasladoEstadoAPIController::class);
+        Route::resource('item_traslado_estados', ItemTrasladoEstadoAPIController::class);
 
 
-        Route::resource('item_traslados', App\Http\Controllers\API\ItemTrasladoAPIController::class);
+        Route::resource('item_traslados', ItemTrasladoAPIController::class);
 
 
-        Route::resource('kardexes', App\Http\Controllers\API\KardexAPIController::class);
+        Route::resource('kardexes', KardexAPIController::class);
 
 
-        Route::resource('solicitud_estados', App\Http\Controllers\API\SolicitudEstadoAPIController::class);
+        Route::resource('solicitud_estados', SolicitudEstadoAPIController::class);
 
 
-        Route::resource('rrhh_unidads', App\Http\Controllers\API\RrhhUnidadAPIController::class);
+        Route::resource('rrhh_unidads', RrhhUnidadAPIController::class);
 
 
-        Route::resource('solicituds', App\Http\Controllers\API\SolicitudAPIController::class);
+        Route::resource('solicituds', SolicitudAPIController::class);
 
 
-        Route::resource('solicitud_detalles', App\Http\Controllers\API\SolicitudDetalleAPIController::class);
+        Route::resource('solicitud_detalles', SolicitudDetalleAPIController::class);
 
 
-        Route::resource('stocks', App\Http\Controllers\API\StockAPIController::class);
+        Route::resource('stocks', StockAPIController::class);
 
 
-        Route::resource('stock_transaccions', App\Http\Controllers\API\StockTransaccionAPIController::class);
+        Route::resource('stock_transaccions', StockTransaccionAPIController::class);
 
 
-        Route::resource('user_despacha_users', App\Http\Controllers\API\UserDespachaUserAPIController::class);
+        Route::resource('user_despacha_users', UserDespachaUserAPIController::class);
 
 
-        Route::resource('envio_fiscals', App\Http\Controllers\API\EnvioFiscalAPIController::class);
+        Route::resource('envio_fiscals', EnvioFiscalAPIController::class);
 
 
-        Route::resource('compra1hs', App\Http\Controllers\API\Compra1hAPIController::class);
+        Route::resource('compra1hs', Compra1hAPIController::class);
 
 
-        Route::resource('compra1h_detalles', App\Http\Controllers\API\Compra1hDetalleAPIController::class);
+        Route::resource('compra1h_detalles', Compra1hDetalleAPIController::class);
 
     });
 

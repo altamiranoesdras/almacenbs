@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('htmlheader_title',__('Profile'))
+@section('title_page',__('Profile'))
 
 @push('css')
     <style>
