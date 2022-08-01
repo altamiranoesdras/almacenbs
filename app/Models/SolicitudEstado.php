@@ -26,11 +26,12 @@ class SolicitudEstado extends Model
     const UPDATED_AT = 'updated_at';
 
 
-    const TEMPORAL = 1;
-    const SOLICITADA = 2;
-    const APROBADA = 3;
-    const DESPACHADA = 4;
-    const ANULADA = 4;
+    const TEMPORAL =    1;
+    const SOLICITADA =  2;
+    const APROBADA =    3;
+    const DESPACHADA =  4;
+    const ANULADA =     5;
+    const Cancelada =   6;
 
     protected $dates = ['deleted_at'];
 

@@ -18,7 +18,7 @@ class SolicitudAPIController extends AppBaseController
 {
     /**
      * Display a listing of the Solicitud.
-     * GET|HEAD /solicituds
+     * GET|HEAD /solicitudes
      *
      * @param Request $request
      * @return Response
@@ -41,7 +41,7 @@ class SolicitudAPIController extends AppBaseController
 
     /**
      * Store a newly created Solicitud in storage.
-     * POST /solicituds
+     * POST /solicitudes
      *
      * @param CreateSolicitudAPIRequest $request
      *
@@ -59,7 +59,7 @@ class SolicitudAPIController extends AppBaseController
 
     /**
      * Display the specified Solicitud.
-     * GET|HEAD /solicituds/{id}
+     * GET|HEAD /solicitudes/{id}
      *
      * @param int $id
      *
@@ -79,7 +79,7 @@ class SolicitudAPIController extends AppBaseController
 
     /**
      * Update the specified Solicitud in storage.
-     * PUT/PATCH /solicituds/{id}
+     * PUT/PATCH /solicitudes/{id}
      *
      * @param int $id
      * @param UpdateSolicitudAPIRequest $request
@@ -103,7 +103,7 @@ class SolicitudAPIController extends AppBaseController
 
     /**
      * Remove the specified Solicitud from storage.
-     * DELETE /solicituds/{id}
+     * DELETE /solicitudes/{id}
      *
      * @param int $id
      *

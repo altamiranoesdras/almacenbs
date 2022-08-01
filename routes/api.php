@@ -114,7 +114,7 @@ Route::group(['as'=>'api.'], function () {
         Route::resource('rrhh_unidads', RrhhUnidadAPIController::class);
 
 
-        Route::resource('solicituds', SolicitudAPIController::class);
+        Route::resource('solicitudes', SolicitudAPIController::class);
 
 
         Route::resource('solicitud_detalles', SolicitudDetalleAPIController::class);

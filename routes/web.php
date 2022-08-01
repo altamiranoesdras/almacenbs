@@ -167,7 +167,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::resource('rrhhUnidades', RrhhUnidadController::class);
 
 
-    Route::resource('solicituds', SolicitudController::class);
+    Route::resource('solicitudes', SolicitudController::class);
 
 
     Route::resource('userDespachaUsers', UserDespachaUserController::class);
