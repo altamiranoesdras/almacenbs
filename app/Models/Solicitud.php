@@ -202,4 +202,17 @@ class Solicitud extends Model
     {
         return $this->hasMany(\App\Models\SolicitudDetalle::class, 'solicitud_id');
     }
+
+    public function scopeTemporal($q)
+    {
+        $q->where('estado_id',SolicitudEstado::TEMPORAL);
+    }
+
+    public function scopeDelUsuarioCrea($q,$user=null)
+    {
+        $user = $user ?? auth()->user() ?? auth('api')->user();
+
+
+        $q->where('usuario_crea',$user->id);
+    }
 }

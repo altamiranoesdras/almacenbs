@@ -10,18 +10,18 @@
         data: {
             detalles: [],
             nuevoDetalle: {
-                temp_solicitude_id: '{{$tempSolicitude->id}}',
+                temp_solicitude_id: '{{$temporal->id}}',
                 item_id: '',
                 cantidad: '1',
             },
             detalleEdita: {
                 id: '',
-                temp_solicitude_id: '{{$tempSolicitude->id}}',
+                temp_solicitude_id: '{{$temporal->id}}',
                 item_id: '',
                 cantidad: ''
             },
             detalleVacio: {
-                temp_solicitude_id: '{{$tempSolicitude->id}}',
+                temp_solicitude_id: '{{$temporal->id}}',
                 item_id: '',
                 cantidad: '1',
             },
@@ -35,10 +35,10 @@
               return numf(cant);
             },
             getDets: function(page) {
-                var urlKeeps = '{{route('api.temp_solicitud_detalles.index')}}';
+                var urlKeeps = '{{route('api.solicitud_detalles.index')}}';
                 var params = {
                     params:{
-                        'temp_solicitude_id': '{{$tempSolicitude->id}}',
+                        'temp_solicitude_id': '{{$temporal->id}}',
                     }
                 };
 
@@ -48,7 +48,7 @@
             },
             createDet: function() {
                 this.loadingBtnAdd= true;
-                var url= '{{route("api.temp_solicitud_detalles.store")}}';
+                var url= '{{route("api.solicitud_detalles.store")}}';
 
                 axios.post(url, this.nuevoDetalle ).then(response => {
                     this.getDets();
@@ -79,7 +79,7 @@
             },
             updateDet: function(id) {
                 this.loadingBtnUpdateDet= true;
-                var url = '{{url('api/temp_solicitud_detalles')}}' + '/' + id;
+                var url = '{{url('api/solicitud_detalles')}}' + '/' + id;
 
                 axios.put(url, this.detalleEdita).then(response => {
                     this.getDets();
@@ -97,7 +97,7 @@
             },
             deleteDet: function(det) {
                 this.idEliminando = det.id;
-                var url = '{{url('api/temp_solicitud_detalles')}}' + '/' + det.id;
+                var url = '{{url('api/solicitud_detalles')}}' + '/' + det.id;
 
                 axios.delete(url).then(response => {
                     this.getDets();

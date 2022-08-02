@@ -25,13 +25,17 @@ class SolicitudDetalleAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $query = SolicitudDetalle::query();
+        $query = SolicitudDetalle::with(['item']);
 
         if ($request->get('skip')) {
             $query->skip($request->get('skip'));
         }
         if ($request->get('limit')) {
             $query->limit($request->get('limit'));
+        }
+
+        if ($request->solicitud_id) {
+            $query->where('solicitud_id',$request->solicitud_id);
         }
 
         $solicitudDetalles = $query->get();

@@ -243,7 +243,9 @@
 
                     try {
 
-                        var res = await axios.get(route('api.compra_detalles.index'));
+                        let params= { params: {compra_id: @json($temporal->id) } }
+
+                        var res = await axios.get(route('api.compra_detalles.index'),params);
 
                         this.detalles  = res.data.data;
 

@@ -18,7 +18,7 @@ class CreateSolicitudesTable extends Migration
             $table->string('codigo')->nullable();
             $table->integer('correlativo')->nullable();
             $table->text('justificacion')->nullable();
-            $table->unsignedBigInteger('unidad_id')->index('fk_solicitudes_rrhh_unidades1_idx');
+            $table->unsignedBigInteger('unidad_id')->nullable()->index('fk_solicitudes_rrhh_unidades1_idx');
             $table->unsignedBigInteger('usuario_crea')->index('fk_solicitudes_users1_idx');
             $table->unsignedBigInteger('usuario_solicita')->nullable()->index('fk_solicitudes_users4_idx');
             $table->unsignedBigInteger('usuario_autoriza')->nullable()->index('fk_solicitudes_users3_idx');
@@ -28,7 +28,7 @@ class CreateSolicitudesTable extends Migration
             $table->string('firma_autoriza')->nullable();
             $table->string('firma_aprueba')->nullable();
             $table->string('firma_almacen')->nullable();
-            $table->dateTime('fecha_solicita');
+            $table->dateTime('fecha_solicita')->nullable();
             $table->dateTime('fecha_autoriza')->nullable();
             $table->dateTime('fecha_aprueba')->nullable();
             $table->dateTime('fecha_almacen_firma')->nullable();

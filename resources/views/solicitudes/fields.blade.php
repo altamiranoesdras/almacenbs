@@ -10,15 +10,23 @@
     </li>
 
 
-    <li class="list-group-item pb-0 pl-2 pr-2">
-        <div class="form-group col">
-            <button type="button"  class="btn btn-success" @click="procesar()">
-                <span class="glyphicon glyphicon-ok"></span> Procesar
+    <li class="list-group-item pb-0 pl-2 pr-2 ">
+        <div class="form-group col-sm-12 text-right">
+
+
+            <a class="btn btn-outline-danger mr-4" data-toggle="modal" href="#modal-cancel-compra">
+                <span data-toggle="tooltip" title="Cancelar compra">
+                    <i class="fa fa-ban"></i>
+                    Cancelar
+                </span>
+            </a>
+
+            <button type="button"  class="btn btn-outline-success float-right" @click="procesar()">
+
+                <i class="fa fa-save"></i>
+                Procesar
             </button>
 
-            <a class="btn btn-danger pull-right" data-toggle="modal" href="#modal-cancel-compra">
-                <span data-toggle="tooltip" title="Cancelar compra">X Cancelar</span>
-            </a>
 
         </div>
     </li>
@@ -56,11 +64,11 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
-                Seguro que desea cancelar la solicitud?
+                Seguro que desea cancelar la requisición?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
-                <a href="{{route('solicitud.cancelar',$tempSolicitude->id)}}" class="btn btn-danger">
+                <a href="{{route('solicitud.cancelar',$temporal->id)}}" class="btn btn-danger">
                     SI
                 </a>
             </div>

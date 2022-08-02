@@ -35,8 +35,8 @@ class CompraDetalleAPIController extends AppBaseController
         }
 
 
-        if ($request->compora_id) {
-            $query->where('compora_id',$request->compora_id);
+        if ($request->compra_id) {
+            $query->where('compra_id',$request->compra_id);
         }
 
         $compraDetalles = $query->get();

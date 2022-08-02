@@ -31,7 +31,7 @@ class ItemsTableSeeder extends Seeder
             \DB::table('item_has_categoria')->truncate();
 
 
-            Item::factory()->count(5)->create()
+            Item::factory()->count(25)->create()
                 ->each(function (Item $item) {
 
                     $stock = rand(20,40);
