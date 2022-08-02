@@ -4,8 +4,9 @@
         <!-- Observaciones Field -->
 
         <div class="form-group col">
-            {!! Form::label('observaciones', 'Observaciones:') !!}
-            {!! Form::textarea('observaciones', null, ['class' => 'form-control','rows' => 4]) !!}
+            {!! Form::label('justificacion', 'Justificación:') !!}
+            {!! Form::textarea('justificacion', null, ['class' => 'form-control','rows' => 4]) !!}
+            <input type="hidden" name="usuario_solicita" value="{{ auth()->user()->id }}">
         </div>
     </li>
 

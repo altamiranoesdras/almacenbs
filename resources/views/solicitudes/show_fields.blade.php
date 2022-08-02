@@ -19,7 +19,7 @@
 
 <!-- User Id Field -->
 {!! Form::label('user_id', 'Solicitante:') !!}
-{!! $solicitude->userSolicita->name !!}<br>
+{!! $solicitude->usuarioSolicita->name ?? '' !!}<br>
 
 
 <!-- Created At Field -->
@@ -31,7 +31,7 @@
 
 <!-- User Despacha Field -->
 {!! Form::label('user_despacha', 'User Despacha:') !!}
-{!! $solicitude->userDespacha->name  ??  ''!!}<br>
+{!! $solicitude->usuarioDespacha->name  ??  ''!!}<br>
 
 <!-- Fecha Despacha Field -->
 {!! Form::label('fecha_despacha', 'Despachada El:') !!}

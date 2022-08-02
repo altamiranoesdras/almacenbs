@@ -116,9 +116,9 @@ class Solicitud extends Model
     public static $rules = [
         'codigo' => 'nullable|string|max:255',
         'correlativo' => 'nullable|integer',
-        'justificacion' => 'nullable|string',
-        'unidad_id' => 'required',
-        'usuario_crea' => 'required',
+        'justificacion' => 'required|string',
+        'unidad_id' => 'nullable',
+        'usuario_crea' => 'nullable',
         'usuario_solicita' => 'nullable',
         'usuario_autoriza' => 'nullable',
         'usuario_aprueba' => 'nullable',
@@ -127,13 +127,13 @@ class Solicitud extends Model
         'firma_autoriza' => 'nullable|string|max:255',
         'firma_aprueba' => 'nullable|string|max:255',
         'firma_almacen' => 'nullable|string|max:255',
-        'fecha_solicita' => 'required',
+        'fecha_solicita' => 'nullable',
         'fecha_autoriza' => 'nullable',
         'fecha_aprueba' => 'nullable',
         'fecha_almacen_firma' => 'nullable',
         'fecha_informa' => 'nullable',
         'fecha_despacha' => 'nullable',
-        'estado_id' => 'required',
+        'estado_id' => 'nullable',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'
@@ -198,7 +198,7 @@ class Solicitud extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function solicitudDetalles()
+    public function detalles()
     {
         return $this->hasMany(\App\Models\SolicitudDetalle::class, 'solicitud_id');
     }

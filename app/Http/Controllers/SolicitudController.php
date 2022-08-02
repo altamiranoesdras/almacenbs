@@ -21,10 +21,13 @@ use App\Models\Solicitude;
 use App\Models\SolicitudEstado;
 use App\Models\TempSolicitude;
 use App\Models\Tienda;
+use Carbon\Carbon;
+use Exception;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Response;
 
 class SolicitudController extends AppBaseController
@@ -86,7 +89,7 @@ class SolicitudController extends AppBaseController
         /** @var Solicitud $solicitud */
         $solicitud = Solicitud::create($input);
 
-        Flash::success('Solicitud guardado exitosamente.');
+        flash()->success('Solicitud guardado exitosamente.');
 
         return redirect(route('solicitudes.index'));
     }
@@ -104,7 +107,7 @@ class SolicitudController extends AppBaseController
         $solicitud = Solicitud::find($id);
 
         if (empty($solicitud)) {
-            Flash::error('Solicitud no encontrado');
+            flash()->error('Solicitud no encontrado');
 
             return redirect(route('solicitudes.index'));
         }
@@ -125,7 +128,7 @@ class SolicitudController extends AppBaseController
         $solicitud = Solicitud::find($id);
 
         if (empty($solicitud)) {
-            Flash::error('Solicitud no encontrado');
+            flash()->error('Solicitud no encontrado');
 
             return redirect(route('solicitudes.index'));
         }
@@ -147,15 +150,14 @@ class SolicitudController extends AppBaseController
         $solicitud = Solicitud::find($id);
 
         if (empty($solicitud)) {
-            Flash::error('Solicitud no encontrado');
+            flash()->error('Solicitud no encontrado');
 
             return redirect(route('solicitudes.index'));
         }
 
-        $solicitud->fill($request->all());
-        $solicitud->save();
+        $this->procesar($solicitud,$request);
 
-        Flash::success('Solicitud actualizado con éxito.');
+        flash()->success('Requisición procesada con éxito.');
 
         return redirect(route('solicitudes.index'));
     }
@@ -175,14 +177,14 @@ class SolicitudController extends AppBaseController
         $solicitud = Solicitud::find($id);
 
         if (empty($solicitud)) {
-            Flash::error('Solicitud no encontrado');
+            flash()->error('Solicitud no encontrado');
 
             return redirect(route('solicitudes.index'));
         }
 
         $solicitud->delete();
 
-        Flash::success('Solicitud deleted successfully.');
+        flash()->success('Solicitud deleted successfully.');
 
         return redirect(route('solicitudes.index'));
     }
@@ -206,59 +208,44 @@ class SolicitudController extends AppBaseController
         return $compra;
     }
 
-    public function cancelar(TempSolicitude $tempSolicitude){
+    public function cancelar(Solicitud $solicitud){
 
-        $tempSolicitude->tempSolicitudDetalles()->delete();
-        $tempSolicitude->delete();
+        $solicitud->detalles()->delete();
+        $solicitud->delete();
 
-        Flash::success('Listo! solicitud cancelada.');
+        flash()->success('Listo! solicitud cancelada.');
 
         return redirect(route('solicitudes.create'));
     }
 
-    public function procesar(TempSolicitude $tempSolicitude,UpdateSolicitudRequest $request){
+    public function procesar(Solicitud $solicitud,UpdateSolicitudRequest $request){
 
 
         try {
-            DB::connection('tenant')->beginTransaction();
+            DB::beginTransaction();
 
-            $correlativo = Correlativo::siguiente('solicitudes');
-
-            $request->merge(['correlativo' => $correlativo->max]);
-            $request->merge(['user_solicita' => auth()->user()->id]);
-            $request->merge(['tienda_solicita' => session('tienda')]);
-            $request->merge(['fecha_solicita' => hoyDb()]);
-            $request->merge(['estado_id' => SolicitudEstado::SOLICITADA]);
-
-//            dd($request->all(),$tempSolicitude->detalles->toArray());
-
-            //Guarda el encabezado de la Solicitud
-            $solicitud = Solicitude::create($request->all());
-
-            //Crea colección de objetos en base a detalles temporales
-            $detalles = $tempSolicitude->detalles->map(function ($item) {
-                return new SolicitudDetalle($item->toArray());
-            });
-
-            //Guarda los detalles de la Solicitud
-            $solicitud->detalles()->saveMany($detalles);
+            $request->merge([
+                'codigo' => $this->getCodigo(),
+                'correlativo' => $this->getCorrelativo(),
+                'usuario_solicita' => $request->usuario_solicita,
+                'fecha_solicita' => hoyDb(),
+                'estado_id' => SolicitudEstado::SOLICITADA,
+            ]);
 
 
-            //Cambia el estado de la Solicitud temporal
-            $tempSolicitude->detalles()->delete();
-            $tempSolicitude->delete();
-            $correlativo->save();
+            $solicitud->fill($request->all());
+            $solicitud->save();
 
-            Mail::send(new SolicitudStock($solicitud));
-            event(new EventSolicitudCreate($solicitud));
+//            Mail::send(new SolicitudStock($solicitud));
+//            event(new EventSolicitudCreate($solicitud));
 
         } catch (Exception $exception) {
-            DB::connection('tenant')->rollBack();
+            DB::rollBack();
 
-            throw new Exception($exception);
+            throw $exception;
         }
 
-        DB::connection('tenant')->commit();
+        DB::commit();
 
         return $solicitud;
     }
@@ -310,7 +297,7 @@ class SolicitudController extends AppBaseController
 
 
         try {
-            DB::connection('tenant')->beginTransaction();
+            DB::beginTransaction();
 
 
             $this->procesaStock($solicitud);
@@ -327,7 +314,7 @@ class SolicitudController extends AppBaseController
 
 
         } catch (Exception $exception) {
-            DB::connection('tenant')->rollBack();
+            DB::rollBack();
 
             if (auth()->user()->isDev()){
                 throw new Exception($exception);
@@ -339,7 +326,7 @@ class SolicitudController extends AppBaseController
         }
 
 
-        DB::connection('tenant')->commit();
+        DB::commit();
 
         flash('Solicitud despachada correctamanete')->success()->important();
 
@@ -394,4 +381,23 @@ class SolicitudController extends AppBaseController
             Mail::send(new StockCriticoPorSolicitudMail($itemStockCritico,$solicitud));
         }
     }
+
+
+    public function getCodigo($cantidadCeros = 3)
+    {
+        return "REQ-".prefijoCeros($this->getCorrelativo(),$cantidadCeros)."-".Carbon::now()->year;
+    }
+
+    public function getCorrelativo()
+    {
+
+        $correlativo = Solicitud::withTrashed()->whereRaw('year(created_at) ='.Carbon::now()->year)->max('correlativo');
+
+
+        if ($correlativo)
+            return $correlativo+1;
+
+        return 1;
+    }
+
 }

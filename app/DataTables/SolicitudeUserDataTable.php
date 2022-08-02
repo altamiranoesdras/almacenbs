@@ -51,7 +51,8 @@ class SolicitudeUserDataTable extends DataTable
     public function query(Solicitud $model)
     {
 
-        return $model->newQuery()->with(['detalles.item','userSolicita','userDespacha','estado'])->delUser();
+        return $model->newQuery()->with(['detalles.item','usuarioSolicita','usuarioDespacha','estado'])
+            ->delUsuarioCrea();
     }
 
     /**
@@ -91,9 +92,9 @@ class SolicitudeUserDataTable extends DataTable
         return [
             'codigo' => ['name' => 'correlativo', 'data' => 'codigo'],
             'observaciones',
-            'usuario_solicita' => ['data' => 'user_solicita.name','name' => 'userSolicita.name'],
+            'usuario_solicita' => ['data' => 'usuario_solicita.name','name' => 'usuarioSolicita.name'],
             'fecha_solicita',
-            'usuario_despacha' => ['name'=>'userDespacha.name'],
+            'usuario_despacha' => ['name'=>'usuarioDespacha.name'],
             'fecha_despacha',
             'estado' => ['data' => 'estado.nombre','name.estado.nombre']
         ];

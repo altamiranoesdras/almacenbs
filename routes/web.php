@@ -168,10 +168,10 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
 
 
-    Route::get('solicitudes/cancelar/{tempSolicitude}', [SolicitudeController::class,'cancelar'])->name('solicitud.cancelar');
-    Route::get('mis/solicitudes', [SolicitudeController::class,'user'])->name('mis.solicitudes');
-    Route::get('lista/despachar/solicitudes', [SolicitudeController::class,'despacharList'])->name('solicitudes.despachar');
-    Route::get('despachar/solicitudes/{solicitud}', [SolicitudeController::class,'despachar'])->name('solicitudes.despachar.store');
+    Route::get('solicitudes/cancelar/{tempSolicitude}', [SolicitudController::class,'cancelar'])->name('solicitud.cancelar');
+    Route::get('mis/solicitudes', [SolicitudController::class,'user'])->name('mis.solicitudes');
+    Route::get('lista/despachar/solicitudes', [SolicitudController::class,'despacharList'])->name('solicitudes.despachar');
+    Route::get('despachar/solicitudes/{solicitud}', [SolicitudController::class,'despachar'])->name('solicitudes.despachar.store');
     Route::resource('solicitudes', SolicitudController::class);
 
 

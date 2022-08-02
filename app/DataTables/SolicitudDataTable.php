@@ -3,9 +3,8 @@
 namespace App\DataTables;
 
 use App\Models\Solicitud;
-use Yajra\DataTables\Html\Button;
-use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Services\DataTable;
+use App\extensiones\DataTable;
+use Yajra\DataTables\EloquentDataTable;
 
 class SolicitudDataTable extends DataTable
 {
@@ -17,36 +16,40 @@ class SolicitudDataTable extends DataTable
      */
     public function dataTable($query)
     {
+        $dataTable = new EloquentDataTable($query);
 
-        return datatables()
-            ->eloquent($query)
-            ->addColumn('action', function(Solicitud $solicitud){
+        return $dataTable->addColumn('action', function (Solicitud $solicitud){
 
-                 $id = $solicitud->id;
-
-                 return view('solicitudes.datatables_actions',compact('solicitud','id'))->render();
-             })
-             ->editColumn('id',function (Solicitud $solicitud){
-
-                 return $solicitud->id;
-
-                 //se debe crear la vista modal_detalles
-                 //return view('solicitudes.modal_detalles',compact('solicitud'))->render();
-
-             })
-            ->rawColumns(['action','id']);
-
+                return view('solicitudes.datatables_actions',compact('solicitud'));
+            })->editColumn('usuario_despacha',function ($solicitud){
+                return $solicitud->userDespacha->name ?? null;
+            })
+            ->editColumn('codigo',function ($solicitud){
+                return view('solicitudes.modal_show',compact('solicitud'))->render();
+            })
+            ->editColumn('observaciones',function ($solicitud){
+                return str_limit($solicitud->observaciones,30);
+            })
+            ->editColumn('fecha_solicita',function ($solicitud){
+                return fechaLtn($solicitud->fecha_solicita);
+            })
+            ->editColumn('fecha_despacha',function ($solicitud){
+                if ($solicitud->fecha_despacha){
+                    return fechaLtn($solicitud->fecha_despacha);
+                }
+            })
+            ->rawColumns(['action','codigo']);
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Solicitud $model
+     * @param \App\Models\Post $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Solicitud $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()->with(['detalles.item','usuarioSolicita','usuarioDespacha','estado']);
     }
 
     /**
@@ -57,37 +60,23 @@ class SolicitudDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    ->ajax([
-                        'data' => "function(data) { formatDataDataTables($('#formFiltersDatatables').serializeArray(), data);   }"
-                    ])
-                    ->info(true)
-                    ->language(['url' => asset('js/SpanishDataTables.json')])
-                    ->responsive(true)
-                    ->orderBy(1,'desc')
-                    ->stateSave(true)
-                    ->dom('
-                        <"row mb-2"
-                            <"col-sm-12 col-md-6" B>
-                            <"col-sm-12 col-md-6" f>
-                        >
-                        rt
-                        <"row"
-                            <"col-sm-6 order-2 order-sm-1" ip>
-                            <"col-sm-6 order-1 order-sm-2 text-right" l>
-
-                        >
-                    ')
-                    ->buttons(
-
-                        Button::make('print')
-                            ->text('<i class="fa fa-print"></i> <span class="d-none d-sm-inline">Imprimir</span>'),
-                        Button::make('reset')
-                            ->text('<i class="fa fa-undo"></i> <span class="d-none d-sm-inline">Reiniciar</span>'),
-                        Button::make('export')
-                            ->text('<i class="fa fa-download"></i> <span class="d-none d-sm-inline">Exportar</span>'),
-                    );
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            ->addAction(['width' => '15%','printable' => false, 'title' => 'Acción'])
+            ->parameters([
+                'dom'     => 'Bfrtip',
+                'order'   => [[0, 'desc']],
+                'language' => ['url' => asset('js/SpanishDataTables.json')],
+                //'scrollX' => false,
+                'responsive' => true,
+                'buttons' => [
+                    ['extend' => 'create', 'text' => '<i class="fa fa-plus"></i> <span class="d-none d-sm-inline">Crear</span>'],
+                    ['extend' => 'print', 'text' => '<i class="fa fa-print"></i> <span class="d-none d-sm-inline">Imprimir</span>'],
+                    ['extend' => 'reload', 'text' => '<i class="fa fa-sync-alt"></i> <span class="d-none d-sm-inline">Recargar</span>'],
+                    ['extend' => 'reset', 'text' => '<i class="fa fa-undo"></i> <span class="d-none d-sm-inline">Reiniciar</span>'],
+                    ['extend' => 'export', 'text' => '<i class="fa fa-download"></i> <span class="d-none d-sm-inline">Exportar</span>'],
+                ],
+            ]);
     }
 
     /**
@@ -98,31 +87,13 @@ class SolicitudDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('codigo'),
-            Column::make('correlativo'),
-            Column::make('justificacion'),
-            Column::make('unidad_id'),
-            Column::make('usuario_crea'),
-            Column::make('usuario_solicita'),
-            Column::make('usuario_autoriza'),
-            Column::make('usuario_aprueba'),
-            Column::make('usuario_despacha'),
-            Column::make('firma_requiere'),
-            Column::make('firma_autoriza'),
-            Column::make('firma_aprueba'),
-            Column::make('firma_almacen'),
-            Column::make('fecha_solicita'),
-            Column::make('fecha_autoriza'),
-            Column::make('fecha_aprueba'),
-            Column::make('fecha_almacen_firma'),
-            Column::make('fecha_informa'),
-            Column::make('fecha_despacha'),
-            Column::make('estado_id'),
-            Column::computed('action')
-                            ->exportable(false)
-                            ->printable(false)
-                            ->width('20%')
-                            ->addClass('text-center'),
+            'codigo' => ['name' => 'correlativo', 'data' => 'codigo'],
+            'observaciones',
+            'usuario_solicita' => ['data' => 'usuario_solicita.name','name' => 'usuarioSolicita.name'],
+            'fecha_solicita',
+            'usuario_despacha' => ['name'=>'usuarioDespacha.name'],
+            'fecha_despacha',
+            'estado' => ['data' => 'estado.nombre','name.estado.nombre']
         ];
     }
 
@@ -133,6 +104,6 @@ class SolicitudDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'solicituds_'  . date('YmdHis');
+        return 'solicitudesdatatable_' . time();
     }
 }
