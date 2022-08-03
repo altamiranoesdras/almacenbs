@@ -59,7 +59,7 @@ class Item extends Model implements HasMedia
 
     protected $dates = ['deleted_at'];
 
-    protected $appends= ['text','img','thumb'];
+    protected $appends= ['text','img','thumb','stock_total'];
 
     protected $with = ['unimed','marca','stocks','media'];
 
@@ -517,5 +517,10 @@ class Item extends Model implements HasMedia
 
         return $stock;
 
+    }
+
+    public function getStockTotalAttribute()
+    {
+        return $this->stocks->sum('cantidad');
     }
 }

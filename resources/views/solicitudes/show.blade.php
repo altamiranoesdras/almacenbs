@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('htmlheader_title')
-	Solicitude
+@section('title_page')
+	Requisición
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <h1 class="m-0 text-dark">Solicitude</h1>
+                    <h1 class="m-0 text-dark">Requisición</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->

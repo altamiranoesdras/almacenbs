@@ -17,6 +17,7 @@ use App\Mail\StockCriticoPorSolicitudMail;
 use App\Models\Item;
 use App\Models\Kardex;
 use App\Models\Solicitud;
+use App\Models\SolicitudDetalle;
 use App\Models\Solicitude;
 use App\Models\SolicitudEstado;
 use App\Models\TempSolicitude;
@@ -52,16 +53,17 @@ class SolicitudController extends AppBaseController
         return $solicitudDataTable->render('solicitudes.index');
     }
 
-
     public function user(SolicitudeUserDataTable $solicitudeDataTable)
     {
-        return $solicitudeDataTable->render('solicitudes.index_user');
+        return $solicitudeDataTable->render('solicitudes.usuario.index');
     }
 
-    public function despacharList(SolicitudeDespachaDataTable $solicitudeDataTable)
+    public function despachar(SolicitudeDespachaDataTable $solicitudeDataTable)
     {
         return $solicitudeDataTable->render('solicitudes.despachar');
     }
+
+
 
     /**
      * Show the form for creating a new Solicitud.
@@ -70,9 +72,9 @@ class SolicitudController extends AppBaseController
      */
     public function create()
     {
-        $temporal = $this->obtenerTemporal();
+        $solicitud = $this->obtenerTemporal();
 
-        return view('solicitudes.create',compact('temporal'));
+        return view('solicitudes.create',compact('solicitud'));
     }
 
     /**
@@ -133,7 +135,7 @@ class SolicitudController extends AppBaseController
             return redirect(route('solicitudes.index'));
         }
 
-        return view('solicitudes.edit')->with('solicitud', $solicitud);
+        return view('solicitudes.create',compact('solicitud'));
     }
 
     /**
@@ -147,7 +149,8 @@ class SolicitudController extends AppBaseController
     public function update($id, UpdateSolicitudRequest $request)
     {
         /** @var Solicitud $solicitud */
-        $solicitud = Solicitud::find($id);
+        $solicitud = Solicitud::withoutGlobalScope('noTemporal')->with('detalles.item.stocks')->find($id);
+
 
         if (empty($solicitud)) {
             flash()->error('Solicitud no encontrado');
@@ -155,12 +158,79 @@ class SolicitudController extends AppBaseController
             return redirect(route('solicitudes.index'));
         }
 
-        $this->procesar($solicitud,$request);
+
+        if ($request->solicitar){
+
+            $errores = $this->validaStock($solicitud);
+
+            if (count($errores) > 0){
+                return redirect(route('solicitudes.edit',$solicitud->id) )->withInput()->withErrors($errores);
+            }
+
+        }
+
+        try {
+            DB::beginTransaction();
+
+
+            $this->procesar($solicitud,$request);
+
+
+        } catch (Exception $exception) {
+            DB::rollBack();
+
+            throw new Exception($exception);
+        }
+
+        DB::commit();
+
+
 
         flash()->success('Requisición procesada con éxito.');
 
-        return redirect(route('solicitudes.index'));
+        return redirect(route('solicitudes.usuario'));
+
+
+
     }
+
+    public function procesar(Solicitud $solicitud,UpdateSolicitudRequest $request){
+
+
+        if ($request->solicitar){
+
+            $request->merge([
+                'codigo' => $this->getCodigo(),
+                'correlativo' => $this->getCorrelativo(),
+                'usuario_solicita' => $request->usuario_solicita,
+                'fecha_solicita' => hoyDb(),
+                'estado_id' => SolicitudEstado::SOLICITADA,
+            ]);
+
+
+            $solicitud->fill($request->all());
+            $solicitud->save();
+
+//            Mail::send(new SolicitudStock($solicitud));
+//            event(new EventSolicitudCreate($solicitud));
+
+            return $solicitud;
+        }else{
+
+            $request->merge([
+                'estado_id' => SolicitudEstado::INGRESADA,
+            ]);
+
+
+            $solicitud->fill($request->all());
+            $solicitud->save();
+
+        }
+
+        return $solicitud;
+    }
+
+
 
     /**
      * Remove the specified Solicitud from storage.
@@ -188,6 +258,8 @@ class SolicitudController extends AppBaseController
 
         return redirect(route('solicitudes.index'));
     }
+
+
 
     public function obtenerTemporal()
     {
@@ -218,81 +290,37 @@ class SolicitudController extends AppBaseController
         return redirect(route('solicitudes.create'));
     }
 
-    public function procesar(Solicitud $solicitud,UpdateSolicitudRequest $request){
 
-
-        try {
-            DB::beginTransaction();
-
-            $request->merge([
-                'codigo' => $this->getCodigo(),
-                'correlativo' => $this->getCorrelativo(),
-                'usuario_solicita' => $request->usuario_solicita,
-                'fecha_solicita' => hoyDb(),
-                'estado_id' => SolicitudEstado::SOLICITADA,
-            ]);
-
-
-            $solicitud->fill($request->all());
-            $solicitud->save();
-
-//            Mail::send(new SolicitudStock($solicitud));
-//            event(new EventSolicitudCreate($solicitud));
-
-        } catch (Exception $exception) {
-            DB::rollBack();
-
-            throw $exception;
-        }
-
-        DB::commit();
-
-        return $solicitud;
-    }
-
-    /**
-     * Agrupa los detalles sumando la cantidad según el item_id
-     * @param $detalles
-     * @return array
-     */
-    public function detGroup($detalles)
-    {
-        $detGroup = array();
-
-        foreach ($detalles as $det) {
-
-            $id=$det->item_id;
-            $cant=$det->cantidad;
-
-            $detGroup[$id]= isset($detGroup[$id]) ? number_format($detGroup[$id]+$cant,2) : number_format($cant,2);
-
-        }
-
-        return $detGroup;
-    }
 
     /**
      * Devuelve un array con los items los cuales no alcanza el stock según la suma de las cantidades de los detalles
      * @param array $detalles
      * @return array
      */
-    public function validaStock($detalles=array()){
+    public function validaStock(Solicitud $solicitud){
 
-        $itemStockInsuficiente=array();
+        $errores=array();
 
-        foreach ($this->detGroup($detalles) as $itemId => $cant){
-            $item = Item::find($itemId);
 
-//            dump('stock: '.$item->stock.' cant: '.$cant);
-            if($item->stocks->sum('cantidad')<$cant){
-                $itemStockInsuficiente[]=$item;
+        /**
+         * @var SolicitudDetalle $detalle
+         */
+        foreach ($solicitud->detalles as $index => $detalle) {
+
+            $item = $detalle->item;
+            $stock = $item->stocks->sum('cantidad');
+
+            if($stock < $detalle->cantidad){
+
+                $errores[]= "El articulo ".$item->nombre.", tiene ".nf($stock)." existencias e intenta solicitar ".nf($detalle->cantidad);;
+
             }
         }
 
-        return $itemStockInsuficiente;
+        return $errores;
     }
 
-    public function despachar(Solicitud $solicitud)
+    public function despacharStore(Solicitud $solicitud)
     {
 
 

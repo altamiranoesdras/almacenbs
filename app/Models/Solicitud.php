@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,8 +18,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \App\Models\User $usuarioCrea
  * @property \App\Models\User $usuarioAutoriza
  * @property \App\Models\User $usuarioAprueba
- * @property \App\Models\RrhhUnidade $unidad
- * @property \Illuminate\Database\Eloquent\Collection $solicitudDetalles
+ * @property \App\Models\RrhhUnidad $unidad
+ * @property \Illuminate\Database\Eloquent\Collection $detalles
  * @property string $codigo
  * @property integer $correlativo
  * @property string $justificacion
@@ -54,6 +55,12 @@ class Solicitud extends Model
 
     protected $dates = ['deleted_at'];
 
+    protected static function booted()
+    {
+        static::addGlobalScope('noTemporal', function (Builder $builder) {
+            $builder->where('estado_id', '!=', SolicitudEstado::TEMPORAL);
+        });
+    }
 
 
     public $fillable = [
@@ -203,9 +210,9 @@ class Solicitud extends Model
         return $this->hasMany(\App\Models\SolicitudDetalle::class, 'solicitud_id');
     }
 
-    public function scopeTemporal($q)
+    public function scopeTemporal(Builder $q)
     {
-        $q->where('estado_id',SolicitudEstado::TEMPORAL);
+        $q->withoutGlobalScope('noTemporal')->where('estado_id',SolicitudEstado::TEMPORAL);
     }
 
     public function scopeDelUsuarioCrea($q,$user=null)
@@ -216,8 +223,33 @@ class Solicitud extends Model
         $q->where('usuario_crea',$user->id);
     }
 
+    public function esTemporal()
+    {
+        return $this->estado_id==SolicitudEstado::TEMPORAL;
+    }
+
     public function puedeEditar()
     {
         return $this->estado_id==SolicitudEstado::TEMPORAL || $this->estado_id==SolicitudEstado::INGRESADA;
+    }
+
+    public function puedeSolicitar()
+    {
+        return $this->estado_id==SolicitudEstado::INGRESADA;
+    }
+
+    public function puedeAutorizar()
+    {
+        return $this->estado_id == SolicitudEstado::SOLICITADA;
+    }
+
+    public function puedeDespachar()
+    {
+        return $this->estado_id == SolicitudEstado::APROBADA;
+    }
+
+    public function puedeAnular()
+    {
+        return $this->estado_id != SolicitudEstado::ANULADA && $this->estado_id == SolicitudEstado::DESPACHADA;
     }
 }

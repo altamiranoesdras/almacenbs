@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page','Nueva requisición insumos')
+@section('title_page', $solicitud->esTemporal() ? 'Nueva requisición' : 'Editar requisición')
 
 @include('layouts.xtra_condensed_css')
 {{--@push('sidebar_class','sidebar-collapse')--}}
@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="col">
                     <h1 class="m-0 text-dark">
-                        Nueva requisición insumos
+                        {{ $solicitud->esTemporal() ? 'Nueva requisición' : 'Editar requisición' }}
                     </h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -27,7 +27,7 @@
 
             @include('layouts.errores')
 
-            {!! Form::model($temporal, ['route' => ['solicitudes.update', $temporal->id], 'method' => 'patch']) !!}
+            {!! Form::model($solicitud, ['route' => ['solicitudes.update', $solicitud->id], 'method' => 'patch']) !!}
             <div class="row mt-2">
 
                 <!-- Articulos -->
@@ -106,7 +106,7 @@
                                         <td v-text="nf(detalle.cantidad)"></td>
                                         <td width="10px">
                                             <button type="button" class='btn btn-danger btn-xs'
-                                                    @click="deleteDet(detalle)"
+                                                    @click="deleteItem(detalle)"
                                                     :disabled="(idEliminando===detalle.id)">
                                                 <i  v-show="(idEliminando===detalle.id)" class="fa fa-spinner fa-spin"></i>
                                                 <i v-show="!(idEliminando===detalle.id)" class="fa fa-trash-alt"></i>
@@ -137,7 +137,7 @@
                             <h3 class="card-title">
                                 <strong>
                                     Resumen
-                                    {{--<small>iniciada: {{fechaHoraLtn($temporal->created_at)}}</small>--}}
+                                    {{--<small>iniciada: {{fechaHoraLtn($solicitud->created_at)}}</small>--}}
                                 </strong>
                             </h3>
                             <div class="card-tools pull-right">
@@ -186,11 +186,11 @@
 
                 editedItem: {
                     id : 0,
-                    solicitud_id : @json($temporal->id),
+                    solicitud_id : @json($solicitud->id),
                 },
                 defaultItem: {
                     id : 0,
-                    solicitud_id : @json($temporal->id),
+                    solicitud_id : @json($solicitud->id),
                     item_id: '',
                     cantidad: 0,
                     fecha_ven: '',
@@ -235,7 +235,7 @@
 
                     try {
 
-                        let params= { params: {solicitud_id: @json($temporal->id) } }
+                        let params= { params: {solicitud_id: @json($solicitud->id) } }
 
                         var res = await axios.get(route('api.solicitud_detalles.index'),params);
 
@@ -309,12 +309,7 @@
                 },
                 siguienteCampo: function (campo){
 
-                    if (campo=='agregar'){
-                        $(this.$refs[campo]).focus().select();
-                    }else {
-
-                        $(this.$refs[campo]).focus().select();
-                    }
+                    $(this.$refs[campo]).focus().select();
                 },
                 abreSelectorItems () {
                     this.itemSelect = null;

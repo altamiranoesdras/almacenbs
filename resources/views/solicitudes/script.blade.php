@@ -1,5 +1,5 @@
 @push('scripts')
-<!--    Scripts solicitudes
+<!--    Scripts requisiciones
 ------------------------------------------------->
 <script >
     vm = new Vue({
@@ -10,18 +10,18 @@
         data: {
             detalles: [],
             nuevoDetalle: {
-                temp_solicitude_id: '{{$temporal->id}}',
+                temp_solicitude_id: '{{$solicitud->id}}',
                 item_id: '',
                 cantidad: '1',
             },
             detalleEdita: {
                 id: '',
-                temp_solicitude_id: '{{$temporal->id}}',
+                temp_solicitude_id: '{{$solicitud->id}}',
                 item_id: '',
                 cantidad: ''
             },
             detalleVacio: {
-                temp_solicitude_id: '{{$temporal->id}}',
+                temp_solicitude_id: '{{$solicitud->id}}',
                 item_id: '',
                 cantidad: '1',
             },
@@ -38,7 +38,7 @@
                 var urlKeeps = '{{route('api.solicitud_detalles.index')}}';
                 var params = {
                     params:{
-                        'temp_solicitude_id': '{{$temporal->id}}',
+                        'temp_solicitude_id': '{{$solicitud->id}}',
                     }
                 };
 
