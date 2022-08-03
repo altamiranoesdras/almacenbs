@@ -215,4 +215,9 @@ class Solicitud extends Model
 
         $q->where('usuario_crea',$user->id);
     }
+
+    public function puedeEditar()
+    {
+        return $this->estado_id==SolicitudEstado::TEMPORAL || $this->estado_id==SolicitudEstado::INGRESADA;
+    }
 }

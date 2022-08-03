@@ -304,7 +304,7 @@
                     if(this.totalitems>=1){
                         $('#modal-confirma-procesar').modal('show');
                     }else {
-                        iziTe('No hay ningún artículo en este ingreso')
+                        iziTe('No hay ningún artículo en esta requisición')
                     }
                 },
                 siguienteCampo: function (campo){
