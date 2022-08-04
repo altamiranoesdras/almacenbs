@@ -8,6 +8,8 @@ use App\Models\VistaCompra;
 use App\extensiones\DataTable;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\EloquentDataTable;
+use Yajra\DataTables\Html\Button;
+use Yajra\DataTables\Html\Column;
 
 class CompraDataTable extends DataTable
 {
@@ -22,38 +24,36 @@ class CompraDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
 
         return $dataTable
-            ->addColumn('action', function ($compra){
+            ->addColumn('action', function (Compra $compra){
                 $id = $compra->id;
 
                 return view('compras.datatables_actions',compact('compra','id'));
             })
-            ->editColumn('fecha',function ($compra){
-                return fecha($compra->fecha);
-            })
-            ->editColumn('fecha_ingreso_plan',function ($compra){
-                return fecha($compra->fecha);
-            })
-            ->editColumn('fecha_ingreso',function ($compra){
-                return fecha($compra->fecha);
+            ->editColumn('fecha_documento',function (Compra $compra){
+                return fechaLtn($compra->fecha_documento);
             })
 
-            ->editColumn('total',function ($compra){
+            ->editColumn('fecha_ingreso',function (Compra $compra){
+                return fechaLtn($compra->fecha_ingreso);
+            })
+
+            ->editColumn('total',function (Compra $compra){
                 return dvs().nfp($compra->total);
             })
-            ->setRowClass(function ($data) {
-
-                $alert = '';
-
-                if(hoyDb()>$data->fecha_ingreso_plan && $data->estado->id == CompraEstado::CREADA ){
-                    $alert = 'alert-danger';
-                }
-                elseif(hoyDb() == $data->fecha_ingreso_plan  && $data->estado->id == CompraEstado::CREADA ){
-                    $alert = 'alert-warning';
-                }
-
-                return $alert;
-
-            })
+//            ->setRowClass(function ($data) {
+//
+//                $alert = '';
+//
+//                if(hoyDb()>$data->fecha_ingreso_plan && $data->estado->id == CompraEstado::CREADA ){
+//                    $alert = 'alert-danger';
+//                }
+//                elseif(hoyDb() == $data->fecha_ingreso_plan  && $data->estado->id == CompraEstado::CREADA ){
+//                    $alert = 'alert-warning';
+//                }
+//
+//                return $alert;
+//
+//            })
             ->with([
                 'totalFilter' => function() use ($dataTable){
                     return dvs().nfp($dataTable->results()->sum('total'));
@@ -75,6 +75,7 @@ class CompraDataTable extends DataTable
     {
 
         $query = $model->newQuery()
+            ->select('compras.*')
             ->noTemporal()
             ->with(['detalles.item','tipo','usuarioCrea','estado','proveedor']);
 
@@ -101,25 +102,34 @@ class CompraDataTable extends DataTable
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->ajax([
-                'data' => "function(data) { formatDataDataTables($('#form-filter-compras').serializeArray(), data);   }"
+                'data' => "function(data) { formatDataDataTables($('#formFiltersDatatables').serializeArray(), data);   }"
             ])
-            ->addAction(['width' => '10%','printable' => false, 'title' => 'Acción'])
+            ->info(true)
+            ->language(['url' => asset('js/SpanishDataTables.json')])
             ->responsive(true)
-            ->parameters([
-                'dom'     => 'Bflrtip',
-                'order'   => [[0, 'desc']],
-                'language' => ['url' => asset('js/SpanishDataTables.json')],
-                //'scrollX' => false,
-                'stateSave' => true,
-                'responsive' => true,
-                'buttons' => [
-                    ['extend' => 'create', 'text' => '<i class="fa fa-plus"></i> <span class="d-none d-sm-inline">Crear</span>'],
-                    ['extend' => 'print', 'text' => '<i class="fa fa-print"></i> <span class="d-none d-sm-inline">Imprimir</span>'],
-                    ['extend' => 'reload', 'text' => '<i class="fa fa-sync-alt"></i> <span class="d-none d-sm-inline">Recargar</span>'],
-                    ['extend' => 'reset', 'text' => '<i class="fa fa-undo"></i> <span class="d-none d-sm-inline">Reiniciar</span>'],
-                    ['extend' => 'export', 'text' => '<i class="fa fa-download"></i> <span class="d-none d-sm-inline">Exportar</span>'],
-                ],
-            ]);
+            ->orderBy(1,'desc')
+            ->stateSave(true)
+            ->dom('
+                        <"row mb-2"
+                            <"col-sm-12 col-md-6" B>
+                            <"col-sm-12 col-md-6" f>
+                        >
+                        rt
+                        <"row"
+                            <"col-sm-6 order-2 order-sm-1" ip>
+                            <"col-sm-6 order-1 order-sm-2 text-right" l>
+
+                        >
+                    ')
+            ->buttons(
+
+                Button::make('print')
+                    ->text('<i class="fa fa-print"></i> <span class="d-none d-sm-inline">Imprimir</span>'),
+                Button::make('reset')
+                    ->text('<i class="fa fa-undo"></i> <span class="d-none d-sm-inline">Reiniciar</span>'),
+                Button::make('export')
+                    ->text('<i class="fa fa-download"></i> <span class="d-none d-sm-inline">Exportar</span>'),
+            );
     }
 
     /**
@@ -130,20 +140,28 @@ class CompraDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'id' => ['name' => 'id', 'data' => 'id'],
-            'codigo' => ['name' => 'correlativo', 'data' => 'codigo'],
-//            'creada' => ['name' => 'creada', 'data' => 'creada'],
-//            'hora' => ['name' => 'hora', 'data' => 'hora'],
-//            'fecha_doc' => ['name' => 'fecha', 'data' => 'fecha'],
-            'fecha_a_ingresar' => ['name' => 'fecha_ingreso_plan', 'data' => 'fecha_ingreso_plan'],
-            'fecha_recibió' => ['name' => 'fecha_ingreso', 'data' => 'fecha_ingreso'],
-////            'fecha_pago' => ['name' => 'fecha_credito', 'data' => 'fecha_credito'],
-            'tipo' => ['name' => 'tipo.nombre', 'data' => 'tipo.nombre'],
-            'proveedor' => ['name' => 'proveedor.nombre', 'data' => 'proveedor.nombre'],
-            'total' => ['name' => 'total', 'data' => 'total','searchable' => false],
-            'estado' => ['name' => 'estado.descripcion', 'data' => 'estado.nombre'],
-            'usuario' => ['name' => 'usuarioCrea.name', 'data' => 'usuario_crea.name', ],
-//            'bodega' => ['name' => 'tienda.nombre', 'data' => 'tienda.nombre', ]
+            Column::make('id'),
+            Column::make('codigo'),
+            Column::make('fecha_documento'),
+            Column::make('fecha_ingreso'),
+            Column::make('tipo')
+                    ->data('tipo.nombre')
+                    ->name('tipo.nombre'),
+            Column::make('proveedor')
+                    ->data('proveedor.nombre')
+                    ->name('proveedor.nombre'),
+            Column::make('estado')
+                    ->data('estado.nombre')
+                    ->name('estado.nombre'),
+            Column::make('usuario')
+                    ->data('usuario_crea.name')
+                    ->name('usuarioCrea.name'),
+            Column::make('total'),
+            Column::computed('action')
+                ->exportable(false)
+                ->printable(false)
+                ->width('15%')
+                ->addClass('text-center'),
         ];
     }
 

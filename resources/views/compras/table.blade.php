@@ -6,12 +6,12 @@
     {!! $dataTable->table(['width' => '100%']) !!}
 </div>
 
-<div class="row">
-    <div class="col">
-        <span class="badge badge-danger">Vencidas</span>
-        <span class="badge badge-warning">Hoy Vencen</span>
-    </div>
-</div>
+{{--<div class="row">--}}
+{{--    <div class="col">--}}
+{{--        <span class="badge badge-danger">Vencidas</span>--}}
+{{--        <span class="badge badge-warning">Hoy Vencen</span>--}}
+{{--    </div>--}}
+{{--</div>--}}
 
 @section('scripts')
     @include('layouts.datatables_js')
