@@ -55,13 +55,6 @@ class ItemsTableSeeder extends Seeder
                     $item->categorias()->attach(ItemCategoria::pluck('id')->random(4));
 
 
-                    try {
-                        $item->addMediaFromUrl("https://picsum.photos/600/400")->toMediaCollection('items');
-                        $item->addMediaFromUrl("https://picsum.photos/600/400")->toMediaCollection('items');
-                    }catch (\Exception $exception){
-
-                    }
-
 
 
 

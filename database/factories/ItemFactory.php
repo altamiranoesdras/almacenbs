@@ -8,6 +8,8 @@ use App\Models\Marca;
 use App\Models\Renglon;
 use App\Models\Unimed;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Mmo\Faker\LoremSpaceProvider;
+use Mmo\Faker\PicsumProvider;
 
 class ItemFactory extends Factory
 {
@@ -55,4 +57,35 @@ class ItemFactory extends Factory
             'updated_at' => $this->faker->date('Y-m-d H:i:s'),
         ];
     }
+
+    public function configure()
+    {
+
+        return $this->afterCreating(function (Item $user){
+
+            $this->faker->addProvider(new PicsumProvider($this->faker));
+            $this->faker->addProvider(new LoremSpaceProvider($this->faker));
+
+            try {
+
+                $categoria = $this->faker->randomElement([
+                    LoremSpaceProvider::CATEGORY_ALBUM,
+                    LoremSpaceProvider::CATEGORY_BOOK,
+                    LoremSpaceProvider::CATEGORY_FASHION,
+                    LoremSpaceProvider::CATEGORY_SHOES,
+                    LoremSpaceProvider::CATEGORY_WATCH,
+                ]);
+
+                $url = $this->faker->loremSpace($categoria,storage_path('temp'));
+
+                $user->addMedia($url)
+                    ->toMediaCollection('items');
+
+            }catch (\Exception $exception){
+                dump($exception->getMessage());
+            }
+        });
+    }
+
+
 }
