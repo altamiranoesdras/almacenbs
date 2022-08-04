@@ -41,6 +41,7 @@ class DatabaseSeeder extends Seeder
 
             $this->call(ItemCategoriaTableSeeder::class);
             $this->call(ItemsTableSeeder::class);
+            $this->call(ComprasSeeder::class);
 
         }
 

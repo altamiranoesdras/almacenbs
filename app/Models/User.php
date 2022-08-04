@@ -35,6 +35,7 @@ class User extends Authenticatable implements  MustVerifyEmail,HasMedia
 {
     use HasApiTokens,Notifiable,InteractsWithMedia,HasRoles,SoftDeletes,HasFactory;
 
+    const PRINCIPAL = 1;
     /**
      * The attributes that are mass assignable.
      *

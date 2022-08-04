@@ -44,6 +44,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property number $stock_maximo
  * @property string $ubicacion
  * @property boolean $perecedero
+ * @property boolean $inventariable
  */
 class Item extends Model implements HasMedia
 {

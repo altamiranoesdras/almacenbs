@@ -289,20 +289,7 @@ class CompraController extends AppBaseController
         try {
             DB::beginTransaction();
 
-            $compra->estado_id = CompraEstado::ANULADA;
-            $compra->save();
-
-
-            /**
-             * @var CompraDetalle $detatlle
-             */
-            foreach ($compra->detalles as $detatlle){
-                $detatlle->anular();
-            }
-
-//            $compra->detalles()->delete();
-//            $compra->precioPromedioItems();
-
+            $compra->anular();
 
 
         } catch (\Exception $exception) {

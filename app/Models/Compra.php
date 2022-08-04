@@ -269,4 +269,19 @@ class Compra extends Model
     {
         $q->where('estado_id','!=',CompraEstado::TEMPORAL);
     }
+
+
+    public function anular()
+    {
+        $this->estado_id = CompraEstado::ANULADA;
+        $this->save();
+
+
+        /**
+         * @var CompraDetalle $detalle
+         */
+        foreach ($this->detalles as $detalle){
+            $detalle->anular();
+        }
+    }
 }

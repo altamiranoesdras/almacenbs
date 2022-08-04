@@ -12,8 +12,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @package App\Models
  * @version July 27, 2022, 12:22 pm CST
  *
- * @property \App\Models\Compra $compra
- * @property \App\Models\Item $item
+ * @property Compra $compra
+ * @property Item $item
  * @property integer $compra_id
  * @property integer $item_id
  * @property number $cantidad
@@ -80,7 +80,7 @@ class CompraDetalle extends Model
      **/
     public function compra()
     {
-        return $this->belongsTo(\App\Models\Compra::class, 'compra_id');
+        return $this->belongsTo(Compra::class, 'compra_id');
     }
 
     /**
@@ -88,7 +88,7 @@ class CompraDetalle extends Model
      **/
     public function item()
     {
-        return $this->belongsTo(\App\Models\Item::class, 'item_id');
+        return $this->belongsTo(Item::class, 'item_id');
     }
 
     /**

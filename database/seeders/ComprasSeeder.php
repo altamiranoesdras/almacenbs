@@ -4,8 +4,8 @@ namespace Database\Seeders;
 use App\Models\Compra;
 use App\Models\CompraDetalle;
 use App\Models\Stock;
-use App\Models\Tienda;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ComprasSeeder extends Seeder
 {
@@ -16,19 +16,21 @@ class ComprasSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
-        factory(Compra::class,50)->create()
+        DB::table('compras')->truncate();
+        DB::table('compra_detalles')->truncate();
+
+        Compra::factory()->count(10)
+            ->create()
             ->each(function (Compra $compra){
-                factory(CompraDetalle::class,random_int(5,25))
-                    ->create(['compra_id' => $compra->id])
-                    ->each(function (CompraDetalle $detalle){
-                        $stock = new Stock();
-
-                        if($detalle->item->inventariable){
-                            $stock->egreso($detalle->item_id,$detalle->cantidad,$detalle->id, Tienda::PRINCIPAL);
-                        }
-
-                    });
+                CompraDetalle::factory()
+                    ->count(rand(5,20))
+                    ->create([
+                        'compra_id' => $compra->id
+                    ]);
             });
+
+
     }
 }
