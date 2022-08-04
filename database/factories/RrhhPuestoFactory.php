@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\RrhhUnidad;
+use App\Models\RrhhPuesto;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class RrhhUnidadFactory extends Factory
+class RrhhPuestoFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = RrhhUnidad::class;
+    protected $model = RrhhPuesto::class;
 
     /**
      * Define the model's default state.
@@ -22,10 +22,12 @@ class RrhhUnidadFactory extends Factory
     public function definition()
     {
         return [
-            'nombre' => $this->faker->unique()->word,
-            'activa' => $this->faker->randomElement(['si','no']),
+            'nombre' => $this->faker->word,
+            'atribuciones' => $this->faker->text,
+            'activo' => $this->faker->randomElement(['si','no']),
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s'),
+
         ];
     }
 }

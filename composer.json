@@ -40,6 +40,7 @@
         "fakerphp/faker": "^1.9.1",
         "kitloong/laravel-migrations-generator": "^4.4",
         "laravel/sail": "^1.0.1",
+        "mmo/faker-images": "^0.6.0",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
         "orangehill/iseed": "^3.0",

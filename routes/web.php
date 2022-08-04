@@ -30,6 +30,7 @@ use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\PruebaApiController;
 use App\Http\Controllers\RenglonController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\RrhhPuestoController;
 use App\Http\Controllers\RrhhUnidadController;
 use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\SolicitudDetalleController;
@@ -183,7 +184,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     Route::resource('compra1hs', Compra1hController::class);
 
-
+    Route::resource('rrhhPuestos', RrhhPuestoController::class);
 
 
 });
@@ -213,4 +214,5 @@ Route::group(['prefix' => ''], function () {
 
 
 });
+
 

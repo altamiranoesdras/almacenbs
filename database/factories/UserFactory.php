@@ -2,9 +2,14 @@
 
 namespace Database\Factories;
 
+use App\Models\RrhhPuesto;
+use App\Models\RrhhUnidad;
 use App\Models\User;
+use Faker\Provider\Image;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use Mmo\Faker\LoremSpaceProvider;
+use Mmo\Faker\PicsumProvider;
 
 class UserFactory extends Factory
 {
@@ -28,8 +33,31 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
             'password' => bcrypt(123), // password
-            //'avatar' => Image::image(storage_path() . '/app/public/avatars', 600, 350, 'people', false),
+            'unidad_id' => RrhhUnidad::all()->random()->id,
+            'puesto_id' => RrhhPuesto::all()->random()->id,
             'remember_token' => Str::random(10),
         ];
     }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (User $user){
+
+            $this->faker->addProvider(new PicsumProvider($this->faker));
+            $this->faker->addProvider(new LoremSpaceProvider($this->faker));
+
+            try {
+
+                $url = $this->faker->loremSpace(LoremSpaceProvider::CATEGORY_FACE,storage_path('temp'));
+
+                $user->addMedia($url)
+                    ->toMediaCollection('avatars');
+
+            }catch (\Exception $exception){
+                dump($exception->getMessage());
+            }
+        });
+    }
+
+
 }

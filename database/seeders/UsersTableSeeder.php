@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Option;
 use App\Models\Role;
 use App\Models\User;
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -17,6 +18,8 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
         DB::table('users')->truncate();
 

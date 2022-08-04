@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\OptionAPIController;
 use App\Http\Controllers\API\PermissionAPIController;
 use App\Http\Controllers\API\RoleAPIController;
+use App\Http\Controllers\API\RrhhPuestoAPIController;
 use App\Http\Controllers\API\UserAPIController;
 
 use App\Http\Controllers\API\CompraEstadoAPIController;
@@ -136,6 +137,8 @@ Route::group(['as'=>'api.'], function () {
 
 
         Route::resource('compra1h_detalles', Compra1hDetalleAPIController::class);
+
+        Route::resource('rrhh_puestos', RrhhPuestoAPIController::class);
 
     });
 

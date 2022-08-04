@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRrhhUnidadesTable extends Migration
+class CreateRrhhPuestosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateRrhhUnidadesTable extends Migration
      */
     public function up()
     {
-        Schema::create('rrhh_unidades', function (Blueprint $table) {
+        Schema::create('rrhh_puestos', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre')->unique('nombre_UNIQUE');
-            $table->unsignedBigInteger('jefe')->nullable()->index('fk_rrhh_unidades_users1_idx');
-            $table->enum('activa', ['si', 'no'])->nullable();
+            $table->string('nombre');
+            $table->text('atribuciones')->nullable();
+            $table->enum('activo', ['si', 'no'])->nullable()->default('si');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +30,6 @@ class CreateRrhhUnidadesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rrhh_unidades');
+        Schema::dropIfExists('rrhh_puestos');
     }
 }
