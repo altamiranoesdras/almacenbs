@@ -43,71 +43,72 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body p-2">
-                            {!! Form::open(['rout' => 'compras.index','method' => 'get', 'id' => 'form-filter-compras']) !!}
-                            <div class="form-row">
-                                <div class="form-group col-sm-4">
-                                    {!! Form::label('proveedor_id','Proveedor: ') !!}
-                                    {!!
-                                        Form::select(
-                                            'proveedor_id',
-                                            select(\App\Models\Proveedor::class,'nombre','id',null)
-                                            , $proveedor_id ?? null
-                                            , ['id'=>'proveedores','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
-                                        )
-                                    !!}
-                                </div>
+                            <form id="formFiltersDatatables">
+                                <div class="form-row">
+                                    <div class="form-group col-sm-4">
+                                        {!! Form::label('proveedor_id','Proveedor: ') !!}
+                                        {!!
+                                            Form::select(
+                                                'proveedores',
+                                                select(\App\Models\Proveedor::class,'nombre','id',null)
+                                                , $proveedor_id ?? null
+                                                , ['id'=>'proveedores','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
+                                            )
+                                        !!}
+                                    </div>
 
-                                <div class="form-group col-sm-2">
-                                    {!! Form::label('del', 'Del:') !!}
-                                    {!! Form::date('del', iniMesDb(), ['class' => 'form-control ']) !!}
-                                </div>
+                                    <div class="form-group col-sm-2">
+                                        {!! Form::label('del', 'Del:') !!}
+                                        {!! Form::date('del', iniMesDb(), ['class' => 'form-control ']) !!}
+                                    </div>
 
-                                <div class="form-group col-sm-2">
-                                    {!! Form::label('al', 'Al:') !!}
-                                    {!! Form::date('al', hoyDb(), ['class' => 'form-control ']) !!}
-                                </div>
+                                    <div class="form-group col-sm-2">
+                                        {!! Form::label('al', 'Al:') !!}
+                                        {!! Form::date('al', hoyDb(), ['class' => 'form-control ']) !!}
+                                    </div>
 
-                                <div class="form-group col-sm-4">
-                                    {!! Form::label('item_id','Artículo: ') !!}
-                                    {!!
-                                        Form::select(
-                                            'item_id',
-                                            select(\App\Models\Item::class,'nombre','id',null)
-                                            , $item_id ?? null
-                                            , ['id'=>'items','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
-                                        )
-                                    !!}
-                                </div>
+                                    <div class="form-group col-sm-4">
+                                        {!! Form::label('item_id','Artículo: ') !!}
+                                        {!!
+                                            Form::select(
+                                                'items',
+                                                select(\App\Models\Item::class,'nombre','id',null)
+                                                , null
+                                                , ['id'=>'items','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
+                                            )
+                                        !!}
+                                    </div>
 
-                                <div class="form-group col-sm-3">
-                                    {!! Form::label('estado_id','Estado: ') !!}
-                                    {!!
-                                        Form::select(
-                                            'estado_id',
-                                            select(\App\Models\CompraEstado::class,'nombre','id',null)
-                                            , $estado_id ?? null
-                                            , ['id'=>'estados','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
-                                        )
-                                    !!}
-                                </div>
-
-
-
-                                <div class="form-group col-sm-3">
-                                    {!! Form::label('codigo', 'Codigo:') !!}
-                                    {!! Form::text('codigo', null, ['class' => 'form-control']) !!}
-                                </div>
+                                    <div class="form-group col-sm-3">
+                                        {!! Form::label('estado_id','Estado: ') !!}
+                                        {!!
+                                            Form::select(
+                                                'estados',
+                                                select(\App\Models\CompraEstado::class,'nombre','id',null)
+                                                , null
+                                                , ['id'=>'estados','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
+                                            )
+                                        !!}
+                                    </div>
 
 
 
-                                <div class="form-group col-sm-3 pl-3">
-                                    {!! Form::label('boton','&nbsp;') !!}
-                                    <div>
-                                        <button type="submit" id="boton" class="btn btn-info">Filtrar</button>
+                                    <div class="form-group col-sm-3">
+                                        {!! Form::label('codigo', 'Codigo:') !!}
+                                        {!! Form::text('codigo', null, ['class' => 'form-control']) !!}
+                                    </div>
+
+
+
+                                    <div class="form-group col-sm-3 pl-3">
+                                        {!! Form::label('boton','&nbsp;') !!}
+                                        <div>
+                                            <button type="submit" id="boton" class="btn btn-info">Filtrar</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            {!! Form::close() !!}
+                            </form>
+
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -140,7 +141,7 @@
 
 
         $(function () {
-            $('#form-filter-compras').submit(function(e){
+            $('#formFiltersDatatables').submit(function(e){
 
                 e.preventDefault();
                 table = window.LaravelDataTables["dataTableBuilder"];

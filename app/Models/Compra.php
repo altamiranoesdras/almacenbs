@@ -44,7 +44,6 @@ class Compra extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $appends = ['codigo'];
 
 
     public $fillable = [
@@ -192,10 +191,6 @@ class Compra extends Model
         }
     }
 
-    public function getCodigoAttribute()
-    {
-        return 'CPA-'.$this->created_at->year.'-'.$this->correlativo;
-    }
 
 
     public function scopeDelUser($query,$user=null)

@@ -40,7 +40,7 @@ class ScopeCompraDataTable implements DataTableScope
     {
 
         if($this->codigo){
-            $query->where('codigo',$this->codigo);
+            $query->where('codigo','like',"%$this->codigo%");
         }
 
         if($this->proveedores){
