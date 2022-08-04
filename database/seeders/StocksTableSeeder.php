@@ -30,32 +30,27 @@ class StocksTableSeeder extends Seeder
                     'item_id' => $item->id,
                     'cantidad' => $stock,
                     'cantidad_inicial' => $stock,
-                    'tienda_id'=> Tienda::PRINCIPAL
                 ]);
                 factory(\App\Models\Stock::class,1)->create([
                     'item_id' => $item->id,
                     'cantidad' => $stock,
                     'cantidad_inicial' => $stock,
-                    'tienda_id'=> Tienda::BODEGA_PRODUCCION
                 ]);
             }else{
                 factory(\App\Models\Stock::class,1)->create([
                     'item_id' => $item->id,
                     'cantidad' => $stock,
                     'cantidad_inicial' => $stock,
-                    'tienda_id'=> Tienda::LOCAL_1
                 ]);
                 factory(\App\Models\Stock::class,1)->create([
                     'item_id' => $item->id,
                     'cantidad' => $stock,
                     'cantidad_inicial' => $stock,
-                    'tienda_id'=> Tienda::LOCAL_2
                 ]);
                 factory(\App\Models\Stock::class,1)->create([
                     'item_id' => $item->id,
                     'cantidad' => $stock,
                     'cantidad_inicial' => $stock,
-                    'tienda_id'=> Tienda::LOCAL_3
                 ]);
             }
 

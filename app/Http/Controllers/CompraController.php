@@ -38,52 +38,44 @@ class CompraController extends AppBaseController
      */
     public function index(CompraDataTable $compraDataTable,Request $request)
     {
+
+        $scope = new ScopeCompraDataTable();
+
         //si es la primera carga de la pagina es decir no se ha hecho ningun filtro
-        if ( count($request->all()) == 0 ){
-
-            $del = iniMesDb();
-            $al = hoyDb();
-
-        }else{
-            $del = $request->del ?? null;
-            $al = $request->al ?? null;
+        if ( count($request->all()) == 0 ) {
+            $scope->del =  iniMesDb();
+            $scope->al =  hoyDb();
         }
 
-        $proveedor_id = $request->proveedor_id ?? null;
-        $item_id = $request->item_id ?? null;
-        $estado_id = $request->estado_id ?? null;
-        $tienda_id = $request->tienda_id ?? null;
-        $codigo = $request->codigo ?? null;
-
-        $compraDataTable->addScope(new ScopeCompraDataTable($proveedor_id,$del,$al,$item_id,$estado_id,$tienda_id,$codigo));
+        $compraDataTable->addScope($scope);
 
         $subtitulo='';
 
-        if ($proveedor_id){
-            $proveedor = Proveedor::find($proveedor_id);
+        if ($request->proveedor_id){
+            $proveedor = Proveedor::find($request->proveedor_id);
             $subtitulo .=  "<br> Cliente: ".$proveedor->nombre;
         }
 
-        if ($item_id){
-            $item = Item::find($item_id);
+        if ($request->item_id){
+            $item = Item::find($request->item_id);
             $marca_nombre = $item->marca->nombre ?? null;
             $subtitulo .=  "<br> Artículo: ".$item->nombre.' / '.$marca_nombre;
         }
 
 
-        if ($estado_id){
-            $sts = CompraEstado::find($estado_id);
+        if ($request->estado_id){
+            $sts = CompraEstado::find($request->estado_id);
             $subtitulo .=  "<br> Estado: ".$sts->nombre;
         }
 
-        if ($del && $al){
-            $subtitulo .=  "<br> Del: ".fecha($del).' - Al: '.fecha($al);
+        if ($scope->del && $scope->al){
+            $subtitulo .=  "<br> Del: ".fecha($scope->del).' - Al: '.fecha($scope->al);
         }
 
         $compraDataTable->setTitulo('Reporte de Compras');
         $compraDataTable->setSubtitulo($subtitulo);
 
-        return $compraDataTable->render('compras.index',compact('del','al','proveedor_id','item_id'));
+        return $compraDataTable->render('compras.index');
     }
 
     /**

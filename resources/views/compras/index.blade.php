@@ -59,12 +59,14 @@
 
                                 <div class="form-group col-sm-2">
                                     {!! Form::label('del', 'Del:') !!}
-                                    {!! Form::date('del', $del, ['class' => 'form-control fecha']) !!}
+                                    {!! Form::date('del', iniMesDb(), ['class' => 'form-control ']) !!}
                                 </div>
+
                                 <div class="form-group col-sm-2">
                                     {!! Form::label('al', 'Al:') !!}
-                                    {!! Form::date('al', $al, ['class' => 'form-control fecha']) !!}
+                                    {!! Form::date('al', hoyDb(), ['class' => 'form-control ']) !!}
                                 </div>
+
                                 <div class="form-group col-sm-4">
                                     {!! Form::label('item_id','Artículo: ') !!}
                                     {!!
@@ -76,6 +78,7 @@
                                         )
                                     !!}
                                 </div>
+
                                 <div class="form-group col-sm-3">
                                     {!! Form::label('estado_id','Estado: ') !!}
                                     {!!

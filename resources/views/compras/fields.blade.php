@@ -116,7 +116,6 @@
 
             <div class="form-group col-sm-8">
                 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-                <input type="hidden" name="tienda_id" value="{{session('tienda')}}">
 
                 <button type="button"  class="btn btn-outline-success btn-block" @click="procesar()">
                     <span class="glyphicon glyphicon-ok"></span> Procesar

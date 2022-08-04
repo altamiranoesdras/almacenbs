@@ -138,7 +138,6 @@ class CompraDetalle extends Model
          * @var Stock $stock
          */
         $stock =  $this->item->stocks->where('item_id',$this->id)
-            ->where('tienda_id',$this->compra->tienda_id)
             ->where('fecha_vence',$this->fecha_ven)
             ->sortBy('orden_salida')
             ->sortBy('fecha_vence')
@@ -154,7 +153,6 @@ class CompraDetalle extends Model
         }else{
 
             $stock= Stock::create([
-                'tienda_id' => $this->compra->tienda_id,
                 'item_id' => $this->item->id,
                 'lote' =>  null,
                 'fecha_vence' => $this->fecha_ven,
@@ -166,7 +164,6 @@ class CompraDetalle extends Model
         }
 
         $this->kardex()->create([
-            'tienda_id' => $this->compra->tienda_id,
             'item_id' => $this->item->id,
             'cantidad' => $this->cantidad,
             'tipo' => Kardex::TIPO_INGRESO,

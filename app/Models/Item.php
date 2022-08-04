@@ -469,7 +469,6 @@ class Item extends Model implements HasMedia
          * @var Stock $stock
          */
         $stock =  $this->stocks->where('item_id',$this->id)
-            ->where('tienda_id',$tienda)
             ->sortBy('orden_salida')
             ->sortBy('fecha_vence')
             ->sortBy('created_at')
@@ -485,7 +484,6 @@ class Item extends Model implements HasMedia
         }else{
 
             $stock= Stock::create([
-                'tienda_id' => $tienda,
                 'item_id' => $this->id,
                 'lote' =>  null,
                 'fecha_vence' => $fecha_vence,
@@ -503,7 +501,6 @@ class Item extends Model implements HasMedia
 
             if ($cantidad > 0){
                 $stock->kardex()->create([
-                    'tienda_id'=> $stock->tienda_id,
                     'item_id' => $stock->item_id,
                     'cantidad' => $stock->cantidad,
                     'tipo' => Kardex::TIPO_INGRESO,

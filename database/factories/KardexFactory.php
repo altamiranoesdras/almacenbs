@@ -10,7 +10,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Model::class, function (Faker $faker) {
     return [
-        'tienda_id' => Tienda::all()->random()->id,
         'kardexable_id' => $faker->randomDigitNotNull,
         'kardexable_type' => $faker->word,
         'cantidad' => $faker->randomDigitNotNull,

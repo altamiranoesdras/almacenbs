@@ -9,37 +9,24 @@ class ScopeCompraDataTable implements DataTableScope
 {
 
 
-    private $proveedor;
-    private $del;
-    private $al;
-    private $item;
-    private $estado;
-    private $tienda;
-    private $between;
-    private $codigo;
+    public $codigo;
+    public $proveedores;
+    public $items;
+    public $estados;
+    public $del;
+    public $al;
 
-    public function __construct($proveedor=null, $del=null, $al=null, $item=null, $estado=null, $tienda=null,$codigo=null)
+    public function __construct()
     {
 
-        $this->proveedor = $proveedor;
+        $this->proveedores = request()->proveedores ?? null;
+        $this->del = request()->del ?? null;
+        $this->al = request()->al ?? null;
+        $this->items = request()->items ?? null;
+        $this->estados = request()->estados ?? null;
+        $this->between = request()->between ?? null;
+        $this->codigo = request()->codigo ?? null;
 
-
-
-        if($del && $al){
-
-            $this->del = Carbon::parse($del);
-            $this->al = Carbon::parse($al)->addDay(1);
-
-            $this->between =  [$this->del,$this->al];
-
-//            dd($this->between);
-        }
-
-        $this->item = $item;
-        $this->estado = $estado;
-        $this->tienda = $tienda;
-
-        $this->codigo = $codigo;
     }
 
 
@@ -51,33 +38,48 @@ class ScopeCompraDataTable implements DataTableScope
      */
     public function apply($query)
     {
-        if(!is_null($this->proveedor)){
-            $query->where('proveedor_id', $this->proveedor);
-        }
-
-        if(!is_null($this->between)){
-            $query->whereBetween('created_at',$this->between);
-        }
-
-        if(!is_null($this->item)){
-            $query->whereIn('id', function($q) {
-                $q->select('compra_id')->from('compra_detalles')->where('item_id',$this->item);
-            });
-        }
-        if(!is_null($this->estado)){
-            $query->where('estado_id', $this->estado);
-        }
-        if(!is_null($this->tienda)){
-
-            $query->withoutGlobalScope('tienda')->where('tienda_id', $this->tienda);
-        }
 
         if($this->codigo){
-
-            list($tipo,$year,$correlativo)=explode('-',$this->codigo);
-
-            $query->where('correlativo',$correlativo)->whereYear('created_at', $year);
+            $query->where('codigo',$this->codigo);
         }
+
+        if($this->proveedores){
+            if (is_array($this->proveedores)){
+                $query->whereIn('proveedor_id', $this->proveedores);
+            }else{
+                $query->where('proveedor_id', $this->proveedores);
+            }
+        }
+
+        if($this->items){
+            $query->whereHas('detalles', function ($queryDetalles) {
+                if (is_array($this->items)){
+                    $queryDetalles->whereIn('item_id', $this->items);
+                }else{
+                    $queryDetalles->where('item_id', $this->items);
+                }
+            });
+        }
+
+
+        if($this->estados){
+            if (is_array($this->estados)){
+                $query->whereIn('estado_id', $this->estados);
+            }else{
+                $query->where('estado_id', $this->estados);
+            }
+        }
+
+        if ($this->del && $this->al){
+
+            $del = Carbon::parse($this->del)->startOfDay();
+            $al = Carbon::parse($this->al)->endOfDay();
+
+            $query->where('created_at',[$del,$al]);
+
+        }
+
+
 
         return $query;
     }
