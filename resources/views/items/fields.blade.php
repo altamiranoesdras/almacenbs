@@ -30,7 +30,7 @@
                 <span class="text-danger"> *</span>
                 @if(isset($edit) && ($item->estaEnUnaCompra() || $item->estaEnUnaVenta()))
                     <span class="text-sm text-warning">
-                <strong>El artículo se encuentra en una o mas ventas y/o compras</strong>
+                <strong>El artículo ya se a registrado en una compra o una requisición</strong>
                 </span>
                 @endif
                 {!! Form::text('nombre', null, ['class' => 'form-control', isset($edit) && ($item->estaEnUnaCompra() || $item->estaEnUnaVenta())? 'readonly' : '']) !!}
@@ -70,6 +70,10 @@
 
             <div class="form-group col-sm-12">
                 <select-renglon v-model="renglon" label="Renglon"></select-renglon>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <select-item-tipo v-model="tipo" label="Tipo"></select-item-tipo>
             </div>
         </div>
 
@@ -224,7 +228,8 @@
         data: {
             renglon : @json($item->renglon ?? \App\Models\Renglon::find(old('renglon_id')) ?? null),
             marca : @json($item->marca ?? \App\Models\Marca::find(old('marca_id')) ?? null),
-            unimed : @json($item->unimed ?? \App\Models\Marca::find(old('unimed_id')) ?? null)
+            unimed : @json($item->unimed ?? \App\Models\Marca::find(old('unimed_id')) ?? null),
+            tipo : @json($item->tipo ?? \App\Models\ItemTipo::find(old('tipo_id')) ?? null)
         },
         methods: {
             getDatos(){

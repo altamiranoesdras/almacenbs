@@ -150,3 +150,6 @@ Vue.component('select-renglon',SelectRenglon)
 
 import SelectUnimed from "./components/SelectUnimed";
 Vue.component('select-unimed',SelectUnimed)
+
+import SelectItemTipo from "./components/SelectItemTipo";
+Vue.component('select-item-tipo',SelectItemTipo);
