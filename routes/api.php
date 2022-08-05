@@ -140,6 +140,8 @@ Route::group(['as'=>'api.'], function () {
 
         Route::resource('rrhh_puestos', RrhhPuestoAPIController::class);
 
+        Route::resource('item_tipos', App\Http\Controllers\API\ItemTipoAPIController::class);
+
     });
 
 

@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Item;
 use App\Models\ItemCategoria;
+use App\Models\ItemTipo;
 use App\Models\Marca;
 use App\Models\Renglon;
 use App\Models\Unimed;
@@ -42,6 +43,7 @@ class ItemFactory extends Factory
                 'Water', 'Sprite', 'Orange Juice', 'Iced Coffee'
             ]),
             'descripcion' => $this->faker->paragraph,
+            'tipo_id' => ItemTipo::all()->random()->id,
             'renglon_id' => Renglon::all()->random()->id,
             'marca_id' => Marca::all()->random()->id,
             'unimed_id' => Unimed::all()->random()->id,

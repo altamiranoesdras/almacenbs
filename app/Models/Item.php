@@ -15,10 +15,11 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @package App\Models
  * @version July 27, 2022, 12:22 pm CST
  *
- * @property \App\Models\Unimed $unimed
  * @property \App\Models\ItemCategoria $categoria
  * @property \App\Models\Renglon $renglon
  * @property \App\Models\Marca $marca
+ * @property \App\Models\Unimed $unimed
+ * @property \App\Models\ItemTipo $tipo
  * @property \Illuminate\Database\Eloquent\Collection $compra1hDetalles
  * @property \Illuminate\Database\Eloquent\Collection $compraDetalles
  * @property \Illuminate\Database\Eloquent\Collection $equivalencias
@@ -33,6 +34,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property string $codigo
  * @property string $nombre
  * @property string $descripcion
+ * @property integer $tipo_id
  * @property integer $renglon_id
  * @property integer $marca_id
  * @property integer $unimed_id
@@ -88,6 +90,7 @@ class Item extends Model implements HasMedia
         'codigo',
         'nombre',
         'descripcion',
+        'tipo_id',
         'renglon_id',
         'marca_id',
         'unimed_id',
@@ -112,6 +115,7 @@ class Item extends Model implements HasMedia
         'codigo' => 'string',
         'nombre' => 'string',
         'descripcion' => 'string',
+        'tipo_id' => 'integer',
         'renglon_id' => 'integer',
         'marca_id' => 'integer',
         'unimed_id' => 'integer',
@@ -134,10 +138,11 @@ class Item extends Model implements HasMedia
         'codigo' => 'nullable|string|max:25',
         'nombre' => 'required|string|max:100',
         'descripcion' => 'nullable|string',
-        'renglon_id' => 'required',
-        'marca_id' => 'nullable',
-        'unimed_id' => 'nullable',
-        'categoria_id' => 'nullable',
+        'tipo_id' => 'required|integer',
+        'renglon_id' => 'required|integer',
+        'marca_id' => 'nullable|integer',
+        'unimed_id' => 'nullable|integer',
+        'categoria_id' => 'nullable|integer',
         'precio_venta' => 'nullable|numeric',
         'precio_compra' => 'required|numeric',
         'precio_promedio' => 'nullable|numeric',
@@ -180,6 +185,15 @@ class Item extends Model implements HasMedia
     public function marca()
     {
         return $this->belongsTo(\App\Models\Marca::class, 'marca_id');
+    }
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function tipo()
+    {
+        return $this->belongsTo(\App\Models\ItemTipo::class, 'tipo_id');
     }
 
     /**

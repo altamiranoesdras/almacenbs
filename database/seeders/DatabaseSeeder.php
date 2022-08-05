@@ -39,6 +39,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(ItemsTrasladosEstadosTableSeeder::class);
         $this->call(DivisaSeeder::class);
+        $this->call(ItemTiposTableSeeder::class);
+
 
 
         if(app()->environment()=='local'){

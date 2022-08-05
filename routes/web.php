@@ -186,6 +186,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     Route::resource('rrhhPuestos', RrhhPuestoController::class);
 
+    Route::resource('itemTipos', App\Http\Controllers\ItemTipoController::class);
+
 
 });
 
@@ -204,13 +206,6 @@ Route::group(['prefix' => ''], function () {
 //    Route::get('/', [HomeController::class,'index'])->name('index');
 //    Route::get('home', [HomeController::class,'index'])->name('home');
 
-    Route::get('about', [HomeController::class,'about'])->name('about');
-    Route::get('contact', [HomeController::class,'contact'])->name('contact');
-    Route::get('cambio/idioma/{lang}', [HomeController::class,'cambioIdioma'])
-        ->where([
-            'lang' => 'en|es'
-        ])
-        ->name('cambio.idioma');
 
 
 });
