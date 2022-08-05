@@ -15,6 +15,7 @@ use App\Models\Proveedor;
 use Carbon\Carbon;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Response;
@@ -350,8 +351,8 @@ class CompraController extends AppBaseController
 
         $pdf = App::make('snappy.pdf.wrapper');
 
-        $view = \View::make('compras.pdf', compact('compra'))->render();
-        $footer = \View::make('compras.pdf_footer')->render();
+        $view = view('compras.pdf', compact('compra'))->render();
+        $footer = view('compras.pdf_footer')->render();
 
         $pdf->loadHTML($view)
             ->setPaper('letter')

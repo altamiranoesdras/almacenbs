@@ -28,12 +28,12 @@
         </th>
     </tr>
 
-    <tr>
-        <th colspan="4">Descuento</th>
-        <th class="text-right text-success">
-            {{dvs().nf($compra->descuento_monto)}}
-        </th>
-    </tr>
+{{--    <tr>--}}
+{{--        <th colspan="4">Descuento</th>--}}
+{{--        <th class="text-right text-success">--}}
+{{--            {{dvs().nf($compra->descuento_monto)}}--}}
+{{--        </th>--}}
+{{--    </tr>--}}
 
     <tr>
         <th colspan="4">Total</th>
@@ -41,13 +41,5 @@
             {{dvs().nf($compra->total)}}
         </th>
     </tr>
-    @can('ver ganancia compra')
-        <tr>
-            <th colspan="4">Ganancia</th>
-            <th class="text-right text-success">
-                {{dvs().nf($compra->ganancia)}}
-            </th>
-        </tr>
-    @endcan
     </tfoot>
 </table>

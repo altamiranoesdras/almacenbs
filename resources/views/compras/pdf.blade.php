@@ -55,12 +55,7 @@
         </table>
       </div>
       @include('compras.tabla_detalles',['compra' => $compra])
-      <div class="text-muted">La Orden de Compra fue creada por: {{$compra->user->name}}</div>
-      {{--<div id='thanks'>Gracias por su atención!</div>--}}
-      {{--<div id='notices'>--}}
-        {{--<div>NOTICE:</div>--}}
-        {{--<div class='notice'>A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>--}}
-      {{--</div>--}}
+      <div class="text-muted">La Orden de Compra fue creada por: {{$compra->usuarioCrea->name}}</div>
     </main>
 
 
