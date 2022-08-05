@@ -8,6 +8,7 @@ use App\Models\ItemTipo;
 use App\Models\Marca;
 use App\Models\Renglon;
 use App\Models\Unimed;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Mmo\Faker\LoremSpaceProvider;
 use Mmo\Faker\PicsumProvider;
@@ -64,8 +65,9 @@ class ItemFactory extends Factory
 
 
             $stock = rand(20,40);
+            $fechaVence = Carbon::now()->addYear()->addDays(rand(1,5))->format('Y-m-d');
 
-            $item->actualizaOregistraStcokInicial($stock);
+            $item->actualizaOregistraStcokInicial($stock,$fechaVence);
 
             $item->categorias()->attach(ItemCategoria::pluck('id')->random(4));
 

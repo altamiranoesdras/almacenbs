@@ -35,9 +35,12 @@ class ItemsTableSeeder extends Seeder
             DB::table('items')->truncate();
             DB::table('item_has_categoria')->truncate();
             DB::table('stocks')->truncate();
+            DB::table('stocks_transacciones')->truncate();
             DB::table('kardexs')->truncate();
+            DB::table('compras')->truncate();
+            DB::table('compra_detalles')->truncate();
 
-            Item::factory()->count(5)->create();
+            Item::factory()->count(25)->create();
 
             DB::statement('SET FOREIGN_KEY_CHECKS=1');
         }

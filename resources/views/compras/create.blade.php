@@ -165,8 +165,6 @@
     </div>
     <!-- /.content -->
 
-    @include('compras.modal_provs')
-    @include('items.modal_form_create')
 
 @endsection
 

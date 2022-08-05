@@ -2,6 +2,7 @@
 
 use App\Models\Configuration;
 use App\Models\Option;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
@@ -677,13 +678,19 @@ function ceros($numero,$cantidadCeros){
 }
 
 function errorException(Exception $exception){
-    if (auth()->user()->can('depurar')){
-        throw new $exception;
+
+    /**
+     * @var User $user
+     */
+    $user = auth()->user() ?? auth('api')->user();
+
+    if ($user->can('depurar')){
+        throw $exception;
     }
 
-    $msg = Auth::user()->isAdmin() ? $exception->getMessage() : 'Hubo un error intente de nuevo';
+    $msg = $user->isSuperAdmin() ? $exception->getMessage() : 'Hubo un error intente de nuevo';
 
-    flash('Error: '.$msg)->error()->important();
+    flash($msg)->error()->important();
 }
 
 function existeCredencialesSat(){

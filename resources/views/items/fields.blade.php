@@ -28,18 +28,18 @@
 
                 {!! Form::label('nombre', 'Nombre: ') !!}
                 <span class="text-danger"> *</span>
-                @if(isset($edit) && ($item->estaEnUnaCompra() || $item->estaEnUnaVenta()))
+                @if((!$item->puedeEditarNombre() ?? false))
                     <span class="text-sm text-warning">
-                <strong>El artículo ya se a registrado en una compra o una requisición</strong>
-                </span>
+                        <strong>El artículo esta registrado en una compra o requisición</strong>
+                    </span>
                 @endif
-                {!! Form::text('nombre', null, ['class' => 'form-control', isset($edit) && ($item->estaEnUnaCompra() || $item->estaEnUnaVenta())? 'readonly' : '']) !!}
+                {!! Form::text('nombre', null, ['class' => 'form-control', ($item->puedeEditarNombre() ?? true) ? '' : 'readonly']) !!}
             </div>
 
             <!-- Stock Field -->
             <div class="form-group col-sm-4">
                 {!! Form::label('stock', 'Existencias:') !!}<span class="text-danger"> *</span>
-                {!! Form::number('stock', isset($item) ? $item->stocks->sum('cantidad'): 0, ['class' => 'form-control',isset($edit) && ($item->estaEnUnaCompra() || $item->estaEnUnaVenta())? 'readonly' : '']) !!}
+                {!! Form::number('stock', $item->stocks->sum('cantidad') ?? 0, ['class' => 'form-control',($item->puedeEditarNombre() ?? true) ? '' : 'readonly']) !!}
             </div>
 
 {{--            <!-- Precio Venta Field -->--}}

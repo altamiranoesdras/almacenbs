@@ -74,13 +74,7 @@ class ItemController extends AppBaseController
         } catch (\Exception $exception) {
             DB::rollBack();
 
-            if ($user->isDev()){
-                throw $exception;
-            }
-
-            $msg = $user->isAdmin() ? $exception->getMessage() : 'Hubo un error intente de nuevo';
-
-            flash('Error: '.$msg)->error()->important();
+            errorException($exception);
 
             return redirect()->back();
         }
@@ -154,8 +148,21 @@ class ItemController extends AppBaseController
             return redirect(route('items.index'));
         }
 
-        $item->fill($request->all());
-        $item->save();
+        try {
+            DB::beginTransaction();
+
+            $this->processUpdate($request,$item);
+
+        } catch (\Exception $exception) {
+            DB::rollBack();
+
+            errorException($exception);
+
+            return redirect()->back();
+        }
+
+
+        DB::commit();
 
         Flash::success('Item actualizado con éxito.');
 
