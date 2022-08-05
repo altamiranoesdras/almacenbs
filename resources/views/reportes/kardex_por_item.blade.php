@@ -1,12 +1,10 @@
 @extends('layouts.app')
 
-@include('layouts.plugins.bootstrap_datetimepicker')
 @include('layouts.plugins.select2')
 @include('layouts.plugins.datatables_reportes')
 
-@section('htmlheader_title')
-    Kardex por artículo
-@endsection
+@section('title_page','Kardex por artículo')
+
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -31,7 +29,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            {!! Form::open(['route' => 'rpt.kardex2','method' => 'get']) !!}
+                            {!! Form::open(['route' => 'reportes.kardex','method' => 'get']) !!}
                             <div class="form-row">
 
 
@@ -40,7 +38,7 @@
                                     {!!
                                         Form::select(
                                             'item_id',
-                                            slc(\App\Models\Item::enTienda(),'text','id',null)
+                                            select(\App\Models\Item::class,'text','id',null)
                                             , $item_id ?? null
                                             , ['id'=>'items','class' => 'form-control ','multiple','style'=>'width: 100%']
                                         )
@@ -101,7 +99,7 @@
                                                     <td>{{$det->ingreso}}</td>
                                                     <td>{{$det->salida}}</td>
                                                     <td class="{{$loop->last ? 'text-bold' :''}}">{{$saldo+=$det->ingreso-=$det->salida}}</td>
-                                                    <td>{{$det->user->name}}</td>
+                                                    <td>{{$det->usuario->name ?? ''}}</td>
                                                 </tr>
                                             @endforeach
                                             </tbody>

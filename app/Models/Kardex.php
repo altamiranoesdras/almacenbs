@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -101,7 +102,7 @@ class Kardex extends Model
      **/
     public function item()
     {
-        return $this->belongsTo(\App\Models\Item::class, 'item_id');
+        return $this->belongsTo(Item::class, 'item_id');
     }
 
     /**
@@ -109,6 +110,41 @@ class Kardex extends Model
      **/
     public function usuario()
     {
-        return $this->belongsTo(\App\Models\User::class, 'usuario_id');
+        return $this->belongsTo(User::class, 'usuario_id');
     }
+
+
+
+    public function model()
+    {
+        return $this->morphTo();
+    }
+
+    public function getSalidaAttribute()
+    {
+        return $this->tipo==self::TIPO_SALIDA ? $this->cantidad : null;
+    }
+
+
+    public function getIngresoAttribute()
+    {
+        return $this->tipo==self::TIPO_INGRESO ? $this->cantidad : null;
+    }
+
+
+    public function scopeInventariable($q)
+    {
+        return $q->whereHas('item' ,function (Builder $q){
+            $q->where('inventariable' ,1);
+        });
+    }
+
+    public function scopeDelItem($q,$item)
+    {
+        $q->where('item_id',$item);
+    }
+
+
+
+
 }

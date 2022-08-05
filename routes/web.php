@@ -17,6 +17,7 @@ use App\Http\Controllers\HomeAdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemCategoriaController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ItemTipoController;
 use App\Http\Controllers\ItemTrasladoController;
 use App\Http\Controllers\ItemTrasladoEstadoController;
 use App\Http\Controllers\KardexController;
@@ -29,6 +30,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\PruebaApiController;
 use App\Http\Controllers\RenglonController;
+use App\Http\Controllers\ReportesAlmacenController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RrhhPuestoController;
 use App\Http\Controllers\RrhhUnidadController;
@@ -186,8 +188,11 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     Route::resource('rrhhPuestos', RrhhPuestoController::class);
 
-    Route::resource('itemTipos', App\Http\Controllers\ItemTipoController::class);
+    Route::resource('itemTipos', ItemTipoController::class);
 
+
+    Route::get('reportes/kardex', [ReportesAlmacenController::class,'kardex'])->name('reportes.kardex');
+    Route::get('reportes/stock', [ReportesAlmacenController::class,'stock'])->name('reportes.stock');
 
 });
 
