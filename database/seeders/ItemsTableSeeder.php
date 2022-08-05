@@ -9,6 +9,7 @@ use App\Models\Renglon;
 use App\Models\Stock;
 use App\Models\Unimed;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ItemsTableSeeder extends Seeder
 {
@@ -22,45 +23,23 @@ class ItemsTableSeeder extends Seeder
     {
 
 
+        /**
+         * @var Item $item
+         */
+        $item = Item::find(1);
 
         if (app()->environment()=='local'){
 
-            \DB::statement('SET FOREIGN_KEY_CHECKS=0');
+            DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
-            \DB::table('items')->truncate();
-            \DB::table('item_has_categoria')->truncate();
+            DB::table('items')->truncate();
+            DB::table('item_has_categoria')->truncate();
+            DB::table('stocks')->truncate();
+            DB::table('kardexs')->truncate();
 
+            Item::factory()->count(5)->create();
 
-            Item::factory()->count(25)->create()
-                ->each(function (Item $item) {
-
-                    $stock = rand(20,40);
-
-                    Stock::factory()->count(1)->create([
-                        'item_id' => $item->id,
-                        'cantidad' => $stock,
-                        'cantidad_inicial' => $stock,
-                    ])->each(function (Stock $stock){
-                        $stock->kardex()->create([
-                            'item_id' => $stock->item_id,
-                            'cantidad' => $stock->cantidad,
-                            'tipo' => Kardex::TIPO_INGRESO,
-                            'usuario_id' => 1,
-                            'codigo' => $stock->id,
-                            'responsable' => 'Stock Inicial'
-                        ]);
-
-                    });
-
-                    $item->categorias()->attach(ItemCategoria::pluck('id')->random(4));
-
-
-
-
-
-                });
-
-            \DB::statement('SET FOREIGN_KEY_CHECKS=1');
+            DB::statement('SET FOREIGN_KEY_CHECKS=1');
         }
 
 

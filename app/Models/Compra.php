@@ -179,7 +179,7 @@ class Compra extends Model
 
     public function precioPromedioItems()
     {
-        foreach ($this->compraDetalles as $index => $compraDetalle) {
+        foreach ($this->detalles as $index => $compraDetalle) {
 
             $item = $compraDetalle->item;
 

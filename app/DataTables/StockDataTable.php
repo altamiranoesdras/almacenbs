@@ -2,6 +2,7 @@
 
 namespace App\DataTables;
 
+use App\Models\Item;
 use App\Models\Stock;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
@@ -20,20 +21,18 @@ class StockDataTable extends DataTable
 
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', function(Stock $stock){
-
-                 $id = $stock->id;
-
-                 return view('stocks.datatables_actions',compact('stock','id'))->render();
-             })
              ->editColumn('id',function (Stock $stock){
 
                  return $stock->id;
 
-                 //se debe crear la vista modal_detalles
-                 //return view('stocks.modal_detalles',compact('stock'))->render();
 
              })
+            ->editColumn('fecha_vence',function (Stock $stock){
+                return fechaLtn($stock->fecha_vence);
+            })
+            ->editColumn('precio_compra',function (Stock $stock){
+                return dvs()." ".nfp($stock->precio_compra);
+            })
             ->rawColumns(['action','id']);
 
     }
@@ -46,7 +45,7 @@ class StockDataTable extends DataTable
      */
     public function query(Stock $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()->with(['item']);
     }
 
     /**
@@ -98,19 +97,11 @@ class StockDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('item_id'),
+            Column::make('item')->data('item.nombre')->name('item.nombre'),
             Column::make('lote'),
-            Column::make('fecha_ing'),
             Column::make('fecha_vence'),
             Column::make('precio_compra'),
             Column::make('cantidad'),
-            Column::make('cantidad_inicial'),
-            Column::make('orden_salida'),
-            Column::computed('action')
-                            ->exportable(false)
-                            ->printable(false)
-                            ->width('20%')
-                            ->addClass('text-center'),
         ];
     }
 

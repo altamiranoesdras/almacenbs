@@ -32,16 +32,12 @@ class ItemFactory extends Factory
         $precio_compra = $this->faker->randomFloat(2,10,50);
         $precio_venta = $precio_compra * 1.3;
 
+        $nombres = include(app_path("Faker/items.php"));
+
+
         return [
             'codigo' => $this->faker->unique()->randomNumber(5),
-            'nombre' => $this->faker->randomElement(['Cheese Pizza', 'Hamburger', 'Cheeseburger', 'Bacon Burger', 'Bacon Cheeseburger',
-                'Little Hamburger', 'Little Cheeseburger', 'Little Bacon Burger', 'Little Bacon Cheeseburger',
-                'Veggie Sandwich', 'Cheese Veggie Sandwich', 'Grilled Cheese',
-                'Cheese Dog', 'Bacon Dog', 'Bacon Cheese Dog', 'Pasta', 'Beer', 'Bud Light', 'Budweiser', 'Miller Lite',
-                'Milk Shake', 'Tea', ' Sweet Tea', 'Coffee', 'Hot Tea',
-                'Champagne', 'Wine', 'Limonade', 'Coca_cola', 'Diet-Coke',
-                'Water', 'Sprite', 'Orange Juice', 'Iced Coffee'
-            ]),
+            'nombre' => $this->faker->randomElement($nombres),
             'descripcion' => $this->faker->paragraph,
             'tipo_id' => ItemTipo::all()->random()->id,
             'renglon_id' => Renglon::all()->random()->id,
@@ -54,6 +50,7 @@ class ItemFactory extends Factory
             'stock_minimo' => rand(10,25),
             'stock_maximo' => rand(10,25),
             'ubicacion' => $this->faker->word,
+            'inventariable' => 1,
             'perecedero' => rand(0,1),
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s'),
@@ -63,30 +60,44 @@ class ItemFactory extends Factory
     public function configure()
     {
 
-        return $this->afterCreating(function (Item $user){
+        return $this->afterCreating(function (Item $item){
 
-            $this->faker->addProvider(new PicsumProvider($this->faker));
-            $this->faker->addProvider(new LoremSpaceProvider($this->faker));
 
-            try {
+            $stock = rand(20,40);
 
-                $categoria = $this->faker->randomElement([
-                    LoremSpaceProvider::CATEGORY_ALBUM,
-                    LoremSpaceProvider::CATEGORY_BOOK,
-                    LoremSpaceProvider::CATEGORY_FASHION,
-                    LoremSpaceProvider::CATEGORY_SHOES,
-                    LoremSpaceProvider::CATEGORY_WATCH,
-                ]);
+            $item->actualizaOregistraStcokInicial($stock);
 
-                $url = $this->faker->loremSpace($categoria,storage_path('temp'));
+            $item->categorias()->attach(ItemCategoria::pluck('id')->random(4));
 
-                $user->addMedia($url)
-                    ->toMediaCollection('items');
 
-            }catch (\Exception $exception){
-                dump($exception->getMessage());
-            }
+
         });
+    }
+
+    public function imagen(Item $item)
+    {
+        $this->faker->addProvider(new PicsumProvider($this->faker));
+        $this->faker->addProvider(new LoremSpaceProvider($this->faker));
+
+        try {
+
+            $categoria = $this->faker->randomElement([
+                LoremSpaceProvider::CATEGORY_ALBUM,
+                LoremSpaceProvider::CATEGORY_BOOK,
+                LoremSpaceProvider::CATEGORY_FASHION,
+                LoremSpaceProvider::CATEGORY_SHOES,
+                LoremSpaceProvider::CATEGORY_WATCH,
+            ]);
+
+            $url = $this->faker->loremSpace($categoria,storage_path('temp'));
+
+            $item->addMedia($url)
+                ->toMediaCollection('items');
+
+        }catch (\Exception $exception){
+            dump($exception->getMessage());
+        }
+
     }
 
 

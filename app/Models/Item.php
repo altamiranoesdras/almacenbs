@@ -472,18 +472,19 @@ class Item extends Model implements HasMedia
         return $this->compraDetalles->count() == 0;
     }
 
-    public function actualizaOregistraStcokInicial($cantidad,$tienda=null,$fecha_vence=null)
+    public function actualizaOregistraStcokInicial($cantidad,$fecha_vence=null)
     {
+
 
         if(!$this->inventariable)
             return null;
 
-        $tienda = session('tienda') ?? request()->tienda ?? $tienda;
 
         /**
          * @var Stock $stock
          */
-        $stock =  $this->stocks->where('item_id',$this->id)
+        $stock =  $this->stocks
+            ->where('precio_compra',$this->precio_compra)
             ->sortBy('orden_salida')
             ->sortBy('fecha_vence')
             ->sortBy('created_at')
@@ -501,6 +502,7 @@ class Item extends Model implements HasMedia
             $stock= Stock::create([
                 'item_id' => $this->id,
                 'lote' =>  null,
+                'precio_compra' => $this->precio_compra,
                 'fecha_vence' => $fecha_vence,
                 'cantidad' =>  $cantidad,
                 'cantidad_inicial' =>  $cantidad,
@@ -521,7 +523,7 @@ class Item extends Model implements HasMedia
                     'tipo' => Kardex::TIPO_INGRESO,
                     'codigo' => $stock->id,
                     'responsable' => 'Stock Inicial',
-                    'usuario_id' => auth()->user()->id
+                    'usuario_id' => auth()->user()->id ?? User::PRINCIPAL
                 ]);
             }
         }

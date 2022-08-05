@@ -31,7 +31,7 @@
                                 </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                    @include('compras.tabla_detalles',['detalles'=>$compra->compraDetalles])
+                                    @include('compras.tabla_detalles',['detalles'=>$compra->detalles])
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <a href="{!! route('compras.index') !!}" class="btn btn-default">Regresar</a>

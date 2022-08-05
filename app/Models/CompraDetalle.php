@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property number $cantidad
  * @property number $precio
  * @property number $descuento
- * @property string $fecha_ven
+ * @property string $fecha_vence
  */
 class CompraDetalle extends Model
 {
@@ -137,13 +137,15 @@ class CompraDetalle extends Model
         /**
          * @var Stock $stock
          */
-        $stock =  $this->item->stocks->where('item_id',$this->id)
-            ->where('fecha_vence',$this->fecha_ven)
+        $stock =  $this->item->stocks
+            ->where('fecha_vence',$this->fecha_vence)
+            ->where('precio_compra',$this->precio)
             ->sortBy('orden_salida')
             ->sortBy('fecha_vence')
             ->sortBy('created_at')
             ->sortBy('id')
             ->first();
+
 
         if($stock){
 
@@ -155,7 +157,8 @@ class CompraDetalle extends Model
             $stock= Stock::create([
                 'item_id' => $this->item->id,
                 'lote' =>  null,
-                'fecha_vence' => $this->fecha_ven,
+                'precio_compra' => $this->precio,
+                'fecha_vence' => $this->fecha_vence,
                 'cantidad' =>  $this->cantidad,
                 'cantidad_inicial' =>  $this->cantidad,
                 'orden_salida' => 0

@@ -28,13 +28,18 @@ class CompraDetalleFactory extends Factory
 
         $fechaVence = Carbon::now()->addMonths(rand(3,16));
 
+        /**
+         * @var Item $item
+         */
+        $item = Item::all()->random();
+
         return [
             'compra_id' => Compra::all()->random()->id,
-            'item_id' => Item::all()->random()->id,
+            'item_id' => $item->id,
             'cantidad' => $this->faker->randomFloat(2,10,50),
-            'precio' => $this->faker->randomFloat(2,50,200),
+            'precio' => $item->precio_compra,
             'descuento' => 0,
-            'fecha_vence' => $fechaVence,
+            'fecha_vence' => Carbon::now()->addYear()->format('Y-m-d'),
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s'),
 

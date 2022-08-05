@@ -7,7 +7,7 @@
     </thead>
     <tbody>
 
-    @foreach($compra->compraDetalles as $det)
+    @foreach($compra->detalles as $det)
         <tr>
             <td>{{$det->item->nombre}}</td>
             <td>{{nf($det->cantidad)}}</td>
@@ -18,7 +18,7 @@
     </tbody>
     <tfoot>
     <tr>
-        <th colspan="5" align="right">Total Artículos  {{nf( $compra->compraDetalles->sum('cantidad') )}}</th>
+        <th colspan="5" align="right">Total Artículos  {{nf( $compra->detalles->sum('cantidad') )}}</th>
     </tr>
     </tfoot>
 </table>
