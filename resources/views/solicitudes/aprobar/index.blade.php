@@ -1,24 +1,19 @@
 @extends('layouts.app')
 
-@section('title_page')
-	Despachar Requisiciones
-@endsection
+@section('title_page','Aprobar requisiciones')
+
 
 @section('content')
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12">
-                    <h1 class="m-0 text-dark">Despachar Requisiciones</h1>
+                <div class="col">
+                    <h1 class="m-0 text-dark">Aprobar requisiciones</h1>
                 </div><!-- /.col -->
-                {{--<div class="col">--}}
-                    {{--<a class="btn btn-outline-success"--}}
-                        {{--href="{!! route('solicitudes.create') !!}">--}}
-                        {{--<i class="fa fa-plus"></i>--}}
-                        {{--<span class="d-none d-sm-inline">Nueva Solicitud</span>--}}
-                    {{--</a>--}}
-                {{--</div><!-- /.col -->--}}
+                <div class="col">
+
+                </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>

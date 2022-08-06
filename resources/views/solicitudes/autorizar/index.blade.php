@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page','Mis requisiciones')
+@section('title_page','Autorizar requisiciones')
 
 
 @section('content')
@@ -9,18 +9,10 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
-                    <h1 class="m-0 text-dark">Mis requisiciones</h1>
+                    <h1 class="m-0 text-dark">Autorizar requisiciones</h1>
                 </div><!-- /.col -->
                 <div class="col">
-                    <ol class="breadcrumb float-right">
-                        <li class="breadcrumb-item">
-                            <a class="btn btn-outline-success"
-                                href="{!! route('solicitudes.create') !!}">
-                                <i class="fa fa-plus"></i>
-                                <span class="d-none d-sm-inline">Agregar Nueva</span>
-                            </a>
-                        </li>
-                    </ol>
+
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->

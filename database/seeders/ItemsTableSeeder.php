@@ -23,10 +23,6 @@ class ItemsTableSeeder extends Seeder
     {
 
 
-        /**
-         * @var Item $item
-         */
-        $item = Item::find(1);
 
         if (app()->environment()=='local'){
 

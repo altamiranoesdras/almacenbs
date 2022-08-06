@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\SolicitudDataTable;
-use App\DataTables\SolicitudeDespachaDataTable;
+use App\DataTables\SolicitudDespachaDataTable;
 use App\DataTables\SolicitudeUserDataTable;
 use App\Events\EventSolicitudCreate;
 use App\Facades\Correlativo;

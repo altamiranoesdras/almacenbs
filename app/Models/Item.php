@@ -44,6 +44,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property number $precio_promedio
  * @property number $stock_minimo
  * @property number $stock_maximo
+ * @property number $stock_total
  * @property string $ubicacion
  * @property boolean $perecedero
  * @property boolean $inventariable

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\UseStockTransaccion;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,7 +21,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class SolicitudDetalle extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes,UseStockTransaccion;
 
     use HasFactory;
 
@@ -85,58 +86,67 @@ class SolicitudDetalle extends Model
         return $this->belongsTo(Solicitud::class, 'solicitud_id');
     }
 
-    public function ingreso()
+    public function egreso()
     {
 
-        if(!$this->item->inventariable)
+        if (!$this->item->inventariable)
             return null;
 
-        /**
-         * @var Stock $stock
-         */
-        $stock =  $this->item->stocks->where('item_id',$this->id)
-            ->where('fecha_vence',$this->fecha_ven)
+        $cantidad = $this->cantidad*-1;
+
+        $stocks = $this->item->stocks
+            ->where('cantidad','>',0)
             ->sortBy('orden_salida')
-            ->sortBy('fecha_vence')
+            ->sortBy('fecha_ven')
             ->sortBy('created_at')
-            ->sortBy('id')
-            ->first();
+            ->sortBy('id');
 
-        if($stock){
 
-            $stock->cantidad += $this->cantidad;
-            $stock->save();
+        foreach ($stocks as $key => $stock) {
 
-        }else{
+            /**
+             * @var Stock $stock
+             */
 
-            $stock= Stock::create([
-                'item_id' => $this->item->id,
-                'lote' =>  null,
-                'fecha_vence' => $this->fecha_ven,
-                'cantidad' =>  $this->cantidad,
-                'cantidad_inicial' =>  $this->cantidad,
-                'orden_salida' => 0
-            ]);
+            $cantidad=($cantidad+$stock->cantidad);
 
+            $nuevoStock = $cantidad<0 ? 0 : $cantidad;
+
+            $rebajado= $cantidad<=0 ? $stock->cantidad : ($cantidad-$stock->cantidad)*-1;
+
+
+            if($rebajado>0){
+                $stock->cantidad= $nuevoStock;
+
+                $stock->save();
+
+                $this->stocks()->syncWithoutDetaching([
+                    $stock->id => ['cantidad' => $rebajado]
+                ]);
+            }
+
+            if($cantidad>0)
+                break;
         }
 
         $this->kardex()->create([
+            'tienda_id' => $this->venta->tienda_id,
             'item_id' => $this->item->id,
             'cantidad' => $this->cantidad,
-            'tipo' => Kardex::TIPO_INGRESO,
-            'codigo' => $this->codigo,
-            'responsable' => $this->respnsable,
-            'usuario_id' => auth()->user()->id ?? User::PRINCIPAL
+            'tipo' => Kardex::TIPO_SALIDA,
+            'codigo' => $this->venta->codigo,
+            'responsable' => $this->venta->cliente->full_name,
+            'user_id' => auth()->user()->id ?? User::PRINCIPAL
         ]);
 
-        $this->addStockTransaccion(StockTransaccion::INGRESO,$stock->id,$this->cantidad,$this->precio);
+        return $stocks;
 
-        return $stock;
     }
 
     public function anular()
     {
         $this->kardex()->delete();
+
         /**
          * @var StockTransaccion $transacion
          */

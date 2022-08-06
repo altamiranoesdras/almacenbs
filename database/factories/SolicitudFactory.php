@@ -2,7 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\RrhhUnidad;
 use App\Models\Solicitud;
+use App\Models\SolicitudEstado;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SolicitudFactory extends Factory
@@ -21,30 +25,49 @@ class SolicitudFactory extends Factory
      */
     public function definition()
     {
+
+        $userRandom = User::all()->random();
+
+        $estado = SolicitudEstado::whereIn('id',[
+                    SolicitudEstado::SOLICITADA,
+                    SolicitudEstado::AUTORIZADA,
+                    SolicitudEstado::APROBADA,
+                    SolicitudEstado::DESPACHADA,
+                ])
+                ->get()
+                ->random();
+
         return [
             'codigo' => $this->faker->word,
-        'correlativo' => $this->faker->randomDigitNotNull,
-        'justificacion' => $this->faker->text,
-        'unidad_id' => $this->faker->word,
-        'usuario_crea' => $this->faker->word,
-        'usuario_solicita' => $this->faker->word,
-        'usuario_autoriza' => $this->faker->word,
-        'usuario_aprueba' => $this->faker->word,
-        'usuario_despacha' => $this->faker->word,
-        'firma_requiere' => $this->faker->word,
-        'firma_autoriza' => $this->faker->word,
-        'firma_aprueba' => $this->faker->word,
-        'firma_almacen' => $this->faker->word,
-        'fecha_solicita' => $this->faker->date('Y-m-d H:i:s'),
-        'fecha_autoriza' => $this->faker->date('Y-m-d H:i:s'),
-        'fecha_aprueba' => $this->faker->date('Y-m-d H:i:s'),
-        'fecha_almacen_firma' => $this->faker->date('Y-m-d H:i:s'),
-        'fecha_informa' => $this->faker->date('Y-m-d H:i:s'),
-        'fecha_despacha' => $this->faker->date('Y-m-d H:i:s'),
-        'estado_id' => $this->faker->word,
-        'created_at' => $this->faker->date('Y-m-d H:i:s'),
-        'updated_at' => $this->faker->date('Y-m-d H:i:s'),
+            'correlativo' => $this->faker->randomDigitNotNull,
+            'justificacion' => $this->faker->text,
+            'unidad_id' => RrhhUnidad::all()->random()->id,
+
+            'usuario_crea' => $userRandom->id,
+            'usuario_solicita' => $userRandom->id,
+            'usuario_autoriza' => null,
+            'usuario_aprueba' => null,
+            'usuario_despacha' => null,
+
+            'firma_requiere' => null,
+            'firma_autoriza' => null,
+            'firma_aprueba' => null,
+            'firma_almacen' => null,
+
+            'fecha_solicita' => null,
+            'fecha_autoriza' => null,
+            'fecha_aprueba' => null,
+            'fecha_despacha' => null,
+
+            'fecha_almacen_firma' => null,
+            'fecha_informa' => null,
+
+            'estado_id' => $estado->id,
+            'created_at' => $this->faker->date('Y-m-d H:i:s'),
+            'updated_at' => $this->faker->date('Y-m-d H:i:s'),
 
         ];
     }
+
+
 }

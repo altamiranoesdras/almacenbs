@@ -17,33 +17,79 @@ use Spatie\Permission\Traits\HasRoles;
 /**
  * Class User
  * @package App\Models
- * @version January 28, 2020, 1:44 pm CST
+ * @version August 6, 2022, 10:40 am CST
  *
- * @property \Illuminate\Database\Eloquent\Collection options
- * @property string username
- * @property string name
- * @property string email
- * @property string|\Carbon\Carbon email_verified_at
- * @property string password
- * @property string thumb
- * @property string img
- * @property string provider
- * @property string provider_uid
- * @property string remember_token
+ * @property \App\Models\RrhhPuesto $puesto
+ * @property \App\Models\RrhhUnidad $unidad
+ * @property \Illuminate\Database\Eloquent\Collection $compra1hs
+ * @property \Illuminate\Database\Eloquent\Collection $compras
+ * @property \Illuminate\Database\Eloquent\Collection $compra1s
+ * @property \Illuminate\Database\Eloquent\Collection $itemsTraslados
+ * @property \Illuminate\Database\Eloquent\Collection $kardexs
+ * @property \Illuminate\Database\Eloquent\Collection $options
+ * @property \Illuminate\Database\Eloquent\Collection $rrhhUnidade2s
+ * @property \Illuminate\Database\Eloquent\Collection $solicitudes
+ * @property \Illuminate\Database\Eloquent\Collection $solicitude3s
+ * @property \Illuminate\Database\Eloquent\Collection $solicitude4s
+ * @property \Illuminate\Database\Eloquent\Collection $solicitude5s
+ * @property \Illuminate\Database\Eloquent\Collection $solicitude6s
+ * @property \Illuminate\Database\Eloquent\Collection $stockIniciales
+ * @property \App\Models\UserDespachaUser $userDespachaUser
+ * @property \Illuminate\Database\Eloquent\Collection $userDespachaUser7s
+ * @property \Illuminate\Database\Eloquent\Collection $option8s
+ * @property string $username
+ * @property string $name
+ * @property string $email
+ * @property string|\Carbon\Carbon $email_verified_at
+ * @property string $password
+ * @property integer $unidad_id
+ * @property integer $puesto_id
+ * @property string $provider
+ * @property string $provider_uid
+ * @property string $remember_token
  */
-class User extends Authenticatable implements  MustVerifyEmail,HasMedia
+class User extends Authenticatable implements  HasMedia
 {
     use HasApiTokens,Notifiable,InteractsWithMedia,HasRoles,SoftDeletes,HasFactory;
 
+    public $table = 'users';
+
     const PRINCIPAL = 1;
+
+    protected $with = ['options.children'];
+
+    public $fillable = [
+        'username',
+        'name',
+        'email',
+        'email_verified_at',
+        'password',
+        'unidad_id',
+        'puesto_id',
+        'provider',
+        'provider_uid',
+        'remember_token'
+    ];
+
     /**
-     * The attributes that are mass assignable.
+     * The attributes that should be casted to native types.
      *
      * @var array
      */
-    protected $fillable = [
-        'username','name', 'email', 'password','provider','provider_uid'
+    protected $casts = [
+        'id' => 'integer',
+        'username' => 'string',
+        'name' => 'string',
+        'email' => 'string',
+        'email_verified_at' => 'datetime',
+        'password' => 'string',
+        'unidad_id' => 'integer',
+        'puesto_id' => 'integer',
+        'provider' => 'string',
+        'provider_uid' => 'string',
+        'remember_token' => 'string'
     ];
+
 
     /**
      * The attributes that should be hidden for arrays.
@@ -54,22 +100,6 @@ class User extends Authenticatable implements  MustVerifyEmail,HasMedia
         'password', 'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-    protected $with = ['options.children'];
-
-    public function getImgAttribute()
-    {
-        $media = $this->getMedia('avatars')->last();
-        return $media ? $media->getUrl() : asset('dist/img/avatar5.png');
-    }
 
     /**
      * Validation rules
@@ -81,7 +111,77 @@ class User extends Authenticatable implements  MustVerifyEmail,HasMedia
         'username' => 'sometimes|required|max:255|unique:users',
         'email'    => 'sometimes|required|email|max:255|unique:users',
         'password' => 'required|min:6',
+        'email_verified_at' => 'nullable',
+        'unidad_id' => 'required',
+        'puesto_id' => 'required',
+        'provider' => 'nullable|string|max:255',
+        'provider_uid' => 'nullable|string|max:255',
+        'remember_token' => 'nullable|string|max:100',
+        'created_at' => 'nullable',
+        'updated_at' => 'nullable',
+        'deleted_at' => 'nullable'
     ];
+
+
+
+
+    //-----------RELACIONES--------------
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function puesto()
+    {
+        return $this->belongsTo(\App\Models\RrhhPuesto::class, 'puesto_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function unidad()
+    {
+        return $this->belongsTo(\App\Models\RrhhUnidade::class, 'unidad_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function compra1hs()
+    {
+        return $this->hasMany(\App\Models\Compra1h::class, 'usuario_procesa');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function compras()
+    {
+        return $this->hasMany(\App\Models\Compra::class, 'usuario_crea');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function comprasRecibe()
+    {
+        return $this->hasMany(\App\Models\Compra::class, 'usuario_recibe');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function itemsTraslados()
+    {
+        return $this->hasMany(\App\Models\ItemsTraslado::class, 'user_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function kardexs()
+    {
+        return $this->hasMany(\App\Models\Kardex::class, 'usuario_id');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -89,6 +189,102 @@ class User extends Authenticatable implements  MustVerifyEmail,HasMedia
     public function options()
     {
         return $this->belongsToMany(\App\Models\Option::class, 'option_user');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     **/
+    public function jefeUnidad()
+    {
+        return $this->hasOne(\App\Models\RrhhUnidad::class, 'jefe');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function solicitudesDespacha()
+    {
+        return $this->hasMany(\App\Models\Solicitud::class, 'usuario_despacha');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function solicitudes()
+    {
+        return $this->hasMany(\App\Models\Solicitud::class, 'usuario_solicita');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function solicitudesCrea()
+    {
+        return $this->hasMany(\App\Models\Solicitud::class, 'usuario_crea');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function solicitudesAutoriza()
+    {
+        return $this->hasMany(\App\Models\Solicitud::class, 'usuario_autoriza');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function solicitudesAprueba()
+    {
+        return $this->hasMany(\App\Models\Solicitud::class, 'usuario_aprueba');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function stockIniciales()
+    {
+        return $this->hasMany(\App\Models\StockIniciale::class, 'user_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function usersDespacha(){
+        return $this->belongsToMany(User::class, 'user_despacha_user','user_des', 'user_sol');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     **/
+    public function usersSolicita(){
+        return $this->belongsToMany(User::class, 'user_despacha_user','user_sol','user_des');
+    }
+
+
+
+
+    //-----------SCOPES--------------
+
+    public function scopeNoClientes($query){
+        return $query->whereHas('roles',function ($q){
+            $q->where('id','!=',Role::CLIENTE);
+        })->orWhereDoesntHave('roles');
+    }
+
+    public function scopeAdmins($query){
+        return $query->role(Role::ADMIN);
+    }
+
+
+
+
+    //-----------MÉTODOS Y MUTADORES--------------
+
+    public function getImgAttribute()
+    {
+        $media = $this->getMedia('avatars')->last();
+        return $media ? $media->getUrl() : asset('dist/img/avatar5.png');
     }
 
     public function registerMediaConversions(Media $media = null): void
@@ -132,16 +328,6 @@ class User extends Authenticatable implements  MustVerifyEmail,HasMedia
     }
 
 
-    public function scopeNoClientes($query){
-        return $query->whereHas('roles',function ($q){
-            $q->where('id','!=',Role::CLIENTE);
-        })->orWhereDoesntHave('roles');
-    }
-
-    public function scopeAdmins($query){
-        return $query->role(Role::ADMIN);
-    }
-
     public function isSuperAdmin(){
 
         return $this->hasRole(Role::SUPERADMIN);
@@ -156,41 +342,5 @@ class User extends Authenticatable implements  MustVerifyEmail,HasMedia
 
         return $this->hasRole(Role::DEVELOPER);
     }
-
-    public function usersDespacha(){
-        return $this->belongsToMany(User::class, 'user_despacha_user','user_des', 'user_sol');
-    }
-
-    public function usersSolicita(){
-        return $this->belongsToMany(User::class, 'user_despacha_user','user_sol','user_des');
-    }
-
-
-    public function notificaciones()
-    {
-        return $this->hasMany(Notificacione::class,'user_id','id');
-    }
-
-    public function tiempoUltimaNotificacion($tipo=null)
-    {
-        $query = $this->notificaciones()
-            ->orderBy('created_at','asc');
-
-        if($tipo){
-            $query->deTipo($tipo);
-        }
-
-        $notificacion = $query->first();
-
-        if($notificacion){
-            $fecha = new Date($notificacion->created_at);
-
-            return $fecha->diffForHumans(Carbon::now(),1);
-        }
-
-
-        return '';
-    }
-
 
 }

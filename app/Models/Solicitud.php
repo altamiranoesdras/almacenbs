@@ -228,6 +228,29 @@ class Solicitud extends Model
         return $this->estado_id==SolicitudEstado::TEMPORAL;
     }
 
+    public function estaAutoizada()
+    {
+        return $this->estado_id==SolicitudEstado::AUTORIZADA;
+    }
+
+
+    public function estaAprobada()
+    {
+        return $this->estado_id==SolicitudEstado::APROBADA;
+    }
+
+
+    public function estaDespachada()
+    {
+        return $this->estado_id==SolicitudEstado::DESPACHADA;
+    }
+
+    public function estaAnulada()
+    {
+        return $this->estado_id==SolicitudEstado::ANULADA;
+    }
+
+
     public function puedeEditar()
     {
         return $this->estado_id==SolicitudEstado::TEMPORAL || $this->estado_id==SolicitudEstado::INGRESADA;
@@ -251,5 +274,58 @@ class Solicitud extends Model
     public function puedeAnular()
     {
         return $this->estado_id != SolicitudEstado::ANULADA && $this->estado_id == SolicitudEstado::DESPACHADA;
+    }
+
+
+    public function egreso()
+    {
+
+        /**
+         * @var SolicitudDetalle $detalle
+         */
+        foreach ($this->detalles as $detalle){
+            $detalle->egresos();
+        }
+
+        $this->estado_id = CompraEstado::RECIBIDA;
+        $this->fecha_despacha = hoyDb();
+        $this->save();
+
+    }
+
+    public function anular()
+    {
+        $this->estado_id = SolicitudEstado::ANULADA;
+        $this->save();
+
+
+        /**
+         * @var SolicitudDetalle $detalle
+         */
+        foreach ($this->detalles as $detalle){
+            $detalle->anular();
+        }
+    }
+
+    public function scopeDeUnidad(Builder $q,$unidad = null)
+    {
+        $unidad = $unidad ?? auth()->user()->unidad_id;
+        $q->where('unidad_id',SolicitudEstado::SOLICITADA);
+    }
+
+    public function scopeSolicitadas(Builder $q)
+    {
+        $q->where('estado_id',SolicitudEstado::SOLICITADA);
+    }
+
+
+    public function scopeAutorizadas(Builder $q)
+    {
+        $q->where('estado_id',SolicitudEstado::AUTORIZADA);
+    }
+
+    public function scopeAprobadas(Builder $q)
+    {
+        $q->where('estado_id',SolicitudEstado::APROBADA);
     }
 }

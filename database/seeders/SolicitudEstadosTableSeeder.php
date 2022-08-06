@@ -46,30 +46,38 @@ class SolicitudEstadosTableSeeder extends Seeder
             3 => 
             array (
                 'id' => 4,
-                'nombre' => 'Aprobada',
-                'created_at' => '2018-07-31 14:46:16',
-                'updated_at' => '2018-07-31 14:46:16',
+                'nombre' => 'Autorizada',
+                'created_at' => '2022-08-05 11:10:59',
+                'updated_at' => '2022-08-05 11:11:00',
                 'deleted_at' => NULL,
             ),
             4 => 
             array (
                 'id' => 5,
-                'nombre' => 'Despachada',
-                'created_at' => '2018-07-31 14:46:23',
-                'updated_at' => '2018-07-31 14:46:23',
+                'nombre' => 'Aprobada',
+                'created_at' => '2018-07-31 14:46:16',
+                'updated_at' => '2018-07-31 14:46:16',
                 'deleted_at' => NULL,
             ),
             5 => 
             array (
                 'id' => 6,
-                'nombre' => 'Anulada',
-                'created_at' => '2018-07-31 14:46:30',
-                'updated_at' => '2018-07-31 14:46:30',
+                'nombre' => 'Despachada',
+                'created_at' => '2018-07-31 14:46:23',
+                'updated_at' => '2018-07-31 14:46:23',
                 'deleted_at' => NULL,
             ),
             6 => 
             array (
                 'id' => 7,
+                'nombre' => 'Anulada',
+                'created_at' => '2018-07-31 14:46:30',
+                'updated_at' => '2018-07-31 14:46:30',
+                'deleted_at' => NULL,
+            ),
+            7 => 
+            array (
+                'id' => 8,
                 'nombre' => 'Cancelada',
                 'created_at' => '2018-07-31 14:46:43',
                 'updated_at' => '2018-07-31 14:46:43',

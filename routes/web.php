@@ -34,6 +34,9 @@ use App\Http\Controllers\ReportesAlmacenController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RrhhPuestoController;
 use App\Http\Controllers\RrhhUnidadController;
+use App\Http\Controllers\SolicitudApruebaController;
+use App\Http\Controllers\SolicitudAutorizaController;
+use App\Http\Controllers\SolicitudDespachaController;
 use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\SolicitudDetalleController;
 use App\Http\Controllers\SolicitudEstadoController;
@@ -171,10 +174,21 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
 
 
-    Route::get('solicitudes/cancelar/{tempSolicitude}', [SolicitudController::class,'cancelar'])->name('solicitudes.cancelar');
+
     Route::get('mis/solicitudes', [SolicitudController::class,'user'])->name('solicitudes.usuario');
-    Route::get('solicitudes/despachar', [SolicitudController::class,'despachar'])->name('solicitudes.despachar');
-    Route::get('solicitudes/despachar/{solicitud}', [SolicitudController::class,'despacharStore'])->name('solicitudes.despachar.store');
+
+    Route::get('solicitudes/autorizar', [SolicitudAutorizaController::class,'index'])->name('solicitudes.autorizar');
+    Route::get('solicitudes/autorizar/{solicitud}', [SolicitudAutorizaController::class,'store'])->name('solicitudes.autorizar.store');
+
+    Route::get('solicitudes/aprobar', [SolicitudApruebaController::class,'index'])->name('solicitudes.aprobar');
+    Route::get('solicitudes/aprobar/{solicitud}', [SolicitudApruebaController::class,'store'])->name('solicitudes.aprobar.store');
+
+    Route::get('solicitudes/despachar', [SolicitudDespachaController::class,'index'])->name('solicitudes.despachar');
+    Route::get('solicitudes/despachar/{solicitud}', [SolicitudDespachaController::class,'store'])->name('solicitudes.despachar.store');
+
+    Route::get('solicitudes/cancelar/{solicitud}', [SolicitudController::class,'cancelar'])->name('solicitudes.cancelar');
+    Route::get('solicitudes/anular/{solicitud}', [SolicitudController::class,'anular'])->name('solicitudes.anular');
+
     Route::resource('solicitudes', SolicitudController::class);
 
 
