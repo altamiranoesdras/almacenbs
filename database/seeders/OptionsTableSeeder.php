@@ -15,6 +15,7 @@ class OptionsTableSeeder extends Seeder
     public function run()
     {
 
+
         \DB::table('options')->truncate();
 
         \DB::table('options')->insert(array (
@@ -139,11 +140,11 @@ class OptionsTableSeeder extends Seeder
                 'descripcion' => NULL,
                 'icono_l' => 'fa-plus-square',
                 'icono_r' => NULL,
-                'orden' => 7,
+                'orden' => 0,
                 'color' => 'bg-primary',
                 'dev' => 0,
                 'created_at' => '2018-07-30 23:19:08',
-                'updated_at' => '2022-07-27 12:48:06',
+                'updated_at' => '2022-08-05 10:52:35',
                 'deleted_at' => NULL,
             ),
             8 =>
@@ -151,15 +152,15 @@ class OptionsTableSeeder extends Seeder
                 'id' => 9,
                 'option_id' => 7,
                 'nombre' => 'Mis Requisiciones',
-                'ruta' => 'mis.solicitudes',
+                'ruta' => 'solicitudes.usuario',
                 'descripcion' => NULL,
                 'icono_l' => 'fa-file-contract',
                 'icono_r' => NULL,
-                'orden' => 10,
+                'orden' => 2,
                 'color' => 'bg-warning',
                 'dev' => 0,
                 'created_at' => '2018-07-31 00:19:54',
-                'updated_at' => '2022-07-27 12:48:06',
+                'updated_at' => '2022-08-06 10:54:29',
                 'deleted_at' => NULL,
             ),
             9 =>
@@ -171,11 +172,11 @@ class OptionsTableSeeder extends Seeder
                 'descripcion' => NULL,
                 'icono_l' => 'fa-dolly',
                 'icono_r' => NULL,
-                'orden' => 9,
+                'orden' => 5,
                 'color' => 'bg-info',
                 'dev' => 0,
                 'created_at' => '2018-07-31 00:16:45',
-                'updated_at' => '2022-07-27 12:48:06',
+                'updated_at' => '2022-08-06 08:57:46',
                 'deleted_at' => NULL,
             ),
             10 =>
@@ -187,11 +188,11 @@ class OptionsTableSeeder extends Seeder
                 'descripcion' => NULL,
                 'icono_l' => 'fa-search',
                 'icono_r' => NULL,
-                'orden' => 8,
+                'orden' => 1,
                 'color' => 'bg-info',
                 'dev' => 0,
                 'created_at' => '2018-07-31 00:32:26',
-                'updated_at' => '2022-07-27 12:48:06',
+                'updated_at' => '2022-08-06 08:57:36',
                 'deleted_at' => NULL,
             ),
             11 =>
@@ -203,11 +204,11 @@ class OptionsTableSeeder extends Seeder
                 'descripcion' => NULL,
                 'icono_l' => 'fa-people-carry',
                 'icono_r' => NULL,
-                'orden' => 11,
+                'orden' => 6,
                 'color' => 'bg-secondary',
                 'dev' => 0,
                 'created_at' => '2018-08-08 02:28:11',
-                'updated_at' => '2022-07-27 12:48:06',
+                'updated_at' => '2022-08-06 08:57:33',
                 'deleted_at' => NULL,
             ),
             12 =>
@@ -512,6 +513,38 @@ class OptionsTableSeeder extends Seeder
                 'dev' => 0,
                 'created_at' => '2017-05-21 14:36:26',
                 'updated_at' => '2022-07-27 12:48:17',
+                'deleted_at' => NULL,
+            ),
+            31 =>
+            array (
+                'id' => 32,
+                'option_id' => 7,
+                'nombre' => 'Autorizar Requisición',
+                'ruta' => 'solicitudes.autorizar',
+                'descripcion' => NULL,
+                'icono_l' => 'fa-stamp',
+                'icono_r' => NULL,
+                'orden' => 3,
+                'color' => NULL,
+                'dev' => 0,
+                'created_at' => '2022-08-05 10:49:49',
+                'updated_at' => '2022-08-06 08:57:45',
+                'deleted_at' => NULL,
+            ),
+            32 =>
+            array (
+                'id' => 33,
+                'option_id' => 7,
+                'nombre' => 'Aprobar Reqisición',
+                'ruta' => 'solicitudes.aprobar',
+                'descripcion' => NULL,
+                'icono_l' => 'fa-check',
+                'icono_r' => NULL,
+                'orden' => 4,
+                'color' => NULL,
+                'dev' => 0,
+                'created_at' => '2022-08-06 08:57:05',
+                'updated_at' => '2022-08-06 08:57:45',
                 'deleted_at' => NULL,
             ),
         ));
