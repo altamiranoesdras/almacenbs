@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,14 +14,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @package App\Models
  * @version July 27, 2022, 12:25 pm CST
  *
- * @property \App\Models\User $usuarioDespacha
- * @property \App\Models\User $usuarioSolicita
- * @property \App\Models\SolicitudEstado $estado
- * @property \App\Models\User $usuarioCrea
- * @property \App\Models\User $usuarioAutoriza
- * @property \App\Models\User $usuarioAprueba
- * @property \App\Models\RrhhUnidad $unidad
- * @property \Illuminate\Database\Eloquent\Collection $detalles
+ * @property User $usuarioDespacha
+ * @property User $usuarioSolicita
+ * @property SolicitudEstado $estado
+ * @property User $usuarioCrea
+ * @property User $usuarioAutoriza
+ * @property User $usuarioAprueba
+ * @property RrhhUnidad $unidad
+ * @property Collection $detalles
  * @property string $codigo
  * @property integer $correlativo
  * @property string $justificacion
@@ -33,12 +35,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string $firma_autoriza
  * @property string $firma_aprueba
  * @property string $firma_almacen
- * @property string|\Carbon\Carbon $fecha_solicita
- * @property string|\Carbon\Carbon $fecha_autoriza
- * @property string|\Carbon\Carbon $fecha_aprueba
- * @property string|\Carbon\Carbon $fecha_almacen_firma
- * @property string|\Carbon\Carbon $fecha_informa
- * @property string|\Carbon\Carbon $fecha_despacha
+ * @property string|Carbon $fecha_solicita
+ * @property string|Carbon $fecha_autoriza
+ * @property string|Carbon $fecha_aprueba
+ * @property string|Carbon $fecha_almacen_firma
+ * @property string|Carbon $fecha_informa
+ * @property string|Carbon $fecha_despacha
  * @property integer $estado_id
  */
 class Solicitud extends Model
@@ -68,11 +70,13 @@ class Solicitud extends Model
         'correlativo',
         'justificacion',
         'unidad_id',
+
         'usuario_crea',
         'usuario_solicita',
         'usuario_autoriza',
         'usuario_aprueba',
         'usuario_despacha',
+
         'firma_requiere',
         'firma_autoriza',
         'firma_aprueba',
@@ -151,7 +155,7 @@ class Solicitud extends Model
      **/
     public function usuarioDespacha()
     {
-        return $this->belongsTo(\App\Models\User::class, 'usuario_despacha');
+        return $this->belongsTo(User::class, 'usuario_despacha');
     }
 
     /**
@@ -159,7 +163,7 @@ class Solicitud extends Model
      **/
     public function usuarioSolicita()
     {
-        return $this->belongsTo(\App\Models\User::class, 'usuario_solicita');
+        return $this->belongsTo(User::class, 'usuario_solicita');
     }
 
     /**
@@ -167,7 +171,7 @@ class Solicitud extends Model
      **/
     public function estado()
     {
-        return $this->belongsTo(\App\Models\SolicitudEstado::class, 'estado_id');
+        return $this->belongsTo(SolicitudEstado::class, 'estado_id');
     }
 
     /**
@@ -175,7 +179,7 @@ class Solicitud extends Model
      **/
     public function usuarioCrea()
     {
-        return $this->belongsTo(\App\Models\User::class, 'usuario_crea');
+        return $this->belongsTo(User::class, 'usuario_crea');
     }
 
     /**
@@ -183,7 +187,7 @@ class Solicitud extends Model
      **/
     public function usuarioAutoriza()
     {
-        return $this->belongsTo(\App\Models\User::class, 'usuario_autoriza');
+        return $this->belongsTo(User::class, 'usuario_autoriza');
     }
 
     /**
@@ -191,7 +195,7 @@ class Solicitud extends Model
      **/
     public function usuarioAprueba()
     {
-        return $this->belongsTo(\App\Models\User::class, 'usuario_aprueba');
+        return $this->belongsTo(User::class, 'usuario_aprueba');
     }
 
     /**
@@ -199,7 +203,7 @@ class Solicitud extends Model
      **/
     public function unidad()
     {
-        return $this->belongsTo(\App\Models\RrhhUnidade::class, 'unidad_id');
+        return $this->belongsTo(RrhhUnidad::class, 'unidad_id');
     }
 
     /**
@@ -207,7 +211,7 @@ class Solicitud extends Model
      **/
     public function detalles()
     {
-        return $this->hasMany(\App\Models\SolicitudDetalle::class, 'solicitud_id');
+        return $this->hasMany(SolicitudDetalle::class, 'solicitud_id');
     }
 
     public function scopeTemporal(Builder $q)
@@ -287,8 +291,8 @@ class Solicitud extends Model
             $detalle->egresos();
         }
 
-        $this->estado_id = CompraEstado::RECIBIDA;
-        $this->fecha_despacha = hoyDb();
+        $this->estado_id = SolicitudEstado::DESPACHADA;
+        $this->fecha_despacha = Carbon::now();
         $this->save();
 
     }

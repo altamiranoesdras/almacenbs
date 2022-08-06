@@ -28,14 +28,13 @@ class SolicitudFactory extends Factory
 
         $userRandom = User::all()->random();
 
-        $estado = SolicitudEstado::whereIn('id',[
-                    SolicitudEstado::SOLICITADA,
-                    SolicitudEstado::AUTORIZADA,
-                    SolicitudEstado::APROBADA,
-                    SolicitudEstado::DESPACHADA,
-                ])
-                ->get()
-                ->random();
+        $estados = [
+            SolicitudEstado::SOLICITADA,
+            SolicitudEstado::AUTORIZADA,
+            SolicitudEstado::APROBADA,
+            SolicitudEstado::DESPACHADA,
+        ];
+
 
         return [
             'codigo' => $this->faker->word,
@@ -62,7 +61,7 @@ class SolicitudFactory extends Factory
             'fecha_almacen_firma' => null,
             'fecha_informa' => null,
 
-            'estado_id' => $estado->id,
+            'estado_id' => $this->faker->randomElement($estados),
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s'),
 

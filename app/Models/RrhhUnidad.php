@@ -67,4 +67,9 @@ class RrhhUnidad extends Model
     {
         return $this->hasMany(\App\Models\Solicitude::class, 'unidad_id');
     }
+
+    public function usuarios()
+    {
+        return $this->hasMany(User::class,'unidad_id');
+    }
 }

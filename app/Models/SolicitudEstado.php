@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -71,5 +72,10 @@ class SolicitudEstado extends Model
     public function solicitudes()
     {
         return $this->hasMany(\App\Models\Solicitude::class, 'estado_id');
+    }
+
+    public function scopePrincipales(Builder $q)
+    {
+        $q->whereIn('id',[self::SOLICITADA,self::AUTORIZADA,self::APROBADA,self::DESPACHADA,self::ANULADA]);
     }
 }

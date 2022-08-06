@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\Scopes\ScopeSolicitudDataTable;
 use App\DataTables\SolicitudDataTable;
 use App\DataTables\SolicitudDespachaDataTable;
 use App\DataTables\SolicitudeUserDataTable;
@@ -36,10 +37,10 @@ class SolicitudController extends AppBaseController
 
     public function __construct()
     {
-        $this->middleware('permission:Ver Solicituds')->only(['show']);
-        $this->middleware('permission:Crear Solicituds')->only(['create','store']);
-        $this->middleware('permission:Editar Solicituds')->only(['edit','update',]);
-        $this->middleware('permission:Eliminar Solicituds')->only(['destroy']);
+        $this->middleware('permission:Ver Solicitud')->only(['show']);
+        $this->middleware('permission:Crear Solicitud')->only(['create','store']);
+        $this->middleware('permission:Editar Solicitud')->only(['edit','update',]);
+        $this->middleware('permission:Eliminar Solicitud')->only(['destroy']);
     }
 
     /**
@@ -50,15 +51,12 @@ class SolicitudController extends AppBaseController
      */
     public function index(SolicitudDataTable $solicitudDataTable)
     {
+        $scope = new ScopeSolicitudDataTable();
+        $solicitudDataTable->addScope($scope);
+
+
         return $solicitudDataTable->render('solicitudes.index');
     }
-
-    public function user(SolicitudeUserDataTable $solicitudeDataTable)
-    {
-        return $solicitudeDataTable->render('solicitudes.usuario.index');
-    }
-
-
 
     /**
      * Show the form for creating a new Solicitud.
@@ -226,7 +224,6 @@ class SolicitudController extends AppBaseController
     }
 
 
-
     /**
      * Remove the specified Solicitud from storage.
      *
@@ -286,12 +283,6 @@ class SolicitudController extends AppBaseController
     }
 
 
-
-    /**
-     * Devuelve un array con los items los cuales no alcanza el stock según la suma de las cantidades de los detalles
-     * @param array $detalles
-     * @return array
-     */
     public function validaStock(Solicitud $solicitud){
 
         $errores=array();
@@ -314,8 +305,6 @@ class SolicitudController extends AppBaseController
 
         return $errores;
     }
-
-
 
 
     public function getCodigo($cantidadCeros = 3)

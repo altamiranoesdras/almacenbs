@@ -8,13 +8,18 @@
 
 
 <!-- Numero Field -->
-{!! Form::label('numero', 'Numero:') !!}
-{!! $solicitude->numero !!}<br>
+{!! Form::label('numero', 'Código:') !!}
+{!! $solicitude->codigo !!}<br>
 
 
 <!-- Observaciones Field -->
-{!! Form::label('observaciones', 'Observaciones:') !!}
-{!! $solicitude->observaciones !!}<br>
+{!! Form::label('justificacion', 'Justificacion:') !!}
+{!! $solicitude->justificacion !!}<br>
+
+
+<!-- User Id Field -->
+{!! Form::label('user_id', 'Departamento solicita:') !!}
+{!! $solicitude->unidad->nombre ?? '' !!}<br>
 
 
 <!-- User Id Field -->
@@ -23,11 +28,11 @@
 
 
 <!-- Created At Field -->
-{!! Form::label('created_at', 'Creado el:') !!}
-{!! $solicitude->created_at !!}<br>
+{!! Form::label('created_at', 'Fecha solicita:') !!}
+{!! fechaLtn($solicitude->fecha_solicita) !!}<br>
 
 
-@if ($solicitude->estado->id == \App\Models\SolicitudEstado::DESPACHADA)
+@if ($solicitude->estaDespachada())
 
 <!-- User Despacha Field -->
 {!! Form::label('user_despacha', 'User Despacha:') !!}
@@ -35,7 +40,7 @@
 
 <!-- Fecha Despacha Field -->
 {!! Form::label('fecha_despacha', 'Despachada El:') !!}
-{!! $solicitude->fecha_despacha !!}<br>
+{!! fechaLtn($solicitude->fecha_despacha) !!}<br>
 
 @endif
 
