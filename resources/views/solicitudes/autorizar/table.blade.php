@@ -20,8 +20,18 @@
 
             window.Echo.channel('solicitudes').listen('EventoCambioEstadoSolicitud',(res) => {
                 logI('Nueva requisición',res);
-                dt.draw();
-                new Notification("Nueva requisición para autorizar!");
+
+                if (res.solicitud){
+                    if (res.solicitud.estado_id == @json(\App\Models\SolicitudEstado::SOLICITADA)){
+
+                        logI('redibuja tabla');
+
+                        dt.draw();
+                        new Notification("Nueva requisición para autorizar!");
+                    }
+                }
+
+
             });
 
         })

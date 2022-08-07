@@ -225,7 +225,7 @@ class SolicitudController extends AppBaseController
             $solicitud->save();
 
 //            Mail::send(new SolicitudStock($solicitud));
-//            event(new EventoCambioEstadoSolicitud($solicitud));
+            event(new EventoCambioEstadoSolicitud($solicitud));
 
             return $solicitud;
         }else{

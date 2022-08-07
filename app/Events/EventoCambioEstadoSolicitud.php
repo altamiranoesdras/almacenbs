@@ -15,17 +15,17 @@ class EventoCambioEstadoSolicitud implements ShouldBroadcast
     /**
      * @var Solicitud
      */
-    public $solicitude;
+    public $solicitud;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Solicitud $solicitude)
+    public function __construct(Solicitud $solicitud)
     {
         //
-        $this->solicitude = $solicitude;
+        $this->solicitud = $solicitud;
     }
 
     /**
