@@ -149,18 +149,11 @@ class SolicitudDespachaDataTable extends DataTable
                 ->name('usuarioAprueba.name')
                 ->data('usuario_aprueba.name'),
 
-            Column::make('usuario_despacha')
-                ->name('usuarioDespacha.name')
-                ->data('usuario_despacha.name'),
-
-
-            Column::make('fecha_despacha')
-                ->name('fecha_despacha')
-                ->data('fecha_despacha'),
-
-            Column::make('estado')
-                ->name('estado.nombre')
-                ->data('estado.nombre'),
+//
+//
+//            Column::make('estado')
+//                ->name('estado.nombre')
+//                ->data('estado.nombre'),
 
             Column::computed('action')
                 ->exportable(false)

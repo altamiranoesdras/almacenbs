@@ -270,6 +270,11 @@ class Solicitud extends Model
         return $this->estado_id == SolicitudEstado::SOLICITADA;
     }
 
+    public function puedeAprobar()
+    {
+        return $this->estado_id == SolicitudEstado::AUTORIZADA;
+    }
+
     public function puedeDespachar()
     {
         return $this->estado_id == SolicitudEstado::APROBADA;
@@ -278,6 +283,22 @@ class Solicitud extends Model
     public function puedeAnular()
     {
         return $this->estado_id != SolicitudEstado::ANULADA && $this->estado_id == SolicitudEstado::DESPACHADA;
+    }
+
+    public function tieneStock()
+    {
+        $sinStock = collect();
+
+        /**
+         * @var SolicitudDetalle $det
+         */
+        foreach ($this->detalles as $index => $det) {
+            if ($det->cantidad_solicitada > $det->item->stock_total){
+                $sinStock->push($det);
+            }
+        }
+
+        return $sinStock->count() == 0;
     }
 
 

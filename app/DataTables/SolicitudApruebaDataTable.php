@@ -145,18 +145,6 @@ class SolicitudApruebaDataTable extends DataTable
                 ->name('usuarioAutoriza.name')
                 ->data('usuario_autoriza.name'),
 
-            Column::make('usuario_aprueba')
-                ->name('usuarioAprueba.name')
-                ->data('usuario_aprueba.name'),
-
-            Column::make('usuario_despacha')
-                ->name('usuarioDespacha.name')
-                ->data('usuario_despacha.name'),
-
-
-            Column::make('fecha_despacha')
-                ->name('fecha_despacha')
-                ->data('fecha_despacha'),
 
             Column::make('estado')
                 ->name('estado.nombre')

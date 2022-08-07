@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\Scopes\ScopeSolicitudDataTable;
 use App\DataTables\SolicitudDespachaDataTable;
 use App\Mail\DespacharSolicitud;
 use App\Mail\StockCriticoPorSolicitudMail;
@@ -26,6 +27,13 @@ class SolicitudDespachaController extends Controller
 
     public function index(SolicitudDespachaDataTable $solicitudeDataTable)
     {
+
+
+        $scope = new ScopeSolicitudDataTable();
+        $scope->estados = SolicitudEstado::APROBADA;
+
+        $solicitudeDataTable->addScope($scope);
+
         return $solicitudeDataTable->render('solicitudes.despachar.index');
     }
 
