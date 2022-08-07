@@ -282,6 +282,27 @@ class SolicitudController extends AppBaseController
         return redirect(route('solicitudes.create'));
     }
 
+    public function anular(Solicitud $solicitud){
+
+        try {
+            DB::beginTransaction();
+
+            $solicitud->anular();
+
+        } catch (Exception $exception) {
+            DB::rollBack();
+
+            errorException($exception);
+        }
+
+        DB::commit();
+
+
+        flash()->success('Listo! solicitud anulada.');
+
+        return redirect(route('solicitudes.index'));
+    }
+
 
     public function validaStock(Solicitud $solicitud){
 

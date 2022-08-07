@@ -88,6 +88,11 @@ class SolicitudDetalle extends Model
         return $this->belongsTo(Solicitud::class, 'solicitud_id');
     }
 
+    public function kardex()
+    {
+        return $this->morphOne(Kardex::class,'model');
+    }
+
     public function egreso()
     {
 
