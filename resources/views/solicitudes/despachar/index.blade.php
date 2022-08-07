@@ -26,7 +26,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                           @include('solicitudes.table')
+                           @include('solicitudes.despachar.table')
                         </div>
                     </div>
                     <!-- /.card -->

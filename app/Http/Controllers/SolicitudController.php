@@ -6,7 +6,7 @@ use App\DataTables\Scopes\ScopeSolicitudDataTable;
 use App\DataTables\SolicitudDataTable;
 use App\DataTables\SolicitudDespachaDataTable;
 use App\DataTables\SolicitudUserDataTable;
-use App\Events\EventSolicitudCreate;
+use App\Events\EventoCambioEstadoSolicitud;
 use App\Http\Requests;
 use App\Http\Requests\CreateSolicitudRequest;
 use App\Http\Requests\UpdateSolicitudeRequest;
@@ -225,7 +225,7 @@ class SolicitudController extends AppBaseController
             $solicitud->save();
 
 //            Mail::send(new SolicitudStock($solicitud));
-//            event(new EventSolicitudCreate($solicitud));
+//            event(new EventoCambioEstadoSolicitud($solicitud));
 
             return $solicitud;
         }else{

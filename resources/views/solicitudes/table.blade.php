@@ -23,11 +23,6 @@
                 $('[data-toggle="tooltip"]').tooltip();
             });
 
-            window.Echo.channel('solicitudes').listen('EventSolicitudCreate',(res) => {
-                logI('nueva solicitud',res);
-                dt.draw();
-                new Notification("Nueva requisición de stock!");
-            });
 
         })
     </script>
