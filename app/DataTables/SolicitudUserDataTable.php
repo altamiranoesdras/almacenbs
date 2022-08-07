@@ -8,7 +8,7 @@ use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 
-class SolicitudeUserDataTable extends DataTable
+class SolicitudUserDataTable extends DataTable
 {
     /**
      * Build DataTable class.

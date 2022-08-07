@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\DataTables\Scopes\ScopeSolicitudDataTable;
 use App\DataTables\SolicitudDataTable;
 use App\DataTables\SolicitudDespachaDataTable;
-use App\DataTables\SolicitudeUserDataTable;
+use App\DataTables\SolicitudUserDataTable;
 use App\Events\EventSolicitudCreate;
-use App\Facades\Correlativo;
 use App\Http\Requests;
 use App\Http\Requests\CreateSolicitudRequest;
 use App\Http\Requests\UpdateSolicitudeRequest;
@@ -56,6 +55,27 @@ class SolicitudController extends AppBaseController
 
 
         return $solicitudDataTable->render('solicitudes.index');
+    }
+
+    public function user(SolicitudUserDataTable $solicitudDataTable)
+    {
+        $estados = [
+            SolicitudEstado::INGRESADA,
+            SolicitudEstado::SOLICITADA,
+            SolicitudEstado::AUTORIZADA,
+            SolicitudEstado::APROBADA,
+            SolicitudEstado::DESPACHADA,
+        ];
+
+        $scope = new ScopeSolicitudDataTable();
+        $scope->estados = request()->estados ?? $estados;
+        $scope->usuarios_solicita = auth()->user()->id;
+
+        $solicitudDataTable->addScope($scope);
+
+        $estados = SolicitudEstado::whereIn('id',$estados)->get();
+
+        return $solicitudDataTable->render('solicitudes.usuario.index',compact('estados'));
     }
 
     /**
