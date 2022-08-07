@@ -127,9 +127,7 @@ class SolicitudDetalle extends Model
 
                 $stock->save();
 
-                $this->stocks()->syncWithoutDetaching([
-                    $stock->id => ['cantidad' => $rebajado]
-                ]);
+                $this->addStockTransaccion(StockTransaccion::EGRESO,$stock->id,$rebajado,$stock->precio_compra);
             }
 
             if($cantidad>0)
@@ -141,7 +139,7 @@ class SolicitudDetalle extends Model
             'cantidad' => $this->cantidad_despachada,
             'tipo' => Kardex::TIPO_SALIDA,
             'codigo' => $this->solicitud->codigo,
-            'responsable' => $this->solicitud->cliente->full_name,
+            'responsable' => $this->solicitud->unidad->nombre,
             'usuario_id' => auth()->user()->id ?? User::PRINCIPAL
         ]);
 

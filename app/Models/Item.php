@@ -430,7 +430,7 @@ class Item extends Model implements HasMedia
             }
         });
 
-        return $egresos->sum('cantidad');
+        return $egresos->sum('cantidad_solicitada');
 
     }
 

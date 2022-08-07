@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Solicitud;
 use App\Models\SolicitudDetalle;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -26,7 +27,7 @@ class SolicitudesTableSeeder extends Seeder
 
 
         Solicitud::factory()
-            ->count(50)
+            ->count(20)
             ->afterCreating(function (Solicitud $solicitud){
 
                 SolicitudDetalle::factory()->count(rand(5,10))->create([
@@ -45,18 +46,31 @@ class SolicitudesTableSeeder extends Seeder
 
                 if ($solicitud->estaAutoizada()){
                     $solicitud->fecha_autoriza = $fechaAutoriza;
+                    $solicitud->usuario_autoriza = User::all()->random()->id;
                 }
 
                 if ($solicitud->estaAprobada()){
 
                     $solicitud->fecha_autoriza = $fechaAutoriza;
+                    $solicitud->usuario_autoriza = User::all()->random()->id;
+
                     $solicitud->fecha_aprueba = $fechaAprueba;
+                    $solicitud->usuario_aprueba = User::all()->random()->id;
                 }
 
                 if ($solicitud->estaDespachada()){
 
                     $solicitud->fecha_autoriza = $fechaAutoriza;
+                    $solicitud->usuario_autoriza = User::all()->random()->id;
+
                     $solicitud->fecha_aprueba = $fechaAprueba;
+                    $solicitud->usuario_aprueba = User::all()->random()->id;
+
+
+                    $solicitud->fecha_despacha = $fechaDespacha;
+                    $solicitud->usuario_despacha = User::all()->random()->id;
+
+
                     $solicitud->egreso();
                 }
 

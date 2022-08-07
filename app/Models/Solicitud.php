@@ -309,7 +309,7 @@ class Solicitud extends Model
          * @var SolicitudDetalle $detalle
          */
         foreach ($this->detalles as $detalle){
-            $detalle->egresos();
+            $detalle->egreso();
         }
 
         $this->estado_id = SolicitudEstado::DESPACHADA;

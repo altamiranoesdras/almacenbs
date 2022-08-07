@@ -105,7 +105,7 @@ class ItemDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('imagen'),
+            Column::make('imagen')->searchable(false)->orderable(false),
             Column::make('codigo'),
             Column::make('nombre'),
             Column::make('renglon')->name('renglon.numero')->data('renglon.numero'),
@@ -116,7 +116,7 @@ class ItemDataTable extends DataTable
                 ->exportable(false),
             Column::make('marca')->name('marca.nombre')->data('marca.nombre'),
             Column::make('U/M')->name('unimed.nombre')->data('unimed.nombre'),
-            Column::make('stock'),
+            Column::make('stock')->searchable(false)->orderable(false),
             Column::make('precio_compra'),
             Column::make('ubicacion'),
             Column::computed('action')
