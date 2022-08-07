@@ -17,7 +17,8 @@ class CreateSolicitudDetallesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('solicitud_id')->index('fk_solicitud_detalles_solicitudes1_idx');
             $table->unsignedBigInteger('item_id')->index('fk_solicitud_detalles_items1_idx');
-            $table->decimal('cantidad', 12);
+            $table->decimal('cantidad_solicitada', 12);
+            $table->decimal('cantidad_despachada', 12);
             $table->decimal('precio', 12)->nullable();
             $table->timestamps();
             $table->softDeletes();

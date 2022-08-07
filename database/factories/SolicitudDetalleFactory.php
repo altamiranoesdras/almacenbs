@@ -28,10 +28,14 @@ class SolicitudDetalleFactory extends Factory
          */
         $item = Item::all()->random();
 
+        $cantidadSolicitada = rand(5,10);
+        $cantidadDespachada = $cantidadSolicitada - rand(0,2);
+
         return [
             'solicitud_id' => Solicitud::all()->random()->id,
             'item_id' => $item->id,
-            'cantidad' => rand(5,10),
+            'cantidad_solicitada' => $cantidadSolicitada,
+            'cantidad_despachada' => $cantidadDespachada,
             'precio' => $item->precio_compra,
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s'),

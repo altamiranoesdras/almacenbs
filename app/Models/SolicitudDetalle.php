@@ -16,7 +16,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Solicitud $solicitud
  * @property integer $solicitud_id
  * @property integer $item_id
- * @property number $cantidad
+ * @property number $cantidad_solicitada
+ * @property number $cantidad_despachada
  * @property number $precio
  */
 class SolicitudDetalle extends Model
@@ -38,7 +39,8 @@ class SolicitudDetalle extends Model
     public $fillable = [
         'solicitud_id',
         'item_id',
-        'cantidad',
+        'cantidad_solicitada',
+        'cantidad_despachada',
         'precio'
     ];
 
@@ -92,7 +94,7 @@ class SolicitudDetalle extends Model
         if (!$this->item->inventariable)
             return null;
 
-        $cantidad = $this->cantidad*-1;
+        $cantidad = $this->cantidad_despachada*-1;
 
         $stocks = $this->item->stocks
             ->where('cantidad','>',0)
@@ -130,13 +132,12 @@ class SolicitudDetalle extends Model
         }
 
         $this->kardex()->create([
-            'tienda_id' => $this->venta->tienda_id,
             'item_id' => $this->item->id,
-            'cantidad' => $this->cantidad,
+            'cantidad' => $this->cantidad_despachada,
             'tipo' => Kardex::TIPO_SALIDA,
-            'codigo' => $this->venta->codigo,
-            'responsable' => $this->venta->cliente->full_name,
-            'user_id' => auth()->user()->id ?? User::PRINCIPAL
+            'codigo' => $this->solicitud->codigo,
+            'responsable' => $this->solicitud->cliente->full_name,
+            'usuario_id' => auth()->user()->id ?? User::PRINCIPAL
         ]);
 
         return $stocks;
