@@ -37,6 +37,7 @@ class SolicitudDetalleFactory extends Factory
             'cantidad_solicitada' => $cantidadSolicitada,
             'cantidad_despachada' => $cantidadDespachada,
             'precio' => $item->precio_compra,
+            'observaciones' => $this->faker->text(100),
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s'),
         ];
