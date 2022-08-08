@@ -2,17 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class RrhhUnidad
  * @package App\Models
- * @version July 27, 2022, 12:25 pm CST
+ * @version August 8, 2022, 12:14 am CST
  *
+ * @property \App\Models\User $jefe
+ * @property \Illuminate\Database\Eloquent\Collection $puestos
  * @property \Illuminate\Database\Eloquent\Collection $solicitudes
+ * @property \Illuminate\Database\Eloquent\Collection $usuarios
  * @property string $nombre
+ * @property integer $jefe_id
  * @property string $activa
  */
 class RrhhUnidad extends Model
@@ -33,6 +37,7 @@ class RrhhUnidad extends Model
 
     public $fillable = [
         'nombre',
+        'jefe_id',
         'activa'
     ];
 
@@ -44,6 +49,7 @@ class RrhhUnidad extends Model
     protected $casts = [
         'id' => 'integer',
         'nombre' => 'string',
+        'jefe_id' => 'integer',
         'activa' => 'string'
     ];
 
@@ -54,6 +60,7 @@ class RrhhUnidad extends Model
      */
     public static $rules = [
         'nombre' => 'required|string|max:255',
+        'jefe_id' => 'nullable',
         'activa' => 'nullable|string',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
@@ -61,15 +68,34 @@ class RrhhUnidad extends Model
     ];
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function jefe()
+    {
+        return $this->belongsTo(User::class, 'jefe_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     **/
+    public function puestos()
+    {
+        return $this->belongsToMany(RrhhPuesto::class, 'puesto_has_unidad');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
     public function solicitudes()
     {
-        return $this->hasMany(\App\Models\Solicitude::class, 'unidad_id');
+        return $this->hasMany(Solicitud::class, 'unidad_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
     public function usuarios()
     {
-        return $this->hasMany(User::class,'unidad_id');
+        return $this->hasMany(User::class, 'unidad_id');
     }
 }
