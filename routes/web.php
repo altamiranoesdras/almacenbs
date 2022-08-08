@@ -1,52 +1,53 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\BusinessProfileController;
-use App\Http\Controllers\Compra1hController;
-use App\Http\Controllers\Compra1hDetalleController;
-use App\Http\Controllers\CompraController;
-use App\Http\Controllers\CompraDetalleController;
-use App\Http\Controllers\CompraEstadoController;
-use App\Http\Controllers\CompraTipoController;
-use App\Http\Controllers\ConfigurationController;
-use App\Http\Controllers\DenominacionController;
-use App\Http\Controllers\DivisaController;
-use App\Http\Controllers\EnvioFiscalController;
-use App\Http\Controllers\EquivalenciaController;
-use App\Http\Controllers\HomeAdminController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ItemCategoriaController;
 use App\Http\Controllers\ItemController;
-use App\Http\Controllers\ItemTipoController;
-use App\Http\Controllers\ItemTrasladoController;
-use App\Http\Controllers\ItemTrasladoEstadoController;
-use App\Http\Controllers\KardexController;
-use App\Http\Controllers\MagnitudController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\MarcaController;
+use App\Http\Controllers\StockController;
+use App\Http\Controllers\CompraController;
+use App\Http\Controllers\DivisaController;
+use App\Http\Controllers\KardexController;
 use App\Http\Controllers\OptionController;
-use App\Http\Controllers\PassportClientsController;
-use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\UnimedController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RenglonController;
+use App\Http\Controllers\Compra1hController;
+use App\Http\Controllers\ItemTipoController;
+use App\Http\Controllers\MagnitudController;
+use App\Http\Controllers\HomeAdminController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\PruebaApiController;
-use App\Http\Controllers\RenglonController;
-use App\Http\Controllers\ReportesAlmacenController;
-use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SolicitudController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CompraTipoController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RrhhPuestoController;
 use App\Http\Controllers\RrhhUnidadController;
+use App\Http\Controllers\EnvioFiscalController;
+use App\Http\Controllers\CompraEstadoController;
+use App\Http\Controllers\DenominacionController;
+use App\Http\Controllers\EquivalenciaController;
+use App\Http\Controllers\ItemTrasladoController;
+use App\Http\Controllers\StockInicialController;
+use App\Http\Controllers\CompraDetalleController;
+use App\Http\Controllers\ConfigurationController;
+use App\Http\Controllers\ItemCategoriaController;
+use App\Http\Controllers\BusinessProfileController;
+use App\Http\Controllers\Compra1hDetalleController;
+use App\Http\Controllers\PassportClientsController;
+use App\Http\Controllers\ReportesAlmacenController;
+use App\Http\Controllers\SolicitudEstadoController;
 use App\Http\Controllers\SolicitudApruebaController;
+use App\Http\Controllers\SolicitudDetalleController;
+use App\Http\Controllers\StockTransaccionController;
+use App\Http\Controllers\UserDespachaUserController;
 use App\Http\Controllers\SolicitudAutorizaController;
 use App\Http\Controllers\SolicitudDespachaController;
-use App\Http\Controllers\SolicitudController;
-use App\Http\Controllers\SolicitudDetalleController;
-use App\Http\Controllers\SolicitudEstadoController;
-use App\Http\Controllers\StockController;
-use App\Http\Controllers\StockInicialController;
-use App\Http\Controllers\StockTransaccionController;
-use App\Http\Controllers\UnimedController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\UserDespachaUserController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ItemTrasladoEstadoController;
 
 Auth::routes(['verify' => true]);
 
@@ -173,7 +174,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::resource('rrhhUnidades', RrhhUnidadController::class);
 
 
-
+    Route::any('/solicitudes/preimpreso/{solicitud}', [SolicitudController::class,'preimpreso'])->name('solicitudes.preimpreso');
 
     Route::get('mis/solicitudes', [SolicitudController::class,'user'])->name('solicitudes.usuario');
 

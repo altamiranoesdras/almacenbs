@@ -31,6 +31,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Response;
+use Illuminate\Support\Facades\App;
 
 class SolicitudController extends AppBaseController
 {
@@ -38,7 +39,7 @@ class SolicitudController extends AppBaseController
     public function __construct()
     {
         $this->middleware('permission:Ver Solicitud')->only(['show']);
-        $this->middleware('permission:Crear Solicitud')->only(['create','store']);
+        $this->middleware('permission:Crear Solicitud')->only(['create','store','preImpreso']);
         $this->middleware('permission:Editar Solicitud')->only(['edit','update',]);
         $this->middleware('permission:Eliminar Solicitud')->only(['destroy']);
     }
@@ -322,6 +323,28 @@ class SolicitudController extends AppBaseController
             return $correlativo+1;
 
         return 1;
+    }
+
+    public function preImpreso(Solicitud $solicitud){
+
+        $pdf = App::make('snappy.pdf.wrapper');
+
+        $view = view('solicitudes.preimpreso', compact('solicitud'))->render();
+        // $footer = view('compras.pdf_footer')->render();
+
+        $pdf->loadHTML($view)
+        ->setOption('page-width', '220')
+        ->setOption('page-height', '280')
+            ->setOrientation('portrait')
+            // ->setOption('footer-html',utf8_decode($footer))
+            ->setOption('margin-top', 12)
+            ->setOption('margin-bottom',10)
+            ->setOption('margin-left',14)
+            ->setOption('margin-right',10);
+            // ->stream('report.pdf');
+        return $pdf->inline('requision '.$solicitud->id.'.pdf');
+
+    
     }
 
 }
