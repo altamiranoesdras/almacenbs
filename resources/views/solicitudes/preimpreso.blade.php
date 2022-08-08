@@ -77,8 +77,8 @@
         {{ $solicitud->usuarioSolicita->name }}
     </div>
 
-    <div style="font-size: 1.2em; font-weight: 600; margin-top: 0.2cm; margin-left: 0.7cm; text-align: center; width: 24%" >
-        {{ $solicitud->usuarioSolicita->jefeUnidad->name }}
+    <div style="font-size: 1.2em; font-weight: 600; margin-top: 3.3cm; margin-left: 0.7cm; text-align: center; width: 24%" >
+        {{-- Jefe --}}
     </div>
 </body>
 </html>

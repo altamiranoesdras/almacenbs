@@ -383,7 +383,7 @@ class SolicitudController extends AppBaseController
             ->setOption('margin-left',14)
             ->setOption('margin-right',10);
             // ->stream('report.pdf');
-        return $pdf->inline('requision '.$solicitud->id.'.pdf');
+        return $pdf->download('requision '.$solicitud->id.'.pdf');
 
     
     }
