@@ -41,6 +41,7 @@ class SolicitudFactory extends Factory
             'correlativo' => $this->faker->randomDigitNotNull,
             'justificacion' => $this->faker->text,
             'unidad_id' => RrhhUnidad::all()->random()->id,
+            'observaciones' => $this->faker->paragraph,
 
             'usuario_crea' => $userRandom->id,
             'usuario_solicita' => $userRandom->id,
