@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\DataTables\Scopes\ScopeSolicitudDataTable;
 use App\DataTables\SolicitudDataTable;
 use App\DataTables\SolicitudDespachaDataTable;
-use App\DataTables\SolicitudeUserDataTable;
-use App\Events\EventSolicitudCreate;
-use App\Facades\Correlativo;
+use App\DataTables\SolicitudUserDataTable;
+use App\Events\EventoCambioEstadoSolicitud;
 use App\Http\Requests;
 use App\Http\Requests\CreateSolicitudRequest;
 use App\Http\Requests\UpdateSolicitudeRequest;
@@ -57,6 +56,27 @@ class SolicitudController extends AppBaseController
 
 
         return $solicitudDataTable->render('solicitudes.index');
+    }
+
+    public function user(SolicitudUserDataTable $solicitudDataTable)
+    {
+        $estados = [
+            SolicitudEstado::INGRESADA,
+            SolicitudEstado::SOLICITADA,
+            SolicitudEstado::AUTORIZADA,
+            SolicitudEstado::APROBADA,
+            SolicitudEstado::DESPACHADA,
+        ];
+
+        $scope = new ScopeSolicitudDataTable();
+        $scope->estados = request()->estados ?? $estados;
+        $scope->usuarios_solicita = auth()->user()->id;
+
+        $solicitudDataTable->addScope($scope);
+
+        $estados = SolicitudEstado::whereIn('id',$estados)->get();
+
+        return $solicitudDataTable->render('solicitudes.usuario.index',compact('estados'));
     }
 
     /**
@@ -206,7 +226,7 @@ class SolicitudController extends AppBaseController
             $solicitud->save();
 
 //            Mail::send(new SolicitudStock($solicitud));
-//            event(new EventSolicitudCreate($solicitud));
+            event(new EventoCambioEstadoSolicitud($solicitud));
 
             return $solicitud;
         }else{
@@ -281,6 +301,27 @@ class SolicitudController extends AppBaseController
         flash()->success('Listo! solicitud cancelada.');
 
         return redirect(route('solicitudes.create'));
+    }
+
+    public function anular(Solicitud $solicitud){
+
+        try {
+            DB::beginTransaction();
+
+            $solicitud->anular();
+
+        } catch (Exception $exception) {
+            DB::rollBack();
+
+            errorException($exception);
+        }
+
+        DB::commit();
+
+
+        flash()->success('Listo! solicitud anulada.');
+
+        return redirect(route('solicitudes.index'));
     }
 
 

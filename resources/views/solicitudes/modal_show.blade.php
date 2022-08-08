@@ -19,18 +19,41 @@
 
             </div>
             {{--Si existe la variable despachar y la solicitud no ha sido despachada--}}
-            @if(isset($despachar) && $solicitud->estado_id!=\App\Models\SolicitudEstado::DESPACHADA)
+
                 <div class="modal-footer">
-                    {{--<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>--}}
-                    @if($solicitud->tieneStock())
-                        <a href="{{route('solicitudes.despachar.store',$solicitud->id)}}"  class="btn btn-outline-success">Despachar</a>
-                    @else
-                        <div class="alert alert-danger" role="alert">
-                            <strong>No tiene stock suficiente para despachar esta solicitud</strong>
-                        </div>
-                    @endif
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+
+                    @can("Autorizar requisición")
+                        @if($solicitud->puedeAutorizar())
+                            <a href="{{route('solicitudes.autorizar.store',$solicitud->id)}}"  class="btn btn-outline-success">
+                                Autorizar
+                            </a>
+                        @endif
+                    @endcan
+
+                    @can("Aprobar requisición")
+                        @if($solicitud->puedeAprobar())
+                            <a href="{{route('solicitudes.aprobar.store',$solicitud->id)}}"  class="btn btn-outline-success">
+                                Aprobar
+                            </a>
+                        @endif
+                    @endcan
+
+                    @can("Despachar requisición")
+                        @if($solicitud->puedeDespachar())
+                            @if($solicitud->tieneStock())
+                                <a href="{{route('solicitudes.despachar.store',$solicitud->id)}}"  class="btn btn-outline-success">
+                                    Despachar
+                                </a>
+                            @else
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>No tiene stock suficiente para despachar esta solicitud</strong>
+                                </div>
+                            @endif
+                        @endif
+                    @endcan
+
                 </div>
-            @endif
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->

@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\Scopes\ScopeSolicitudDataTable;
 use App\DataTables\SolicitudApruebaDataTable;
+use App\Events\EventoCambioEstadoSolicitud;
 use App\Models\Solicitud;
 use App\Models\SolicitudEstado;
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -17,6 +21,10 @@ class SolicitudApruebaController extends Controller
 
     public function index(SolicitudApruebaDataTable $solicitudeDataTable)
     {
+        $scope = new ScopeSolicitudDataTable();
+        $scope->estados = SolicitudEstado::AUTORIZADA;
+        $solicitudeDataTable->addScope($scope);
+
         return $solicitudeDataTable->render('solicitudes.aprobar.index');
     }
 
@@ -28,16 +36,13 @@ class SolicitudApruebaController extends Controller
         try {
             DB::beginTransaction();
 
-            $solicitud->estado_id = SolicitudEstado::DESPACHADA;
-            $solicitud->usuario_despacha = auth()->user()->id;
-            $solicitud->fecha_despacha = fechaHoraActualDb();
+            $solicitud->estado_id = SolicitudEstado::APROBADA;
+            $solicitud->usuario_autoriza = auth()->user()->id;
+            $solicitud->fecha_autoriza = Carbon::now();
             $solicitud->save();
 
 
-            $solicitud->egreso();
-
-//            $this->verificaStockCritico($solicitud);
-
+            event(new EventoCambioEstadoSolicitud($solicitud));
 //            Mail::send(new DespacharSolicitud($solicitud));
 
 
@@ -52,8 +57,8 @@ class SolicitudApruebaController extends Controller
 
         DB::commit();
 
-        flash('Solicitud despachada correctamente')->success()->important();
+        flash('Solicitud aprobada correctamente')->success()->important();
 
-        return redirect(route('solicitudes.despachar'));
+        return redirect(route('solicitudes.aprobar'));
     }
 }

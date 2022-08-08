@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page',__('Proveedors'))
+@section('title_page',__('Proveedores'))
 
 @section('content')
 
@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Proveedors</h1>
+                    <h1>Proveedores</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-right">
@@ -17,7 +17,7 @@
                             <a class="btn btn-outline-success"
                                 href="{!! route('proveedores.create') !!}">
                                 <i class="fa fa-plus"></i>
-                                <span class="d-none d-sm-inline">{{__('New')}}</span>
+                                <span class="d-none d-sm-inline">Nuevo</span>
                             </a>
                         </li>
                     </ol>

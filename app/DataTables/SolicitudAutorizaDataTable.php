@@ -79,7 +79,6 @@ class SolicitudAutorizaDataTable extends DataTable
         return $model->newQuery()
 
             ->select('solicitudes.*')
-            ->solicitadas()
             ->with(['detalles.item','usuarioSolicita','usuarioAutoriza','usuarioAprueba','usuarioDespacha','estado']);
     }
 

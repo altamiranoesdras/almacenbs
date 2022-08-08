@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page',__('Magnituds'))
+@section('title_page',__('Magnitudes'))
 
 @section('content')
 
@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Magnituds</h1>
+                    <h1>Magnitudes</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-right">
@@ -17,7 +17,7 @@
                             <a class="btn btn-outline-success"
                                 href="{!! route('magnitudes.create') !!}">
                                 <i class="fa fa-plus"></i>
-                                <span class="d-none d-sm-inline">{{__('New')}}</span>
+                                <span class="d-none d-sm-inline">Nueva</span>
                             </a>
                         </li>
                     </ol>
