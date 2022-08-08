@@ -140,7 +140,7 @@ class User extends Authenticatable implements  HasMedia
      **/
     public function unidad()
     {
-        return $this->belongsTo(\App\Models\RrhhUnidade::class, 'unidad_id');
+        return $this->belongsTo(\App\Models\RrhhUnidad::class, 'unidad_id');
     }
 
     /**
