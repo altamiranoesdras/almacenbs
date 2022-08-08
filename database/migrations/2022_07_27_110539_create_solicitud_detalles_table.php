@@ -20,6 +20,7 @@ class CreateSolicitudDetallesTable extends Migration
             $table->decimal('cantidad_solicitada', 12);
             $table->decimal('cantidad_despachada', 12);
             $table->decimal('precio', 12)->nullable();
+            $table->text('observaciones')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
