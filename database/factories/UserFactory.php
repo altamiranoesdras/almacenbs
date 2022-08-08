@@ -30,6 +30,7 @@ class UserFactory extends Factory
         return [
             'username' => $this->faker->userName,
             'name' => $this->faker->name,
+            'dpi' => rand(123456789012345, 999999999999999),
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
             'password' => bcrypt(123), // password
