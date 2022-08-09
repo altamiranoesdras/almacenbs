@@ -24,10 +24,11 @@ class DatabaseSeeder extends Seeder
         $this->call(ConfigurationsTableSeeder::class);
         $this->call(OptionsTableSeeder::class);
 
-        $this->call(RrhhPuestosTableSeeder::class);
-        $this->call(RrhhUnidadesTableSeeder::class);
-
+        $this->call(ImportPuestosUnidadesSeeder::class);
         $this->call(UsersTableSeeder::class);
+        $this->call(ImportUserSeeder::class);
+
+
         $this->call(CompraEstadosTableSeeder::class);
         $this->call(ProveedoresTableSeeder::class);
         $this->call(MarcasTableSeeder::class);

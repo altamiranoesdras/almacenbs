@@ -21,10 +21,13 @@ class RoleSeeder extends Seeder
         $role= Role::firstOrCreate(["name" => "Admin"]);
         $role->syncPermissions(Permission::pluck('name')->toArray());
 
-        $role = Role::firstOrCreate(["name" => "Tester"]);
-        $role->syncPermissions(Permission::pluck('name')->toArray());
+        $role = Role::firstOrCreate(["name" => "General"]);
 
-        Role::firstOrCreate(["name" => "User"]);
+        $role->syncPermissions([
+            'Ver Requisición',
+            'Crear Requisición',
+            'Editar Requisición',
+        ]);
 
     }
 }

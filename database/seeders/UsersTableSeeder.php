@@ -56,16 +56,6 @@ class UsersTableSeeder extends Seeder
 
         });
 
-        User::factory(1)->create([
-            "username" => "Tester",
-            "name" => "Tester",
-            "password" => bcrypt("123")
-        ])->each(function (User $user){
-            $user->syncRoles(Role::TESTER);
-            $user->options()->sync(Option::pluck('id')->toArray());
-            $user->shortcuts()->sync([3,4,5,6]);
-
-        });
 
 
     }

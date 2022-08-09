@@ -4,10 +4,13 @@
     <a href="#modal-detalles-{{$id}}" data-keyboard="true" data-toggle="modal" class='btn btn-secondary btn-xs' data-toggle="tooltip" title="Ver detalles">
         <i class="fa fa-eye"></i>
     </a>
-    <a href="{{ route('solicitudes.preimpreso', $id) }}"  class='btn btn-danger btn-xs' data-toggle="tooltip" title="PDF de requision">
+@endcan
+
+@if($solicitud->puedeImprimir())
+    <a href="{{ route('solicitudes.preimpreso', $id) }}"  class='btn btn-danger btn-xs' data-toggle="tooltip" title="Solicitud">
         <i class="fa fa-file-pdf"></i>
     </a>
-@endcan
+@endif
 
 @if($solicitud->puedeEditar())
     @can('Editar requisición')

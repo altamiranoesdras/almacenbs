@@ -280,6 +280,15 @@ class Solicitud extends Model
         return $this->estado_id == SolicitudEstado::APROBADA;
     }
 
+    public function puedeImprimir()
+    {
+        return in_array($this->estado_id,[
+            SolicitudEstado::SOLICITADA,
+            SolicitudEstado::APROBADA,
+            SolicitudEstado::AUTORIZADA
+        ]);
+    }
+
     public function puedeAnular()
     {
         return $this->estado_id != SolicitudEstado::ANULADA && $this->estado_id == SolicitudEstado::DESPACHADA;
