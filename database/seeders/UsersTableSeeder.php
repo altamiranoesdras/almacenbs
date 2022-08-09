@@ -84,8 +84,8 @@ class UsersTableSeeder extends Seeder
 
 
         User::factory(1)->create([
-            "username" => "jefe_almacen",
-            "name" => "Jefe Almacen",
+            "username" => "mnavichoque",
+            "name" => "Madelin Gabriela Navichoque Carranza",
             "password" => bcrypt("123456")
         ])->each(function (User $user){
 
