@@ -36,13 +36,13 @@
                         <button class="btn btn-outline-primary float-right" @click="editShortcut()">
                             <i class="fa fa-edit"></i>
                             <span class="d-none d-sm-inline">
-                            {{__('Edit Shortcuts')}}
+                            Editar Acceso Directo
                         </span>
                         </button>
                         <button class="btn btn-outline-success float-right mr-3" @click="newShortcut()">
                             <i class="fa fa-plus"></i>
                             <span class="d-none d-sm-inline">
-                            {{__('New Shortcut')}}
+                            Nuevo Acceso Directo
                         </span>
                         </button>
 

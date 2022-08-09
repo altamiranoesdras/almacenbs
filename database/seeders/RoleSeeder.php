@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Option;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Database\Seeder;
+
 
 class RoleSeeder extends Seeder
 {
@@ -18,6 +20,8 @@ class RoleSeeder extends Seeder
         Role::firstOrCreate(["name" => "Developer"]);
         Role::firstOrCreate(["name" => "Superadmin"]);
 
+
+
         $role= Role::firstOrCreate(["name" => "Admin"]);
         $role->syncPermissions(Permission::pluck('name')->toArray());
 
@@ -29,5 +33,22 @@ class RoleSeeder extends Seeder
             'Editar Requisición',
         ]);
 
+
+        /**
+         * @var Role $role
+         */
+        $role = Role::firstOrCreate(["name" => "Jefe almacen"]);
+
+        $role->options()->sync(Option::all());
+
+        $role->syncPermissions([
+            'Ver Requisición',
+            'Crear Requisición',
+            'Editar Requisición',
+        ]);
+
     }
 }
+
+
+
