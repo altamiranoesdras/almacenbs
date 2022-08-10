@@ -42,7 +42,7 @@ class UserDataTable extends DataTable
      */
     public function query(User $model)
     {
-        $query = $model->newQuery()->with(['roles','media']);
+        $query = $model->newQuery()->with(['roles','media','unidad','puesto']);
 
         //si el usuario no puede ver a todos los usuarios
         if (auth()->user()->cannot('ver todos los usuarios')){
@@ -72,8 +72,8 @@ class UserDataTable extends DataTable
             ->info(true)
             ->language(['url' => asset('js/SpanishDataTables.json')])
             ->responsive(true)
-            ->stateSave(true)
-            ->orderBy(1,'desc')
+            ->stateSave(false)
+            ->orderBy(0,'desc')
             ->dom('
                 <"row mb-2"
                     <"col-sm-12 col-md-6" B>
@@ -107,12 +107,12 @@ class UserDataTable extends DataTable
     {
         return [
 
-            Column::make('avatar')->orderable('false')->searchable(false),
             Column::make('id'),
+            Column::make('avatar')->data('avatar')->orderable('false')->searchable(false),
             Column::make('username'),
             Column::make('name'),
-            Column::make('email'),
-            Column::make('provider'),
+            Column::make('unidad')->data('unidad.nombre')->name('unidad.nombre'),
+            Column::make('puesto')->data('puesto.nombre')->name('puesto.nombre'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

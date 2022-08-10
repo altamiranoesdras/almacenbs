@@ -153,3 +153,9 @@ Vue.component('select-unimed',SelectUnimed)
 
 import SelectItemTipo from "./components/SelectItemTipo";
 Vue.component('select-item-tipo',SelectItemTipo);
+
+import SelectUnidad from "./components/SelectUnidad";
+Vue.component('select-unidad',SelectUnidad)
+
+import SelectPuesto from "./components/SelectPuesto";
+Vue.component('select-puesto',SelectPuesto)
