@@ -87,7 +87,7 @@ class ItemFactory extends Factory
             $categoria = $this->faker->randomElement([
                 LoremSpaceProvider::CATEGORY_ALBUM,
                 LoremSpaceProvider::CATEGORY_BOOK,
-                LoremSpaceProvider::CATEGORY_FASHION,
+//                LoremSpaceProvider::CATEGORY_FASHION,
                 LoremSpaceProvider::CATEGORY_SHOES,
                 LoremSpaceProvider::CATEGORY_WATCH,
             ]);

@@ -37,10 +37,10 @@ class SolicitudController extends AppBaseController
 
     public function __construct()
     {
-        $this->middleware('permission:Ver Solicitud')->only(['show']);
-        $this->middleware('permission:Crear Solicitud')->only(['create','store','preImpreso']);
-        $this->middleware('permission:Editar Solicitud')->only(['edit','update',]);
-        $this->middleware('permission:Eliminar Solicitud')->only(['destroy']);
+        $this->middleware('permission:Ver Requisición')->only(['show']);
+        $this->middleware('permission:Crear Requisición')->only(['create','store','preImpreso']);
+        $this->middleware('permission:Editar Requisición')->only(['edit','update',]);
+        $this->middleware('permission:Eliminar Requisición')->only(['destroy']);
     }
 
     /**
@@ -385,7 +385,7 @@ class SolicitudController extends AppBaseController
             // ->stream('report.pdf');
         return $pdf->download('Requision '.$solicitud->id. '_'. time().'.pdf');
 
-    
+
     }
 
     public function despachoPdf(Solicitud $solicitud){

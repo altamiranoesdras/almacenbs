@@ -112,8 +112,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     Route::resource('proveedores', ProveedorController::class);
 
-
-    Route::resource('compraTipos', CompraTipoController::class);
+   Route::resource('compraTipos', CompraTipoController::class);
 
 
     Route::get('compras/ingreso/{id}',[CompraController::class,'ingreso'])->name('compra.ingreso');
@@ -123,18 +122,10 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
 
     Route::resource('itemCategorias', ItemCategoriaController::class);
-
-
     Route::resource('marcas', MarcaController::class);
-
-
     Route::resource('magnitudes', MagnitudController::class);
-
-
     Route::resource('unimeds', UnimedController::class);
-
-
-    Route::resource('renglons', RenglonController::class);
+    Route::resource('renglones', RenglonController::class);
 
 
     Route::get('items/import', [ItemController::class,'importar'])->name('items.importar');
@@ -146,16 +137,13 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::resource('compraDetalles', CompraDetalleController::class);
 
 
-    Route::resource('denominacions', DenominacionController::class);
+    Route::resource('denominaciones', DenominacionController::class);
 
 
     Route::resource('divisas', DivisaController::class);
 
 
     Route::resource('equivalencias', EquivalenciaController::class);
-
-
-    Route::resource('stockInicials', StockInicialController::class);
 
 
     Route::resource('itemTrasladoEstados', ItemTrasladoEstadoController::class);
@@ -165,7 +153,6 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::resource('itemTraslados', ItemTrasladoController::class);
 
 
-    Route::resource('kardexes', KardexController::class);
 
 
     Route::resource('solicitudEstados', SolicitudEstadoController::class);

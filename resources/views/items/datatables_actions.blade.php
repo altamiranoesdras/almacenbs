@@ -1,22 +1,27 @@
 
+@can('Crear Artículos')
 <a href="{{ route('items.show', $item->id) }}" class='btn btn-default btn-xs' data-toggle="tooltip" title="Ver">
     <i class="fa fa-eye"></i>
 </a>
+@endcan
 
 {{--<a href="{{ route('items.clonar', $item->id) }}" class='btn btn-default btn-xs' data-toggle="tooltip" title="Copiar articulo">--}}
 {{--    <i class="fa fa-clone"></i>--}}
 {{--</a>--}}
 
-<a href="{{ route('items.edit', $item->id) }}" class='btn btn-info btn-xs' data-toggle="tooltip" title="Editar">
+@can('Editar Artículos')
+    <a href="{{ route('items.edit', $item->id) }}" class='btn btn-info btn-xs' data-toggle="tooltip" title="Editar">
     <i class="fa fa-edit"></i>
 </a>
+@endcan
 
 
+@can('Eliminar Artículos')
 <span data-toggle="tooltip" title="Eliminar">
-        <a href="#modal-delete-{{$item->id}}" data-toggle="modal" data-keyboard="true" class='btn btn-danger btn-xs'>
-            <i class="fa fa-trash-alt"></i>
-        </a>
-    </span>
+    <a href="#modal-delete-{{$item->id}}" data-toggle="modal" data-keyboard="true" class='btn btn-danger btn-xs'>
+        <i class="fa fa-trash-alt"></i>
+    </a>
+</span>
 
 <div class="modal fade modal-warning" id="modal-delete-{{$item->id}}" tabindex='-1'>
     <div class="modal-dialog">
@@ -42,3 +47,4 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+@endcan

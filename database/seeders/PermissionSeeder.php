@@ -53,5 +53,52 @@ class PermissionSeeder extends Seeder
 
 
 
+        Permission::firstOrCreate(['name' => 'Ver Compras']);
+        Permission::firstOrCreate(['name' => 'Crear Compras']);
+        Permission::firstOrCreate(['name' => 'Editar Compras']);
+        Permission::firstOrCreate(['name' => 'Eliminar Compras']);
+
+        Permission::firstOrCreate(['name' => 'Ver Compra Tipos']);
+        Permission::firstOrCreate(['name' => 'Crear Compra Tipos']);
+        Permission::firstOrCreate(['name' => 'Editar Compra Tipos']);
+        Permission::firstOrCreate(['name' => 'Eliminar Compra Tipos']);
+
+
+        Permission::firstOrCreate(['name' => 'Ver Categorías']);
+        Permission::firstOrCreate(['name' => 'Crear Categorías']);
+        Permission::firstOrCreate(['name' => 'Editar Categorías']);
+        Permission::firstOrCreate(['name' => 'Eliminar Categorías']);
+
+        Permission::firstOrCreate(['name' => 'Ver Artículos']);
+        Permission::firstOrCreate(['name' => 'Crear Artículos']);
+        Permission::firstOrCreate(['name' => 'Editar Artículos']);
+        Permission::firstOrCreate(['name' => 'Eliminar Artículos']);
+
+        Permission::firstOrCreate(['name' => 'Ver Magnitudes']);
+        Permission::firstOrCreate(['name' => 'Crear Magnitudes']);
+        Permission::firstOrCreate(['name' => 'Editar Magnitudes']);
+        Permission::firstOrCreate(['name' => 'Eliminar Magnitudes']);
+
+        Permission::firstOrCreate(['name' => 'Ver Marcas']);
+        Permission::firstOrCreate(['name' => 'Crear Marcas']);
+        Permission::firstOrCreate(['name' => 'Editar Marcas']);
+        Permission::firstOrCreate(['name' => 'Eliminar Marcas']);
+
+        Permission::firstOrCreate(['name' => 'Ver Proveedores']);
+        Permission::firstOrCreate(['name' => 'Crear Proveedores']);
+        Permission::firstOrCreate(['name' => 'Editar Proveedores']);
+        Permission::firstOrCreate(['name' => 'Eliminar Proveedores']);
+
+        Permission::firstOrCreate(['name' => 'Ver Renglones']);
+        Permission::firstOrCreate(['name' => 'Crear Renglones']);
+        Permission::firstOrCreate(['name' => 'Editar Renglones']);
+        Permission::firstOrCreate(['name' => 'Eliminar Renglones']);
+
+        Permission::firstOrCreate(['name' => 'Ver unidad medida']);
+        Permission::firstOrCreate(['name' => 'Crear unidad medida']);
+        Permission::firstOrCreate(['name' => 'Editar unidad medida']);
+        Permission::firstOrCreate(['name' => 'Eliminar unidad medida']);
+
+
     }
 }

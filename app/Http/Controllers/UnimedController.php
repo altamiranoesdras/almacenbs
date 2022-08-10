@@ -16,10 +16,10 @@ class UnimedController extends AppBaseController
 
     public function __construct()
     {
-        $this->middleware('permission:Ver Unimeds')->only(['show']);
-        $this->middleware('permission:Crear Unimeds')->only(['create','store']);
-        $this->middleware('permission:Editar Unimeds')->only(['edit','update',]);
-        $this->middleware('permission:Eliminar Unimeds')->only(['destroy']);
+        $this->middleware('permission:Ver unidad medida')->only(['show']);
+        $this->middleware('permission:Crear unidad medida')->only(['create','store']);
+        $this->middleware('permission:Editar unidad medida')->only(['edit','update',]);
+        $this->middleware('permission:Eliminar unidad medida')->only(['destroy']);
     }
 
     /**

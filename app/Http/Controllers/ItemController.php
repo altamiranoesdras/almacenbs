@@ -24,10 +24,10 @@ class ItemController extends AppBaseController
 
     public function __construct()
     {
-        $this->middleware('permission:Ver Items')->only(['show']);
-        $this->middleware('permission:Crear Items')->only(['create','store']);
-        $this->middleware('permission:Editar Items')->only(['edit','update',]);
-        $this->middleware('permission:Eliminar Items')->only(['destroy']);
+        $this->middleware('permission:Ver Artículos')->only(['show']);
+        $this->middleware('permission:Crear Artículos')->only(['create','store']);
+        $this->middleware('permission:Editar Artículos')->only(['edit','update',]);
+        $this->middleware('permission:Eliminar Artículos')->only(['destroy']);
     }
 
     /**

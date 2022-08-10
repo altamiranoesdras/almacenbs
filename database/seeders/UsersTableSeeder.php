@@ -82,7 +82,8 @@ class UsersTableSeeder extends Seeder
 
             $user->options()->sync([
                 Option::PANEL_DE_CONTROL,
-                Option::NUEVA_COMPRA,
+                Option::NUEVA_COMPRA_SOLA,
+//                Option::NUEVA_COMPRA,
                 Option::PROVEEDORES,
                 Option::BUSCAR_COMPRAS,
                 Option::BUSCAR_REQUISICION,
@@ -90,6 +91,11 @@ class UsersTableSeeder extends Seeder
                 Option::DESPACHAR_REQUISICION,
                 Option::NUEVO_ARTICULO,
                 Option::BUSCAR_ARTÍCULO,
+                Option::IMPORTAR_EXCEL,
+                Option::MARCAS,
+                Option::CATEGORIAS,
+                Option::UNIDADES_DE_MEDIDA,
+                Option::MAGNITUDES,
                 Option::TRASLADO_ENTRE_UNIDADES,
                 Option::STOCK,
                 Option::KARDEX,
@@ -110,10 +116,6 @@ class UsersTableSeeder extends Seeder
                 Option::STOCK,
                 Option::KARDEX,
                 Option::ARTICULOS_A_VENCER,
-                Option::USUARIOS,
-                Option::ROLES,
-                Option::PERMISOS,
-                Option::CONFIGURACIONES,
             ]);
 
         });

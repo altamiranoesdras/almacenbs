@@ -46,7 +46,27 @@ class RoleSeeder extends Seeder
          */
         $role = Role::firstOrCreate(["name" => "Jefe almacen"]);
 
-        $role->options()->sync(Option::all());
+        $role->options()->sync([
+            Option::PANEL_DE_CONTROL,
+            Option::NUEVA_COMPRA_SOLA,
+//                Option::NUEVA_COMPRA,
+            Option::PROVEEDORES,
+            Option::BUSCAR_COMPRAS,
+            Option::BUSCAR_REQUISICION,
+            Option::NUEVA_REQUISICION,
+            Option::DESPACHAR_REQUISICION,
+            Option::NUEVO_ARTICULO,
+            Option::BUSCAR_ARTÍCULO,
+            Option::IMPORTAR_EXCEL,
+            Option::MARCAS,
+            Option::CATEGORIAS,
+            Option::UNIDADES_DE_MEDIDA,
+            Option::MAGNITUDES,
+            Option::TRASLADO_ENTRE_UNIDADES,
+            Option::STOCK,
+            Option::KARDEX,
+            Option::ARTICULOS_A_VENCER,
+        ]);
 
         $role->syncPermissions([
             'Ver Requisición',

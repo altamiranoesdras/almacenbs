@@ -34,6 +34,7 @@ class Option extends Model
     const UPDATED_AT = 'updated_at';
 
     const PANEL_DE_CONTROL =        1;
+    const NUEVA_COMPRA_SOLA =       2;
     const NUEVA_COMPRA =            4;
     const PROVEEDORES =             5;
     const BUSCAR_COMPRAS =          6;

@@ -16,10 +16,10 @@ class KardexController extends AppBaseController
 
     public function __construct()
     {
-        $this->middleware('permission:Ver Kardexes')->only(['show']);
-        $this->middleware('permission:Crear Kardexes')->only(['create','store']);
-        $this->middleware('permission:Editar Kardexes')->only(['edit','update',]);
-        $this->middleware('permission:Eliminar Kardexes')->only(['destroy']);
+        $this->middleware('permission:Ver Kardexs')->only(['show']);
+        $this->middleware('permission:Crear Kardexs')->only(['create','store']);
+        $this->middleware('permission:Editar Kardexs')->only(['edit','update',]);
+        $this->middleware('permission:Eliminar Kardexs')->only(['destroy']);
     }
 
     /**
