@@ -176,6 +176,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     Route::any('/solicitudes/preimpreso/{solicitud}', [SolicitudController::class,'preimpreso'])->name('solicitudes.preimpreso');
 
+    Route::any('/solicitudes/despachoPdf/{solicitud}', [SolicitudController::class,'despachoPdf'])->name('solicitudes.despachoPdf');
+
     Route::get('mis/solicitudes', [SolicitudController::class,'user'])->name('solicitudes.usuario');
 
     Route::get('solicitudes/autorizar', [SolicitudAutorizaController::class,'index'])->name('solicitudes.autorizar');

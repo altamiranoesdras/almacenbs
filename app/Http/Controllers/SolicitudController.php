@@ -38,7 +38,7 @@ class SolicitudController extends AppBaseController
     public function __construct()
     {
         $this->middleware('permission:Ver Solicitud')->only(['show']);
-        $this->middleware('permission:Crear Solicitud')->only(['create','store','preImpreso']);
+        $this->middleware('permission:Crear Solicitud')->only(['create','store','preImpreso', 'despachoPdf']);
         $this->middleware('permission:Editar Solicitud')->only(['edit','update',]);
         $this->middleware('permission:Eliminar Solicitud')->only(['destroy']);
     }
@@ -383,7 +383,29 @@ class SolicitudController extends AppBaseController
             ->setOption('margin-left',14)
             ->setOption('margin-right',10);
             // ->stream('report.pdf');
-        return $pdf->download('requision '.$solicitud->id. '_'. time().'.pdf');
+        return $pdf->download('Requision '.$solicitud->id. '_'. time().'.pdf');
+
+    
+    }
+
+    public function despachoPdf(Solicitud $solicitud){
+
+        $pdf = App::make('snappy.pdf.wrapper');
+
+        $view = view('solicitudes.despacho_pdf', compact('solicitud'))->render();
+        // $footer = view('compras.pdf_footer')->render();
+
+        $pdf->loadHTML($view)
+        ->setOption('page-width', '220')
+        ->setOption('page-height', '280')
+            ->setOrientation('portrait')
+            // ->setOption('footer-html',utf8_decode($footer))
+            ->setOption('margin-top', 12)
+            ->setOption('margin-bottom',10)
+            ->setOption('margin-left',14)
+            ->setOption('margin-right',10);
+            // ->stream('report.pdf');
+        return $pdf->inline('Despacho '.$solicitud->id. '_'. time().'.pdf');
 
     
     }
