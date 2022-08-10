@@ -33,6 +33,32 @@ class Option extends Model
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
+    const PANEL_DE_CONTROL =        1;
+    const NUEVA_COMPRA =            4;
+    const PROVEEDORES =             5;
+    const BUSCAR_COMPRAS =          6;
+    const NUEVA_REQUISICION =       8;
+    const MIS_REQUISICIONES =       9;
+    const DESPACHAR_REQUISICION =   10;
+    const BUSCAR_REQUISICION =      11;
+    const NUEVO_ARTICULO =          14;
+    const BUSCAR_ARTÍCULO =         15;
+    const CATEGORIAS =              16;
+    const UNIDADES_DE_MEDIDA =      17;
+    const MARCAS =                  18;
+    const MAGNITUDES =              19;
+    const IMPORTAR_EXCEL =          20;
+    const TRASLADO_ENTRE_UNIDADES = 21;
+    const STOCK =                   24;
+    const KARDEX =                  25;
+    const ARTICULOS_A_VENCER =      26;
+    const USUARIOS =                28;
+    const ROLES =                   29;
+    const PERMISOS =                30;
+    const CONFIGURACIONES =         31;
+    const AUTORIZAR_REQUISICION =   32;
+    const APROBAR_REQISICION =      33;
+
 
     protected $appends= ['active','visible_to_user','text','ruta_evaluada'];
 

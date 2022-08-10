@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Models\Option;
 use App\Models\RrhhPuesto;
 use App\Models\RrhhUnidad;
 use App\Models\User;
@@ -47,6 +48,10 @@ class ImportUsusarios implements ToModel , WithHeadingRow
             ]);
 
             $usuario->syncRoles(['General']);
+            $usuario->shortcuts()->sync([
+                Option::MIS_REQUISICIONES,
+                Option::NUEVA_REQUISICION,
+            ]);
         }
     }
 }

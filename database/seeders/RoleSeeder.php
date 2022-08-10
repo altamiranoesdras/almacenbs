@@ -4,8 +4,10 @@ namespace Database\Seeders;
 
 use App\Models\Option;
 use App\Models\Permission;
+use App\Models\Renglon;
 use App\Models\Role;
 use Illuminate\Database\Seeder;
+
 
 
 class RoleSeeder extends Seeder
@@ -26,6 +28,11 @@ class RoleSeeder extends Seeder
         $role->syncPermissions(Permission::pluck('name')->toArray());
 
         $role = Role::firstOrCreate(["name" => "General"]);
+
+        $role->options()->sync([
+            Option::MIS_REQUISICIONES,
+            Option::NUEVA_REQUISICION,
+        ]);
 
         $role->syncPermissions([
             'Ver Requisición',

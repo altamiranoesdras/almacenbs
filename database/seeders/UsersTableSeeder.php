@@ -9,31 +9,6 @@ use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-const PANEL_DE_CONTROL =        1;
-const NUEVA_COMPRA =            4;
-const PROVEEDORES =             5;
-const BUSCAR_COMPRAS =          6;
-const NUEVA_REQUISICION =       8;
-const MIS_REQUISICIONES =       9;
-const DESPACHAR_REQUISICION =   10;
-const BUSCAR_REQUISICION =      11;
-const NUEVO_ARTICULO =          14;
-const BUSCAR_ARTÍCULO =         15;
-const CATEGORIAS =              16;
-const UNIDADES_DE_MEDIDA =      17;
-const MARCAS =                  18;
-const MAGNITUDES =              19;
-const IMPORTAR_EXCEL =          20;
-const TRASLADO_ENTRE_UNIDADES = 21;
-const STOCK =                   24;
-const KARDEX =                  25;
-const ARTICULOS_A_VENCER =      26;
-const USUARIOS =                28;
-const ROLES =                   29;
-const PERMISOS =                30;
-const CONFIGURACIONES =         31;
-const AUTORIZAR_REQUISICION =   32;
-const APROBAR_REQISICION =      33;
 
 class UsersTableSeeder extends Seeder
 {
@@ -92,23 +67,23 @@ class UsersTableSeeder extends Seeder
             $user->syncRoles(Role::JEFE_ALMACEN);
             $user->options()->sync(Option::pluck('id')->toArray());
             $user->shortcuts()->sync([
-                PANEL_DE_CONTROL,
-                NUEVA_COMPRA,
-                PROVEEDORES,
-                BUSCAR_COMPRAS,
-                BUSCAR_REQUISICION,
-                NUEVA_REQUISICION,
-                DESPACHAR_REQUISICION,
-                NUEVO_ARTICULO,
-                BUSCAR_ARTÍCULO,
-                TRASLADO_ENTRE_UNIDADES,
-                STOCK,
-                KARDEX,
-                ARTICULOS_A_VENCER,
-                USUARIOS,
-                ROLES,
-                PERMISOS,
-                CONFIGURACIONES,
+                Option::PANEL_DE_CONTROL,
+                Option::NUEVA_COMPRA,
+                Option::PROVEEDORES,
+                Option::BUSCAR_COMPRAS,
+                Option::BUSCAR_REQUISICION,
+                Option::NUEVA_REQUISICION,
+                Option::DESPACHAR_REQUISICION,
+                Option::NUEVO_ARTICULO,
+                Option::BUSCAR_ARTÍCULO,
+                Option::TRASLADO_ENTRE_UNIDADES,
+                Option::STOCK,
+                Option::KARDEX,
+                Option::ARTICULOS_A_VENCER,
+                Option::USUARIOS,
+                Option::ROLES,
+                Option::PERMISOS,
+                Option::CONFIGURACIONES,
             ]);
 
         });
