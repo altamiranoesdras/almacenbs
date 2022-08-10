@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Compra1h;
 use App\Models\Compra1hDetalle;
+use App\Models\Item;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class Compra1hDetalleFactory extends Factory
@@ -21,16 +23,21 @@ class Compra1hDetalleFactory extends Factory
      */
     public function definition()
     {
+        /**
+         * @var Item $item
+         */
+        $item = Item::all()->random();
+
         return [
-            '1h_id' => $this->faker->word,
-        'item_id' => $this->faker->word,
-        'precio' => $this->faker->word,
-        'cantidad' => $this->faker->word,
-        'folio_almacen' => $this->faker->randomDigitNotNull,
-        'folio_inventario' => $this->faker->randomDigitNotNull,
-        'codigo_inventario' => $this->faker->word,
-        'created_at' => $this->faker->date('Y-m-d H:i:s'),
-        'updated_at' => $this->faker->date('Y-m-d H:i:s'),
+            '1h_id' => Compra1h::all()->random()->id,
+            'item_id' => $item->id,
+            'precio' => $item->precio_compra,
+            'cantidad' => 1,
+            'folio_almacen' => $this->faker->randomNumber(4),
+            'folio_inventario' => $this->faker->randomNumber(4),
+            'codigo_inventario' => $this->faker->randomNumber(4),
+            'created_at' => $this->faker->date('Y-m-d H:i:s'),
+            'updated_at' => $this->faker->date('Y-m-d H:i:s'),
 
         ];
     }

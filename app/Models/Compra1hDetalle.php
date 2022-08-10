@@ -84,7 +84,7 @@ class Compra1hDetalle extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
-    public function 1h()
+    public function f1h()
     {
         return $this->belongsTo(\App\Models\Compra1h::class, '1h_id');
     }

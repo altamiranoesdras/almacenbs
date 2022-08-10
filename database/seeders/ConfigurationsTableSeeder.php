@@ -23,8 +23,8 @@ class ConfigurationsTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'key' => 'name',
-                'value' => 'MIDES',
-                'descripcion' => 'MIDES',
+                'value' => 'FODES',
+                'descripcion' => 'FODES',
                 'created_at' => '2004-07-23 07:21:12',
                 'updated_at' => '2021-07-16 09:30:10',
                 'deleted_at' => NULL,
