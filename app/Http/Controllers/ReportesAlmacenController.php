@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\ItemsAvencerDataTable;
+use App\DataTables\Scopes\ScopeStockDataTable;
 use App\DataTables\StockDataTable;
 use App\Models\Kardex;
 use App\Models\Stock;
@@ -62,6 +64,17 @@ class ReportesAlmacenController extends Controller
         $stocks = $stocks->get();
 
         return view('reportes.stock.index_old',compact('stocks','renglon','stock','buscar'));
+
+    }
+
+    public function itemsAvencer(ItemsAvencerDataTable $dataTable,Request $request)
+    {
+
+        $scope = new ScopeStockDataTable();
+
+        $dataTable->addScope($scope);
+
+        return $dataTable->render('items.reportes.proximos_a_vencer');
 
     }
 }

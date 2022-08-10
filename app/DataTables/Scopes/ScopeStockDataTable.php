@@ -6,15 +6,15 @@ use Yajra\DataTables\Contracts\DataTableScope;
 
 class ScopeStockDataTable implements DataTableScope
 {
-    private $mesesVence;
+    public $mesesVence;
 
     /**
      * ScopeStockDataTable constructor.
      */
-    public function __construct($mesesVence)
+    public function __construct()
     {
 
-        $this->mesesVence = $mesesVence;
+        $this->mesesVence = request()->meses ?? 6;
     }
 
 
@@ -26,6 +26,6 @@ class ScopeStockDataTable implements DataTableScope
      */
     public function apply($query)
     {
-         return $query->quedanMeses($this->mesesVence)->deTienda();
+         return $query->quedanMeses($this->mesesVence);
     }
 }
