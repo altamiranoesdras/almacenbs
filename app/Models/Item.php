@@ -473,7 +473,7 @@ class Item extends Model implements HasMedia
         return $this->compraDetalles->count() == 0;
     }
 
-    public function actualizaOregistraStcokInicial($cantidad)
+    public function actualizaOregistraStcokInicial($cantidad,$fechaVence = null)
     {
 
 
@@ -506,7 +506,7 @@ class Item extends Model implements HasMedia
                 'item_id' => $this->id,
                 'lote' =>  null,
                 'precio_compra' => $this->precio_compra,
-                'fecha_vence' => null,
+                'fecha_vence' => $fechaVence,
                 'cantidad' =>  $cantidad,
                 'cantidad_inicial' =>  $cantidad,
                 'orden_salida' => 0

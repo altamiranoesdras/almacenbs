@@ -14,16 +14,3 @@
     @endcan
 @endif
 
-@if($solicitud->puedeAnular())
-    @can('Anular requisición')
-            <a href="#" onclick="deleteItemDt(this)" data-id="{{$solicitud->id}}" data-toggle="tooltip" title="Eliminar" class='btn btn-outline-danger btn-xs'>
-                <i class="fa fa-undo-alt"></i>
-            </a>
-
-
-            <form action="{{ route('solicitudes.destroy', $solicitud->id)}}" method="POST" id="delete-form{{$solicitud->id}}">
-                @method('DELETE')
-                @csrf
-            </form>
-    @endcan
-@endif

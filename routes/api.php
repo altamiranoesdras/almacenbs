@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\ItemTipoAPIController;
 use App\Http\Controllers\API\OptionAPIController;
 use App\Http\Controllers\API\PermissionAPIController;
 use App\Http\Controllers\API\RoleAPIController;
@@ -82,7 +83,8 @@ Route::group(['as'=>'api.'], function () {
 
 
         Route::resource('items', ItemAPIController::class);
-
+        Route::get('equivalencias/item/{item}', [EquivalenciaAPIController::class,'item'])->name('equivalencia.item');
+        Route::resource('equivalencias', EquivalenciaAPIController::class);
 
         Route::resource('compra_detalles', CompraDetalleAPIController::class);
 
@@ -93,8 +95,6 @@ Route::group(['as'=>'api.'], function () {
         Route::resource('divisas', DivisaAPIController::class);
 
 
-        Route::get('equivalencias/item/{item}', [EquivalenciaAPIController::class,'item'])->name('equivalencia.item');
-        Route::resource('equivalencias', EquivalenciaAPIController::class);
 
 
         Route::resource('stock_inicials', StockInicialAPIController::class);
@@ -112,7 +112,8 @@ Route::group(['as'=>'api.'], function () {
         Route::resource('solicitud_estados', SolicitudEstadoAPIController::class);
 
 
-        Route::resource('rrhh_unidads', RrhhUnidadAPIController::class);
+        Route::resource('rrhh_unidades', RrhhUnidadAPIController::class);
+        Route::resource('rrhh_puestos', RrhhPuestoAPIController::class);
 
 
         Route::resource('solicitudes', SolicitudAPIController::class);
@@ -138,9 +139,8 @@ Route::group(['as'=>'api.'], function () {
 
         Route::resource('compra1h_detalles', Compra1hDetalleAPIController::class);
 
-        Route::resource('rrhh_puestos', RrhhPuestoAPIController::class);
 
-        Route::resource('item_tipos', App\Http\Controllers\API\ItemTipoAPIController::class);
+        Route::resource('item_tipos', ItemTipoAPIController::class);
 
     });
 

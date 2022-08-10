@@ -65,12 +65,13 @@ class ItemFactory extends Factory
 
 
             $stock = rand(20,40);
-            $fechaVence = Carbon::now()->addYear()->addDays(rand(1,5))->format('Y-m-d');
+            $fechaVence = Carbon::now()->addMonths(rand(4,12))->format('Y-m-d');
 
             $item->actualizaOregistraStcokInicial($stock,$fechaVence);
 
             $item->categorias()->attach(ItemCategoria::pluck('id')->random(4));
 
+            $this->imagen($item);
 
 
         });

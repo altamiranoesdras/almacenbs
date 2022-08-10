@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @version July 27, 2022, 12:21 pm CST
  *
  * @property \App\Models\User $usuarioCrea
- * @property \App\Models\Proveedore $proveedor
+ * @property \App\Models\Proveedor $proveedor
  * @property \App\Models\CompraTipo $tipo
  * @property \App\Models\User $usuarioRecibe
  * @property \App\Models\CompraEstado $estado

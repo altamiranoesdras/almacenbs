@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string $fecha_vence
  * @property number $precio_compra
  * @property number $cantidad
+ * @property number $sub_total
  * @property number $cantidad_inicial
  * @property boolean $orden_salida
  */
@@ -36,6 +37,8 @@ class Stock extends Model
 
 
     protected $dates = ['deleted_at'];
+
+    protected $appends =['sub_total'];
 
 
     public $fillable = [
@@ -135,4 +138,10 @@ class Stock extends Model
     {
         return 'STOCK INICIAL';
     }
+
+    public function getSubTotalAttribute()
+    {
+        return $this->precio_compra * $this->cantidad;
+    }
+
 }

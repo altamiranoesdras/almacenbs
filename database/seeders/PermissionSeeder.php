@@ -41,5 +41,17 @@ class PermissionSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'Editar usuarios']);
         Permission::firstOrCreate(['name' => 'Eliminar usuarios']);
 
+
+        Permission::firstOrCreate(['name' => 'Ver Requisición']);
+        Permission::firstOrCreate(['name' => 'Crear Requisición']);
+        Permission::firstOrCreate(['name' => 'Editar Requisición']);
+
+        Permission::firstOrCreate(['name' => 'Autorizar Requisición']);
+        Permission::firstOrCreate(['name' => 'Aprobar Requisición']);
+        Permission::firstOrCreate(['name' => 'Despachar Requisición']);
+        Permission::firstOrCreate(['name' => 'Anular Requisición']);
+
+
+
     }
 }

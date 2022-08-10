@@ -18,7 +18,7 @@ class CreateSolicitudesTable extends Migration
             $table->string('codigo')->nullable();
             $table->integer('correlativo')->nullable();
             $table->text('justificacion')->nullable();
-            $table->string('observaciones')->nullable();
+            $table->text('observaciones')->nullable();
             $table->unsignedBigInteger('unidad_id')->nullable()->index('fk_solicitudes_rrhh_unidades1_idx');
             $table->unsignedBigInteger('usuario_crea')->index('fk_solicitudes_users1_idx');
             $table->unsignedBigInteger('usuario_solicita')->nullable()->index('fk_solicitudes_users4_idx');

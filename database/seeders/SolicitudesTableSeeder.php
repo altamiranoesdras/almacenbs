@@ -27,7 +27,7 @@ class SolicitudesTableSeeder extends Seeder
 
 
         Solicitud::factory()
-            ->count(20)
+            ->count(50)
             ->afterCreating(function (Solicitud $solicitud){
 
                 SolicitudDetalle::factory()->count(rand(5,10))->create([
@@ -36,6 +36,7 @@ class SolicitudesTableSeeder extends Seeder
 
                 $solicitud->codigo = $this->getCodigo();
                 $solicitud->correlativo = $this->getCorrelativo();
+                $solicitud->save();
 
                 $fechaSolicita = Carbon::now()->subDays(rand(0,3));
                 $fechaAutoriza = $fechaSolicita->copy()->addHours(rand(2,5));

@@ -18,16 +18,18 @@ class DatabaseSeeder extends Seeder
 
 
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        DB::table('media')->truncate();
 
         $this->call(PermissionSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(ConfigurationsTableSeeder::class);
         $this->call(OptionsTableSeeder::class);
 
-        $this->call(RrhhPuestosTableSeeder::class);
-        $this->call(RrhhUnidadesTableSeeder::class);
-
+        $this->call(ImportPuestosUnidadesSeeder::class);
         $this->call(UsersTableSeeder::class);
+        $this->call(ImportUserSeeder::class);
+
+
         $this->call(CompraEstadosTableSeeder::class);
         $this->call(ProveedoresTableSeeder::class);
         $this->call(MarcasTableSeeder::class);
