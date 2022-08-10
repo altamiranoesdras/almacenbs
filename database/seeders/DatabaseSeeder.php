@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(ImportPuestosUnidadesSeeder::class);
         $this->call(UsersTableSeeder::class);
-        $this->call(ImportUserSeeder::class);
+//        $this->call(ImportUserSeeder::class);
 
 
         $this->call(CompraEstadosTableSeeder::class);
