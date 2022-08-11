@@ -18,6 +18,7 @@ class CreateKardexsTable extends Migration
             $table->unsignedBigInteger('item_id')->index('fk_kardexs_items1_idx');
             $table->integer('model_id');
             $table->string('model_type');
+            $table->integer('folio')->nullable();
             $table->decimal('cantidad', 14);
             $table->enum('tipo', ['ingreso', 'salida']);
             $table->string('codigo')->nullable();

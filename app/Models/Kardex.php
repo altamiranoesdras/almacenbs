@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,6 +17,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \App\Models\User $usuario
  * @property integer $item_id
  * @property integer $model_id
+ * @property integer $folio
  * @property string $model_type
  * @property number $cantidad
  * @property string $tipo
@@ -42,12 +44,21 @@ class Kardex extends Model
 
     protected $dates = ['deleted_at'];
 
+    protected static function booted()
+    {
+        static::created(function (Kardex $kardex) {
+            $kardex->folio = $kardex->siguienteFolio();
+            $kardex->save();
+        });
+    }
+
 
 
     public $fillable = [
         'item_id',
         'model_id',
         'model_type',
+        'folio',
         'cantidad',
         'tipo',
         'codigo',
@@ -147,4 +158,19 @@ class Kardex extends Model
 
 
 
+
+    public function siguienteFolio()
+    {
+
+        $correlativo = self::withTrashed()->whereRaw('year(created_at) ='.Carbon::now()->year)->max('folio') ?? 1;
+
+        $cantidad = self::where('folio',$correlativo)->get()->count();
+
+        if ($cantidad >= 30){
+            $correlativo++;
+        }
+
+
+        return $correlativo;
+    }
 }
