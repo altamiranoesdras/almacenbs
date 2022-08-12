@@ -27,7 +27,7 @@ class SolicitudesTableSeeder extends Seeder
 
 
         Solicitud::factory()
-            ->count(50)
+            ->count(100)
             ->afterCreating(function (Solicitud $solicitud){
 
                 SolicitudDetalle::factory()->count(rand(5,10))->create([

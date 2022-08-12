@@ -9,6 +9,7 @@ use App\Models\Kardex;
 use App\Models\Stock;
 use App\VistaStock;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class ReportesAlmacenController extends Controller
@@ -28,9 +29,16 @@ class ReportesAlmacenController extends Controller
         $saldo = 0;
 
 
+        /**
+         * @var Collection $kardex
+         */
         $kardex = Kardex::delItem($item_id)
             ->orderBy('created_at','asc')
             ->get();
+
+
+        $kardex = $kardex->groupBy('folio');
+
 
 
         return view('reportes.kardex_por_item',compact('kardex','item_id','buscar','saldo'));

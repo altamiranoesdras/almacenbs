@@ -77,7 +77,13 @@
                             <div class="card ">
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered table-hover table-striped table-xtra-condensed" id="tbl-dets">
+
+                                        @foreach($kardex as  $folio => $datalles )
+
+                                            <h2 class="float-right">
+                                                Folio: <span class="text-danger">{{$folio}}</span>
+                                            </h2>
+                                            <table class="table table-bordered table-hover table-striped table-xtra-condensed dataTable">
                                             <thead>
                                             <tr>
                                                 <th>Fecha</th>
@@ -91,7 +97,9 @@
                                             </thead>
                                             <tbody>
 
-                                            @foreach($kardex as $det)
+
+                                            @foreach($datalles as  $det )
+
                                                 <tr class="text-sm">
                                                     <td>{{diaSemana($det->created_at)}} {{fechaHoraLtn($det->created_at)}}</td>
                                                     <td>{{$det->codigo}}</td>
@@ -104,6 +112,7 @@
                                             @endforeach
                                             </tbody>
                                         </table>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -136,8 +145,8 @@
                 defaultDate: hoy
             });
 
-            $('#tbl-dets').DataTable( {
-                dom: 'Brtip',
+            $('.dataTable').DataTable( {
+                dom: 'Brtp',
                 paginate: false,
                 ordering: false,
                 language: {

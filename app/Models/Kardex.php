@@ -162,15 +162,36 @@ class Kardex extends Model
     public function siguienteFolio()
     {
 
-        $correlativo = self::withTrashed()->whereRaw('year(created_at) ='.Carbon::now()->year)->max('folio') ?? 1;
 
-        $cantidad = self::where('folio',$correlativo)->get()->count();
+        $maximoFolio = self::whereRaw('year(created_at) ='.Carbon::now()->year)->max('folio');
 
-        if ($cantidad >= 30){
-            $correlativo++;
+        $folioItem = self::delItem($this->item_id)->whereRaw('year(created_at) ='.Carbon::now()->year)->max('folio');
+
+
+        //si ele item no tiene folio
+        if (!$folioItem){
+
+            if (!$maximoFolio){
+                $folioItem = 1;
+            }else{
+                $folioItem = $maximoFolio + 1;
+            }
+
+        }else{
+
+            //cantidad de registros con el mimsmo folio y mismo item
+            $cantidad = self::delItem($this->item_id)->where('folio',$folioItem)->get()->count();
+
+            if ($cantidad >= 30){
+                $folioItem = $maximoFolio+1;
+            }
         }
 
+        $txt = "Item: ".$this->item_id." Folio: ".$folioItem. " Max: ".$maximoFolio;
 
-        return $correlativo;
+//        dump($txt);
+
+
+        return $folioItem;
     }
 }
