@@ -87,12 +87,11 @@
                                             <thead>
                                             <tr>
                                                 <th>Fecha</th>
+                                                <th>Proveedor o Solicitante</th>
                                                 <th>Serie/Numero</th>
-                                                <th>Cliente Provedor</th>
                                                 <th>Ingresos</th>
                                                 <th>Salidas</th>
                                                 <th>Saldo</th>
-                                                <th>Usuario</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -101,13 +100,12 @@
                                             @foreach($datalles as  $det )
 
                                                 <tr class="text-sm">
-                                                    <td>{{diaSemana($det->created_at)}} {{fechaHoraLtn($det->created_at)}}</td>
-                                                    <td>{{$det->codigo}}</td>
+                                                    <td>{{fechaLtn($det->created_at)}}</td>
                                                     <td class="text-uppercase">{{$det->responsable}}</td>
+                                                    <td>{{$det->codigo}}</td>
                                                     <td>{{$det->ingreso}}</td>
                                                     <td>{{$det->salida}}</td>
                                                     <td class="{{$loop->last ? 'text-bold' :''}}">{{$saldo+=$det->ingreso-=$det->salida}}</td>
-                                                    <td>{{$det->usuario->name ?? ''}}</td>
                                                 </tr>
                                             @endforeach
                                             </tbody>
