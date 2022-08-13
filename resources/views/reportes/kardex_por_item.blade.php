@@ -82,34 +82,38 @@
 
                                             <h2 class="float-right">
                                                 Folio: <span class="text-danger">{{$folio}}</span>
+                                                <button type="button" class="btn btn-primary">
+                                                    <i class="fa fa-print"></i>
+                                                    Imprimir
+                                                </button>
                                             </h2>
                                             <table class="table table-bordered table-hover table-striped table-xtra-condensed dataTable">
-                                            <thead>
-                                            <tr>
-                                                <th>Fecha</th>
-                                                <th>Proveedor o Solicitante</th>
-                                                <th>Serie/Numero</th>
-                                                <th>Ingresos</th>
-                                                <th>Salidas</th>
-                                                <th>Saldo</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-
-
-                                            @foreach($datalles as  $det )
-
-                                                <tr class="text-sm">
-                                                    <td>{{fechaLtn($det->created_at)}}</td>
-                                                    <td class="text-uppercase">{{$det->responsable}}</td>
-                                                    <td>{{$det->codigo}}</td>
-                                                    <td>{{$det->ingreso}}</td>
-                                                    <td>{{$det->salida}}</td>
-                                                    <td class="{{$loop->last ? 'text-bold' :''}}">{{$saldo+=$det->ingreso-=$det->salida}}</td>
+                                                <thead>
+                                                <tr>
+                                                    <th>Fecha</th>
+                                                    <th>Proveedor o Solicitante</th>
+                                                    <th>Serie/Numero</th>
+                                                    <th>Ingresos</th>
+                                                    <th>Salidas</th>
+                                                    <th>Saldo</th>
                                                 </tr>
-                                            @endforeach
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+
+
+                                                @foreach($datalles as  $det )
+
+                                                    <tr class="text-sm">
+                                                        <td>{{fechaLtn($det->created_at)}}</td>
+                                                        <td class="text-uppercase">{{$det->responsable}}</td>
+                                                        <td>{{$det->codigo}}</td>
+                                                        <td>{{$det->ingreso}}</td>
+                                                        <td>{{$det->salida}}</td>
+                                                        <td class="{{$loop->last ? 'text-bold' :''}}">{{$saldo+=$det->ingreso-=$det->salida}}</td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                            </table>
                                         @endforeach
                                     </div>
                                 </div>
@@ -144,7 +148,7 @@
             });
 
             $('.dataTable').DataTable( {
-                dom: 'Brtp',
+                dom: 'Brtip',
                 paginate: false,
                 ordering: false,
                 language: {
@@ -155,7 +159,7 @@
                     {extend : 'csv', 'text' : '<i class="fa fa-file-excel"></i> <span class="d-none d-sm-inline">CSV</span>'},
                     {extend : 'excel', 'text' : '<i class="fa fa-file-excel"></i> <span class="d-none d-sm-inline">Excel</span>'},
                     {extend : 'pdf', 'text' : '<i class="fa fa-file-pdf"></i> <span class="d-none d-sm-inline">PDF</span>'},
-                    {extend : 'print', 'text' : '<i class="fa fa-print"></i> <span class="d-none d-sm-inline">Imprimir</span>'},
+                    // {extend : 'print', 'text' : '<i class="fa fa-print"></i> <span class="d-none d-sm-inline">Imprimir</span>'},
                 ],
                 "order": []
             } );
