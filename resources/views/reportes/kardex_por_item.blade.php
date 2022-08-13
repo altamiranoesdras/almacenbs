@@ -33,7 +33,7 @@
                             <div class="form-row">
 
 
-                                <div class="form-group col-sm-6">
+                                <div class="form-group col-sm-10">
                                     {!! Form::label('item_id','Item:') !!}
                                     {!!
                                         Form::select(
@@ -50,7 +50,7 @@
                                 {{--{!! Form::text('fecha', $fecha, ['class' => 'form-control','id' => 'fecha']) !!}--}}
                                 {{--</div>--}}
 
-                                <div class="form-group col-sm-6">
+                                <div class="form-group col-sm-2">
                                     {!! Form::label('boton','&nbsp;') !!}
                                     <div>
                                         <button type="submit" id="boton" class="btn btn-info" name="buscar" value="1">

@@ -92,6 +92,7 @@
                                                 <th>Articulo</th>
                                                 <th>Renglón</th>
                                                 <th>U/M</th>
+                                                <th>Fecha Vence</th>
                                                 <th>Stock</th>
                                                 <th data-toggle="tooltip" title="Precio de Compra Unitario">
                                                     Precio C/U
@@ -109,22 +110,26 @@
                                                     <td>{{$det->item->nombre}}</td>
                                                     <td>{{$det->item->renglon->numero}}</td>
                                                     <td>{{$det->item->unimed->nombre}}</td>
+                                                    <td>{{fechaLtn($det->fecha_vence)}}</td>
                                                     <td>{{nf($det->cantidad)}}</td>
                                                     <td>{{ dvs().nfp($det->precio_compra)}}</td>
                                                     <td>{{ dvs().nfp($det->sub_total)}}</td>
                                                 </tr>
                                             @endforeach
-                                            <tr class="text-sm">
-                                                <td >Total</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>{{nf($stocks->sum('cantidad'))}}</td>
-                                                <td></td>
-                                                <td>{{ dvs().nfp($stocks->sum('sub_total'))}}</td>
-                                                <td></td>
-                                            </tr>
                                             </tbody>
+                                            <tfoot>
+                                                <tr class="text-sm">
+                                                    <th >Total</th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th>{{nf($stocks->sum('cantidad'))}}</th>
+                                                    <th></th>
+                                                    <th>{{ dvs().nfp($stocks->sum('sub_total'))}}</th>
+                                                    <th></th>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>
@@ -156,7 +161,7 @@
         $('#tbl-dets').DataTable( {
             dom: 'Brtip',
             paginate: false,
-            ordering: false,
+            ordering: true,
             language: {
                 "url": "{{asset('js/SpanishDataTables.json')}}"
             },
