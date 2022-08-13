@@ -121,7 +121,7 @@
                         @else
                             <div class="alert alert-danger">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                <strong>No hay resultados para su busqueda</strong>
+                                <strong>No hay resultados para su búsqueda</strong>
                             </div>
                         @endif
                     @endif
