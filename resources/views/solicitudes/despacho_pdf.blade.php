@@ -43,7 +43,7 @@
                             {{ $detalle->item->nombre }}
                         </td>
                         <td style="border-color: black; width: 16%; font-size: 0.8em;  text-align: center;" class="py-0">
-                            {{ $detalle->item->unimed->nombre }}                            
+                            {{ $detalle->item->unimed->nombre }}
                         </td>
                         <td style="border-color: black; width: 16%;  text-align: center;"class="py-0">
                             {{ $detalle->cantidad_solicitada }}
@@ -53,23 +53,24 @@
                         </td>
                     </tr>
                     @php
-                        $end = 20 - $loop->iteration;
+                        $totalLineas = 20;
+                        $final = $totalLineas - $loop->iteration;
                     @endphp
                 @endforeach
-                @for ($i; $i < $end ; $i++)
+                @for ($i =  $final; $i <= $totalLineas ; $i++)
                     <tr style="">
-                        <td style="border-color: black; text-align: center; " class="py-0">{{ 20 - $end + $i + 1 }}</td>
+                        <td style="border-color: black; text-align: center; " class="py-0">{{  $i  }}</td>
                         <td style="border-color: black; text-align: center; "  class="py-0">
                              <span style="color: white">1</span>
                         </td>
                         <td style="border-color: black; text-align:center;" class="py-0">
-                             
+
                         </td>
                         <td style="border-color: black; text-align:center; font-size: 0.6em; " class="py-0">
-                             
+
                         </td>
                         <td style="border-color: black; text-align:center;" class="py-0">
-                             
+
                         </td>
 
                     </tr>
