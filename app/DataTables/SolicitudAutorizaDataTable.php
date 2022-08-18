@@ -24,7 +24,7 @@ class SolicitudAutorizaDataTable extends DataTable
 
                 $id = $solicitud->id;
 
-                return view('solicitudes.datatables_actions',compact('solicitud','id'));
+                return view('solicitudes.autorizar.datatables_actions',compact('solicitud','id'));
 
             })
             ->editColumn('codigo',function (Solicitud $solicitud){

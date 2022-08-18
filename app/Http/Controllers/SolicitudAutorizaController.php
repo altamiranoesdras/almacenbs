@@ -42,7 +42,12 @@ class SolicitudAutorizaController extends Controller
             $solicitud->fecha_autoriza = Carbon::now();
             $solicitud->save();
 
-            event(new EventoCambioEstadoSolicitud($solicitud));
+            try {
+
+                event(new EventoCambioEstadoSolicitud($solicitud));
+            }catch (Exception $exception){
+
+            }
 //            Mail::send(new DespacharSolicitud($solicitud));
 
 

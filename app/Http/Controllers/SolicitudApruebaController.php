@@ -37,12 +37,16 @@ class SolicitudApruebaController extends Controller
             DB::beginTransaction();
 
             $solicitud->estado_id = SolicitudEstado::APROBADA;
-            $solicitud->usuario_autoriza = auth()->user()->id;
-            $solicitud->fecha_autoriza = Carbon::now();
+            $solicitud->usuario_aprueba = auth()->user()->id;
+            $solicitud->fecha_aprueba = Carbon::now();
             $solicitud->save();
 
 
-            event(new EventoCambioEstadoSolicitud($solicitud));
+            try {
+                event(new EventoCambioEstadoSolicitud($solicitud));
+            }catch (Exception $exception){
+
+            }
 //            Mail::send(new DespacharSolicitud($solicitud));
 
 

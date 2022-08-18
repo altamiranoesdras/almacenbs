@@ -23,7 +23,7 @@
             <td>{{$det->cantidad_solicitada}}</td>
             @if($solicitud->estaAprobada() || $solicitud->estaDespachada())
                 @if( $solicitud->estaDespachada())
-                    <td> {{$solicitud->cantidad_despachada}}</td>
+                    <td> {{$det->cantidad_despachada}}</td>
                 @else
                 <td>
                     <input type="number" name="cantidades[]" step="any" class="form-control form-control-sm" required >

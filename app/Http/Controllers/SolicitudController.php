@@ -22,6 +22,7 @@ use App\Models\Solicitude;
 use App\Models\SolicitudEstado;
 use App\Models\TempSolicitude;
 use App\Models\Tienda;
+use Barryvdh\Snappy\Facades\SnappyPdf;
 use Carbon\Carbon;
 use Exception;
 use Flash;
@@ -29,6 +30,7 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Knp\Snappy\Pdf;
 use Response;
 use Illuminate\Support\Facades\App;
 
@@ -231,6 +233,7 @@ class SolicitudController extends AppBaseController
         $request->merge([
             'codigo' => $this->getCodigo(),
             'correlativo' => $this->getCorrelativo(),
+            'unidad_id' => auth()->user()->unidad_id,
             'usuario_solicita' => $request->usuario_solicita,
             'fecha_solicita' => hoyDb(),
             'estado_id' => SolicitudEstado::SOLICITADA,
@@ -241,7 +244,12 @@ class SolicitudController extends AppBaseController
         $solicitud->save();
 
 //            Mail::send(new SolicitudStock($solicitud));
-        event(new EventoCambioEstadoSolicitud($solicitud));
+
+        try{
+            event(new EventoCambioEstadoSolicitud($solicitud));
+        }catch (Exception $exception){
+
+        }
 
         return $solicitud;
 
@@ -386,7 +394,7 @@ class SolicitudController extends AppBaseController
             ->setOption('margin-left',14)
             ->setOption('margin-right',10);
             // ->stream('report.pdf');
-        return $pdf->download('Requision '.$solicitud->id. '_'. time().'.pdf');
+        return $pdf->inline('Requision '.$solicitud->id. '_'. time().'.pdf');
 
 
     }
