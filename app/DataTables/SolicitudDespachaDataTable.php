@@ -78,7 +78,7 @@ class SolicitudDespachaDataTable extends DataTable
     {
         return $model->newQuery()
             ->select('solicitudes.*')
-            ->with(['detalles.item','usuarioSolicita','usuarioAutoriza','usuarioAprueba','usuarioDespacha','estado']);
+            ->with(['detalles.item','unidad','usuarioSolicita','usuarioAutoriza','usuarioAprueba','usuarioDespacha','estado']);
     }
 
     /**

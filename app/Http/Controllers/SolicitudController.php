@@ -105,9 +105,9 @@ class SolicitudController extends AppBaseController
         /** @var Solicitud $solicitud */
         $solicitud = Solicitud::create($input);
 
-        flash()->success('Solicitud guardado exitosamente.');
+        flash()->success('Requisición guardada exitosamente.');
 
-        return redirect(route('solicitudes.index'));
+        return redirect(route('solicitudes.edit',$solicitud->id));
     }
 
     /**
@@ -123,7 +123,7 @@ class SolicitudController extends AppBaseController
         $solicitud = Solicitud::find($id);
 
         if (empty($solicitud)) {
-            flash()->error('Solicitud no encontrado');
+            flash()->error('Requisición no encontrado');
 
             return redirect(route('solicitudes.index'));
         }
@@ -144,7 +144,7 @@ class SolicitudController extends AppBaseController
         $solicitud = Solicitud::find($id);
 
         if (empty($solicitud)) {
-            flash()->error('Solicitud no encontrado');
+            flash()->error('Requisición no encontrado');
 
             return redirect(route('solicitudes.index'));
         }
@@ -167,7 +167,7 @@ class SolicitudController extends AppBaseController
 
 
         if (empty($solicitud)) {
-            flash()->error('Solicitud no encontrado');
+            flash()->error('Requisición no encontrado');
 
             return redirect(route('solicitudes.index'));
         }
@@ -181,54 +181,28 @@ class SolicitudController extends AppBaseController
                 return redirect(route('solicitudes.edit',$solicitud->id) )->withInput()->withErrors($errores);
             }
 
-        }
 
-        try {
-            DB::beginTransaction();
-
-
-            $this->procesar($solicitud,$request);
+            try {
+                DB::beginTransaction();
 
 
-        } catch (Exception $exception) {
-            DB::rollBack();
-
-            throw new Exception($exception);
-        }
-
-        DB::commit();
+                $this->procesar($solicitud,$request);
 
 
+            } catch (Exception $exception) {
+                DB::rollBack();
 
-        flash()->success('Requisición procesada con éxito.');
+                throw new Exception($exception);
+            }
 
-        return redirect(route('solicitudes.usuario'));
+            DB::commit();
 
 
 
-    }
+            flash()->success('Requisición enviada para autorización.');
 
-    public function procesar(Solicitud $solicitud,UpdateSolicitudRequest $request){
+            return redirect(route('solicitudes.usuario'));
 
-
-        if ($request->solicitar){
-
-            $request->merge([
-                'codigo' => $this->getCodigo(),
-                'correlativo' => $this->getCorrelativo(),
-                'usuario_solicita' => $request->usuario_solicita,
-                'fecha_solicita' => hoyDb(),
-                'estado_id' => SolicitudEstado::SOLICITADA,
-            ]);
-
-
-            $solicitud->fill($request->all());
-            $solicitud->save();
-
-//            Mail::send(new SolicitudStock($solicitud));
-            event(new EventoCambioEstadoSolicitud($solicitud));
-
-            return $solicitud;
         }else{
 
             $request->merge([
@@ -239,9 +213,38 @@ class SolicitudController extends AppBaseController
             $solicitud->fill($request->all());
             $solicitud->save();
 
+            flash()->success('Requisición guardada exitosamente.');
+
+            return redirect(route('solicitudes.edit',$solicitud->id));
+
         }
 
+
+
+
+    }
+
+    public function procesar(Solicitud $solicitud,UpdateSolicitudRequest $request){
+
+
+
+        $request->merge([
+            'codigo' => $this->getCodigo(),
+            'correlativo' => $this->getCorrelativo(),
+            'usuario_solicita' => $request->usuario_solicita,
+            'fecha_solicita' => hoyDb(),
+            'estado_id' => SolicitudEstado::SOLICITADA,
+        ]);
+
+
+        $solicitud->fill($request->all());
+        $solicitud->save();
+
+//            Mail::send(new SolicitudStock($solicitud));
+        event(new EventoCambioEstadoSolicitud($solicitud));
+
         return $solicitud;
+
     }
 
 
@@ -260,14 +263,14 @@ class SolicitudController extends AppBaseController
         $solicitud = Solicitud::find($id);
 
         if (empty($solicitud)) {
-            flash()->error('Solicitud no encontrado');
+            flash()->error('Requisición no encontrado');
 
             return redirect(route('solicitudes.index'));
         }
 
         $solicitud->delete();
 
-        flash()->success('Solicitud deleted successfully.');
+        flash()->success('Requisición deleted successfully.');
 
         return redirect(route('solicitudes.index'));
     }

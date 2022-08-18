@@ -7,18 +7,22 @@
                 <h5 class="modal-title">Detalles de Requisición</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
-            <div class="modal-body text-uppercase">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-sm" style="font-size: 14px">
-                        @include('solicitudes.show_fields',['solicitude'=>$solicitud])
+
+            <form action="{{route('solicitudes.despachar.store',$solicitud->id)}}" method="post" class="esperar">
+                @csrf
+
+                <div class="modal-body text-uppercase">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-sm" style="font-size: 14px">
+                            @include('solicitudes.show_fields',['solicitude'=>$solicitud])
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            @include('solicitudes.tabla_detalles',['solicitude'=>$solicitud])
+                        </div>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        @include('solicitudes.tabla_detalles',['solicitude'=>$solicitud])
-                    </div>
+
                 </div>
 
-            </div>
-            {{--Si existe la variable despachar y la solicitud no ha sido despachada--}}
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -42,9 +46,9 @@
                     @can("Despachar requisición")
                         @if($solicitud->puedeDespachar())
                             @if($solicitud->tieneStock())
-                                <a href="{{route('solicitudes.despachar.store',$solicitud->id)}}"  class="btn btn-outline-success">
+                                <button type="submit"   class="btn btn-outline-success">
                                     Despachar
-                                </a>
+                                </button>
                             @else
                                 <div class="alert alert-danger" role="alert">
                                     <strong>No tiene stock suficiente para despachar esta solicitud</strong>
@@ -54,6 +58,8 @@
                     @endcan
 
                 </div>
+
+            </form>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->

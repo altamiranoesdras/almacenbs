@@ -174,7 +174,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('solicitudes/aprobar/{solicitud}', [SolicitudApruebaController::class,'store'])->name('solicitudes.aprobar.store');
 
     Route::get('solicitudes/despachar', [SolicitudDespachaController::class,'index'])->name('solicitudes.despachar');
-    Route::get('solicitudes/despachar/{solicitud}', [SolicitudDespachaController::class,'store'])->name('solicitudes.despachar.store');
+    Route::post('solicitudes/despachar/{solicitud}', [SolicitudDespachaController::class,'store'])->name('solicitudes.despachar.store');
 
     Route::get('solicitudes/cancelar/{solicitud}', [SolicitudController::class,'cancelar'])->name('solicitudes.cancelar');
     Route::post('solicitudes/anular/{solicitud}', [SolicitudController::class,'anular'])->name('solicitudes.anular');

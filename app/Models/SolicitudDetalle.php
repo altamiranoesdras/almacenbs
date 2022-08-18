@@ -65,7 +65,7 @@ class SolicitudDetalle extends Model
     public static $rules = [
         'solicitud_id' => 'required',
         'item_id' => 'required',
-        'cantidad' => 'required|numeric',
+        'cantidad_solicitada' => 'required|numeric',
         'precio' => 'nullable|numeric',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',

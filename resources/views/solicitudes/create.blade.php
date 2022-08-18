@@ -53,6 +53,7 @@
                                     tienda="1"
                                     v-model="itemSelect"
                                     ref="multiselect"
+                                    :solicitud="true"
                                 >
                                 </select-items>
                             </div>
@@ -65,7 +66,7 @@
                                             <span class="input-group-text" data-toggle="tooltip" title="Cantidad">Cant</span>
                                         </div>
                                         <input
-                                            v-model="editedItem.cantidad"
+                                            v-model="editedItem.cantidad_solicitada"
                                             type="number"
                                             min="0" step="any"
                                             class="form-control"
@@ -103,7 +104,7 @@
                                     </tr>
                                     <tr v-for="detalle in detalles" class="text-sm">
                                         <td v-text="detalle.item.nombre"></td>
-                                        <td v-text="nf(detalle.cantidad)"></td>
+                                        <td v-text="nf(detalle.cantidad_solicitada)"></td>
                                         <td width="10px">
                                             <button type="button" class='btn btn-danger btn-xs'
                                                     @click="deleteItem(detalle)"
@@ -192,7 +193,7 @@
                     id : 0,
                     solicitud_id : @json($solicitud->id),
                     item_id: '',
-                    cantidad: 0,
+                    cantidad_solicitada: 0,
                     fecha_ven: '',
                     precio: 0,
                 },
@@ -327,7 +328,7 @@
                 totalitems: function () {
                     var t=0;
                     $.each(this.detalles,function (i,det) {
-                        t+=(det.cantidad*1);
+                        t+=(det.cantidad_solicitada*1);
                     });
 
                     return t;
@@ -342,7 +343,7 @@
 
                         this.editedItem.precio = item.precio_compra;
                         this.editedItem.item_id = item.id;
-                        $(this.$refs.cantidad).focus().select();
+                        $(this.$refs.cantidad_solicitada).focus().select();
                     }else{
                         this.nuevoDetalle = Object.assign({}, this.itemDefault);
                     }

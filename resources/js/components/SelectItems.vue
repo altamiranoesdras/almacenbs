@@ -8,7 +8,7 @@
           track-by="id"
           open-direction="bottom"
           :options="items"
-          :option-height="150"
+          :option-height="300"
           :show-labels="false"
           :searchable="true"
           :loading="isLoading"
@@ -30,21 +30,23 @@
 
 
           <template slot="singleLabel" slot-scope="props">
-              <div class='select-result-content clearfix'>
+              <div class='select-result-content clearfix' style="max-width: 100%">
                   <div class='select-result__avatar'>
                       <img :src='props.option.thumb' class='img-responsive' alt='Image'>
                   </div>
                   <div class='result-container text-uppercase'>
+
                       <div class='select-result__nombre' v-text="props.option.nombre"></div>
-                      <div class='select-result__precio'>
+
+                      <div class='select-result__precio' v-show="!solicitud">
                           <i class='far fa-money-bill-alt'></i>
-                          <span v-text="props.option.precio_venta"></span>
+                          <span v-text="props.option.precio_compra"></span>
                       </div>
                       <div class='select-result__stock '>
                           <i class='fas fa-cubes'></i>
                           <span v-text="props.option.stock_total"></span>
                       </div>
-                      <div class='select-result__ubicacion'>
+                      <div class='select-result__ubicacion' v-show="!solicitud">
                           <i class='fas fa-archive'></i>
                           <span v-text="props.option.ubicacion"></span>
                       </div>
@@ -60,32 +62,33 @@
           </template>
 
           <template slot="option" slot-scope="props">
+              <div class='select-result-content clearfix' style="max-width: 100%">
+                  <div class='select-result__avatar'>
+                      <img :src='props.option.thumb' class='img-responsive' alt='Image'>
+                  </div>
+                  <div class='result-container text-uppercase'>
 
-              <div class='select-result-content clearfix'>
-              <div class='select-result__avatar'>
-                  <img :src='props.option.thumb' class='img-responsive' alt='Image'>
-              </div>
-              <div class='result-container text-uppercase'>
-                  <div class='select-result__nombre' v-text="props.option.nombre"></div>
-                  <div class='select-result__precio'>
-                      <i class='far fa-money-bill-alt'></i>
-                      <span v-text="props.option.precio_venta"></span>
-                  </div>
-                  <div class='select-result__stock '>
-                      <i class='fas fa-cubes'></i>
-                      <span v-text="props.option.stock_total"></span>
-                  </div>
-                  <div class='select-result__ubicacion'>
-                      <i class='fas fa-archive'></i>
-                      <span v-text="props.option.ubicacion"></span>
-                  </div>
-                  <div class='select-result__codigo'>
-                      <i class='fas fa-barcode'></i>
-                      <span v-text="props.option.codigo"></span>
-                  </div>
-                  <div class='select-result__contiene'>
-                      <span v-html="props.option.descripcion"></span>
-                  </div>
+                      <div class='select-result__nombre' v-text="props.option.nombre"></div>
+
+                      <div class='select-result__precio' v-show="!solicitud">
+                          <i class='far fa-money-bill-alt'></i>
+                          <span v-text="props.option.precio_compra"></span>
+                      </div>
+                      <div class='select-result__stock '>
+                          <i class='fas fa-cubes'></i>
+                          <span v-text="props.option.stock_total"></span>
+                      </div>
+                      <div class='select-result__ubicacion'>
+                          <i class='fas fa-archive'></i>
+                          <span v-text="props.option.ubicacion" v-show="!solicitud"></span>
+                      </div>
+                      <div class='select-result__codigo'>
+                          <i class='fas fa-barcode'></i>
+                          <span v-text="props.option.codigo"></span>
+                      </div>
+                      <div class='select-result__contiene'>
+                          <span v-html="props.option.descripcion"></span>
+                      </div>
                   </div>
               </div>
           </template>
@@ -124,9 +127,9 @@
                 type: String,
                 required: true
             },
-            tienda: {
-                type: String,
-                required:true
+            solicitud: {
+                type: Boolean,
+                default:false
             }
         },
         data: () => ({
@@ -211,14 +214,22 @@
     .select-result__precio, .select-result__ubicacion, .select-result__stock, .select-result__codigo {
         font-weight: bold; margin-bottom: 0px; margin-top: 0px; display: inline-block; color: #4078FA; font-size: 22px; padding: 0px;
     }
-    .select-result__contiene { color: #777; word-wrap: break-word; line-height: 1; font-size: 11px}
+    .select-result__contiene {
+        color: #777;
+        inline-size: 100%;
+        overflow-x: visible;
+        line-height: 1;
+        font-size: 11px
+    }
     .multiselect__option--highlight .select-result__nombre,
     .multiselect__option--highlight .select-result__precio,
     .multiselect__option--highlight .select-result__stock,
     .multiselect__option--highlight .select-result__codigo,
     .multiselect__option--highlight .select-result__ubicacion { color: #F2FC2A; }
-    .multiselect__option--highlight .select-result__contiene { color: #c6dcef; }
-    .color_stock_less {
-        color: #d5404b;
+    .multiselect__option--highlight .select-result__contiene {
+        color: #c6dcef;
+    }
+    .multiselect__option {
+        width: 100%;
     }
 </style>

@@ -38,12 +38,21 @@ class SolicitudDespachaController extends Controller
     }
 
 
-    public function store(Solicitud $solicitud)
+    public function store(Solicitud $solicitud,Request $request)
     {
+
 
 
         try {
             DB::beginTransaction();
+
+            /**
+             * @var SolicitudDetalle $detalle
+             */
+            foreach ($solicitud->detalles as $index => $detalle) {
+                $detalle->cantidad_despachada = $request->cantidades[$index];
+                $detalle->save();
+            }
 
             $solicitud->estado_id = SolicitudEstado::DESPACHADA;
             $solicitud->usuario_despacha = auth()->user()->id;

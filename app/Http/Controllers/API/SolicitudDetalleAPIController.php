@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Requests\API\CreateSolicitudDetalleAPIRequest;
 use App\Http\Requests\API\UpdateSolicitudDetalleAPIRequest;
+use App\Models\Item;
 use App\Models\SolicitudDetalle;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
@@ -54,6 +55,17 @@ class SolicitudDetalleAPIController extends AppBaseController
     public function store(CreateSolicitudDetalleAPIRequest $request)
     {
         $input = $request->all();
+
+
+        /**
+         * @var Item $item
+         */
+        $item= Item::find($request->item_id);
+
+        if($item->inventariable && $item->stock_total < $request->cantidad_solicitada){
+            return $this->sendError('El stock del articulo no alcanza');
+        }
+
 
         /** @var SolicitudDetalle $solicitudDetalle */
         $solicitudDetalle = SolicitudDetalle::create($input);
