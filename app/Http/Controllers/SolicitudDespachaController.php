@@ -6,7 +6,6 @@ use App\DataTables\Scopes\ScopeSolicitudDataTable;
 use App\DataTables\SolicitudDespachaDataTable;
 use App\Mail\DespacharSolicitud;
 use App\Mail\StockCriticoPorSolicitudMail;
-use App\Models\Kardex;
 use App\Models\Solicitud;
 use App\Models\SolicitudDetalle;
 use App\Models\SolicitudEstado;
