@@ -48,7 +48,9 @@ class ItemController extends AppBaseController
      */
     public function create()
     {
-        return view('items.create');
+        $item = new Item();
+
+        return view('items.create',compact('item'));
     }
 
     /**
