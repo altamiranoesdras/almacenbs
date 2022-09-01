@@ -32,21 +32,21 @@
                     <div class="col">
                         <h1 class="m-0 text-dark">Bienvenido {{Auth::user()->name}}</h1>
                     </div><!-- /.col -->
-                    <div class="col ">
-                        <button class="btn btn-outline-primary float-right" @click="editShortcut()">
-                            <i class="fa fa-edit"></i>
-                            <span class="d-none d-sm-inline">
-                            Editar Acceso Directo
-                        </span>
-                        </button>
-                        <button class="btn btn-outline-success float-right mr-3" @click="newShortcut()">
-                            <i class="fa fa-plus"></i>
-                            <span class="d-none d-sm-inline">
-                            Nuevo Acceso Directo
-                        </span>
-                        </button>
+{{--                    <div class="col ">--}}
+{{--                        <button class="btn btn-outline-primary float-right" @click="editShortcut()">--}}
+{{--                            <i class="fa fa-edit"></i>--}}
+{{--                            <span class="d-none d-sm-inline">--}}
+{{--                            Editar Acceso Directo--}}
+{{--                        </span>--}}
+{{--                        </button>--}}
+{{--                        <button class="btn btn-outline-success float-right mr-3" @click="newShortcut()">--}}
+{{--                            <i class="fa fa-plus"></i>--}}
+{{--                            <span class="d-none d-sm-inline">--}}
+{{--                            Nuevo Acceso Directo--}}
+{{--                        </span>--}}
+{{--                        </button>--}}
 
-                    </div><!-- /.col -->
+{{--                    </div><!-- /.col -->--}}
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
