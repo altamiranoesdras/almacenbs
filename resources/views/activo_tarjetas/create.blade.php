@@ -28,7 +28,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    {!! Form::open(['route' => 'activoTarjetas.store','class' => 'wait-on-submit']) !!}
+                    {!! Form::open(['route' => 'activoTarjetas.store','class' => 'esperar']) !!}
                         <div class="form-row">
 
                             @include('activo_tarjetas.fields')

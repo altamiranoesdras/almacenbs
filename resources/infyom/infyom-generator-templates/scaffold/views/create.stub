@@ -28,7 +28,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    {!! Form::open(['route' => '$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.store'$FILES$,'class' => 'wait-on-submit']) !!}
+                    {!! Form::open(['route' => '$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.store'$FILES$,'class' => 'esperar']) !!}
                         <div class="form-row">
 
                             @include('$VIEW_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.fields')

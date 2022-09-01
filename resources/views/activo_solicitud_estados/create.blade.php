@@ -28,7 +28,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    {!! Form::open(['route' => 'activoSolicitudEstados.store','class' => 'wait-on-submit']) !!}
+                    {!! Form::open(['route' => 'activoSolicitudEstados.store','class' => 'esperar']) !!}
                         <div class="form-row">
 
                             @include('activo_solicitud_estados.fields')

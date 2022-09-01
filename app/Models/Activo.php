@@ -68,7 +68,7 @@ class Activo extends Model implements HasMedia
         'folio' => 'string',
         'descripcion' => 'string',
         'valor' => 'decimal:2',
-        'fecha_registra' => 'date',
+//        'fecha_registra' => 'date:Y-m-d',
         'tipo_id' => 'integer',
         'detalle_1h_id' => 'integer',
         'estado_id' => 'integer'

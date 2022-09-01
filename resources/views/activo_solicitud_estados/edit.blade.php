@@ -30,7 +30,7 @@
             <div class="card">
                 <div class="card-body">
 
-                   {!! Form::model($activoSolicitudEstado, ['route' => ['activoSolicitudEstados.update', $activoSolicitudEstado->id], 'method' => 'patch','class' => 'wait-on-submit']) !!}
+                   {!! Form::model($activoSolicitudEstado, ['route' => ['activoSolicitudEstados.update', $activoSolicitudEstado->id], 'method' => 'patch','class' => 'esperar']) !!}
                         <div class="form-row">
 
                             @include('activo_solicitud_estados.fields')
