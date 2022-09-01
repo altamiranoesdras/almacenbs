@@ -16,10 +16,10 @@ class ActivoSolicitudController extends AppBaseController
 
     public function __construct()
     {
-        $this->middleware('permission:Ver Activo Solicituds')->only(['show']);
-        $this->middleware('permission:Crear Activo Solicituds')->only(['create','store']);
-        $this->middleware('permission:Editar Activo Solicituds')->only(['edit','update',]);
-        $this->middleware('permission:Eliminar Activo Solicituds')->only(['destroy']);
+        $this->middleware('permission:Ver Activo Solicitudes')->only(['show']);
+        $this->middleware('permission:Crear Activo Solicitudes')->only(['create','store']);
+        $this->middleware('permission:Editar Activo Solicitudes')->only(['edit','update',]);
+        $this->middleware('permission:Eliminar Activo Solicitudes')->only(['destroy']);
     }
 
     /**
@@ -59,7 +59,7 @@ class ActivoSolicitudController extends AppBaseController
 
         Flash::success('Activo Solicitud guardado exitosamente.');
 
-        return redirect(route('activoSolicituds.index'));
+        return redirect(route('activoSolicitudes.index'));
     }
 
     /**
@@ -77,7 +77,7 @@ class ActivoSolicitudController extends AppBaseController
         if (empty($activoSolicitud)) {
             Flash::error('Activo Solicitud no encontrado');
 
-            return redirect(route('activoSolicituds.index'));
+            return redirect(route('activoSolicitudes.index'));
         }
 
         return view('activo_solicituds.show')->with('activoSolicitud', $activoSolicitud);
@@ -98,7 +98,7 @@ class ActivoSolicitudController extends AppBaseController
         if (empty($activoSolicitud)) {
             Flash::error('Activo Solicitud no encontrado');
 
-            return redirect(route('activoSolicituds.index'));
+            return redirect(route('activoSolicitudes.index'));
         }
 
         return view('activo_solicituds.edit')->with('activoSolicitud', $activoSolicitud);
@@ -120,7 +120,7 @@ class ActivoSolicitudController extends AppBaseController
         if (empty($activoSolicitud)) {
             Flash::error('Activo Solicitud no encontrado');
 
-            return redirect(route('activoSolicituds.index'));
+            return redirect(route('activoSolicitudes.index'));
         }
 
         $activoSolicitud->fill($request->all());
@@ -128,7 +128,7 @@ class ActivoSolicitudController extends AppBaseController
 
         Flash::success('Activo Solicitud actualizado con éxito.');
 
-        return redirect(route('activoSolicituds.index'));
+        return redirect(route('activoSolicitudes.index'));
     }
 
     /**
@@ -148,13 +148,13 @@ class ActivoSolicitudController extends AppBaseController
         if (empty($activoSolicitud)) {
             Flash::error('Activo Solicitud no encontrado');
 
-            return redirect(route('activoSolicituds.index'));
+            return redirect(route('activoSolicitudes.index'));
         }
 
         $activoSolicitud->delete();
 
         Flash::success('Activo Solicitud deleted successfully.');
 
-        return redirect(route('activoSolicituds.index'));
+        return redirect(route('activoSolicitudes.index'));
     }
 }

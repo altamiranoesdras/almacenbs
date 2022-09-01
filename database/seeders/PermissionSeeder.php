@@ -100,5 +100,41 @@ class PermissionSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'Eliminar unidad medida']);
 
 
+        Permission::firstOrCreate(['name' => 'Ver Activo Solicitud Estados']);
+        Permission::firstOrCreate(['name' => 'Crear Activo Solicitud Estados']);
+        Permission::firstOrCreate(['name' => 'Editar Activo Solicitud Estados']);
+        Permission::firstOrCreate(['name' => 'Eliminar Activo Solicitud Estados']);
+
+        Permission::firstOrCreate(['name' => 'Ver Activo Estados']);
+        Permission::firstOrCreate(['name' => 'Crear Activo Estados']);
+        Permission::firstOrCreate(['name' => 'Editar Activo Estados']);
+        Permission::firstOrCreate(['name' => 'Eliminar Activo Estados']);
+
+        Permission::firstOrCreate(['name' => 'Ver Activo Solicitud Tipos']);
+        Permission::firstOrCreate(['name' => 'Crear Activo Solicitud Tipos']);
+        Permission::firstOrCreate(['name' => 'Editar Activo Solicitud Tipos']);
+        Permission::firstOrCreate(['name' => 'Eliminar Activo Solicitud Tipos']);
+
+        Permission::firstOrCreate(['name' => 'Ver Activo Solicitudes']);
+        Permission::firstOrCreate(['name' => 'Crear Activo Solicitudes']);
+        Permission::firstOrCreate(['name' => 'Editar Activo Solicitudes']);
+        Permission::firstOrCreate(['name' => 'Eliminar Activo Solicitudes']);
+
+        Permission::firstOrCreate(['name' => 'Ver Activo Tarjetas']);
+        Permission::firstOrCreate(['name' => 'Crear Activo Tarjetas']);
+        Permission::firstOrCreate(['name' => 'Editar Activo Tarjetas']);
+        Permission::firstOrCreate(['name' => 'Eliminar Activo Tarjetas']);
+
+        Permission::firstOrCreate(['name' => 'Ver Activo Tipos']);
+        Permission::firstOrCreate(['name' => 'Crear Activo Tipos']);
+        Permission::firstOrCreate(['name' => 'Editar Activo Tipos']);
+        Permission::firstOrCreate(['name' => 'Eliminar Activo Tipos']);
+
+        Permission::firstOrCreate(['name' => 'Ver Activos']);
+        Permission::firstOrCreate(['name' => 'Crear Activos']);
+        Permission::firstOrCreate(['name' => 'Editar Activos']);
+        Permission::firstOrCreate(['name' => 'Eliminar Activos']);
+
+
     }
 }

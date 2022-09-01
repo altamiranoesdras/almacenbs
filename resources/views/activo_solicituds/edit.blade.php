@@ -13,7 +13,7 @@
                 </div>
                 <div class="col">
                     <a class="btn btn-outline-info float-right"
-                       href="{{route('activoSolicituds.index')}}">
+                       href="{{route('activoSolicitudes.index')}}">
                         <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span class="d-none d-sm-inline">{{__('List')}}</span>
                     </a>
                 </div>
@@ -30,14 +30,14 @@
             <div class="card">
                 <div class="card-body">
 
-                   {!! Form::model($activoSolicitud, ['route' => ['activoSolicituds.update', $activoSolicitud->id], 'method' => 'patch','class' => 'wait-on-submit']) !!}
+                   {!! Form::model($activoSolicitud, ['route' => ['activoSolicitudes.update', $activoSolicitud->id], 'method' => 'patch','class' => 'wait-on-submit']) !!}
                         <div class="form-row">
 
                             @include('activo_solicituds.fields')
 
                             <!-- Submit Field -->
                             <div class="form-group col-sm-12 text-right">
-                                <a href="{!! route('activoSolicituds.index') !!}" class="btn btn-outline-secondary">
+                                <a href="{!! route('activoSolicitudes.index') !!}" class="btn btn-outline-secondary">
                                     Cancelar
                                 </a>
                                 &nbsp;

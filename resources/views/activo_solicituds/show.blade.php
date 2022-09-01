@@ -24,7 +24,7 @@
                 <div class="row">
                     <div class="form-group col-sm-12">
                         @include('activo_solicituds.show_fields')
-                        <a href="{{ route('activoSolicituds.index') }}" class="btn btn-default">
+                        <a href="{{ route('activoSolicitudes.index') }}" class="btn btn-default">
                         {{__('Back')}}
                         </a>
                     </div>

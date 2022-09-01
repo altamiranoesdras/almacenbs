@@ -36,7 +36,7 @@ class SolicitudAPIController extends AppBaseController
 
         $solicituds = $query->get();
 
-        return $this->sendResponse($solicituds->toArray(), 'Solicituds retrieved successfully');
+        return $this->sendResponse($solicituds->toArray(), 'Solicitudes retrieved successfully');
     }
 
     /**

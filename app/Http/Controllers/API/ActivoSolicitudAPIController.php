@@ -18,7 +18,7 @@ class ActivoSolicitudAPIController extends AppBaseController
 {
     /**
      * Display a listing of the ActivoSolicitud.
-     * GET|HEAD /activoSolicituds
+     * GET|HEAD /activoSolicitudes
      *
      * @param Request $request
      * @return Response
@@ -34,14 +34,14 @@ class ActivoSolicitudAPIController extends AppBaseController
             $query->limit($request->get('limit'));
         }
 
-        $activoSolicituds = $query->get();
+        $activoSolicitudes = $query->get();
 
-        return $this->sendResponse($activoSolicituds->toArray(), 'Activo Solicituds retrieved successfully');
+        return $this->sendResponse($activoSolicitudes->toArray(), 'Activo Solicitudes retrieved successfully');
     }
 
     /**
      * Store a newly created ActivoSolicitud in storage.
-     * POST /activoSolicituds
+     * POST /activoSolicitudes
      *
      * @param CreateActivoSolicitudAPIRequest $request
      *
@@ -59,7 +59,7 @@ class ActivoSolicitudAPIController extends AppBaseController
 
     /**
      * Display the specified ActivoSolicitud.
-     * GET|HEAD /activoSolicituds/{id}
+     * GET|HEAD /activoSolicitudes/{id}
      *
      * @param int $id
      *
@@ -79,7 +79,7 @@ class ActivoSolicitudAPIController extends AppBaseController
 
     /**
      * Update the specified ActivoSolicitud in storage.
-     * PUT/PATCH /activoSolicituds/{id}
+     * PUT/PATCH /activoSolicitudes/{id}
      *
      * @param int $id
      * @param UpdateActivoSolicitudAPIRequest $request
@@ -103,7 +103,7 @@ class ActivoSolicitudAPIController extends AppBaseController
 
     /**
      * Remove the specified ActivoSolicitud from storage.
-     * DELETE /activoSolicituds/{id}
+     * DELETE /activoSolicitudes/{id}
      *
      * @param int $id
      *

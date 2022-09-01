@@ -232,7 +232,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
         Route::resource('activoSolicitudEstados', ActivoSolicitudEstadoController::class);
 
 
-        Route::resource('activoSolicituds', ActivoSolicitudController::class);
+        Route::resource('activoSolicitudes', ActivoSolicitudController::class);
 
 
         Route::resource('activoSolicitudDetalles', ActivoSolicitudDetalleController::class);
