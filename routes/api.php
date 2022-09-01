@@ -142,8 +142,36 @@ Route::group(['as'=>'api.'], function () {
 
         Route::resource('item_tipos', ItemTipoAPIController::class);
 
+
+        Route::resource('activo_estados', App\Http\Controllers\API\ActivoEstadoAPIController::class);
+
+
+        Route::resource('activo_tipos', App\Http\Controllers\API\ActivoTipoAPIController::class);
+
+
+        Route::resource('activos', App\Http\Controllers\API\ActivoAPIController::class);
+
+
+        Route::resource('activo_tarjetas', App\Http\Controllers\API\ActivoTarjetaAPIController::class);
+
+
+        Route::resource('activo_tarjeta_detalles', App\Http\Controllers\API\ActivoTarjetaDetalleAPIController::class);
+
+
+        Route::resource('activo_solicitud_tipos', App\Http\Controllers\API\ActivoSolicitudTipoAPIController::class);
+
+
+        Route::resource('activo_solicitud_estados', App\Http\Controllers\API\ActivoSolicitudEstadoAPIController::class);
+
+
+        Route::resource('activo_solicituds', App\Http\Controllers\API\ActivoSolicitudAPIController::class);
+
+
+        Route::resource('activo_solicitud_detalles', App\Http\Controllers\API\ActivoSolicitudDetalleAPIController::class);
+
     });
 
 
 });
+
 

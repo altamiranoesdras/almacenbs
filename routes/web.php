@@ -49,6 +49,16 @@ use App\Http\Controllers\SolicitudAutorizaController;
 use App\Http\Controllers\SolicitudDespachaController;
 use App\Http\Controllers\ItemTrasladoEstadoController;
 
+use App\Http\Controllers\ActivoEstadoController;
+use App\Http\Controllers\ActivoTipoController;
+use App\Http\Controllers\ActivoController;
+use App\Http\Controllers\ActivoTarjetaController;
+use App\Http\Controllers\ActivoTarjetaDetalleController;
+use App\Http\Controllers\ActivoSolicitudTipoController;
+use App\Http\Controllers\ActivoSolicitudEstadoController;
+use App\Http\Controllers\ActivoSolicitudController;
+use App\Http\Controllers\ActivoSolicitudDetalleController;
+
 Auth::routes(['verify' => true]);
 
 Route::get('login/{driver}', [LoginController::class,'redirectToProvider'])->name('social_auth');
@@ -198,6 +208,36 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('reportes/kardex', [ReportesAlmacenController::class,'kardex'])->name('reportes.kardex');
     Route::get('reportes/stock', [ReportesAlmacenController::class,'stock'])->name('reportes.stock');
     Route::get('reportes/items/vencen', [ReportesAlmacenController::class,'itemsAvencer'])->name('reportes.items.vencen');
+
+
+    Route::group(['prefix' => 'inventarios'], function () {
+        Route::resource('activoEstados', ActivoEstadoController::class);
+
+
+        Route::resource('activoTipos', ActivoTipoController::class);
+
+
+        Route::resource('activos', ActivoController::class);
+
+
+        Route::resource('activoTarjetas', ActivoTarjetaController::class);
+
+
+        Route::resource('activoTarjetaDetalles', ActivoTarjetaDetalleController::class);
+
+
+        Route::resource('activoSolicitudTipos', ActivoSolicitudTipoController::class);
+
+
+        Route::resource('activoSolicitudEstados', ActivoSolicitudEstadoController::class);
+
+
+        Route::resource('activoSolicituds', ActivoSolicitudController::class);
+
+
+        Route::resource('activoSolicitudDetalles', ActivoSolicitudDetalleController::class);
+    });
+
 
 });
 
