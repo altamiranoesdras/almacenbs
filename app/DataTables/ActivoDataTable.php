@@ -34,6 +34,9 @@ class ActivoDataTable extends DataTable
                  //return view('activos.modal_detalles',compact('activo'))->render();
 
              })
+            ->editColumn('valor',function (Activo $activo){
+                return dvs().nfp($activo->valor);
+            })
             ->editColumn('fecha_registra',function (Activo $activo){
                 return fechaLtn($activo->fecha_registra);
             })
