@@ -61,10 +61,10 @@ class Option extends Model
     const APROBAR_REQISICION =      33;
 
     const INVENTARIOS =             34;
-    const TARJETA_RESPONSABILIDAD = 35;
-    const INGRESO_INVENTARIO_1H =   36;
-    const SOLICITUD_CD_BIENES =     37;
-    const REPORTES =                38;
+    const ACTIVOS =                 35;
+    const TARJETA_RESPONSABILIDAD = 36;
+    const INGRESO_INVENTARIO_1H =   37;
+    const SOLICITUD_CD_BIENES =     38;
     const RPT_BIENES_POR_UNIDAD =   39;
 
 
