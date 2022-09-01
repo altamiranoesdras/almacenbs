@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * Class Activo
@@ -15,8 +18,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \App\Models\Compra1hDetalle $detalle1h
  * @property \App\Models\ActivoTipo $tipo
  * @property \Illuminate\Database\Eloquent\Collection $items
- * @property \Illuminate\Database\Eloquent\Collection $activoSolicitudDetalles
- * @property \Illuminate\Database\Eloquent\Collection $activoTarjetaDetalles
+ * @property \Illuminate\Database\Eloquent\Collection $solicitudDetalles
+ * @property \Illuminate\Database\Eloquent\Collection $tarjetaDetalles
  * @property string $codigo_inventario
  * @property string $folio
  * @property string $descripcion
@@ -25,15 +28,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property integer $tipo_id
  * @property integer $detalle_1h_id
  * @property integer $estado_id
+ * @property string $thumb
  */
-class Activo extends Model
+class Activo extends Model implements HasMedia
 {
-    use SoftDeletes;
+    use SoftDeletes,InteractsWithMedia;
 
     use HasFactory;
 
     public $table = 'activos';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -124,7 +128,7 @@ class Activo extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function activoSolicitudDetalles()
+    public function solicitudDetalles()
     {
         return $this->hasMany(\App\Models\ActivoSolicitudDetalle::class, 'activo_id');
     }
@@ -132,8 +136,27 @@ class Activo extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function activoTarjetaDetalles()
+    public function tarjetaDetalles()
     {
         return $this->hasMany(\App\Models\ActivoTarjetaDetalle::class, 'activo_id');
+    }
+
+    public function getImgAttribute()
+    {
+        $media = $this->getMedia('activos')->last();
+        return $media ? $media->getUrl() : asset('img/default.svg');
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+            ->width(270)
+            ->height(270);
+    }
+
+    public function getThumbAttribute()
+    {
+        $media = $this->getMedia('activos')->last();
+        return $media ? $media->getUrl('thumb') : asset('img/default.svg');
     }
 }

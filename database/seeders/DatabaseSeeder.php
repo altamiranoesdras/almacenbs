@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,6 +17,15 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
+        if (!file_exists(storage_path('temp'))){
+            mkdir(storage_path('temp'));
+        }
+
+        foreach(glob(storage_path('app/public/*')) as $file){
+            if(file_exists($file)){
+                File::deleteDirectory($file);
+            }
+        }
 
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
         DB::table('media')->truncate();
@@ -43,12 +53,15 @@ class DatabaseSeeder extends Seeder
         $this->call(DivisaSeeder::class);
         $this->call(ItemTiposTableSeeder::class);
 
+        $this->call(ActivoTiposTableSeeder::class);
+        $this->call(ActivoEstadosTableSeeder::class);
 
 
         if(app()->environment()=='local'){
 
             $this->call(ItemCategoriaTableSeeder::class);
             $this->call(ItemsTableSeeder::class);
+            $this->call(ActivosTableSeeder::class);
 
 //            $this->call(ComprasSeeder::class);
 //            $this->call(SolicitudesTableSeeder::class);

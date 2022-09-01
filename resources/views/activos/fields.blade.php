@@ -25,18 +25,9 @@
 <!-- Fecha Registra Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('fecha_registra', 'Fecha Registra:') !!}
-    {!! Form::text('fecha_registra', null, ['class' => 'form-control','id'=>'fecha_registra']) !!}
+    {!! Form::date('fecha_registra', null, ['class' => 'form-control','id'=>'fecha_registra']) !!}
 </div>
 
-@push('page_scripts')
-    <script type="text/javascript">
-        $('#fecha_registra').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss',
-            useCurrent: true,
-            sideBySide: true
-        })
-    </script>
-@endpush
 
 <!-- Tipo Id Field -->
 <div class="form-group col-sm-6">

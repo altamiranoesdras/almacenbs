@@ -34,7 +34,13 @@ class ActivoDataTable extends DataTable
                  //return view('activos.modal_detalles',compact('activo'))->render();
 
              })
-            ->rawColumns(['action','id']);
+            ->editColumn('fecha_registra',function (Activo $activo){
+                return fechaLtn($activo->fecha_registra);
+            })
+            ->editColumn('imagen',function (Activo $activo){
+                return "<img src='$activo->thumb' alt=\"\" class=\"img-responsive \" width='42' height='42'>";
+            })
+            ->rawColumns(['action','id','imagen']);
 
     }
 
@@ -46,7 +52,9 @@ class ActivoDataTable extends DataTable
      */
     public function query(Activo $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()
+            ->select($model->getTable().".*")
+            ->with(['tipo','estado']);
     }
 
     /**
@@ -98,14 +106,14 @@ class ActivoDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            Column::make('imagen')->searchable(false)->orderable(false)->exportable(false),
             Column::make('codigo_inventario'),
             Column::make('folio'),
             Column::make('descripcion'),
             Column::make('valor'),
             Column::make('fecha_registra'),
-            Column::make('tipo_id'),
-            Column::make('detalle_1h_id'),
-            Column::make('estado_id'),
+            Column::make('tipo')->data('tipo.nombre')->name('tipo.nombre'),
+            Column::make('estado')->data('estado.nombre')->name('estado.nombre'),
             Column::computed('action')
                             ->exportable(false)
                             ->printable(false)

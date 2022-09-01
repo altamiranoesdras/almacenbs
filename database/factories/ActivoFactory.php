@@ -3,7 +3,12 @@
 namespace Database\Factories;
 
 use App\Models\Activo;
+use App\Models\ActivoEstado;
+use App\Models\ActivoTipo;
+use Faker\Provider\Base;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Mmo\Faker\LoremSpaceProvider;
+use Mmo\Faker\PicsumProvider;
 
 class ActivoFactory extends Factory
 {
@@ -22,17 +27,42 @@ class ActivoFactory extends Factory
     public function definition()
     {
         return [
-            'codigo_inventario' => $this->faker->word,
-        'folio' => $this->faker->word,
-        'descripcion' => $this->faker->text,
-        'valor' => $this->faker->word,
-        'fecha_registra' => $this->faker->word,
-        'tipo_id' => $this->faker->word,
-        'detalle_1h_id' => $this->faker->word,
-        'estado_id' => $this->faker->word,
-        'created_at' => $this->faker->date('Y-m-d H:i:s'),
-        'updated_at' => $this->faker->date('Y-m-d H:i:s'),
-        'deleted_at' => $this->faker->date('Y-m-d H:i:s')
+            'codigo_inventario' => $this->faker->randomNumber(6),
+            'folio' => $this->faker->randomNumber(4),
+            'descripcion' => $this->faker->paragraph,
+            'valor' => $this->faker->randomFloat(2,1000,10000),
+            'fecha_registra' => $this->faker->date,
+            'tipo_id' => ActivoTipo::all()->random()->id,
+            'estado_id' => ActivoEstado::all()->random()->id,
+            'detalle_1h_id' => null,
+            'created_at' => $this->faker->date('Y-m-d H:i:s'),
+            'updated_at' => $this->faker->date('Y-m-d H:i:s'),
+
         ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (Activo $activo){
+            $this->faker->addProvider(new PicsumProvider($this->faker));
+            $this->faker->addProvider(new LoremSpaceProvider($this->faker));
+
+            try {
+
+                $categoria = $this->faker->randomElement([
+                    LoremSpaceProvider::CATEGORY_BOOK,
+                    LoremSpaceProvider::CATEGORY_SHOES,
+                    LoremSpaceProvider::CATEGORY_WATCH,
+                ]);
+
+                $url = $this->faker->loremSpace($categoria,storage_path('temp'));
+
+                $activo->addMedia($url)
+                    ->toMediaCollection('activos');
+
+            }catch (\Exception $exception){
+                dump($exception->getMessage());
+            }
+        });
     }
 }
