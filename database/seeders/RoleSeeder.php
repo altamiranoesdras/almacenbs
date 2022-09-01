@@ -74,6 +74,26 @@ class RoleSeeder extends Seeder
             'Editar Requisición',
         ]);
 
+        /**
+         * @var Role $role
+         */
+        $role = Role::firstOrCreate(["name" => "Jefe inventarios"]);
+
+        $role->options()->sync([
+            Option::INVENTARIOS,
+            Option::TARJETA_RESPONSABILIDAD,
+            Option::INGRESO_INVENTARIO_1H,
+            Option::SOLICITUD_CD_BIENES,
+            Option::REPORTES,
+            Option::RPT_BIENES_POR_UNIDAD,
+        ]);
+
+        $role->syncPermissions([
+            'Ver Requisición',
+            'Crear Requisición',
+            'Editar Requisición',
+        ]);
+
     }
 }
 

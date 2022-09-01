@@ -60,6 +60,13 @@ class Option extends Model
     const AUTORIZAR_REQUISICION =   32;
     const APROBAR_REQISICION =      33;
 
+    const INVENTARIOS =             34;
+    const TARJETA_RESPONSABILIDAD = 35;
+    const INGRESO_INVENTARIO_1H =   36;
+    const SOLICITUD_CD_BIENES =     37;
+    const REPORTES =                38;
+    const RPT_BIENES_POR_UNIDAD =   39;
+
 
     protected $appends= ['active','visible_to_user','text','ruta_evaluada'];
 

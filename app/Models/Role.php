@@ -28,6 +28,7 @@ class Role extends \Spatie\Permission\Models\Role
     const ADMIN =       3;
     const General =      4;
     const JEFE_ALMACEN = 5;
+    const JEFE_INVENTARIOS = 5;
 
     protected $dates = ['deleted_at'];
 

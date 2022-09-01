@@ -120,6 +120,33 @@ class UsersTableSeeder extends Seeder
 
         });
 
+        User::factory(1)->create([
+            "username" => "inventarios",
+            "name" => "Jefe Inventarios",
+            "password" => bcrypt("123456")
+        ])->each(function (User $user){
+
+            $user->syncRoles(Role::JEFE_INVENTARIOS);
+
+            $user->options()->sync([
+                Option::INVENTARIOS,
+                Option::TARJETA_RESPONSABILIDAD,
+                Option::INGRESO_INVENTARIO_1H,
+                Option::SOLICITUD_CD_BIENES,
+                Option::REPORTES,
+                Option::RPT_BIENES_POR_UNIDAD,
+            ]);
+
+            $user->shortcuts()->sync([
+                Option::TARJETA_RESPONSABILIDAD,
+                Option::INGRESO_INVENTARIO_1H,
+                Option::SOLICITUD_CD_BIENES,
+                Option::REPORTES,
+                Option::RPT_BIENES_POR_UNIDAD,
+            ]);
+
+        });
+
 
 
     }
