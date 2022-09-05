@@ -27,9 +27,10 @@ class ActivoFactory extends Factory
     public function definition()
     {
         return [
+            'nombre' => $this->faker->word,
+            'descripcion' => $this->faker->paragraph,
             'codigo_inventario' => $this->faker->randomNumber(6),
             'folio' => $this->faker->randomNumber(4),
-            'descripcion' => $this->faker->paragraph,
             'valor' => $this->faker->randomFloat(2,1000,10000),
             'fecha_registra' => $this->faker->date,
             'tipo_id' => ActivoTipo::all()->random()->id,

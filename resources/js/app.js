@@ -159,3 +159,6 @@ Vue.component('select-unidad',SelectUnidad)
 
 import SelectPuesto from "./components/SelectPuesto";
 Vue.component('select-puesto',SelectPuesto)
+
+import SelectActivo from "./components/SelectActivo";
+Vue.component('select-activo',SelectActivo)

@@ -111,8 +111,7 @@ class ActivoDataTable extends DataTable
         return [
             Column::make('imagen')->searchable(false)->orderable(false)->exportable(false),
             Column::make('codigo_inventario'),
-            Column::make('folio'),
-            Column::make('descripcion'),
+            Column::make('nombre'),
             Column::make('valor'),
             Column::make('fecha_registra'),
             Column::make('tipo')->data('tipo.nombre')->name('tipo.nombre'),

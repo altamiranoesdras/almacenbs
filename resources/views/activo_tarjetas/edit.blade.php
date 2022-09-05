@@ -35,6 +35,8 @@
                         @include('activo_tarjetas.fields')
 
 
+                        @include('activo_tarjetas.panel_detalles')
+
                         <div class="form-row">
 
                             <!-- Submit Field -->

@@ -12,7 +12,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 /**
  * Class Activo
  * @package App\Models
- * @version August 31, 2022, 10:51 pm CST
+ * @version September 4, 2022, 8:11 pm CST
  *
  * @property \App\Models\ActivoEstado $estado
  * @property \App\Models\Compra1hDetalle $detalle1h
@@ -20,9 +20,10 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property \Illuminate\Database\Eloquent\Collection $items
  * @property \Illuminate\Database\Eloquent\Collection $solicitudDetalles
  * @property \Illuminate\Database\Eloquent\Collection $tarjetaDetalles
+ * @property string $nombre
+ * @property string $descripcion
  * @property string $codigo_inventario
  * @property string $folio
- * @property string $descripcion
  * @property number $valor
  * @property string $fecha_registra
  * @property integer $tipo_id
@@ -47,9 +48,10 @@ class Activo extends Model implements HasMedia
 
 
     public $fillable = [
+        'nombre',
+        'descripcion',
         'codigo_inventario',
         'folio',
-        'descripcion',
         'valor',
         'fecha_registra',
         'tipo_id',
@@ -64,9 +66,10 @@ class Activo extends Model implements HasMedia
      */
     protected $casts = [
         'id' => 'integer',
+        'nombre' => 'string',
+        'descripcion' => 'string',
         'codigo_inventario' => 'string',
         'folio' => 'string',
-        'descripcion' => 'string',
         'valor' => 'decimal:2',
 //        'fecha_registra' => 'date:Y-m-d',
         'tipo_id' => 'integer',
@@ -80,9 +83,10 @@ class Activo extends Model implements HasMedia
      * @var array
      */
     public static $rules = [
+        'nombre' => 'required|string|max:255',
+        'descripcion' => 'required|string',
         'codigo_inventario' => 'required|string|max:100',
         'folio' => 'nullable|string|max:100',
-        'descripcion' => 'required|string',
         'valor' => 'nullable|numeric',
         'fecha_registra' => 'required',
         'tipo_id' => 'required',

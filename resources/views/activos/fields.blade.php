@@ -1,15 +1,20 @@
 <div class="form-row" id="campos_activos">
 
+    <div class="form-group col-sm-6">
+        {!! Form::label('nombre', 'Nombre:') !!}
+        {!! Form::text('nombre', null, ['class' => 'form-control','maxlength' => 255]) !!}
+    </div>
+
     <!-- Codigo Inventario Field -->
     <div class="form-group col-sm-6">
         {!! Form::label('codigo_inventario', 'Codigo Inventario:') !!}
-        {!! Form::text('codigo_inventario', null, ['class' => 'form-control','maxlength' => 100,'maxlength' => 100,'maxlength' => 100]) !!}
+        {!! Form::text('codigo_inventario', null, ['class' => 'form-control','maxlength' => 100]) !!}
     </div>
 
     <!-- Folio Field -->
     <div class="form-group col-sm-6">
         {!! Form::label('folio', 'Folio:') !!}
-        {!! Form::text('folio', null, ['class' => 'form-control','maxlength' => 100,'maxlength' => 100,'maxlength' => 100]) !!}
+        {!! Form::text('folio', null, ['class' => 'form-control','maxlength' => 100]) !!}
     </div>
 
     <!-- Descripcion Field -->

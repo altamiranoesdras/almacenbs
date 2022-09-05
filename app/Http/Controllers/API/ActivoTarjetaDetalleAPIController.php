@@ -25,7 +25,7 @@ class ActivoTarjetaDetalleAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $query = ActivoTarjetaDetalle::query();
+        $query = ActivoTarjetaDetalle::with(['activo']);
 
         if ($request->get('skip')) {
             $query->skip($request->get('skip'));
@@ -34,6 +34,9 @@ class ActivoTarjetaDetalleAPIController extends AppBaseController
             $query->limit($request->get('limit'));
         }
 
+        if ($request->tarjeta_id){
+            $query->where('tarjeta_id',$request->tarjeta_id);
+        }
         $activoTarjetaDetalles = $query->get();
 
         return $this->sendResponse($activoTarjetaDetalles->toArray(), 'Activo Tarjeta Detalles retrieved successfully');

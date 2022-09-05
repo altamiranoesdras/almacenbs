@@ -33,20 +33,17 @@
                             <div class="form-row">
                                 <div class="form-group col-sm-12">
                                     <label for="descripcion">Descripción</label>
-                                    <input @keydown.enter.prevent="save()" type="text" class="form-control" id="descripcion" v-model="editedItem.descripcion" placeholder="descripcion">
+                                    <select-activo v-model="activo" label="activo" ></select-activo>
                                 </div>
 
                                 <div class="form-group col-sm-4">
-                                    <select-unidad-medida v-model="unidad_medida" label="Unidad Medida"></select-unidad-medida>
-                                </div>
-                                <div class="form-group col-sm-4">
-                                    <label for="cantidad">Cantidad</label>
-                                    <input @keydown.enter.prevent="save()" type="number" step="any" class="form-control" id="cantidad" v-model="editedItem.cantidad" placeholder="Cantidad">
+                                    <label for="">Tipo</label>
+                                    <multiselect v-model="tipo" :options="tipos"></multiselect>
                                 </div>
 
                                 <div class="form-group col-sm-4">
-                                    <label for="precio">Precio Unitario</label>
-                                    <input @keydown.enter.prevent="save()" type="number" step="any" class="form-control" id="precio" v-model="editedItem.precio" placeholder="Precio unitario">
+                                    <label for="precio">Fecha Asigna</label>
+                                    <input @keydown.enter.prevent="save()" type="date" class="form-control" id="precio" v-model="editedItem.precio" placeholder="Precio unitario">
                                 </div>
 
                             </div>
@@ -83,7 +80,7 @@
                 </tr>
 
                 <tr v-for="(detalle,index) in detalles" >
-                    <td v-text="detalle.activo.text"></td>
+                    <td v-text="detalle.activo.nombre"></td>
                     <td v-text="detalle.activo.codigo_inventario"></td>
                     <td v-text="esAlza(detalle) ? detalle.valor : ''"></td>
                     <td v-text="esBaja(detalle) ? detalle.valor : ''"></td>
@@ -114,8 +111,10 @@
 
         },
         data: {
-            proyecto : @json($activoTarjeta ?? null),
-            unidad_medida : null,
+            tarjeta : @json($activoTarjeta ?? null),
+            activo : null,
+            tipo : null,
+            tipos : [@json(\App\Models\ActivoTarjetaDetalle::ALZA),@json(\App\Models\ActivoTarjetaDetalle::BAJA)],
 
             detalles: [],
 
@@ -131,7 +130,7 @@
 
             defaultItem: {
                 id: 0,
-                proyecto_id: @json($activoTarjeta->id),
+                tarjeta_id: @json($activoTarjeta->id),
                 activo_id : null,
                 tipo : null,
                 cantidad : null,
@@ -180,7 +179,7 @@
 
                 try {
 
-                    let res = await axios.get(route('api.activo_tarjeta_detalles.index',{proyecto_id : this.proyecto.id}));
+                    let res = await axios.get(route('api.activo_tarjeta_detalles.index',{tarjeta_id : this.tarjeta.id}));
 
                     this.detalles = res.data.data;
 

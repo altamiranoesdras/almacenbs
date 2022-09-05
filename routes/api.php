@@ -36,6 +36,16 @@ use App\Http\Controllers\API\EnvioFiscalAPIController;
 use App\Http\Controllers\API\Compra1hAPIController;
 use App\Http\Controllers\API\Compra1hDetalleAPIController;
 
+use App\Http\Controllers\API\ActivoEstadoAPIController;
+use App\Http\Controllers\API\ActivoTipoAPIController;
+use App\Http\Controllers\API\ActivoAPIController;
+use App\Http\Controllers\API\ActivoTarjetaAPIController;
+use App\Http\Controllers\API\ActivoTarjetaDetalleAPIController;
+use App\Http\Controllers\API\ActivoSolicitudTipoAPIController;
+use App\Http\Controllers\API\ActivoSolicitudEstadoAPIController;
+use App\Http\Controllers\API\ActivoSolicitudAPIController;
+use App\Http\Controllers\API\ActivoSolicitudDetalleAPIController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::group(['as'=>'api.'], function () {
@@ -143,31 +153,31 @@ Route::group(['as'=>'api.'], function () {
         Route::resource('item_tipos', ItemTipoAPIController::class);
 
 
-        Route::resource('activo_estados', App\Http\Controllers\API\ActivoEstadoAPIController::class);
+        Route::resource('activo_estados', ActivoEstadoAPIController::class);
 
 
-        Route::resource('activo_tipos', App\Http\Controllers\API\ActivoTipoAPIController::class);
+        Route::resource('activo_tipos', ActivoTipoAPIController::class);
 
 
-        Route::resource('activos', App\Http\Controllers\API\ActivoAPIController::class);
+        Route::resource('activos', ActivoAPIController::class);
 
 
-        Route::resource('activo_tarjetas', App\Http\Controllers\API\ActivoTarjetaAPIController::class);
+        Route::resource('activo_tarjetas', ActivoTarjetaAPIController::class);
 
 
-        Route::resource('activo_tarjeta_detalles', App\Http\Controllers\API\ActivoTarjetaDetalleAPIController::class);
+        Route::resource('activo_tarjeta_detalles', ActivoTarjetaDetalleAPIController::class);
 
 
-        Route::resource('activo_solicitud_tipos', App\Http\Controllers\API\ActivoSolicitudTipoAPIController::class);
+        Route::resource('activo_solicitud_tipos', ActivoSolicitudTipoAPIController::class);
 
 
-        Route::resource('activo_solicitud_estados', App\Http\Controllers\API\ActivoSolicitudEstadoAPIController::class);
+        Route::resource('activo_solicitud_estados', ActivoSolicitudEstadoAPIController::class);
 
 
-        Route::resource('activo_solicituds', App\Http\Controllers\API\ActivoSolicitudAPIController::class);
+        Route::resource('activo_solicituds', ActivoSolicitudAPIController::class);
 
 
-        Route::resource('activo_solicitud_detalles', App\Http\Controllers\API\ActivoSolicitudDetalleAPIController::class);
+        Route::resource('activo_solicitud_detalles', ActivoSolicitudDetalleAPIController::class);
 
     });
 

@@ -1,13 +1,13 @@
 <template>
   <div>
       <multiselect
-          v-model="item"
+          v-model="activo"
           ref="multiselect"
           placeholder="Buscador de activos"
           label="nombre"
           track-by="id"
           open-direction="bottom"
-          :options="items"
+          :options="activos"
           :option-height="300"
           :show-labels="false"
           :searchable="true"
@@ -62,21 +62,13 @@
 
                       <div class='select-result__nombre' v-text="props.option.nombre"></div>
 
-                      <div class='select-result__precio' v-show="!solicitud">
+                      <div class='select-result__precio'>
                           <i class='far fa-money-bill-alt'></i>
-                          <span v-text="props.option.precio_compra"></span>
-                      </div>
-                      <div class='select-result__stock '>
-                          <i class='fas fa-cubes'></i>
-                          <span v-text="props.option.stock_total"></span>
-                      </div>
-                      <div class='select-result__ubicacion'>
-                          <i class='fas fa-archive'></i>
-                          <span v-text="props.option.ubicacion" v-show="!solicitud"></span>
+                          <span v-text="props.option.valor"></span>
                       </div>
                       <div class='select-result__codigo'>
                           <i class='fas fa-barcode'></i>
-                          <span v-text="props.option.codigo"></span>
+                          <span v-text="props.option.codigo_inventario"></span>
                       </div>
                       <div class='select-result__contiene'>
                           <span v-html="props.option.descripcion"></span>
@@ -101,22 +93,18 @@
     import Multiselect from 'vue-multiselect'
 
     export default {
-        name: 'select-items',
+        name: 'select-activos',
         components: {
             Multiselect
         },
         mounted(){
         },
         created() {
-            this.item = this.value;
+            this.activo = this.value;
         },
         props:{
             value: {
                 default: null,
-                required: true
-            },
-            api: {
-                type: String,
                 required: true
             },
             solicitud: {
@@ -125,9 +113,9 @@
             }
         },
         data: () => ({
-            items : [],
+            activos : [],
             isLoading: false,
-            item: null
+            activo: null
         }),
         computed: {
             titulo () {
@@ -138,15 +126,15 @@
             loading (val) {
                 val || this.getDatos()
             },
-            item (val) {
+            activo (val) {
                 if (!val){
-                    this.items = [];
+                    this.activos = [];
                 }
                 this.$emit('input', val);
             },
             value(val){
                 logI('cambio valor');
-                this.item = val;
+                this.activo = val;
             }
         },
         methods: {
@@ -160,10 +148,10 @@
 
                     try{
 
-                        let data= { params: {search: query,tienda: this.tienda} };
+                        let data= { params: {search: query} };
 
-                        const res = await axios.get(this.api,data);
-                        this.items = res.data.data;
+                        const res = await axios.get(route('api.activos.index'),data);
+                        this.activos = res.data.data;
 
                         this.isLoading = false;
 
@@ -185,7 +173,7 @@
                 return `${option.nombre}`
             },
             clear(){
-                this.items = [];
+                this.activos = [];
             }
 
         }
