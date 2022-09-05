@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('title_page',__('Edit Activo'))
+@include('layouts.plugins.bootstrap_fileinput')
+
 
 @section('content')
 
@@ -30,7 +32,7 @@
             <div class="card">
                 <div class="card-body">
 
-                   {!! Form::model($activo, ['route' => ['activos.update', $activo->id], 'method' => 'patch','class' => 'esperar']) !!}
+                   {!! Form::model($activo, ['route' => ['activos.update', $activo->id], 'method' => 'patch','class' => 'esperar',"enctype" => "multipart/form-data"]) !!}
                         <div class="form-row">
 
                             @include('activos.fields')

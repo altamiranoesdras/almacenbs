@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title_page',__('New Activo'))
+@include('layouts.plugins.bootstrap_fileinput')
 
 @section('content')
 
@@ -28,7 +29,8 @@
 
             <div class="card">
                 <div class="card-body">
-                    {!! Form::open(['route' => 'activos.store','class' => 'esperar']) !!}
+
+                    {!! Form::open(['route' => 'activos.store','class' => 'esperar',"enctype" => "multipart/form-data"]) !!}
                         <div class="form-row">
 
                             @include('activos.fields')

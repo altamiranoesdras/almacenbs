@@ -48,6 +48,11 @@
         <input type="hidden" name="estado_id" :value="estado ? estado.id : null">
     </div>
 
+    <div class="form-group col-sm-6">
+        {!! Form::label('imagen', 'Imagen:') !!}
+        <input type="file" name="imagen" id="imagen" class="" >
+    </div>
+
 </div>
 
 @push('scripts')
@@ -70,5 +75,22 @@
 
         }
     });
+
+    $(function (){
+
+        $("#imagen").fileinput({
+            initialPreview: @json(isset($activo) ? $activo->img : ''),
+            theme: "fa",
+            maxFileCount: 1,
+            maxFileSize: 15000,
+            overwriteInitial: true, // append files to initial preview
+            showUpload: false, // hide upload button
+            browseOnZoneClick: true,
+            initialPreviewAsData: true,
+            allowedPreviewTypes: ["image"],
+            allowedFileTypes: ["image"],
+        });
+
+    })
 </script>
 @endpush

@@ -57,6 +57,10 @@ class ActivoController extends AppBaseController
         /** @var Activo $activo */
         $activo = Activo::create($input);
 
+        if ($request->hasFile('imagen')){
+            $activo->addMediaFromRequest('imagen')->toMediaCollection('activos');
+        }
+
         Flash::success('Activo guardado exitosamente.');
 
         return redirect(route('activos.index'));
@@ -125,6 +129,11 @@ class ActivoController extends AppBaseController
 
         $activo->fill($request->all());
         $activo->save();
+
+
+        if ($request->hasFile('imagen')){
+            $activo->addMediaFromRequest('imagen')->toMediaCollection('activos');
+        }
 
         Flash::success('Activo actualizado con éxito.');
 
