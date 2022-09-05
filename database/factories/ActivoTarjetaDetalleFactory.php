@@ -6,6 +6,7 @@ use App\Models\Activo;
 use App\Models\ActivoTarjeta;
 use App\Models\ActivoTarjetaDetalle;
 use App\Models\RrhhUnidad;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ActivoTarjetaDetalleFactory extends Factory
@@ -30,6 +31,7 @@ class ActivoTarjetaDetalleFactory extends Factory
             'tipo' => $this->faker->randomElement([ActivoTarjetaDetalle::ALZA,ActivoTarjetaDetalle::BAJA]),
             'cantidad' => 1,
             'valor' => $this->faker->randomFloat(2,500,5000),
+            'fecha_asigna' => Carbon::now()->subMonths(rand(1,5)),
             'unidad_id' => RrhhUnidad::all()->random()->id,
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s'),

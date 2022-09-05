@@ -1,17 +1,29 @@
-<!-- Responsable Id Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('responsable_id', 'Responsable Id:') !!}
-    {!! Form::number('responsable_id', null, ['class' => 'form-control']) !!}
+<div class="form-row" id="camposTarjeta">
+    <!-- Responsable Id Field -->
+    <div class="form-group col-12">
+        {!! Form::label('responsable_id', 'Responsable:') !!}
+
+        <multiselect v-model="responsable" :options="responsables" label="name" track-by="id"></multiselect>
+    </div>
+
+
 </div>
 
-<!-- Codigo Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('codigo', 'Codigo:') !!}
-    {!! Form::text('codigo', null, ['class' => 'form-control','maxlength' => 45,'maxlength' => 45,'maxlength' => 45]) !!}
-</div>
+@push('scripts')
+<script>
+    const camposTarjeta = new Vue({
+        name: 'camposTarjeta',
+        el: '#camposTarjeta',
+        created() {
 
-<!-- Correlativo Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('correlativo', 'Correlativo:') !!}
-    {!! Form::number('correlativo', null, ['class' => 'form-control']) !!}
-</div>
+        },
+        data: {
+            responsables : @json(\App\Models\User::all() ?? []),
+            responsable : @json($activoTarjeta->responsable ?? null),
+        },
+        methods: {
+
+        }
+    });
+</script>
+@endpush

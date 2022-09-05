@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class ActivoTarjetaDetalle
  * @package App\Models
- * @version August 31, 2022, 10:52 pm CST
+ * @version September 4, 2022, 7:56 pm CST
  *
- * @property \App\Models\RrhhUnidade $unidad
+ * @property \App\Models\RrhhUnidad $unidad
  * @property \App\Models\Activo $activo
  * @property \App\Models\ActivoTarjeta $tarjeta
  * @property \Illuminate\Database\Eloquent\Collection $activoSolicitudDetalles
@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string $tipo
  * @property integer $cantidad
  * @property number $valor
+ * @property string $fecha_asigna
  * @property integer $unidad_id
  */
 class ActivoTarjetaDetalle extends Model
@@ -47,6 +48,7 @@ class ActivoTarjetaDetalle extends Model
         'tipo',
         'cantidad',
         'valor',
+        'fecha_asigna',
         'unidad_id'
     ];
 
@@ -62,6 +64,7 @@ class ActivoTarjetaDetalle extends Model
         'tipo' => 'string',
         'cantidad' => 'integer',
         'valor' => 'decimal:2',
+        'fecha_asigna' => 'date',
         'unidad_id' => 'integer'
     ];
 
@@ -76,6 +79,7 @@ class ActivoTarjetaDetalle extends Model
         'tipo' => 'required|string',
         'cantidad' => 'required|integer',
         'valor' => 'nullable|numeric',
+        'fecha_asigna' => 'required',
         'unidad_id' => 'required',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',

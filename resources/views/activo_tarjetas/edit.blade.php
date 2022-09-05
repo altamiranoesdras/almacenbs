@@ -31,9 +31,11 @@
                 <div class="card-body">
 
                    {!! Form::model($activoTarjeta, ['route' => ['activoTarjetas.update', $activoTarjeta->id], 'method' => 'patch','class' => 'esperar']) !!}
-                        <div class="form-row">
 
-                            @include('activo_tarjetas.fields')
+                        @include('activo_tarjetas.fields')
+
+
+                        <div class="form-row">
 
                             <!-- Submit Field -->
                             <div class="form-group col-sm-12 text-right">

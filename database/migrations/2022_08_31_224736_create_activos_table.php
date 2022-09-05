@@ -15,9 +15,10 @@ class CreateActivosTable extends Migration
     {
         Schema::create('activos', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre', 255);
+            $table->text('descripcion');
             $table->string('codigo_inventario', 100);
             $table->string('folio', 100)->nullable();
-            $table->text('descripcion');
             $table->decimal('valor', 14)->nullable();
             $table->date('fecha_registra');
             $table->unsignedBigInteger('tipo_id')->index('fk_activos_activo_tipos1_idx');

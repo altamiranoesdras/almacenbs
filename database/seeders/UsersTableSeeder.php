@@ -133,7 +133,6 @@ class UsersTableSeeder extends Seeder
                 Option::TARJETA_RESPONSABILIDAD,
                 Option::INGRESO_INVENTARIO_1H,
                 Option::SOLICITUD_CD_BIENES,
-                Option::REPORTES,
                 Option::RPT_BIENES_POR_UNIDAD,
             ]);
 
@@ -141,7 +140,6 @@ class UsersTableSeeder extends Seeder
                 Option::TARJETA_RESPONSABILIDAD,
                 Option::INGRESO_INVENTARIO_1H,
                 Option::SOLICITUD_CD_BIENES,
-                Option::REPORTES,
                 Option::RPT_BIENES_POR_UNIDAD,
             ]);
 
