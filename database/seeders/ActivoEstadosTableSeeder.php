@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ActivoEstadosTableSeeder extends Seeder
 {
@@ -14,12 +15,12 @@ class ActivoEstadosTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
-        \DB::table('activo_estados')->delete();
-        
-        \DB::table('activo_estados')->insert(array (
-            0 => 
+
+        DB::table('activo_estados')->truncate();
+
+        DB::table('activo_estados')->insert(array (
+            0 =>
             array (
                 'id' => 1,
                 'nombre' => 'BUEN ESTADO',
@@ -27,7 +28,7 @@ class ActivoEstadosTableSeeder extends Seeder
                 'updated_at' => '2022-08-31 23:02:39',
                 'deleted_at' => NULL,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'nombre' => 'REGULAR',
@@ -35,7 +36,7 @@ class ActivoEstadosTableSeeder extends Seeder
                 'updated_at' => '2022-08-31 23:02:46',
                 'deleted_at' => NULL,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'nombre' => 'MAL ESTADO U OBSOLETO',
@@ -44,7 +45,7 @@ class ActivoEstadosTableSeeder extends Seeder
                 'deleted_at' => NULL,
             ),
         ));
-        
-        
+
+
     }
 }

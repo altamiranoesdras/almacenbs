@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Activo;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ActivosTableSeeder extends Seeder
 {
@@ -17,10 +18,10 @@ class ActivosTableSeeder extends Seeder
     {
 
 
-        \DB::table('activos')->delete();
+        DB::table('activos')->truncate();
 
 
-        Activo::factory()->count(50)->create();
+        Activo::factory()->count(10)->create();
 
 
 

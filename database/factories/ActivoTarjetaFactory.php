@@ -3,6 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\ActivoTarjeta;
+use App\Models\ActivoTarjetaDetalle;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ActivoTarjetaFactory extends Factory
@@ -22,12 +25,12 @@ class ActivoTarjetaFactory extends Factory
     public function definition()
     {
         return [
-            'responsable_id' => $this->faker->word,
-        'codigo' => $this->faker->word,
-        'correlativo' => $this->faker->randomDigitNotNull,
-        'created_at' => $this->faker->date('Y-m-d H:i:s'),
-        'updated_at' => $this->faker->date('Y-m-d H:i:s'),
-
+            'responsable_id' => User::all()->random(),
+            'codigo' => null,
+            'correlativo' => null,
+            'created_at' => Carbon::now()->subMonths(rand(1,5)),
+            'updated_at' => Carbon::now()->subMonths(rand(1,5)),
         ];
     }
+
 }

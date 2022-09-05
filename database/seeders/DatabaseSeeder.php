@@ -53,15 +53,11 @@ class DatabaseSeeder extends Seeder
         $this->call(DivisaSeeder::class);
         $this->call(ItemTiposTableSeeder::class);
 
-        $this->call(ActivoTiposTableSeeder::class);
-        $this->call(ActivoEstadosTableSeeder::class);
-
 
         if(app()->environment()=='local'){
 
             $this->call(ItemCategoriaTableSeeder::class);
             $this->call(ItemsTableSeeder::class);
-            $this->call(ActivosTableSeeder::class);
 
 //            $this->call(ComprasSeeder::class);
 //            $this->call(SolicitudesTableSeeder::class);

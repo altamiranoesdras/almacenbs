@@ -29,10 +29,6 @@ class ActivoTarjetaDataTable extends DataTable
              ->editColumn('id',function (ActivoTarjeta $activoTarjeta){
 
                  return $activoTarjeta->id;
-
-                 //se debe crear la vista modal_detalles
-                 //return view('activo_tarjetas.modal_detalles',compact('activoTarjeta'))->render();
-
              })
             ->rawColumns(['action','id']);
 
@@ -46,7 +42,8 @@ class ActivoTarjetaDataTable extends DataTable
      */
     public function query(ActivoTarjeta $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()->select($model->getTable().".*")
+            ->with('responsable');
     }
 
     /**
@@ -98,9 +95,8 @@ class ActivoTarjetaDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('responsable_id'),
+            Column::make('responsable')->name('responsable.name')->data('responsable.name'),
             Column::make('codigo'),
-            Column::make('correlativo'),
             Column::computed('action')
                             ->exportable(false)
                             ->printable(false)

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ActivoTiposTableSeeder extends Seeder
 {
@@ -14,12 +15,12 @@ class ActivoTiposTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
-        \DB::table('activo_tipos')->delete();
-        
-        \DB::table('activo_tipos')->insert(array (
-            0 => 
+
+        DB::table('activo_tipos')->truncate();
+
+        DB::table('activo_tipos')->insert(array (
+            0 =>
             array (
                 'id' => 1,
                 'nombre' => 'Activo Fijo',
@@ -27,7 +28,7 @@ class ActivoTiposTableSeeder extends Seeder
                 'updated_at' => '2022-08-31 22:56:09',
                 'deleted_at' => NULL,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'nombre' => 'Bien Fungible',
@@ -36,7 +37,7 @@ class ActivoTiposTableSeeder extends Seeder
                 'deleted_at' => NULL,
             ),
         ));
-        
-        
+
+
     }
 }
