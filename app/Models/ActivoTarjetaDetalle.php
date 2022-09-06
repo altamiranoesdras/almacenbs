@@ -39,6 +39,7 @@ class ActivoTarjetaDetalle extends Model
 
 
     protected $dates = ['deleted_at'];
+    protected $appends = ['valor_alza','valor_baja'];
 
 
 
@@ -116,5 +117,16 @@ class ActivoTarjetaDetalle extends Model
     public function activoSolicitudDetalles()
     {
         return $this->belongsToMany(\App\Models\ActivoSolicitudDetalle::class, 'activo_traslado');
+    }
+
+    public function getValorAlzaAttribute()
+    {
+        return $this->tipo==self::ALZA ? $this->valor : null;
+    }
+
+
+    public function getValorBajaAttribute()
+    {
+        return $this->tipo==self::BAJA ? $this->valor : null;
     }
 }

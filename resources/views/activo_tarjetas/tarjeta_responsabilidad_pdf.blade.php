@@ -24,7 +24,7 @@
                         NOMBRE:
                     </td>
                     <td style="width:7%;">
-                        ____________________________________________________________
+                        {{$activoTarjeta->responsable->name}}
                     </td>
                     <td style="width:1%;">
                         TIPO:
@@ -36,7 +36,7 @@
                         DEPARTAMENTO:
                     </td>
                     <td style="width:5%;">
-                        ________________________________
+                        {{$activoTarjeta->responsable->unidad->nombre}}
                     </td>
                 </tr>
                 <tr style="">
@@ -44,7 +44,7 @@
                         CARGO:
                     </td>
                     <td style="width:7%;">
-                        ____________________________________________________________
+                        {{$activoTarjeta->responsable->puesto->nombre}}
                     </td>
                     <td style="width:1%;">
                         RENGLON:
@@ -82,23 +82,49 @@
                 </tr>
             </thead>
             <tbody >
-                <tr style="">
-                    <td style="border-color: black; width: 7%; text-align: center;" class="py-0">
+                @php
+                    $saldo = 0;
+                @endphp
+                @foreach($activoTarjeta->detalles as $i => $det)
+                     @php
+                         if ($det->valor_alza){
+                            $saldo += $det->valor_alza;
+                         }
 
+                         if ($det->valor_baja){
+                            $saldo -= $det->valor_baja;
+                         }
+
+                     @endphp
+                <tr style="">
+                    <td style="border-color: black; width: 4%; text-align: center;" class="py-0">
+                        {{$i+1}}
+                    </td>
+                    <td style="border-color: black; width: 46%"class="py-0">
+                        {{$det->activo->descripcion}}
                     </td>
                     <td style="border-color: black; "class="py-0">
+                        {{$det->activo->codigo_inventario}}
+                    </td>
+                    <td style="border-color: black; width: 10%;  text-align: center;" class="py-0">
+                        {{dvs().nfp($det->valor_alza)}}
+                    </td>
+                    <td style="border-color: black; width: 10%;  text-align: center;" class="py-0">
+                        {{dvs().nfp($det->valor_baja)}}
+                    </td>
+                    <td style="border-color: black; width: 10%; text-align: center;" class="py-0">
+                        {{dvs().nfp($saldo)}}
+                    </td>
+
+                    <td style="border-color: black; width: 10%; text-align: center;" class="py-0">
 
                     </td>
-                    <td style="border-color: black; width: 16%; font-size: 0.8em;  text-align: center;" class="py-0">
 
-                    </td>
-                    <td style="border-color: black; width: 16%;  text-align: center;"class="py-0">
-
-                    </td>
-                    <td style="border-color: black; width: 16%; text-align: center;"class="py-0">
+                    <td style="border-color: black; width: 10%; text-align: center;" class="py-0">
 
                     </td>
                 </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

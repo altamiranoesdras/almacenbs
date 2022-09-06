@@ -12,8 +12,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @version August 31, 2022, 10:51 pm CST
  *
  * @property \App\Models\User $responsable
- * @property \Illuminate\Database\Eloquent\Collection $activoSolicitudes
- * @property \Illuminate\Database\Eloquent\Collection $activoTarjetaDetalles
+ * @property \Illuminate\Database\Eloquent\Collection $solicitudes
+ * @property \Illuminate\Database\Eloquent\Collection $detalles
  * @property integer $responsable_id
  * @property string $codigo
  * @property integer $correlativo
@@ -77,7 +77,7 @@ class ActivoTarjeta extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function activoSolicitudes()
+    public function solicitudes()
     {
         return $this->hasMany(\App\Models\ActivoSolicitude::class, 'tarjeta_id');
     }
@@ -85,7 +85,7 @@ class ActivoTarjeta extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function activoTarjetaDetalles()
+    public function detalles()
     {
         return $this->hasMany(\App\Models\ActivoTarjetaDetalle::class, 'tarjeta_id');
     }

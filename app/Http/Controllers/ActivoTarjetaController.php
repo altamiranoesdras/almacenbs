@@ -159,7 +159,7 @@ class ActivoTarjetaController extends AppBaseController
         return redirect(route('activoTarjetas.index'));
     }
 
-    public function tarjetaResponsabilidadPdf(ActivoTarjeta $activoTarjeta)
+    public function pdf(ActivoTarjeta $activoTarjeta)
     {
 
         $pdf = App::make('snappy.pdf.wrapper');

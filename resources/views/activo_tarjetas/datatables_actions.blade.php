@@ -10,6 +10,12 @@
 </a>
 @endcan
 
+
+
+<a href="{{ route('activoTarjetas.pdf', $id) }}"  class='btn btn-outline-primary btn-sm' data-toggle="tooltip" title="PDF Tarjeta Responsabilidad" target="_blank">
+    <i class="fa fa-file-pdf"></i>
+</a>
+
 @can('Eliminar Activo Tarjetas')
 <a href="#" onclick="deleteItemDt(this)" data-id="{{$id}}" data-toggle="tooltip" title="Eliminar" class='btn btn-outline-danger btn-sm'>
     <i class="fa fa-trash-alt"></i>
@@ -22,6 +28,3 @@
 </form>
 @endcan
 
-<a href="{{ route('activoTarjetas.tarjetaResponsabilidadPdf', $id) }}"  class='btn btn-primary btn-xs' data-toggle="tooltip" title="PDF Tarjeta Responsabilidad" target="_blank">
-    <i class="fa fa-file-pdf"></i>
-</a>
