@@ -25,7 +25,7 @@ class ActivoTarjetaDetalleAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $query = ActivoTarjetaDetalle::with(['activo']);
+        $query = ActivoTarjetaDetalle::with(['activo.media']);
 
         if ($request->get('skip')) {
             $query->skip($request->get('skip'));

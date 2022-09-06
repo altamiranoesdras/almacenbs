@@ -44,6 +44,8 @@ class Activo extends Model implements HasMedia
 
 
     protected $dates = ['deleted_at'];
+    protected $with = ['media'];
+    protected $appends = ['img','thumb'];
 
 
 
