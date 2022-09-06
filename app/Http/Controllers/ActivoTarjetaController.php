@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateActivoTarjetaRequest;
 use App\Models\ActivoTarjeta;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\App;
 use Response;
 
 class ActivoTarjetaController extends AppBaseController
@@ -157,4 +158,27 @@ class ActivoTarjetaController extends AppBaseController
 
         return redirect(route('activoTarjetas.index'));
     }
+
+    public function tarjetaResponsabilidadPdf(ActivoTarjeta $activoTarjeta)
+    {
+
+        $pdf = App::make('snappy.pdf.wrapper');
+
+        $view = view('activo_tarjetas.tarjeta_responsabilidad_pdf', compact('activoTarjeta'))->render();
+
+        $pdf->loadHTML($view)
+//            ->setOption('page-width', '220')
+//            ->setOption('page-height', '280')
+            ->setOrientation('landscape')
+            // ->setOption('footer-html',utf8_decode($footer))
+            ->setOption('margin-top', 10)
+            ->setOption('margin-bottom',3)
+            ->setOption('margin-left',10)
+            ->setOption('margin-right',10);
+            // ->stream('report.pdf');
+
+        return $pdf->inline('TarjetaResponsabilidad '.$activoTarjeta->id. '_'. time().'.pdf');
+
+    }
+
 }

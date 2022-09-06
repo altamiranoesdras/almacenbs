@@ -21,3 +21,7 @@
     @csrf
 </form>
 @endcan
+
+<a href="{{ route('activoTarjetas.tarjetaResponsabilidadPdf', $id) }}"  class='btn btn-primary btn-xs' data-toggle="tooltip" title="PDF Tarjeta Responsabilidad" target="_blank">
+    <i class="fa fa-file-pdf"></i>
+</a>
