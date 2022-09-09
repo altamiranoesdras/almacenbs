@@ -38,7 +38,7 @@ class ActivosImport implements ToCollection, WithHeadingRow
         foreach ($rows as $index => $row) {
 
 
-            if ($row['codigo_inventario'] && $row['descripcion'] && $row['fecha_registra']) {
+            if ($row['codigo_inventario'] || $row['descripcion'] || $row['fecha_registra']) {
 
                 try {
 
