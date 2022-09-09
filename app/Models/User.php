@@ -39,6 +39,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property \Illuminate\Database\Eloquent\Collection $option8s
  * @property string $username
  * @property string $name
+ * @property string $nit
  * @property string $email
  * @property string|\Carbon\Carbon $email_verified_at
  * @property string $password
@@ -61,6 +62,7 @@ class User extends Authenticatable implements  HasMedia
     public $fillable = [
         'username',
         'name',
+        'nit',
         'email',
         'email_verified_at',
         'password',
@@ -80,6 +82,7 @@ class User extends Authenticatable implements  HasMedia
         'id' => 'integer',
         'username' => 'string',
         'name' => 'string',
+        'nit' => 'string',
         'email' => 'string',
         'email_verified_at' => 'datetime',
         'password' => 'string',

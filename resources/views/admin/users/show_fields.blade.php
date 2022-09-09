@@ -9,6 +9,10 @@
 
 
 <!-- Email Field -->
+{!! Form::label('nit', 'NIT:') !!}
+{!! $user->nit !!}<br>
+
+<!-- Email Field -->
 {!! Form::label('email', 'Email:') !!}
 {!! $user->email !!}<br>
 
