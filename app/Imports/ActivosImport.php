@@ -34,7 +34,6 @@ class ActivosImport implements ToCollection, WithHeadingRow
     public function collection(Collection $rows)
     {
 
-
         foreach ($rows as $index => $row) {
 
 
@@ -45,8 +44,8 @@ class ActivosImport implements ToCollection, WithHeadingRow
                     /**
                      * @var Activo $activo
                      */
-                    $activo = Activo::firstOrCreate([
-//                        'nombre' => $row['nombre'] ?? null,
+                    $activo = Activo::create([
+                        'nombre' => $row['nombre'] ?? '',
                         'descripcion' => $row['descripcion'],
                         'codigo_inventario' => $row['codigo_inventario'],
                         'folio' => $row['folio'],

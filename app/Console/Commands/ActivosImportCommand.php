@@ -24,16 +24,6 @@ class ActivosImportCommand extends Command
     protected $description = 'Command importar activos';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return int
@@ -70,7 +60,6 @@ class ActivosImportCommand extends Command
             throw $e;
 
         }
-
         DB::commit();
 
         $this->output->success('Importación Exitosa!');

@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property number $valor
  * @property string $fecha_asigna
  * @property integer $unidad_id
+ * @property boolean $impreso
  */
 class ActivoTarjetaDetalle extends Model
 {
@@ -50,7 +51,8 @@ class ActivoTarjetaDetalle extends Model
         'cantidad',
         'valor',
         'fecha_asigna',
-        'unidad_id'
+        'unidad_id',
+        'impreso'
     ];
 
     /**

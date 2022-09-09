@@ -16,7 +16,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Illuminate\Database\Eloquent\Collection $detalles
  * @property integer $responsable_id
  * @property string $codigo
+ * @property string $codigo_referencia
  * @property integer $correlativo
+ * @property boolean $impreso
  */
 class ActivoTarjeta extends Model
 {
@@ -37,7 +39,9 @@ class ActivoTarjeta extends Model
     public $fillable = [
         'responsable_id',
         'codigo',
-        'correlativo'
+        'codigo_referencia',
+        'correlativo',
+        'impreso'
     ];
 
     /**

@@ -17,7 +17,9 @@ class CreateActivoTarjetasTable extends Migration
             $table->id();
             $table->unsignedBigInteger('responsable_id')->index('fk_activo_fijo_tarjetas_users1_idx');
             $table->string('codigo', 45)->nullable();
+            $table->string('codigo_referencia')->nullable();
             $table->integer('correlativo')->nullable();
+            $table->boolean('impreso')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
