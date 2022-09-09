@@ -216,9 +216,10 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
         Route::resource('activoTipos', ActivoTipoController::class);
 
+        Route::get('activos/import', [ActivoController::class,'importar'])->name('activos.importar');
+        Route::post('activos/import', [ActivoController::class,'importarStore'])->name('activos.importar.store');
 
         Route::resource('activos', ActivoController::class);
-
 
         Route::resource('activoTarjetas', ActivoTarjetaController::class);
         Route::any('/activoTajeta/pdf/{activoTarjeta}', [ActivoTarjetaController::class,'pdf'])->name('activoTarjetas.pdf');

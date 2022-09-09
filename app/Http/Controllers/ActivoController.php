@@ -6,9 +6,13 @@ use App\DataTables\ActivoDataTable;
 use App\Http\Requests;
 use App\Http\Requests\CreateActivoRequest;
 use App\Http\Requests\UpdateActivoRequest;
+use App\Imports\ActivosImport;
 use App\Models\Activo;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Validators\ValidationException;
 use Response;
 
 class ActivoController extends AppBaseController
@@ -166,4 +170,50 @@ class ActivoController extends AppBaseController
 
         return redirect(route('activos.index'));
     }
+
+    public function importar()
+    {
+        return view('activos.import');
+    }
+
+    public function importarStore(Request $request)
+    {
+
+        try {
+            DB::beginTransaction();
+
+            $import = new ActivosImport();
+
+            $import->import($request->file('file'));
+
+        }
+        catch (ValidationException $e) {
+            DB::rollBack();
+            $erros = array();
+            foreach ($e->failures() as $failure) {
+                $erros[] = "Error en fila ".$failure->row().": ".implode($failure->errors());
+            }
+
+            flash('error', 'Ocurrio un error al intentar importar los datos!')->error();
+
+            return redirect()->back()->withErrors(['REVISA EL ENCABEZADO Y/O PIE DEL ARCHIVO.', 'Ocurrio un error en los datos y/o la estructura del archivo.', $erros]);
+        }
+        catch (Exception $e){
+
+
+            DB::rollBack();
+
+            throw $e;
+
+            return redirect()->back()->withErrors(['ERROR AL TRATAR DE LEER EL ARCHIVO.','REVISA QUE EL ARCHIVO TENGA EL FORMATO CORRECTO.']);
+        }
+
+        DB::commit();
+
+        flash('Datos Importados con Exito!')->success();
+
+        return redirect(route('activos.importar'));
+
+    }
+
 }

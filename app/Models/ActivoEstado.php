@@ -25,11 +25,11 @@ class ActivoEstado extends Model
 
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
-
+    const BUEN_ESTADO = 1;
+    const REGULAR = 2;
+    const MAL_ESTADO_OBSOLETO = 3;
 
     protected $dates = ['deleted_at'];
-
-
 
     public $fillable = [
         'nombre'

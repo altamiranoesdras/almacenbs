@@ -24,11 +24,10 @@ class ActivoTipo extends Model
 
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
-
+    const ACTIVO_FIJO = 1;
+    const BIEN_FUNGIBLE = 2;
 
     protected $dates = ['deleted_at'];
-
-
 
     public $fillable = [
         'nombre'
