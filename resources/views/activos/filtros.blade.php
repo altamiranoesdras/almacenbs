@@ -17,7 +17,7 @@
             <label for="switch">Asignadas</label>
             <br>
             <input type="checkbox" data-toggle="toggle" data-size="normal" data-on="Si" data-off="No" data-style="ios"
-                   name="switch"
+                   name="asignadas"
                    value="1">
         </div>
 

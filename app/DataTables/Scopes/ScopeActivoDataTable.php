@@ -15,7 +15,8 @@ class ScopeActivoDataTable implements DataTableScope
     {
 
         $this->nit = request()->nit ?? null;
-        $this->nit = request()->codigo_activo ?? null;
+        $this->codigo_activo = request()->codigo_activo ?? null;
+        $this->asignados = request()->asignadas ?? null;
 
     }
 
@@ -41,6 +42,12 @@ class ScopeActivoDataTable implements DataTableScope
 
         if ($this->codigo_activo) {
             $query->where('codigo_inventario', $this->codigo_activo);
+        }
+
+        if ($this->asignados) {
+            $query->whereHas('tarjetaDetalles');
+        } else {
+            $query->whereDoesntHave('tarjetaDetalles');
         }
 
     }
