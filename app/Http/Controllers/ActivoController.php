@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\ActivoDataTable;
+use App\DataTables\Scopes\ScopeActivoDataTable;
 use App\Http\Requests;
 use App\Http\Requests\CreateActivoRequest;
 use App\Http\Requests\UpdateActivoRequest;
@@ -34,6 +35,10 @@ class ActivoController extends AppBaseController
      */
     public function index(ActivoDataTable $activoDataTable)
     {
+
+        $scope = new ScopeActivoDataTable();
+        $activoDataTable->addScope($scope);
+
         return $activoDataTable->render('activos.index');
     }
 
