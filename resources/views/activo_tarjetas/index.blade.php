@@ -28,18 +28,31 @@
 
     <div class="content">
         <div class="container-fluid">
-            <div class="clearfix"></div>
 
+            <div class="card card-outline card-success">
+                <div class="card-header">
+                    <h3 class="card-title">Filtros</h3>
 
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                    <!-- /.card-tools -->
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    @include('activo_tarjetas.filtros')
+                </div>
+                <!-- /.card-body -->
+            </div>
 
-            <div class="clearfix"></div>
             <div class="card card-primary">
                 <div class="card-body">
                         @include('activo_tarjetas.table')
                 </div>
             </div>
             <div class="text-center">
-                
+
             </div>
         </div>
     </div>

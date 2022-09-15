@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\ActivoTarjetaDataTable;
+use App\DataTables\Scopes\ScopeActivoTarjetaDataTable;
 use App\Http\Requests;
 use App\Http\Requests\CreateActivoTarjetaRequest;
 use App\Http\Requests\UpdateActivoTarjetaRequest;
@@ -31,6 +32,11 @@ class ActivoTarjetaController extends AppBaseController
      */
     public function index(ActivoTarjetaDataTable $activoTarjetaDataTable)
     {
+
+        $scope = new ScopeActivoTarjetaDataTable();
+
+        $activoTarjetaDataTable->addScope($scope);
+
         return $activoTarjetaDataTable->render('activo_tarjetas.index');
     }
 
