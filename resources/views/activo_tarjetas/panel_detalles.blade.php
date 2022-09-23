@@ -36,14 +36,14 @@
                                     <select-activo v-model="activo" label="activo" ></select-activo>
                                 </div>
 
-                                <div class="form-group col-sm-4">
-                                    <label for="">Tipo</label>
-                                    <multiselect v-model="tipo" :options="tipos"></multiselect>
-                                </div>
+{{--                                <div class="form-group col-sm-4">--}}
+{{--                                    <label for="">Tipo</label>--}}
+{{--                                    <multiselect v-model="tipo" :options="tipos"></multiselect>--}}
+{{--                                </div>--}}
 
                                 <div class="form-group col-sm-4">
                                     <label for="precio">Fecha Asigna</label>
-                                    <input @keydown.enter.prevent="save()" type="date" class="form-control" id="precio" v-model="editedItem.precio" placeholder="Precio unitario">
+                                    <input @keydown.enter.prevent="save()" type="date" class="form-control" id="precio" v-model="editedItem.fecha_asigna">
                                 </div>
 
                             </div>
@@ -85,10 +85,13 @@
                     <td v-text="esAlza(detalle) ? detalle.valor : ''"></td>
                     <td v-text="esBaja(detalle) ? detalle.valor : ''"></td>
                     <td v-text="dvs+nfp(detalle.valor)"></td>
-                    <td v-text="detalle.fecha_asigna"></td>
+                    <td v-text="formatoFecha(detalle.fecha_asigna)"></td>
                     <td class="text-center">
                         <button type="button" class="btn btn-info btn-sm" data-toggle="tooltip" title="Editar" @click="editItem(detalle)">
                             <i class="fa fa-pencil"></i>
+                        </button>
+                        <button type="button" class="btn btn-warning btn-sm" data-toggle="tooltip" title="Dar Baja" @click="darBajaItem(detalle)">
+                            <i class="fa fa-ban"></i>
                         </button>
                         <button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" title="Eliminar" @click="deleteItem(detalle)">
                             <i class="fa fa-trash"></i>
@@ -122,20 +125,22 @@
                 id: 0,
                 tarjeta_id : @json($activoTarjeta->id),
                 activo_id : null,
-                tipo : null,
-                cantidad : null,
+                tipo : @json(\App\Models\ActivoTarjetaDetalle::ALZA),
+                cantidad : 1,
                 valor : null,
                 unidad_id : null,
+                fecha_asigna : null,
             },
 
             defaultItem: {
                 id: 0,
                 tarjeta_id: @json($activoTarjeta->id),
                 activo_id : null,
-                tipo : null,
-                cantidad : null,
+                tipo : @json(\App\Models\ActivoTarjetaDetalle::ALZA),
+                cantidad : 1,
                 valor : null,
                 unidad_id : null,
+                fecha_asigna : null,
             },
 
             itemElimina: {},
@@ -151,6 +156,9 @@
             },
             nfp(numero){
                 return number_format(numero,2);
+            },
+            formatoFecha(fecha) {
+                return fecha ? moment(fecha).format("DD-MM-YYYY") : '';
             },
             getId(item){
                 if(item)
@@ -199,7 +207,9 @@
                 try {
 
                     let data = this.editedItem;
-                    data.unidad_id = this.unidad_medida.id;
+                    data.unidad_id = this.tarjeta.responsable.unidad_id;
+                    data.activo_id = this.activo.id;
+                    data.valor = this.activo.valor;
                     let res = null;
 
                     if(this.editedItem.id === 0){
@@ -251,6 +261,35 @@
                         this.itemElimina = {};
                     }
 
+                }
+
+            },
+            async darBajaItem(detalle) {
+
+                let confirm = await Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "¡No podrás revertir esto!",
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, dar baja\n!'
+                });
+
+                if (confirm.isConfirmed){
+                    try {
+
+                        let data = {};
+                        data.tipo = @json(\App\Models\ActivoTarjetaDetalle::BAJA);
+
+                        let res = await axios.patch(route('api.activo_tarjeta_detalles.update', detalle.id),data);
+                        logI(res.data);
+
+                        iziTs(res.data.message);
+                        this.getDetalles();
+
+                    } catch (e) {
+                        notifyErrorApi(e);
+                    }
                 }
 
             },

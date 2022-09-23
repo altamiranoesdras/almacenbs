@@ -66,7 +66,7 @@ class ActivoTarjetaController extends AppBaseController
 
         Flash::success('Activo Tarjeta guardado exitosamente.');
 
-        return redirect(route('activoTarjetas.index'));
+        return redirect(route('activoTarjetas.edit', $activoTarjeta->id));
     }
 
     /**
