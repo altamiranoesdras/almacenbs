@@ -187,4 +187,22 @@ class ActivoTarjetaController extends AppBaseController
 
     }
 
+    public function pdfSinLineas(ActivoTarjeta $activoTarjeta)
+    {
+
+        $pdf = App::make('snappy.pdf.wrapper');
+
+        $view = view('activo_tarjetas.tarjeta_responsabilidad_pdf_sin_lineas', compact('activoTarjeta'))->render();
+
+        $pdf->loadHTML($view)
+            ->setOrientation('landscape')
+            ->setOption('margin-top', 10)
+            ->setOption('margin-bottom',3)
+            ->setOption('margin-left',10)
+            ->setOption('margin-right',10);
+
+        return $pdf->inline('TarjetaResponsabilidad-'.$activoTarjeta->id. '_'. time().'.pdf');
+
+    }
+
 }

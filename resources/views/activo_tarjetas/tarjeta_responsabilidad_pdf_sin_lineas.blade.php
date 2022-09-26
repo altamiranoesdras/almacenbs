@@ -63,9 +63,9 @@
     </div>
 
     <div style="margin-top: 1.15cm;">
-        <table class="table table-bordered table-sm"  style="font-size: 14px;" >
+        <table class="table-sm" style="font-size: 14px;" >
             <thead>
-                <tr style="text-align: center; background-color: #DCDCDC;  " class="py-0">
+                <tr style="text-align: center;  " class="py-0">
                     <th style="border-color: black;" rowspan="2">NO.</th>
                     <th style="border-color: black;" rowspan="2">DESCRIPCIÓN DEL BIEN</th>
                     <th style="border-color: black;" rowspan="2">NO. DE BIEN</th>
@@ -73,7 +73,7 @@
                     <th style="border-color: black;">FIRMA DE</th>
                     <th style="border-color: black;">FECHA</th>
                 </tr>
-                <tr style="text-align: center; background-color: #DCDCDC;  " class="py-0">
+                <tr style="text-align: center;" class="py-0">
                     <th style="border-color: black;">ALZA</th>
                     <th style="border-color: black;">BAJA</th>
                     <th style="border-color: black;">SALDO</th>

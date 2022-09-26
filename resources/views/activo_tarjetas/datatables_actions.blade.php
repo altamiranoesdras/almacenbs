@@ -10,9 +10,11 @@
 </a>
 @endcan
 
-
-
 <a href="{{ route('activoTarjetas.pdf', $id) }}"  class='btn btn-outline-primary btn-sm' data-toggle="tooltip" title="PDF Tarjeta Responsabilidad" target="_blank">
+    <i class="fa fa-file-pdf"></i>
+</a>
+
+<a href="{{ route('activoTarjetas.pdf.sinLineas', $id) }}"  class='btn btn-outline-info btn-sm' data-toggle="tooltip" title="PDF Tarjeta Responsabilidad Sin Lineas" target="_blank">
     <i class="fa fa-file-pdf"></i>
 </a>
 
