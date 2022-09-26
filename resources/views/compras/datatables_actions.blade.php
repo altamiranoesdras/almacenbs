@@ -9,6 +9,10 @@
          <i class="fas fa-print"></i>
      </a>
 
+     <a href="{{route('compra.h1.pdf',$compra->id)}}" target="_blank" class='btn btn-outline-primary btn-xs' data-toggle="tooltip" title="Imprimir H1">
+         <i class="fas fa-print"></i>
+     </a>
+
     @can('anular ingreso de compra')
         @if($compra->estado_id != \App\Models\CompraEstado::ANULADA && $compra->estado_id == \App\Models\CompraEstado::RECIBIDA )
             <a href="#" onclick="deleteItemDt(this)" data-id="{{$compra->id}}" data-toggle="tooltip" title="Anular Ingreso" class='btn btn-outline-danger btn-xs'>
