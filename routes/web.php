@@ -245,6 +245,10 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     Route::get('inventario/1h', function () { return View::make('partials.en_construccion'); })->name('inventario.1h');
 
+    Route::get('solicitud/cargo/descargo/bienes', function () { return View::make('partials.en_construccion'); })->name('solicitud.cargo.descargo.bienes');
+
+    Route::get('reporte/bienes/unidad', function () { return View::make('partials.en_construccion'); })->name('reporte.bienes.unidad');
+
 });
 
 
