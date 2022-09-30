@@ -283,4 +283,10 @@ class Compra extends Model
             $detalle->anular();
         }
     }
+
+
+    public function tiene1h()
+    {
+        return $this->compra1hs->count() > 0;
+    }
 }

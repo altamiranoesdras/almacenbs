@@ -9,9 +9,11 @@
          <i class="fas fa-print"></i>
      </a>
 
+    @if($compra->tiene1h())
      <a href="{{route('compra.h1.pdf',$compra->id)}}" target="_blank" class='btn btn-outline-primary btn-xs' data-toggle="tooltip" title="Imprimir H1">
          <i class="fas fa-print"></i>
      </a>
+    @endif
 
     @can('anular ingreso de compra')
         @if($compra->estado_id != \App\Models\CompraEstado::ANULADA && $compra->estado_id == \App\Models\CompraEstado::RECIBIDA )
