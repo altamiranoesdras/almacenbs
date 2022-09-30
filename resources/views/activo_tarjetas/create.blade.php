@@ -36,7 +36,7 @@
                             <div class="form-row col-md-12">
                                 <div class="alert alert-info alert-dismissible col-md-12">
         {{--                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>--}}
-                                    <h5><i class="icon fas fa-info"></i> Alerta!</h5> Debe guardar primero para agregar los activos.
+                                    <h5> <i class="icon fas fa-info"></i>Debe guardar primero para agregar los activos.</h5>
                                 </div>
                             </div>
 
