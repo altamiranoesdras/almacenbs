@@ -240,8 +240,10 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
 
         Route::resource('activoSolicitudDetalles', ActivoSolicitudDetalleController::class);
+
     });
 
+    Route::get('inventario/1h', function () { return View::make('partials.en_construccion'); })->name('inventario.1h');
 
 });
 
