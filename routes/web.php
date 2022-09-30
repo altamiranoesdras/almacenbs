@@ -224,7 +224,6 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
         Route::resource('activoTarjetas', ActivoTarjetaController::class);
         Route::any('/activoTajeta/pdf/{activoTarjeta}', [ActivoTarjetaController::class,'pdf'])->name('activoTarjetas.pdf');
-        Route::any('/activoTajeta/pdf/sinLineas/{activoTarjeta}', [ActivoTarjetaController::class,'pdfSinLineas'])->name('activoTarjetas.pdf.sinLineas');
 
 
         Route::resource('activoTarjetaDetalles', ActivoTarjetaDetalleController::class);

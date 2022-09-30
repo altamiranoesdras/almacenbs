@@ -93,4 +93,10 @@ class ActivoTarjeta extends Model
     {
         return $this->hasMany(\App\Models\ActivoTarjetaDetalle::class, 'tarjeta_id');
     }
+
+    public function tieneDetallesImpresos()
+    {
+        return $this->detalles->where('impreso', true)->isNotEmpty();
+    }
+
 }
