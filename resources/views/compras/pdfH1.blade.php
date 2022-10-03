@@ -44,7 +44,7 @@
                 FECHA:
             </td>
             <td style="width:15%;">
-                {{ $compra->created_at->format('d-m-Y') }}
+                {{ fechaLtn($compra->created_at) }}
             </td>
         </tr>
         <tr style="">
