@@ -82,7 +82,7 @@
         {{--        @php--}}
         {{--            $saldo = 0;--}}
         {{--        @endphp--}}
-            @foreach($compra->compra1hs->first()->compra1hDetalles as $i => $det)
+            @foreach($compra->compra1h->detalles as $i => $det)
 {{--                @php--}}
 {{--                    if ($det->valor_alza){--}}
 {{--                       $saldo += $det->valor_alza;--}}
@@ -110,7 +110,7 @@
                         {{dvs().nfp($det->precio)}}
                     </td>
                     <td style="border-color: black; width: 10%; text-align: center;" class="py-0">
-                        {{dvs().nfp(nf($det->cantidad) * $det->precio)}}
+                        {{dvs().nfp($det->sub_total)}}
                     </td>
                     <td style="border-color: black; width: 10%;  text-align: center;" class="py-0">
                         {{ $det->folio_inventario }}

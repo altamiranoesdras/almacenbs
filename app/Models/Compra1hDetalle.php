@@ -35,7 +35,7 @@ class Compra1hDetalle extends Model
 
     protected $dates = ['deleted_at'];
 
-
+    protected $appends = ['sub_total'];
 
     public $fillable = [
         '1h_id',
@@ -95,5 +95,10 @@ class Compra1hDetalle extends Model
     public function item()
     {
         return $this->belongsTo(\App\Models\Item::class, 'item_id');
+    }
+
+    public function getSubTotalAttribute()
+    {
+        return $this->cantidad * $this->precio;
     }
 }
