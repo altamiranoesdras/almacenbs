@@ -12,7 +12,7 @@
 
     <div>
         <span style="font-size: 1.4em">
-            <span style="margin-left: 9.5cm; font-weight: 600">TARJETA DE RESPONSABILIDAD DE ACTIVOS FIJOS</span><br>
+            <span style="margin-left: 9.5cm; font-weight: 600;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">TARJETA DE RESPONSABILIDAD DE ACTIVOS FIJOS</span><br>
             <div style="margin-top: 0.35cm"></div>
         </span>
     </div>
@@ -20,65 +20,65 @@
     <div style="margin-top: 1.15cm;">
         <table style="width: 100%">
                 <tr style="">
-                    <td style="width:1%;">
+                    <td style="width:1%;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">
                         NOMBRE:
                     </td>
-                    <td style="width:7%;">
+                    <td style="width:7%;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">
                         {{$activoTarjeta->responsable->name}}
                     </td>
-                    <td style="width:1%;">
+                    <td style="width:1%;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">
                         TIPO:
                     </td>
-                    <td style="width:5%;">
-                        ________________________
+                    <td style="width:5%;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">
+
                     </td>
-                    <td style="width:1%;">
+                    <td style="width:1%;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">
                         DEPARTAMENTO:
                     </td>
-                    <td style="width:5%;">
+                    <td style="width:5%;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">
                         {{$activoTarjeta->responsable->unidad->nombre}}
                     </td>
                 </tr>
                 <tr style="">
-                    <td style="width:1%;">
+                    <td style="width:1%;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">
                         CARGO:
                     </td>
-                    <td style="width:7%;">
+                    <td style="width:7%;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">
                         {{$activoTarjeta->responsable->puesto->nombre}}
                     </td>
-                    <td style="width:1%;">
+                    <td style="width:1%;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">
                         RENGLON:
                     </td>
-                    <td style="width:5%;">
-                        ________________________
+                    <td style="width:5%;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">
+
                     </td>
-                    <td style="width:1%;">
+                    <td style="width:1%;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">
                         NIT:
                     </td>
-                    <td style="width:5%;">
-                        ________________________________
+                    <td style="width:5%;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">
+
                     </td>
                 </tr>
         </table>
     </div>
 
     <div style="margin-top: 1.15cm;">
-        <table class="table table-bordered table-sm"  style="font-size: 14px;" >
+        <table class="@if(!$activoTarjeta->tieneDetallesImpresos()) table table-bordered @endif table-sm"  style="font-size: 14px;" >
             <thead>
-                <tr style="text-align: center; background-color: #DCDCDC;  " class="py-0">
-                    <th style="border-color: black;" rowspan="2">NO.</th>
-                    <th style="border-color: black;" rowspan="2">DESCRIPCIÓN DEL BIEN</th>
-                    <th style="border-color: black;" rowspan="2">NO. DE BIEN</th>
-                    <th style="border-color: black;" colspan="3">VALOR</th>
-                    <th style="border-color: black;">FIRMA DE</th>
-                    <th style="border-color: black;">FECHA</th>
+                <tr style="text-align: center;@if(!$activoTarjeta->tieneDetallesImpresos()) background-color: #DCDCDC;@endif  " class="py-0">
+                    <th style="border-color: black;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif" rowspan="2">NO.</th>
+                    <th style="border-color: black;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif" rowspan="2">DESCRIPCIÓN DEL BIEN</th>
+                    <th style="border-color: black;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif" rowspan="2">NO. DE BIEN</th>
+                    <th style="border-color: black;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif" colspan="3">VALOR</th>
+                    <th style="border-color: black;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">FIRMA DE</th>
+                    <th style="border-color: black;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">FECHA</th>
                 </tr>
-                <tr style="text-align: center; background-color: #DCDCDC;  " class="py-0">
-                    <th style="border-color: black;">ALZA</th>
-                    <th style="border-color: black;">BAJA</th>
-                    <th style="border-color: black;">SALDO</th>
-                    <th style="border-color: black;">RECIBIDO</th>
-                    <th style="border-color: black;">ASIGNACION</th>
+                <tr style="text-align: center;@if(!$activoTarjeta->tieneDetallesImpresos()) background-color: #DCDCDC;@endif  " class="py-0">
+                    <th style="border-color: black;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">ALZA</th>
+                    <th style="border-color: black;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">BAJA</th>
+                    <th style="border-color: black;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">SALDO</th>
+                    <th style="border-color: black;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">RECIBIDO</th>
+                    <th style="border-color: black;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">ASIGNACION</th>
                 </tr>
             </thead>
             <tbody >
@@ -97,22 +97,22 @@
 
                      @endphp
                 <tr style="">
-                    <td style="border-color: black; width: 4%; text-align: center;" class="py-0">
+                    <td style="border-color: black; width: 4%; text-align: center;@if($det->impreso) opacity: 0.0; @endif" class="py-0">
                         {{$i+1}}
                     </td>
-                    <td style="border-color: black; width: 46%"class="py-0">
+                    <td style="border-color: black; width: 46%;@if($det->impreso) opacity: 0.0; @endif" class="py-0">
                         {{$det->activo->descripcion}}
                     </td>
-                    <td style="border-color: black; "class="py-0">
+                    <td style="border-color: black;@if($det->impreso) opacity: 0.0; @endif " class="py-0">
                         {{$det->activo->codigo_inventario}}
                     </td>
-                    <td style="border-color: black; width: 10%;  text-align: center;" class="py-0">
+                    <td style="border-color: black; width: 10%;  text-align: center;@if($det->impreso) opacity: 0.0; @endif" class="py-0">
                         {{dvs().nfp($det->valor_alza)}}
                     </td>
-                    <td style="border-color: black; width: 10%;  text-align: center;" class="py-0">
+                    <td style="border-color: black; width: 10%;  text-align: center;@if($det->impreso) opacity: 0.0; @endif" class="py-0">
                         {{dvs().nfp($det->valor_baja)}}
                     </td>
-                    <td style="border-color: black; width: 10%; text-align: center;" class="py-0">
+                    <td style="border-color: black; width: 10%; text-align: center;@if($det->impreso) opacity: 0.0; @endif" class="py-0">
                         {{dvs().nfp($saldo)}}
                     </td>
 
@@ -133,7 +133,7 @@
         <div style="margin-top: 1.15cm;">
 
             <div>
-                    <span style="font-size: 0.8em">
+                    <span style="font-size: 0.8em;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">
                         <span style="font-weight: 600">OBSERVACIONES</span><br>
                         <div style="margin-top: 0.35cm"></div>
                     </span>
@@ -141,16 +141,16 @@
 
             <table style="width: 100%">
                 <tr style="">
-                    <td style="width:8%;">
+                    <td style="width:8%;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">
                         (f). EMPLEADO RESPONSABLE
                     </td>
-                    <td style="width:7%;">
+                    <td style="width:7%;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">
                         ____________________________________________________________
                     </td>
-                    <td style="width:2%;">
+                    <td style="width:2%;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">
                         Vo. Bo.
                     </td>
-                    <td style="width:5%;">
+                    <td style="width:5%;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">
                         ____________________________________________________________
                     </td>
                 </tr>

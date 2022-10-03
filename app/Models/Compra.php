@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property integer $usuario_crea
  * @property integer $usuario_recibe
  * @property string $observaciones
+ * @property string $orden_compra
  */
 class Compra extends Model
 {
@@ -58,7 +59,8 @@ class Compra extends Model
         'estado_id',
         'usuario_crea',
         'usuario_recibe',
-        'observaciones'
+        'observaciones',
+        'orden_compra',
     ];
 
     /**
@@ -79,7 +81,8 @@ class Compra extends Model
         'estado_id' => 'integer',
         'usuario_crea' => 'integer',
         'usuario_recibe' => 'integer',
-        'observaciones' => 'string'
+        'observaciones' => 'string',
+        'orden_compra' => 'string',
     ];
 
     /**
@@ -100,6 +103,7 @@ class Compra extends Model
         'usuario_crea' => 'nullable',
         'usuario_recibe' => 'nullable',
         'observaciones' => 'nullable|string',
+        'orden_compra' => 'nullable|string',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'

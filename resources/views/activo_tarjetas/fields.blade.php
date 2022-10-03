@@ -23,7 +23,7 @@
 
         },
         data: {
-            responsables : @json(\App\Models\User::all() ?? []),
+        responsables : @json(\App\Models\User::whereDoesntHave('roles', function ($q){ $q->whereIn('id', \App\Models\Role::ROLES_ADMINS); })->get() ?? []),
             responsable : @json($activoTarjeta->responsable ?? null),
         },
         methods: {

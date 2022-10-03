@@ -89,6 +89,12 @@
                        :disabled="ingreso_inmediato">
             </div>
         </div>
+        <div class="row">
+            <div class="form-group col-sm-12 ">
+                {!! Form::label('orden_compra', 'Orden Compra:') !!}
+                {!! Form::text('orden_compra', null, ['class' => 'form-control']) !!}
+            </div>
+        </div>
 
     </li>
 

@@ -24,13 +24,13 @@
                 DEPENDENCIA:
             </td>
             <td style="width:15%;">
-                ------------------------
+
             </td>
             <td style="width:1%;">
                 NUMERO:
             </td>
             <td style="width:15%;">
-                ------------------------
+                {{ $compra->serie }} - {{ $compra->numero }}
             </td>
         </tr>
         <tr style="">
@@ -38,13 +38,13 @@
                 PROGRAMA:
             </td>
             <td style="width:15%;">
-                ------------------------
+
             </td>
             <td style="width:1%;">
                 FECHA:
             </td>
             <td style="width:15%;">
-                ------------------------
+                {{ $compra->created_at->format('d-m-Y') }}
             </td>
         </tr>
         <tr style="">
@@ -52,13 +52,13 @@
                 PROVEEDOR:
             </td>
             <td style="width:5%;">
-                ------------------------
+                {{ $compra->proveedor->nombre }}
             </td>
             <td style="width:5%;">
                 ORDEN DE C. Y P. No:
             </td>
             <td style="width:15%;">
-                ------------------------
+                {{ $compra->orden_compra }}
             </td>
         </tr>
     </table>
@@ -68,7 +68,7 @@
     <table class="table table-bordered table-sm">
         <thead>
         <tr style="text-align: center;" class="py-0">
-            <th style="border-color: black;">CANTIDAD.</th>
+            <th style="border-color: black;">CANTIDAD</th>
             <th style="border-color: black;">DESCRIPCIÓN DEL ARTICULO</th>
             <th style="border-color: black;">CODIGO DEL GASTO RENGLO</th>
             <th style="border-color: black;">FOLIO LIBRO ALMACEN</th>
@@ -116,7 +116,7 @@
                         {{ $det->folio_inventario }}
                     </td>
                     <td style="border-color: black; width: 10%;  text-align: center;" class="py-0">
-                        ---------
+
                     </td>
                 </tr>
             @endforeach
