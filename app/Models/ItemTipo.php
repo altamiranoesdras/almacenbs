@@ -24,11 +24,12 @@ class ItemTipo extends Model
 
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
-
+    const ACTIVO_FIJO = 1;
+    const FUNGIBLE = 2;
+    const MATERIALES_SUMINISTROS = 3;
+    const SERVICIOS = 4;
 
     protected $dates = ['deleted_at'];
-
-
 
     public $fillable = [
         'nombre'

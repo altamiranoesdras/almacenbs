@@ -1,9 +1,17 @@
- {{--<a href="{{ route('compras.show', $compra->id) }}" class='btn btn-info btn-xs' data-toggle="tooltip" title="Detalles">--}}
-    <span data-toggle="tooltip" title="Ver detalles">
-        <a href="#modal-detalles-{{$compra->id}}" data-keyboard="true" data-toggle="modal" class='btn btn-info btn-xs' >
-            <i class="fa fa-eye"></i>
-        </a>
-    </span>
+
+    <a href="{{ route('compras.show', $compra->id) }}" class='btn btn-info btn-xs' data-toggle="tooltip" title="Ver Detalles">
+        <i class="fa fa-eye"></i>
+    </a>
+
+    <a href="{{ route('compras.edit', $compra->id) }}" class='btn btn-primary btn-xs' data-toggle="tooltip" title="Ver Detalles">
+        <i class="fa fa-edit"></i>
+    </a>
+
+{{--    <span data-toggle="tooltip" title="Ver detalles">--}}
+{{--        <a href="#modal-detalles-{{$compra->id}}" data-keyboard="true" data-toggle="modal" class='btn btn-info btn-xs' >--}}
+{{--            <i class="fa fa-eye"></i>--}}
+{{--        </a>--}}
+{{--    </span>--}}
 
      <a href="{{route('compra.pdf',$compra->id)}}" target="_blank" class='btn btn-outline-success btn-xs' data-toggle="tooltip" title="Imprimir Orden de Compra">
          <i class="fas fa-print"></i>

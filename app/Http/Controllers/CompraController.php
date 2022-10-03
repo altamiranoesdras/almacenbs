@@ -8,9 +8,12 @@ use App\Http\Requests;
 use App\Http\Requests\CreateCompraRequest;
 use App\Http\Requests\UpdateCompraRequest;
 use App\Models\Compra;
+use App\Models\Compra1h;
+use App\Models\Compra1hDetalle;
 use App\Models\CompraDetalle;
 use App\Models\CompraEstado;
 use App\Models\Item;
+use App\Models\ItemTipo;
 use App\Models\Proveedor;
 use Carbon\Carbon;
 use App\Http\Controllers\AppBaseController;
@@ -149,7 +152,7 @@ class CompraController extends AppBaseController
             return redirect(route('compras.index'));
         }
 
-        return view('compras.edit')->with('compra', $compra);
+        return view('compras.editV2')->with('compra', $compra);
     }
 
     /**
@@ -193,7 +196,7 @@ class CompraController extends AppBaseController
 
         flash('Listo! compra procesada.')->success();
 
-        return redirect(route('compras.index'));
+        return redirect(route('compras.edit', $compra->id));
     }
 
     public function procesar(Compra $compra,UpdateCompraRequest $request){
@@ -411,6 +414,92 @@ class CompraController extends AppBaseController
 
         return $pdf->inline('CompraH1-'.$compra->id. '_'. time().'.pdf');
 
+    }
+
+    public function generar1h($id)
+    {
+
+        /**
+         * @var Compra $compra
+         */
+        $compra = Compra::find($id);
+
+        try {
+            DB::beginTransaction();
+
+            /**
+             * @var Compra1h $compra1h
+             */
+            $compra1h = Compra1h::create([
+                'compra_id' => $compra->id,
+                'envio_fiscal_id' => 1,
+                'codigo' => $this->getCodigo1h(),
+                'correlativo' => $this->getCorrelativo1h(),
+                'del' => 0,
+                'al' => 0,
+                'fecha_procesa' => Carbon::now(),
+                'usuario_procesa' => auth()->user()->id,
+                'observaciones' => null
+            ]);
+
+            if ($compra->detalles->count() > 0) {
+
+                /**
+                 * @var Compra1hDetalle $detalle
+                 */
+                foreach ($compra->detalles as $detalle) {
+
+                    if ($detalle->item->tipo_id = ItemTipo::ACTIVO_FIJO) {
+
+                    }
+
+                    if ($detalle->item->tipo_id = ItemTipo::FUNGIBLE) {
+
+                    }
+
+                    if ($detalle->item->tipo_id = ItemTipo::MATERIALES_SUMINISTROS) {
+
+                    }
+
+                    if ($detalle->item->tipo_id = ItemTipo::SERVICIOS) {
+
+                    }
+
+                }
+
+            }
+
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            if (auth()->user()->can('puede depurar')) {
+                throw $exception;
+            }
+            flash()->warning($exception->getMessage());
+            return back()->withInput();
+        }
+        DB::commit();
+
+
+
+        return redirect()->back();
+
+    }
+
+    public function getCodigo1h($cantidadCeros = 1)
+    {
+        return prefijoCeros($this->getCorrelativo1h(),$cantidadCeros)."-".Carbon::now()->year;
+    }
+
+    public function getCorrelativo1h()
+    {
+
+        $correlativo = Compra1h::withTrashed()->whereRaw('year(created_at) ='.Carbon::now()->year)->max('correlativo');
+
+
+        if ($correlativo)
+            return $correlativo+1;
+
+        return 1;
     }
 
 }

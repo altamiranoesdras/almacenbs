@@ -1,26 +1,34 @@
 @extends('layouts.app')
 
 @section('title_page')
-	Compra
+    Editar Compra
 @endsection
 
 @section('content')
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-12">
-                    <h1 class="m-0 text-dark">Compra</h1>
+            <div class="row">
+                <div class="col">
+                    <h1 class="m-0 text-dark">
+                        Editar Compra
+                    </h1>
+                </div><!-- /.col -->
+                <div class="col">
+                    <a class="btn btn-outline-info float-right"
+                       href="{{route('compras.index')}}">
+                        <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span class="d-none d-sm-inline">Listado</span>
+                    </a>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
 
-
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
+
             <div class="row">
                 <div class="col-lg-12">
 
@@ -58,7 +66,15 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
-                                    Mauris tincidunt mi at erat gravida, eget tristique urna bibendum. Mauris pharetra
+
+                                    @if(!$compra->tiene1h())
+                                        <div class="col-12 text-center esperarClick">
+                                            <a href="{!! route('compra.generar.1h', $compra->id) !!}" type="button" class="btn btn-outline-primary">
+                                                <i class="fa fa-gears"></i> Generar 1H
+                                            </a>
+                                        </div>
+                                    @endif
+
                                 </div>
                             </div>
                         </div>
@@ -73,4 +89,26 @@
         <!-- /.container-fluid -->
     </div>
     <!-- /.content -->
+
+
 @endsection
+
+
+@push('scripts')
+    <script >
+
+        $(".esperarClick").on('click', function( event ) {
+
+            Swal.fire({
+                title: 'Espera por favor...',
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                timerProgressBar: true,
+            });
+
+            Swal.showLoading();
+        });
+
+    </script>
+@endpush
+
