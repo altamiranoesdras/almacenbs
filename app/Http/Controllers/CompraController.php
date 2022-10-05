@@ -424,6 +424,8 @@ class CompraController extends AppBaseController
          */
         $compra = Compra::find($id);
 
+//        return $compra->detalles;
+
         try {
             DB::beginTransaction();
 
@@ -449,19 +451,61 @@ class CompraController extends AppBaseController
                  */
                 foreach ($compra->detalles as $detalle) {
 
-                    if ($detalle->item->tipo_id = ItemTipo::ACTIVO_FIJO) {
+//                    return $detalle->item->tipo;
+
+                    if ($detalle->item->tipo_id == ItemTipo::ACTIVO_FIJO) {
+
+                        for ($i = 0; $i < $detalle->cantidad; $i++) {
+
+                            /**
+                             * @var Compra1hDetalle $compra1hDetalle
+                             */
+                            $compra1hDetalle = Compra1hDetalle::create([
+                                '1h_id' => $compra1h->id,
+                                'item_id' => $detalle->item_id,
+                                'precio' => $detalle->precio,
+                                'cantidad' => 1,
+                                'folio_almacen' => $detalle->folio_almacen ?? 123,
+                                'folio_inventario' => $detalle->folio_inventario ?? 123,
+                            ]);
+
+                        }
 
                     }
 
-                    if ($detalle->item->tipo_id = ItemTipo::FUNGIBLE) {
+                    if ($detalle->item->tipo_id == ItemTipo::FUNGIBLE) {
 
                     }
 
-                    if ($detalle->item->tipo_id = ItemTipo::MATERIALES_SUMINISTROS) {
+                    if ($detalle->item->tipo_id == ItemTipo::MATERIALES_SUMINISTROS) {
+
+                        /**
+                         * @var Compra1hDetalle $compra1hDetalle
+                         */
+                        $compra1hDetalle = Compra1hDetalle::create([
+                            '1h_id' => $compra1h->id,
+                            'item_id' => $detalle->item_id,
+                            'precio' => $detalle->precio,
+                            'cantidad' => $detalle->cantidad,
+                            'folio_almacen' => $detalle->folio_almacen ?? 123,
+                            'folio_inventario' => $detalle->folio_inventario ?? 123,
+                        ]);
 
                     }
 
-                    if ($detalle->item->tipo_id = ItemTipo::SERVICIOS) {
+                    if ($detalle->item->tipo_id == ItemTipo::SERVICIOS) {
+
+                        /**
+                         * @var Compra1hDetalle $compra1hDetalle
+                         */
+                        $compra1hDetalle = Compra1hDetalle::create([
+                            '1h_id' => $compra1h->id,
+                            'item_id' => $detalle->item_id,
+                            'precio' => $detalle->precio,
+                            'cantidad' => $detalle->cantidad,
+                            'folio_almacen' => $detalle->folio_almacen ?? 123,
+                            'folio_inventario' => $detalle->folio_inventario ?? 123,
+                        ]);
 
                     }
 
@@ -478,8 +522,6 @@ class CompraController extends AppBaseController
             return back()->withInput();
         }
         DB::commit();
-
-
 
         return redirect()->back();
 

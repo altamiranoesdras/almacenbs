@@ -157,6 +157,11 @@ class Compra extends Model
         return $this->hasMany(\App\Models\Compra1h::class, 'compra_id');
     }
 
+    public function compra1h()
+    {
+        return $this->hasOne(\App\Models\Compra1h::class, 'compra_id');
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/

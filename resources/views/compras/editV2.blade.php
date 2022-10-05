@@ -73,6 +73,10 @@
                                                 <i class="fa fa-gears"></i> Generar 1H
                                             </a>
                                         </div>
+                                    @else
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                            @include('compras.tabla_detalles_1h',['detalles'=>$compra->detalles])
+                                        </div>
                                     @endif
 
                                 </div>
