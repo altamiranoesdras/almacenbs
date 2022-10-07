@@ -146,13 +146,18 @@ class CompraController extends AppBaseController
         /** @var Compra $compra */
         $compra = Compra::find($id);
 
+        /**
+         * @var Compra1h $compra1h
+         */
+        $compra1h = Compra1h::where('compra_id', $compra->id)->first();
+
         if (empty($compra)) {
             flash()->error('Compra no encontrado');
 
             return redirect(route('compras.index'));
         }
 
-        return view('compras.editV2')->with('compra', $compra);
+        return view('compras.editV2', compact('compra', 'compra1h'));
     }
 
     /**

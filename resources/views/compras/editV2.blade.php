@@ -75,9 +75,30 @@
                                         </div>
                                     @else
                                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                            @include('compras.tabla_detalles_1h',['detalles'=>$compra->detalles])
+                                            @include('compras.tabla_detalles_1h')
                                         </div>
                                     @endif
+
+                                    {!! Form::model($compra1h, ['route' => ['compra1hs.update', $compra1h->id], 'method' => 'patch','class' => 'esperar']) !!}
+                                        <div class="form-row">
+
+                                            <div class="form-group col-md-12">
+                                                <label>Observaciones:</label>
+                                                <textarea class="form-control" name="observaciones" rows="2" cols="2">{{ $compra->compra1h->observaciones }}</textarea>
+                                            </div>
+
+                                            <!-- Submit Field -->
+                                            <div class="form-group col-sm-12">
+                                                <a href="{!! route('compras.index') !!}" class="btn btn-outline-secondary">
+                                                    Cancelar
+                                                </a>
+
+                                                <button type="submit" class="btn btn-outline-success">
+                                                    Guardar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    {!! Form::close() !!}
 
                                 </div>
                             </div>

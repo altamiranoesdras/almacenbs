@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateCompra1hRequest;
 use App\Models\Compra1h;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Http\Request;
 use Response;
 
 class Compra1hController extends AppBaseController
@@ -112,7 +113,7 @@ class Compra1hController extends AppBaseController
      *
      * @return Response
      */
-    public function update($id, UpdateCompra1hRequest $request)
+    public function update($id, Request $request)
     {
         /** @var Compra1h $compra1h */
         $compra1h = Compra1h::find($id);
@@ -128,7 +129,8 @@ class Compra1hController extends AppBaseController
 
         Flash::success('Compra1H actualizado con éxito.');
 
-        return redirect(route('compra1hs.index'));
+        return redirect()->back();
+//        return redirect(route('compra1hs.index'));
     }
 
     /**
