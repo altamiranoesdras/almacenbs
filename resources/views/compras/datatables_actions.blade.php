@@ -13,9 +13,9 @@
 {{--        </a>--}}
 {{--    </span>--}}
 
-     <a href="{{route('compra.pdf',$compra->id)}}" target="_blank" class='btn btn-outline-success btn-xs' data-toggle="tooltip" title="Imprimir Orden de Compra">
-         <i class="fas fa-print"></i>
-     </a>
+{{--     <a href="{{route('compra.pdf',$compra->id)}}" target="_blank" class='btn btn-outline-success btn-xs' data-toggle="tooltip" title="Imprimir Orden de Compra">--}}
+{{--         <i class="fas fa-print"></i>--}}
+{{--     </a>--}}
 
     @if($compra->tiene1h())
      <a href="{{route('compra.h1.pdf',$compra->id)}}" target="_blank" class='btn btn-outline-primary btn-xs' data-toggle="tooltip" title="Imprimir 1H">
