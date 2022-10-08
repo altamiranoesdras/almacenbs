@@ -22,9 +22,9 @@ class EnvioFiscalFactory extends Factory
     public function definition()
     {
         return [
-            'nuemero_constancia' => $this->faker->randomDigitNotNull,
+        'nuemero_constancia' => $this->faker->randomDigitNotNull,
         'serie_constancia' => $this->faker->word,
-        'fecha' => $this->faker->word,
+        'fecha' => $this->faker->date('Y-m-d'),
         'numero_cuenta' => $this->faker->word,
         'forma' => $this->faker->word,
         'correlativo_del' => $this->faker->randomDigitNotNull,
@@ -37,9 +37,9 @@ class EnvioFiscalFactory extends Factory
         'folio' => $this->faker->randomDigitNotNull,
         'resolucion' => $this->faker->word,
         'numero_gestion' => $this->faker->word,
-        'fecha_gestion' => $this->faker->word,
+        'fecha_gestion' => $this->faker->date('Y-m-d'),
         'correlativo' => $this->faker->word,
-        'activo' => $this->faker->word,
+        'activo' => 'si',
         'created_at' => $this->faker->date('Y-m-d H:i:s'),
         'updated_at' => $this->faker->date('Y-m-d H:i:s'),
 

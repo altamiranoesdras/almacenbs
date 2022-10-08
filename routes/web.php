@@ -129,6 +129,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::post('compras/anular/{compra}', [CompraController::class,'anular'])->name('compras.anular');
     Route::get('compras/factura/pdf/{compra}', [CompraController::class,'pdf'])->name('compra.pdf');
     Route::get('compras/h1/pdf/{compra}', [CompraController::class,'pdfH1'])->name('compra.h1.pdf');
+    Route::get('comprar/generar/1h/{compra}',[CompraController::class,'generar1h'])->name('compra.generar.1h');
     Route::resource('compras', CompraController::class);
 
 
