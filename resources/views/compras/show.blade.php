@@ -58,7 +58,26 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
-                                    Mauris tincidunt mi at erat gravida, eget tristique urna bibendum. Mauris pharetra
+                                    @if($compra->tiene1h())
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                            @include('compras.tabla_detalles_1h')
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                            <label for="">Observaciones:</label>
+                                            {{$compra->compra1h->observaciones}}
+
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                            <a href="{{route('compra.h1.pdf',$compra->id)}}" class="btn btn-primary">
+                                                <i class="fa fa-print"></i>
+                                                Imprimir
+                                            </a>
+                                        </div>
+                                    @else
+                                        <div class="alert alert-warning" role="alert">
+                                            <strong>No generado</strong>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
