@@ -9,7 +9,7 @@
     </tr>
     </thead>
     <tbody>
-    @foreach($compra->compra1h->compra1hDetalles as $det)
+    @foreach($compra->compra1h->detalles as $det)
         <tr >
             <td>{{$det->item->nombre}}</td>
             <td class="text-right">{{dvs().nf($det->precio)}}</td>
