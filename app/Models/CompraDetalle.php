@@ -69,7 +69,7 @@ class CompraDetalle extends Model
     public static $rules = [
         'compra_id' => 'required',
         'item_id' => 'required',
-        'cantidad' => 'required|numeric',
+        'cantidad' => 'required|numeric|min:1',
         'precio' => 'required|numeric',
         'descuento' => 'nullable|numeric',
         'fecha_vence' => 'nullable',
