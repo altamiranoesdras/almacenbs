@@ -1,28 +1,36 @@
 <table class="table table-bordered table-hover table-xtra-condensed">
     <thead>
     <tr  class="text-center">
-        <th>Producto</th>
-        <th>Precio</th>
         <th>Cantidad</th>
-        <th>Fecha V</th>
-        <th>Subtotal</th>
+        <th>Descripción Articulo</th>
+        <th>U/M</th>
+        <th>Renglón</th>
+        <th>F/ALM</th>
+        <th>P/U</th>
+        <th>S-Total</th>
+        <th>F/INV</th>
+        <th>INV</th>
     </tr>
     </thead>
     <tbody>
     @foreach($compra->compra1h->compra1hDetalles as $det)
         <tr >
+            <td>{{nf($det->cantidad)}}</td>
             <td>{{$det->item->nombre}}</td>
+            <td>{{$det->item->unimed->nombre}}</td>
+            <td>{{$det->item->renglon->numero}}</td>
+            <td>{{$det->folio_almacen}}</td>
             <td class="text-right">{{dvs().nf($det->precio)}}</td>
-            <td class="text-right">{{nf($det->cantidad)}}</td>
-            <td class="text-right">{{fecha($det->fecha_ven)}}</td>
             <td class="text-right">{{dvs().nf($det->cantidad*$det->precio)}}</td>
+            <td>{{$det->folio_inventario}}</td>
+            <td></td>
         </tr>
     @endforeach
 
     </tbody>
     <tfoot>
     <tr>
-        <th colspan="4">Sub Total</th>
+        <th colspan="8">Sub Total</th>
         <th class="text-right">
             {{dvs().nf($compra->sub_total)}}
         </th>
@@ -36,7 +44,7 @@
 {{--    </tr>--}}
 
     <tr>
-        <th colspan="4">Total</th>
+        <th colspan="8">Total</th>
         <th class="text-right">
             {{dvs().nf($compra->total)}}
         </th>
