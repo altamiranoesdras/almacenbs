@@ -118,7 +118,7 @@ class Compra1h extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function compra1hDetalles()
+    public function detalles()
     {
         return $this->hasMany(\App\Models\Compra1hDetalle::class, '1h_id');
     }
