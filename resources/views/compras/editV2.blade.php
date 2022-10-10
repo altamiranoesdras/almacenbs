@@ -116,6 +116,7 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                             @include('compras.tabla_detalles_1h')
                                         </div>
+                                    @endif
 
                                     {!! Form::model($compra1h, ['route' => ['compra1hs.update', $compra1h->id], 'method' => 'patch','class' => 'esperar']) !!}
                                     <div class="form-row">
