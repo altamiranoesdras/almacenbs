@@ -19,7 +19,7 @@ class CreateCompra1hDetallesTable extends Migration
             $table->unsignedBigInteger('item_id')->index('fk_compra_1h_detalles_items1_idx');
             $table->decimal('precio', 15, 5);
             $table->decimal('cantidad', 15, 5);
-            $table->integer('folio_almacen');
+            $table->integer('folio_almacen')->nullable();
             $table->integer('folio_inventario')->nullable();
             $table->string('codigo_inventario', 50)->nullable();
             $table->timestamps();

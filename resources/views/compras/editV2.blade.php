@@ -116,40 +116,42 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                             @include('compras.tabla_detalles_1h')
                                         </div>
-                                    @endif
 
-                                    {!! Form::model($compra1h, ['route' => ['compra1hs.update', $compra1h->id], 'method' => 'patch','class' => 'esperar']) !!}
-                                    <div class="form-row">
+                                        {!! Form::model($compra1h, ['route' => ['compra1hs.update', $compra1h->id], 'method' => 'patch','class' => 'esperar']) !!}
+                                        <div class="form-row">
 
-                                        <div class="form-group col-md-12">
-                                            <label>Observaciones:</label>
-                                            <textarea class="form-control" name="observaciones" rows="2"
-                                                      cols="2">{{ $compra->compra1h->observaciones }}</textarea>
-                                        </div>
+                                            <div class="form-group col-md-12">
+                                                <label>Observaciones:</label>
+                                                <textarea class="form-control" name="observaciones" rows="2"
+                                                          cols="2">{{ $compra->compra1h->observaciones }}</textarea>
+                                            </div>
 
-                                        <!-- Submit Field -->
-                                        <div class="form-group col-sm-12 text-right">
-                                            <a href="{!! route('compras.index') !!}" class="btn btn-outline-secondary">
-                                                Cancelar
-                                            </a>
-
-                                            @if($compra->tiene1h())
-
-                                                <button type="submit" class="btn btn-outline-success">
-                                                    Actualizar
-                                                </button>
+                                            <!-- Submit Field -->
+                                            <div class="form-group col-sm-12 text-right">
+                                                <a href="{!! route('compras.index') !!}" class="btn btn-outline-secondary">
+                                                    Cancelar
+                                                </a>
 
                                                 @if($compra->tiene1h())
-                                                    <a href="{{route('compra.h1.pdf',$compra->id)}}" target="_blank"
-                                                       class='btn btn-outline-primary' data-toggle="tooltip"
-                                                       title="Imprimir 1H">
-                                                        Imprimir 1H
-                                                    </a>
+
+                                                    <button type="submit" class="btn btn-outline-success">
+                                                        Actualizar
+                                                    </button>
+
+                                                    @if($compra->tiene1h())
+                                                        <a href="{{route('compra.h1.pdf',$compra->id)}}" target="_blank"
+                                                           class='btn btn-outline-primary' data-toggle="tooltip"
+                                                           title="Imprimir 1H">
+                                                            Imprimir 1H
+                                                        </a>
+                                                    @endif
                                                 @endif
-                                            @endif
+                                            </div>
                                         </div>
-                                    </div>
-                                    {!! Form::close() !!}
+                                        {!! Form::close() !!}
+                                    @endif
+
+
 
                                 </div>
                             </div>

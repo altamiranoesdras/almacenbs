@@ -470,19 +470,13 @@ class CompraController extends AppBaseController
                                 'item_id' => $detalle->item_id,
                                 'precio' => $detalle->precio,
                                 'cantidad' => 1,
-                                'folio_almacen' => $detalle->folio_almacen ?? 123,
-                                'folio_inventario' => $detalle->folio_inventario ?? 123,
+                                'folio_almacen' => $detalle->folio_almacen,
+                                'folio_inventario' => $detalle->folio_inventario,
                             ]);
 
                         }
 
-                    }
-
-                    if ($detalle->item->tipo_id == ItemTipo::FUNGIBLE) {
-
-                    }
-
-                    if ($detalle->item->tipo_id == ItemTipo::MATERIALES_SUMINISTROS) {
+                    }else{
 
                         /**
                          * @var Compra1hDetalle $compra1hDetalle
@@ -492,24 +486,8 @@ class CompraController extends AppBaseController
                             'item_id' => $detalle->item_id,
                             'precio' => $detalle->precio,
                             'cantidad' => $detalle->cantidad,
-                            'folio_almacen' => $detalle->folio_almacen ?? 123,
-                            'folio_inventario' => $detalle->folio_inventario ?? 123,
-                        ]);
-
-                    }
-
-                    if ($detalle->item->tipo_id == ItemTipo::SERVICIOS) {
-
-                        /**
-                         * @var Compra1hDetalle $compra1hDetalle
-                         */
-                        $compra1hDetalle = Compra1hDetalle::create([
-                            '1h_id' => $compra1h->id,
-                            'item_id' => $detalle->item_id,
-                            'precio' => $detalle->precio,
-                            'cantidad' => $detalle->cantidad,
-                            'folio_almacen' => $detalle->folio_almacen ?? 123,
-                            'folio_inventario' => $detalle->folio_inventario ?? 123,
+                            'folio_almacen' => $detalle->folio_almacen ,
+                            'folio_inventario' => $detalle->folio_inventario,
                         ]);
 
                     }
