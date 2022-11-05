@@ -38,7 +38,7 @@ class ActivosImportCommand extends Command
 
             $import = new ActivosImport();
 
-            $import->withOutput($this->output)->import(public_path('imports/activos/plantilla_importar_activos.xlsx'));
+            $import->withOutput($this->output)->import(public_path('imports/activos/plantilla_import_activos.xlsx'));
 
         }
         catch (ValidationException $e) {
