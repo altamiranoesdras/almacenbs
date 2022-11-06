@@ -58,7 +58,26 @@ class Activo extends Model implements HasMedia
         'fecha_registra',
         'tipo_id',
         'detalle_1h_id',
-        'estado_id'
+        'estado_id',
+        'entidad',
+        'unidad_ejecutadora',
+        'renglon_id',
+        'tipo_inventario',
+        'numero_bien',
+        'valor_actual',
+        'valor_adquisicion',
+        'valor_contabilizado',
+        'codigo_donacion',
+        'usuario_asignado_id',
+        'numero_documento',
+        'fecha_registro',
+        'fecha_aprobado',
+        'fecha_contabilizacion',
+        'cur',
+        'contabilizado',
+        'diferencia_act_adq',
+        'diferencia_act_cont',
+        'diferencia_adq_cont',
     ];
 
     /**
