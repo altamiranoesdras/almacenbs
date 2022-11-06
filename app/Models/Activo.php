@@ -68,7 +68,7 @@ class Activo extends Model implements HasMedia
         'valor_adquisicion',
         'valor_contabilizado',
         'codigo_donacion',
-        'usuario_asignado_id',
+        'nit',
         'numero_documento',
         'fecha_registro',
         'fecha_aprobado',

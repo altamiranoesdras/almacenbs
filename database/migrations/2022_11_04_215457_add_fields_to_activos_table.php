@@ -23,7 +23,7 @@ class AddFieldsToActivosTable extends Migration
             $table->integer('valor_adquisicion')->after('valor_actual')->nullable();
             $table->integer('valor_contabilizado')->after('valor_adquisicion')->nullable();
             $table->integer('codigo_donacion')->after('valor_contabilizado')->nullable();
-            $table->unsignedBigInteger('usuario_asignado_id')->after('renglon_id')->nullable()->index('fk_activos_usuarios1_idx');
+            $table->string('nit')->after('codigo_donacion')->nullable();
             $table->integer('numero_documento')->after('codigo_donacion')->nullable();
             $table->date('fecha_registro')->after('numero_documento')->nullable();
             $table->date('fecha_aprobado')->after('fecha_registro')->nullable();
@@ -44,7 +44,7 @@ class AddFieldsToActivosTable extends Migration
     public function down()
     {
         Schema::table('activos', function (Blueprint $table) {
-            $table->dropColumn('renglon_id');
+
         });
     }
 }
