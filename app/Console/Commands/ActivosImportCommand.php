@@ -6,6 +6,7 @@ use App\Imports\ActivosImport;
 use App\Models\Activo;
 use App\Models\ActivoEstado;
 use App\Models\Renglon;
+use App\Traits\ComandosTrait;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +14,8 @@ use Maatwebsite\Excel\Validators\ValidationException;
 
 class ActivosImportCommand extends Command
 {
+
+    use ComandosTrait;
 
     /**
      * The name and signature of the console command.
@@ -35,6 +38,8 @@ class ActivosImportCommand extends Command
      */
     public function handle()
     {
+
+        $this->inicio();
 
         $this->output->title('Iniciando Importación');
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
@@ -70,6 +75,7 @@ class ActivosImportCommand extends Command
         }
 
 
+        $this->fin();
         $this->output->success('Importación Exitosa!');
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
