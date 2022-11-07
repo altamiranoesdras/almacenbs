@@ -19,12 +19,12 @@ class AddFieldsToActivosTable extends Migration
             $table->unsignedBigInteger('renglon_id')->after('estado_id')->nullable()->index('fk_activos_renglones1_idx');
             $table->integer('tipo_inventario')->after('unidad_ejecutadora')->nullable();
             $table->string('numero_bien')->after('tipo_inventario')->nullable();
-            $table->integer('valor_actual')->after('numero_bien')->nullable();
-            $table->integer('valor_adquisicion')->after('valor_actual')->nullable();
-            $table->integer('valor_contabilizado')->after('valor_adquisicion')->nullable();
+            $table->decimal('valor_actual')->after('numero_bien')->nullable();
+            $table->decimal('valor_adquisicion')->after('valor_actual')->nullable();
+            $table->decimal('valor_contabilizado')->after('valor_adquisicion')->nullable();
             $table->integer('codigo_donacion')->after('valor_contabilizado')->nullable();
             $table->string('nit')->after('codigo_donacion')->nullable();
-            $table->integer('numero_documento')->after('codigo_donacion')->nullable();
+            $table->string('numero_documento')->after('codigo_donacion')->nullable();
             $table->date('fecha_registro')->after('numero_documento')->nullable();
             $table->date('fecha_aprobado')->after('fecha_registro')->nullable();
             $table->date('fecha_contabilizacion')->after('fecha_aprobado')->nullable();

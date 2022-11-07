@@ -3,12 +3,17 @@
 namespace App\Console\Commands;
 
 use App\Imports\ActivosImport;
+use App\Models\Activo;
+use App\Models\ActivoEstado;
+use App\Models\Renglon;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Validators\ValidationException;
 
 class ActivosImportCommand extends Command
 {
+
     /**
      * The name and signature of the console command.
      *
@@ -32,9 +37,13 @@ class ActivosImportCommand extends Command
     {
 
         $this->output->title('Iniciando Importación');
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
+        Activo::truncate();
+        ActivoEstado::truncate();
+        Renglon::truncate();
 
         try {
-            DB::beginTransaction();
 
             $import = new ActivosImport();
 
@@ -55,14 +64,16 @@ class ActivosImportCommand extends Command
         catch (Exception $e){
 
             \Log::debug($e);
-            DB::rollBack();
 
             throw $e;
 
         }
-        DB::commit();
+
 
         $this->output->success('Importación Exitosa!');
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+
 
     }
 

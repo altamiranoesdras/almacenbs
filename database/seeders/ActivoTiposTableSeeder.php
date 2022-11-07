@@ -16,8 +16,11 @@ class ActivoTiposTableSeeder extends Seeder
     public function run()
     {
 
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
         DB::table('activo_tipos')->truncate();
+
+
 
         DB::table('activo_tipos')->insert(array (
             0 =>
@@ -38,6 +41,7 @@ class ActivoTiposTableSeeder extends Seeder
             ),
         ));
 
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
     }
 }

@@ -10,9 +10,12 @@ use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\WithBatchInserts;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithProgressBar;
 
-class ActivosImport implements ToCollection, WithHeadingRow
+class ActivosImport implements ToCollection,WithProgressBar, WithHeadingRow, WithBatchInserts,WithChunkReading
 {
 
     use Importable;
@@ -94,6 +97,7 @@ class ActivosImport implements ToCollection, WithHeadingRow
 
                 } catch (\Exception $exception) {
 
+                    dump($exception->getMessage());
                     $this->noInsertados->push([$row['descripcion'] => $exception->getMessage()]);
 
                 }
@@ -118,4 +122,13 @@ class ActivosImport implements ToCollection, WithHeadingRow
 
     }
 
+    public function batchSize(): int
+    {
+        return 1000;
+    }
+
+    public function chunkSize(): int
+    {
+        return 1000;
+    }
 }
