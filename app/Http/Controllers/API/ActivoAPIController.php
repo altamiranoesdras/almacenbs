@@ -25,7 +25,7 @@ class ActivoAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $query = Activo::query();
+        $query = Activo::query()->limit(100);
 
         if ($request->get('skip')) {
             $query->skip($request->get('skip'));

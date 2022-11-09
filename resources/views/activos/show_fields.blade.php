@@ -20,21 +20,17 @@
 
 <!-- Fecha Registra Field -->
 {!! Form::label('fecha_registra', 'Fecha Registra:') !!}
-{!! $activo->fecha_registra !!}<br>
+{!! fechaLtn($activo->fecha_registra) !!}<br>
 
 
 <!-- Tipo Id Field -->
-{!! Form::label('tipo_id', 'Tipo Id:') !!}
-{!! $activo->tipo_id !!}<br>
+{!! Form::label('tipo_id', 'Tipo:') !!}
+{!! $activo->tipo->nombre ?? '' !!}<br>
 
-
-<!-- Detalle 1H Id Field -->
-{!! Form::label('detalle_1h_id', 'Detalle 1H Id:') !!}
-{!! $activo->detalle_1h_id !!}<br>
 
 
 <!-- Estado Id Field -->
-{!! Form::label('estado_id', 'Estado Id:') !!}
-{!! $activo->estado_id !!}<br>
+{!! Form::label('estado_id', 'Estado:') !!}
+{!! $activo->estado->nombre ?? '' !!}<br>
 
 
