@@ -2,6 +2,9 @@
 
 namespace App\Imports;
 
+use App\Models\Activo;
+use App\Models\ActivoTarjeta;
+use App\Models\ActivoTarjetaDetalle;
 use App\Models\Colaborador;
 use App\Models\Contrato;
 use App\Models\Option;
@@ -60,6 +63,8 @@ class ImportColaboradores implements ToModel , WithHeadingRow
                     'user_id' => null
                 ]);
 
+//                $this->crearTarjeta($colaborador);
+
                 $contrato = Contrato::firstOrCreate([
                     'colaborador_id' => $colaborador->id,
                     'unidad_id' => $unidad->id,
@@ -75,5 +80,49 @@ class ImportColaboradores implements ToModel , WithHeadingRow
             }
 
         }
+    }
+
+    public function crearTarjeta(Colaborador $colaborador)
+    {
+        $detalles = Activo::where('nit',$colaborador->nit)->get()->map(function (Activo $activo) use ($colaborador){
+             return new ActivoTarjetaDetalle([
+                 'activo_id' => $activo->id,
+                 'tipo' => $activo->tipo->id,
+                 'cantidad' => 1,
+                 'valor' => $activo->valor,
+                 'fecha_asigna' => $activo->fecha_registro,
+                 'unidad_id' => $colaborador->unidad->id
+             ]);
+        });
+
+        /**
+         * @var ActivoTarjeta $tarjeta
+         */
+        $tarjeta = ActivoTarjeta::create([
+            'colaborador_id' => $colaborador->id,
+            'codigo_referencia' => "",
+            'codigo' => $this->getCodigo(),
+            'correlativo' => $this->getCorrelativo(),
+        ]);
+
+        $tarjeta->detalles()->saveMany($detalles);
+    }
+
+
+    public function getCodigo($cantidadCeros = 1)
+    {
+        return prefijoCeros($this->getCorrelativo(),$cantidadCeros)."-".Carbon::now()->year;
+    }
+
+    public function getCorrelativo()
+    {
+
+        $correlativo = ActivoTarjeta::withTrashed()->whereRaw('year(created_at) ='.Carbon::now()->year)->max('correlativo');
+
+
+        if ($correlativo)
+            return $correlativo+1;
+
+        return 1;
     }
 }
