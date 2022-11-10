@@ -19,8 +19,8 @@
 
 
 <!-- Fecha Registra Field -->
-{!! Form::label('fecha_registra', 'Fecha Registra:') !!}
-{!! fechaLtn($activo->fecha_registra) !!}<br>
+{!! Form::label('fecha_registro', 'Fecha Registra:') !!}
+{!! fechaLtn($activo->fecha_registro) !!}<br>
 
 
 <!-- Tipo Id Field -->

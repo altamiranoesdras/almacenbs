@@ -43,7 +43,6 @@ class ActivosImportCommand extends Command
         DB::connection()->disableQueryLog();
         $this->inicio();
 
-        $this->output->title('Iniciando Importación');
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
         Activo::truncate();
@@ -62,6 +61,8 @@ class ActivosImportCommand extends Command
         Artisan::call('db:seed', [
             '--class' => 'ActivoTiposTableSeeder',
         ]);
+
+        $this->output->info('Tablas truncadas y seeder ejecutados');
 
         try {
 

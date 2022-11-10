@@ -37,8 +37,8 @@ class ActivoDataTable extends DataTable
             ->editColumn('valor',function (Activo $activo){
                 return dvs().nfp($activo->valor);
             })
-            ->editColumn('fecha_registra',function (Activo $activo){
-                return fechaLtn($activo->fecha_registra);
+            ->editColumn('fecha_registro',function (Activo $activo){
+                return fechaLtn($activo->fecha_registro);
             })
             ->editColumn('imagen',function (Activo $activo){
                 return "<img src='$activo->thumb' alt=\"\" class=\"img-responsive \" width='42' height='42'>";
@@ -113,7 +113,7 @@ class ActivoDataTable extends DataTable
             Column::make('codigo_inventario'),
             Column::make('nombre'),
             Column::make('valor'),
-            Column::make('fecha_registra'),
+            Column::make('fecha_registro'),
             Column::make('tipo')->data('tipo.nombre')->name('tipo.nombre'),
             Column::make('estado')->data('estado.nombre')->name('estado.nombre'),
             Column::computed('action')

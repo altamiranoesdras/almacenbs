@@ -25,7 +25,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property string $codigo_inventario
  * @property string $folio
  * @property number $valor
- * @property string $fecha_registra
+ * @property string $fecha_registro
  * @property integer $tipo_id
  * @property integer $detalle_1h_id
  * @property integer $estado_id
@@ -55,7 +55,7 @@ class Activo extends Model implements HasMedia
         'codigo_inventario',
         'folio',
         'valor',
-        'fecha_registra',
+        'fecha_registro',
         'tipo_id',
         'detalle_1h_id',
         'estado_id',
@@ -92,7 +92,7 @@ class Activo extends Model implements HasMedia
         'codigo_inventario' => 'string',
         'folio' => 'string',
         'valor' => 'decimal:2',
-//        'fecha_registra' => 'date:Y-m-d',
+//        'fecha_registro' => 'date:Y-m-d',
         'tipo_id' => 'integer',
         'detalle_1h_id' => 'integer',
         'estado_id' => 'integer'
@@ -109,7 +109,7 @@ class Activo extends Model implements HasMedia
         'codigo_inventario' => 'required|string|max:100',
         'folio' => 'nullable|string|max:100',
         'valor' => 'nullable|numeric',
-        'fecha_registra' => 'required',
+        'fecha_registro' => 'required',
         'tipo_id' => 'required',
         'detalle_1h_id' => 'nullable',
         'estado_id' => 'required',

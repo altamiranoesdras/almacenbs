@@ -31,8 +31,8 @@
 
     <!-- Fecha Registra Field -->
     <div class="form-group col-sm-6">
-        {!! Form::label('fecha_registra', 'Fecha Registra:') !!}
-        {!! Form::date('fecha_registra', null, ['class' => 'form-control','id'=>'fecha_registra']) !!}
+        {!! Form::label('fecha_registro', 'Fecha Registra:') !!}
+        {!! Form::date('fecha_registro', null, ['class' => 'form-control','id'=>'fecha_registro']) !!}
     </div>
 
 

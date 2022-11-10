@@ -36,7 +36,7 @@ class ActivosImport implements ToModel, WithHeadingRow,WithBatchInserts,WithChun
      */
     public function __construct()
     {
-        $this->limite = 20000;
+        $this->limite = 10000;
         $this->noInsertados = collect();
         $this->activoTipos = ActivoTipo::all();
         $this->estados = ActivoEstado::all();
@@ -50,8 +50,7 @@ class ActivosImport implements ToModel, WithHeadingRow,WithBatchInserts,WithChun
     {
 
 
-
-        if ($row['codigo'] || $row['descripcion'] || $row['fecha_registra']) {
+        if ($row['codigo'] || $row['descripcion'] || $row['fecha_registro']) {
 
             /**
              * @var Renglon $renglon
@@ -95,7 +94,7 @@ class ActivosImport implements ToModel, WithHeadingRow,WithBatchInserts,WithChun
                     'codigo_inventario' => $row['no_bien'] ?? null,
                     'folio' => $row['folio'] ?? null,
                     'valor' => $row['valor_actual'] ?? null,
-                    'fecha_registra' => Carbon::createFromFormat('m/d/Y h:i:s a', $row['fecha_registro'])->format('Y-m-d'),
+                    'fecha_registro' => Carbon::createFromFormat('m/d/Y h:i:s a', $row['fecha_registro'])->format('Y-m-d'),
                     'tipo_id' => ActivoTipo::ACTIVO_FIJO,
                 ]);
 

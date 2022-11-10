@@ -32,7 +32,7 @@ class ActivoFactory extends Factory
             'codigo_inventario' => $this->faker->randomNumber(6),
             'folio' => $this->faker->randomNumber(4),
             'valor' => $this->faker->randomFloat(2,1000,10000),
-            'fecha_registra' => $this->faker->date,
+            'fecha_registro' => $this->faker->date,
             'tipo_id' => ActivoTipo::all()->random()->id,
             'estado_id' => ActivoEstado::all()->random()->id,
             'detalle_1h_id' => null,
