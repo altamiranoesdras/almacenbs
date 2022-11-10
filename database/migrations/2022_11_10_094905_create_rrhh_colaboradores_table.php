@@ -22,7 +22,7 @@ class CreateRrhhColaboradoresTable extends Migration
             $table->string('telefono', 45)->nullable();
             $table->text('direccion')->nullable();
             $table->char('nit', 10)->nullable();
-            $table->unsignedBigInteger('puesto_id')->index('fk_rrhh_colaboradores_rrhh_puestos1_idx');
+            $table->unsignedBigInteger('puesto_id')->nullable()->index('fk_rrhh_colaboradores_rrhh_puestos1_idx');
             $table->unsignedBigInteger('unidad_id')->index('fk_rrhh_colaboradores_rrhh_unidades1_idx');
             $table->unsignedBigInteger('user_id')->nullable()->index('fk_rrhh_colaboradores_users1_idx');
             $table->timestamps();

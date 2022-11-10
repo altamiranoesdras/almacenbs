@@ -17,7 +17,7 @@ class CreateRrhhContratosTable extends Migration
             $table->id();
             $table->unsignedBigInteger('colaborador_id')->index('fk_rrhh_contratos_rrhh_colaboradores1_idx');
             $table->unsignedBigInteger('unidad_id')->index('fk_rrhh_contratos_rrhh_unidades1_idx');
-            $table->unsignedBigInteger('puesto_id')->index('fk_rrhh_contratos_rrhh_puestos1_idx');
+            $table->unsignedBigInteger('puesto_id')->nullable()->index('fk_rrhh_contratos_rrhh_puestos1_idx');
             $table->string('numero');
             $table->date('inicio');
             $table->date('fin')->nullable();

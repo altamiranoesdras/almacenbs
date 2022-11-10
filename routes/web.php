@@ -172,6 +172,12 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     Route::resource('rrhhUnidades', RrhhUnidadController::class);
 
+    Route::resource('colaboradores', App\Http\Controllers\API\ColaboradorAPIController::class);
+
+
+    Route::resource('contratos', App\Http\Controllers\API\ContratoAPIController::class);
+
+
 
     Route::any('/solicitudes/preimpreso/{solicitud}', [SolicitudController::class,'preimpreso'])->name('solicitudes.preimpreso');
 
@@ -249,6 +255,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     Route::get('reporte/bienes/unidad', function () { return View::make('partials.en_construccion'); })->name('reporte.bienes.unidad');
 
+
 });
 
 
@@ -269,5 +276,6 @@ Route::group(['prefix' => ''], function () {
 
 
 });
+
 
 

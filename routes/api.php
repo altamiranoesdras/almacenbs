@@ -179,9 +179,15 @@ Route::group(['as'=>'api.'], function () {
 
         Route::resource('activo_solicitud_detalles', ActivoSolicitudDetalleAPIController::class);
 
+        Route::resource('colaboradores', App\Http\Controllers\API\ColaboradorAPIController::class);
+
+
+        Route::resource('contratos', App\Http\Controllers\API\ContratoAPIController::class);
+
     });
 
 
 });
+
 
 

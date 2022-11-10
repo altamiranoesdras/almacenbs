@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Imports\ImportUsusarios;
+use App\Imports\ImportColaboradores;
 use Illuminate\Database\Seeder;
 
 class ImportUserSeeder extends Seeder
@@ -14,7 +14,7 @@ class ImportUserSeeder extends Seeder
      */
     public function run()
     {
-        $importable = new ImportUsusarios();
+        $importable = new ImportColaboradores();
 
         $importable->import(storage_path('imports/puestos_y_unidades.xlsx'));
     }
