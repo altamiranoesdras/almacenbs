@@ -63,7 +63,7 @@ class Activo extends Model implements HasMedia
         'unidad_ejecutadora',
         'renglon_id',
         'tipo_inventario',
-        'numero_bien',
+        'codigo_sicoin',
         'valor_actual',
         'valor_adquisicion',
         'valor_contabilizado',

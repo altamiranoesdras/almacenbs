@@ -67,7 +67,7 @@ class ActivosImportCommand extends Command
 
             $import = new ActivosImport();
 
-            $import->withOutput($this->output)->import(public_path('imports/activos/plantilla_import_activos.xlsx'));
+            $import->withOutput($this->output)->import(public_path('imports/activos/INVENTARIO SICOIN NOVIEMBRE 2022.xlsx'));
 
         }
         catch (ValidationException $e) {
