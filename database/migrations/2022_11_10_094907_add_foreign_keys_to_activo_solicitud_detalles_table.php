@@ -15,9 +15,9 @@ class AddForeignKeysToActivoSolicitudDetallesTable extends Migration
     {
         Schema::table('activo_solicitud_detalles', function (Blueprint $table) {
             $table->foreign('activo_id', 'fk_activo_solicitud_detalles_activos1')->references('id')->on('activos')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-            $table->foreign('estado_id', 'fk_activo_solicitud_detalles_activo_estados1')->references('id')->on('activo_estados')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-            $table->foreign('solicitud_id', 'fk_activo_solicitud_detalles_activo_solicitudes1')->references('id')->on('activo_solicitudes')->onUpdate('NO ACTION')->onDelete('NO ACTION');
             $table->foreign('solicitud_tipo_id', 'fk_activo_solicitud_detalles_activo_solicitud_tipos1')->references('id')->on('activo_solicitud_tipos')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('activo_tipo_id', 'fk_activo_solicitud_detalles_activo_tipos1')->references('id')->on('activo_tipos')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('solicitud_id', 'fk_activo_solicitud_detalles_activo_solicitudes1')->references('id')->on('activo_solicitudes')->onUpdate('NO ACTION')->onDelete('NO ACTION');
         });
     }
 
@@ -30,9 +30,9 @@ class AddForeignKeysToActivoSolicitudDetallesTable extends Migration
     {
         Schema::table('activo_solicitud_detalles', function (Blueprint $table) {
             $table->dropForeign('fk_activo_solicitud_detalles_activos1');
-            $table->dropForeign('fk_activo_solicitud_detalles_activo_estados1');
-            $table->dropForeign('fk_activo_solicitud_detalles_activo_solicitudes1');
             $table->dropForeign('fk_activo_solicitud_detalles_activo_solicitud_tipos1');
+            $table->dropForeign('fk_activo_solicitud_detalles_activo_tipos1');
+            $table->dropForeign('fk_activo_solicitud_detalles_activo_solicitudes1');
         });
     }
 }

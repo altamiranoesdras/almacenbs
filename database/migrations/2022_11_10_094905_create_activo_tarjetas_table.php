@@ -15,11 +15,12 @@ class CreateActivoTarjetasTable extends Migration
     {
         Schema::create('activo_tarjetas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('responsable_id')->index('fk_activo_fijo_tarjetas_users1_idx');
+            $table->unsignedBigInteger('colaborador_id')->index('fk_activo_tarjetas_rrhh_colaboradores1_idx');
             $table->string('codigo', 45)->nullable();
             $table->string('codigo_referencia')->nullable();
             $table->integer('correlativo')->nullable();
             $table->boolean('impreso')->nullable();
+            $table->text('observaciones')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

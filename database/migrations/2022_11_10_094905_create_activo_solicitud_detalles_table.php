@@ -15,10 +15,11 @@ class CreateActivoSolicitudDetallesTable extends Migration
     {
         Schema::create('activo_solicitud_detalles', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('solicitud_id')->index('fk_activo_solicitud_detalles_activo_solicitudes1_idx');
+            $table->unsignedBigInteger('solicitud_id')->index('fk_activo_solicitud_detalles_activo_solicitudes1_idx');
             $table->unsignedBigInteger('activo_id')->index('fk_activo_solicitud_detalles_activos1_idx');
-            $table->unsignedBigInteger('estado_id')->index('fk_activo_solicitud_detalles_activo_estados1_idx');
+            $table->unsignedBigInteger('activo_tipo_id')->index('fk_activo_solicitud_detalles_activo_tipos1_idx');
             $table->unsignedBigInteger('solicitud_tipo_id')->index('fk_activo_solicitud_detalles_activo_solicitud_tipos1_idx');
+            $table->enum('estado_del_bien', ['B', 'R', 'M'])->nullable();
             $table->text('observaciones')->nullable();
             $table->timestamps();
             $table->softDeletes();
