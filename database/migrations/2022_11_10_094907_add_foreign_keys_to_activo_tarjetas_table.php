@@ -15,6 +15,7 @@ class AddForeignKeysToActivoTarjetasTable extends Migration
     {
         Schema::table('activo_tarjetas', function (Blueprint $table) {
             $table->foreign('colaborador_id', 'fk_activo_tarjetas_rrhh_colaboradores1')->references('id')->on('rrhh_colaboradores')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('estado_id', 'fk_activo_tarjetas_activo_tarjeta_estados1')->references('id')->on('activo_tarjeta_estados')->onUpdate('NO ACTION')->onDelete('NO ACTION');
         });
     }
 
@@ -27,6 +28,7 @@ class AddForeignKeysToActivoTarjetasTable extends Migration
     {
         Schema::table('activo_tarjetas', function (Blueprint $table) {
             $table->dropForeign('fk_activo_tarjetas_rrhh_colaboradores1');
+            $table->dropForeign('fk_activo_tarjetas_activo_tarjeta_estados1');
         });
     }
 }

@@ -25,7 +25,7 @@ class ActivoTarjetaFactory extends Factory
     public function definition()
     {
         return [
-            'responsable_id' => User::all()->random(),
+            'colaborador_id' => User::all()->random(),
             'codigo' => null,
             'correlativo' => null,
             'created_at' => Carbon::now()->subMonths(rand(1,5)),

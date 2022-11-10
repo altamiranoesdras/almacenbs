@@ -184,10 +184,12 @@ Route::group(['as'=>'api.'], function () {
 
         Route::resource('contratos', App\Http\Controllers\API\ContratoAPIController::class);
 
+        Route::resource('activo_tarjeta_estados', App\Http\Controllers\API\ActivoTarjetaEstadoAPIController::class);
     });
 
 
 });
+
 
 
 

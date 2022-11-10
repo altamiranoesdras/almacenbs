@@ -1,6 +1,6 @@
 <!-- Responsable Id Field -->
-{!! Form::label('responsable_id', 'Responsable Id:') !!}
-{!! $activoTarjeta->responsable_id !!}<br>
+{!! Form::label('colaborador_id', 'Responsable Id:') !!}
+{!! $activoTarjeta->colaborador_id !!}<br>
 
 
 <!-- Codigo Field -->

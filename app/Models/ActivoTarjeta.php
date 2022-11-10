@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \App\Models\User $responsable
  * @property \Illuminate\Database\Eloquent\Collection $solicitudes
  * @property \Illuminate\Database\Eloquent\Collection $detalles
- * @property integer $responsable_id
+ * @property integer $colaborador_id
  * @property string $codigo
  * @property string $codigo_referencia
  * @property integer $correlativo
@@ -37,7 +37,7 @@ class ActivoTarjeta extends Model
 
 
     public $fillable = [
-        'responsable_id',
+        'colaborador_id',
         'codigo',
         'codigo_referencia',
         'correlativo',
@@ -51,7 +51,7 @@ class ActivoTarjeta extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'responsable_id' => 'integer',
+        'colaborador_id' => 'integer',
         'codigo' => 'string',
         'correlativo' => 'integer'
     ];
@@ -62,7 +62,7 @@ class ActivoTarjeta extends Model
      * @var array
      */
     public static $rules = [
-        'responsable_id' => 'required',
+        'colaborador_id' => 'required',
         'codigo' => 'nullable|string|max:45',
         'correlativo' => 'nullable|integer',
         'created_at' => 'nullable',
@@ -75,7 +75,7 @@ class ActivoTarjeta extends Model
      **/
     public function responsable()
     {
-        return $this->belongsTo(\App\Models\User::class, 'responsable_id');
+        return $this->belongsTo(\App\Models\User::class, 'colaborador_id');
     }
 
     /**
