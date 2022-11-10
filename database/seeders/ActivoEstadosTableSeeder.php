@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class ActivoEstadosTableSeeder extends Seeder
 {
@@ -17,31 +16,39 @@ class ActivoEstadosTableSeeder extends Seeder
     {
 
 
-        DB::table('activo_estados')->truncate();
+        \DB::table('activo_estados')->truncate();
 
-        DB::table('activo_estados')->insert(array (
+        \DB::table('activo_estados')->insert(array (
             0 =>
             array (
                 'id' => 1,
-                'nombre' => 'BUEN ESTADO',
-                'created_at' => '2022-08-31 23:02:39',
-                'updated_at' => '2022-08-31 23:02:39',
+                'nombre' => 'EN TRASLADO',
+                'created_at' => '2022-11-06 22:29:42',
+                'updated_at' => '2022-11-06 22:29:42',
                 'deleted_at' => NULL,
             ),
             1 =>
             array (
                 'id' => 2,
-                'nombre' => 'REGULAR',
-                'created_at' => '2022-08-31 23:02:46',
-                'updated_at' => '2022-08-31 23:02:46',
+                'nombre' => 'ALMACENADO',
+                'created_at' => '2022-11-06 22:29:42',
+                'updated_at' => '2022-11-06 22:29:42',
                 'deleted_at' => NULL,
             ),
             2 =>
             array (
                 'id' => 3,
-                'nombre' => 'MAL ESTADO U OBSOLETO',
-                'created_at' => '2022-08-31 23:02:59',
-                'updated_at' => '2022-08-31 23:02:59',
+                'nombre' => 'RESGUARDADO',
+                'created_at' => '2022-11-06 22:29:42',
+                'updated_at' => '2022-11-06 22:29:42',
+                'deleted_at' => NULL,
+            ),
+            3 =>
+            array (
+                'id' => 4,
+                'nombre' => 'SOLICITADO BAJA',
+                'created_at' => '2022-11-06 22:29:43',
+                'updated_at' => '2022-11-06 22:29:43',
                 'deleted_at' => NULL,
             ),
         ));
