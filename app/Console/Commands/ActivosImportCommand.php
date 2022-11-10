@@ -5,10 +5,12 @@ namespace App\Console\Commands;
 use App\Imports\ActivosImport;
 use App\Models\Activo;
 use App\Models\ActivoEstado;
+use App\Models\ActivoTipo;
 use App\Models\Renglon;
 use App\Traits\ComandosTrait;
 use Exception;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Validators\ValidationException;
 
@@ -38,15 +40,28 @@ class ActivosImportCommand extends Command
      */
     public function handle()
     {
-
+        DB::connection()->disableQueryLog();
         $this->inicio();
 
         $this->output->title('Iniciando Importación');
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
         Activo::truncate();
+        ActivoTipo::truncate();
         ActivoEstado::truncate();
         Renglon::truncate();
+
+        Artisan::call('db:seed', [
+            '--class' => 'ActivoEstadosTableSeeder',
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'RenglonesTableSeeder',
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'ActivoTiposTableSeeder',
+        ]);
 
         try {
 
