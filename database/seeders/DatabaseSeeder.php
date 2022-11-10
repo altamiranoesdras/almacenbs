@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
@@ -53,6 +54,8 @@ class DatabaseSeeder extends Seeder
         $this->call(DivisaSeeder::class);
         $this->call(ItemTiposTableSeeder::class);
         $this->call(ActivoEstadosTableSeeder::class);
+        $this->call(ActivoTarjetaEstadosTableSeeder::class);
+
 
 
 
@@ -65,6 +68,9 @@ class DatabaseSeeder extends Seeder
 //            $this->call(SolicitudesTableSeeder::class);
 //            $this->call(Compra1hTableSeeder::class);
         }
+
+        Artisan::call("import:colaboradores");
+
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
