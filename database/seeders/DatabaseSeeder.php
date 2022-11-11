@@ -72,6 +72,10 @@ class DatabaseSeeder extends Seeder
         Artisan::call("import:colaboradores");
 
 
+        $path = storage_path('activos.sql');
+        $sql = file_get_contents($path);
+        DB::unprepared($sql);
+
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
         foreach(glob(storage_path('temp/*')) as $file){
