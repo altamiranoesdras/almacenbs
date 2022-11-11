@@ -15,7 +15,7 @@ class CreateActivosTable extends Migration
     {
         Schema::create('activos', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre', 255);
+            $table->string('nombre', 255)->nullable();
             $table->text('descripcion');
             $table->string('codigo_inventario', 100);
             $table->string('folio', 100)->nullable();
@@ -25,8 +25,8 @@ class CreateActivosTable extends Migration
             $table->date('fecha_registro')->nullable();
             $table->unsignedBigInteger('tipo_id')->index('fk_activos_activo_tipos1_idx');
             $table->unsignedBigInteger('estado_id')->index('fk_activos_activo_estados1_idx');
-            $table->unsignedBigInteger('detalle_1h_id')->nullable()->index('fk_activos_compra_1h_detalles1_idx');
             $table->unsignedBigInteger('renglon_id')->nullable()->index('fk_activos_renglones1_idx');
+            $table->unsignedBigInteger('detalle_1h_id')->nullable()->index('fk_activos_compra_1h_detalles1_idx');
             $table->integer('entidad')->nullable();
             $table->integer('unidad_ejecutadora')->nullable();
             $table->integer('tipo_inventario')->nullable();
