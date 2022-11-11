@@ -12,8 +12,9 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 /**
  * Class Activo
  * @package App\Models
- * @version November 11, 2022, 9:03 am CST
+ * @version November 11, 2022, 11:13 am CST
  *
+ * @property \App\Models\Renglone $renglon
  * @property \App\Models\ActivoEstado $estado
  * @property \App\Models\Compra1hDetalle $detalle1h
  * @property \App\Models\ActivoTipo $tipo
@@ -30,8 +31,8 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property string $fecha_registro
  * @property integer $tipo_id
  * @property integer $estado_id
- * @property integer $detalle_1h_id
  * @property integer $renglon_id
+ * @property integer $detalle_1h_id
  * @property integer $entidad
  * @property integer $unidad_ejecutadora
  * @property integer $tipo_inventario
@@ -76,8 +77,8 @@ class Activo extends Model implements HasMedia
         'fecha_registro',
         'tipo_id',
         'estado_id',
-        'detalle_1h_id',
         'renglon_id',
+        'detalle_1h_id',
         'entidad',
         'unidad_ejecutadora',
         'tipo_inventario',
@@ -108,11 +109,11 @@ class Activo extends Model implements HasMedia
         'valor_actual' => 'decimal:2',
         'valor_adquisicion' => 'decimal:2',
         'valor_contabilizado' => 'decimal:2',
-        'fecha_registro' => 'date:d/m/Y',
+        'fecha_registro' => 'date',
         'tipo_id' => 'integer',
         'estado_id' => 'integer',
-        'detalle_1h_id' => 'integer',
         'renglon_id' => 'integer',
+        'detalle_1h_id' => 'integer',
         'entidad' => 'integer',
         'unidad_ejecutadora' => 'integer',
         'tipo_inventario' => 'integer',
@@ -120,8 +121,8 @@ class Activo extends Model implements HasMedia
         'codigo_donacion' => 'integer',
         'nit' => 'string',
         'numero_documento' => 'string',
-        'fecha_aprobado' => 'date:d/m/Y',
-        'fecha_contabilizacion' => 'date:d/m/Y',
+        'fecha_aprobado' => 'date',
+        'fecha_contabilizacion' => 'date',
         'cur' => 'string',
         'contabilizado' => 'string',
         'diferencia_act_adq' => 'integer',
@@ -135,7 +136,7 @@ class Activo extends Model implements HasMedia
      * @var array
      */
     public static $rules = [
-        'nombre' => 'string|max:255',
+        'nombre' => 'nullable|string|max:255',
         'descripcion' => 'required|string',
         'codigo_inventario' => 'required|string|max:100',
         'folio' => 'nullable|string|max:100',
@@ -145,8 +146,8 @@ class Activo extends Model implements HasMedia
         'fecha_registro' => 'nullable',
         'tipo_id' => 'required',
         'estado_id' => 'required',
-        'detalle_1h_id' => 'nullable',
         'renglon_id' => 'nullable',
+        'detalle_1h_id' => 'nullable',
         'entidad' => 'nullable|integer',
         'unidad_ejecutadora' => 'nullable|integer',
         'tipo_inventario' => 'nullable|integer',
@@ -165,6 +166,14 @@ class Activo extends Model implements HasMedia
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function renglon()
+    {
+        return $this->belongsTo(\App\Models\Renglon::class, 'renglon_id');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

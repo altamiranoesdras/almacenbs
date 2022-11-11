@@ -15,8 +15,8 @@ class CreateActivosTable extends Migration
     {
         Schema::create('activos', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre', 255)->nullable();
-            $table->text('descripcion');
+            $table->string('nombre', 255)->fulltext()->nullable();
+            $table->text('descripcion')->fulltext();
             $table->string('codigo_inventario', 100);
             $table->string('folio', 100)->nullable();
             $table->decimal('valor_actual',14,2)->nullable();

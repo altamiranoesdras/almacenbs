@@ -113,6 +113,7 @@ class ActivoDataTable extends DataTable
                 ->searchable(false)
                 ->orderable(false)
                 ->exportable(false),
+            Column::make('descripcion'),
             Column::make('codigo_inventario'),
             Column::make('codigo_sicoin'),
             Column::make('folio'),
@@ -120,7 +121,7 @@ class ActivoDataTable extends DataTable
             Column::make('fecha_registro'),
             Column::make('tipo')->data('tipo.nombre')->name('tipo.nombre'),
             Column::make('estado')->data('estado.nombre')->name('estado.nombre'),
-            Column::make('renglon')->data('renglon.nombre')->name('renglon.nombre'),
+            Column::make('renglon')->data('renglon.numero')->name('renglon.numero'),
             Column::make('nit'),
             Column::computed('action')
                             ->exportable(false)
