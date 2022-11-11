@@ -19,7 +19,6 @@ class CreateActivosTable extends Migration
             $table->text('descripcion');
             $table->string('codigo_inventario', 100);
             $table->string('folio', 100)->nullable();
-            $table->decimal('valor', 14,2)->nullable();
             $table->decimal('valor_actual',14,2)->nullable();
             $table->decimal('valor_adquisicion',14,2)->nullable();
             $table->decimal('valor_contabilizado',14,2)->nullable();

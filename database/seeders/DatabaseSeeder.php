@@ -55,6 +55,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ItemTiposTableSeeder::class);
         $this->call(ActivoEstadosTableSeeder::class);
         $this->call(ActivoTarjetaEstadosTableSeeder::class);
+        $this->call(ActivoTiposTableSeeder::class);
 
 
 

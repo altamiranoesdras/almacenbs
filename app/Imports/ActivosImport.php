@@ -93,7 +93,6 @@ class ActivosImport implements ToModel, WithHeadingRow,WithBatchInserts,WithChun
                     'nombre' => mb_substr($row['descripcion'], 0, 25),
                     'codigo_inventario' => $row['no_bien'] ?? null,
                     'folio' => $row['folio'] ?? null,
-                    'valor' => $row['valor_actual'] ?? null,
                     'fecha_registro' => Carbon::createFromFormat('m/d/Y h:i:s a', $row['fecha_registro'])->format('Y-m-d'),
                     'tipo_id' => ActivoTipo::ACTIVO_FIJO,
                 ]);
