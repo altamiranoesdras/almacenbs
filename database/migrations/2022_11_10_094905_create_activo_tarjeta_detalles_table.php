@@ -21,7 +21,7 @@ class CreateActivoTarjetaDetallesTable extends Migration
             $table->integer('cantidad')->default(1);
             $table->decimal('valor', 14)->nullable();
             $table->date('fecha_asigna');
-            $table->unsignedBigInteger('unidad_id')->index('fk_activo_fijo_tarjeta_detalles_rrhh_unidades1_idx');
+            $table->unsignedBigInteger('unidad_id')->nullable()->index('fk_activo_fijo_tarjeta_detalles_rrhh_unidades1_idx');
             $table->boolean('impreso')->nullable();
             $table->timestamps();
             $table->softDeletes();

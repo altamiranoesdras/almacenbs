@@ -77,12 +77,12 @@ class ActivoTarjetaDetalle extends Model
      * @var array
      */
     public static $rules = [
-        'tarjeta_id' => 'nullable',
-        'activo_id' => 'nullable',
+        'tarjeta_id' => 'required',
+        'activo_id' => 'required',
         'tipo' => 'nullable|string',
         'cantidad' => 'nullable|integer',
-        'valor' => 'nullable|numeric',
-        'fecha_asigna' => 'nullable',
+        'valor' => 'required|numeric',
+        'fecha_asigna' => 'required',
         'unidad_id' => 'nullable',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',

@@ -40,7 +40,7 @@
 
                       <div class='select-result__precio'>
                           <i class='far fa-money-bill-alt'></i>
-                          <span v-text="props.option.valor"></span>
+                          <span v-text="props.option.valor_actual"></span>
                       </div>
                       <div class='select-result__codigo'>
                           <i class='fas fa-barcode'></i>
@@ -64,7 +64,7 @@
 
                       <div class='select-result__precio'>
                           <i class='far fa-money-bill-alt'></i>
-                          <span v-text="props.option.valor"></span>
+                          <span v-text="props.option.valor_actual"></span>
                       </div>
                       <div class='select-result__codigo'>
                           <i class='fas fa-barcode'></i>
@@ -133,7 +133,7 @@
                 this.$emit('input', val);
             },
             value(val){
-                logI('cambio valor');
+                logI('cambio valor_actual');
                 this.activo = val;
             }
         },

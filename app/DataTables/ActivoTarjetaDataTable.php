@@ -95,7 +95,9 @@ class ActivoTarjetaDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('responsable')->name('responsable.name')->data('responsable.name'),
+            Column::make('nit')->name('responsable.nit')->data('responsable.nit'),
+            Column::make('nombres')->name('responsable.nombres')->data('responsable.nombres'),
+            Column::make('apellidos')->name('responsable.apellidos')->data('responsable.apellidos'),
             Column::make('codigo'),
             Column::computed('action')
                             ->exportable(false)

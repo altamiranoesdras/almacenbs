@@ -20,8 +20,11 @@ class ActivoTarjetaEstado extends Model
 
     use HasFactory;
 
+    const TEMPORAL = 1;
+    const CREADA = 2;
+
     public $table = 'activo_tarjeta_estados';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 

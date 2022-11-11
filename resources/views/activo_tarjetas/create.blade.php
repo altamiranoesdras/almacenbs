@@ -25,20 +25,16 @@
         <div class="container-fluid">
 
             @include('layouts.partials.request_errors')
+            {!! Form::model($temporal, ['route' => ['activoTarjetas.update', $temporal->id], 'method' => 'patch']) !!}
 
             <div class="card">
                 <div class="card-body">
-                    {!! Form::open(['route' => 'activoTarjetas.store','class' => 'esperar']) !!}
-                        <div class="form-row">
 
                             @include('activo_tarjetas.fields')
 
-                            <div class="form-row col-md-12">
-                                <div class="alert alert-info alert-dismissible col-md-12">
-        {{--                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>--}}
-                                    <h5> <i class="icon fas fa-info"></i>Debe guardar primero para agregar los activos.</h5>
-                                </div>
-                            </div>
+                            @include('activo_tarjetas.panel_detalles')
+
+                        <div class="form-row">
 
                             <!-- Submit Field -->
                             <div class="form-group col-sm-12 text-right">
@@ -51,9 +47,10 @@
                                 </button>
                             </div>
                         </div>
-                    {!! Form::close() !!}
                 </div>
             </div>
+            {!! Form::close() !!}
+
         </div>
     </div>
 

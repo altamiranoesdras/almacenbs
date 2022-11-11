@@ -41,6 +41,7 @@ class ActivoTarjeta extends Model
         'codigo',
         'codigo_referencia',
         'correlativo',
+        'usuario_crea',
         'impreso'
     ];
 
@@ -52,6 +53,7 @@ class ActivoTarjeta extends Model
     protected $casts = [
         'id' => 'integer',
         'colaborador_id' => 'integer',
+        'usuario_crea' => 'integer',
         'codigo' => 'string',
         'correlativo' => 'integer'
     ];
@@ -63,6 +65,7 @@ class ActivoTarjeta extends Model
      */
     public static $rules = [
         'colaborador_id' => 'required',
+        'usuario_crea' => 'nullable',
         'codigo' => 'nullable|string|max:45',
         'correlativo' => 'nullable|integer',
         'created_at' => 'nullable',
@@ -75,7 +78,12 @@ class ActivoTarjeta extends Model
      **/
     public function responsable()
     {
-        return $this->belongsTo(\App\Models\User::class, 'colaborador_id');
+        return $this->belongsTo(\App\Models\Colaborador::class, 'colaborador_id');
+    }
+
+    public function usuarioCrea()
+    {
+        return $this->belongsTo(\App\Models\User::class, 'usuario_crea');
     }
 
     /**
@@ -97,6 +105,24 @@ class ActivoTarjeta extends Model
     public function tieneDetallesImpresos()
     {
         return $this->detalles->where('impreso', true)->isNotEmpty();
+    }
+
+    public function scopeTemporal($q)
+    {
+        $q->where('estado_id',ActivoTarjetaEstado::TEMPORAL);
+    }
+
+    public function scopeDelUsuarioCrea($q,$user=null)
+    {
+        $user = $user ?? auth()->user() ?? auth('api')->user();
+
+
+        $q->where('usuario_crea',$user->id);
+    }
+
+    public function scopeNoTemporal($q)
+    {
+        $q->where('estado_id','!=',ActivoTarjetaEstado::TEMPORAL);
     }
 
 }
