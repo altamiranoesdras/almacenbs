@@ -618,7 +618,7 @@ class OptionsTableSeeder extends Seeder
                 'id' => 38,
                 'option_id' => 34,
                 'nombre' => 'Solicitud de cargo o descargo de bienes',
-                'ruta' => 'solicitud.cargo.descargo.bienes',
+                'ruta' => 'activoSolicitudes.index',
                 'descripcion' => NULL,
                 'icono_l' => 'fa-file-contract',
                 'icono_r' => NULL,
@@ -626,7 +626,7 @@ class OptionsTableSeeder extends Seeder
                 'color' => 'bg-info',
                 'dev' => 0,
                 'created_at' => '2022-08-29 17:03:40',
-                'updated_at' => '2022-09-29 23:13:14',
+                'updated_at' => '2022-11-11 08:36:21',
                 'deleted_at' => NULL,
             ),
             38 =>

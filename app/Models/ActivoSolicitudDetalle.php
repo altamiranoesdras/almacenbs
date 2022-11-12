@@ -2,24 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class ActivoSolicitudDetalle
  * @package App\Models
- * @version August 31, 2022, 10:52 pm CST
+ * @version November 11, 2022, 2:58 pm CST
  *
  * @property \App\Models\Activo $activo
- * @property \App\Models\ActivoEstado $estado
- * @property \App\Models\ActivoSolicitude $solicitud
  * @property \App\Models\ActivoSolicitudTipo $solicitudTipo
+ * @property \App\Models\ActivoTipo $activoTipo
+ * @property \App\Models\ActivoSolicitude $solicitud
  * @property \Illuminate\Database\Eloquent\Collection $activoTarjetaDetalles
  * @property integer $solicitud_id
  * @property integer $activo_id
- * @property integer $estado_id
+ * @property integer $activo_tipo_id
  * @property integer $solicitud_tipo_id
+ * @property string $estado_del_bien
  * @property string $observaciones
  */
 class ActivoSolicitudDetalle extends Model
@@ -29,7 +30,7 @@ class ActivoSolicitudDetalle extends Model
     use HasFactory;
 
     public $table = 'activo_solicitud_detalles';
-
+    
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -41,8 +42,9 @@ class ActivoSolicitudDetalle extends Model
     public $fillable = [
         'solicitud_id',
         'activo_id',
-        'estado_id',
+        'activo_tipo_id',
         'solicitud_tipo_id',
+        'estado_del_bien',
         'observaciones'
     ];
 
@@ -55,8 +57,9 @@ class ActivoSolicitudDetalle extends Model
         'id' => 'integer',
         'solicitud_id' => 'integer',
         'activo_id' => 'integer',
-        'estado_id' => 'integer',
+        'activo_tipo_id' => 'integer',
         'solicitud_tipo_id' => 'integer',
+        'estado_del_bien' => 'string',
         'observaciones' => 'string'
     ];
 
@@ -68,8 +71,9 @@ class ActivoSolicitudDetalle extends Model
     public static $rules = [
         'solicitud_id' => 'required',
         'activo_id' => 'required',
-        'estado_id' => 'required',
+        'activo_tipo_id' => 'required',
         'solicitud_tipo_id' => 'required',
+        'estado_del_bien' => 'nullable|string',
         'observaciones' => 'nullable|string',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
@@ -87,9 +91,17 @@ class ActivoSolicitudDetalle extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
-    public function estado()
+    public function solicitudTipo()
     {
-        return $this->belongsTo(\App\Models\ActivoEstado::class, 'estado_id');
+        return $this->belongsTo(\App\Models\ActivoSolicitudTipo::class, 'solicitud_tipo_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function activoTipo()
+    {
+        return $this->belongsTo(\App\Models\ActivoTipo::class, 'activo_tipo_id');
     }
 
     /**
@@ -98,14 +110,6 @@ class ActivoSolicitudDetalle extends Model
     public function solicitud()
     {
         return $this->belongsTo(\App\Models\ActivoSolicitude::class, 'solicitud_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     **/
-    public function solicitudTipo()
-    {
-        return $this->belongsTo(\App\Models\ActivoSolicitudTipo::class, 'solicitud_tipo_id');
     }
 
     /**

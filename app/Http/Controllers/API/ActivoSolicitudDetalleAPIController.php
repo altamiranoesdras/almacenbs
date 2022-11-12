@@ -34,7 +34,7 @@ class ActivoSolicitudDetalleAPIController extends AppBaseController
             $query->limit($request->get('limit'));
         }
 
-        $activoSolicitudDetalles = $query->get();
+        $activoSolicitudDetalles = $query->with(['activo','solicitudTipo','activoTipo'])->get();
 
         return $this->sendResponse($activoSolicitudDetalles->toArray(), 'Activo Solicitud Detalles retrieved successfully');
     }

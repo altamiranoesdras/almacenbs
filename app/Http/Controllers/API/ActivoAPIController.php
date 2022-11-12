@@ -33,6 +33,11 @@ class ActivoAPIController extends AppBaseController
         if ($request->get('limit')) {
             $query->limit($request->get('limit'));
         }
+        if ($request->search){
+            $query->where('nombre','like','%'.$request->search.'%')
+                ->orWhere('descripcion','like','%'.$request->search.'%')
+                ->orWhere('codigo_inventario','like','%'.$request->search.'%');
+        }
 
         $activos = $query->get();
 

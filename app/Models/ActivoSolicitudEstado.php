@@ -25,6 +25,14 @@ class ActivoSolicitudEstado extends Model
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
+    const TEMPORAL = 1;
+    const INGRESADA = 2;
+    const SOLICITADA = 3;
+    const AUTORIZADA = 4;
+    const APROBADA = 5;
+    const DESPACHADA = 6;
+    const ANULADA = 7;
+    const CANCELADA = 8;
 
     protected $dates = ['deleted_at'];
 
