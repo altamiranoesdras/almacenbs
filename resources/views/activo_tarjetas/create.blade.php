@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page',__('New Activo Tarjeta'))
+@section('title_page',__('Nueva tarjeta de responsabilidad'))
 
 @section('content')
 
@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>{{__('New Activo Tarjeta')}}</h1>
+                    <h1>{{__('Nueva tarjeta de responsabilidad')}}</h1>
                 </div>
                 <div class="col ">
                     <a class="btn btn-outline-info float-right"
@@ -25,7 +25,7 @@
         <div class="container-fluid">
 
             @include('layouts.partials.request_errors')
-            {!! Form::model($temporal, ['route' => ['activoTarjetas.update', $temporal->id], 'method' => 'patch']) !!}
+            {!! Form::model($tarjeta, ['route' => ['activoTarjetas.update', $tarjeta->id], 'method' => 'patch']) !!}
 
             <div class="card">
                 <div class="card-body">

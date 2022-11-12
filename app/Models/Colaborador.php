@@ -44,7 +44,7 @@ class Colaborador extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $appends = ['text'];
+    protected $appends = ['text','nombre_completo'];
 
     public $fillable = [
         'nombres',
@@ -161,6 +161,11 @@ class Colaborador extends Model
     public function jefe()
     {
         return $this->hasMany(\App\Models\RrhhUnidad::class, 'jefe_id');
+    }
+
+    public function getNombreCompletoAttribute()
+    {
+        return $this->nombres." ".$this->apellidos;
     }
 
     public function getTextAttribute()

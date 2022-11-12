@@ -98,7 +98,8 @@ class ActivoTarjetaDataTable extends DataTable
             Column::make('nit')->name('responsable.nit')->data('responsable.nit'),
             Column::make('nombres')->name('responsable.nombres')->data('responsable.nombres'),
             Column::make('apellidos')->name('responsable.apellidos')->data('responsable.apellidos'),
-            Column::make('codigo'),
+            Column::make('codigo_interno'),
+            Column::make('codigo_sistema')->data('codigo')->name('codigo'),
             Column::computed('action')
                             ->exportable(false)
                             ->printable(false)

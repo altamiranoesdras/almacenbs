@@ -10,6 +10,7 @@ use App\Http\Requests\CreateActivoTarjetaRequest;
 use App\Http\Requests\UpdateActivoTarjetaRequest;
 use App\Models\ActivoTarjeta;
 use App\Models\ActivoTarjetaEstado;
+use Carbon\Carbon;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Support\Facades\App;
@@ -63,10 +64,9 @@ class ActivoTarjetaController extends AppBaseController
      */
     public function store(CreateActivoTarjetaRequest $request)
     {
-        $input = $request->all();
 
         /** @var ActivoTarjeta $activoTarjeta */
-        $activoTarjeta = ActivoTarjeta::create($input);
+        $activoTarjeta = ActivoTarjeta::create($request->all());
 
         Flash::success('Activo Tarjeta guardado exitosamente.');
 
@@ -127,6 +127,12 @@ class ActivoTarjetaController extends AppBaseController
     {
         /** @var ActivoTarjeta $activoTarjeta */
         $activoTarjeta = ActivoTarjeta::find($id);
+
+        $request->merge([
+            'estado_id' => ActivoTarjetaEstado::CREADA,
+            'codigo' => $this->getCodigo(),
+            'correlativo' => $this->getCorrelativo(),
+        ]);
 
         if (empty($activoTarjeta)) {
             Flash::error('Activo Tarjeta no encontrado');
@@ -215,5 +221,23 @@ class ActivoTarjetaController extends AppBaseController
         }
 
         return $compra;
+    }
+
+
+    public function getCodigo($cantidadCeros = 4)
+    {
+        return prefijoCeros($this->getCorrelativo(),$cantidadCeros)."-".Carbon::now()->year;
+    }
+
+    public function getCorrelativo()
+    {
+
+        $correlativo = ActivoTarjeta::withTrashed()->whereRaw('year(created_at) ='.Carbon::now()->year)->max('correlativo');
+
+
+        if ($correlativo)
+            return $correlativo+1;
+
+        return 1;
     }
 }
