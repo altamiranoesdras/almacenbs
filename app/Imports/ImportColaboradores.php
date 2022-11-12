@@ -100,7 +100,7 @@ class ImportColaboradores implements ToModel , WithHeadingRow
          */
         $tarjeta = ActivoTarjeta::create([
             'colaborador_id' => $colaborador->id,
-            'codigo_referencia' => "",
+            'codigo_interno' => "",
             'codigo' => $this->getCodigo(),
             'correlativo' => $this->getCorrelativo(),
         ]);

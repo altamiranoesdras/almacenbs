@@ -57,7 +57,7 @@ class ActivoDataTable extends DataTable
     {
         return $model->newQuery()
             ->select($model->getTable().".*")
-            ->with(['tipo','estado']);
+            ->with(['tipo','estado','renglon']);
     }
 
     /**
@@ -109,13 +109,20 @@ class ActivoDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('imagen')->searchable(false)->orderable(false)->exportable(false),
+            Column::make('imagen')
+                ->searchable(false)
+                ->orderable(false)
+                ->exportable(false),
+            Column::make('descripcion'),
             Column::make('codigo_inventario'),
-            Column::make('nombre'),
-            Column::make('valor'),
+            Column::make('codigo_sicoin'),
+            Column::make('folio'),
+            Column::make('valor_actual'),
             Column::make('fecha_registro'),
             Column::make('tipo')->data('tipo.nombre')->name('tipo.nombre'),
             Column::make('estado')->data('estado.nombre')->name('estado.nombre'),
+            Column::make('renglon')->data('renglon.numero')->name('renglon.numero'),
+            Column::make('nit'),
             Column::computed('action')
                             ->exportable(false)
                             ->printable(false)

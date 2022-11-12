@@ -64,6 +64,7 @@
         <table class="table table-bordered table-striped table-sm table-hover">
             <thead>
             <tr>
+                <th>id</th>
                 <th>Descripción del bien</th>
                 <th>No. Bien</th>
                 <th>ALZA</th>
@@ -80,20 +81,21 @@
                 </tr>
 
                 <tr v-for="(detalle,index) in detalles" >
+                    <td v-text="detalle.id"></td>
                     <td v-text="detalle.activo.nombre"></td>
                     <td v-text="detalle.activo.codigo_inventario"></td>
-                    <td v-text="esAlza(detalle) ? detalle.valor : ''"></td>
-                    <td v-text="esBaja(detalle) ? detalle.valor : ''"></td>
-                    <td v-text="dvs+nfp(detalle.valor)"></td>
+                    <td v-text="valorAlza(detalle)"></td>
+                    <td v-text="valorBaja(detalle)"></td>
+                    <td v-text="dvs+nfp(getSaldo(detalle,index))"></td>
                     <td v-text="formatoFecha(detalle.fecha_asigna)"></td>
                     <td class="text-center">
-                        <button type="button" class="btn btn-info btn-sm" data-toggle="tooltip" title="Editar" @click="editItem(detalle)">
+                        <button type="button" class="btn btn-info btn-sm" v-tooltip="'Editar'" @click="editItem(detalle)">
                             <i class="fa fa-pencil"></i>
                         </button>
-                        <button type="button" class="btn btn-warning btn-sm" data-toggle="tooltip" title="Dar Baja" @click="darBajaItem(detalle)">
+                        <button type="button" class="btn btn-warning btn-sm" v-tooltip="'Dar Baja'" @click="darBajaItem(detalle)">
                             <i class="fa fa-ban"></i>
                         </button>
-                        <button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" title="Eliminar" @click="deleteItem(detalle)">
+                        <button type="button" class="btn btn-danger btn-sm" v-tooltip="'Eliminar'" @click="deleteItem(detalle)">
                             <i class="fa fa-trash"></i>
                         </button>
                     </td>
@@ -114,51 +116,88 @@
 
         },
         data: {
-            tarjeta : @json($activoTarjeta ?? null),
-            activo : null,
-            tipo : null,
-            tipos : [@json(\App\Models\ActivoTarjetaDetalle::ALZA),@json(\App\Models\ActivoTarjetaDetalle::BAJA)],
+            tarjeta: @json($tarjeta ?? null),
+            activo: null,
+            tipo: null,
+            tipos: [@json(\App\Models\ActivoTarjetaDetalle::ALZA),@json(\App\Models\ActivoTarjetaDetalle::BAJA)],
 
             detalles: [],
 
             editedItem: {
                 id: 0,
-                tarjeta_id : @json($activoTarjeta->id),
-                activo_id : null,
-                tipo : @json(\App\Models\ActivoTarjetaDetalle::ALZA),
-                cantidad : 1,
-                valor : null,
-                unidad_id : null,
-                fecha_asigna : null,
+                tarjeta_id: @json($tarjeta->id),
+                activo_id: null,
+                tipo: @json(\App\Models\ActivoTarjetaDetalle::ALZA),
+                cantidad: 1,
+                valor_actual: null,
+                unidad_id: null,
+                fecha_asigna: null,
             },
 
             defaultItem: {
                 id: 0,
-                tarjeta_id: @json($activoTarjeta->id),
-                activo_id : null,
-                tipo : @json(\App\Models\ActivoTarjetaDetalle::ALZA),
-                cantidad : 1,
-                valor : null,
-                unidad_id : null,
-                fecha_asigna : null,
+                tarjeta_id: @json($tarjeta->id),
+                activo_id: null,
+                tipo: @json(\App\Models\ActivoTarjetaDetalle::ALZA),
+                cantidad: 1,
+                valor_actual: null,
+                unidad_id: null,
+                fecha_asigna: null,
             },
 
             itemElimina: {},
 
             loading: false,
+            saldo : 0,
         },
         methods: {
-            esAlza(detalle){
-                return detalle.tipo == @json(\App\Models\ActivoTarjetaDetalle::ALZA);
+            valorAlza(detalle){
+                if (detalle.valor_alza){
+                    return this.dvs+this.nfp(detalle.valor_alza);
+                }
             },
-            esBaja(detalle){
-                return detalle.tipo == @json(\App\Models\ActivoTarjetaDetalle::BAJA);
+            valorBaja(detalle){
+                if (detalle.valor_baja){
+                    return this.dvs+this.nfp(detalle.valor_baja)
+                }
+            },
+            getSaldo(detalle,index1){
+
+
+                let saldo = 0;
+
+                let detalles = this.detalles;
+
+                detalles.some(function (item,index2){
+
+
+                    // console.log(item.id)
+
+
+                    let alza = parseFloat(item.valor_alza || 0);
+                    let baja = parseFloat(item.valor_baja || 0);
+
+                    saldo += alza;
+                    saldo -= baja;
+
+                    return index1===index2;
+
+
+                })
+
+                return saldo
+
             },
             nfp(numero){
-                return number_format(numero,2);
+                if (numero){
+
+                    return number_format(numero,2);
+                }
+
+                return null;
             },
             formatoFecha(fecha) {
-                return fecha ? moment(fecha).format("DD-MM-YYYY") : '';
+                return fecha ? moment(fecha).format("YYYY/MM/DD") : '';
             },
             getId(item){
                 if(item)
@@ -207,9 +246,9 @@
                 try {
 
                     let data = this.editedItem;
-                    data.unidad_id = this.tarjeta.responsable.unidad_id;
+                    // data.unidad_id = this.tarjeta.responsable.unidad_id;
                     data.activo_id = this.activo.id;
-                    data.valor = this.activo.valor;
+                    data.valor = this.activo.valor_actual;
                     let res = null;
 
                     if(this.editedItem.id === 0){
@@ -278,10 +317,8 @@
                 if (confirm.isConfirmed){
                     try {
 
-                        let data = {};
-                        data.tipo = @json(\App\Models\ActivoTarjetaDetalle::BAJA);
+                        let res = await axios.post(route('api.activo_tarjeta_detalles.baja', detalle.id));
 
-                        let res = await axios.patch(route('api.activo_tarjeta_detalles.update', detalle.id),data);
                         logI(res.data);
 
                         iziTs(res.data.message);

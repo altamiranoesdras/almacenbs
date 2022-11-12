@@ -3,12 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Activo;
-use App\Models\ActivoEstado;
-use App\Models\ActivoTipo;
-use Faker\Provider\Base;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Mmo\Faker\LoremSpaceProvider;
-use Mmo\Faker\PicsumProvider;
 
 class ActivoFactory extends Factory
 {
@@ -28,17 +23,33 @@ class ActivoFactory extends Factory
     {
         return [
             'nombre' => $this->faker->word,
-            'descripcion' => $this->faker->paragraph,
-            'codigo_inventario' => $this->faker->randomNumber(6),
-            'folio' => $this->faker->randomNumber(4),
-            'valor' => $this->faker->randomFloat(2,1000,10000),
-            'fecha_registro' => $this->faker->date,
-            'tipo_id' => ActivoTipo::all()->random()->id,
-            'estado_id' => ActivoEstado::all()->random()->id,
-            'detalle_1h_id' => null,
+            'descripcion' => $this->faker->text,
+            'codigo_inventario' => $this->faker->word,
+            'folio' => $this->faker->word,
+            'valor_actual' => $this->faker->word,
+            'valor_adquisicion' => $this->faker->word,
+            'valor_contabilizado' => $this->faker->word,
+            'fecha_registro' => $this->faker->word,
+            'tipo_id' => $this->faker->word,
+            'estado_id' => $this->faker->word,
+            'detalle_1h_id' => $this->faker->word,
+            'renglon_id' => $this->faker->word,
+            'entidad' => $this->faker->randomDigitNotNull,
+            'unidad_ejecutadora' => $this->faker->randomDigitNotNull,
+            'tipo_inventario' => $this->faker->randomDigitNotNull,
+            'codigo_sicoin' => $this->faker->word,
+            'codigo_donacion' => $this->faker->randomDigitNotNull,
+            'nit' => $this->faker->word,
+            'numero_documento' => $this->faker->word,
+            'fecha_aprobado' => $this->faker->word,
+            'fecha_contabilizacion' => $this->faker->word,
+            'cur' => $this->faker->word,
+            'contabilizado' => $this->faker->word,
+            'diferencia_act_adq' => $this->faker->randomDigitNotNull,
+            'diferencia_act_cont' => $this->faker->randomDigitNotNull,
+            'diferencia_adq_cont' => $this->faker->randomDigitNotNull,
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s'),
-
         ];
     }
 

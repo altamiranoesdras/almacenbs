@@ -24,7 +24,7 @@
                         NOMBRE:
                     </td>
                     <td style="width:7%;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">
-                        {{$activoTarjeta->responsable->name}}
+                        {{$activoTarjeta->responsable->nombre_completo}}
                     </td>
                     <td style="width:1%;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">
                         TIPO:
@@ -44,7 +44,7 @@
                         CARGO:
                     </td>
                     <td style="width:7%;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">
-                        {{$activoTarjeta->responsable->puesto->nombre}}
+                        {{$activoTarjeta->responsable->puesto->nombre ?? ''}}
                     </td>
                     <td style="width:1%;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">
                         RENGLON:
@@ -56,7 +56,7 @@
                         NIT:
                     </td>
                     <td style="width:5%;@if($activoTarjeta->tieneDetallesImpresos()) opacity: 0.0; @endif">
-
+                        {{$activoTarjeta->responsable->nit ?? ''}}
                     </td>
                 </tr>
         </table>

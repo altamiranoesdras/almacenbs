@@ -26,11 +26,11 @@
 
 
             @include('layouts.partials.request_errors')
+            {!! Form::model($tarjeta, ['route' => ['activoTarjetas.update', $tarjeta->id], 'method' => 'patch','class' => 'esperar']) !!}
 
             <div class="card">
                 <div class="card-body">
 
-                   {!! Form::model($activoTarjeta, ['route' => ['activoTarjetas.update', $activoTarjeta->id], 'method' => 'patch','class' => 'esperar']) !!}
 
                         @include('activo_tarjetas.fields')
 
@@ -51,9 +51,10 @@
                             </div>
                         </div>
 
-                   {!! Form::close() !!}
                 </div>
             </div>
+            {!! Form::close() !!}
+
         </div>
     </div>
 

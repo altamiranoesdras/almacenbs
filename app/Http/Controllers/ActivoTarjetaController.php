@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\DataTables\ActivoTarjetaDataTable;
 use App\DataTables\Scopes\ScopeActivoTarjetaDataTable;
+use App\Http\Controllers\API\ActivoTarjetaAPIController;
 use App\Http\Requests;
 use App\Http\Requests\CreateActivoTarjetaRequest;
 use App\Http\Requests\UpdateActivoTarjetaRequest;
 use App\Models\ActivoTarjeta;
+use App\Models\ActivoTarjetaEstado;
+use Carbon\Carbon;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Support\Facades\App;
@@ -47,7 +50,9 @@ class ActivoTarjetaController extends AppBaseController
      */
     public function create()
     {
-        return view('activo_tarjetas.create');
+        $tarjeta = $this->getTemporal();
+
+        return view('activo_tarjetas.create',compact('tarjeta'));
     }
 
     /**
@@ -59,10 +64,9 @@ class ActivoTarjetaController extends AppBaseController
      */
     public function store(CreateActivoTarjetaRequest $request)
     {
-        $input = $request->all();
 
         /** @var ActivoTarjeta $activoTarjeta */
-        $activoTarjeta = ActivoTarjeta::create($input);
+        $activoTarjeta = ActivoTarjeta::create($request->all());
 
         Flash::success('Activo Tarjeta guardado exitosamente.');
 
@@ -99,16 +103,16 @@ class ActivoTarjetaController extends AppBaseController
      */
     public function edit($id)
     {
-        /** @var ActivoTarjeta $activoTarjeta */
-        $activoTarjeta = ActivoTarjeta::find($id);
+        /** @var ActivoTarjeta $tarjeta */
+        $tarjeta = ActivoTarjeta::find($id);
 
-        if (empty($activoTarjeta)) {
+        if (empty($tarjeta)) {
             Flash::error('Activo Tarjeta no encontrado');
 
             return redirect(route('activoTarjetas.index'));
         }
 
-        return view('activo_tarjetas.edit')->with('activoTarjeta', $activoTarjeta);
+        return view('activo_tarjetas.edit',compact('tarjeta'));
     }
 
     /**
@@ -123,6 +127,12 @@ class ActivoTarjetaController extends AppBaseController
     {
         /** @var ActivoTarjeta $activoTarjeta */
         $activoTarjeta = ActivoTarjeta::find($id);
+
+        $request->merge([
+            'estado_id' => ActivoTarjetaEstado::CREADA,
+            'codigo' => $this->getCodigo(),
+            'correlativo' => $this->getCorrelativo(),
+        ]);
 
         if (empty($activoTarjeta)) {
             Flash::error('Activo Tarjeta no encontrado');
@@ -194,4 +204,40 @@ class ActivoTarjetaController extends AppBaseController
 
     }
 
+    public function getTemporal()
+    {
+
+        $user = auth()->user();
+
+        $compra = ActivoTarjeta::temporal()->delUsuarioCrea()->first();
+
+
+        if (!$compra){
+
+            $compra =  ActivoTarjeta::create([
+                'usuario_crea' => $user->id,
+                'estado_id' => ActivoTarjetaEstado::TEMPORAL,
+            ]);
+        }
+
+        return $compra;
+    }
+
+
+    public function getCodigo($cantidadCeros = 4)
+    {
+        return prefijoCeros($this->getCorrelativo(),$cantidadCeros)."-".Carbon::now()->year;
+    }
+
+    public function getCorrelativo()
+    {
+
+        $correlativo = ActivoTarjeta::withTrashed()->whereRaw('year(created_at) ='.Carbon::now()->year)->max('correlativo');
+
+
+        if ($correlativo)
+            return $correlativo+1;
+
+        return 1;
+    }
 }

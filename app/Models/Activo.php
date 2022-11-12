@@ -12,8 +12,9 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 /**
  * Class Activo
  * @package App\Models
- * @version September 4, 2022, 8:11 pm CST
+ * @version November 11, 2022, 11:13 am CST
  *
+ * @property \App\Models\Renglone $renglon
  * @property \App\Models\ActivoEstado $estado
  * @property \App\Models\Compra1hDetalle $detalle1h
  * @property \App\Models\ActivoTipo $tipo
@@ -24,12 +25,28 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property string $descripcion
  * @property string $codigo_inventario
  * @property string $folio
- * @property number $valor
+ * @property number $valor_actual
+ * @property number $valor_adquisicion
+ * @property number $valor_contabilizado
  * @property string $fecha_registro
  * @property integer $tipo_id
- * @property integer $detalle_1h_id
  * @property integer $estado_id
- * @property string $thumb
+ * @property integer $renglon_id
+ * @property integer $detalle_1h_id
+ * @property integer $entidad
+ * @property integer $unidad_ejecutadora
+ * @property integer $tipo_inventario
+ * @property string $codigo_sicoin
+ * @property integer $codigo_donacion
+ * @property string $nit
+ * @property string $numero_documento
+ * @property string $fecha_aprobado
+ * @property string $fecha_contabilizacion
+ * @property string $cur
+ * @property string $contabilizado
+ * @property integer $diferencia_act_adq
+ * @property integer $diferencia_act_cont
+ * @property integer $diferencia_adq_cont
  */
 class Activo extends Model implements HasMedia
 {
@@ -54,30 +71,28 @@ class Activo extends Model implements HasMedia
         'descripcion',
         'codigo_inventario',
         'folio',
-        'valor',
-        'fecha_registro',
-        'tipo_id',
-        'detalle_1h_id',
-        'estado_id',
-        'entidad',
-        'unidad_ejecutadora',
-        'renglon_id',
-        'tipo_inventario',
-        'codigo_sicoin',
         'valor_actual',
         'valor_adquisicion',
         'valor_contabilizado',
+        'fecha_registro',
+        'tipo_id',
+        'estado_id',
+        'renglon_id',
+        'detalle_1h_id',
+        'entidad',
+        'unidad_ejecutadora',
+        'tipo_inventario',
+        'codigo_sicoin',
         'codigo_donacion',
         'nit',
         'numero_documento',
-        'fecha_registro',
         'fecha_aprobado',
         'fecha_contabilizacion',
         'cur',
         'contabilizado',
         'diferencia_act_adq',
         'diferencia_act_cont',
-        'diferencia_adq_cont',
+        'diferencia_adq_cont'
     ];
 
     /**
@@ -91,11 +106,28 @@ class Activo extends Model implements HasMedia
         'descripcion' => 'string',
         'codigo_inventario' => 'string',
         'folio' => 'string',
-        'valor' => 'decimal:2',
-//        'fecha_registro' => 'date:Y-m-d',
+        'valor_actual' => 'decimal:2',
+        'valor_adquisicion' => 'decimal:2',
+        'valor_contabilizado' => 'decimal:2',
+        'fecha_registro' => 'date',
         'tipo_id' => 'integer',
+        'estado_id' => 'integer',
+        'renglon_id' => 'integer',
         'detalle_1h_id' => 'integer',
-        'estado_id' => 'integer'
+        'entidad' => 'integer',
+        'unidad_ejecutadora' => 'integer',
+        'tipo_inventario' => 'integer',
+        'codigo_sicoin' => 'string',
+        'codigo_donacion' => 'integer',
+        'nit' => 'string',
+        'numero_documento' => 'string',
+        'fecha_aprobado' => 'date',
+        'fecha_contabilizacion' => 'date',
+        'cur' => 'string',
+        'contabilizado' => 'string',
+        'diferencia_act_adq' => 'integer',
+        'diferencia_act_cont' => 'integer',
+        'diferencia_adq_cont' => 'integer'
     ];
 
     /**
@@ -104,19 +136,44 @@ class Activo extends Model implements HasMedia
      * @var array
      */
     public static $rules = [
-        'nombre' => 'required|string|max:255',
+        'nombre' => 'nullable|string|max:255',
         'descripcion' => 'required|string',
         'codigo_inventario' => 'required|string|max:100',
         'folio' => 'nullable|string|max:100',
-        'valor' => 'nullable|numeric',
-        'fecha_registro' => 'required',
+        'valor_actual' => 'nullable|numeric',
+        'valor_adquisicion' => 'nullable|numeric',
+        'valor_contabilizado' => 'nullable|numeric',
+        'fecha_registro' => 'nullable',
         'tipo_id' => 'required',
-        'detalle_1h_id' => 'nullable',
         'estado_id' => 'required',
+        'renglon_id' => 'nullable',
+        'detalle_1h_id' => 'nullable',
+        'entidad' => 'nullable|integer',
+        'unidad_ejecutadora' => 'nullable|integer',
+        'tipo_inventario' => 'nullable|integer',
+        'codigo_sicoin' => 'nullable|string|max:255',
+        'codigo_donacion' => 'nullable|integer',
+        'nit' => 'nullable|string|max:255',
+        'numero_documento' => 'nullable|string|max:255',
+        'fecha_aprobado' => 'nullable',
+        'fecha_contabilizacion' => 'nullable',
+        'cur' => 'nullable|string|max:255',
+        'contabilizado' => 'nullable|string|max:255',
+        'diferencia_act_adq' => 'nullable|integer',
+        'diferencia_act_cont' => 'nullable|integer',
+        'diferencia_adq_cont' => 'nullable|integer',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function renglon()
+    {
+        return $this->belongsTo(\App\Models\Renglon::class, 'renglon_id');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

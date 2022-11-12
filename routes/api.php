@@ -165,6 +165,7 @@ Route::group(['as'=>'api.'], function () {
         Route::resource('activo_tarjetas', ActivoTarjetaAPIController::class);
 
 
+        Route::post('activo_tarjeta_detalles/dar/baja/{detalle}', [ActivoTarjetaDetalleAPIController::class,'darBaja'])->name('activo_tarjeta_detalles.baja');
         Route::resource('activo_tarjeta_detalles', ActivoTarjetaDetalleAPIController::class);
 
 

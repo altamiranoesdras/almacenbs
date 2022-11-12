@@ -104,6 +104,7 @@ class ActivoTarjetaDetalleAPIController extends AppBaseController
         return $this->sendResponse($activoTarjetaDetalle->toArray(), 'ActivoTarjetaDetalle actualizado con éxito');
     }
 
+
     /**
      * Remove the specified ActivoTarjetaDetalle from storage.
      * DELETE /activoTarjetaDetalles/{id}
@@ -126,5 +127,20 @@ class ActivoTarjetaDetalleAPIController extends AppBaseController
         $activoTarjetaDetalle->delete();
 
         return $this->sendSuccess('Activo Tarjeta Detalle deleted successfully');
+    }
+
+
+
+    public function darBaja(ActivoTarjetaDetalle $detalle)
+    {
+
+        if (empty($detalle)) {
+            return $this->sendError('Activo Tarjeta Detalle no encontrado');
+        }
+
+        $detalle->tipo = ActivoTarjetaDetalle::BAJA;
+        $detalle->save();
+
+        return $this->sendResponse($detalle->toArray(), 'Listo!');
     }
 }

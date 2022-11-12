@@ -55,6 +55,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ItemTiposTableSeeder::class);
         $this->call(ActivoEstadosTableSeeder::class);
         $this->call(ActivoTarjetaEstadosTableSeeder::class);
+        $this->call(ActivoTiposTableSeeder::class);
 
 
 
@@ -71,6 +72,10 @@ class DatabaseSeeder extends Seeder
 
         Artisan::call("import:colaboradores");
 
+
+        $path = storage_path('activos.sql');
+        $sql = file_get_contents($path);
+        DB::unprepared($sql);
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
