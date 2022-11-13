@@ -162,3 +162,6 @@ Vue.component('select-puesto',SelectPuesto)
 
 import SelectActivo from "./components/SelectActivo";
 Vue.component('select-activo',SelectActivo)
+
+import SelectColaborador from "./components/SelectColaborador";
+Vue.component('select-colaborador',SelectColaborador)

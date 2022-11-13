@@ -15,10 +15,10 @@ class CreateActivoSolicitudesTable extends Migration
     {
         Schema::create('activo_solicitudes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('colaborador_origen')->index('fk_activo_solicitudes_rrhh_colaboradores1_idx');
-            $table->unsignedBigInteger('unidad_origen')->index('fk_activo_solicitudes_rrhh_unidades1_idx');
-            $table->unsignedBigInteger('colaborador_destino')->index('fk_activo_solicitudes_rrhh_colaboradores2_idx');
-            $table->unsignedBigInteger('unidad_destino')->index('fk_activo_solicitudes_rrhh_unidades2_idx');
+            $table->unsignedBigInteger('colaborador_origen')->nullable()->index('fk_activo_solicitudes_rrhh_colaboradores1_idx');
+            $table->unsignedBigInteger('unidad_origen')->nullable()->index('fk_activo_solicitudes_rrhh_unidades1_idx');
+            $table->unsignedBigInteger('colaborador_destino')->nullable()->index('fk_activo_solicitudes_rrhh_colaboradores2_idx');
+            $table->unsignedBigInteger('unidad_destino')->nullable()->index('fk_activo_solicitudes_rrhh_unidades2_idx');
             $table->string('codigo', 45)->nullable();
             $table->integer('correlativo')->nullable();
             $table->unsignedBigInteger('usuario_autoriza')->nullable()->index('fk_activo_solicitudes_users3_idx');

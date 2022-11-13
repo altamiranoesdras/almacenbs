@@ -188,4 +188,20 @@ class ActivoSolicitud extends Model
     {
         return $this->hasMany(\App\Models\ActivoSolicitudDetalle::class, 'solicitud_id');
     }
+
+    /**
+     * @Scope
+     */
+    public function scopeTemporal($q)
+    {
+        $q->where('estado_id', ActivoSolicitudEstado::TEMPORAL);
+    }
+
+    public function scopeDelUsuarioCrea($q, $user = null)
+    {
+        $user = $user ?? auth()->user() ?? auth('api')->user();
+
+        $q->where('usuario_inventario', $user->id);
+    }
+
 }

@@ -29,7 +29,8 @@ class ActivoSolicitudTipo extends Model
 
     protected $dates = ['deleted_at'];
 
-
+    const TIPO_1 = 1;
+    const TIPO_2 = 2;
 
     public $fillable = [
         'nombre'

@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Requests\CreateActivoSolicitudRequest;
 use App\Http\Requests\UpdateActivoSolicitudRequest;
 use App\Models\ActivoSolicitud;
+use App\Models\ActivoSolicitudEstado;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
@@ -40,7 +41,9 @@ class ActivoSolicitudController extends AppBaseController
      */
     public function create()
     {
-        return view('activo_solicituds.create');
+        $temporal = $this->activoSolicitudTemporal();
+
+        return view('activo_solicituds.create', compact('temporal'));
     }
 
     /**
@@ -157,4 +160,22 @@ class ActivoSolicitudController extends AppBaseController
 
         return redirect(route('activoSolicitudes.index'));
     }
+
+    public function activoSolicitudTemporal()
+    {
+
+        $user = auth()->user();
+
+        $activoSolicitud = ActivoSolicitud::temporal()->delUsuarioCrea()->first();
+
+        if (!$activoSolicitud) {
+            $activoSolicitud = ActivoSolicitud::create([
+                'estado_id' => ActivoSolicitudEstado::TEMPORAL
+            ]);
+        }
+
+        return $activoSolicitud;
+
+    }
+
 }
