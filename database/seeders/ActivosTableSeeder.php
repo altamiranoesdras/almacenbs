@@ -18,12 +18,22 @@ class ActivosTableSeeder extends Seeder
     {
 
 
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
         DB::table('activos')->truncate();
 
 
-        Activo::factory()->count(10)->create();
+        $db = env('DB_DATABASE');
+        $user = env('DB_USERNAME');
+        $pass = env('DB_PASSWORD');
+        $path = storage_path('activos.sql');
 
+        $comando = "mysql --user=\"$user\" --password=\"$pass\"  $db < $path";
 
+        exec($comando);
+//        $sql = file_get_contents($path);
+//        DB::unprepared($sql);
 
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
 }
