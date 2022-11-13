@@ -165,3 +165,6 @@ Vue.component('select-activo',SelectActivo)
 
 import SelectColaborador from "./components/SelectColaborador";
 Vue.component('select-colaborador',SelectColaborador)
+
+import SelectActivoSolicitudTipo from "./components/SelectActivoSolicitudTipo";
+Vue.component('select-activo-solicitud-tipo',SelectActivoSolicitudTipo)

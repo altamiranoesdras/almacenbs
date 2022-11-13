@@ -2,11 +2,11 @@
     <div>
         <label v-text="label+':'"></label>
         <span class="text-danger" v-show="required">*</span>
-        <a href="#" v-if="item" @click.prevent="editItem(item)" v-show="!disabled">
-            editar
-        </a>
+<!--        <a href="#" v-if="item" @click.prevent="editItem(item)" v-show="!disabled">-->
+<!--            editar-->
+<!--        </a>-->
 
-        <multiselect v-model="item" :options="options" label="nombre" placeholder="Seleccione uno..." :disabled="disabled">
+        <multiselect v-model="item" :options="options" label="nombre_completo" placeholder="Seleccione uno..." :disabled="disabled">
             <template  slot="noResult">
                 <a class="btn btn-sm btn-block btn-success" href="#" @click.prevent="newItem()">
                     <i class="fa fa-plus"></i> Nuevo

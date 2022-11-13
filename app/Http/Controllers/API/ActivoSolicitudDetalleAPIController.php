@@ -33,6 +33,9 @@ class ActivoSolicitudDetalleAPIController extends AppBaseController
         if ($request->get('limit')) {
             $query->limit($request->get('limit'));
         }
+        if ($request->get('solicitud_id')) {
+            $query->where('solicitud_id', $request->get('solicitud_id'));
+        }
 
         $activoSolicitudDetalles = $query->with(['activo','solicitudTipo','activoTipo'])->get();
 

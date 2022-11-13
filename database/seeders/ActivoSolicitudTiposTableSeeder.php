@@ -15,11 +15,18 @@ class ActivoSolicitudTiposTableSeeder extends Seeder
     public function run()
     {
         ActivoSolicitudTipo::firstOrCreate([
-            'nombre' => 'ACTIVO SOLICITUD TIPO 1'
+            'id' => 1,
+            'nombre' => 'TRASLADO DE PERSONA A BODEGA'
         ]);
 
         ActivoSolicitudTipo::firstOrCreate([
-            'nombre' => 'ACTIVO SOLICITUD TIPO 2'
+            'id' => 2,
+            'nombre' => 'TRASLADO DE BODEGA A PERSONA'
+        ]);
+
+        ActivoSolicitudTipo::firstOrCreate([
+            'id' => 3,
+            'nombre' => 'TRASLADO DE PERSONA A PERSONA'
         ]);
     }
 }

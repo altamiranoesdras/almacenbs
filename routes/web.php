@@ -243,6 +243,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
 
         Route::resource('activoSolicitudes', ActivoSolicitudController::class);
+        Route::post('activoSolicitudes/anular/{activoSolicitud}', [ActivoSolicitudController::class,'anular'])->name('activoSolicitudes.anular');
 
 
         Route::resource('activoSolicitudDetalles', ActivoSolicitudDetalleController::class);

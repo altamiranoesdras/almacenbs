@@ -26,7 +26,7 @@ class ActivoSolicitudDataTable extends DataTable
 
                  return view('activo_solicituds.datatables_actions',compact('activoSolicitud','id'))->render();
              })
-             ->editColumn('id',function (ActivoSolicitud $activoSolicitud){
+            ->editColumn('id',function (ActivoSolicitud $activoSolicitud){
 
                  return $activoSolicitud->id;
 
@@ -34,6 +34,27 @@ class ActivoSolicitudDataTable extends DataTable
                  //return view('activo_solicituds.modal_detalles',compact('activoSolicitud'))->render();
 
              })
+            ->editColumn('colaborador_origen', function (ActivoSolicitud $activoSolicitud) {
+                return $activoSolicitud->colaboradorOrigen->nombres ?? '';
+            })
+            ->editColumn('unidad_origen', function (ActivoSolicitud $activoSolicitud) {
+                return $activoSolicitud->unidadOrigen->nombre ?? '';
+            })
+            ->editColumn('colaborador_destino', function (ActivoSolicitud $activoSolicitud) {
+                return $activoSolicitud->colaboradorOrigen->nombres ?? '';
+            })
+            ->editColumn('unidad_destino', function (ActivoSolicitud $activoSolicitud) {
+                return $activoSolicitud->unidadDestino->nombre ?? '';
+            })
+            ->editColumn('usuario_autoriza', function (ActivoSolicitud $activoSolicitud) {
+                return $activoSolicitud->usuarioAutoriza->name ?? '';
+            })
+            ->editColumn('usuario_inventario', function (ActivoSolicitud $activoSolicitud) {
+                return $activoSolicitud->usuarioInventario->name ?? '';
+            })
+            ->editColumn('estado', function (ActivoSolicitud $activoSolicitud) {
+                return $activoSolicitud->estado->nombre ?? '';
+            })
             ->rawColumns(['action','id']);
 
     }
@@ -98,18 +119,15 @@ class ActivoSolicitudDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('tarjeta_id'),
-            Column::make('tipo_id'),
             Column::make('codigo'),
-            Column::make('correlativo'),
-            Column::make('usuario_origen'),
-            Column::make('usuario_destino'),
+            Column::make('colaborador_origen'),
+            Column::make('unidad_origen'),
+            Column::make('colaborador_destino'),
+            Column::make('unidad_destino'),
             Column::make('usuario_autoriza'),
             Column::make('usuario_inventario'),
-            Column::make('unidad_origen'),
-            Column::make('unidad_destino'),
             Column::make('observaciones'),
-            Column::make('estado_id'),
+            Column::make('estado'),
             Column::computed('action')
                             ->exportable(false)
                             ->printable(false)

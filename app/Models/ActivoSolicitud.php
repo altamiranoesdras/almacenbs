@@ -9,28 +9,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class ActivoSolicitud
  * @package App\Models
- * @version August 31, 2022, 10:52 pm CST
+ * @version November 12, 2022, 10:29 am CST
  *
- * @property \App\Models\User $usuarioInventario
- * @property \App\Models\RrhhUnidade $unidadOrigen
- * @property \App\Models\User $usuarioOrigen
- * @property \App\Models\ActivoSolicitudEstado $estado
+ * @property \App\Models\RrhhUnidad $unidadOrigen
  * @property \App\Models\User $usuarioAutoriza
- * @property \App\Models\ActivoTarjeta $tarjeta
- * @property \App\Models\RrhhUnidade $unidadDestino
- * @property \App\Models\User $usuarioDestino
- * @property \App\Models\ActivoSolicitudTipo $tipo
- * @property \Illuminate\Database\Eloquent\Collection $activoSolicitudDetalles
- * @property integer $tarjeta_id
- * @property integer $tipo_id
+ * @property \App\Models\ActivoSolicitudEstado $estado
+ * @property \App\Models\RrhhColaborador $colaboradorDestino
+ * @property \App\Models\RrhhUnidad $unidadDestino
+ * @property \App\Models\User $usuarioInventario
+ * @property \App\Models\RrhhColaborador $colaboradorOrigen
+ * @property \Illuminate\Database\Eloquent\Collection $detalles
+ * @property integer $colaborador_origen
+ * @property integer $unidad_origen
+ * @property integer $colaborador_destino
+ * @property integer $unidad_destino
  * @property string $codigo
  * @property integer $correlativo
- * @property integer $usuario_origen
- * @property integer $usuario_destino
  * @property integer $usuario_autoriza
  * @property integer $usuario_inventario
- * @property integer $unidad_origen
- * @property integer $unidad_destino
  * @property string $observaciones
  * @property integer $estado_id
  */
@@ -51,16 +47,14 @@ class ActivoSolicitud extends Model
 
 
     public $fillable = [
-        'tarjeta_id',
-        'tipo_id',
+        'colaborador_origen',
+        'unidad_origen',
+        'colaborador_destino',
+        'unidad_destino',
         'codigo',
         'correlativo',
-        'usuario_origen',
-        'usuario_destino',
         'usuario_autoriza',
         'usuario_inventario',
-        'unidad_origen',
-        'unidad_destino',
         'observaciones',
         'estado_id'
     ];
@@ -72,16 +66,14 @@ class ActivoSolicitud extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'tarjeta_id' => 'integer',
-        'tipo_id' => 'integer',
+        'colaborador_origen' => 'integer',
+        'unidad_origen' => 'integer',
+        'colaborador_destino' => 'integer',
+        'unidad_destino' => 'integer',
         'codigo' => 'string',
         'correlativo' => 'integer',
-        'usuario_origen' => 'integer',
-        'usuario_destino' => 'integer',
         'usuario_autoriza' => 'integer',
         'usuario_inventario' => 'integer',
-        'unidad_origen' => 'integer',
-        'unidad_destino' => 'integer',
         'observaciones' => 'string',
         'estado_id' => 'integer'
     ];
@@ -92,18 +84,16 @@ class ActivoSolicitud extends Model
      * @var array
      */
     public static $rules = [
-        'tarjeta_id' => 'required',
-        'tipo_id' => 'nullable',
+        'colaborador_origen' => 'nullable',
+        'unidad_origen' => 'nullable',
+        'colaborador_destino' => 'nullable',
+        'unidad_destino' => 'nullable',
         'codigo' => 'nullable|string|max:45',
         'correlativo' => 'nullable|integer',
-        'usuario_origen' => 'required',
-        'usuario_destino' => 'nullable',
         'usuario_autoriza' => 'nullable',
         'usuario_inventario' => 'nullable',
-        'unidad_origen' => 'required',
-        'unidad_destino' => 'required',
         'observaciones' => 'nullable|string',
-        'estado_id' => 'required',
+        'estado_id' => 'nullable',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'
@@ -112,33 +102,9 @@ class ActivoSolicitud extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
-    public function usuarioInventario()
-    {
-        return $this->belongsTo(\App\Models\User::class, 'usuario_inventario');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     **/
     public function unidadOrigen()
     {
-        return $this->belongsTo(\App\Models\RrhhUnidade::class, 'unidad_origen');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     **/
-    public function usuarioOrigen()
-    {
-        return $this->belongsTo(\App\Models\User::class, 'usuario_origen');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     **/
-    public function estado()
-    {
-        return $this->belongsTo(\App\Models\ActivoSolicitudEstado::class, 'estado_id');
+        return $this->belongsTo(\App\Models\RrhhUnidad::class, 'unidad_origen');
     }
 
     /**
@@ -152,9 +118,17 @@ class ActivoSolicitud extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
-    public function tarjeta()
+    public function estado()
     {
-        return $this->belongsTo(\App\Models\ActivoTarjeta::class, 'tarjeta_id');
+        return $this->belongsTo(\App\Models\ActivoSolicitudEstado::class, 'estado_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function colaboradorDestino()
+    {
+        return $this->belongsTo(\App\Models\RrhhColaborador::class, 'colaborador_destino');
     }
 
     /**
@@ -162,29 +136,29 @@ class ActivoSolicitud extends Model
      **/
     public function unidadDestino()
     {
-        return $this->belongsTo(\App\Models\RrhhUnidade::class, 'unidad_destino');
+        return $this->belongsTo(\App\Models\RrhhUnidad::class, 'unidad_destino');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
-    public function usuarioDestino()
+    public function usuarioInventario()
     {
-        return $this->belongsTo(\App\Models\User::class, 'usuario_destino');
+        return $this->belongsTo(\App\Models\User::class, 'usuario_inventario');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
-    public function tipo()
+    public function colaboradorOrigen()
     {
-        return $this->belongsTo(\App\Models\ActivoSolicitudTipo::class, 'tipo_id');
+        return $this->belongsTo(\App\Models\RrhhColaborador::class, 'colaborador_origen');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function activoSolicitudDetalles()
+    public function detalles()
     {
         return $this->hasMany(\App\Models\ActivoSolicitudDetalle::class, 'solicitud_id');
     }
@@ -201,7 +175,13 @@ class ActivoSolicitud extends Model
     {
         $user = $user ?? auth()->user() ?? auth('api')->user();
 
-        $q->where('usuario_inventario', $user->id);
+        $q->where('usuario_autoriza', $user->id);
+    }
+
+    public function anular()
+    {
+        $this->estado_id = ActivoSolicitudEstado::ANULADA;
+        $this->save();
     }
 
 }

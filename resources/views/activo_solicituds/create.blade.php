@@ -28,7 +28,7 @@
 
             @include('layouts.errores')
 
-            {!! Form::open(['route' => 'activoSolicitudes.store','class' => 'esperar']) !!}
+            {!! Form::model($temporal, ['route' => ['activoSolicitudes.update', $temporal->id], 'method' => 'patch', 'class' => 'esperar']) !!}
                 <div class="row mt-2">
 
                     <!-- Activos -->
@@ -59,22 +59,33 @@
                                     </select-items>
                                 </div>
 
-                                <div class="row float-right">
+                                <div class="row pt-1">
 
-                                    <div class="form-group col-xs-12 col-sm-5 col-md-5 col-lg-5">
-                                        <div class="input-group">
-                                            <span class="input-group-append">
-                                                <button type="button" ref="agregar" class="btn btn-success" @click.prevent="save" :disabled="loading" >
-                                                    <span v-show="loading" >
-                                                        <i class="fa fa-spinner fa-spin"></i>
-                                                    </span>
-                                                    <span v-show="!loading" class="glyphicon glyphicon-plus"></span>
-                                                    Agregar
-                                                </button>
-                                            </span>
-                                        </div><!-- /input-group -->
+                                    <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                        <multiselect v-model="editedItem.estado_del_bien" :options="estadoBienList" label="nombre" placeholder="Estado del Bien ..." >
+                                        </multiselect>
                                     </div>
 
+                                    <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                        <textarea class="form-control" v-model="editedItem.observaciones" placeholder="Observacion"></textarea>
+                                    </div>
+
+                                    <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                        <select-activo-solicitud-tipo v-model="editedItem.solicitud_tipo_id" label="Solicitud Tipo" :mostrarTitulo="false" ></select-activo-solicitud-tipo>
+                                    </div>
+
+                                </div>
+
+                                <div class="row float-right">
+                                    <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                        <button type="button" ref="agregar" class="btn btn-success" @click.prevent="save" :disabled="loading" >
+                                            <span v-show="loading" >
+                                                <i class="fa fa-spinner fa-spin"></i>
+                                            </span>
+                                            <span v-show="!loading" class="glyphicon glyphicon-plus"></span>
+                                            Agregar
+                                        </button>
+                                    </div>
                                 </div>
 
                                 <div id="div-info-item"></div>
@@ -151,6 +162,26 @@
 
                 proveedor: @json($compra->proveedor ?? \App\Models\Proveedor::find(old('proveedor_id')) ?? null),
 
+                colaborador_origen: null,
+                colaborador_destino: null,
+                unidad_origen: null,
+                unidad_destino: null,
+
+                estadoBienList: [
+                    {
+                        nombre: 'Bueno Estado',
+                        codigo: 'B'
+                    },
+                    {
+                        nombre: 'Regular Estado',
+                        codigo: 'R'
+                    },
+                    {
+                        nombre: 'Mal Estado u Obsoleto',
+                        codigo: 'M'
+                    }
+                ],
+
             },
             methods: {
 
@@ -165,6 +196,12 @@
                 getId(item){
                     if(item)
                         return item.id;
+
+                    return null
+                },
+                getCodigo(item){
+                    if(item)
+                        return item.codigo;
 
                     return null
                 },
@@ -185,7 +222,7 @@
 
                     try {
 
-                        let params= { params: {compra_id: @json($temporal->id) } }
+                        let params= { params: {solicitud_id: @json($temporal->id) } }
 
                         var res = await axios.get(route('api.activo_solicitud_detalles.index'),params);
 
@@ -209,6 +246,7 @@
                         this.editedItem.activo_id = this.getId(this.itemSelect);
                         this.editedItem.activo_tipo_id = this.itemSelect.tipo_id;
                         this.editedItem.solicitud_tipo_id = @json(\App\Models\ActivoSolicitudTipo::TIPO_1);
+                        this.editedItem.estado_del_bien = this.getCodigo(this.editedItem.estado_del_bien);
                         const data = this.editedItem;
 
                         if(this.editedItem.id === 0){
@@ -292,7 +330,7 @@
                 totalitems: function () {
                     var t=0;
                     $.each(this.detalles,function (i,det) {
-                        t+=(det.cantidad*1);
+                        t+=1;
                     });
 
                     return t;
@@ -322,6 +360,16 @@
                         $(this.$refs.cantidad).focus().select();
                     }else{
                         this.nuevoDetalle = Object.assign({}, this.itemDefault);
+                    }
+                },
+                colaborador_origen(val) {
+                    if (val) {
+                        this.unidad_origen = val.unidad_id;
+                    }
+                },
+                colaborador_destino(val) {
+                    if (val) {
+                        this.unidad_destino = val.unidad_id;
                     }
                 },
             }

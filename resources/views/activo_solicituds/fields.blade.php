@@ -1,9 +1,18 @@
 <ul class="list-group">
     <li class="list-group-item pb-0 pl-2 pr-2">
         <div class="form-group col-sm-12">
-            <select-colaborador v-model="proveedor" label="Colaborador Destino"></select-colaborador>
+            <select-colaborador v-model="colaborador_origen" label="Colaborador Origen" :name="'colaborador_origen'"></select-colaborador>
         </div>
     </li>
+
+    <li class="list-group-item pb-0 pl-2 pr-2">
+        <div class="form-group col-sm-12">
+            <select-colaborador v-model="colaborador_destino" label="Colaborador Destino" :name="'colaborador_destino'"></select-colaborador>
+        </div>
+    </li>
+
+    <input type="hidden" name="unidad_origen" v-model="unidad_origen">
+    <input type="hidden" name="unidad_destino" v-model="unidad_destino">
 
     <!--            Observaciones
     ------------------------------------------------------------------------>
@@ -19,7 +28,69 @@
             ></textarea>
         </div>
     </li>
+
+    <li class="list-group-item pb-0 pl-2 pr-2">
+
+        <div class="row">
+
+            <div class="form-group col-sm-8">
+                <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+
+                <button type="button"  class="btn btn-outline-success btn-block" @click="procesar()">
+                    <span class="glyphicon glyphicon-ok"></span> Procesar
+                </button>
+            </div>
+            <div class="form-group col-sm-4">
+                <a class="btn btn-outline-danger pull-right btn-block" data-toggle="modal" href="#modal-cancel-compra">
+                    <span data-toggle="tooltip" title="Cancelar compra">Cancelar</span>
+                </a>
+            </div>
+        </div>
+
+
+    </li>
+
 </ul>
+
+<!-- Modal confirm -->
+<div class="modal fade modal-info" id="modal-confirma-procesar">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">PROCESAR SOLICITUD ACTIVOS!</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                Seguro que desea continuar?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
+                <button type="submit" class="btn btn-primary" name="procesar" value="1"  id="btn-confirma-procesar" data-loading-text="<i class='fa fa-cog fa-spin fa-1x fa-fw'></i> Procesando">SI</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Modal cancel -->
+<div class="modal fade modal-warning" id="modal-cancel-compra">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Cancelar Solicitud Activos!</h4>
+            </div>
+            <div class="modal-body">
+                Seguro que desea cancelar la solicitud?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
+                <a href="{{route('compras.destroy',$temporal->id)}}" class="btn btn-danger">
+                    SI
+                </a>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 {{--<!-- Tarjeta Id Field -->--}}
 {{--<div class="form-group col-sm-6">--}}

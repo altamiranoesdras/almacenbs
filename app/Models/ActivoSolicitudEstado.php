@@ -36,8 +36,6 @@ class ActivoSolicitudEstado extends Model
 
     protected $dates = ['deleted_at'];
 
-
-
     public $fillable = [
         'nombre'
     ];

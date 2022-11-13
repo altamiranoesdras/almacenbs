@@ -24,10 +24,13 @@ class ActivoTipo extends Model
 
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
+
     const ACTIVO_FIJO = 1;
     const BIEN_FUNGIBLE = 2;
 
     protected $dates = ['deleted_at'];
+
+    protected $appends = ['text_corto'];
 
     public $fillable = [
         'nombre'
@@ -62,4 +65,10 @@ class ActivoTipo extends Model
     {
         return $this->hasMany(\App\Models\Activo::class, 'tipo_id');
     }
+
+    public function getTextCortoAttribute()
+    {
+        return $this->id == self::ACTIVO_FIJO ? 'AF' : 'BF';
+    }
+
 }
