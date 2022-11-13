@@ -72,10 +72,8 @@ class DatabaseSeeder extends Seeder
 
         Artisan::call("import:colaboradores");
 
+        $this->call(ActivosTableSeeder::class);
 
-        $path = storage_path('activos.sql');
-        $sql = file_get_contents($path);
-        DB::unprepared($sql);
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
