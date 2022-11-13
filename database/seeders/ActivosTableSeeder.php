@@ -18,6 +18,8 @@ class ActivosTableSeeder extends Seeder
     {
 
 
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
         DB::table('activos')->truncate();
 
 
@@ -32,6 +34,6 @@ class ActivosTableSeeder extends Seeder
 //        $sql = file_get_contents($path);
 //        DB::unprepared($sql);
 
-
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
 }
