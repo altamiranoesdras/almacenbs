@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Requests\API\CreateActivoTarjetaDetalleAPIRequest;
 use App\Http\Requests\API\UpdateActivoTarjetaDetalleAPIRequest;
 use App\Models\ActivoTarjetaDetalle;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Response;
@@ -138,9 +139,11 @@ class ActivoTarjetaDetalleAPIController extends AppBaseController
             return $this->sendError('Activo Tarjeta Detalle no encontrado');
         }
 
-        $detalle->tipo = ActivoTarjetaDetalle::BAJA;
-        $detalle->save();
+        $nuevo = new ActivoTarjetaDetalle($detalle->toArray());
+        $nuevo->fecha_asigna = Carbon::now();
+        $nuevo->tipo = ActivoTarjetaDetalle::BAJA;
+        $nuevo->save();
 
-        return $this->sendResponse($detalle->toArray(), 'Listo!');
+        return $this->sendResponse($nuevo->toArray(), 'Listo!');
     }
 }

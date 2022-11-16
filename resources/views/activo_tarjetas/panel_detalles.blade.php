@@ -92,7 +92,7 @@
                         <button type="button" class="btn btn-info btn-sm" v-tooltip="'Editar'" @click="editItem(detalle)">
                             <i class="fa fa-pencil"></i>
                         </button>
-                        <button type="button" class="btn btn-warning btn-sm" v-tooltip="'Dar Baja'" @click="darBajaItem(detalle)">
+                        <button type="button" class="btn btn-warning btn-sm" v-tooltip="'Dar Baja'" @click="darBajaItem(detalle)" v-show="detalle.tipo!=tipo_baja">
                             <i class="fa fa-ban"></i>
                         </button>
                         <button type="button" class="btn btn-danger btn-sm" v-tooltip="'Eliminar'" @click="deleteItem(detalle)">
@@ -149,12 +149,15 @@
 
             loading: false,
             saldo : 0,
+            tipo_baja : @json(\App\Models\ActivoTarjetaDetalle::BAJA),
         },
         methods: {
             valorAlza(detalle){
                 if (detalle.valor_alza){
                     return this.dvs+this.nfp(detalle.valor_alza);
                 }
+
+                return null;
             },
             valorBaja(detalle){
                 if (detalle.valor_baja){
@@ -171,11 +174,11 @@
                 detalles.some(function (item,index2){
 
 
-                    // console.log(item.id)
 
 
                     let alza = parseFloat(item.valor_alza || 0);
                     let baja = parseFloat(item.valor_baja || 0);
+
 
                     saldo += alza;
                     saldo -= baja;
@@ -185,11 +188,16 @@
 
                 })
 
+                console.log(saldo)
+
+
                 return saldo
 
             },
             nfp(numero){
-                if (numero){
+
+
+                if (numero!=='' && numero!==null){
 
                     return number_format(numero,2);
                 }
