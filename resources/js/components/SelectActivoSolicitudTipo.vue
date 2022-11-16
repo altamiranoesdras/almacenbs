@@ -1,7 +1,7 @@
 <template>
     <div>
         <label v-show="mostrarTitulo" v-text="label+':'"></label>
-        <span v-if="mostrarTitulo" class="text-danger" v-show="required">*</span>
+        <span class="text-danger" v-show="required && mostrarTitulo">*</span>
 <!--        <a href="#" v-if="item" @click.prevent="editItem(item)" v-show="!disabled">-->
 <!--            editar-->
 <!--        </a>-->
@@ -89,14 +89,14 @@ export default {
             type: Boolean,
             default: false
         },
+        required:{
+            type: Boolean,
+            default: true
+        },
         mostrarTitulo:{
             type: Boolean,
             default: false
         },
-        required:{
-            type: Boolean,
-            default: true
-        }
     },
     data: () => ({
         loading: false,
