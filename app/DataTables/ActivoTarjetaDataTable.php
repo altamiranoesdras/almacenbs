@@ -42,8 +42,10 @@ class ActivoTarjetaDataTable extends DataTable
      */
     public function query(ActivoTarjeta $model)
     {
-        return $model->newQuery()->select($model->getTable().".*")
-            ->with('responsable');
+        return $model->newQuery()
+            ->select($model->getTable().".*")
+            ->with('responsable')
+            ->noTemporal();
     }
 
     /**

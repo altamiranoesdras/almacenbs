@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Activo Tarjetas</h1>
+                    <h1>Tarjetas de responsabilidad</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-right">
