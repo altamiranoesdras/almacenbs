@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title_page',__('Edit User'))
+@include('partials.plugins.gijgo')
 
 @section('content')
 
