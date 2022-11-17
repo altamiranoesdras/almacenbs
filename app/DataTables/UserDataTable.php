@@ -27,6 +27,10 @@ class UserDataTable extends DataTable
 
                 return "<img src='{$user->thumb}' alt='' width='50' height='50'>";
 
+            })->editColumn('puesto.nombre',function (User $user){
+
+                return $user->puesto->nombre ?? '';
+
             })->editColumn('roles',function (User $user){
 
                 return view('admin.users.partials.roles',compact('user'));
