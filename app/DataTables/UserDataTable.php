@@ -27,6 +27,10 @@ class UserDataTable extends DataTable
 
                 return "<img src='{$user->thumb}' alt='' width='50' height='50'>";
 
+            })->editColumn('unidad.nombre',function (User $user){
+
+                return $user->unidad->nombre ?? '';
+
             })->editColumn('puesto.nombre',function (User $user){
 
                 return $user->puesto->nombre ?? '';
