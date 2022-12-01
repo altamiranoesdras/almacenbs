@@ -43,7 +43,7 @@ class UsersTableSeeder extends Seeder
         User::factory(1)->create([
             "username" => "Super",
             "name" => "Super Admin",
-            "password" => bcrypt("123456")
+            "password" => bcrypt("Fodes2021.")
         ])->each(function (User $user){
             $user->syncRoles(Role::SUPERADMIN);
             $user->options()->sync(Option::pluck('id')->toArray());
