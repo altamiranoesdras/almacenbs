@@ -21,6 +21,7 @@ class PermissionTableSeeder extends Seeder
         Permission::create(['name' => 'dashboard']);
         Permission::create(['name' => 'Edita configuracion']);
         Permission::create(['name' => 'Eliminar configuracion']);
+
         Permission::create(['name' => 'Ver opcion menu']);
         Permission::create(['name' => 'Editar opcion menu']);
         Permission::create(['name' => 'Eliminar opcion menu']);
@@ -63,6 +64,48 @@ class PermissionTableSeeder extends Seeder
         Permission::create(['name' => 'Reporte ganancias']);
         Permission::create(['name' => 'ver todas las ventas']);
         Permission::create(['name' => 'ver todas las compras']);
+
+        Permission::create(['name' => 'Ver requisición']);
+        Permission::create(['name' => 'Editar requisición']);
+        Permission::create(['name' => 'Anular requisición']);
+        Permission::create(['name' => 'Autorizar requisición']);
+        Permission::create(['name' => 'Aprobar requisición']);
+        Permission::create(['name' => 'Despachar requisición']);
+
+        Permission::create(['name' => 'Ver Compra1Hs']);
+        Permission::create(['name' => 'Crear Compra1Hs']);
+        Permission::create(['name' => 'Editar Compra1Hs']);
+        Permission::create(['name' => 'Eliminar Compra1Hs']);
+
+        Permission::create(['name' => 'Ver Compra Tipos']);
+        Permission::create(['name' => 'Crear Compra Tipos']);
+        Permission::create(['name' => 'Editar Compra Tipos']);
+        Permission::create(['name' => 'Eliminar Compra Tipos']);
+        Permission::create(['name' => 'anular ingreso de compra']);
+        Permission::create(['name' => 'cancelar solicitud de compra']);
+
+        Permission::create(['name' => 'Ver Categorías']);
+        Permission::create(['name' => 'Crear Categorías']);
+        Permission::create(['name' => 'Editar Categorías']);
+        Permission::create(['name' => 'Eliminar Categorías']);
+
+        Permission::create(['name' => 'Ver Item Tipos']);
+        Permission::create(['name' => 'Crear Item Tipos']);
+        Permission::create(['name' => 'Editar Item Tipos']);
+        Permission::create(['name' => 'Eliminar Item Tipos']);
+
+        Permission::create(['name' => 'Ver Artículos']);
+        Permission::create(['name' => 'Crear Artículos']);
+        Permission::create(['name' => 'Editar Artículos']);
+        Permission::create(['name' => 'Eliminar Artículos']);
+
+        Permission::create(['name' => 'Ver Proveedores']);
+        Permission::create(['name' => 'Crear Proveedores']);
+        Permission::create(['name' => 'Editar Proveedores']);
+        Permission::create(['name' => 'Eliminar Proveedores']);
+
+
+
 
     }
 }
