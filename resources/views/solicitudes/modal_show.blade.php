@@ -27,7 +27,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 
-                    @can("Autorizar requisición")
+                    @can("Autorizar Requisición")
                         @if($solicitud->puedeAutorizar())
                             <a href="{{route('solicitudes.autorizar.store',$solicitud->id)}}"  class="btn btn-outline-success">
                                 Autorizar
@@ -35,7 +35,7 @@
                         @endif
                     @endcan
 
-                    @can("Aprobar requisición")
+                    @can("Aprobar Requisición")
                         @if($solicitud->puedeAprobar())
                             <a href="{{route('solicitudes.aprobar.store',$solicitud->id)}}"  class="btn btn-outline-success">
                                 Aprobar
@@ -43,7 +43,7 @@
                         @endif
                     @endcan
 
-                    @can("Despachar requisición")
+                    @can("Despachar Requisición")
                         @if($solicitud->puedeDespachar())
                             @if($solicitud->tieneStock())
                                 <button type="submit"   class="btn btn-outline-success">

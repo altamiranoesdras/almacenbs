@@ -1,6 +1,6 @@
 
 
-@can('Ver requisición')
+@can('Ver Requisición')
     <a href="#modal-detalles-{{$id}}" data-keyboard="true" data-toggle="modal" class='btn btn-secondary btn-xs' data-toggle="tooltip" title="Ver detalles">
         <i class="fa fa-eye"></i>
     </a>
@@ -13,7 +13,7 @@
 @endif
 
 @if($solicitud->puedeEditar())
-    @can('Editar requisición')
+    @can('Editar Requisición')
         <a href="{{ route('solicitudes.edit', $solicitud->id) }}" class='btn btn-info btn-xs' data-toggle="tooltip" title="Editar">
             <i class="fa fa-edit"></i>
         </a>
@@ -21,7 +21,7 @@
 @endif
 
 @if($solicitud->puedeAnular())
-    @can('Anular requisición')
+    @can('Anular Requisición')
             <a href="#" onclick="deleteItemDt(this)" data-id="{{$solicitud->id}}" data-toggle="tooltip" title="Eliminar" class='btn btn-outline-danger btn-xs'>
                 <i class="fa fa-undo-alt"></i>
             </a>

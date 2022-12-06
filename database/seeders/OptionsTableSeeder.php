@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class OptionsTableSeeder extends Seeder
 {
@@ -210,8 +209,8 @@ class OptionsTableSeeder extends Seeder
                 'color' => 'bg-secondary',
                 'dev' => 0,
                 'created_at' => '2018-08-08 02:28:11',
-                'updated_at' => '2022-08-29 17:05:10',
-                'deleted_at' => NULL,
+                'updated_at' => '2022-12-06 08:09:21',
+                'deleted_at' => '2022-12-06 08:09:21',
             ),
             12 =>
             array (
