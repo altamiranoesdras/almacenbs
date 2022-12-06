@@ -33,16 +33,16 @@ class PermissionTableSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'todas las opciones menu']);
 
 
-        Permission::firstOrCreate(['name' => 'Ver permiso']);
-        Permission::firstOrCreate(['name' => 'Crear permiso']);
-        Permission::firstOrCreate(['name' => 'Editar permiso']);
-        Permission::firstOrCreate(['name' => 'Eliminar permiso']);
+        Permission::firstOrCreate(['name' => 'Ver permisos']);
+        Permission::firstOrCreate(['name' => 'Crear permisos']);
+        Permission::firstOrCreate(['name' => 'Editar permisos']);
+        Permission::firstOrCreate(['name' => 'Eliminar permisos']);
 
 
-        Permission::firstOrCreate(['name' => 'Ver rol']);
-        Permission::firstOrCreate(['name' => 'Crear rol']);
-        Permission::firstOrCreate(['name' => 'Editar rol']);
-        Permission::firstOrCreate(['name' => 'Eliminar rol']);
+        Permission::firstOrCreate(['name' => 'Ver roles']);
+        Permission::firstOrCreate(['name' => 'Crear roles']);
+        Permission::firstOrCreate(['name' => 'Editar roles']);
+        Permission::firstOrCreate(['name' => 'Eliminar roles']);
 
 
         Permission::firstOrCreate(['name' => 'Ver usuario']);
