@@ -214,6 +214,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     Route::resource('itemTipos', ItemTipoController::class);
 
+    Route::resource('itemPresentaciones', App\Http\Controllers\ItemPresentacionController::class);
+
 
     Route::get('reportes/kardex', [ReportesAlmacenController::class,'kardex'])->name('reportes.kardex');
     Route::get('reportes/stock', [ReportesAlmacenController::class,'stock'])->name('reportes.stock');

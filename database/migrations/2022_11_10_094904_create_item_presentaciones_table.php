@@ -15,8 +15,8 @@ class CreateItemPresentacionesTable extends Migration
     {
         Schema::create('item_presentaciones', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo')->unique('nombre_UNIQUE');
-            $table->string('nombre')->unique('nombre_UNIQUE');
+            $table->string('codigo')->unique();
+            $table->string('nombre')->unique();
             $table->timestamps();
             $table->softDeletes();
         });
