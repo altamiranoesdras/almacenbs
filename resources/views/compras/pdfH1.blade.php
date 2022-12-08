@@ -98,7 +98,7 @@
                         {{nf($det->cantidad)}}
                     </td>
                     <td style="border-color: black; width: 46%; text-align: center;" class="py-0">
-                        {{$det->item->descripcion}}
+                        {{$det->item->nombre}}
                     </td>
                     <td style="border-color: black; text-align: center;" class="py-0">
                         {{$det->item->renglon->numero}}
