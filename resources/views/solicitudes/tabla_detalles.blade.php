@@ -6,7 +6,10 @@
             <th>Tu Stock</th>
         @endif
         <th>Cantidad Solicitada</th>
-        @if($solicitud->estaAprobada() || $solicitud->estaDespachada())
+        @if($solicitud->muestraCantidadAprobar())
+            <th>Cantidad Aprobada</th>
+        @endif
+        @if($solicitud->muestraCantidadDespachar())
             <th>Cantidad despachada</th>
         @endif
 
@@ -21,12 +24,21 @@
                 <th>{{$det->item->stock_total}}</th>
             @endif
             <td>{{$det->cantidad_solicitada}}</td>
-            @if($solicitud->estaAprobada() || $solicitud->estaDespachada())
+            @if($solicitud->muestraCantidadAprobar())
+                @if( $solicitud->estaAprobada())
+                    <td> {{$det->cantidad_aprobada}}</td>
+                @else
+                <td>
+                    <input type="number" name="cantidades_aprueba[]" step="any" class="form-control form-control-sm" required >
+                </td>
+                @endif
+            @endif
+            @if($solicitud->muestraCantidadDespachar())
                 @if( $solicitud->estaDespachada())
                     <td> {{$det->cantidad_despachada}}</td>
                 @else
                 <td>
-                    <input type="number" name="cantidades[]" step="any" class="form-control form-control-sm" required >
+                    <input type="number" name="cantidades_despacha[]" step="any" class="form-control form-control-sm" required >
                 </td>
                 @endif
             @endif

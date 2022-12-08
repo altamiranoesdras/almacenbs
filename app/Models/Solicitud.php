@@ -227,6 +227,21 @@ class Solicitud extends Model
         $q->where('usuario_crea',$user->id);
     }
 
+    public function muestraCantidadAprobar()
+    {
+        return in_array($this->estado_id,[
+            SolicitudEstado::SOLICITADA,
+            SolicitudEstado::AUTORIZADA,
+            SolicitudEstado::APROBADA
+        ]);
+    }
+    public function muestraCantidadDespachar()
+    {
+        return in_array($this->estado_id,[
+            SolicitudEstado::AUTORIZADA,
+            SolicitudEstado::APROBADA
+        ]);
+    }
     public function esTemporal()
     {
         return $this->estado_id==SolicitudEstado::TEMPORAL;
@@ -272,7 +287,10 @@ class Solicitud extends Model
 
     public function puedeAprobar()
     {
-        return $this->estado_id == SolicitudEstado::AUTORIZADA;
+        return in_array($this->estado_id,[
+            SolicitudEstado::SOLICITADA,
+            SolicitudEstado::AUTORIZADA
+        ]);
     }
 
     public function puedeDespachar()

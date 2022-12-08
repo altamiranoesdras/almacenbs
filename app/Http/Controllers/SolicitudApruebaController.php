@@ -22,7 +22,7 @@ class SolicitudApruebaController extends Controller
     public function index(SolicitudApruebaDataTable $solicitudeDataTable)
     {
         $scope = new ScopeSolicitudDataTable();
-        $scope->estados = SolicitudEstado::AUTORIZADA;
+        $scope->estados = [SolicitudEstado::SOLICITADA,SolicitudEstado::AUTORIZADA];
         $solicitudeDataTable->addScope($scope);
 
         return $solicitudeDataTable->render('solicitudes.aprobar.index');

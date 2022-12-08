@@ -141,9 +141,9 @@ class SolicitudDataTable extends DataTable
                 ->name('usuarioSolicita.name')
                 ->data('usuario_solicita.name'),
 
-            Column::make('usuario_autoriza')
-                ->name('usuarioAutoriza.name')
-                ->data('usuario_autoriza.name'),
+//            Column::make('usuario_autoriza')
+//                ->name('usuarioAutoriza.name')
+//                ->data('usuario_autoriza.name'),
 
             Column::make('usuario_aprueba')
                 ->name('usuarioAprueba.name')

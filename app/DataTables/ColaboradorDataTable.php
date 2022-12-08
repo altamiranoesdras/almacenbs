@@ -24,14 +24,24 @@ class ColaboradorDataTable extends DataTable
 
                  $id = $colaborador->id;
 
-                 return view('colaboradors.datatables_actions',compact('colaborador','id'))->render();
+                 return view('colaboradores.datatables_actions',compact('colaborador','id'))->render();
              })
              ->editColumn('id',function (Colaborador $colaborador){
 
                  return $colaborador->id;
 
-                 //se debe crear la vista modal_detalles
-                 //return view('colaboradors.modal_detalles',compact('colaborador'))->render();
+
+             })
+             ->editColumn('puesto.nombre',function (Colaborador $colaborador){
+
+                 return $colaborador->puesto->nombre ?? '';
+
+
+             })
+             ->editColumn('unidad.nombre',function (Colaborador $colaborador){
+
+                 return $colaborador->unidad->nombre ?? '';
+
 
              })
             ->rawColumns(['action','id']);
@@ -46,7 +56,9 @@ class ColaboradorDataTable extends DataTable
      */
     public function query(Colaborador $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()
+            ->select($model->getTable().".*")
+            ->with(['unidad','puesto']);
     }
 
     /**
@@ -105,8 +117,8 @@ class ColaboradorDataTable extends DataTable
             Column::make('telefono'),
             Column::make('direccion'),
             Column::make('nit'),
-            Column::make('puesto_id'),
-            Column::make('unidad_id'),
+            Column::make('puesto')->name('puesto.nombre')->data('puesto.nombre'),
+            Column::make('unidad')->name('unidad.nombre')->data('unidad.nombre'),
             Column::make('user_id'),
             Column::computed('action')
                             ->exportable(false)
@@ -123,6 +135,6 @@ class ColaboradorDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'colaboradors_'  . date('YmdHis');
+        return 'colaboradores_'  . date('YmdHis');
     }
 }

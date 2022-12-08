@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ColaboradorController;
+use App\Http\Controllers\ContratoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -172,10 +174,10 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     Route::resource('rrhhUnidades', RrhhUnidadController::class);
 
-    Route::resource('colaboradores', App\Http\Controllers\API\ColaboradorAPIController::class);
+    Route::resource('colaboradores', ColaboradorController::class);
 
 
-    Route::resource('contratos', App\Http\Controllers\API\ContratoAPIController::class);
+    Route::resource('contratos', ContratoController::class);
 
 
 

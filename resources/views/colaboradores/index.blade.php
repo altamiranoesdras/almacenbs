@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page',__('Colaboradors'))
+@section('title_page',__('Colaboradores'))
 
 @section('content')
 
@@ -9,13 +9,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Colaboradors</h1>
+                    <h1>Colaboradores</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-right">
                         <li class="breadcrumb-item">
                             <a class="btn btn-outline-success"
-                                href="{!! route('colaboradors.create') !!}">
+                                href="{!! route('colaboradores.create') !!}">
                                 <i class="fa fa-plus"></i>
                                 <span class="d-none d-sm-inline">Nuevo</span>
                             </a>
@@ -35,11 +35,11 @@
             <div class="clearfix"></div>
             <div class="card card-primary">
                 <div class="card-body">
-                        @include('colaboradors.table')
+                        @include('colaboradores.table')
                 </div>
             </div>
             <div class="text-center">
-                
+
             </div>
         </div>
     </div>

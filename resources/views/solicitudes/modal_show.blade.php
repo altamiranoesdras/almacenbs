@@ -27,13 +27,13 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 
-                    @can("Autorizar Requisición")
-                        @if($solicitud->puedeAutorizar())
-                            <a href="{{route('solicitudes.autorizar.store',$solicitud->id)}}"  class="btn btn-outline-success">
-                                Autorizar
-                            </a>
-                        @endif
-                    @endcan
+{{--                    @can("Autorizar Requisición")--}}
+{{--                        @if($solicitud->puedeAutorizar())--}}
+{{--                            <a href="{{route('solicitudes.autorizar.store',$solicitud->id)}}"  class="btn btn-outline-success">--}}
+{{--                                Autorizar--}}
+{{--                            </a>--}}
+{{--                        @endif--}}
+{{--                    @endcan--}}
 
                     @can("Aprobar Requisición")
                         @if($solicitud->puedeAprobar())

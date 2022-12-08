@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property integer $solicitud_id
  * @property integer $item_id
  * @property number $cantidad_solicitada
+ * @property number $cantidad_aprobada
  * @property number $cantidad_despachada
  * @property number $precio
  */
@@ -40,6 +41,7 @@ class SolicitudDetalle extends Model
         'solicitud_id',
         'item_id',
         'cantidad_solicitada',
+        'cantidad_aprobada',
         'cantidad_despachada',
         'precio'
     ];
