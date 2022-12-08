@@ -22,7 +22,7 @@ trait ItemTrait
         $categorias = $request->categorias ?? [];
 
         $request->merge([
-            'icategoria_id' => $categorias[0] ?? null,
+            'categoria_id' => $categorias[0] ?? null,
             'precio_promedio' => $request->precio_compra
         ]);
 
@@ -50,7 +50,7 @@ trait ItemTrait
         //Categorías multiples para el item
         $categorias = $request->categorias ?? [];
         //Categoría principal (si se selecciona al menos una categoría; la categoría principal es la primera del array)
-        $request->merge(['icategoria_id' => $categorias[0] ?? null]);
+        $request->merge(['categoria_id' => $categorias[0] ?? null]);
 
         if ($item->puedeEditarPrecioPromedio()){
 

@@ -429,7 +429,7 @@ class Item extends Model implements HasMedia
     public function scopeDeCategoria($query,$categoria)
     {
         return $query->whereIn('id', function($q) use ($categoria){
-            $q->select('item_id')->from('icategoria_item')->where('icategoria_id',$categoria)->whereNull('deleted_at');
+            $q->select('item_id')->from('icategoria_item')->where('categoria_id',$categoria)->whereNull('deleted_at');
         });
     }
 

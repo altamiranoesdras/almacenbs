@@ -9,6 +9,7 @@ use App\Models\Renglon;
 use App\Models\Stock;
 use App\Models\Unimed;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 
 class ItemsTableSeeder extends Seeder
@@ -36,7 +37,10 @@ class ItemsTableSeeder extends Seeder
             DB::table('compras')->truncate();
             DB::table('compra_detalles')->truncate();
 
-            Item::factory()->count(25)->create();
+
+            Artisan::call('import:insumos');
+
+//            Item::factory()->count(25)->create();
 
             DB::statement('SET FOREIGN_KEY_CHECKS=1');
         }

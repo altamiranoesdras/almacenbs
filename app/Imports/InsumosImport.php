@@ -4,6 +4,8 @@ namespace App\Imports;
 
 use App\Models\ItemCategoria;
 use App\Models\Item;
+use App\Models\ItemPresentacion;
+use App\Models\ItemTipo;
 use App\Models\Marca;
 use App\Models\Renglon;
 use App\Models\Unimed;
@@ -12,8 +14,9 @@ use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithProgressBar;
 
-class ItemsImport implements ToCollection, WithHeadingRow
+class InsumosImport implements ToCollection, WithHeadingRow, WithProgressBar
 {
 
     use Importable;
@@ -44,30 +47,33 @@ class ItemsImport implements ToCollection, WithHeadingRow
 
         foreach ($rows as $index => $row) {
 
-            $marca = null;
+
+            $renglon = null;
             $unimed = null;
-            $categoria = null;
+            $presentacion = null;
 
 
+//            dd($row);
 
-            if($row['nombre'] && $row['precio_compra'] && $row['stockexistencias']!==''){
+            if($row['nombre'] && $row['codigo_de_insumo']){
 
 
-                if ($row['marca']!='') {
+                if ($row['nombre_de_la_presentacion']!='') {
 
-                    $marca = Marca::firstOrCreate(['nombre' => $row['marca']]);
+                    $presentacion = ItemPresentacion::firstOrCreate([
+                                        'nombre' => $row['nombre_de_la_presentacion']
+                                    ]);
+
                 }
-                if ($row['unidad_medida']!='') {
-                    $unimed = Unimed::firstOrCreate(['simbolo' => 'U','nombre' => $row['unidad_medida'],'magnitud_id' => 1]);
-                }
+                if ($row['renglon']!='') {
 
-                if ($row['categoria']!=''){
-                    $categoria = ItemCategoria::firstOrCreate(['nombre' => $row['categoria']]);
-                }
-
-                if ($row['renglon']!=''){
                     $renglon = Renglon::firstOrCreate(['numero' => $row['renglon']]);
                 }
+
+                if ($row['cantidad_y_unidad_de_medida_de_la_presentacion']!='') {
+                    $unimed = Unimed::firstOrCreate(['simbolo' => 'U','nombre' => $row['cantidad_y_unidad_de_medida_de_la_presentacion'],'magnitud_id' => 1]);
+                }
+
 
 
                 try {
@@ -77,46 +83,50 @@ class ItemsImport implements ToCollection, WithHeadingRow
                      */
                     $item = Item::updateOrCreate(
                         [
-                            'codigo' => $row['codigo'] ?? '',
-                            'nombre' => $row['nombre'],
+                            'codigo_insumo' => $row['codigo_de_insumo'] ?? '',
                         ],
                         [
-                            'codigo' => $row['codigo']=='' ? null : $row['codigo'],
+//                            'codigo' => null,
+                            'codigo_insumo' => $row['codigo_de_insumo']=='' ? null : $row['codigo_de_insumo'],
                             'nombre' => $row['nombre'],
                             'renglon_id' => $renglon->id ?? null,
-                            'descripcion' => $row['descripcion'] ?? null,
+                            'presentacion_id' => $presentacion->id ?? null,
+                            'descripcion' => $row['caracteristicas'] ?? null,
                             'precio_compra' => $row['precio_compra'] ?? 0,
                             'precio_promedio' => $row['precio_promedio'] ?? 0,
                             'ubicacion' => $row['ubicacion']  ?? null,
-                            'inventariable' => $row['servicio_o_producto']=="Producto" ? 1 : 0,
+                            'inventariable' => 1,
+                            'tipo_id' => rand(1,3),
                             'perecedero' => $row['perecedero'] ?? 0,
                             'marca_id' => $marca->id ?? null,
                             'unimed_id' => $unimed->id ?? null,
                             'categoria_id' => $categoria->id ?? null,
-                        ]);
+                        ]
+                    );
 
-                    if ($categoria && $item){
 
-                        $item->categorias()->syncWithoutDetaching([$categoria->id]);
-                    }
 
 
                     $stockCant = $row['stockexistencias'] ?? 0;
 
-
-                    $item->actualizaOregistraStcokInicial($stockCant);
+//                    $item->actualizaOregistraStcokInicial($stockCant);
 
                 }
                 catch(QueryException $e){
 
+
+                    dd($e->getMessage());
                     //Duplicate entry
                     if($e->errorInfo[1] == '1062'){
                         $this->codigosExistentes->push($row['codigo']." / ".$row['nombre']);
                     }
                 }
                 catch (\Exception $exception){
+                    dd($e->getMessage());
+
                     $this->noInsertados->push([$row['nombre'] => $exception->getMessage()]);
                 }
+
 
 
             }
