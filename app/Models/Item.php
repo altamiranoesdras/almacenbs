@@ -89,6 +89,7 @@ class Item extends Model implements HasMedia
 
     public $fillable = [
         'codigo',
+        'codigo_insumo',
         'nombre',
         'descripcion',
         'tipo_id',
@@ -361,6 +362,10 @@ class Item extends Model implements HasMedia
      */
 
 
+    public function scopeTipoActivo($q)
+    {
+        return $q->where('tipo_id',ItemTipo::ACTIVO_FIJO);
+    }
 
     public function scopeDeCategoria($query,$categoria)
     {
