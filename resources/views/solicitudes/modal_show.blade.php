@@ -8,7 +8,14 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
 
-            <form action="{{route('solicitudes.despachar.store',$solicitud->id)}}" method="post" class="esperar">
+                @if($solicitud->puedeAprobar())
+
+                    <form action="{{route('solicitudes.aprobar.store',$solicitud->id)}}" method="post" class="esperar">
+                        @endif
+                @if($solicitud->puedeDespachar())
+                    <form action="{{route('solicitudes.despachar.store',$solicitud->id)}}" method="post" class="esperar">
+                @endif
+
                 @csrf
 
                 <div class="modal-body text-uppercase">
@@ -37,9 +44,9 @@
 
                     @can("Aprobar Requisición")
                         @if($solicitud->puedeAprobar())
-                            <a href="{{route('solicitudes.aprobar.store',$solicitud->id)}}"  class="btn btn-outline-success">
+                            <button type="submit"   class="btn btn-outline-success">
                                 Aprobar
-                            </a>
+                            </button>
                         @endif
                     @endcan
 

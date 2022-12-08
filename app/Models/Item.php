@@ -149,6 +149,7 @@ class Item extends Model implements HasMedia
     public $fillable = [
         'codigo',
         'codigo_insumo',
+        'codigo_presentacion',
         'nombre',
         'descripcion',
         'tipo_id',
@@ -382,7 +383,7 @@ class Item extends Model implements HasMedia
         $presentacion = $this->presentacion->nombre ?? '';
         $unidad = $this->unimed->nombre ?? '';
 
-        return $codigo.' - '.$this->nombre." - ".$presentacion." - ".$unidad;
+        return "CI:".$codigo." CP:".$this->codigo_presentacion.' - '.$this->nombre." - ".$presentacion." - ".$unidad;
     }
 
 

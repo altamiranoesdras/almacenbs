@@ -16,7 +16,8 @@ class CreateItemsTable extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('codigo', 25)->nullable()->unique('codigo_UNIQUE');
-            $table->string('codigo_insumo', 25)->nullable()->unique();
+            $table->string('codigo_insumo', 25)->nullable();
+            $table->string('codigo_presentacion', 25)->nullable();
             $table->string('nombre', 255)->fulltext();
             $table->text('descripcion')->fulltext()->nullable();
             $table->unsignedBigInteger('tipo_id')->index('fk_items_item_tipos1_idx');

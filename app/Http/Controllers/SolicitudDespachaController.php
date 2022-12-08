@@ -49,7 +49,7 @@ class SolicitudDespachaController extends Controller
              * @var SolicitudDetalle $detalle
              */
             foreach ($solicitud->detalles as $index => $detalle) {
-                $detalle->cantidad_despachada = $request->cantidades[$index];
+                $detalle->cantidad_despachada = $request->cantidades_despacha[$index];
                 $detalle->save();
             }
 

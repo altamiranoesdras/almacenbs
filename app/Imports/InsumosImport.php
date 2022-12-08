@@ -63,9 +63,8 @@ class InsumosImport implements ToCollection, WithHeadingRow, WithProgressBar
             $presentacion = null;
 
 
-//            dd($row);
 
-            if($row['nombre'] && $row['codigo_de_insumo']){
+            if($row['nombre'] && $row['codigo_de_insumo'] && $row['codigo_de_presentacion']){
 
 
                 if ($row['nombre_de_la_presentacion']!='') {
@@ -98,6 +97,7 @@ class InsumosImport implements ToCollection, WithHeadingRow, WithProgressBar
                     $item = Item::updateOrCreate(
                         [
                             'codigo_insumo' => $row['codigo_de_insumo'] ?? '',
+                            'codigo_presentacion' => $row['codigo_de_presentacion'] ?? '',
                         ],
                         [
 //                            'codigo' => null,

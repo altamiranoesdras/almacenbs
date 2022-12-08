@@ -6,6 +6,7 @@ use App\DataTables\Scopes\ScopeSolicitudDataTable;
 use App\DataTables\SolicitudApruebaDataTable;
 use App\Events\EventoCambioEstadoSolicitud;
 use App\Models\Solicitud;
+use App\Models\SolicitudDetalle;
 use App\Models\SolicitudEstado;
 use Carbon\Carbon;
 use Exception;
@@ -29,12 +30,24 @@ class SolicitudApruebaController extends Controller
     }
 
 
-    public function store(Solicitud $solicitud)
+    public function store(Solicitud $solicitud,Request $request)
     {
+
+        dd($request->all());
+
 
 
         try {
             DB::beginTransaction();
+
+
+            /**
+             * @var SolicitudDetalle $detalle
+             */
+            foreach ($solicitud->detalles as $index => $detalle) {
+                $detalle->cantidad_aprobada = $request->cantidades_aprueba[$index];
+                $detalle->save();
+            }
 
             $solicitud->estado_id = SolicitudEstado::APROBADA;
             $solicitud->usuario_aprueba = auth()->user()->id;
