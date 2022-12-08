@@ -345,6 +345,14 @@ class Item extends Model implements HasMedia
         return $this->hasMany(\App\Models\Stock::class, 'item_id');
     }
 
+    public function presentacion()
+    {
+        return $this->belongsTo(ItemPresentacion::class);
+    }
+
+
+
+
     /**
      *MÉTODOS Y MUTADORES
      */
@@ -369,8 +377,11 @@ class Item extends Model implements HasMedia
 
     public function getTextAttribute()
     {
-        $codigo = $this->codigo ? $this->codigo : 'sin codigo';
-        return $codigo.' / '.$this->nombre;
+        $codigo = $this->codigo ?? $this->codigo_insumo ?? '(sin codigo)';
+        $presentacion = $this->presentacion->nombre ?? '';
+        $unidad = $this->unimed->nombre ?? '';
+
+        return $codigo.' - '.$this->nombre." - ".$presentacion." - ".$unidad;
     }
 
 

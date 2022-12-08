@@ -3,8 +3,8 @@
       <multiselect
           v-model="item"
           ref="multiselect"
-          placeholder="Buscador de articulos"
-          label="nombre"
+          placeholder="Buscador de insumos"
+          label="text"
           track-by="id"
           open-direction="bottom"
           :options="items"
@@ -36,7 +36,7 @@
                   </div>
                   <div class='result-container text-uppercase'>
 
-                      <div class='select-result__nombre' v-text="props.option.nombre"></div>
+                      <div class='select-result__nombre' v-text="props.option.text"></div>
 
                       <div class='select-result__precio' v-show="!solicitud">
                           <i class='far fa-money-bill-alt'></i>
@@ -68,7 +68,7 @@
                   </div>
                   <div class='result-container text-uppercase'>
 
-                      <div class='select-result__nombre' v-text="props.option.nombre"></div>
+                      <div class='select-result__nombre' v-text="props.option.text"></div>
 
                       <div class='select-result__precio' v-show="!solicitud">
                           <i class='far fa-money-bill-alt'></i>

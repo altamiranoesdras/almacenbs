@@ -36,7 +36,8 @@ class ItemAPIController extends AppBaseController
         if ($request->search){
             $query->where('nombre','like','%'.$request->search.'%')
                 ->orWhere('descripcion','like','%'.$request->search.'%')
-                ->orWhere('codigo','like','%'.$request->search.'%');
+                ->orWhere('codigo','like','%'.$request->search.'%')
+                ->orWhere('codigo_insumo','like','%'.$request->search.'%');
         }
 
         $items = $query->get();
