@@ -239,7 +239,7 @@ class Compra extends Model
 
         if ($user){
 
-            return $query->where('user_id',$user);
+            return $query->where('usuario_crea',$user);
         }
 
         return $query;

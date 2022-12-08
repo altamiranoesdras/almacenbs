@@ -6,7 +6,7 @@
 
 <!-- Proveedore Id Field -->
 {!! Form::label('proveedor', 'Proveedor :') !!}
-{!! $compra->proveedor->nombre ?? '' !!}
+{!! $compra->proveedor->razon_social ?? '' !!}
 <br>
 
 <!-- Serie Field -->
