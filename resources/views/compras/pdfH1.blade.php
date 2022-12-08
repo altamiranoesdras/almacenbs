@@ -44,7 +44,7 @@
                 FECHA:
             </td>
             <td style="width:15%;">
-                {{ fechaLtn($compra->created_at) }}
+                {{ fechaLtn($compra->fecha_documento) }}
             </td>
         </tr>
         <tr style="">
@@ -52,7 +52,7 @@
                 PROVEEDOR:
             </td>
             <td style="width:5%;">
-                {{ $compra->proveedor->nombre }}
+                {{ $compra->proveedor->razon_social }}
             </td>
             <td style="width:5%;">
                 ORDEN DE C. Y P. No:
