@@ -2,8 +2,6 @@
 
 namespace App\Mail;
 
-use App\Models\Tienda;
-use App\Models\Venta;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;

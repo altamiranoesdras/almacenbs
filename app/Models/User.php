@@ -118,6 +118,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
  * @mixin \Eloquent
  * @property-read int|null $items_traslados_count
+ * @property-read int|null $stock_iniciales_count
  */
 class User extends Authenticatable implements  HasMedia
 {
@@ -317,7 +318,7 @@ class User extends Authenticatable implements  HasMedia
      **/
     public function stockIniciales()
     {
-        return $this->hasMany(\App\Models\StockIniciale::class, 'user_id');
+        return $this->hasMany(\App\Models\StockInicial::class, 'user_id');
     }
 
     /**

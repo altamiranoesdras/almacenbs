@@ -60,6 +60,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read int|null $activo_solicitude1s_count
  * @property-read int|null $activo_solicitudes_count
  * @property-read int|null $rrhh_unidade2s_count
+ * @property-read int|null $rrhh_contratos_count
  */
 class RrhhColaborador extends Model
 {

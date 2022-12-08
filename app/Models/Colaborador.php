@@ -61,6 +61,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Query\Builder|Colaborador withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Colaborador withoutTrashed()
  * @mixin \Eloquent
+ * @property-read int|null $contratos_count
  */
 class Colaborador extends Model
 {

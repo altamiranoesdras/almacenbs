@@ -106,6 +106,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @mixin \Eloquent
  * @property-read int|null $items_traslado3s_count
  * @property-read int|null $items_traslados_count
+ * @property-read int|null $stock_iniciales_count
  */
 class Item extends Model implements HasMedia
 {
@@ -333,7 +334,7 @@ class Item extends Model implements HasMedia
      **/
     public function stockIniciales()
     {
-        return $this->hasMany(\App\Models\StockIniciale::class, 'item_id');
+        return $this->hasMany(\App\Models\StockInicial::class, 'item_id');
     }
 
     /**

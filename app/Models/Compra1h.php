@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @version July 27, 2022, 12:27 pm CST
  * @property \App\Models\Compra $compra
  * @property \App\Models\User $usuarioProcesa
- * @property \App\Models\EnviosFiscale $envioFiscal
+ * @property \App\Models\EnvioFiscal $envioFiscal
  * @property \Illuminate\Database\Eloquent\Collection $compra1hDetalles
  * @property integer $compra_id
  * @property integer $envio_fiscal_id
@@ -139,7 +139,7 @@ class Compra1h extends Model
      **/
     public function envioFiscal()
     {
-        return $this->belongsTo(\App\Models\EnviosFiscale::class, 'envio_fiscal_id');
+        return $this->belongsTo(\App\Models\EnvioFiscal::class, 'envio_fiscal_id');
     }
 
     /**

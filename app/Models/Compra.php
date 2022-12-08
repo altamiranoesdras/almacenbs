@@ -211,15 +211,6 @@ class Compra extends Model
     }
 
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     **/
-    public function ventas()
-    {
-        return $this->belongsToMany(Venta::class, 'compra_venta');
-    }
-
-
     public function getTotalAttribute()
     {
         return $this->sub_total - ($this->descuento_monto ?? 0);
