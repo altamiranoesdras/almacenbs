@@ -79,8 +79,8 @@
         <div class="row">
 
             <div class="form-group col-sm-6 ">
-                {!! Form::label('fecha_doc', 'Fecha Documento:') !!}
-                {!! Form::date('fecha', hoyDb(), ['class' => 'form-control']) !!}
+                {!! Form::label('fecha_documento', 'Fecha Documento:') !!}
+                {!! Form::date('fecha_documento', hoyDb(), ['class' => 'form-control']) !!}
             </div>
             <div class="form-group col-sm-6 ">
                 {!! Form::label('fecha_ingreso_plan', 'Fecha ingresará:') !!}
