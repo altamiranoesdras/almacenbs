@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class RrhhUnidad
+ *
  * @package App\Models
  * @version August 8, 2022, 12:14 am CST
- *
  * @property \App\Models\User $jefe
  * @property \Illuminate\Database\Eloquent\Collection $puestos
  * @property \Illuminate\Database\Eloquent\Collection $solicitudes
@@ -18,6 +18,28 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string $nombre
  * @property integer $jefe_id
  * @property string $activa
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read int|null $puestos_count
+ * @property-read int|null $solicitudes_count
+ * @property-read int|null $usuarios_count
+ * @method static \Database\Factories\RrhhUnidadFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad newQuery()
+ * @method static \Illuminate\Database\Query\Builder|RrhhUnidad onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad query()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereActiva($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereJefeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereNombre($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|RrhhUnidad withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|RrhhUnidad withoutTrashed()
+ * @mixin \Eloquent
  */
 class RrhhUnidad extends Model
 {

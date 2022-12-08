@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class ActivoTarjeta
+ *
  * @package App\Models
  * @version August 31, 2022, 10:51 pm CST
- *
  * @property \App\Models\User $responsable
  * @property \Illuminate\Database\Eloquent\Collection $solicitudes
  * @property \Illuminate\Database\Eloquent\Collection $detalles
@@ -19,6 +19,39 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string $codigo_interno
  * @property integer $correlativo
  * @property boolean $impreso
+ * @property int $id
+ * @property int $usuario_crea
+ * @property int $estado_id
+ * @property string|null $observaciones
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read int|null $detalles_count
+ * @property-read \App\Models\User $usuarioCrea
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta delUsuarioCrea($user = null)
+ * @method static \Database\Factories\ActivoTarjetaFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta noTemporal()
+ * @method static \Illuminate\Database\Query\Builder|ActivoTarjeta onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta temporal()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta whereCodigo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta whereCodigoInterno($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta whereColaboradorId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta whereCorrelativo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta whereEstadoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta whereImpreso($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta whereObservaciones($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta whereUsuarioCrea($value)
+ * @method static \Illuminate\Database\Query\Builder|ActivoTarjeta withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|ActivoTarjeta withoutTrashed()
+ * @mixin \Eloquent
+ * @property-read int|null $solicitudes_count
  */
 class ActivoTarjeta extends Model
 {
@@ -93,7 +126,7 @@ class ActivoTarjeta extends Model
      **/
     public function solicitudes()
     {
-        return $this->hasMany(\App\Models\ActivoSolicitude::class, 'tarjeta_id');
+        return $this->hasMany(\App\Models\ActivoSolicitud::class, 'tarjeta_id');
     }
 
     /**

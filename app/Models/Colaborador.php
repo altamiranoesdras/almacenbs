@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class Colaborador
+ *
  * @package App\Models
  * @version November 10, 2022, 2:41 pm CST
- *
  * @property \App\Models\RrhhPuesto $puesto
  * @property \App\Models\User $user
  * @property \App\Models\RrhhUnidad $unidad
@@ -29,6 +29,38 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property integer $puesto_id
  * @property integer $unidad_id
  * @property integer $user_id
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read int|null $activo_tarjetas_count
+ * @property-read mixed $nombre_completo
+ * @property-read mixed $text
+ * @property-read int|null $jefe_count
+ * @property-read int|null $solicitud_destino_count
+ * @property-read int|null $solicitud_origen_count
+ * @method static \Database\Factories\ColaboradorFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Colaborador newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Colaborador newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Colaborador onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Colaborador query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Colaborador whereApellidos($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Colaborador whereCorreo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Colaborador whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Colaborador whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Colaborador whereDireccion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Colaborador whereDpi($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Colaborador whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Colaborador whereNit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Colaborador whereNombres($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Colaborador wherePuestoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Colaborador whereTelefono($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Colaborador whereUnidadId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Colaborador whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Colaborador whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|Colaborador withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Colaborador withoutTrashed()
+ * @mixin \Eloquent
  */
 class Colaborador extends Model
 {

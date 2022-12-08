@@ -12,9 +12,9 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * Class Item
+ *
  * @package App\Models
  * @version July 27, 2022, 12:22 pm CST
- *
  * @property \App\Models\ItemCategoria $categoria
  * @property \App\Models\Renglon $renglon
  * @property \App\Models\Marca $marca
@@ -48,6 +48,64 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property string $ubicacion
  * @property boolean $perecedero
  * @property boolean $inventariable
+ * @property int $id
+ * @property string|null $codigo_insumo
+ * @property int|null $presentacion_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ItemCategoria[] $categorias
+ * @property-read int|null $categorias_count
+ * @property-read int|null $compra1h_detalles_count
+ * @property-read int|null $compra_detalles_count
+ * @property-read int|null $equivalencia1s_count
+ * @property-read int|null $equivalencias_count
+ * @property-read mixed $img
+ * @property-read mixed $text
+ * @property-read mixed $thumb
+ * @property-read int|null $kardexes_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Kardex[] $kardexs
+ * @property-read int|null $kardexs_count
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\App\Models\Media[] $media
+ * @property-read int|null $media_count
+ * @property-read int|null $solicitud_detalles_count
+ * @property-read int|null $stocks_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Item deCategoria($categoria)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item deMarca($marca)
+ * @method static \Database\Factories\ItemFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Item newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Item onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Item query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Item tipoActivo()
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereCategoriaId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereCodigo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereCodigoInsumo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereDescripcion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereInventariable($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereMarcaId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereNombre($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item wherePerecedero($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item wherePrecioCompra($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item wherePrecioPromedio($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item wherePrecioVenta($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item wherePresentacionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereRenglonId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereStockMaximo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereStockMinimo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereTipoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereUbicacion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereUnimedId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Item withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Item withoutAppends()
+ * @method static \Illuminate\Database\Query\Builder|Item withoutTrashed()
+ * @mixin \Eloquent
+ * @property-read int|null $items_traslado3s_count
+ * @property-read int|null $items_traslados_count
  */
 class Item extends Model implements HasMedia
 {
@@ -243,7 +301,7 @@ class Item extends Model implements HasMedia
      **/
     public function itemsTraslados()
     {
-        return $this->hasMany(\App\Models\ItemsTraslado::class, 'item_destino');
+        return $this->hasMany(\App\Models\ItemTraslado::class, 'item_destino');
     }
 
     /**
@@ -251,7 +309,7 @@ class Item extends Model implements HasMedia
      **/
     public function itemsTraslado3s()
     {
-        return $this->hasMany(\App\Models\ItemsTraslado::class, 'item_origen');
+        return $this->hasMany(\App\Models\ItemTraslado::class, 'item_origen');
     }
 
     /**

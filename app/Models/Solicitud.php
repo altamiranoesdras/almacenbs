@@ -11,9 +11,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class Solicitud
+ *
  * @package App\Models
  * @version July 27, 2022, 12:25 pm CST
- *
  * @property User $usuarioDespacha
  * @property User $usuarioSolicita
  * @property SolicitudEstado $estado
@@ -42,6 +42,51 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string|Carbon $fecha_informa
  * @property string|Carbon $fecha_despacha
  * @property integer $estado_id
+ * @property int $id
+ * @property string|null $observaciones
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read int|null $detalles_count
+ * @method static Builder|Solicitud aprobadas()
+ * @method static Builder|Solicitud autorizadas()
+ * @method static Builder|Solicitud deUnidad($unidad = null)
+ * @method static Builder|Solicitud delUsuarioCrea($user = null)
+ * @method static \Database\Factories\SolicitudFactory factory(...$parameters)
+ * @method static Builder|Solicitud newModelQuery()
+ * @method static Builder|Solicitud newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Solicitud onlyTrashed()
+ * @method static Builder|Solicitud query()
+ * @method static Builder|Solicitud solicitadas()
+ * @method static Builder|Solicitud temporal()
+ * @method static Builder|Solicitud whereCodigo($value)
+ * @method static Builder|Solicitud whereCorrelativo($value)
+ * @method static Builder|Solicitud whereCreatedAt($value)
+ * @method static Builder|Solicitud whereDeletedAt($value)
+ * @method static Builder|Solicitud whereEstadoId($value)
+ * @method static Builder|Solicitud whereFechaAlmacenFirma($value)
+ * @method static Builder|Solicitud whereFechaAprueba($value)
+ * @method static Builder|Solicitud whereFechaAutoriza($value)
+ * @method static Builder|Solicitud whereFechaDespacha($value)
+ * @method static Builder|Solicitud whereFechaInforma($value)
+ * @method static Builder|Solicitud whereFechaSolicita($value)
+ * @method static Builder|Solicitud whereFirmaAlmacen($value)
+ * @method static Builder|Solicitud whereFirmaAprueba($value)
+ * @method static Builder|Solicitud whereFirmaAutoriza($value)
+ * @method static Builder|Solicitud whereFirmaRequiere($value)
+ * @method static Builder|Solicitud whereId($value)
+ * @method static Builder|Solicitud whereJustificacion($value)
+ * @method static Builder|Solicitud whereObservaciones($value)
+ * @method static Builder|Solicitud whereUnidadId($value)
+ * @method static Builder|Solicitud whereUpdatedAt($value)
+ * @method static Builder|Solicitud whereUsuarioAprueba($value)
+ * @method static Builder|Solicitud whereUsuarioAutoriza($value)
+ * @method static Builder|Solicitud whereUsuarioCrea($value)
+ * @method static Builder|Solicitud whereUsuarioDespacha($value)
+ * @method static Builder|Solicitud whereUsuarioSolicita($value)
+ * @method static \Illuminate\Database\Query\Builder|Solicitud withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Solicitud withoutTrashed()
+ * @mixin \Eloquent
  */
 class Solicitud extends Model
 {

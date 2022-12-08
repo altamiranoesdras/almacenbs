@@ -9,11 +9,30 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class SolicitudEstado
+ *
  * @package App\Models
  * @version July 27, 2022, 12:24 pm CST
- *
  * @property \Illuminate\Database\Eloquent\Collection $solicitudes
  * @property string $nombre
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @method static \Database\Factories\SolicitudEstadoFactory factory(...$parameters)
+ * @method static Builder|SolicitudEstado newModelQuery()
+ * @method static Builder|SolicitudEstado newQuery()
+ * @method static \Illuminate\Database\Query\Builder|SolicitudEstado onlyTrashed()
+ * @method static Builder|SolicitudEstado principales()
+ * @method static Builder|SolicitudEstado query()
+ * @method static Builder|SolicitudEstado whereCreatedAt($value)
+ * @method static Builder|SolicitudEstado whereDeletedAt($value)
+ * @method static Builder|SolicitudEstado whereId($value)
+ * @method static Builder|SolicitudEstado whereNombre($value)
+ * @method static Builder|SolicitudEstado whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|SolicitudEstado withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|SolicitudEstado withoutTrashed()
+ * @mixin \Eloquent
+ * @property-read int|null $solicitudes_count
  */
 class SolicitudEstado extends Model
 {
@@ -71,7 +90,7 @@ class SolicitudEstado extends Model
      **/
     public function solicitudes()
     {
-        return $this->hasMany(\App\Models\Solicitude::class, 'estado_id');
+        return $this->hasMany(\App\Models\Solicitud::class, 'estado_id');
     }
 
     public function scopePrincipales(Builder $q)

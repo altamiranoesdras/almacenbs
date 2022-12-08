@@ -16,9 +16,9 @@ use Spatie\Permission\Traits\HasRoles;
 
 /**
  * Class User
+ *
  * @package App\Models
  * @version August 6, 2022, 10:40 am CST
- *
  * @property \App\Models\RrhhPuesto $puesto
  * @property \App\Models\RrhhUnidad $unidad
  * @property \Illuminate\Database\Eloquent\Collection $compra1hs
@@ -48,6 +48,76 @@ use Spatie\Permission\Traits\HasRoles;
  * @property string $provider
  * @property string $provider_uid
  * @property string $remember_token
+ * @property int $id
+ * @property int|null $dpi
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Client[] $clients
+ * @property-read int|null $clients_count
+ * @property-read int|null $compra1hs_count
+ * @property-read int|null $compras_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Compra[] $comprasRecibe
+ * @property-read int|null $compras_recibe_count
+ * @property-read mixed $img
+ * @property-read mixed $thumb
+ * @property-read \App\Models\RrhhUnidad|null $jefeUnidad
+ * @property-read int|null $kardexs_count
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\App\Models\Media[] $media
+ * @property-read int|null $media_count
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read int|null $notifications_count
+ * @property-read int|null $options_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Permission[] $permissions
+ * @property-read int|null $permissions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Role[] $roles
+ * @property-read int|null $roles_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Option[] $shortcuts
+ * @property-read int|null $shortcuts_count
+ * @property-read int|null $solicitudes_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Solicitud[] $solicitudesAprueba
+ * @property-read int|null $solicitudes_aprueba_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Solicitud[] $solicitudesAutoriza
+ * @property-read int|null $solicitudes_autoriza_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Solicitud[] $solicitudesCrea
+ * @property-read int|null $solicitudes_crea_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Solicitud[] $solicitudesDespacha
+ * @property-read int|null $solicitudes_despacha_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Token[] $tokens
+ * @property-read int|null $tokens_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|User[] $usersDespacha
+ * @property-read int|null $users_despacha_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|User[] $usersSolicita
+ * @property-read int|null $users_solicita_count
+ * @method static \Illuminate\Database\Eloquent\Builder|User admins()
+ * @method static \Database\Factories\UserFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User noClientes()
+ * @method static \Illuminate\Database\Query\Builder|User onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|User permission($permissions)
+ * @method static \Illuminate\Database\Eloquent\Builder|User query()
+ * @method static \Illuminate\Database\Eloquent\Builder|User role($roles, $guard = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereDpi($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereEmailVerifiedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereNit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereProvider($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereProviderUid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePuestoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereUnidadId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereUsername($value)
+ * @method static \Illuminate\Database\Query\Builder|User withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
+ * @mixin \Eloquent
+ * @property-read int|null $items_traslados_count
  */
 class User extends Authenticatable implements  HasMedia
 {
@@ -175,7 +245,7 @@ class User extends Authenticatable implements  HasMedia
      **/
     public function itemsTraslados()
     {
-        return $this->hasMany(\App\Models\ItemsTraslado::class, 'user_id');
+        return $this->hasMany(\App\Models\ItemTraslado::class, 'user_id');
     }
 
     /**

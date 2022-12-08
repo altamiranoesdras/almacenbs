@@ -8,11 +8,30 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class ActivoTipo
+ *
  * @package App\Models
  * @version August 31, 2022, 10:51 pm CST
- *
  * @property \Illuminate\Database\Eloquent\Collection $activos
  * @property string $nombre
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read int|null $activos_count
+ * @property-read mixed $text_corto
+ * @method static \Database\Factories\ActivoTipoFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTipo newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTipo newQuery()
+ * @method static \Illuminate\Database\Query\Builder|ActivoTipo onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTipo query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTipo whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTipo whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTipo whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTipo whereNombre($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTipo whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|ActivoTipo withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|ActivoTipo withoutTrashed()
+ * @mixin \Eloquent
  */
 class ActivoTipo extends Model
 {

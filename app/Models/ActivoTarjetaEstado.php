@@ -8,11 +8,29 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class ActivoTarjetaEstado
+ *
  * @package App\Models
  * @version November 10, 2022, 4:56 pm CST
- *
  * @property \Illuminate\Database\Eloquent\Collection $activoTarjetas
  * @property string $nombre
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read int|null $activo_tarjetas_count
+ * @method static \Database\Factories\ActivoTarjetaEstadoFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaEstado newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaEstado newQuery()
+ * @method static \Illuminate\Database\Query\Builder|ActivoTarjetaEstado onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaEstado query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaEstado whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaEstado whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaEstado whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaEstado whereNombre($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaEstado whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|ActivoTarjetaEstado withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|ActivoTarjetaEstado withoutTrashed()
+ * @mixin Model
  */
 class ActivoTarjetaEstado extends Model
 {

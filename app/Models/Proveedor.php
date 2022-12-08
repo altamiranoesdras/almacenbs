@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class Proveedor
+ *
  * @package App\Models
  * @version July 27, 2022, 12:20 pm CST
- *
  * @property \Illuminate\Database\Eloquent\Collection $compras
  * @property string $nit
  * @property string $nombre
@@ -20,6 +20,31 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string $telefono_oficina
  * @property string $direccion
  * @property string $observaciones
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read int|null $compras_count
+ * @method static \Database\Factories\ProveedorFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Proveedor newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Proveedor newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Proveedor onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Proveedor query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Proveedor whereCorreo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Proveedor whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Proveedor whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Proveedor whereDireccion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Proveedor whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Proveedor whereNit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Proveedor whereNombre($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Proveedor whereObservaciones($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Proveedor whereRazonSocial($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Proveedor whereTelefonoMovil($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Proveedor whereTelefonoOficina($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Proveedor whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Proveedor withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Proveedor withoutTrashed()
+ * @mixin \Eloquent
  */
 class Proveedor extends Model
 {

@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class Stock
+ *
  * @package App\Models
  * @version July 27, 2022, 12:25 pm CST
- *
  * @property \App\Models\Item $item
  * @property \Illuminate\Database\Eloquent\Collection $stocksTransacciones
  * @property integer $item_id
@@ -23,6 +23,38 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property number $sub_total
  * @property number $cantidad_inicial
  * @property boolean $orden_salida
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read mixed $codigo
+ * @property-read mixed $responsable
+ * @property-read \App\Models\Kardex|null $kardex
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\StockTransaccion[] $transaccion
+ * @property-read int|null $transaccion_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock conStock()
+ * @method static \Database\Factories\StockFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Stock onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock quedanMeses($meses)
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock vencidos()
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock whereCantidad($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock whereCantidadInicial($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock whereFechaIng($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock whereFechaVence($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock whereItemId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock whereLote($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock whereOrdenSalida($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock wherePrecioCompra($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Stock withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Stock withoutTrashed()
+ * @mixin \Eloquent
  */
 class Stock extends Model
 {

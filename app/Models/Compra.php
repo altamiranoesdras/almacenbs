@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class Compra
+ *
  * @package App\Models
  * @version July 27, 2022, 12:21 pm CST
- *
  * @property \App\Models\User $usuarioCrea
  * @property \App\Models\Proveedor $proveedor
  * @property \App\Models\CompraTipo $tipo
@@ -31,6 +31,46 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property integer $usuario_recibe
  * @property string $observaciones
  * @property string $orden_compra
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Compra1h|null $compra1h
+ * @property-read int|null $compra1hs_count
+ * @property-read int|null $detalles_count
+ * @property-read mixed $sub_total
+ * @property-read mixed $total
+ * @property-read mixed $total_venta
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra delItem($item)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra delUser($user = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra delUsuarioCrea($user = null)
+ * @method static \Database\Factories\CompraFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra noTemporal()
+ * @method static \Illuminate\Database\Query\Builder|Compra onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra temporal()
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereCodigo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereCorrelativo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereEstadoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereFechaDocumento($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereFechaIngreso($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereNumero($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereObservaciones($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereOrdenCompra($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereProveedorId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereSerie($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereTipoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereUsuarioCrea($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereUsuarioRecibe($value)
+ * @method static \Illuminate\Database\Query\Builder|Compra withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Compra withoutTrashed()
+ * @mixin \Eloquent
  */
 class Compra extends Model
 {

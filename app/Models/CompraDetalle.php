@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class CompraDetalle
+ *
  * @package App\Models
  * @version July 27, 2022, 12:22 pm CST
- *
  * @property Compra $compra
  * @property Item $item
  * @property integer $compra_id
@@ -20,6 +20,36 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property number $precio
  * @property number $descuento
  * @property string $fecha_vence
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read mixed $codigo
+ * @property-read mixed $responsable
+ * @property-read mixed $sub_total
+ * @property-read \App\Models\Kardex|null $kardex
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Stock[] $stocks
+ * @property-read int|null $stocks_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\StockTransaccion[] $transaccionesStock
+ * @property-read int|null $transacciones_stock_count
+ * @method static \Database\Factories\CompraDetalleFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle newQuery()
+ * @method static \Illuminate\Database\Query\Builder|CompraDetalle onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle query()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle whereCantidad($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle whereCompraId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle whereDescuento($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle whereFechaVence($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle whereItemId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle wherePrecio($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|CompraDetalle withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|CompraDetalle withoutTrashed()
+ * @mixin \Eloquent
  */
 class CompraDetalle extends Model
 {

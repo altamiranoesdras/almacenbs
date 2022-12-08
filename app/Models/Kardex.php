@@ -10,9 +10,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class Kardex
+ *
  * @package App\Models
  * @version July 27, 2022, 12:24 pm CST
- *
  * @property \App\Models\Item $item
  * @property \App\Models\User $usuario
  * @property integer $item_id
@@ -26,12 +26,43 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string $observacion
  * @property boolean $impreso
  * @property integer $usuario_id
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read mixed $ingreso
+ * @property-read mixed $salida
+ * @property-read Model|\Eloquent $model
+ * @method static Builder|Kardex delItem($item)
+ * @method static Builder|Kardex inventariable()
+ * @method static Builder|Kardex newModelQuery()
+ * @method static Builder|Kardex newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Kardex onlyTrashed()
+ * @method static Builder|Kardex query()
+ * @method static Builder|Kardex whereCantidad($value)
+ * @method static Builder|Kardex whereCodigo($value)
+ * @method static Builder|Kardex whereCreatedAt($value)
+ * @method static Builder|Kardex whereDeletedAt($value)
+ * @method static Builder|Kardex whereFolio($value)
+ * @method static Builder|Kardex whereId($value)
+ * @method static Builder|Kardex whereImpreso($value)
+ * @method static Builder|Kardex whereItemId($value)
+ * @method static Builder|Kardex whereModelId($value)
+ * @method static Builder|Kardex whereModelType($value)
+ * @method static Builder|Kardex whereObservacion($value)
+ * @method static Builder|Kardex whereResponsable($value)
+ * @method static Builder|Kardex whereTipo($value)
+ * @method static Builder|Kardex whereUpdatedAt($value)
+ * @method static Builder|Kardex whereUsuarioId($value)
+ * @method static \Illuminate\Database\Query\Builder|Kardex withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Kardex withoutTrashed()
+ * @mixin \Eloquent
  */
 class Kardex extends Model
 {
     use SoftDeletes;
 
-    use HasFactory;
+//    use HasFactory;
 
     public $table = 'kardexs';
 
