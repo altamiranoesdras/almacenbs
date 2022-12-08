@@ -176,6 +176,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     Route::resource('colaboradores', ColaboradorController::class);
 
+    Route::resource('rrhhContratos', App\Http\Controllers\RrhhContratoController::class);
 
     Route::resource('contratos', ContratoController::class);
 
@@ -281,6 +282,4 @@ Route::group(['prefix' => ''], function () {
 
 
 });
-
-
 

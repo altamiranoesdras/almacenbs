@@ -189,13 +189,10 @@ Route::group(['as'=>'api.'], function () {
 
         Route::resource('item_presentaciones', App\Http\Controllers\API\ItemPresentacionAPIController::class);
 
+        Route::resource('rrhh_contratos', App\Http\Controllers\API\RrhhContratoAPIController::class);
+
+
     });
 
 
 });
-
-
-
-
-
-
