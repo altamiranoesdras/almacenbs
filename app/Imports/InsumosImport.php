@@ -9,6 +9,9 @@ use App\Models\ItemTipo;
 use App\Models\Marca;
 use App\Models\Renglon;
 use App\Models\Unimed;
+use Carbon\Carbon;
+use Faker\Generator;
+use Illuminate\Container\Container;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\Importable;
@@ -22,6 +25,7 @@ class InsumosImport implements ToCollection, WithHeadingRow, WithProgressBar
     use Importable;
 
 
+    private $faker;
     private $noInsertados;
     private $codigosExistentes;
 
@@ -32,9 +36,15 @@ class InsumosImport implements ToCollection, WithHeadingRow, WithProgressBar
     {
         $this->noInsertados = collect();
         $this->codigosExistentes = collect();
+        $this->faker = $this->withFaker();
+
 
     }
 
+    protected function withFaker()
+    {
+        return Container::getInstance()->make(Generator::class);
+    }
 
     /**
     * @param array $row
@@ -65,6 +75,7 @@ class InsumosImport implements ToCollection, WithHeadingRow, WithProgressBar
                                     ]);
 
                 }
+
                 if ($row['renglon']!='') {
 
                     $renglon = Renglon::firstOrCreate(['numero' => $row['renglon']]);
@@ -77,6 +88,9 @@ class InsumosImport implements ToCollection, WithHeadingRow, WithProgressBar
 
 
                 try {
+
+                    $precio_compra = $this->faker->randomFloat(2,10,50);
+                    $precio_venta = $precio_compra * 1.3;
 
                     /**
                      * @var Item $item
@@ -92,8 +106,8 @@ class InsumosImport implements ToCollection, WithHeadingRow, WithProgressBar
                             'renglon_id' => $renglon->id ?? null,
                             'presentacion_id' => $presentacion->id ?? null,
                             'descripcion' => $row['caracteristicas'] ?? null,
-                            'precio_compra' => $row['precio_compra'] ?? 0,
-                            'precio_promedio' => $row['precio_promedio'] ?? 0,
+                            'precio_compra' => $row['precio_compra'] ?? $precio_compra,
+                            'precio_promedio' => $row['precio_promedio'] ?? $precio_compra,
                             'ubicacion' => $row['ubicacion']  ?? null,
                             'inventariable' => 1,
                             'tipo_id' => rand(1,3),
@@ -107,9 +121,11 @@ class InsumosImport implements ToCollection, WithHeadingRow, WithProgressBar
 
 
 
-                    $stockCant = $row['stockexistencias'] ?? 0;
+                    $stock = $row['stockexistencias'] ?? rand(20,40);
 
-//                    $item->actualizaOregistraStcokInicial($stockCant);
+                    $fechaVence = Carbon::now()->addMonths(rand(4,12))->format('Y-m-d');
+
+                    $item->actualizaOregistraStcokInicial($stock,$fechaVence);
 
                 }
                 catch(QueryException $e){

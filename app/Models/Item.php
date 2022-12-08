@@ -155,6 +155,7 @@ class Item extends Model implements HasMedia
         'renglon_id',
         'marca_id',
         'unimed_id',
+        'presentacion_id',
         'categoria_id',
         'precio_venta',
         'precio_compra',

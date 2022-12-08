@@ -78,9 +78,9 @@
                           <i class='fas fa-cubes'></i>
                           <span v-text="props.option.stock_total"></span>
                       </div>
-                      <div class='select-result__ubicacion'>
+                      <div class='select-result__ubicacion' v-show="!solicitud">
                           <i class='fas fa-archive'></i>
-                          <span v-text="props.option.ubicacion" v-show="!solicitud"></span>
+                          <span v-text="props.option.ubicacion" ></span>
                       </div>
                       <div class='select-result__codigo'>
                           <i class='fas fa-barcode'></i>
