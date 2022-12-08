@@ -97,6 +97,12 @@
                                                     </span>
                                                 @endif
                                             @endcan
+                                            @if($compra->estado_id == \App\Models\CompraEstado::CREADA )
+                                                <a href="{!! route('compra.ingreso',$compra->id) !!}" class="btn btn-outline-success">
+                                                    Ingresar
+                                                </a>
+                                            @endif
+
 
                                         </div>
 

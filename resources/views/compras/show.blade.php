@@ -52,8 +52,16 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                             @include('compras.tabla_detalles',['detalles'=>$compra->detalles])
                                         </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
+
                                             <a href="{!! route('compras.index') !!}" class="btn btn-default">Regresar</a>
+
+                                            @if($compra->estado_id == \App\Models\CompraEstado::CREADA )
+                                                <a href="{!! route('compra.ingreso',$compra->id) !!}" class="btn btn-outline-success">
+                                                    Ingresar
+                                                </a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
