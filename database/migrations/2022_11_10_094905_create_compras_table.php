@@ -20,7 +20,7 @@ class CreateComprasTable extends Migration
             $table->string('codigo', 45)->nullable();
             $table->integer('correlativo')->nullable();
             $table->date('fecha_documento')->nullable()->comment('Fecha del docuemnto de  la Factura');
-            $table->date('fecha_ingreso')->nullable()->comment('Fecha de ingreso al sistema');
+            $table->dateTime('fecha_ingreso')->nullable()->comment('Fecha de ingreso al sistema');
             $table->string('serie', 45)->nullable();
             $table->string('numero', 20)->nullable();
             $table->unsignedBigInteger('estado_id')->index('fk_compras_compra_estados1_idx');

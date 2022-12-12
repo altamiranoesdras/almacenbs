@@ -332,4 +332,9 @@ class Compra extends Model
     {
         return $this->compra1hs->count() > 0;
     }
+
+    public function estaRecibida()
+    {
+        return $this->estado_id==CompraEstado::RECIBIDA;
+    }
 }

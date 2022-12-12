@@ -58,6 +58,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ActivoTiposTableSeeder::class);
         $this->call(ActivoSolicitudEstadoTableSeeder::class);
         $this->call(ActivoSolicitudTiposTableSeeder::class);
+        $this->call(EnvioFiscalSeeder::class);
 
 
 
@@ -67,14 +68,16 @@ class DatabaseSeeder extends Seeder
             $this->call(ItemCategoriaTableSeeder::class);
             $this->call(ItemsTableSeeder::class);
 
+            Artisan::call("import:colaboradores");
+
+            $this->call(ActivosTableSeeder::class);
+
 //            $this->call(ComprasSeeder::class);
 //            $this->call(SolicitudesTableSeeder::class);
 //            $this->call(Compra1hTableSeeder::class);
         }
 
-        Artisan::call("import:colaboradores");
 
-        $this->call(ActivosTableSeeder::class);
 
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');

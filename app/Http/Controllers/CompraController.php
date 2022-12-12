@@ -157,7 +157,7 @@ class CompraController extends AppBaseController
             return redirect(route('compras.index'));
         }
 
-        return view('compras.editV2', compact('compra', 'compra1h'));
+        return view('compras.edit', compact('compra', 'compra1h'));
     }
 
     /**
@@ -525,6 +525,26 @@ class CompraController extends AppBaseController
             return $correlativo+1;
 
         return 1;
+    }
+
+
+    public function actualizar1h(Compra $compra, Request $request)
+    {
+        /** @var Compra1h $compra1h */
+        $compra1h = $compra->compra1h;
+
+        if (empty($compra1h)) {
+            Flash::error('Compra1H no encontrado');
+
+            return redirect(route('compra1hs.index'));
+        }
+
+        $compra1h->fill($request->all());
+        $compra1h->save();
+
+        flash()->success('Compra1H actualizado con éxito.');
+
+        return redirect(route('compras.edit',$compra->id));
     }
 
 }
