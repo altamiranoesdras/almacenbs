@@ -68,12 +68,23 @@
                 !!}
             </div>
 
-            <div class="form-group col-sm-12">
-                <select-renglon v-model="renglon" label="Renglon"></select-renglon>
+            <div class="form-group col-sm-6">
+                <select-renglon v-model="renglon" label="Renglón"></select-renglon>
             </div>
 
             <div class="form-group col-sm-6">
                 <select-item-tipo v-model="tipo" label="Tipo"></select-item-tipo>
+            </div>
+
+            <!-- Precio Compra Field -->
+            <div class="form-group col-sm-4">
+                {!! Form::label('stock_minimo', 'Stock mínimo:') !!}
+                {!! Form::number('stock_minimo', null, ['class' => 'form-control','step'=>".01"]) !!}
+            </div>
+
+            <div class="form-group col-sm-4">
+                {!! Form::label('stock_maximo', 'Stock maximo:') !!}
+                {!! Form::number('stock_maximo', null, ['class' => 'form-control','step'=>".01"]) !!}
             </div>
         </div>
 

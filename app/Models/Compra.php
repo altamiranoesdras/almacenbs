@@ -217,14 +217,21 @@ class Compra extends Model
     }
 
 
-    public function precioPromedioItems()
+    public function actualizaPreciosItem()
     {
-        foreach ($this->detalles as $index => $compraDetalle) {
+        /**
+         * @var CompraDetalle $detalle
+         */
+        foreach ($this->detalles as $index => $detalle) {
 
-            $item = $compraDetalle->item;
+            /**
+             * @var Item $item
+             */
+            $item = $detalle->item;
 
-            if($compraDetalle->precio > 0){
+            if($detalle->precio > 0){
 
+                $item->precio_compra = $detalle->precio;
                 $item->precio_promedio = $item->precioPromedio();
                 $item->save();
             }
@@ -277,7 +284,7 @@ class Compra extends Model
         $this->fecha_ingreso = hoyDb();
         $this->save();
 
-        $this->precioPromedioItems();
+        $this->actualizaPreciosItem();
     }
 
     public function scopeDelItem($query,$item)
