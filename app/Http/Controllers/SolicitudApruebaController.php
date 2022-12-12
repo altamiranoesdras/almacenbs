@@ -33,7 +33,6 @@ class SolicitudApruebaController extends Controller
     public function store(Solicitud $solicitud,Request $request)
     {
 
-        dd($request->all());
 
 
 

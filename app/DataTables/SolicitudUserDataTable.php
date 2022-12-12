@@ -139,9 +139,9 @@ class SolicitudUserDataTable extends DataTable
                 ->name('fecha_solicita')
                 ->data('fecha_solicita'),
 
-            Column::make('usuario_autoriza')
-                ->name('usuarioAutoriza.name')
-                ->data('usuario_autoriza.name'),
+//            Column::make('usuario_autoriza')
+//                ->name('usuarioAutoriza.name')
+//                ->data('usuario_autoriza.name'),
 
             Column::make('usuario_aprueba')
                 ->name('usuarioAprueba.name')

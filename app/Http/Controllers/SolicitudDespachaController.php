@@ -41,6 +41,12 @@ class SolicitudDespachaController extends Controller
     {
 
 
+        $errores = $this->validaCantidadAprobadaYStock($solicitud,$request);
+
+        if ($errores->count() > 0){
+            return redirect()->back()->withErrors($errores->toArray());
+        }
+
 
         try {
             DB::beginTransaction();
@@ -49,7 +55,7 @@ class SolicitudDespachaController extends Controller
              * @var SolicitudDetalle $detalle
              */
             foreach ($solicitud->detalles as $index => $detalle) {
-                $detalle->cantidad_despachada = $request->cantidades_despacha[$index];
+                $detalle->cantidad_despachada = $request->cantidades_despacha[$index] ?? $detalle->cantidad_aprobada;
                 $detalle->save();
             }
 
@@ -82,6 +88,43 @@ class SolicitudDespachaController extends Controller
         return redirect(route('solicitudes.despachar'));
     }
 
+
+    /**
+     * @param Solicitud $solicitud
+     * @param Request $request
+     * @return \Illuminate\Support\Collection
+     */
+    public function validaCantidadAprobadaYStock(Solicitud $solicitud,Request $request)
+    {
+
+        $errores = collect();
+
+        /**
+         * @var SolicitudDetalle $detalle
+         */
+        foreach ($solicitud->detalles as $index => $detalle) {
+
+            $cantidad = $request->cantidades_despacha[$index] ?? $detalle->cantidad_aprobada;
+
+
+            if ($cantidad > $detalle->item->stock_total){
+
+                $errores->push("No tiene stock suficiente par el insumo: ".$detalle->item->text);
+
+            }else{
+
+                if ($cantidad > $detalle->cantidad_aprobada){
+                    $errores->push("No puede despachar mas de la cantidad aprobada par el insumo: ".$detalle->item->text);
+                }
+            }
+
+
+
+        }
+
+
+        return $errores;
+    }
 
     public function verificaStockCritico(Solicitud $solicitud)
     {
