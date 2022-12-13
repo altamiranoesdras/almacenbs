@@ -19,7 +19,7 @@ class CreateComprasTable extends Migration
             $table->unsignedBigInteger('proveedor_id')->nullable()->index('fk_compra_proveedores1_idx');
             $table->string('codigo', 45)->nullable();
             $table->integer('correlativo')->nullable();
-            $table->date('fecha_documento')->nullable()->comment('Fecha del docuemnto de  la Factura');
+            $table->date('fecha_documento')->nullable()->comment('Fecha del documento de  la Factura');
             $table->dateTime('fecha_ingreso')->nullable()->comment('Fecha de ingreso al sistema');
             $table->string('serie', 45)->nullable();
             $table->string('numero', 20)->nullable();

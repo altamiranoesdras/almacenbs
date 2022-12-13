@@ -6,27 +6,27 @@
     </li>
 
 
-    <!--            Total
-    ------------------------------------------------------------------------>
-    <li class="list-group-item pt-1 pb-1 text-bold ">
-        <div class="row">
-            <div class="col-sm-12 text-lg">
-                Total
-                <span class="float-right" >
-                    {{dvs()}} <span v-text="nfp(total)"></span>
-                </span>
-            </div>
-        </div>
+{{--    <!--            Total--}}
+{{--    ------------------------------------------------------------------------>--}}
+{{--    <li class="list-group-item pt-1 pb-1 text-bold ">--}}
+{{--        <div class="row">--}}
+{{--            <div class="col-sm-12 text-lg">--}}
+{{--                Total--}}
+{{--                <span class="float-right" >--}}
+{{--                    {{dvs()}} <span v-text="nfp(total)"></span>--}}
+{{--                </span>--}}
+{{--            </div>--}}
+{{--        </div>--}}
 
-    </li>
+{{--    </li>--}}
 
 
-    <!--            Numero productos
-    ------------------------------------------------------------------------>
-    <li class="list-group-item pt-1 pb-1 text-bold text-md">
-        Cant. Productos:
-        <span class="float-right" v-text="totalitems"></span>
-    </li>
+{{--    <!--            Numero productos--}}
+{{--    ------------------------------------------------------------------------>--}}
+{{--    <li class="list-group-item pt-1 pb-1 text-bold text-md">--}}
+{{--        Cant. Productos:--}}
+{{--        <span class="float-right" v-text="totalitems"></span>--}}
+{{--    </li>--}}
 
 
     <li class="list-group-item pb-0 pl-2 pr-2">
@@ -83,18 +83,11 @@
                 {!! Form::date('fecha_documento', hoyDb(), ['class' => 'form-control']) !!}
             </div>
             <div class="form-group col-sm-6 ">
-                {!! Form::label('fecha_ingreso_plan', 'Fecha ingresará:') !!}
-                <input type="date" name="fecha_ingreso_plan" v-model="fecha_ingreso_plan"
-                       class="form-control"
-                       :disabled="ingreso_inmediato">
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-sm-12 ">
                 {!! Form::label('orden_compra', 'Orden Compra:') !!}
                 {!! Form::text('orden_compra', null, ['class' => 'form-control']) !!}
             </div>
         </div>
+
 
     </li>
 
@@ -120,6 +113,12 @@
 
         <div class="row">
 
+            <div class="form-group col-sm-4">
+                <a class="btn btn-outline-danger pull-right btn-block" data-toggle="modal" href="#modal-cancel-compra">
+                    <span data-toggle="tooltip" title="Cancelar compra">Cancelar</span>
+                </a>
+            </div>
+
             <div class="form-group col-sm-8">
                 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
 
@@ -127,11 +126,7 @@
                     <span class="glyphicon glyphicon-ok"></span> Procesar
                 </button>
             </div>
-            <div class="form-group col-sm-4">
-                <a class="btn btn-outline-danger pull-right btn-block" data-toggle="modal" href="#modal-cancel-compra">
-                    <span data-toggle="tooltip" title="Cancelar compra">Cancelar</span>
-                </a>
-            </div>
+
         </div>
 
 

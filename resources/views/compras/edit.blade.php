@@ -117,25 +117,26 @@
                         <!-- /.card-header -->
                         <div class="card-body">
                             @if(!$compra->estaRecibida())
-                                <h3 class="text-info">
+                                <h4 class="text-center text-info">
                                     El estado de la compra debe ser
                                     <span class="badge badge-info">
                                         {{\App\Models\CompraEstado::find(\App\Models\CompraEstado::RECIBIDA)->nombre}}
                                     </span>
                                     para poder generar 1H
-                                </h3>
-                            @endif
-                            @if(!$compra->tiene1h())
-                                <div class="col-12 text-center esperarClick">
-                                    <a href="{!! route('compra.generar.1h', $compra->id) !!}" type="button"
-                                       class="btn btn-outline-primary">
-                                        <i class="fa fa-gears"></i> Generar 1H
-                                    </a>
-                                </div>
+                                </h4>
                             @else
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                    @include('compras.tabla_detalles_1h')
-                                </div>
+
+                                @if(!$compra->tiene1h())
+                                    <div class="col-12 text-center esperarClick">
+                                        <a href="{!! route('compra.generar.1h', $compra->id) !!}" type="button"
+                                           class="btn btn-outline-primary">
+                                            <i class="fa fa-gears"></i> Generar 1H
+                                        </a>
+                                    </div>
+                                @else
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        @include('compras.tabla_detalles_1h')
+                                    </div>
 
                                     <form action="{{route('compra.actualiza.1h',$compra->id)}}" method="post">
                                         @csrf
@@ -165,6 +166,7 @@
                                             </div>
                                         </div>
                                     </form>
+                                @endif
                             @endif
                         </div>
                         <!-- /.card-body -->

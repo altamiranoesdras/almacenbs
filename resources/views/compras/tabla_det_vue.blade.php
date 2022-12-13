@@ -15,7 +15,7 @@
             <td colspan="6"><span class="help-block text-center">No se ha agregado ningún artículo</span></td>
         </tr>
         <tr v-for="detalle in detalles" class="text-sm">
-            <td v-text="detalle.item.nombre"></td>
+            <td v-text="detalle.item.text"></td>
             <td v-text="dvs + nfp(detalle.precio)"></td>
             <td v-text="nf(detalle.cantidad)"></td>
             <td v-text="detalle.fecha_vence"></td>
@@ -37,10 +37,16 @@
         </tbody>
         <tfoot>
         <tr>
-            <td colspan="6" >
+            <td >
                 <b>Total</b>
-                <b class="pull-right" v-text="dvs + nfp(total)"></b>
             </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <b class="pull-right" v-text="dvs + nfp(total)"></b>
+            <td></td>
+
         </tr>
         </tfoot>
 

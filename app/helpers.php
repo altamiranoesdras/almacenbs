@@ -693,6 +693,34 @@ function errorException(Exception $exception){
     flash($msg)->error()->important();
 }
 
+/**
+ * @param Exception $exception
+ * @return string
+ * @throws Exception
+ */
+function manejarException(Exception $exception){
+
+    /**
+     * @var User $user
+     */
+    $user = auth()->user() ?? auth('api')->user();
+
+    Log::error($exception->getMessage(),[
+        'archivo' =>   $exception->getFile() . '  Linea: ' . $exception->getLine(),
+        'request' => request()->all(),
+        'usuario' => $user->datosPrincipales(),
+//        'trace' => $exception->getTrace(),
+    ]);
+
+    if ($user->can('depurar')){
+        throw $exception;
+    }
+
+    $msg = $user->isSuperAdmin() ? $exception->getMessage() : 'Hubo un error intente de nuevo';
+
+    return $msg;
+}
+
 function existeCredencialesSat(){
     return config('app.sat_avuser')!='' && config('app.sat_avpass')!='' && config('app.sat_dtepass');
 }

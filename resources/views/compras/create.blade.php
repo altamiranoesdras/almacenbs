@@ -204,8 +204,8 @@
 
                 fecha_ingreso_plan: "{{hoyDb() ?? old('fecha_ingreso_plan')}}",
 
-                proveedor: @json($compra->proveedor ?? \App\Models\Proveedor::find(old('proveedor_id')) ?? null),
-                tipo: @json($compra->tipo ?? \App\Models\CompraTipo::find(old('tipo_id')) ?? null),
+                proveedor: @json($compra->proveedor ?? Proveedor::find(old('proveedor_id')) ?? null),
+                tipo: @json($compra->tipo ?? CompraTipo::find(old('tipo_id')) ?? CompraTipo::find(CompraTipo::FACTURA)),
 
             },
             methods: {
@@ -361,12 +361,6 @@
                 }
             },
             watch:{
-                ingreso_inmediato(val){
-                    if(val){
-                        this.fecha_ingreso_plan = '{{hoyDb()}}'
-                    }
-
-                },
                 itemSelect (item) {
 
                     if (item){

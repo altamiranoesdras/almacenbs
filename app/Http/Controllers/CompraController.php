@@ -188,11 +188,9 @@ class CompraController extends AppBaseController
 
             DB::rollBack();
 
-            if (auth()->user()->isDev()){
-                throw $exception;
-            }
+            $msj = manejarException($exception);
 
-            flash("Hubo un error intente de nuevo")->error();
+            flash($msj)->error();
 
             return redirect()->back();
         }
@@ -304,7 +302,9 @@ class CompraController extends AppBaseController
         } catch (\Exception $exception) {
             DB::rollBack();
 
-            errorException($exception);
+            $msj = manejarException($exception);
+
+            flash()->error($msj);
 
             return redirect()->back();
         }
@@ -330,13 +330,11 @@ class CompraController extends AppBaseController
 
         } catch (\Exception $exception) {
             DB::rollBack();
-            if (Auth::user()->isDev()){
-                dd($exception->getMessage(),$exception->getLine());
-            }
 
-            $msg = Auth::user()->isAdmin() ? $exception->getMessage() : 'Hubo un error intente de nuevo';
+            $msj = manejarException($exception);
 
-            flash('Error: '.$msg)->error()->important();
+            flash($msj)->error();
+
             return redirect()->back();
         }
 
@@ -345,11 +343,8 @@ class CompraController extends AppBaseController
 
         flash('Ingreso Realizado')->success();
 
-        if($compra){
-            //Mail::send(new RecepcionCompra($compra));
-        }
 
-        return redirect(route('compras.index'));
+        return redirect(route('compras.edit',$compra->id));
 
     }
 
@@ -498,12 +493,14 @@ class CompraController extends AppBaseController
 
         } catch (\Exception $exception) {
             DB::rollBack();
-            if (auth()->user()->can('puede depurar')) {
-                throw $exception;
-            }
-            flash()->warning($exception->getMessage());
+
+            $msj = manejarException($exception);
+
+            flash()->warning($msj);
+
             return back()->withInput();
         }
+
         DB::commit();
 
         return redirect()->back();
@@ -534,7 +531,7 @@ class CompraController extends AppBaseController
         $compra1h = $compra->compra1h;
 
         if (empty($compra1h)) {
-            Flash::error('Compra1H no encontrado');
+            Flash::error('1H no encontrado');
 
             return redirect(route('compra1hs.index'));
         }
@@ -542,7 +539,7 @@ class CompraController extends AppBaseController
         $compra1h->fill($request->all());
         $compra1h->save();
 
-        flash()->success('Compra1H actualizado con éxito.');
+        flash()->success('1H actualizado con éxito.');
 
         return redirect(route('compras.edit',$compra->id));
     }

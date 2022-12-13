@@ -225,7 +225,10 @@ return [
         'Str' => Illuminate\Support\Str::class,
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
-        'View' => Illuminate\Support\Facades\View::class,
+        'Proveedor' => \App\Models\Proveedor::class,
+        'CompraTipo' => \App\Models\CompraTipo::class,
+        'CompraEstado' => \App\Models\CompraEstado::class,
+        'SolicitudEstado' => \App\Models\SolicitudEstado::class,
 
     ],
 
