@@ -337,4 +337,14 @@ class Compra extends Model
     {
         return $this->estado_id==CompraEstado::RECIBIDA;
     }
+
+    public function puedeAnular()
+    {
+        return $this->estado_id != CompraEstado::ANULADA && $this->estado_id == CompraEstado::RECIBIDA;
+    }
+
+    public function puedeCancelar()
+    {
+        return $this->estado_id == CompraEstado::CREADA;
+    }
 }

@@ -59,8 +59,8 @@
                                 <div class="form-group col-sm-12 text-right">
                                     <a href="{!! route('compras.index') !!}" class="btn btn-outline-secondary">Regresar</a>
 
-                                    @can('anular ingreso de compra')
-                                        @if($compra->estado_id != \App\Models\CompraEstado::ANULADA && $compra->estado_id == \App\Models\CompraEstado::RECIBIDA )
+                                    @can('Anular ingreso de compra')
+                                        @if($compra->puedeAnular() )
                                             <a href="#" onclick="deleteItemDt(this)" data-id="{{$compra->id}}"
                                                data-toggle="tooltip" title="Anular Ingreso"
                                                class='btn btn-outline-danger'>
@@ -74,18 +74,16 @@
                                                 @csrf
                                             </form>
                                         @endif
-                                    @endcan
 
-                                    @can('cancelar solicitud de compra')
-                                        @if($compra->estado_id == \App\Models\CompraEstado::CREADA )
+                                        @if($compra->puedeCancelar() )
                                             {{--<a href="#modal-delete-{{$compra->id}}" data-toggle="modal" class='btn btn-danger btn-xs'>--}}
                                             {{--<i class="far fa-trash-alt" data-toggle="tooltip" title="Eliminar Solicitud de Compra"></i>--}}
                                             {{--</a>--}}
                                             <span data-toggle="tooltip" title="Cancelar Solicitud de Compra">
-                                                        <a href="#modal-delete-{{$compra->id}}" data-toggle="modal" class='btn btn-outline-warning'>
-                                                            Cancelar Solicitud de Compra <i class="fas fa-ban"></i>
-                                                        </a>
-                                                    </span>
+                                                <a href="#modal-delete-{{$compra->id}}" data-toggle="modal" class='btn btn-outline-warning'>
+                                                    Cancelar Solicitud de Compra <i class="fas fa-ban"></i>
+                                                </a>
+                                            </span>
                                         @endif
                                     @endcan
                                     @if($compra->estado_id == \App\Models\CompraEstado::CREADA )

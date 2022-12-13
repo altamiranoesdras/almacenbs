@@ -29,6 +29,9 @@ class CompraDataTable extends DataTable
 
                 return view('compras.datatables_actions',compact('compra','id'));
             })
+            ->editColumn('id',function (Compra $compra){
+                return view('compras.columna_id',compact('compra'));
+            })
             ->editColumn('fecha_documento',function (Compra $compra){
                 return fechaLtn($compra->fecha_documento);
             })
@@ -79,13 +82,13 @@ class CompraDataTable extends DataTable
             ->noTemporal()
             ->with(['detalles.item','tipo','usuarioCrea','estado','proveedor']);
 
-        $user = Auth::user();
+//        $user = Auth::user();
 
 
         //Usuario normal o empleado solo las compras realizadas por el
-        if ($user->cannot('ver todas las compras')){
-            $query->delUser($user->id);
-        }
+//        if ($user->cannot('Ver todas las compras')){
+//            $query->delUser($user->id);
+//        }
 
         return $query;
 

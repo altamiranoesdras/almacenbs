@@ -30,7 +30,6 @@ class PermissionTableSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'Crear opcion menu']);
         Permission::firstOrCreate(['name' => 'Editar opcion menu']);
         Permission::firstOrCreate(['name' => 'Eliminar opcion menu']);
-        Permission::firstOrCreate(['name' => 'todas las opciones menu']);
 
 
         Permission::firstOrCreate(['name' => 'Ver permisos']);
@@ -50,16 +49,6 @@ class PermissionTableSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'Editar usuario']);
         Permission::firstOrCreate(['name' => 'Eliminar usuario']);
         Permission::firstOrCreate(['name' => 'Editar menu usuario']);
-
-
-        Permission::firstOrCreate(['name' => 'ver detalle gasto']);
-        Permission::firstOrCreate(['name' => 'editar gasto']);
-        Permission::firstOrCreate(['name' => 'eliminar gasto']);
-
-
-        Permission::firstOrCreate(['name' => 'anular venta']);
-        Permission::firstOrCreate(['name' => 'ver todas las ventas']);
-        Permission::firstOrCreate(['name' => 'ver todas las compras']);
 
 
         Permission::firstOrCreate(['name' => 'Ver Requisición']);
@@ -84,8 +73,13 @@ class PermissionTableSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'Crear Compra Tipos']);
         Permission::firstOrCreate(['name' => 'Editar Compra Tipos']);
         Permission::firstOrCreate(['name' => 'Eliminar Compra Tipos']);
-        Permission::firstOrCreate(['name' => 'anular ingreso de compra']);
-        Permission::firstOrCreate(['name' => 'cancelar solicitud de compra']);
+
+
+        Permission::firstOrCreate(['name' => 'Ver Compras']);
+        Permission::firstOrCreate(['name' => 'Crear Compras']);
+        Permission::firstOrCreate(['name' => 'Editar Compras']);
+        Permission::firstOrCreate(['name' => 'Eliminar Compras']);
+        Permission::firstOrCreate(['name' => 'Anular ingreso de compra']);
 
 
         Permission::firstOrCreate(['name' => 'Ver Categorías']);

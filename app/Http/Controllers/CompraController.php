@@ -503,6 +503,8 @@ class CompraController extends AppBaseController
 
         DB::commit();
 
+        flash('1H generado!')->success();
+
         return redirect()->back();
 
     }
