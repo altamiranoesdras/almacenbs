@@ -45,7 +45,7 @@ RoleSeeder extends Seeder
         /**
          * @var Role $role
          */
-        $role = Role::firstOrCreate(["name" => "Jefe almacen"]);
+        $role = Role::firstOrCreate(["name" => "Jefe almacén"]);
 
         $role->options()->sync([
             Option::PANEL_DE_CONTROL,
@@ -69,51 +69,7 @@ RoleSeeder extends Seeder
             Option::ARTICULOS_A_VENCER,
         ]);
 
-        $role->syncPermissions([
-            'Ver Requisición',
-            'Crear Requisición',
-            'Editar Requisición',
-            'Autorizar Requisición',
-            'Aprobar Requisición',
-            'Despachar Requisición',
-            'Anular Requisición',
-            'Ver Compras',
-            'Crear Compras',
-            'Editar Compras',
-            'Eliminar Compras',
-            'Ver Compra Tipos',
-            'Crear Compra Tipos',
-            'Editar Compra Tipos',
-            'Eliminar Compra Tipos',
-            'Ver Categorías',
-            'Crear Categorías',
-            'Editar Categorías',
-            'Eliminar Categorías',
-            'Ver Artículos',
-            'Crear Artículos',
-            'Editar Artículos',
-            'Eliminar Artículos',
-            'Ver Magnitudes',
-            'Crear Magnitudes',
-            'Editar Magnitudes',
-            'Eliminar Magnitudes',
-            'Ver Marcas',
-            'Crear Marcas',
-            'Editar Marcas',
-            'Eliminar Marcas',
-            'Ver Proveedores',
-            'Crear Proveedores',
-            'Editar Proveedores',
-            'Eliminar Proveedores',
-            'Ver Renglones',
-            'Crear Renglones',
-            'Editar Renglones',
-            'Eliminar Renglones',
-            'Ver unidad medida',
-            'Crear unidad medida',
-            'Editar unidad medida',
-            'Eliminar unidad medida',
-        ]);
+        $role->syncPermissions(Permission::all());
 
         /**
          * @var Role $role

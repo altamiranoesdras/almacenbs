@@ -219,6 +219,11 @@ Vue.prototype.$eventBus = new Vue();
 
 $(".esperar").submit(function( event ) {
 
+    esperar();
+});
+
+window.esperar = (e) =>{
+
     Swal.fire({
         title: 'Espera por favor...',
         allowEscapeKey: false,
@@ -227,4 +232,11 @@ $(".esperar").submit(function( event ) {
     });
 
     Swal.showLoading();
-});
+
+}
+
+window.finEspera = (e) =>{
+
+    Swal.close()
+
+}

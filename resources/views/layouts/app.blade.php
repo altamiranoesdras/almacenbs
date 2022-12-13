@@ -69,7 +69,7 @@
     @include('layouts.partials.sidebar')
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper" id="@yield("id_contenido",'contenido')">
         @can('access_option')
             @yield('content')
         @else
