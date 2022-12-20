@@ -21,11 +21,11 @@ class ComprasSeeder extends Seeder
         DB::table('compras')->truncate();
         DB::table('compra_detalles')->truncate();
 
-        Compra::factory()->count(100)
+        Compra::factory()->count(10)
             ->create()
             ->each(function (Compra $compra){
                 CompraDetalle::factory()
-                    ->count(rand(10,20))
+                    ->count(rand(5,10))
                     ->create([
                         'compra_id' => $compra->id
                     ]);

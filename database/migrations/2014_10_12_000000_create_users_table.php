@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->nullable()->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
+            $table->unsignedBigInteger('bodega_id')->nullable()->index('fk_users_bodegas1_idx');
             $table->unsignedBigInteger('unidad_id')->nullable()->index('fk_users_rrhh_unidades1_idx');
             $table->unsignedBigInteger('puesto_id')->nullable()->index('fk_users_rrhh_puestos1_idx');
             $table->string('provider')->nullable();

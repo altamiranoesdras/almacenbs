@@ -191,6 +191,8 @@ Route::group(['as'=>'api.'], function () {
 
         Route::resource('rrhh_contratos', App\Http\Controllers\API\RrhhContratoAPIController::class);
 
+        Route::resource('bodegas', App\Http\Controllers\API\BodegaAPIController::class);
+
 
     });
 

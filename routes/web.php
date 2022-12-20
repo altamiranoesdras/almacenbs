@@ -263,6 +263,10 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('reporte/bienes/unidad', function () { return View::make('partials.en_construccion'); })->name('reporte.bienes.unidad');
 
     Route::resource('activoTarjetaEstados', App\Http\Controllers\ActivoTarjetaEstadoController::class);
+
+
+    Route::resource('bodegas', App\Http\Controllers\BodegaController::class);
+
 });
 
 
@@ -283,4 +287,5 @@ Route::group(['prefix' => ''], function () {
 
 
 });
+
 

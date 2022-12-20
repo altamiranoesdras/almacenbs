@@ -61,7 +61,7 @@ class ImportPersonalCommand extends Command
 
         $importable = new ImportColaboradores();
 
-        $importable->withOutput($this->output)->import(storage_path('imports/LISTADO DE PERSONAL NOVIEMBRE 2022.xlsx'));
+        $importable->withOutput($this->output)->import(storage_path('imports/DIRECTORIO DE EMPLEADOS, SERVIDORES PÚBLICOS Y ASESORES SEICMSJ.xlsx'));
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
         $this->fin();

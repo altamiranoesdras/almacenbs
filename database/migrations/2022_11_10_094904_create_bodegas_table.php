@@ -19,6 +19,7 @@ class CreateBodegasTable extends Migration
             $table->text('direccion')->nullable();
             $table->char('telefono', 30)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
