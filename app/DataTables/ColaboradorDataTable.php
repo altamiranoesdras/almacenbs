@@ -119,7 +119,7 @@ class ColaboradorDataTable extends DataTable
             Column::make('nit'),
             Column::make('puesto')->name('puesto.nombre')->data('puesto.nombre'),
             Column::make('unidad')->name('unidad.nombre')->data('unidad.nombre'),
-            Column::make('user_id'),
+//            Column::make('user_id'),
             Column::computed('action')
                             ->exportable(false)
                             ->printable(false)
