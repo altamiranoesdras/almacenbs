@@ -49,8 +49,8 @@ RoleSeeder extends Seeder
 
         $role->options()->sync([
             Option::PANEL_DE_CONTROL,
-            Option::NUEVA_COMPRA_SOLA,
-//                Option::NUEVA_COMPRA,
+//            Option::NUEVA_COMPRA_SOLA,
+            Option::NUEVA_COMPRA,
             Option::PROVEEDORES,
             Option::BUSCAR_COMPRAS,
             Option::BUSCAR_REQUISICION,

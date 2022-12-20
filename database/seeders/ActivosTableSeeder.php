@@ -23,7 +23,7 @@ class ActivosTableSeeder extends Seeder
         DB::table('activos')->truncate();
 
 
-        Activo::factory()->count(100)->create();
+        Activo::factory()->count(20)->create();
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }

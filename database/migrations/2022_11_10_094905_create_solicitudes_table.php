@@ -20,6 +20,7 @@ class CreateSolicitudesTable extends Migration
             $table->text('justificacion')->nullable();
             $table->text('observaciones')->nullable();
             $table->unsignedBigInteger('unidad_id')->nullable()->index('fk_solicitudes_rrhh_unidades1_idx');
+            $table->unsignedBigInteger('bodega_id')->nullable()->index('fk_solicitudes_bodegas1_idx');
             $table->unsignedBigInteger('usuario_crea')->index('fk_solicitudes_users1_idx');
             $table->unsignedBigInteger('usuario_solicita')->nullable()->index('fk_solicitudes_users4_idx');
             $table->unsignedBigInteger('usuario_autoriza')->nullable()->index('fk_solicitudes_users3_idx');

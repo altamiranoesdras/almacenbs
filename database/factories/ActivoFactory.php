@@ -68,26 +68,26 @@ class ActivoFactory extends Factory
 
     public function configure()
     {
-        return $this->afterCreating(function (Activo $activo){
-            $this->faker->addProvider(new PicsumProvider($this->faker));
-            $this->faker->addProvider(new LoremSpaceProvider($this->faker));
-
-            try {
-
-                $categoria = $this->faker->randomElement([
-                    LoremSpaceProvider::CATEGORY_BOOK,
-                    LoremSpaceProvider::CATEGORY_SHOES,
-                    LoremSpaceProvider::CATEGORY_WATCH,
-                ]);
-
-                $url = $this->faker->loremSpace($categoria,storage_path('temp'));
-
-                $activo->addMedia($url)
-                    ->toMediaCollection('activos');
-
-            }catch (\Exception $exception){
-                dump($exception->getMessage());
-            }
-        });
+//        return $this->afterCreating(function (Activo $activo){
+//            $this->faker->addProvider(new PicsumProvider($this->faker));
+//            $this->faker->addProvider(new LoremSpaceProvider($this->faker));
+//
+//            try {
+//
+//                $categoria = $this->faker->randomElement([
+//                    LoremSpaceProvider::CATEGORY_BOOK,
+//                    LoremSpaceProvider::CATEGORY_SHOES,
+//                    LoremSpaceProvider::CATEGORY_WATCH,
+//                ]);
+//
+//                $url = $this->faker->loremSpace($categoria,storage_path('temp'));
+//
+//                $activo->addMedia($url)
+//                    ->toMediaCollection('activos');
+//
+//            }catch (\Exception $exception){
+//                dump($exception->getMessage());
+//            }
+//        });
     }
 }

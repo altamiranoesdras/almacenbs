@@ -78,7 +78,7 @@ class SolicitudApruebaDataTable extends DataTable
     {
         return $model->newQuery()
             ->select('solicitudes.*')
-            ->with(['detalles.item','usuarioSolicita','usuarioAutoriza','usuarioAprueba','usuarioDespacha','estado']);
+            ->with(['detalles.item','usuarioSolicita','usuarioAutoriza','usuarioAprueba','usuarioDespacha','estado','unidad','bodega']);
     }
 
     /**
@@ -145,6 +145,14 @@ class SolicitudApruebaDataTable extends DataTable
 //                ->name('usuarioAutoriza.name')
 //                ->data('usuario_autoriza.name'),
 
+
+            Column::make('unidad')
+                ->name('unidad.nombre')
+                ->data('unidad.nombre'),
+
+            Column::make('Sede/Bodega')
+                ->name('bodega.nombre')
+                ->data('bodega.nombre'),
 
             Column::make('estado')
                 ->name('estado.nombre')

@@ -115,6 +115,7 @@ class Solicitud extends Model
         'correlativo',
         'justificacion',
         'unidad_id',
+        'bodega_id',
 
         'usuario_crea',
         'usuario_solicita',
@@ -250,6 +251,12 @@ class Solicitud extends Model
     {
         return $this->belongsTo(RrhhUnidad::class, 'unidad_id');
     }
+
+    public function bodega()
+    {
+        return $this->belongsTo(Bodega::class, 'bodega_id');
+    }
+
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
