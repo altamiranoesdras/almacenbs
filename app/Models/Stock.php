@@ -137,6 +137,13 @@ class Stock extends Model
 
     //---SCOPES---
 
+    public function scopeConIngresos($query)
+    {
+        $query->whereHas('item',function ($q){
+            $q->conIngresos();
+        });
+    }
+
     public function scopeConStock($query)
     {
         $query->where('cantidad','>',0);

@@ -836,10 +836,13 @@ function eliminar_acentos($cadena){
 }
 
 function nombreModulo(){
-    $dominio = request()->getHost();
 
-    $temp = explode('.',$dominio);
+    return "ALMACEN";
 
-    return $temp[0] ?? '';
+//    $dominio = request()->getHost();
+//
+//    $temp = explode('.',$dominio);
+//
+//    return $temp[0] ?? '';
 
 }

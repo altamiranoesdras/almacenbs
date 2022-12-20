@@ -69,7 +69,7 @@ class ReportesAlmacenController extends Controller
             $stocks = $stocks->where('cantidad','0');
         }
 
-        $stocks = $stocks->get();
+        $stocks = $stocks->conIngresos()->get();
 
         return view('reportes.stock.index_old',compact('stocks','renglon','stock','buscar'));
 

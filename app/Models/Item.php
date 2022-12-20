@@ -434,6 +434,11 @@ class Item extends Model implements HasMedia
      */
 
 
+    public function scopeConIngresos($q)
+    {
+        return $q->whereHas('compraDetalles');
+    }
+
     public function scopeTipoActivo($q)
     {
         return $q->where('tipo_id',ItemTipo::ACTIVO_FIJO);
@@ -517,8 +522,12 @@ class Item extends Model implements HasMedia
 
         $saldo = 0;
 
+        /**
+         * @var Kardex $det
+         */
         foreach ($kardex as $index => $det) {
-            $saldo+=$det->ingreso-=$det->salida;
+                $saldo+=$det->ingreso;
+                $saldo-=$det->salida;
         }
 
         return $saldo;

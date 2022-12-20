@@ -90,6 +90,8 @@
                                             <tr class="text-sm">
                                                 <th>id</th>
                                                 <th>Articulo</th>
+                                                <th>Código Insumo</th>
+                                                <th>Código Presentación</th>
                                                 <th>Renglón</th>
                                                 <th>U/M</th>
                                                 <th>Fecha Vence</th>
@@ -108,6 +110,8 @@
                                                 <tr class="text-sm  ">
                                                     <td>{{$det->id}}</td>
                                                     <td>{{$det->item->nombre}}</td>
+                                                    <td>{{$det->item->codigo_insumo}}</td>
+                                                    <td>{{$det->item->codigo_presentacion}}</td>
                                                     <td>{{$det->item->renglon->numero}}</td>
                                                     <td>{{$det->item->unimed->nombre}}</td>
                                                     <td>{{fechaLtn($det->fecha_vence)}}</td>
@@ -120,6 +124,8 @@
                                             <tfoot>
                                                 <tr class="text-sm">
                                                     <th >Total</th>
+                                                    <th></th>
+                                                    <th></th>
                                                     <th></th>
                                                     <th></th>
                                                     <th></th>

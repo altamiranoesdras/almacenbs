@@ -18,9 +18,6 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property string value
  * @property string descripcion
  * @property int $id
- * @property string $key
- * @property string $value
- * @property string $descripcion
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
