@@ -8,14 +8,35 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class Bodega
+ *
  * @package App\Models
  * @version December 19, 2022, 11:01 pm CST
- *
  * @property \Illuminate\Database\Eloquent\Collection $stocks
  * @property \Illuminate\Database\Eloquent\Collection $users
  * @property string $nombre
  * @property string $direccion
  * @property string $telefono
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read int|null $stocks_count
+ * @property-read int|null $users_count
+ * @method static \Database\Factories\BodegaFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bodega newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Bodega newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Bodega onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Bodega query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Bodega whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bodega whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bodega whereDireccion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bodega whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bodega whereNombre($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bodega whereTelefono($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bodega whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Bodega withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Bodega withoutTrashed()
+ * @mixin Model
  */
 class Bodega extends Model
 {

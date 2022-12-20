@@ -55,6 +55,7 @@ RoleSeeder extends Seeder
             Option::BUSCAR_COMPRAS,
             Option::BUSCAR_REQUISICION,
             Option::NUEVA_REQUISICION,
+            Option::APROBAR_REQISICION,
             Option::DESPACHAR_REQUISICION,
             Option::NUEVO_ARTICULO,
             Option::BUSCAR_ARTÍCULO,

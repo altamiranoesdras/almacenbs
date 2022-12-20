@@ -9,6 +9,7 @@ use App\Models\Bodega;
 use App\Models\Colaborador;
 use App\Models\Contrato;
 use App\Models\Option;
+use App\Models\Role;
 use App\Models\RrhhPuesto;
 use App\Models\RrhhUnidad;
 use App\Models\User;
@@ -72,6 +73,16 @@ class ImportColaboradores implements ToModel , WithHeadingRow
                 Option::MIS_REQUISICIONES,
                 Option::NUEVA_REQUISICION,
             ]);
+
+            if (in_array($usuario->id,[50,45]) ){
+                $usuario->syncRoles([Role::JEFE_ALMACEN]);
+                $usuario->shortcuts()->sync([
+                    Option::MIS_REQUISICIONES,
+                    Option::NUEVA_REQUISICION,
+                    Option::APROBAR_REQISICION,
+                    Option::DESPACHAR_REQUISICION,
+                ]);
+            }
 
 
             list($nombres,$apellidos) = separaNombreCompleto($nombreCompleto);

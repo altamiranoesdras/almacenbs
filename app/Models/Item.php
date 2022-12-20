@@ -107,6 +107,10 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property-read int|null $items_traslado3s_count
  * @property-read int|null $items_traslados_count
  * @property-read int|null $stock_iniciales_count
+ * @property string|null $codigo_presentacion
+ * @property-read \App\Models\ItemPresentacion|null $presentacion
+ * @method static \Illuminate\Database\Eloquent\Builder|Item conIngresos()
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereCodigoPresentacion($value)
  */
 class Item extends Model implements HasMedia
 {

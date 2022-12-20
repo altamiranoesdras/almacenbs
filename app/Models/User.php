@@ -120,6 +120,8 @@ use Spatie\Permission\Traits\HasRoles;
  * @mixin \Eloquent
  * @property-read int|null $items_traslados_count
  * @property-read int|null $stock_iniciales_count
+ * @property int|null $bodega_id
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereBodegaId($value)
  */
 class User extends Authenticatable implements  HasMedia
 {

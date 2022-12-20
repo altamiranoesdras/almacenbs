@@ -87,6 +87,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Query\Builder|Solicitud withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Solicitud withoutTrashed()
  * @mixin \Eloquent
+ * @property int|null $bodega_id
+ * @property-read \App\Models\Bodega|null $bodega
+ * @method static Builder|Solicitud whereBodegaId($value)
  */
 class Solicitud extends Model
 {

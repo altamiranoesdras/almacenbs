@@ -221,6 +221,7 @@ class SolicitudController extends AppBaseController
             'codigo' => $this->getCodigo(),
             'correlativo' => $this->getCorrelativo(),
             'unidad_id' => auth()->user()->unidad_id,
+            'bodega_id' => auth()->user()->bodega_id,
             'usuario_solicita' => $request->usuario_solicita,
             'fecha_solicita' => hoyDb(),
             'estado_id' => SolicitudEstado::SOLICITADA,
