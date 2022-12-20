@@ -34,8 +34,9 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
             'password' => bcrypt(123), // password
-            'unidad_id' => RrhhUnidad::all()->random()->id,
-            'puesto_id' => RrhhPuesto::all()->random()->id,
+            'unidad_id' => null,
+            'puesto_id' => null,
+            'bodega_id' => null,
             'remember_token' => Str::random(10),
         ];
     }

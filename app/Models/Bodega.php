@@ -24,10 +24,16 @@ class Bodega extends Model
     use HasFactory;
 
     public $table = 'bodegas';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
+    const PRINCIPAL =           1;
+    const SANTIAGO_ATITLAN =    2;
+    const IXCHIGUÁN =           3;
+    const NEBAJ =               4;
+    const SANTA_EULALIA =       5;
+    const PLAYA_GRANDE =        6;
 
     protected $dates = ['deleted_at'];
 

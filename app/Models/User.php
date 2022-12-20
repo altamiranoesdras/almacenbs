@@ -19,6 +19,7 @@ use Spatie\Permission\Traits\HasRoles;
  *
  * @package App\Models
  * @version August 6, 2022, 10:40 am CST
+ * @property \App\Models\Bodega $bodega
  * @property \App\Models\RrhhPuesto $puesto
  * @property \App\Models\RrhhUnidad $unidad
  * @property \Illuminate\Database\Eloquent\Collection $compra1hs
@@ -139,6 +140,7 @@ class User extends Authenticatable implements  HasMedia
         'password',
         'unidad_id',
         'puesto_id',
+        'bodega_id',
         'provider',
         'provider_uid',
         'remember_token'
@@ -207,6 +209,15 @@ class User extends Authenticatable implements  HasMedia
     public function puesto()
     {
         return $this->belongsTo(\App\Models\RrhhPuesto::class, 'puesto_id');
+    }
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function bodega()
+    {
+        return $this->belongsTo(\App\Models\Bodega::class, 'bodega_id');
     }
 
     /**
@@ -416,5 +427,6 @@ class User extends Authenticatable implements  HasMedia
 
         return $this->hasRole(Role::DEVELOPER);
     }
+
 
 }

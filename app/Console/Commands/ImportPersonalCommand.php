@@ -6,9 +6,11 @@ use App\Imports\ImportColaboradores;
 use App\Models\Activo;
 use App\Models\ActivoTarjeta;
 use App\Models\ActivoTarjetaDetalle;
+use App\Models\Bodega;
 use App\Models\Colaborador;
 use App\Models\RrhhPuesto;
 use App\Models\RrhhUnidad;
+use App\Models\User;
 use App\Traits\ComandosTrait;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -54,6 +56,8 @@ class ImportPersonalCommand extends Command
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
         Colaborador::truncate();
+        User::where('id',">",5)->delete();
+        Bodega::truncate();
         RrhhUnidad::truncate();
         RrhhPuesto::truncate();
         ActivoTarjeta::truncate();

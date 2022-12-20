@@ -31,6 +31,10 @@ class UserDataTable extends DataTable
 
                 return $user->unidad->nombre ?? '';
 
+            })->editColumn('bodega.nombre',function (User $user){
+
+                return $user->bodega->nombre ?? '';
+
             })->editColumn('puesto.nombre',function (User $user){
 
                 return $user->puesto->nombre ?? '';
@@ -50,7 +54,7 @@ class UserDataTable extends DataTable
      */
     public function query(User $model)
     {
-        $query = $model->newQuery()->with(['roles','media','unidad','puesto']);
+        $query = $model->newQuery()->with(['roles','media','unidad','puesto','bodega']);
 
         //si el usuario no puede ver a todos los usuarios
         if (auth()->user()->cannot('ver todos los usuarios')){
@@ -121,6 +125,7 @@ class UserDataTable extends DataTable
             Column::make('name'),
             Column::make('unidad')->data('unidad.nombre')->name('unidad.nombre'),
             Column::make('puesto')->data('puesto.nombre')->name('puesto.nombre'),
+            Column::make('bodega o sede')->data('bodega.nombre')->name('bodega.nombre'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
