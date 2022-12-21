@@ -18,30 +18,31 @@
 </div>
 
 <div style="margin-top: 1.15cm;">
-    <table class="table table-bordered table-sm" style="width: 100%">
+    <table class="table table-borderless table-sm" style="width: 100%">
         <tr style="">
-            <td style="width:1%;">
-                DEPENDENCIA:
+            <td style="width:50%;">
+                Secretaría Ejecutiva de la ICMSJ
             </td>
             <td style="width:15%;">
 
             </td>
             <td style="width:1%;">
-                NUMERO:
+                Número
             </td>
-            <td style="width:15%;">
-                {{ $compra->serie }} - {{ $compra->numero }}
+            <td style="width:25%;" colspan="2">
+                Serie: {{ $compra->serie }}
+                 No. &nbsp;{{ $compra->numero }}
             </td>
         </tr>
         <tr style="">
-            <td style="width:1%;">
-                PROGRAMA:
+            <td style="width:50%;">
+                Secretaría Ejecutiva de la ICMSJ
             </td>
             <td style="width:15%;">
 
             </td>
             <td style="width:1%;">
-                FECHA:
+                Fecha:
             </td>
             <td style="width:15%;">
                 {{ fechaLtn($compra->fecha_documento) }}
@@ -49,13 +50,13 @@
         </tr>
         <tr style="">
             <td style="width:5%;">
-                PROVEEDOR:
+                {{strtoupper($compra->proveedor->razon_social)}} / NIT: {{$compra->proveedor->nit}}
             </td>
             <td style="width:5%;">
-                {{ $compra->proveedor->razon_social }}
+
             </td>
-            <td style="width:5%;">
-                ORDEN DE C. Y P. No:
+            <td style="width:15%;">
+                Orden de C.
             </td>
             <td style="width:15%;">
                 {{ $compra->orden_compra }}
@@ -65,17 +66,17 @@
 </div>
 
 <div style="margin-top: 1.15cm;">
-    <table class="table table-bordered table-sm">
+    <table class="table table-borderless table-sm">
         <thead>
-        <tr style="text-align: center;" class="py-0">
-            <th style="border-color: black;">CANTIDAD</th>
-            <th style="border-color: black;">DESCRIPCIÓN DEL ARTICULO</th>
-            <th style="border-color: black;">CODIGO DEL GASTO RENGLO</th>
-            <th style="border-color: black;">FOLIO LIBRO ALMACEN</th>
-            <th style="border-color: black;">PRECIO POR UNIDAD</th>
-            <th style="border-color: black;">VALOR TOTAL</th>
-            <th style="border-color: black;">FOLIO LIBRO INVENTARIO</th>
-            <th style="border-color: black;">NOMENCALTURA DE CUENTAS</th>
+        <tr style="text-align: center; font-size: small; text-align: center" class="py-0">
+            <th style="border-color: black; font-weight: normal">Cantidad</th>
+            <th style="border-color: black; font-weight: normal">Descripción del articulo</th>
+            <th style="border-color: black; font-weight: normal">CODIGO DEL GASTO RENGLON</th>
+            <th style="border-color: black; font-weight: normal">Folio Libro Almacen</th>
+            <th style="border-color: black; font-weight: normal">PRECIO POR UNIDAD</th>
+            <th style="border-color: black; font-weight: normal">VALOR TOTAL</th>
+            <th style="border-color: black; font-weight: normal">Folio libro inventario</th>
+            <th style="border-color: black; font-weight: normal">NOMENCLA TURA DE CUENTAS</th>
         </tr>
         </thead>
         <tbody>
@@ -94,32 +95,65 @@
 {{--    --}}
 {{--                @endphp--}}
                 <tr style="">
-                    <td style="border-color: black; width: 4%; text-align: center;" class="py-0">
+                    <td style="border-color: black; width: 5%; text-align: center; font-size: small" class="py-0">
                         {{nf($det->cantidad)}}
                     </td>
-                    <td style="border-color: black; width: 46%; text-align: center;" class="py-0">
-                        {{$det->item->nombre}}
+                    <td style="border-color: black; width: 36%; text-align: left; font-size: small" class="py-0">
+                        {{$det->item->nombre}} {{dvs().nfp($det->precio)}}
                     </td>
-                    <td style="border-color: black; text-align: center;" class="py-0">
+                    <td style="border-color: black; width: 10%; text-align: center; font-size: small" class="py-0">
                         {{$det->item->renglon->numero}}
                     </td>
-                    <td style="border-color: black; width: 10%;  text-align: center;" class="py-0">
+                    <td style="border-color: black; width: 10%;  text-align: center; font-size: small" class="py-0">
                         {{ $det->folio_almacen }}
                     </td>
-                    <td style="border-color: black; width: 10%;  text-align: center;" class="py-0">
+                    <td style="border-color: black; width: 10%;  text-align: right; font-size: small" class="py-0">
                         {{dvs().nfp($det->precio)}}
                     </td>
-                    <td style="border-color: black; width: 10%; text-align: center;" class="py-0">
+                    <td style="border-color: black; width: 10%; text-align: right; font-size: small" class="py-0">
                         {{dvs().nfp($det->sub_total)}}
                     </td>
-                    <td style="border-color: black; width: 10%;  text-align: center;" class="py-0">
+                    <td style="border-color: black; width: 15%;  text-align: right; font-size: small" class="py-0">
                         {{ $det->folio_inventario }}
                     </td>
-                    <td style="border-color: black; width: 10%;  text-align: center;" class="py-0">
-
+                    <td style="border-color: black; width: 8%;  text-align: center; font-size: small" class="py-0">
+                            asdf
                     </td>
                 </tr>
             @endforeach
+        </tbody>
+    </table>
+
+    <br><br><br>
+    @foreach($compra->compra1h->detalles as $i => $det)
+    @endforeach
+    @php
+        $total = 0;
+        foreach ($compra->compra1h->detalles as $i => $det) {
+            $total = $total + $det->sub_total;
+        }
+    @endphp
+    <table class="table table-sm">
+        <thead>
+        <tr style="text-align: center; font-size: small; text-align: center" class="py-0">
+{{--            <th style="border-color: black; font-weight: normal">Cantidad</th>--}}
+        </tr>
+        </thead>
+        <tbody>
+        <tr style="">
+            <td style="border-top-style: none; width: 6%; text-align: left; font-size: small" class="py-0">
+            </td>
+            <td style="border-top-style: none; width: 44%; text-align: left; font-size: small" class="py-0">
+{{--                {{$totalTexto}}--}}
+            </td>
+            <td style="border-top-style: none; width: 20%; text-align: left; font-size: small" class="py-0">
+            </td>
+            <td style="border-color: black; border-top-style: solid; border-bottom-style: double; width: 10%; text-align: center; font-size: small" class="py-0">
+                {{dvs().nf($total)}}
+            </td>
+            <td style="border-top-style: none; width: 35%; text-align: left; font-size: small" class="py-0">
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>
