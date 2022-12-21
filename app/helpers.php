@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
-use App\Extenciones\NumeroALetras;
+use App\extensiones\NumeroALetras;
 use Illuminate\Support\Facades\File;
 
 

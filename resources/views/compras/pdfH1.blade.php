@@ -20,18 +20,21 @@
 <div style="margin-top: 1.15cm;">
     <table class="table table-borderless table-sm" style="width: 100%">
         <tr style="">
-            <td style="width:50%;">
+            <td style="width:50%; vertical-align: middle">
                 Secretaría Ejecutiva de la ICMSJ
             </td>
             <td style="width:15%;">
 
             </td>
-            <td style="width:1%;">
+            <td style="width:1%; vertical-align: middle">
                 Número
             </td>
-            <td style="width:25%;" colspan="2">
-                Serie: {{ $compra->serie }}
-                 No. &nbsp;{{ $compra->numero }}
+            <td style="width:25%; font-size: 11px" colspan="2">
+                <b>
+                    Serie: {{ $compra->serie }}
+                    <br>
+                     No. &nbsp;{{ $compra->numero }}
+                </b>
             </td>
         </tr>
         <tr style="">
@@ -69,14 +72,14 @@
     <table class="table table-borderless table-sm">
         <thead>
         <tr style="text-align: center; font-size: small; text-align: center" class="py-0">
-            <th style="border-color: black; font-weight: normal">Cantidad</th>
-            <th style="border-color: black; font-weight: normal">Descripción del articulo</th>
-            <th style="border-color: black; font-weight: normal">CODIGO DEL GASTO RENGLON</th>
-            <th style="border-color: black; font-weight: normal">Folio Libro Almacen</th>
-            <th style="border-color: black; font-weight: normal">PRECIO POR UNIDAD</th>
-            <th style="border-color: black; font-weight: normal">VALOR TOTAL</th>
-            <th style="border-color: black; font-weight: normal">Folio libro inventario</th>
-            <th style="border-color: black; font-weight: normal">NOMENCLA TURA DE CUENTAS</th>
+            <th style="border-color: black; font-weight: normal; vertical-align: middle">Cantidad</th>
+            <th style="border-color: black; font-weight: normal; vertical-align: middle">Descripción del articulo</th>
+            <th style="border-color: black; font-weight: normal; vertical-align: middle">CODIGO DEL GASTO RENGLON</th>
+            <th style="border-color: black; font-weight: normal; vertical-align: middle">Folio Libro Almacen</th>
+            <th style="border-color: black; font-weight: normal; vertical-align: middle">PRECIO POR UNIDAD</th>
+            <th style="border-color: black; font-weight: normal; vertical-align: middle">VALOR TOTAL</th>
+            <th style="border-color: black; font-weight: normal; vertical-align: middle">Folio libro inventario</th>
+            <th style="border-color: black; font-weight: normal; vertical-align: middle">NOMENCLA TURA DE CUENTAS</th>
         </tr>
         </thead>
         <tbody>
@@ -117,7 +120,7 @@
                         {{ $det->folio_inventario }}
                     </td>
                     <td style="border-color: black; width: 8%;  text-align: center; font-size: small" class="py-0">
-                            asdf
+
                     </td>
                 </tr>
             @endforeach
@@ -132,6 +135,7 @@
         foreach ($compra->compra1h->detalles as $i => $det) {
             $total = $total + $det->sub_total;
         }
+        $totalTexto = numAletras($total);
     @endphp
     <table class="table table-sm">
         <thead>
@@ -144,11 +148,11 @@
             <td style="border-top-style: none; width: 6%; text-align: left; font-size: small" class="py-0">
             </td>
             <td style="border-top-style: none; width: 44%; text-align: left; font-size: small" class="py-0">
-{{--                {{$totalTexto}}--}}
+                {{$totalTexto}}
             </td>
             <td style="border-top-style: none; width: 20%; text-align: left; font-size: small" class="py-0">
             </td>
-            <td style="border-color: black; border-top-style: solid; border-bottom-style: double; width: 10%; text-align: center; font-size: small" class="py-0">
+            <td style="border-color: black; border-top-style: solid; border-bottom-style: solid; width: 10%; text-align: center; font-size: small" class="py-0">
                 {{dvs().nf($total)}}
             </td>
             <td style="border-top-style: none; width: 35%; text-align: left; font-size: small" class="py-0">

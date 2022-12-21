@@ -11,8 +11,13 @@
     $i=0;
 @endphp
 
-<body style="width: 100%;">
-    <div style="padding-top: 180px">
+<body style="width: 100%; ">
+    <div style="padding-top: 75px">
+        <table class="table table-bordered table-sm">
+            <tr>
+                <td style="border-color: black;"><img src="{{asset('/img/SEICMSJ-logo.jpg')}}" height="150px"></td>
+            </tr>
+        </table>
         <table style="width: 100%" border="1">
             <tr>
                 <td colspan="2">DEPARTAMENTO SOLICITANTE: {{ $solicitud->unidad->nombre }}</td>
@@ -26,7 +31,6 @@
         <table class="table table-bordered table-sm" >
             <thead>
                 <tr style="text-align: center; background-color: #DCDCDC;  " class="py-0">
-                    <th style="border-color: black;" >No.</th>
                     <th style="border-color: black;">Descripción del articulo</th>
                     <th style="border-color: black;">Unidad de Medida</th>
                     <th style="border-color: black;">Cantidad Solicitada</th>
@@ -36,9 +40,6 @@
             <tbody >
                 @foreach ($solicitud->detalles as $detalle)
                     <tr style="">
-                        <td style="border-color: black; width: 7%; text-align: center;" class="py-0">
-                            {{ $loop->iteration }}
-                        </td>
                         <td style="border-color: black; "class="py-0">
                             {{ $detalle->item->nombre }}
                         </td>
@@ -57,9 +58,8 @@
                         $final = $totalLineas - $loop->iteration;
                     @endphp
                 @endforeach
-                @for ($i =  $final; $i <= $totalLineas ; $i++)
+                @for ($i = 1; $i <= $final ; $i++)
                     <tr style="">
-                        <td style="border-color: black; text-align: center; " class="py-0">{{  $i  }}</td>
                         <td style="border-color: black; text-align: center; "  class="py-0">
                              <span style="color: white">1</span>
                         </td>
@@ -89,7 +89,7 @@
                     RECIBÍ CONFORME: {{ $solicitud->usuarioSolicita->name }}
                 </td>
                 <td class="py-0">
-                    DESPACHADO POR: {{ $solicitud->usuarioDespacha->name ?? '' }}
+                    DESPACHADO POR: {{ $solicitud->usuarioDespacha->name ?? 'Aún no se ha despachado' }}
                 </td>
             </tr>
             <tr>

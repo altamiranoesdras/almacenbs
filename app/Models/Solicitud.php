@@ -358,7 +358,10 @@ class Solicitud extends Model
         return in_array($this->estado_id,[
             SolicitudEstado::SOLICITADA,
             SolicitudEstado::APROBADA,
-            SolicitudEstado::AUTORIZADA
+            SolicitudEstado::AUTORIZADA,
+            SolicitudEstado::DESPACHADA,
+//            SolicitudEstado::ANULADA,
+//            SolicitudEstado::CANCELADA,
         ]);
     }
 
