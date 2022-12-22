@@ -19,101 +19,78 @@
 
 {{-- EL ROWSPAN SE TIENE QUE HACER UN COUNT DEL LIST DE LOS ITEMS + 1, ASI SE MOSTRARA CORRECTAMENTE--}}
 <div style="margin-top: 1.15cm;">
-    <table class="table table-bordered table-sm">
-        <thead>
-        <tr style="text-align: center;" class="py-0">
-            <th style="border-color: black;" rowspan="5">FECHA INGRESO</th>
-            <th style="border-color: black;" rowspan="5">NO. FACTURA</th>
-            <th style="border-color: black;" rowspan="5">FECHA FACTURA</th>
-            <th style="border-color: black;" rowspan="5">NOMBRE DEL PROVEEDOR</th>
-            <th style="border-color: black;" rowspan="5">NIT</th>
-            <th style="border-color: black;">DESCRIPCION</th>
-            <th style="border-color: black;">CANTIDAD</th>
-            <th style="border-color: black;">PROCIO UNITARIO</th>
-            <th style="border-color: black;">VALOR TOTAL</th>
-        </tr>
-        </thead>
-        <tbody>
-            <tr style="">
-                <td style="border-color: black; width: 4%; text-align: center;" class="py-0" rowspan="5">
-                    3/11/2022
-                </td>
-                <td style="border-color: black; width: 46%; text-align: center;" class="py-0" rowspan="5">
-                    Serie: 86B18E09
-                    <br>
-                    No. 973229718
-                </td>
-                <td style="border-color: black; text-align: center;" class="py-0" rowspan="5">
-                    3/11/2022
-                </td>
-                <td style="border-color: black; width: 10%;  text-align: center;" class="py-0" rowspan="5">
-                    DISTRIBUIDORA JALAPEÑA, SOCIEDAD ANONIMA
-                </td>
-                <td style="border-color: black; width: 10%;  text-align: center;" class="py-0" rowspan="5">
-                    330622-4
-                </td>
+    @foreach($listadoCompras as $compra)
+        <table class="table table-bordered table-sm">
+            <thead>
+            <tr style="text-align: center;" class="py-0">
+                <th style="border-color: black;" rowspan="5">FECHA INGRESO</th>
+                <th style="border-color: black;" rowspan="5">NO. FACTURA</th>
+                <th style="border-color: black;" rowspan="5">FECHA FACTURA</th>
+                <th style="border-color: black;" rowspan="5">NOMBRE DEL PROVEEDOR</th>
+                <th style="border-color: black;" rowspan="5">NIT</th>
+                <th style="border-color: black;">DESCRIPCION</th>
+                <th style="border-color: black;">CANTIDAD</th>
+                <th style="border-color: black;">PROCIO UNITARIO</th>
+                <th style="border-color: black;">VALOR TOTAL</th>
             </tr>
-            <tr>
-                <td style="border-color: black; width: 10%; text-align: center;" class="py-0">
-                    AP TAPA ROSCA 12/600ML ROSADA
-                </td>
-                <td style="border-color: black; width: 10%;  text-align: center;" class="py-0">
-                    4
-                </td>
-                <td style="border-color: black; width: 10%;  text-align: center;" class="py-0">
-                    Q30.00
-                </td>
-                <td style="border-color: black; width: 10%;  text-align: center;" class="py-0">
-                    Q12.00
-                </td>
-            </tr>
-            <tr>
-                <td style="border-color: black; width: 10%; text-align: center;" class="py-0">
-                    AP SALVAVIDAS PET 24/300ML TR
-                </td>
-                <td style="border-color: black; width: 10%;  text-align: center;" class="py-0">
-                    16
-                </td>
-                <td style="border-color: black; width: 10%;  text-align: center;" class="py-0">
-                    Q26.00
-                </td>
-                <td style="border-color: black; width: 10%;  text-align: center;" class="py-0">
-                    Q416.00
-                </td>
-            </tr>
-            <tr>
-                <td style="border-color: black; width: 10%; text-align: center;" class="py-0">
-                    AP SALVAVIDAS PET 24/300ML TR
-                </td>
-                <td style="border-color: black; width: 10%;  text-align: center;" class="py-0">
-                    16
-                </td>
-                <td style="border-color: black; width: 10%;  text-align: center;" class="py-0">
-                    Q26.00
-                </td>
-                <td style="border-color: black; width: 10%;  text-align: center;" class="py-0">
-                    Q416.00
-                </td>
-            </tr>
-        </tbody>
-        <tfoot >
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                    <b class="pull-left">SUB TOTAL</b>
-                <td></td>
-                <td></td>
-                <td>
-                    Q944.00
-                </td>
+            </thead>
+            <tbody>
+                <tr style="">
+                    <td style="border-color: black; width: 4%; text-align: center;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
+                        {{ $compra->fecha_documento->format('d-m-Y') }}
+                    </td>
+                    <td style="border-color: black; width: 46%; text-align: center;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
+                        Serie: {{ $compra->serie }}
+                        <br>
+                        No. {{ $compra->numero }}
+                    </td>
+                    <td style="border-color: black; text-align: center;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
+                        {{ $compra->fecha_documento->format('d-m-Y') }}
+                    </td>
+                    <td style="border-color: black; width: 10%;  text-align: center;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
+                        {{ $compra->proveedor->nombre }}
+                    </td>
+                    <td style="border-color: black; width: 10%;  text-align: center;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
+                        {{ $compra->proveedor->nit }}
+                    </td>
+                </tr>
+                @foreach($compra->detalles as $detalle)
+                    <tr>
+                        <td style="border-color: black; width: 10%; text-align: center;" class="py-0">
+                            {{ $detalle->item->descripcion }}
+                        </td>
+                        <td style="border-color: black; width: 10%;  text-align: center;" class="py-0">
+                            {{ nf( $detalle->cantidad ) }}
+                        </td>
+                        <td style="border-color: black; width: 10%;  text-align: center;" class="py-0">
+                            {{ dvs().nf( $detalle->precio ) }}
+                        </td>
+                        <td style="border-color: black; width: 10%;  text-align: center;" class="py-0">
+                            {{ dvs().nf( $detalle->sub_total ) }}
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+            <tfoot >
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <b class="pull-left">SUB TOTAL</b>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        Q944.00
+                    </td>
 
-            </tr>
-        </tfoot>
-    </table>
+                </tr>
+            </tfoot>
+        </table>
+        <br>
+    @endforeach
 </div>
 
 </body>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Compra;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
@@ -17,9 +18,15 @@ class LibroAlamcenController extends Controller
 
         if ($request->get('buscar')) {
 
+            $fecha = explode("-", $request->get('mes'));
+
+            $listadoCompras = Compra::with(['proveedor','detalles.item'])->whereMonth('fecha_documento', '=', $fecha[1])->get();
+
+//            return $listadoCompras;
+
             $pdf = App::make('snappy.pdf.wrapper');
 
-            $view = view('reportes.libro_almacen.pdf', compact('request'))->render();
+            $view = view('reportes.libro_almacen.pdf', compact('request','listadoCompras'))->render();
 
             $pdf->loadHTML($view)
 //            ->setOption('page-width', '220')
