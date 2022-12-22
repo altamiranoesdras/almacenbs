@@ -412,10 +412,10 @@ class SolicitudController extends AppBaseController
         ->setOption('page-height', '280')
             ->setOrientation('portrait')
             // ->setOption('footer-html',utf8_decode($footer))
-            ->setOption('margin-top', 0)
+            ->setOption('margin-top', 20)
             ->setOption('margin-bottom',3)
-            ->setOption('margin-left',10)
-            ->setOption('margin-right',10);
+            ->setOption('margin-left',20)
+            ->setOption('margin-right',20);
             // ->stream('report.pdf');
         return $pdf->inline('Despacho '.$solicitud->id. '_'. time().'.pdf');
 
