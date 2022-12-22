@@ -1,5 +1,6 @@
 <?php
 
+use App\extensiones\NumeroALetrasConMoneda;
 use App\Models\Configuration;
 use App\Models\Option;
 use App\Models\User;
@@ -135,6 +136,10 @@ function diaActual(){
  */
 function numAletras($numero,$moneda=null,$centimos=null){
     return NumeroALetras::convertir($numero,$moneda,$centimos);
+}
+
+function numALetrasConmoneda($numero, $moneda=null){
+    return NumeroALetrasConMoneda::Convertir($numero,$moneda);
 }
 
 /**

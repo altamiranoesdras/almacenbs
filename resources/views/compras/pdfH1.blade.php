@@ -12,12 +12,11 @@
 
 <div>
         <span style="font-size: 1.4em">
-{{--            <span style="margin-left: 9.5cm; font-weight: 600">TARJETA DE RESPONSABILIDAD DE ACTIVOS FIJOS</span><br>--}}
             <div style="margin-top: 0.35cm"></div>
         </span>
 </div>
 
-<div style="margin-top: 1.15cm;">
+<div style="margin-top: 1.15cm; font-size: 14px">
     <table class="table table-borderless table-sm" style="width: 100%">
         <tr style="">
             <td style="width:50%; vertical-align: middle">
@@ -68,7 +67,7 @@
     </table>
 </div>
 
-<div style="margin-top: 1.15cm;">
+<div>
     <table class="table table-borderless table-sm">
         <thead>
         <tr style="text-align: center; font-size: small; text-align: center" class="py-0">
@@ -83,43 +82,30 @@
         </tr>
         </thead>
         <tbody>
-        {{--        @php--}}
-        {{--            $saldo = 0;--}}
-        {{--        @endphp--}}
             @foreach($compra->compra1h->detalles as $i => $det)
-{{--                @php--}}
-{{--                    if ($det->valor_alza){--}}
-{{--                       $saldo += $det->valor_alza;--}}
-{{--                    }--}}
-{{--    --}}
-{{--                    if ($det->valor_baja){--}}
-{{--                       $saldo -= $det->valor_baja;--}}
-{{--                    }--}}
-{{--    --}}
-{{--                @endphp--}}
-                <tr style="">
-                    <td style="border-color: black; width: 5%; text-align: center; font-size: small" class="py-0">
+                <tr>
+                    <td style="border-color: black; width: 5%; text-align: center; font-size: medium" class="py-0">
                         {{nf($det->cantidad)}}
                     </td>
-                    <td style="border-color: black; width: 36%; text-align: left; font-size: small" class="py-0">
+                    <td style="border-color: black; width: 36%; text-align: left; font-size: medium" class="py-0">
                         {{$det->item->nombre}} {{dvs().nfp($det->precio)}}
                     </td>
-                    <td style="border-color: black; width: 10%; text-align: center; font-size: small" class="py-0">
+                    <td style="border-color: black; width: 10%; text-align: center; font-size: medium" class="py-0">
                         {{$det->item->renglon->numero}}
                     </td>
-                    <td style="border-color: black; width: 10%;  text-align: center; font-size: small" class="py-0">
+                    <td style="border-color: black; width: 10%;  text-align: center; font-size: medium" class="py-0">
                         {{ $det->folio_almacen }}
                     </td>
-                    <td style="border-color: black; width: 10%;  text-align: right; font-size: small" class="py-0">
+                    <td style="border-color: black; width: 10%;  text-align: right; font-size: medium" class="py-0">
                         {{dvs().nfp($det->precio)}}
                     </td>
-                    <td style="border-color: black; width: 10%; text-align: right; font-size: small" class="py-0">
+                    <td style="border-color: black; width: 10%; text-align: right; font-size: medium" class="py-0">
                         {{dvs().nfp($det->sub_total)}}
                     </td>
-                    <td style="border-color: black; width: 15%;  text-align: right; font-size: small" class="py-0">
+                    <td style="border-color: black; width: 15%;  text-align: right; font-size: medium" class="py-0">
                         {{ $det->folio_inventario }}
                     </td>
-                    <td style="border-color: black; width: 8%;  text-align: center; font-size: small" class="py-0">
+                    <td style="border-color: black; width: 8%;  text-align: center; font-size: medium" class="py-0">
 
                     </td>
                 </tr>
@@ -135,7 +121,16 @@
         foreach ($compra->compra1h->detalles as $i => $det) {
             $total = $total + $det->sub_total;
         }
-        $totalTexto = numAletras($total);
+
+        $currency = new stdClass();
+
+        $currency->plural = 'QUETZALES';
+        $currency->singular = 'QUETZAL';
+        $currency->centPlural = 'CENTAVOS';
+        $currency->centSingular = 'CENTAVO';
+
+        $totalTexto = numALetrasConmoneda($total, $currency);
+
     @endphp
     <table class="table table-sm">
         <thead>
@@ -147,12 +142,12 @@
         <tr style="">
             <td style="border-top-style: none; width: 6%; text-align: left; font-size: small" class="py-0">
             </td>
-            <td style="border-top-style: none; width: 44%; text-align: left; font-size: small" class="py-0">
+            <td id="celdaTotalLetras" style="border-top-style: none; width: 44%; text-align: left; font-size: small" class="py-0">
                 {{$totalTexto}}
             </td>
             <td style="border-top-style: none; width: 20%; text-align: left; font-size: small" class="py-0">
             </td>
-            <td style="border-color: black; border-top-style: solid; border-bottom-style: solid; width: 10%; text-align: center; font-size: small" class="py-0">
+            <td style="border-color: black; border-top-style: solid; border-bottom-style: double; width: 10%; text-align: center; font-size: small" class="py-0">
                 {{dvs().nf($total)}}
             </td>
             <td style="border-top-style: none; width: 35%; text-align: left; font-size: small" class="py-0">
@@ -170,4 +165,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
         crossorigin="anonymous"></script>
+
+<script src="{{asset('js/numeros_a_letras.js')}}"></script>
 </html>

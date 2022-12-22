@@ -396,7 +396,6 @@ class CompraController extends AppBaseController
 
 //        return $compra->compra1hs->first()->compra1hDetalles;
 //        return $compra->compra1hs->first();
-
         $pdf = App::make('snappy.pdf.wrapper');
 
         $view = view('compras.pdfH1', compact('compra'))->render();
@@ -413,7 +412,6 @@ class CompraController extends AppBaseController
         // ->stream('report.pdf');
 
         return $pdf->inline('CompraH1-'.$compra->id. '_'. time().'.pdf');
-
     }
 
     public function generar1h($id)
