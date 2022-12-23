@@ -536,7 +536,7 @@ class OptionsTableSeeder extends Seeder
             array (
                 'id' => 33,
                 'option_id' => 7,
-                'nombre' => 'Aprobar Reqisición',
+                'nombre' => 'Aprobar Requisición',
                 'ruta' => 'solicitudes.aprobar',
                 'descripcion' => NULL,
                 'icono_l' => 'fa-stamp',
