@@ -149,6 +149,8 @@ class Compra extends Model
         'deleted_at' => 'nullable'
     ];
 
+    protected $appends = ['total_venta'];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
@@ -264,7 +266,8 @@ class Compra extends Model
     {
 
         return $this->detalles->sum(function ($det){
-            return $det->cantidad*$det->item->precio_venta;
+            return $det->cantidad*$det->item->precio_compra;
+//            return $det->cantidad*$det->item->precio_venta;
         });
 
     }

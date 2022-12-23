@@ -2,6 +2,11 @@
 
     <div class="form-row">
 
+{{--        <div class="form-group col-sm-2">--}}
+{{--            {!! Form::label('mes', 'Mes:') !!}--}}
+{{--            {!! Form::date('mes', null, ['class' => 'form-control daterange']) !!}--}}
+{{--        </div>--}}
+
         <div class="form-group col-sm-2">
             <label for="del">Mes:</label>
             <input type="month" class="form-control" name="mes" id="mes">
@@ -42,27 +47,27 @@
             });
         })
 
-        new Vue({
-            el: '#formFiltersDatatables',
-            name: 'formFiltersDatatables',
-            created() {
+        {{--new Vue({--}}
+        {{--    el: '#formFiltersDatatables',--}}
+        {{--    name: 'formFiltersDatatables',--}}
+        {{--    created() {--}}
 
-            },
-            data: {
+        {{--    },--}}
+        {{--    data: {--}}
 
-                usuario: null,
-                usuarios: @json(\App\Models\User::all() ?? []),
+        {{--        usuario: null,--}}
+        {{--        usuarios: @json(\App\Models\User::all() ?? []),--}}
 
-            },
-            methods: {
+        {{--    },--}}
+        {{--    methods: {--}}
 
-            },
-            computed:{
+        {{--    },--}}
+        {{--    computed:{--}}
 
-            },
-            watch:{
+        {{--    },--}}
+        {{--    watch:{--}}
 
-            }
-        });
+        {{--    }--}}
+        {{--});--}}
     </script>
 @endpush
