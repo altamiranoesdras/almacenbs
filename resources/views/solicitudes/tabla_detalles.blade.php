@@ -19,7 +19,7 @@
 
     @foreach($solicitud->detalles as $det)
         <tr>
-            <td>{{$det->item->nombre}}</td>
+            <td>{{$det->item->text}}</td>
             @if($solicitud->estaAprobada() )
                 <th>{{$det->item->stock_total}}</th>
             @endif

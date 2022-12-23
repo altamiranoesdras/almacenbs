@@ -1,5 +1,6 @@
 <?php
 
+use App\extensiones\NumeroALetrasConMoneda;
 use App\Models\Configuration;
 use App\Models\Option;
 use App\Models\User;
@@ -8,7 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
-use App\Extenciones\NumeroALetras;
+use App\extensiones\NumeroALetras;
 use Illuminate\Support\Facades\File;
 
 
@@ -135,6 +136,10 @@ function diaActual(){
  */
 function numAletras($numero,$moneda=null,$centimos=null){
     return NumeroALetras::convertir($numero,$moneda,$centimos);
+}
+
+function numALetrasConmoneda($numero, $moneda=null){
+    return NumeroALetrasConMoneda::Convertir($numero,$moneda);
 }
 
 /**
@@ -845,4 +850,10 @@ function nombreModulo(){
 //
 //    return $temp[0] ?? '';
 
+}
+
+function fechaLtnMesEnTexto(){
+    list($dia,$mes,$anio)=explode("/",fechaActual());
+
+    return $dia."/".mesLetras($mes)."/".$anio;
 }

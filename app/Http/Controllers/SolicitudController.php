@@ -9,6 +9,8 @@ use App\Events\EventoCambioEstadoSolicitud;
 use App\Http\Requests;
 use App\Http\Requests\CreateSolicitudRequest;
 use App\Http\Requests\UpdateSolicitudRequest;
+use App\Models\Bodega;
+use App\Models\RrhhUnidad;
 use App\Models\Solicitud;
 use App\Models\SolicitudDetalle;
 use App\Models\SolicitudEstado;
@@ -41,6 +43,15 @@ class SolicitudController extends AppBaseController
     public function index(SolicitudDataTable $solicitudDataTable)
     {
         $scope = new ScopeSolicitudDataTable();
+
+        $scope->estados = [
+            SolicitudEstado::SOLICITADA,
+            SolicitudEstado::AUTORIZADA,
+            SolicitudEstado::APROBADA,
+            SolicitudEstado::DESPACHADA,
+            SolicitudEstado::ANULADA,
+            SolicitudEstado::CANCELADA,
+        ];
         $solicitudDataTable->addScope($scope);
 
 
@@ -220,8 +231,8 @@ class SolicitudController extends AppBaseController
         $request->merge([
             'codigo' => $this->getCodigo(),
             'correlativo' => $this->getCorrelativo(),
-            'unidad_id' => auth()->user()->unidad_id,
-            'bodega_id' => auth()->user()->bodega_id,
+            'unidad_id' => auth()->user()->unidad_id ?? RrhhUnidad::PRINCIPAL,
+            'bodega_id' => auth()->user()->bodega_id ?? Bodega::PRINCIPAL,
             'usuario_solicita' => $request->usuario_solicita,
             'fecha_solicita' => hoyDb(),
             'estado_id' => SolicitudEstado::SOLICITADA,
@@ -394,15 +405,17 @@ class SolicitudController extends AppBaseController
         $view = view('solicitudes.despacho_pdf', compact('solicitud'))->render();
         // $footer = view('compras.pdf_footer')->render();
 
+//        dd($solicitud->toArray());
+
         $pdf->loadHTML($view)
         ->setOption('page-width', '220')
         ->setOption('page-height', '280')
             ->setOrientation('portrait')
             // ->setOption('footer-html',utf8_decode($footer))
-            ->setOption('margin-top', 10)
+            ->setOption('margin-top', 20)
             ->setOption('margin-bottom',3)
-            ->setOption('margin-left',10)
-            ->setOption('margin-right',10);
+            ->setOption('margin-left',20)
+            ->setOption('margin-right',20);
             // ->stream('report.pdf');
         return $pdf->inline('Despacho '.$solicitud->id. '_'. time().'.pdf');
 

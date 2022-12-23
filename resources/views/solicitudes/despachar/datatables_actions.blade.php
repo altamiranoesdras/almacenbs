@@ -17,7 +17,7 @@
 @if($solicitud->puedeAnular())
 
 
-    <a href="{{ route('solicitudes.despachoPdf', $id) }}"  class='btn btn-primary btn-xs' data-toggle="tooltip" title="PDF de Despacho" target="_blank">
+    <a href="{{ route('solicitudes.despachoPdf', $id) }}"  class='btn btn-primary btn-xs' data-toggle="tooltip" title="Imprimir" target="_blank">
         <i class="fa fa-file-pdf"></i>
     </a>
 

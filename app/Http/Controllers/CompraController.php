@@ -396,7 +396,6 @@ class CompraController extends AppBaseController
 
 //        return $compra->compra1hs->first()->compra1hDetalles;
 //        return $compra->compra1hs->first();
-
         $pdf = App::make('snappy.pdf.wrapper');
 
         $view = view('compras.pdfH1', compact('compra'))->render();
@@ -404,16 +403,15 @@ class CompraController extends AppBaseController
         $pdf->loadHTML($view)
 //            ->setOption('page-width', '220')
 //            ->setOption('page-height', '280')
-            ->setOrientation('landscape')
+            ->setOrientation('portrait')
             // ->setOption('footer-html',utf8_decode($footer))
-            ->setOption('margin-top', 10)
+            ->setOption('margin-top', 32)
             ->setOption('margin-bottom',3)
-            ->setOption('margin-left',10)
-            ->setOption('margin-right',10);
+            ->setOption('margin-left',15)
+            ->setOption('margin-right',15);
         // ->stream('report.pdf');
 
         return $pdf->inline('CompraH1-'.$compra->id. '_'. time().'.pdf');
-
     }
 
     public function generar1h($id)
