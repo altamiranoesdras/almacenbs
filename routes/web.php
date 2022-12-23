@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ColaboradorController;
 use App\Http\Controllers\ContratoController;
+use App\Http\Controllers\LibroAlamcenController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -222,7 +223,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('reportes/kardex', [ReportesAlmacenController::class,'kardex'])->name('reportes.kardex');
     Route::get('reportes/stock', [ReportesAlmacenController::class,'stock'])->name('reportes.stock');
     Route::get('reportes/items/vencen', [ReportesAlmacenController::class,'itemsAvencer'])->name('reportes.items.vencen');
-
+    Route::get('reportes/libro/almacen', [LibroAlamcenController::class,'index'])->name('reportes.libro.almacen');
 
     Route::group(['prefix' => 'inventarios'], function () {
         Route::resource('activoEstados', ActivoEstadoController::class);
