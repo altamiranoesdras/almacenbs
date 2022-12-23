@@ -149,7 +149,7 @@ var numeroALetras = (function() {
                     return Millones(data.centavos) + ' ' + data.letrasMonedaCentavoSingular;
                 else
                     return Millones(data.centavos) + ' ' + data.letrasMonedaCentavoPlural;
-            })();
+            })(data);
         };
 
         if(data.enteros == 0)

@@ -71,9 +71,9 @@
                     text-align: center; font-weight: normal" scope="col">DESPACHADA</th>
             </tr>
         </thead>
-        <tbody >
+        <tbody style="margin-bottom: 0">
         @foreach ($solicitud->detalles as $detalle)
-            <tr style="">
+            <tr style="line-height: 20px">
                 <td style="border-color: black; "class="py-0">
                     {{ $detalle->item->nombre }}
                 </td>
@@ -93,7 +93,7 @@
             @endphp
         @endforeach
         @for ($i = 1; $i <= $final ; $i++)
-            <tr style="">
+            <tr style="line-height: 20px">
                 <td style="border-color: black; text-align: center; "  class="py-0">
                     <span style="color: white">1</span>
                 </td>
@@ -111,31 +111,38 @@
         @endfor
         </tbody>
     </table>
-   <b>OBSERVACIONES <span style="font-size: 14px;">(Destino del material y/o insumo)</span> {{ $solicitud->observaciones }}</b>
-    <hr style="background-color: black; display: inline-block; margin-left: 78px; position: absolute; width: 410px">
-    <hr style="background-color: black; margin-bottom: 25px">
-    <hr style="background-color: black; margin-bottom: 25px">
-    <hr style="background-color: black">
-
-    <table>
+   <b>OBSERVACIONES <span style="font-size: 14px;">(Destino del material y/o insumo)</span></b>
+    <table class="table table-bordered table-sm" style="margin-bottom: 0">
         <tr>
-            <td>
+            <td width="10%" height="85px" style="border-color: black">
+                {{ $solicitud->observaciones }}
+            </td>
+        </tr>
+    </table>
+<br>
+<br>
+    <table style="margin-left: auto; margin-right: auto;">
+        <tr>
+            <td style="padding-right: 50px">
                 <input type="text" class="firma" value="(f)"/>
             </td>
-            <td>
+            <td style="padding-right: 50px">
+                <input type="text" class="firma" value="(f)"/>
+            </td>
+            <td style="padding-right: 50px">
                 <input type="text" class="firma" value="(f)"/>
             </td>
         </tr>
         <tr>
-            <td>
+            <td style="padding-right: 50px; text-align: center">
                 <p>Firma y Sello de Recibido</p>
             </td>
-            <td>
+            <td style="padding-right: 50px; text-align: center">
                 Firma y sello Coordinadora <br>
                 Administrativo <br>
                 Autoriza
             </td>
-            <td>
+            <td style="padding-right: 50px; text-align: center">
                 Firma y sello Enc. Almacén de<br>
                 Suministros <br>
                 Entrega

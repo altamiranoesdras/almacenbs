@@ -139,33 +139,37 @@ class NumeroALetrasConMoneda
     }//Millones()
 
     public static function Convertir($num, $currency) {
-    $currency = $currency ?? 'Q';
+        if (!$num) {
+            return '';
+        }
 
-    $data = new stdClass();
-    $data->numero = $num;
-    $data->enteros = floor($num);
-    $data->centavos = (((round($num * 100)) - (floor($num) * 100)));
-    $data->letrasCentavos = '';
-    $data->letrasMonedaPlural = $currency->plural ?? 'QUETZALES';//'PESOS', 'Dólares', 'Bolívares', 'etcs'
-    $data->letrasMonedaSingular = $currency->singular ?? 'QUETZAL'; //'PESO', 'Dólar', 'Bolivar', 'etc'
-    $data->letrasMonedaCentavoPlural = $currency->centPlural ?? 'CENTAVOS';
-    $data->letrasMonedaCentavoSingular = $currency->centSingular ?? 'CENTAVOS';
+        $currency = $currency ?? 'Q';
 
-        if ($data->centavos > 0) {
-            $data->letrasCentavos = 'CON ' . (function ($data) {
-                    if ($data->centavos == 1)
-                        return self::Millones($data->centavos) . ' ' . $data->letrasMonedaCentavoSingular;
-                    else
-                        return self::Millones($data->centavos) . ' ' . $data->letrasMonedaCentavoPlural;
-                })();
-        };
+        $data = new stdClass();
+        $data->numero = $num;
+        $data->enteros = floor($num);
+        $data->centavos = (((round($num * 100)) - (floor($num) * 100)));
+        $data->letrasCentavos = '';
+        $data->letrasMonedaPlural = $currency->plural ?? 'QUETZALES';//'PESOS', 'Dólares', 'Bolívares', 'etcs'
+        $data->letrasMonedaSingular = $currency->singular ?? 'QUETZAL'; //'PESO', 'Dólar', 'Bolivar', 'etc'
+        $data->letrasMonedaCentavoPlural = $currency->centPlural ?? 'CENTAVOS';
+        $data->letrasMonedaCentavoSingular = $currency->centSingular ?? 'CENTAVO';
 
-        if($data->enteros == 0)
-            return 'CERO ' . $data->letrasMonedaPlural . ' ' . $data->letrasCentavos;
-        if ($data->enteros == 1)
-            return self::Millones($data->enteros) . ' ' . $data->letrasMonedaSingular . ' ' . $data->letrasCentavos;
-        else
-            return self::Millones($data->enteros) . ' ' . $data->letrasMonedaPlural . ' ' . $data->letrasCentavos;
+            if ($data->centavos > 0) {
+                $data->letrasCentavos = 'CON ' . (function ($data) {
+                        if ($data->centavos == 1)
+                            return self::Millones($data->centavos) . ' ' . $data->letrasMonedaCentavoSingular;
+                        else
+                            return self::Millones($data->centavos) . ' ' . $data->letrasMonedaCentavoPlural;
+                    })($data);
+            }
+
+            if($data->enteros == 0)
+                return 'CERO ' . $data->letrasMonedaPlural . ' ' . $data->letrasCentavos;
+            if ($data->enteros == 1)
+                return self::Millones($data->enteros) . ' ' . $data->letrasMonedaSingular . ' ' . $data->letrasCentavos;
+            else
+                return self::Millones($data->enteros) . ' ' . $data->letrasMonedaPlural . ' ' . $data->letrasCentavos;
     }
 
 

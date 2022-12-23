@@ -19,7 +19,7 @@
 <div style="margin-top: 1.15cm; font-size: 14px">
     <table class="table table-borderless table-sm" style="width: 100%">
         <tr style="">
-            <td style="width:50%; vertical-align: middle">
+            <td style="width:50%; vertical-align: middle; padding-left: 90px">
                 Secretaría Ejecutiva de la ICMSJ
             </td>
             <td style="width:15%;">
@@ -37,7 +37,7 @@
             </td>
         </tr>
         <tr style="">
-            <td style="width:50%;">
+            <td style="width:50%; padding-left: 90px">
                 Secretaría Ejecutiva de la ICMSJ
             </td>
             <td style="width:15%;">
@@ -51,7 +51,7 @@
             </td>
         </tr>
         <tr style="">
-            <td style="width:5%;">
+            <td style="width:5%; padding-left: 90px">
                 {{strtoupper($compra->proveedor->razon_social)}} / NIT: {{$compra->proveedor->nit}}
             </td>
             <td style="width:5%;">
@@ -94,7 +94,7 @@
                         {{$det->item->renglon->numero}}
                     </td>
                     <td style="border-color: black; width: 10%;  text-align: center; font-size: medium" class="py-0">
-                        {{ $det->folio_almacen }}
+                        {{ $det->folio_almacen ?? 0 }}
                     </td>
                     <td style="border-color: black; width: 10%;  text-align: right; font-size: medium" class="py-0">
                         {{dvs().nfp($det->precio)}}
@@ -102,8 +102,8 @@
                     <td style="border-color: black; width: 10%; text-align: right; font-size: medium" class="py-0">
                         {{dvs().nfp($det->sub_total)}}
                     </td>
-                    <td style="border-color: black; width: 15%;  text-align: right; font-size: medium" class="py-0">
-                        {{ $det->folio_inventario }}
+                    <td style="border-color: black; width: 15%;  text-align: center; font-size: medium" class="py-0">
+                        {{ $det->folio_inventario ?? 0}}
                     </td>
                     <td style="border-color: black; width: 8%;  text-align: center; font-size: medium" class="py-0">
 
@@ -135,7 +135,7 @@
     <table class="table table-sm">
         <thead>
         <tr style="text-align: center; font-size: small; text-align: center" class="py-0">
-{{--            <th style="border-color: black; font-weight: normal">Cantidad</th>--}}
+{{--            <th style="borhder-color: black; font-weight: normal">Cantidad</th>--}}
         </tr>
         </thead>
         <tbody>
