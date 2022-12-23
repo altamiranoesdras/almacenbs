@@ -46,7 +46,7 @@
             <td>Nombre del Solicitante: <b>{{ $solicitud->usuarioSolicita->name }}</b></td>
         </tr>
         <tr>
-            <td>Cargo: <b>{{ $solicitud->usuarioDespacha->puesto->nombre }}</b></td>
+            <td>Cargo: <b>{{ $solicitud->usuarioSolicita->puesto->nombre }}</b></td>
         </tr>
     </table>
     <br>
@@ -115,7 +115,7 @@
     <table class="table table-bordered table-sm" style="margin-bottom: 0">
         <tr>
             <td width="10%" height="85px" style="border-color: black">
-                {{ $solicitud->observaciones }}
+                {{ $solicitud->justificacion }}
             </td>
         </tr>
     </table>

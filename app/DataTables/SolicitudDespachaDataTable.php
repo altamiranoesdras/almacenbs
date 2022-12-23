@@ -29,7 +29,7 @@ class SolicitudDespachaDataTable extends DataTable
             })
             ->editColumn('codigo',function (Solicitud $solicitud){
 
-                return view('solicitudes.modal_show',compact('solicitud'))->render();
+                return view('solicitudes.despachar.modal_despachar',compact('solicitud'))->render();
 
             })
             ->editColumn('justificacion',function (Solicitud $solicitud){

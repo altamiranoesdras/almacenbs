@@ -4,7 +4,6 @@
         <th>Producto</th>
         <th>Cantidad Solicitada</th>
         <th>Cantidad Aprobada</th>
-        <th>Cantidad despachada</th>
     </tr>
     </thead>
     <tbody>
@@ -13,18 +12,24 @@
         <tr>
             <td>{{$det->item->text}}</td>
             <td>{{$det->cantidad_solicitada}}</td>
-            <td> {{$solicitud->estaAprobada() ? $det->cantidad_aprobada : "Pendiente"}}</td>
-            <td> {{$solicitud->estaDespachada() ? $det->cantidad_despachada : "Pendiente"}}</td>
+            @if( $solicitud->estaAprobada())
+                <td> {{$det->cantidad_aprobada}}</td>
+            @else
+                <td>
+                    <input type="number" name="cantidades_aprueba[]" step="any" class="form-control form-control-sm" required >
+                </td>
+            @endif
         </tr>
     @endforeach
 
     </tbody>
     <tfoot>
     <tr>
-        <th colspan="5"><span class="pull-right">
-                TOTAL Artículos
-                {{nf($solicitud->detalles->sum('cantidad_solicitada'))}}
-            </span>
+        <th>
+            TOTAL Artículos
+        </th>
+        <th colspan="5" class="text-right">
+            {{nf($solicitud->detalles->sum('cantidad_solicitada'))}}
         </th>
     </tr>
     </tfoot>

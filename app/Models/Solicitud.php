@@ -284,12 +284,19 @@ class Solicitud extends Model
 
     public function muestraCantidadAprobar()
     {
+
+        /**
+         * @var User $user;
+         */
+        $user = auth()->user();
+
         return in_array($this->estado_id,[
             SolicitudEstado::SOLICITADA,
             SolicitudEstado::AUTORIZADA,
             SolicitudEstado::APROBADA
-        ]);
+        ]) && $user->can('Aprobar Requisición');
     }
+
     public function muestraCantidadDespachar()
     {
         return in_array($this->estado_id,[
@@ -297,6 +304,7 @@ class Solicitud extends Model
             SolicitudEstado::APROBADA
         ]);
     }
+
     public function esTemporal()
     {
         return $this->estado_id==SolicitudEstado::TEMPORAL;
@@ -356,11 +364,11 @@ class Solicitud extends Model
     public function puedeImprimir()
     {
         return in_array($this->estado_id,[
-//            SolicitudEstado::SOLICITADA,
-//            SolicitudEstado::APROBADA,
+            SolicitudEstado::SOLICITADA,
+            SolicitudEstado::APROBADA,
             SolicitudEstado::AUTORIZADA,
             SolicitudEstado::DESPACHADA,
-//            SolicitudEstado::ANULADA,
+            SolicitudEstado::ANULADA,
 //            SolicitudEstado::CANCELADA,
         ]);
     }
