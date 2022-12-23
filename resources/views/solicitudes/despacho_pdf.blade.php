@@ -88,7 +88,7 @@
                 </td>
             </tr>
             @php
-                $totalLineas = 22;
+                $totalLineas = 20;
                 $final = $totalLineas - $loop->iteration;
             @endphp
         @endforeach
@@ -119,6 +119,9 @@
             </td>
         </tr>
     </table>
+<br>
+<br>
+<br>
 <br>
 <br>
     <table style="margin-left: auto; margin-right: auto;">
