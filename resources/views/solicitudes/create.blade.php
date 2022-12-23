@@ -93,19 +93,21 @@
                                 <table width="100%"  class="table table-bordered table-xtra-condensed" id="tablaDetalle" style="margin-bottom: 2px">
                                     <thead>
                                     <tr class="bg-primary text-sm" align="center" style="font-weight: bold">
-                                        <td width="60%">Producto</td>
-                                        <td width="25%">Cantidad</td>
-                                        <td width="15%">-</td>
+                                        <td width="5%">No.</td>
+                                        <td width="75%">Producto</td>
+                                        <td width="10%">Cantidad</td>
+                                        <td width="10%">-</td>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr v-if="detalles.length==0">
                                         <td colspan="6"><span class="help-block text-center">No se ha agregado ningún artículo</span></td>
                                     </tr>
-                                    <tr v-for="detalle in detalles" class="text-sm">
-                                        <td v-text="detalle.item.nombre"></td>
-                                        <td v-text="nf(detalle.cantidad_solicitada)"></td>
-                                        <td width="10px">
+                                    <tr v-for="(detalle,index) in detalles" class="text-sm">
+                                        <td v-text="index+1"></td>
+                                        <td v-text="detalle.item.text"></td>
+                                        <td class="text-right" v-text="nf(detalle.cantidad_solicitada)"></td>
+                                        <td class="text-center">
                                             <button type="button" class='btn btn-danger btn-xs'
                                                     @click="deleteItem(detalle)"
                                                     :disabled="(idEliminando===detalle.id)">
@@ -200,6 +202,7 @@
                 loading: false,
 
                 idEliminando: '',
+                maxmimoDetalles : @json(config('solicitudes.maximo_detalles',20)),
 
 
             },
@@ -251,6 +254,11 @@
 
                 },
                 async save () {
+
+                    if (this.maxmimoDetalles == this.detalles.length){
+                        iziTe("No puede agregar mas detalles, debe agregarlos en otra requisición!")
+                        return;
+                    }
 
                     this.loading = true;
 
