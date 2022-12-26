@@ -19,12 +19,24 @@
 
 {{-- EL ROWSPAN SE TIENE QUE HACER UN COUNT DEL LIST DE LOS ITEMS + 1, ASI SE MOSTRARA CORRECTAMENTE--}}
 <div style="margin-top: 1.15cm;">
+    @php
+        $conteoLineas = 0;
+        $conteoDetalles = 0;
+        $maximoLineas = 20;
+    @endphp
     @foreach($listadoCompras as $compra)
-        <table class="table-sm" >
+        @php
+            if ( ($conteoLineas + $compra->detalles->count()) > $maximoLineas && $loop->index > 0 ) {
+                $conteoLineas = 0;
+                echo '<div style="page-break-after:always;"></div>';
+            }
+        @endphp
+{{--        table table-bordered--}}
+        <table class="  table-sm" >
             <tbody>
                 <tr style="">
                     <td style="width: 8%; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
-                        {{ $compra->fecha_documento->format('d-m-Y') }}
+                        {{ fechaLtn($compra->fecha_ingreso) }}
                     </td>
                     <td style="width: 8%; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
                         Serie: {{ $compra->serie }}
@@ -32,7 +44,7 @@
                         No. {{ $compra->numero }}
                     </td>
                     <td style="width: 8%; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
-                        {{ $compra->fecha_documento->format('d-m-Y') }}
+                        {{ fechaLtn($compra->fecha_documento) }}
                     </td>
                     <td style="width: 15%; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
                         {{ $compra->proveedor->nombre }}
@@ -42,9 +54,15 @@
                     </td>
                 </tr>
                 @foreach($compra->detalles as $detalle)
+                    @php
+                        $conteoLineas ++;
+                    @endphp
                     <tr>
                         <td style="width: 20%;" class="py-0">
-                            {{ $detalle->item->descripcion }}
+{{--                            {{ $compra->id }} ---}}
+{{--                            {{ $detalle->id }} ---}}
+{{--                            {{ $conteoLineas }} ---}}
+                            {{ $detalle->item->nombre }}
                         </td>
                         <td style="width: 5%; text-align: center;" class="py-0">
                             {{ nf( $detalle->cantidad ) }}
@@ -57,8 +75,6 @@
                         </td>
                     </tr>
                 @endforeach
-            </tbody>
-            <tfoot >
                 <tr>
                     <td></td>
                     <td></td>
@@ -76,7 +92,29 @@
                         <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 0;"></div>
                     </td>
                 </tr>
-            </tfoot>
+                <tr>
+                    <td colspan="20">&nbsp;</td>
+                </tr>
+            </tbody>
+{{--            <tfoot >--}}
+{{--                <tr>--}}
+{{--                    <td></td>--}}
+{{--                    <td></td>--}}
+{{--                    <td></td>--}}
+{{--                    <td></td>--}}
+{{--                    <td></td>--}}
+{{--                    <td style="vertical-align: middle;">--}}
+{{--                        <b class="pull-left">SUB TOTAL</b>--}}
+{{--                    <td></td>--}}
+{{--                    <td></td>--}}
+{{--                    <td style="">--}}
+{{--                        <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 0;"></div>--}}
+{{--                        {{ dvs().nf( $compra->total_venta ) }}--}}
+{{--                        <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 2px;"></div>--}}
+{{--                        <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 0;"></div>--}}
+{{--                    </td>--}}
+{{--                </tr>--}}
+{{--            </tfoot>--}}
         </table>
 {{--        <div style="page-break-after:always;"></div>--}}
     @endforeach

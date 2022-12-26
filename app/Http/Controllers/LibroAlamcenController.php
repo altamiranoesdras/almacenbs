@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Compra;
+use App\Models\CompraEstado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
@@ -20,7 +21,9 @@ class LibroAlamcenController extends Controller
 
             $fecha = explode("-", $request->get('mes'));
 
-            $listadoCompras = Compra::with(['proveedor','detalles.item'])->whereMonth('fecha_documento', '=', $fecha[1])->get();
+            $listadoCompras = Compra::with(['proveedor','detalles.item'])
+                ->where('estado_id', CompraEstado::RECIBIDA)
+                ->whereMonth('fecha_documento', '=', $fecha[1])->get();
 
 //            return $listadoCompras;
 
@@ -33,10 +36,10 @@ class LibroAlamcenController extends Controller
 //            ->setOption('page-height', '280')
                 ->setOrientation('landscape')
                 // ->setOption('footer-html',utf8_decode($footer))
-                ->setOption('margin-top', 10)
-                ->setOption('margin-bottom',3)
-                ->setOption('margin-left',10)
-                ->setOption('margin-right',10);
+                ->setOption('margin-top', 30)
+                ->setOption('margin-bottom',20)
+                ->setOption('margin-left',15)
+                ->setOption('margin-right',15);
             // ->stream('report.pdf');
 
             return $pdf->inline('CompraH1-'.time().'.pdf');
