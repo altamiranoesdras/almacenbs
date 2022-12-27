@@ -11,7 +11,7 @@
     <tbody>
     @foreach($compra->detalles as $det)
         <tr >
-            <td>{{$det->item->nombre}}</td>
+            <td>{{$det->item->text}}</td>
             <td class="text-right">{{dvs().nf($det->precio)}}</td>
             <td class="text-right">{{nf($det->cantidad)}}</td>
             <td class="text-right">{{fecha($det->fecha_vence)}}</td>
