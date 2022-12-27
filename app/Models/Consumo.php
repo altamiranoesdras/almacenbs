@@ -1,0 +1,96 @@
+<?php
+
+namespace App\Models;
+
+use Eloquent as Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+/**
+ * Class Consumo
+ * @package App\Models
+ * @version December 27, 2022, 11:03 am CST
+ *
+ * @property \App\Models\ConsumoEstado $estado
+ * @property \App\Models\User $usuarioCrea
+ * @property \Illuminate\Database\Eloquent\Collection $consumoDetalles
+ * @property integer $correlativo
+ * @property string $codigo
+ * @property integer $estado_id
+ * @property integer $usuario_crea
+ */
+class Consumo extends Model
+{
+    use SoftDeletes;
+
+    use HasFactory;
+
+    public $table = 'consumos';
+    
+    const CREATED_AT = 'created_at';
+    const UPDATED_AT = 'updated_at';
+
+
+    protected $dates = ['deleted_at'];
+
+
+
+    public $fillable = [
+        'correlativo',
+        'codigo',
+        'estado_id',
+        'usuario_crea'
+    ];
+
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'id' => 'integer',
+        'correlativo' => 'integer',
+        'codigo' => 'string',
+        'estado_id' => 'integer',
+        'usuario_crea' => 'integer'
+    ];
+
+    /**
+     * Validation rules
+     *
+     * @var array
+     */
+    public static $rules = [
+        'correlativo' => 'nullable|integer',
+        'codigo' => 'nullable|string|max:45',
+        'estado_id' => 'required',
+        'usuario_crea' => 'required',
+        'created_at' => 'nullable',
+        'updated_at' => 'nullable',
+        'deleted_at' => 'nullable'
+    ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function estado()
+    {
+        return $this->belongsTo(\App\Models\ConsumoEstado::class, 'estado_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function usuarioCrea()
+    {
+        return $this->belongsTo(\App\Models\User::class, 'usuario_crea');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function consumoDetalles()
+    {
+        return $this->hasMany(\App\Models\ConsumoDetalle::class, 'consumo_id');
+    }
+}

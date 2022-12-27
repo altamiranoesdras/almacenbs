@@ -270,6 +270,13 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     Route::resource('bodegas', App\Http\Controllers\BodegaController::class);
 
+
+
+    Route::resource('consumoEstados', App\Http\Controllers\ConsumoEstadoController::class);
+
+
+    Route::resource('consumos', App\Http\Controllers\ConsumoController::class);
+
 });
 
 

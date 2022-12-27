@@ -194,6 +194,15 @@ Route::group(['as'=>'api.'], function () {
         Route::resource('bodegas', App\Http\Controllers\API\BodegaAPIController::class);
 
 
+
+        Route::resource('consumo_estados', App\Http\Controllers\API\ConsumoEstadoAPIController::class);
+
+
+        Route::resource('consumos', App\Http\Controllers\API\ConsumoAPIController::class);
+
+
+        Route::resource('consumo_detalles', App\Http\Controllers\API\ConsumoDetalleAPIController::class);
+
     });
 
 
