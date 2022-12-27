@@ -414,7 +414,7 @@ class Solicitud extends Model
     public function ingreso()
     {
 
-        $bodega = $this->usuarioSolicita->bodega_id ?? null;
+        $bodega = $this->bodega_id ?? null;
 
         if ($bodega && $bodega != Bodega::PRINCIPAL) {
             /**

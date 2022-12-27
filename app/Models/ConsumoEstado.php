@@ -21,9 +21,14 @@ class ConsumoEstado extends Model
     use HasFactory;
 
     public $table = 'consumo_estados';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
+
+    const TEMPORAL =    1;
+    const INGRESADO =   2;
+    const PROCESADO =   3;
+    const ANULADO =     4;
 
 
     protected $dates = ['deleted_at'];
