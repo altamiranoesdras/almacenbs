@@ -21,6 +21,7 @@ class CreateSolicitudDetallesTable extends Migration
             $table->decimal('cantidad_aprobada', 12)->default(0);
             $table->decimal('cantidad_despachada', 12)->default(0);
             $table->decimal('precio', 12)->nullable();
+            $table->date('fecha_vence')->nullable();
             $table->text('observaciones')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -36,4 +37,6 @@ class CreateSolicitudDetallesTable extends Migration
     {
         Schema::dropIfExists('solicitud_detalles');
     }
+
+
 }

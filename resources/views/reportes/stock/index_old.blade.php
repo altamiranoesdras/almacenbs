@@ -93,7 +93,8 @@
                                         <table class="table table-bordered table-hover table-striped table-xtra-condensed" id="tbl-dets">
                                             <thead>
                                             <tr class="text-sm">
-                                                <th>id</th>
+{{--                                                <th>id</th>--}}
+                                                <th>Bodega</th>
                                                 <th>Articulo</th>
                                                 <th>Código Insumo</th>
                                                 <th>Código Presentación</th>
@@ -113,7 +114,8 @@
 
                                             @foreach($stocks as $det)
                                                 <tr class="text-sm  ">
-                                                    <td>{{$det->id}}</td>
+{{--                                                    <td>{{$det->id}}</td>--}}
+                                                    <td>{{$det->bodega->nombre}}</td>
                                                     <td>{{$det->item->nombre}}</td>
                                                     <td>{{$det->item->codigo_insumo}}</td>
                                                     <td>{{$det->item->codigo_presentacion}}</td>

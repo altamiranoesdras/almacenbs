@@ -70,11 +70,12 @@ class DatabaseSeeder extends Seeder
 
             Artisan::call("import:colaboradores");
 
-            $this->call(ActivosTableSeeder::class);
 
             $this->call(ComprasSeeder::class);
 //            $this->call(SolicitudesTableSeeder::class);
 //            $this->call(Compra1hTableSeeder::class);
+//            $this->call(ActivosTableSeeder::class);
+
         }
 
 

@@ -125,6 +125,11 @@ class Stock extends Model
         return $this->belongsTo(\App\Models\Item::class, 'item_id');
     }
 
+    public function bodega()
+    {
+        return $this->belongsTo(\App\Models\Bodega::class, 'bodega_id');
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
