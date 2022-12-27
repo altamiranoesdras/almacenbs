@@ -17,14 +17,20 @@
         <div class="row">
 
             <!-- Codigo Field -->
-            <div class="form-group col-sm-3" >
-                {!! Form::label('codigo', 'Codigo:') !!}
-                {!! Form::text('codigo', null, ['class' => 'form-control','autofocus']) !!}
-                {!! Form::hidden('iestado_id', 1) !!}
+            <div class="form-group col-sm-6" >
+                {!! Form::label('codigo_insumo', 'Código Insumo:') !!}
+                {!! Form::text('codigo_insumo', null, ['class' => 'form-control','autofocus']) !!}
             </div>
 
+            <div class="form-group col-sm-6" >
+                {!! Form::label('codigo_presentacion', 'Código Presentación:') !!}
+                {!! Form::text('codigo_presentacion', null, ['class' => 'form-control','autofocus']) !!}
+            </div>
+
+
+
             <!-- Nombre Field -->
-            <div class="form-group col-sm-9" >
+            <div class="form-group col-sm-12" >
 
                 {!! Form::label('nombre', 'Nombre: ') !!}
                 <span class="text-danger"> *</span>

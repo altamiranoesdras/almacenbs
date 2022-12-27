@@ -108,6 +108,7 @@ class ItemDataTable extends DataTable
             Column::make('imagen')->searchable(false)->orderable(false),
 //            Column::make('codigo'),
             Column::make('codigo_insumo'),
+            Column::make('codigo_presentacion'),
             Column::make('nombre'),
             Column::make('renglon')->name('renglon.numero')->data('renglon.numero'),
             Column::make('renglon_descripcion')
@@ -115,7 +116,7 @@ class ItemDataTable extends DataTable
                 ->data('renglon.descripcion')
                 ->visible(false)
                 ->exportable(false),
-            Column::make('presentacion')->name('presentacion.nombre')->data('presentacion.nombre'),
+//            Column::make('presentacion')->name('presentacion.nombre')->data('presentacion.nombre'),
             Column::make('U/M')->name('unimed.nombre')->data('unimed.nombre'),
             Column::make('stock')->searchable(false)->orderable(false),
             Column::make('precio_compra'),

@@ -25,13 +25,18 @@ class ConsumoDetalleAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $query = ConsumoDetalle::query();
+        $query = ConsumoDetalle::with(['item']);
 
         if ($request->get('skip')) {
             $query->skip($request->get('skip'));
         }
         if ($request->get('limit')) {
             $query->limit($request->get('limit'));
+        }
+
+
+        if ($request->consumo_id) {
+            $query->where('consumo_id',$request->consumo_id);
         }
 
         $consumoDetalles = $query->get();

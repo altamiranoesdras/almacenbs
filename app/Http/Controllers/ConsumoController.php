@@ -6,10 +6,13 @@ use App\DataTables\ConsumoDataTable;
 use App\Http\Requests;
 use App\Http\Requests\CreateConsumoRequest;
 use App\Http\Requests\UpdateConsumoRequest;
+use App\Models\Bodega;
 use App\Models\Consumo;
 use App\Models\ConsumoEstado;
 use App\Models\ConsumoDetalle;
+use App\Models\RrhhUnidad;
 use Carbon\Carbon;
+use Exception;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Support\Facades\DB;
@@ -35,6 +38,13 @@ class ConsumoController extends AppBaseController
     public function index(ConsumoDataTable $consumoDataTable)
     {
         return $consumoDataTable->render('consumos.index');
+    }
+
+    public function user(ConsumoDataTable $solicitudDataTable)
+    {
+
+
+        return $solicitudDataTable->render('solicitudes.usuario.index');
     }
 
     /**
@@ -107,7 +117,7 @@ class ConsumoController extends AppBaseController
             return redirect(route('consumos.index'));
         }
 
-        return view('consumos.edit')->with('consumo', $consumo);
+        return view('consumos.create')->with('consumo', $consumo);
     }
 
     /**
@@ -129,12 +139,74 @@ class ConsumoController extends AppBaseController
             return redirect(route('consumos.index'));
         }
 
+
+
+        if ($request->procesar){
+
+            $errores = $this->validaStock($consumo);
+
+            if (count($errores) > 0){
+                return redirect(route('consumos.edit',$consumo->id) )->withInput()->withErrors($errores);
+            }
+
+
+            try {
+                DB::beginTransaction();
+
+
+                $this->procesar($consumo,$request);
+
+
+            } catch (Exception $exception) {
+                DB::rollBack();
+
+                throw new Exception($exception);
+            }
+
+            DB::commit();
+
+
+
+            flash()->success('Consumo procesado!.');
+
+            return redirect(route('consumos.usuario'));
+
+        }else{
+
+            $request->merge([
+                'estado_id' => ConsumoEstado::INGRESADO,
+            ]);
+
+
+            $consumo->fill($request->all());
+            $consumo->save();
+
+            flash()->success('Consumo guardado exitosamente.');
+
+            return redirect(route('consumos.edit',$consumo->id));
+
+        }
+    }
+
+    public function procesar(consumo $consumo,UpdateconsumoRequest $request){
+
+
+
+        $request->merge([
+            'codigo' => $this->getCodigo(),
+            'correlativo' => $this->getCorrelativo(),
+            'unidad_id' => auth()->user()->unidad_id ?? RrhhUnidad::PRINCIPAL,
+            'bodega_id' => auth()->user()->bodega_id ?? Bodega::PRINCIPAL,
+            'estado_id' => ConsumoEstado::PROCESADO,
+        ]);
+
+
         $consumo->fill($request->all());
         $consumo->save();
 
-        Flash::success('Consumo actualizado con éxito.');
 
-        return redirect(route('consumos.index'));
+        return $consumo;
+
     }
 
     /**
@@ -191,7 +263,7 @@ class ConsumoController extends AppBaseController
 
         flash()->success('Listo! consumo cancelada.');
 
-        return redirect(route('consumoes.create'));
+        return redirect(route('consumos.create'));
     }
 
     public function anular(Consumo $consumo){
@@ -212,7 +284,7 @@ class ConsumoController extends AppBaseController
 
         flash()->success('Listo! consumo anulada.');
 
-        return redirect(route('consumoes.index'));
+        return redirect(route('consumos.index'));
     }
 
 

@@ -66,7 +66,7 @@
                                             <span class="input-group-text" data-toggle="tooltip" title="Cantidad">Cant</span>
                                         </div>
                                         <input
-                                            v-model="editedItem.cantidad_solicitada"
+                                            v-model="editedItem.cantidad"
                                             type="number"
                                             min="0" step="any"
                                             class="form-control"
@@ -94,7 +94,7 @@
                                     <thead>
                                     <tr class="bg-primary text-sm" align="center" style="font-weight: bold">
                                         <td width="5%">No.</td>
-                                        <td width="75%">Producto</td>
+                                        <td width="75%">Insumo</td>
                                         <td width="10%">Cantidad</td>
                                         <td width="10%">-</td>
                                     </tr>
@@ -106,7 +106,7 @@
                                     <tr v-for="(detalle,index) in detalles" class="text-sm">
                                         <td v-text="index+1"></td>
                                         <td v-text="detalle.item.text"></td>
-                                        <td class="text-right" v-text="nf(detalle.cantidad_solicitada)"></td>
+                                        <td class="text-right" v-text="nf(detalle.cantidad)"></td>
                                         <td class="text-center">
                                             <button type="button" class='btn btn-danger btn-xs'
                                                     @click="deleteItem(detalle)"
@@ -159,7 +159,6 @@
                                     <div class="form-group col">
                                         {!! Form::label('observaciones', 'Observaciones:') !!}
                                         {!! Form::textarea('observaciones', null, ['class' => 'form-control','rows' => 4]) !!}
-                                        <input type="hidden" name="usuario_solicita" value="{{ auth()->user()->id }}">
                                     </div>
                                 </li>
 
@@ -190,7 +189,7 @@
                                         <div class="form-group col-sm-12 text-center">
 
                                             <button type="button"  class="btn btn-outline-primary" @click="procesar()">
-                                                <i class="fa fa-paper-plane"></i>
+                                                <i class="fa fa-check"></i>
                                                 Procesar
                                             </button>
 
@@ -213,7 +212,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
-                                            <button type="submit" class="btn btn-primary" name="solicitar" value="1">
+                                            <button type="submit" class="btn btn-primary" name="procesar" value="1">
                                                 SI
                                             </button>
                                         </div>
@@ -285,7 +284,7 @@
                     id : 0,
                     consumo_id : @json($consumo->id),
                     item_id: '',
-                    cantidad_solicitada: 0,
+                    cantidad: 0,
                     fecha_vence: '',
                     precio: 0,
                 },
@@ -426,7 +425,7 @@
                 totalitems: function () {
                     var t=0;
                     $.each(this.detalles,function (i,det) {
-                        t+=(det.cantidad_solicitada*1);
+                        t+=(det.cantidad*1);
                     });
 
                     return t;
@@ -441,7 +440,7 @@
 
                         this.editedItem.precio = item.precio_compra;
                         this.editedItem.item_id = item.id;
-                        $(this.$refs.cantidad_solicitada).focus().select();
+                        $(this.$refs.cantidad).focus().select();
                     }else{
                         this.nuevoDetalle = Object.assign({}, this.itemDefault);
                     }

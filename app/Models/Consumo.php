@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \App\Models\Bodega $bodega
  * @property \App\Models\RrhhUnidad $unidad
  * @property \App\Models\ConsumoEstado $estado
- * @property \Illuminate\Database\Eloquent\Collection $consumoDetalles
+ * @property \Illuminate\Database\Eloquent\Collection $detalles
  * @property integer $correlativo
  * @property string $codigo
  * @property integer $estado_id
@@ -75,7 +75,8 @@ class Consumo extends Model
         'estado_id',
         'unidad_id',
         'bodega_id',
-        'usuario_crea'
+        'usuario_crea',
+        'observaciones'
     ];
 
     /**
@@ -99,12 +100,11 @@ class Consumo extends Model
      * @var array
      */
     public static $rules = [
-        'correlativo' => 'nullable|integer',
         'codigo' => 'nullable|string|max:255',
-        'estado_id' => 'required',
+        'estado_id' => 'nullable',
         'unidad_id' => 'nullable',
         'bodega_id' => 'nullable',
-        'usuario_crea' => 'required',
+        'usuario_crea' => 'nullable',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'
@@ -145,7 +145,7 @@ class Consumo extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function consumoDetalles()
+    public function detalles()
     {
         return $this->hasMany(\App\Models\ConsumoDetalle::class, 'consumo_id');
     }
