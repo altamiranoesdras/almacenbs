@@ -628,6 +628,6 @@ class Item extends Model implements HasMedia
 
     public function getStockTotalAttribute()
     {
-        return $this->stocks->sum('cantidad');
+        return $this->stocks->where('bodega_id',Bodega::PRINCIPAL)->sum('cantidad');
     }
 }

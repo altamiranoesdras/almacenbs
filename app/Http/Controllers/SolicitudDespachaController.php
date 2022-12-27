@@ -66,6 +66,7 @@ class SolicitudDespachaController extends Controller
 
 
             $solicitud->egreso();
+            $solicitud->ingreso();
 
 //            $this->verificaStockCritico($solicitud);
 

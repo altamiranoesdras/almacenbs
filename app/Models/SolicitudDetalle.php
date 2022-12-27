@@ -131,6 +131,7 @@ class SolicitudDetalle extends Model
         $cantidad = $this->cantidad_despachada*-1;
 
         $stocks = $this->item->stocks
+            ->where('bodega_id',Bodega::PRINCIPAL)
             ->where('cantidad','>',0)
             ->sortBy('orden_salida')
             ->sortBy('fecha_ven')
@@ -174,6 +175,51 @@ class SolicitudDetalle extends Model
 
         return $stocks;
 
+    }
+
+    public function ingreso($bodega)
+    {
+
+        if(!$this->item->inventariable)
+            return null;
+
+        /**
+         * @var Stock $stock
+         */
+        $stock =  $this->item->stocks
+            ->where('bodega_id',$bodega)
+            ->where('precio_compra',$this->precio)
+            ->sortBy('orden_salida')
+            ->sortBy('fecha_vence')
+            ->sortBy('created_at')
+            ->sortBy('id')
+            ->first();
+
+
+        if($stock){
+
+            $stock->cantidad += $this->cantidad_despachada;
+            $stock->save();
+
+        }else{
+
+            $stock= Stock::create([
+                'bodega_id' => $bodega,
+                'item_id' => $this->item->id,
+                'lote' =>  null,
+                'precio_compra' => $this->precio,
+                'fecha_vence' => null,
+                'cantidad' =>  $this->cantidad_despachada,
+                'cantidad_inicial' =>  $this->cantidad_despachada,
+                'orden_salida' => 0
+            ]);
+
+        }
+
+
+        $this->addStockTransaccion(StockTransaccion::INGRESO,$stock->id,$this->cantidad_despachada,$this->precio);
+
+        return $stock;
     }
 
     public function anular()

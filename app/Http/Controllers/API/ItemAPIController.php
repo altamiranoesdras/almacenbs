@@ -25,7 +25,7 @@ class ItemAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $query = Item::query();
+        $query = Item::conIngresos();
 
         if ($request->get('skip')) {
             $query->skip($request->get('skip'));
@@ -34,10 +34,12 @@ class ItemAPIController extends AppBaseController
             $query->limit($request->get('limit'));
         }
         if ($request->search){
-            $query->where('nombre','like','%'.$request->search.'%')
-                ->orWhere('descripcion','like','%'.$request->search.'%')
-                ->orWhere('codigo','like','%'.$request->search.'%')
-                ->orWhere('codigo_insumo','like','%'.$request->search.'%');
+            $query->where(function ($query) use ($request){
+              $query->where('nombre','like','%'.$request->search.'%')
+                  ->orWhere('descripcion','like','%'.$request->search.'%')
+                  ->orWhere('codigo','like','%'.$request->search.'%')
+                  ->orWhere('codigo_insumo','like','%'.$request->search.'%');
+            });
         }
 
         $items = $query->get();

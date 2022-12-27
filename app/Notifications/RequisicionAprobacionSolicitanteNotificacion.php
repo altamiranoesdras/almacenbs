@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class RequisicionAprobUserSoliciNotificacion extends Notification
+class RequisicionAprobacionSolicitanteNotificacion extends Notification
 {
     use Queueable;
 
@@ -49,7 +49,7 @@ class RequisicionAprobUserSoliciNotificacion extends Notification
 
         return (new MailMessage)
             ->line('Hola '. $user->name .' se ha aprobado su solicitud de requisición')
-            ->action('Aprobado', url('/'))
+            ->action('Mis requisiciones', route('solicitudes.usuario'))
             ->line('Saludos!!');
 
     }

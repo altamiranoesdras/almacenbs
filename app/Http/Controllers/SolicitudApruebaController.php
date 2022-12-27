@@ -9,8 +9,8 @@ use App\Models\Solicitud;
 use App\Models\SolicitudDetalle;
 use App\Models\SolicitudEstado;
 use App\Models\User;
-use App\Notifications\RequisicionAprobacionNotificacion;
-use App\Notifications\RequisicionAprobUserSoliciNotificacion;
+use App\Notifications\RequisicionAprobacionDespachoNotificacion;
+use App\Notifications\RequisicionAprobacionSolicitanteNotificacion;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -56,10 +56,13 @@ class SolicitudApruebaController extends Controller
             $solicitud->fecha_aprueba = Carbon::now();
             $solicitud->save();
 
-            $this->enviarNotificacionDespechador();
-            $this->enviarNotificacionUsuarioSolicita($solicitud->usuarioSolicita);
+
 
             try {
+
+//                $this->enviarNotificacionDespechador();
+//                $solicitud->usuarioSolicita->notify(new RequisicionInformaAprobacionNotificacion());
+
                 event(new EventoCambioEstadoSolicitud($solicitud));
             }catch (Exception $exception){
 
@@ -91,16 +94,10 @@ class SolicitudApruebaController extends Controller
         });
 
         foreach ($usuarios as $usuario) {
-            $usuario->notify(new RequisicionAprobacionNotificacion());
+            $usuario->notify(new RequisicionAprobacionDespachoNotificacion());
         }
 
     }
 
-    public function enviarNotificacionUsuarioSolicita(User $user_solicitud)
-    {
-
-        $user_solicitud->notify(new RequisicionAprobUserSoliciNotificacion());
-
-    }
 
 }

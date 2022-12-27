@@ -411,6 +411,23 @@ class Solicitud extends Model
 
     }
 
+    public function ingreso()
+    {
+
+        $bodega = $this->usuarioSolicita->bodega_id ?? null;
+
+        if ($bodega && $bodega != Bodega::PRINCIPAL) {
+            /**
+             * @var SolicitudDetalle $detalle
+             */
+            foreach ($this->detalles as $detalle) {
+
+                $detalle->ingreso($bodega);
+            }
+        }
+
+    }
+
     public function anular()
     {
         $this->estado_id = SolicitudEstado::ANULADA;
