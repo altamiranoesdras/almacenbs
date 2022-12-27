@@ -71,14 +71,30 @@
     <table class="">
         <thead>
         <tr style="text-align: center; font-size: 12px" class="py-0">
-            <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px">Cantidad</th>
-            <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px">Descripción del articulo</th>
-            <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px">CODIGO DEL GASTO RENGLON</th>
-            <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px">Folio Libro Almacen</th>
-            <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px">PRECIO POR UNIDAD</th>
-            <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px">VALOR TOTAL</th>
-            <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px">Folio libro inventario</th>
-            <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px">NOMENCLA TURA DE CUENTAS</th>
+            <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px">
+                &nbsp;
+            </th>
+            <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px">
+                &nbsp;
+            </th>
+            <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px">
+                &nbsp;
+            </th>
+            <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px">
+                &nbsp;
+            </th>
+            <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px">
+                &nbsp;
+            </th>
+            <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px">
+                &nbsp;
+            </th>
+            <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px">
+                &nbsp;
+            </th>
+            <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px">
+                &nbsp;
+            </th>
         </tr>
         </thead>
         <tbody>
@@ -96,7 +112,7 @@
                         {{$det->item->renglon->numero}}
                     </td>
                     <td style="border-color: black; width: 10%;  text-align: center; padding: 5px; font-size: small" class="py-0">
-                        {{ $det->folio_almacen ?? 0 }}
+                        {{ $compra->folio_almacen ?? '' }}
                     </td>
                     <td style="border-color: black; width: 10%;  text-align: right; padding: 6px; font-size: small" class="py-0">
                         {{dvs().nfp($det->precio)}}
@@ -105,7 +121,7 @@
                         {{dvs().nfp($det->sub_total)}}
                     </td>
                     <td style="border-color: black; width: 7%; padding: 5px; text-align: right; font-size: small" class="py-0">
-                        {{ $det->folio_inventario ?? 0}}
+                        {{ $det->folio_inventario ?? ''}}
                     </td>
                     <td style="border-color: black; width: 8%;  text-align: center; padding: 5px; font-size: small" class="py-0">
 
