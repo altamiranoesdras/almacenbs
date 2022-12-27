@@ -112,7 +112,7 @@
                         {{$det->item->renglon->numero}}
                     </td>
                     <td style="border-color: black; width: 10%;  text-align: center; padding: 5px; font-size: small" class="py-0">
-                        {{ $det->folio_almacen ?? 0 }}
+                        {{ $compra->folio_almacen ?? '' }}
                     </td>
                     <td style="border-color: black; width: 10%;  text-align: right; padding: 6px; font-size: small" class="py-0">
                         {{dvs().nfp($det->precio)}}
@@ -121,7 +121,7 @@
                         {{dvs().nfp($det->sub_total)}}
                     </td>
                     <td style="border-color: black; width: 7%; padding: 5px; text-align: right; font-size: small" class="py-0">
-                        {{ $det->folio_inventario ?? 0}}
+                        {{ $compra->folio_inventario ?? ''}}
                     </td>
                     <td style="border-color: black; width: 8%;  text-align: center; padding: 5px; font-size: small" class="py-0">
 
