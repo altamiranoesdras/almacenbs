@@ -10,9 +10,11 @@
 {{--        <i class="fa fa-eye"></i>--}}
 {{--    </a>--}}
 
+    @if($compra->puedeEditar())
     <a href="{{ route('compras.edit', $compra->id) }}" class='btn btn-primary btn-xs' data-toggle="tooltip" title="Editar">
         <i class="fa fa-edit"></i>
     </a>
+    @endif
 
 
 

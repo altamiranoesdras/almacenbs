@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,8 +23,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property integer $proveedor_id
  * @property string $codigo
  * @property integer $correlativo
- * @property string $fecha_documento
- * @property string $fecha_ingreso
+ * @property Carbon $fecha_documento
+ * @property Carbon $fecha_ingreso
  * @property string $serie
  * @property string $numero
  * @property integer $estado_id
@@ -101,6 +102,7 @@ class Compra extends Model
         'usuario_recibe',
         'observaciones',
         'orden_compra',
+        'folio_almacen',
     ];
 
     /**
@@ -349,5 +351,24 @@ class Compra extends Model
     public function puedeCancelar()
     {
         return $this->estado_id == CompraEstado::CREADA;
+    }
+
+    public function getAnioAttribute()
+    {
+        return $this->fecha_ingreso ? $this->fecha_ingreso->format('Y') : null;
+    }
+
+
+    public function getMesAttribute()
+    {
+        return $this->fecha_ingreso ? $this->fecha_ingreso->format('m') : null;
+    }
+
+    public function puedeEditar()
+    {
+        return in_array($this->estado_id,[
+            CompraEstado::CREADA,
+            CompraEstado::RECIBIDA
+        ]);
     }
 }

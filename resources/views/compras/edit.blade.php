@@ -47,6 +47,8 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
+                            <form action="{{route('compras.actualizar.procesada',$compra->id)}}" method="post" >
+                            @csrf
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     @include('compras.show_fields')
@@ -56,8 +58,19 @@
                                     @include('compras.tabla_detalles',['detalles'=>$compra->detalles])
                                 </div>
 
-                                <div class="form-group col-sm-12 text-right">
-                                    <a href="{!! route('compras.index') !!}" class="btn btn-outline-secondary">Regresar</a>
+                                <div class="col-sm-6">
+                                    {!! Form::label('folio_almacen', 'Folio Libro Almacen:') !!}
+                                    <a href="{!! route('reportes.libro.almacen')."?mes={$compra->anio}-{$compra->mes}&buscar=1" !!}" target="_blank">
+                                        Ver
+                                    </a>
+                                    {!! Form::text('folio_almacen', $compra->folio_almacen, ['class' => 'form-control']) !!}
+                                </div>
+
+                                <div class="form-group col-sm-12" style="padding: 0px; margin: 0px"></div>
+                                <br>
+                                <div class=" col-sm-6 text-left">
+
+                                    <a href="{!! route('compras.index') !!}" class="btn btn-outline-secondary mr-2">Regresar</a>
 
                                     @can('Anular ingreso de compra')
                                         @if($compra->puedeAnular() )
@@ -75,27 +88,40 @@
                                             </form>
                                         @endif
 
-                                        @if($compra->puedeCancelar() )
-                                            {{--<a href="#modal-delete-{{$compra->id}}" data-toggle="modal" class='btn btn-danger btn-xs'>--}}
-                                            {{--<i class="far fa-trash-alt" data-toggle="tooltip" title="Eliminar Solicitud de Compra"></i>--}}
-                                            {{--</a>--}}
-                                            <span data-toggle="tooltip" title="Cancelar Solicitud de Compra">
+                                    @endcan
+
+                                    @if($compra->puedeCancelar() )
+                                        {{--<a href="#modal-delete-{{$compra->id}}" data-toggle="modal" class='btn btn-danger btn-xs'>--}}
+                                        {{--<i class="far fa-trash-alt" data-toggle="tooltip" title="Eliminar Solicitud de Compra"></i>--}}
+                                        {{--</a>--}}
+                                        <span data-toggle="tooltip" title="Cancelar Solicitud de Compra">
                                                 <a href="#modal-delete-{{$compra->id}}" data-toggle="modal" class='btn btn-outline-warning'>
                                                     Cancelar Solicitud de Compra <i class="fas fa-ban"></i>
                                                 </a>
                                             </span>
-                                        @endif
-                                    @endcan
+                                    @endif
+                                </div>
+
+                                <div class="col-sm-6 text-right">
+
+
+
                                     @if($compra->estado_id == \App\Models\CompraEstado::CREADA )
                                         <a href="{!! route('compra.ingreso',$compra->id) !!}" class="btn btn-outline-success">
                                             Ingresar
                                         </a>
                                     @endif
 
+                                    <button type="submit" class="btn btn-outline-success">
+                                        <i class="fa fa-save "></i>
+                                        Actualizar
+                                    </button>
                                 </div>
 
 
                             </div>
+                            </form>
+
                         </div>
                         <!-- /.card-body -->
                     </div>

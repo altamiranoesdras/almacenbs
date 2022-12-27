@@ -27,6 +27,7 @@ class CreateComprasTable extends Migration
             $table->unsignedBigInteger('usuario_crea')->index('user_id');
             $table->unsignedBigInteger('usuario_recibe')->nullable()->index('fk_compras_users2_idx');
             $table->string('orden_compra')->nullable();
+            $table->string('folio_almacen')->nullable();
             $table->text('observaciones')->nullable();
             $table->timestamps();
             $table->softDeletes();
