@@ -110,7 +110,7 @@ class InsumosImport implements ToCollection, WithHeadingRow, WithProgressBar
                             'precio_promedio' => $row['precio_promedio'] ?? $precio_compra,
                             'ubicacion' => $row['ubicacion']  ?? null,
                             'inventariable' => 1,
-                            'tipo_id' => rand(1,3),
+                            'tipo_id' => ItemTipo::MATERIALES_SUMINISTROS,
                             'perecedero' => $row['perecedero'] ?? 0,
                             'marca_id' => $marca->id ?? null,
                             'unimed_id' => $unimed->id ?? null,

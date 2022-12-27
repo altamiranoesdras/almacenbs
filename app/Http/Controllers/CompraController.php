@@ -202,6 +202,18 @@ class CompraController extends AppBaseController
         return redirect(route('compras.edit', $compra->id));
     }
 
+    public function actualizarProcesada(Compra $compra,Request $request)
+    {
+//        dd($compra->toArray(),$request->all());
+
+        $compra->fill($request->all());
+        $compra->save();
+
+        flash('Listo! compra actualizada.')->success();
+
+        return redirect(route('compras.edit', $compra->id));
+    }
+
     public function procesar(Compra $compra,UpdateCompraRequest $request){
 
 

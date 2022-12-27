@@ -19,7 +19,7 @@
             <td>{{$det->item->nombre}}</td>
             <td>{{$det->item->unimed->nombre}}</td>
             <td>{{$det->item->renglon->numero}}</td>
-            <td>{{$det->folio_almacen}}</td>
+            <td>{{$compra->folio_almacen ?? ''}}</td>
             <td class="text-right">{{dvs().nf($det->precio)}}</td>
             <td class="text-right">{{dvs().nf($det->cantidad*$det->precio)}}</td>
             <td>{{$det->folio_inventario}}</td>
