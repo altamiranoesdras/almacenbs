@@ -35,6 +35,11 @@
 
 
                                 <div class="form-group col-sm-6">
+                                    {!! Form::label('bodega_id','Sede / Bodega:') !!}
+                                    {!! Form::select('bodega_id', select(\App\Models\Bodega::class,'nombre','id'), $bodega_id ?? null, ['id'=>'bodegas','class' => 'form-control']) !!}
+                                </div>
+
+                                <div class="form-group col-sm-6">
                                     {!! Form::label('renglon','Renglón:') !!}
                                     {!! Form::select('renglon', select(\App\Models\Renglon::class,'text','id','Ver Todos'), $renglon, ['id'=>'categorias','class' => 'form-control']) !!}
                                 </div>

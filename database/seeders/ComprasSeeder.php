@@ -19,9 +19,10 @@ class ComprasSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
         DB::table('compras')->truncate();
+        DB::table('stocks')->truncate();
         DB::table('compra_detalles')->truncate();
 
-        Compra::factory()->count(10)
+        Compra::factory()->count(5)
             ->create()
             ->each(function (Compra $compra){
                 CompraDetalle::factory()

@@ -78,6 +78,7 @@ class Stock extends Model
 
     public $fillable = [
         'item_id',
+        'bodega_id',
         'lote',
         'fecha_ing',
         'fecha_vence',

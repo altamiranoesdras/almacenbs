@@ -47,31 +47,36 @@ class ReportesAlmacenController extends Controller
     public function stock(StockDataTable $dataTable,Request $request)
     {
         $renglon = $request->renglon ?? null;
+        $bodega_id = $request->bodega_id ?? null;
         $buscar = $request->buscar ?? null;
         $stock = $request->stock ?? null;
 
-        $stocks = Stock::with(['item']);
+        $query = Stock::with(['item']);
 
 
         if ($renglon){
-            $stocks = $stocks->whereHas('item',function (Builder $q) use ($renglon){
+            $query = $query->whereHas('item',function (Builder $q) use ($renglon){
                 $q->where('renglon_id',$renglon);
             });
         }
 
+        if ($bodega_id){
+            $query = $query->where('bodega_id',$bodega_id);
+        }
+
         if ($stock=="con_stock"){
-            $stocks = $stocks->where('cantidad','!=','0');
+            $query = $query->where('cantidad','!=','0');
         }
 
 
         if ($stock=="sin_stock"){
 
-            $stocks = $stocks->where('cantidad','0');
+            $query = $query->where('cantidad','0');
         }
 
-        $stocks = $stocks->conIngresos()->get();
+        $stocks = $query->conIngresos()->get();
 
-        return view('reportes.stock.index_old',compact('stocks','renglon','stock','buscar'));
+        return view('reportes.stock.index_old',compact('stocks','renglon','bodega_id','stock','buscar'));
 
     }
 
