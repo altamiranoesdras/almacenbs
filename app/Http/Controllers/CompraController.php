@@ -407,7 +407,7 @@ class CompraController extends AppBaseController
             // ->setOption('footer-html',utf8_decode($footer))
             ->setOption('margin-top', 32)
             ->setOption('margin-bottom',3)
-            ->setOption('margin-left',15)
+            ->setOption('margin-left',11)
             ->setOption('margin-right',15);
         // ->stream('report.pdf');
 
