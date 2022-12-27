@@ -2,26 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\CompraDataTable;
-use App\DataTables\Scopes\ScopeCompraDataTable;
+use Response;
+use Carbon\Carbon;
+use App\Models\Item;
 use App\Http\Requests;
-use App\Http\Requests\CreateCompraRequest;
-use App\Http\Requests\UpdateCompraRequest;
 use App\Models\Compra;
 use App\Models\Compra1h;
-use App\Models\Compra1hDetalle;
-use App\Models\CompraDetalle;
-use App\Models\CompraEstado;
-use App\Models\Item;
 use App\Models\ItemTipo;
 use App\Models\Proveedor;
-use Carbon\Carbon;
-use App\Http\Controllers\AppBaseController;
+use App\Models\CompraEstado;
 use Illuminate\Http\Request;
+use App\Models\CompraDetalle;
+use App\Models\Compra1hDetalle;
+use Illuminate\Support\Facades\DB;
+use App\DataTables\CompraDataTable;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Response;
+use Barryvdh\Snappy\Facades\SnappyPdf;
+use App\Http\Requests\CreateCompraRequest;
+use App\Http\Requests\UpdateCompraRequest;
+use App\Http\Controllers\AppBaseController;
+use App\DataTables\Scopes\ScopeCompraDataTable;
 
 class CompraController extends AppBaseController
 {
@@ -370,7 +371,8 @@ class CompraController extends AppBaseController
         $footer = view('compras.pdf_footer')->render();
 
         $pdf->loadHTML($view)
-            ->setPaper('letter')
+            ->setOption('page-width', 216)
+            ->setOption('page-height', 278)
             ->setOrientation('portrait')
             ->setOption('footer-html',utf8_decode($footer))
             ->setOption('margin-top',2)
@@ -379,6 +381,7 @@ class CompraController extends AppBaseController
             ->setOption('margin-right',2)
             ->stream('report.pdf');
         return $pdf->inline();
+        
 
     }
 
@@ -413,8 +416,8 @@ class CompraController extends AppBaseController
         $view = view('compras.pdfH1', compact('compra'))->render();
 
         $pdf->loadHTML($view)
-//            ->setOption('page-width', '220')
-//            ->setOption('page-height', '280')
+           ->setOption('page-width', 217)
+           ->setOption('page-height', 278)
             ->setOrientation('portrait')
             // ->setOption('footer-html',utf8_decode($footer))
             ->setOption('margin-top', 32)
