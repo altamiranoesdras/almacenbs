@@ -117,6 +117,23 @@ RoleSeeder extends Seeder
             'Eliminar Activos',
         ]);
 
+
+        /**
+         * @var Role $role
+         */
+        $role = Role::firstOrCreate(["name" => "Asistente caj"]);
+
+        $role->options()->sync([
+            Option::MIS_REQUISICIONES,
+            Option::NUEVA_REQUISICION,
+        ]);
+
+        $role->syncPermissions([
+            'Ver Requisición',
+            'Crear Requisición',
+            'Editar Requisición',
+        ]);
+
     }
 }
 

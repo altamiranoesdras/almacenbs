@@ -31,6 +31,7 @@ class ImportColaboradores implements ToModel , WithHeadingRow
 
 
         $nombreCompleto = $row['nombres_y_apellidos'] ?? null;
+        $nombreCompleto = str_replace(",","",$nombreCompleto);
         $nombrePuesto = $row['cargo'] ?? null;
         $nombreUnidad = $row['dependencia'] ?? null;
         $nombreBodega = $row['bodega'] ?? null;
@@ -76,6 +77,16 @@ class ImportColaboradores implements ToModel , WithHeadingRow
 
             if (in_array($usuario->id,[50,45]) ){
                 $usuario->syncRoles([Role::JEFE_ALMACEN]);
+                $usuario->shortcuts()->sync([
+                    Option::MIS_REQUISICIONES,
+                    Option::NUEVA_REQUISICION,
+                    Option::APROBAR_REQISICION,
+                    Option::DESPACHAR_REQUISICION,
+                ]);
+            }
+
+            if (in_array($usuario->id,[36,31,26,24,9]) ){
+                $usuario->syncRoles([Role::ASISTENTE_CAJ]);
                 $usuario->shortcuts()->sync([
                     Option::MIS_REQUISICIONES,
                     Option::NUEVA_REQUISICION,
