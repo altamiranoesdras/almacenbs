@@ -234,7 +234,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
-                                            <a href="{{route('consumos.cancelar',$consumo->id)}}" class="btn btn-danger">
+                                            <a href="{{route('consumos.cancelar',$consumo->id)}}" class="btn btn-danger" onclick="esperar()">
                                                 SI
                                             </a>
                                         </div>

@@ -48,6 +48,7 @@ class ConsumoDataTable extends DataTable
     {
         return $model->newQuery()
             ->select($model->getTable().".*")
+            ->noTemporal()
             ->with([
                 'usuarioCrea',
                 'unidad',
