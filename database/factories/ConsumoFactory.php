@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Consumo;
+use App\Models\ConsumoEstado;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ConsumoFactory extends Factory
@@ -21,16 +23,20 @@ class ConsumoFactory extends Factory
      */
     public function definition()
     {
+        /**
+         * @var User $usuario
+         */
+        $usuario = User::where('id' ,'>',3)->get()->random();
+
         return [
             'correlativo' => $this->faker->randomDigitNotNull,
-        'codigo' => $this->faker->word,
-        'estado_id' => $this->faker->word,
-        'unidad_id' => $this->faker->word,
-        'bodega_id' => $this->faker->word,
-        'usuario_crea' => $this->faker->word,
-        'created_at' => $this->faker->date('Y-m-d H:i:s'),
-        'updated_at' => $this->faker->date('Y-m-d H:i:s'),
-        'deleted_at' => $this->faker->date('Y-m-d H:i:s')
+            'codigo' => $this->faker->word,
+            'estado_id' => ConsumoEstado::all()->random()->id,
+            'unidad_id' => $usuario->unidad_id,
+            'bodega_id' => $usuario->bodega_id,
+            'usuario_crea' => $usuario->id,
+            'created_at' => $this->faker->date('Y-m-d H:i:s'),
+            'updated_at' => $this->faker->date('Y-m-d H:i:s'),
         ];
     }
 }

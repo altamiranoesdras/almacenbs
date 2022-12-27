@@ -38,6 +38,8 @@ class SolicitudesTableSeeder extends Seeder
                 $solicitud->correlativo = $this->getCorrelativo();
                 $solicitud->save();
 
+                dump($this->getCodigo());
+
                 $fechaSolicita = Carbon::now()->subDays(rand(0,3));
                 $fechaAutoriza = $fechaSolicita->copy()->addHours(rand(2,5));
                 $fechaAprueba = $fechaAutoriza->copy()->addHours(rand(2,5));

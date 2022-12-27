@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\UseStockTransaccion;
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,10 +25,10 @@ class ConsumoDetalle extends Model
 {
     use SoftDeletes;
 
-    use HasFactory;
+    use HasFactory,UseStockTransaccion;
 
     public $table = 'consumo_detalles';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -91,5 +92,81 @@ class ConsumoDetalle extends Model
     public function item()
     {
         return $this->belongsTo(\App\Models\Item::class, 'item_id');
+    }
+
+    public function kardex()
+    {
+        return $this->morphOne(Kardex::class,'model');
+    }
+
+    public function egreso()
+    {
+
+        $bodega = $this->consumo->bodega_id;
+
+        if (!$this->item->inventariable)
+            return null;
+
+        $cantidad = $this->cantidad*-1;
+
+        $stocks = $this->item->stocks
+            ->where('bodega_id',$bodega)
+            ->where('cantidad','>',0)
+            ->sortBy('orden_salida')
+            ->sortBy('fecha_vence')
+            ->sortBy('created_at')
+            ->sortBy('id');
+
+
+        foreach ($stocks as $key => $stock) {
+
+            /**
+             * @var Stock $stock
+             */
+
+            $cantidad=($cantidad+$stock->cantidad);
+
+            $nuevoStock = $cantidad<0 ? 0 : $cantidad;
+
+            $rebajado= $cantidad<=0 ? $stock->cantidad : ($cantidad-$stock->cantidad)*-1;
+
+
+            if($rebajado>0){
+                $stock->cantidad= $nuevoStock;
+
+                $stock->save();
+
+                $this->addStockTransaccion(StockTransaccion::EGRESO,$stock->id,$rebajado,$stock->precio_compra);
+            }
+
+            if($cantidad>0)
+                break;
+        }
+
+//        $this->kardex()->create([
+//            'item_id' => $this->item->id,
+//            'cantidad' => $this->cantidad,
+//            'tipo' => Kardex::TIPO_SALIDA,
+//            'codigo' => $this->consumo->codigo,
+//            'responsable' => $this->consumo->unidad->nombre,
+//            'usuario_id' => auth()->user()->id ?? User::PRINCIPAL
+//        ]);
+
+        return $stocks;
+
+    }
+
+    public function anular()
+    {
+        $this->kardex()->delete();
+
+        /**
+         * @var StockTransaccion $transacion
+         */
+        foreach ($this->transaccionesStock as $index => $transacion) {
+
+            $transacion->revertir();
+
+        }
     }
 }

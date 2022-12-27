@@ -20,8 +20,7 @@ class DatabaseSeeder extends Seeder
 
         if (!file_exists(storage_path('temp'))){
             mkdir(storage_path('temp'));
-            $this->call(ConsumoEstadosTableSeeder::class);
-    }
+        }
 
         foreach(glob(storage_path('app/public/*')) as $file){
             if(file_exists($file)){
@@ -60,7 +59,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ActivoSolicitudEstadoTableSeeder::class);
         $this->call(ActivoSolicitudTiposTableSeeder::class);
         $this->call(EnvioFiscalSeeder::class);
-
+        $this->call(ConsumoEstadosTableSeeder::class);
 
 
 
@@ -73,6 +72,7 @@ class DatabaseSeeder extends Seeder
 
 
             $this->call(ComprasSeeder::class);
+            $this->call(ConsumosTableSeeder::class);
 //            $this->call(SolicitudesTableSeeder::class);
 //            $this->call(Compra1hTableSeeder::class);
 //            $this->call(ActivosTableSeeder::class);

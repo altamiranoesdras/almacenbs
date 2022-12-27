@@ -71,7 +71,7 @@
                                                 </span>
                                             </div>
                                             <input
-                                                v-model="editedItem.fecha_ven"
+                                                v-model="editedItem.fecha_vence"
                                                 type="date"
                                                 class="form-control"
                                                 @keydown.enter.prevent="siguienteCampo('cantidad')"
@@ -194,7 +194,7 @@
                     compra_id : @json($temporal->id),
                     item_id: '',
                     cantidad: 0,
-                    fecha_ven: '',
+                    fecha_vence: '',
                     precio: 0,
                 },
                 loading: false,

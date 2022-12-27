@@ -134,7 +134,7 @@ class SolicitudDetalle extends Model
             ->where('bodega_id',Bodega::PRINCIPAL)
             ->where('cantidad','>',0)
             ->sortBy('orden_salida')
-            ->sortBy('fecha_ven')
+            ->sortBy('fecha_vence')
             ->sortBy('created_at')
             ->sortBy('id');
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property \App\Models\User $usuarioCrea
  * @property \App\Models\Bodega $bodega
- * @property \App\Models\RrhhUnidade $unidad
+ * @property \App\Models\RrhhUnidad $unidad
  * @property \App\Models\ConsumoEstado $estado
  * @property \Illuminate\Database\Eloquent\Collection $consumoDetalles
  * @property integer $correlativo
@@ -30,7 +31,7 @@ class Consumo extends Model
     use HasFactory;
 
     public $table = 'consumos';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -101,7 +102,7 @@ class Consumo extends Model
      **/
     public function unidad()
     {
-        return $this->belongsTo(\App\Models\RrhhUnidade::class, 'unidad_id');
+        return $this->belongsTo(\App\Models\RrhhUnidad::class, 'unidad_id');
     }
 
     /**
@@ -118,5 +119,22 @@ class Consumo extends Model
     public function consumoDetalles()
     {
         return $this->hasMany(\App\Models\ConsumoDetalle::class, 'consumo_id');
+    }
+
+    public function getCodigo($cantidadCeros = 3)
+    {
+        return "CMO-".prefijoCeros($this->getCorrelativo(),$cantidadCeros)."-".Carbon::now()->year;
+    }
+
+    public function getCorrelativo()
+    {
+
+        $correlativo = self::withTrashed()->whereRaw('year(created_at) ='.Carbon::now()->year)->max('correlativo');
+
+
+        if ($correlativo)
+            return $correlativo+1;
+
+        return 1;
     }
 }

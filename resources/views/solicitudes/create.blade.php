@@ -196,7 +196,7 @@
                     solicitud_id : @json($solicitud->id),
                     item_id: '',
                     cantidad_solicitada: 0,
-                    fecha_ven: '',
+                    fecha_vence: '',
                     precio: 0,
                 },
                 loading: false,

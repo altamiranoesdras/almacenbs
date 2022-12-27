@@ -36,7 +36,7 @@
 
 @push('page_scripts')
     <script type="text/javascript">
-        $('#fecha_ven').datetimepicker({
+        $('#fecha_vence').datetimepicker({
             format: 'YYYY-MM-DD HH:mm:ss',
             useCurrent: true,
             sideBySide: true
