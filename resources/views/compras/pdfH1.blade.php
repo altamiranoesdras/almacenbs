@@ -105,7 +105,7 @@
                     </td>
                     <td style="border-color: black; width: 6.2cm; text-align: left; padding: 5px; font-size: small" class="py-0">
                         <span style="margin-left: 10px">
-                            {{strtoupper($det->item->nombre)}} {{dvs().nfp($det->precio)}}
+                            {{strtoupper($det->item->nombre)}}
                         </span>
                     </td>
                     <td style="border-color: black; width: 1.85cm; text-align: center; padding: 5px; font-size: small" class="py-0">
@@ -128,52 +128,58 @@
                     </td>
                 </tr>
             @endforeach
+
+            @foreach($compra->compra1h->detalles as $i => $det)
+            @endforeach
+            @php
+                $total = 0;
+                foreach ($compra->compra1h->detalles as $i => $det) {
+                    $total = $total + $det->sub_total;
+                }
+
+                $currency = new stdClass();
+
+                $currency->plural = 'QUETZALES';
+                $currency->singular = 'QUETZAL';
+                $currency->centPlural = 'CENTAVOS';
+                $currency->centSingular = 'CENTAVO';
+
+                $totalTexto = numALetrasConmoneda($total, $currency);
+
+            @endphp
+
+            <tr >
+                <td colspan="20" style="border-color: black; width: 8%;  text-align: center; padding: 5px; font-size: small" class="py-0">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr >
+                <td colspan="20" style="border-color: black; width: 8%;  text-align: center; padding: 5px; font-size: small" class="py-0">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr >
+                <td colspan="20" style="border-color: black; width: 8%;  text-align: center; padding: 5px; font-size: small" class="py-0">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr >
+                <td colspan="5" style="border-color: black; width: 8%;  text-align: center; padding: 5px; font-size: small" class="py-0">
+                    {{$totalTexto}}
+                </td>
+                <td style="border-color: black; border-top-style: solid; border-bottom-style: double; vertical-align: middle;
+                width: 10%; text-align: right; font-size: 11px" class="py-0">
+                    {{dvs().nf($total)}}
+                </td>
+                <td style="border-color: black; width: 8%;  text-align: center; padding: 5px; font-size: small" class="py-0">
+
+                </td>
+            </tr>
         </tbody>
     </table>
 
     <br><br><br>
-    @foreach($compra->compra1h->detalles as $i => $det)
-    @endforeach
-    @php
-        $total = 0;
-        foreach ($compra->compra1h->detalles as $i => $det) {
-            $total = $total + $det->sub_total;
-        }
 
-        $currency = new stdClass();
-
-        $currency->plural = 'QUETZALES';
-        $currency->singular = 'QUETZAL';
-        $currency->centPlural = 'CENTAVOS';
-        $currency->centSingular = 'CENTAVO';
-
-        $totalTexto = numALetrasConmoneda($total, $currency);
-
-    @endphp
-    <table class="">
-        <thead>
-        <tr style="text-align: center; font-size: small; text-align: center" class="py-0">
-{{--            <th style="borhder-color: black; font-weight: normal">Cantidad</th>--}}
-        </tr>
-        </thead>
-        <tbody>
-        <tr style="">
-            <td style="border-top-style: none; width: 8%; text-align: left; font-size: small" class="py-0">
-            </td>
-            <td id="celdaTotalLetras" style="border-top-style: none; width: 44%; text-align: left; font-size: small" class="py-0">
-                {{$totalTexto}}
-            </td>
-            <td style="border-top-style: none; width: 36%; text-align: left; font-size: small" class="py-0">
-            </td>
-            <td style="border-color: black; border-top-style: solid; border-bottom-style: double; vertical-align: middle;
-                width: 10%; text-align: right; font-size: 11px" class="py-0">
-                {{dvs().nf($total)}}
-            </td>
-            <td style="border-top-style: none; width: 35%; text-align: left; font-size: small" class="py-0">
-            </td>
-        </tr>
-        </tbody>
-    </table>
 </div>
 
 </body>
