@@ -12,8 +12,8 @@
         <br>
 
         <!-- Serie Field -->
-        {!! Form::label('serie', 'N/S:') !!}
-        {!! $compra->numero !!}-{!! $compra->serie !!}
+        {!! Form::label('serie', 'S/N:') !!}
+        {!! $compra->serie !!}-{!! $compra->numero !!}
 
         <br>
 
