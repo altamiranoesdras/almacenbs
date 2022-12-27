@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Eloquent as Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -136,5 +137,34 @@ class Consumo extends Model
             return $correlativo+1;
 
         return 1;
+    }
+
+    public function scopeTemporal(Builder $q)
+    {
+        $q->where('estado_id',ConsumoEstado::TEMPORAL);
+    }
+
+    public function scopeNoTemporal(Builder $q)
+    {
+        $q->where('estado_id','!=',ConsumoEstado::TEMPORAL);
+    }
+
+
+    public function scopeDelUsuarioCrea($q,$user=null)
+    {
+        $user = $user ?? auth()->user() ?? auth('api')->user();
+
+
+        $q->where('usuario_crea',$user->id);
+    }
+
+    public function esTemporal()
+    {
+        return $this->estado_id==ConsumoEstado::TEMPORAL;
+    }
+
+    public function puedeProcesar()
+    {
+        return $this->estado_id==ConsumoEstado::INGRESADO;
     }
 }

@@ -126,7 +126,7 @@ class Item extends Model implements HasMedia
 
     protected $dates = ['deleted_at'];
 
-    protected $appends= ['text','img','thumb','stock_total'];
+    protected $appends= ['text','img','thumb','stock_total','stock_bodega'];
 
     protected $with = ['unimed','marca','stocks','media'];
 
@@ -629,5 +629,12 @@ class Item extends Model implements HasMedia
     public function getStockTotalAttribute()
     {
         return $this->stocks->where('bodega_id',Bodega::PRINCIPAL)->sum('cantidad');
+    }
+
+    public function getStockBodegaAttribute()
+    {
+        $bodega = request()->bodega_id ?? auth()->user()->bodega_id;
+
+        return $this->stocks->where('bodega_id',$bodega)->sum('cantidad');
     }
 }

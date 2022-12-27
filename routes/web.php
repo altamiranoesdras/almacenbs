@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ColaboradorController;
+use App\Http\Controllers\ConsumoController;
 use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\LibroAlamcenController;
 use Illuminate\Support\Facades\Auth;
@@ -275,7 +276,10 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::resource('consumoEstados', App\Http\Controllers\ConsumoEstadoController::class);
 
 
-    Route::resource('consumos', App\Http\Controllers\ConsumoController::class);
+
+    Route::get('consumos/cancelar/{consumo}', [ConsumoController::class,'cancelar'])->name('consumos.cancelar');
+    Route::post('consumos/anular/{consumo}', [ConsumoController::class,'anular'])->name('consumos.anular');
+    Route::resource('consumos', ConsumoController::class);
 
 });
 

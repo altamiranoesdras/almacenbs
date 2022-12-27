@@ -44,7 +44,7 @@
                       </div>
                       <div class='select-result__stock '>
                           <i class='fas fa-cubes'></i>
-                          <span v-text="props.option.stock_total"></span>
+                          <span v-text="props.option.stock_bodega"></span>
                       </div>
                       <div class='select-result__ubicacion' v-show="!solicitud">
                           <i class='fas fa-archive'></i>
@@ -76,7 +76,7 @@
                       </div>
                       <div class='select-result__stock '>
                           <i class='fas fa-cubes'></i>
-                          <span v-text="props.option.stock_total"></span>
+                          <span v-text="props.option.stock_bodega"></span>
                       </div>
                       <div class='select-result__ubicacion' v-show="!solicitud">
                           <i class='fas fa-archive'></i>

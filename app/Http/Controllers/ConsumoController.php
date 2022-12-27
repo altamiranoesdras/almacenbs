@@ -7,8 +7,12 @@ use App\Http\Requests;
 use App\Http\Requests\CreateConsumoRequest;
 use App\Http\Requests\UpdateConsumoRequest;
 use App\Models\Consumo;
+use App\Models\ConsumoEstado;
+use App\Models\ConsumoDetalle;
+use Carbon\Carbon;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\DB;
 use Response;
 
 class ConsumoController extends AppBaseController
@@ -40,7 +44,9 @@ class ConsumoController extends AppBaseController
      */
     public function create()
     {
-        return view('consumos.create');
+        $consumo = $this->obtenerTemporal();
+
+        return view('consumos.create',compact('consumo'));
     }
 
     /**
@@ -156,5 +162,98 @@ class ConsumoController extends AppBaseController
         Flash::success('Consumo deleted successfully.');
 
         return redirect(route('consumos.index'));
+    }
+
+
+    public function obtenerTemporal()
+    {
+
+        $user = auth()->user();
+
+        $compra = Consumo::temporal()->delUsuarioCrea()->first();
+
+
+        if (!$compra){
+
+            $compra =  Consumo::create([
+                'usuario_crea' => $user->id,
+                'estado_id' => ConsumoEstado::TEMPORAL,
+            ]);
+        }
+
+        return $compra;
+    }
+
+    public function cancelar(Consumo $consumo){
+
+        $consumo->detalles()->delete();
+        $consumo->delete();
+
+        flash()->success('Listo! consumo cancelada.');
+
+        return redirect(route('consumoes.create'));
+    }
+
+    public function anular(Consumo $consumo){
+
+        try {
+            DB::beginTransaction();
+
+            $consumo->anular();
+
+        } catch (Exception $exception) {
+            DB::rollBack();
+
+            errorException($exception);
+        }
+
+        DB::commit();
+
+
+        flash()->success('Listo! consumo anulada.');
+
+        return redirect(route('consumoes.index'));
+    }
+
+
+    public function validaStock(Consumo $consumo){
+
+        $errores=array();
+
+
+        /**
+         * @var ConsumoDetalle $detalle
+         */
+        foreach ($consumo->detalles as $index => $detalle) {
+
+            $item = $detalle->item;
+            $stock = $item->stocks->sum('cantidad');
+
+            if($stock < $detalle->cantidad){
+
+                $errores[]= "El articulo ".$item->nombre.", tiene ".nf($stock)." existencias e intenta solicitar ".nf($detalle->cantidad);;
+
+            }
+        }
+
+        return $errores;
+    }
+
+
+    public function getCodigo($cantidadCeros = 3)
+    {
+        return "CMO-".prefijoCeros($this->getCorrelativo(),$cantidadCeros)."-".Carbon::now()->year;
+    }
+
+    public function getCorrelativo()
+    {
+
+        $correlativo = Consumo::withTrashed()->whereRaw('year(created_at) ='.Carbon::now()->year)->max('correlativo');
+
+
+        if ($correlativo)
+            return $correlativo+1;
+
+        return 1;
     }
 }
