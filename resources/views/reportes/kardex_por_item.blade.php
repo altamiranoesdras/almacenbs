@@ -38,7 +38,7 @@
                                     {!!
                                         Form::select(
                                             'item_id',
-                                            select(\App\Models\Item::class,'text','id',null)
+                                            select(\App\Models\Item::conIngresos(),'text','id',null)
                                             , $item_id ?? null
                                             , ['id'=>'items','class' => 'form-control ','multiple','style'=>'width: 100%']
                                         )
