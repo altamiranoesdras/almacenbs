@@ -25,6 +25,8 @@ class ConsumoFactory extends Factory
             'correlativo' => $this->faker->randomDigitNotNull,
         'codigo' => $this->faker->word,
         'estado_id' => $this->faker->word,
+        'unidad_id' => $this->faker->word,
+        'bodega_id' => $this->faker->word,
         'usuario_crea' => $this->faker->word,
         'created_at' => $this->faker->date('Y-m-d H:i:s'),
         'updated_at' => $this->faker->date('Y-m-d H:i:s'),

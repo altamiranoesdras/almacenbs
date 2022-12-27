@@ -9,14 +9,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class Consumo
  * @package App\Models
- * @version December 27, 2022, 11:03 am CST
+ * @version December 27, 2022, 11:27 am CST
  *
- * @property \App\Models\ConsumoEstado $estado
  * @property \App\Models\User $usuarioCrea
+ * @property \App\Models\Bodega $bodega
+ * @property \App\Models\RrhhUnidade $unidad
+ * @property \App\Models\ConsumoEstado $estado
  * @property \Illuminate\Database\Eloquent\Collection $consumoDetalles
  * @property integer $correlativo
  * @property string $codigo
  * @property integer $estado_id
+ * @property integer $unidad_id
+ * @property integer $bodega_id
  * @property integer $usuario_crea
  */
 class Consumo extends Model
@@ -39,6 +43,8 @@ class Consumo extends Model
         'correlativo',
         'codigo',
         'estado_id',
+        'unidad_id',
+        'bodega_id',
         'usuario_crea'
     ];
 
@@ -52,6 +58,8 @@ class Consumo extends Model
         'correlativo' => 'integer',
         'codigo' => 'string',
         'estado_id' => 'integer',
+        'unidad_id' => 'integer',
+        'bodega_id' => 'integer',
         'usuario_crea' => 'integer'
     ];
 
@@ -62,8 +70,10 @@ class Consumo extends Model
      */
     public static $rules = [
         'correlativo' => 'nullable|integer',
-        'codigo' => 'nullable|string|max:45',
+        'codigo' => 'nullable|string|max:255',
         'estado_id' => 'required',
+        'unidad_id' => 'nullable',
+        'bodega_id' => 'nullable',
         'usuario_crea' => 'required',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
@@ -73,17 +83,33 @@ class Consumo extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
-    public function estado()
+    public function usuarioCrea()
     {
-        return $this->belongsTo(\App\Models\ConsumoEstado::class, 'estado_id');
+        return $this->belongsTo(\App\Models\User::class, 'usuario_crea');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
-    public function usuarioCrea()
+    public function bodega()
     {
-        return $this->belongsTo(\App\Models\User::class, 'usuario_crea');
+        return $this->belongsTo(\App\Models\Bodega::class, 'bodega_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function unidad()
+    {
+        return $this->belongsTo(\App\Models\RrhhUnidade::class, 'unidad_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function estado()
+    {
+        return $this->belongsTo(\App\Models\ConsumoEstado::class, 'estado_id');
     }
 
     /**

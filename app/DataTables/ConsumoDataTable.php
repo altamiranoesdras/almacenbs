@@ -46,7 +46,15 @@ class ConsumoDataTable extends DataTable
      */
     public function query(Consumo $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()
+            ->select($model->getTable().".*")
+            ->with([
+                'usuarioCrea',
+                'unidad',
+                'bodega',
+                'estado',
+            ]);
+
     }
 
     /**
@@ -98,10 +106,11 @@ class ConsumoDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('correlativo'),
             Column::make('codigo'),
-            Column::make('estado_id'),
-            Column::make('usuario_crea'),
+            Column::make('usuario')->name('usuarioCrea.name')->data('usuario_crea.name'),
+            Column::make('unidad')->name('unidad.nombre')->data('unidad.nombre'),
+            Column::make('bodega')->name('bodega.nombre')->data('bodega.nombre'),
+            Column::make('estado')->name('estado.nombre')->data('estado.nombre'),
             Column::computed('action')
                             ->exportable(false)
                             ->printable(false)
