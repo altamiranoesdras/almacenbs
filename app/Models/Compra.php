@@ -72,6 +72,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Query\Builder|Compra withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Compra withoutTrashed()
  * @mixin \Eloquent
+ * @property string|null $folio_almacen
+ * @property-read mixed $anio
+ * @property-read mixed $mes
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereFolioAlmacen($value)
  */
 class Compra extends Model
 {

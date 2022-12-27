@@ -10,9 +10,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class Consumo
+ *
  * @package App\Models
  * @version December 27, 2022, 11:27 am CST
- *
  * @property \App\Models\User $usuarioCrea
  * @property \App\Models\Bodega $bodega
  * @property \App\Models\RrhhUnidad $unidad
@@ -24,6 +24,34 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property integer $unidad_id
  * @property integer $bodega_id
  * @property integer $usuario_crea
+ * @property int $id
+ * @property string|null $observaciones
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read int|null $consumo_detalles_count
+ * @method static Builder|Consumo delUsuarioCrea($user = null)
+ * @method static \Database\Factories\ConsumoFactory factory(...$parameters)
+ * @method static Builder|Consumo newModelQuery()
+ * @method static Builder|Consumo newQuery()
+ * @method static Builder|Consumo noTemporal()
+ * @method static \Illuminate\Database\Query\Builder|Consumo onlyTrashed()
+ * @method static Builder|Consumo query()
+ * @method static Builder|Consumo temporal()
+ * @method static Builder|Consumo whereBodegaId($value)
+ * @method static Builder|Consumo whereCodigo($value)
+ * @method static Builder|Consumo whereCorrelativo($value)
+ * @method static Builder|Consumo whereCreatedAt($value)
+ * @method static Builder|Consumo whereDeletedAt($value)
+ * @method static Builder|Consumo whereEstadoId($value)
+ * @method static Builder|Consumo whereId($value)
+ * @method static Builder|Consumo whereObservaciones($value)
+ * @method static Builder|Consumo whereUnidadId($value)
+ * @method static Builder|Consumo whereUpdatedAt($value)
+ * @method static Builder|Consumo whereUsuarioCrea($value)
+ * @method static \Illuminate\Database\Query\Builder|Consumo withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Consumo withoutTrashed()
+ * @mixin Model
  */
 class Consumo extends Model
 {

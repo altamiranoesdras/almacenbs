@@ -111,6 +111,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property-read \App\Models\ItemPresentacion|null $presentacion
  * @method static \Illuminate\Database\Eloquent\Builder|Item conIngresos()
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereCodigoPresentacion($value)
+ * @property-read mixed $stock_bodega
  */
 class Item extends Model implements HasMedia
 {
