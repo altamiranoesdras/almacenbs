@@ -25,7 +25,7 @@
             <td style="width:15%;">
 
             </td>
-            <td style="width:1%; vertical-align: middle; text-align: left">
+            <td style="width:1%; vertical-align: middle; text-align: left;color: white">
                 Número
             </td>
             <td style="width:25%; font-size: 11px" colspan="2">
@@ -43,7 +43,7 @@
             <td style="width:15%;">
 
             </td>
-            <td style="width:1%;">
+            <td style="width:1%;color: white">
                 Fecha:
             </td>
             <td style="width:15%;">
@@ -57,7 +57,7 @@
             <td style="width:5%;">
 
             </td>
-            <td style="width:15%;">
+            <td style="width:15%;color: white">
                 Orden de C.
             </td>
             <td style="width:15%;">
