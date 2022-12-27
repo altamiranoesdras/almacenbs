@@ -72,28 +72,28 @@
         <thead>
         <tr style="text-align: center; font-size: 12px" class="py-0">
             <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px">
-                &nbsp;
+                <br>
             </th>
             <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px">
-                &nbsp;
+                <br>
             </th>
             <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px">
-                &nbsp;
+                <br>
             </th>
             <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px">
-                &nbsp;
+                <br>
             </th>
             <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px">
-                &nbsp;
+                <br>
             </th>
             <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px">
-                &nbsp;
+                <br>
             </th>
             <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px">
-                &nbsp;
+                <br>
             </th>
             <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px">
-                &nbsp;
+                <br>
             </th>
         </tr>
         </thead>
