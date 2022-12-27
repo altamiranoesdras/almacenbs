@@ -84,13 +84,15 @@
         <tbody>
             @foreach($compra->compra1h->detalles as $i => $det)
                 <tr style="">
-                    <td style="border-color: black; width: 5%; text-align: center; padding: 5px; font-size: small" class="py-0">
+                    <td style="border-color: black; width: 1.18cm; text-align: center; padding: 5px; font-size: small" class="py-0">
                         {{nf($det->cantidad)}}
                     </td>
-                    <td style="border-color: black; width: 36%; text-align: left; padding: 5px; font-size: small" class="py-0">
-                        {{strtoupper($det->item->nombre)}} {{dvs().nfp($det->precio)}}
+                    <td style="border-color: black; width: 6.2cm; text-align: left; padding: 5px; font-size: small" class="py-0">
+                        <span style="margin-left: 10px">
+                            {{strtoupper($det->item->nombre)}} {{dvs().nfp($det->precio)}}
+                        </span>
                     </td>
-                    <td style="border-color: black; width: 10%; text-align: center; padding: 5px; font-size: small" class="py-0">
+                    <td style="border-color: black; width: 1.85cm; text-align: center; padding: 5px; font-size: small" class="py-0">
                         {{$det->item->renglon->numero}}
                     </td>
                     <td style="border-color: black; width: 10%;  text-align: center; padding: 5px; font-size: small" class="py-0">
