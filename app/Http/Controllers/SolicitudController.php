@@ -14,6 +14,8 @@ use App\Models\RrhhUnidad;
 use App\Models\Solicitud;
 use App\Models\SolicitudDetalle;
 use App\Models\SolicitudEstado;
+use App\Models\User;
+use App\Notifications\RequisicionSolicitidaNotificacion;
 use Carbon\Carbon;
 use Exception;
 use Flash;
@@ -185,6 +187,7 @@ class SolicitudController extends AppBaseController
             try {
                 DB::beginTransaction();
 
+                $this->enviarNotificacion();
 
                 $this->procesar($solicitud,$request);
 
@@ -419,6 +422,19 @@ class SolicitudController extends AppBaseController
             // ->stream('report.pdf');
         return $pdf->inline('Despacho '.$solicitud->id. '_'. time().'.pdf');
 
+
+    }
+
+    public function enviarNotificacion()
+    {
+
+        $usuarios = User::all()->filter(function (User $user) {
+            return $user->can('Aprobar Requisición') && $user->id > 3;
+        });
+
+        foreach ($usuarios as $usuario) {
+            $usuario->notify(new RequisicionSolicitidaNotificacion());
+        }
 
     }
 

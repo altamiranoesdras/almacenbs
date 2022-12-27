@@ -8,6 +8,9 @@ use App\Events\EventoCambioEstadoSolicitud;
 use App\Models\Solicitud;
 use App\Models\SolicitudDetalle;
 use App\Models\SolicitudEstado;
+use App\Models\User;
+use App\Notifications\RequisicionAprobacionNotificacion;
+use App\Notifications\RequisicionAprobUserSoliciNotificacion;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -53,6 +56,8 @@ class SolicitudApruebaController extends Controller
             $solicitud->fecha_aprueba = Carbon::now();
             $solicitud->save();
 
+            $this->enviarNotificacionDespechador();
+            $this->enviarNotificacionUsuarioSolicita($solicitud->usuarioSolicita);
 
             try {
                 event(new EventoCambioEstadoSolicitud($solicitud));
@@ -77,4 +82,25 @@ class SolicitudApruebaController extends Controller
 
         return redirect(route('solicitudes.aprobar'));
     }
+
+    public function enviarNotificacionDespechador()
+    {
+
+        $usuarios = User::all()->filter(function (User $user) {
+            return $user->can('Despachar Requisición') && $user->id > 3;
+        });
+
+        foreach ($usuarios as $usuario) {
+            $usuario->notify(new RequisicionAprobacionNotificacion());
+        }
+
+    }
+
+    public function enviarNotificacionUsuarioSolicita(User $user_solicitud)
+    {
+
+        $user_solicitud->notify(new RequisicionAprobUserSoliciNotificacion());
+
+    }
+
 }
