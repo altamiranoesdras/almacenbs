@@ -34,13 +34,25 @@
                 <!-- /.card-body -->
             </div>
 
-{{--            <div class="clearfix"></div>--}}
-{{--            <div class="card card-primary">--}}
-{{--                <div class="card-body">--}}
-{{--                    @include('reportes.stock.table')--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <div class="text-center"></div>--}}
+            <div class="clearfix"></div>
+            <div class="card card-primary">
+                <div class="card-body">
+
+                    @isset(request()->buscar)
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <iframe class="embed-responsive-item" id="documento"
+                                            src="{{route('comparas.libro.almacen.pdf')."?mes={$anio}-{$mes}&buscar=1"}}">
+
+                                    </iframe>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            </div>
+            <div class="text-center"></div>
 
         </div>
     </div>
