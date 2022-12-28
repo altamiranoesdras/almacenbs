@@ -25,27 +25,29 @@ class ItemsTableSeeder extends Seeder
 
 
 
-        if (app()->environment()=='local'){
 
-            DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
-            DB::table('items')->truncate();
-            DB::table('item_has_categoria')->truncate();
-            DB::table('stocks')->truncate();
-            DB::table('stocks_transacciones')->truncate();
-            DB::table('kardexs')->truncate();
-            DB::table('compras')->truncate();
-            DB::table('compra_detalles')->truncate();
+//        Artisan::call('import:insumos');
 
-
-            Artisan::call('import:insumos');
-
-//            Item::factory()->count(25)->create();
-
-            DB::statement('SET FOREIGN_KEY_CHECKS=1');
-        }
+        $this->importarSql();
 
 
 
     }
+
+    public function importarSql()
+    {
+
+        $db = env('DB_DATABASE');
+        $user = env('DB_USERNAME');
+        $pass = env('DB_PASSWORD');
+        $path = storage_path('insumos.sql');
+
+        $comando = "mysql --user=\"$user\" --password=\"$pass\"  $db < $path";
+
+        exec($comando);
+
+    }
+
 }
