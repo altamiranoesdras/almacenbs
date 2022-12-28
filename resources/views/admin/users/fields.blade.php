@@ -72,18 +72,18 @@
 </div>
 
 
-<div class="form-group col-sm-12">
-    {!! Form::label('name', 'Permisos:') !!}
-            <a class="success" data-toggle="modal" href="#modal-form-permissions" tabindex="1000">nuevo</a>
-    {!!
-        Form::select(
-            'permissions_user[]',
-            select(\App\Models\Permission::class,'name','id',null)
-            , null
-            , ['class' => 'form-control duallistbox','multiple']
-        )
-    !!}
-</div>
+{{--<div class="form-group col-sm-12">--}}
+{{--    {!! Form::label('name', 'Permisos:') !!}--}}
+{{--            <a class="success" data-toggle="modal" href="#modal-form-permissions" tabindex="1000">nuevo</a>--}}
+{{--    {!!--}}
+{{--        Form::select(--}}
+{{--            'permissions_user[]',--}}
+{{--            select(\App\Models\Permission::class,'name','id',null)--}}
+{{--            , null--}}
+{{--            , ['class' => 'form-control duallistbox','multiple']--}}
+{{--        )--}}
+{{--    !!}--}}
+{{--</div>--}}
 
 @push('scripts')
 <script>

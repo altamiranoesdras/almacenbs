@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page',__('Edit User'))
+@section('title_page',__('Editar Usuario'))
 @include('partials.plugins.gijgo')
 
 @section('content')
@@ -10,7 +10,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col">
-                    <h1>{{__('Edit User')}}</h1>
+                    <h1>{{__('Editar Usuario')}}</h1>
                 </div>
                 <div class="col">
                     <a class="btn btn-outline-info float-right"
