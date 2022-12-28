@@ -32,7 +32,7 @@ class ConsumoDetalleFactory extends Factory
         /**
          * @var Item $item
          */
-        $item = Item::all()->random();
+        $item = Item::limit(1000)->get()->random();
 
         return [
             'consumo_id' => Consumo::all()->random()->id,

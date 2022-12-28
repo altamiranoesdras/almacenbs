@@ -31,7 +31,7 @@ class CompraDetalleFactory extends Factory
         /**
          * @var Item $item
          */
-        $item = Item::all()->random();
+        $item = Item::limit(1000)->get()->random();
 
         return [
             'compra_id' => Compra::all()->random()->id,
