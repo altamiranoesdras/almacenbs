@@ -43,7 +43,7 @@
                             <div class="col-sm-12">
                                 <div class="embed-responsive embed-responsive-16by9">
                                     <iframe class="embed-responsive-item" id="documento"
-                                            src="{{route('comparas.libro.almacen.pdf')."?mes={$anio}-{$mes}&buscar=1"}}">
+                                            src="{{route('compras.libro.almacen.pdf')."?mes={$anio}-{$mes}&buscar=1"}}">
 
                                     </iframe>
                                 </div>

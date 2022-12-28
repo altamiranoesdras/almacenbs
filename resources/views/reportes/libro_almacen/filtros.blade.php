@@ -1,4 +1,4 @@
-{!! Form::open(['route' => 'reportes.libro.almacen','method' => 'get']) !!}
+{!! Form::open(['route' => 'compras.libro.almacen','method' => 'get']) !!}
 
     <div class="form-row">
 

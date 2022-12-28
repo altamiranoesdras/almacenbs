@@ -227,8 +227,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('reportes/stock', [ReportesAlmacenController::class,'stock'])->name('reportes.stock');
     Route::get('reportes/items/vencen', [ReportesAlmacenController::class,'itemsAvencer'])->name('reportes.items.vencen');
 
-    Route::get('comparas/libro/almacen/pdf', [LibroAlamcenController::class,'pdf'])->name('comparas.libro.almacen.pdf');
-    Route::get('comparas/libro/almacen', [LibroAlamcenController::class,'index'])->name('comparas.libro.almacen');
+    Route::get('compras/libro/almacen/pdf', [LibroAlamcenController::class,'pdf'])->name('compras.libro.almacen.pdf');
+    Route::get('compras/libro/almacen', [LibroAlamcenController::class,'index'])->name('compras.libro.almacen');
 
     Route::group(['prefix' => 'inventarios'], function () {
         Route::resource('activoEstados', ActivoEstadoController::class);

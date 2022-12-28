@@ -18,7 +18,9 @@ class LibroAlamcenController extends Controller
     public function index(Request $request)
     {
 
-        return view('reportes.libro_almacen.libro_almacen');
+        list($mes,$anio) = explode("-", $request->get('mes'));
+
+        return view('reportes.libro_almacen.libro_almacen',compact('mes','anio'));
     }
 
     /**
