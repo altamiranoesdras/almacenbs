@@ -29,7 +29,38 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    @include('reportes.libro_almacen.filtros')
+                    {!! Form::open(['route' => 'compras.libro.almacen','method' => 'get']) !!}
+
+                    <div class="form-row">
+
+
+                        <div class="form-group col-sm-2">
+                            <label for="del">Mes:</label>
+                            <input type="month" class="form-control" name="fecha" id="fecha">
+                        </div>
+
+                        <div class="col-sm-12"></div>
+
+                        <div class="form-group col-sm-2 ">
+                            <div>
+                                <button class="btn btn-success btn-block" id="buscar" type="submit" name="buscar"  value="1">
+                                    <i class="fa fa-search"></i> Consultar
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-2">
+                            <div>
+                                <a  href="{{url()->current()}}" type="submit" id="boton" class="btn btn-info btn-block">
+                                    <i class="fa fa-times"></i> Limpiar Filtros
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    {!! Form::close() !!}
+
+
                 </div>
                 <!-- /.card-body -->
             </div>

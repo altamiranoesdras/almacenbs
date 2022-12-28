@@ -97,7 +97,7 @@ class Proveedor extends Model
      */
     public static $rules = [
         'nit' => 'nullable|string|max:10',
-        'nombre' => 'required|string|max:45',
+        'nombre' => 'required|string|max:255',
         'razon_social' => 'nullable|string|max:255',
         'correo' => 'nullable|string|max:100',
         'telefono_movil' => 'nullable|string|max:8',
