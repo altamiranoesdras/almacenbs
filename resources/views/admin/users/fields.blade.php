@@ -40,7 +40,7 @@
     </div>
 
     <div class="form-group col-sm-4">
-        <select-puesto v-model="bodega" label="bodega"></select-puesto>
+        <select-bodega v-model="bodega" label="bodega"></select-bodega>
     </div>
 
     <!-- Avatar Field -->
