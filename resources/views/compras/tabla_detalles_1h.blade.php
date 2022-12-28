@@ -16,13 +16,13 @@
     @foreach($compra->compra1h->detalles as $det)
         <tr >
             <td>{{nf($det->cantidad)}}</td>
-            <td>{{$det->item->nombre}}</td>
+            <td>{{$det->item->texto_principal}}</td>
             <td>{{$det->item->unimed->nombre}}</td>
             <td>{{$det->item->renglon->numero}}</td>
             <td>{{$compra->folio_almacen ?? ''}}</td>
             <td class="text-right">{{dvs().nf($det->precio)}}</td>
             <td class="text-right">{{dvs().nf($det->cantidad*$det->precio)}}</td>
-            <td>{{$det->folio_inventario}}</td>
+            <td>{{$compra->folio_inventario}}</td>
             <td></td>
         </tr>
     @endforeach

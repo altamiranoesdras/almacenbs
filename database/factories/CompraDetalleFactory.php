@@ -32,7 +32,6 @@ class CompraDetalleFactory extends Factory
          * @var Item $item
          */
         $item = Item::limit(1000)->get()->random();
-        $item = Item::all()->random();
         $precio_compra = $this->faker->randomFloat(2,10,50);
 
         return [

@@ -66,6 +66,12 @@
                                     {!! Form::text('folio_almacen', $compra->folio_almacen, ['class' => 'form-control']) !!}
                                 </div>
 
+
+                                <div class="col-sm-6">
+                                    {!! Form::label('folio_inventario', 'Folio Inventario:') !!}
+                                    {!! Form::text('folio_inventario', $compra->folio_inventario, ['class' => 'form-control']) !!}
+                                </div>
+
                                 <div class="form-group col-sm-12" style="padding: 0px; margin: 0px"></div>
                                 <br>
                                 <div class=" col-sm-6 text-left">

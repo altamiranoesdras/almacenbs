@@ -62,7 +62,7 @@
 {{--                            {{ $compra->id }} ---}}
 {{--                            {{ $detalle->id }} ---}}
 {{--                            {{ $conteoLineas }} ---}}
-                            {{ $detalle->item->nombre }}
+                            {{ $detalle->item->texto_principal }}
                         </td>
                         <td style="width: 5%; text-align: center;" class="py-0">
                             {{ nf( $detalle->cantidad ) }}

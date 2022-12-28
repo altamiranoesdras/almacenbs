@@ -82,6 +82,12 @@
                 {!! Form::label('fecha_documento', 'Fecha Documento:') !!}
                 {!! Form::date('fecha_documento', hoyDb(), ['class' => 'form-control']) !!}
             </div>
+
+            <div class="form-group col-sm-6 ">
+                {!! Form::label('fecha_ingreso', 'Fecha Ingreso:') !!}
+                {!! Form::date('fecha_ingreso', hoyDb(), ['class' => 'form-control']) !!}
+            </div>
+
             <div class="form-group col-sm-6 ">
                 {!! Form::label('orden_compra', 'Orden Compra:') !!}
                 {!! Form::text('orden_compra', null, ['class' => 'form-control']) !!}

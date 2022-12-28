@@ -105,7 +105,7 @@
                     </td>
                     <td style="border-color: black; width: 6.2cm; text-align: left; padding: 5px; font-size: small" class="py-0">
                         <span style="margin-left: 10px">
-                            {{strtoupper($det->item->nombre)}}
+                            {{strtoupper($det->item->texto_principal)}}
                         </span>
                     </td>
                     <td style="border-color: black; width: 1.85cm; text-align: center; padding: 5px; font-size: small" class="py-0">

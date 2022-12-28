@@ -107,6 +107,7 @@ class Compra extends Model
         'observaciones',
         'orden_compra',
         'folio_almacen',
+        'folio_inventario',
     ];
 
     /**
@@ -290,7 +291,7 @@ class Compra extends Model
         }
 
         $this->estado_id = CompraEstado::RECIBIDA;
-        $this->fecha_ingreso = hoyDb();
+//        $this->fecha_ingreso = hoyDb();
         $this->save();
 
         $this->actualizaPreciosItem();

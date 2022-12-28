@@ -127,7 +127,7 @@ class Item extends Model implements HasMedia
 
     protected $dates = ['deleted_at'];
 
-    protected $appends= ['text','img','thumb','stock_total','stock_bodega'];
+    protected $appends= ['text',"texto_principal",'img','thumb','stock_total','stock_bodega'];
 
     protected $with = ['unimed','marca','stocks','media'];
 
@@ -389,6 +389,15 @@ class Item extends Model implements HasMedia
         $unidad = $this->unimed->nombre ?? '';
 
         return "CI:".$codigo." CP:".$this->codigo_presentacion.' - '.$this->nombre." - ".$presentacion." - ".$unidad;
+    }
+
+    public function getTextoPrincipalAttribute()
+    {
+
+        $presentacion = $this->presentacion->nombre ?? '';
+        $unidad = $this->unimed->nombre ?? '';
+
+        return $this->nombre." - ".$this->descripcion."-".$presentacion." - ".$unidad;
     }
 
 

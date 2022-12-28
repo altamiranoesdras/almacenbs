@@ -16,10 +16,10 @@ class ProveedorController extends AppBaseController
 
     public function __construct()
     {
-        $this->middleware('permission:Ver Proveedors')->only(['show']);
-        $this->middleware('permission:Crear Proveedors')->only(['create','store']);
-        $this->middleware('permission:Editar Proveedors')->only(['edit','update',]);
-        $this->middleware('permission:Eliminar Proveedors')->only(['destroy']);
+        $this->middleware('permission:Ver Proveedores')->only(['show']);
+        $this->middleware('permission:Crear Proveedores')->only(['create','store']);
+        $this->middleware('permission:Editar Proveedores')->only(['edit','update',]);
+        $this->middleware('permission:Eliminar Proveedores')->only(['destroy']);
     }
 
     /**

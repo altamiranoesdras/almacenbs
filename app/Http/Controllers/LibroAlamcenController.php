@@ -36,7 +36,8 @@ class LibroAlamcenController extends Controller
     public function pdf(Request $request)
     {
 
-        list($mes,$anio) = explode("-", $request->get('mes'));
+        list($anio,$mes) = explode("-", $request->get('mes'));
+
 
         $listadoCompras = Compra::with(['proveedor','detalles.item'])
             ->where('estado_id', CompraEstado::RECIBIDA)
