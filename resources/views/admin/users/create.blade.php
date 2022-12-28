@@ -34,10 +34,14 @@
                         <div class="form-row">
 
                             @include('admin.users.fields')
+
                             <!-- Submit Field -->
-                            <div class="form-group col-sm-12">
-                                <button type="submit"  class="btn btn-outline-success">Guardar</button>
-                                <a href="{!! route('users.index') !!}" class="btn btn-outline-secondary">Cancelar</a>
+                            <div class="form-group col-sm-12 mt-2 text-right">
+                                <a href="{!! route('users.index') !!}" class="btn btn-outline-secondary mr-2">Cancelar</a>
+                                <button type="submit"  class="btn btn-outline-success">
+                                    <i class="fa fa-save"></i>
+                                    Guardar
+                                </button>
                             </div>
                         </div>
                     {!! Form::close() !!}

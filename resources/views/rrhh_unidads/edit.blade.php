@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page',__('Edit Rrhh Unidad'))
+@section('title_page',__('Edit Unidad / Dependencia'))
 
 @section('content')
 
@@ -9,11 +9,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col">
-                    <h1>{{__('Edit Rrhh Unidad')}}</h1>
+                    <h1>{{__('Edit Unidad / Dependencia')}}</h1>
                 </div>
                 <div class="col">
                     <a class="btn btn-outline-info float-right"
-                       href="{{route('rrhhUnidads.index')}}">
+                       href="{{route('rrhhUnidades.index')}}">
                         <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span class="d-none d-sm-inline">{{__('List')}}</span>
                     </a>
                 </div>
@@ -30,14 +30,14 @@
             <div class="card">
                 <div class="card-body">
 
-                   {!! Form::model($rrhhUnidad, ['route' => ['rrhhUnidads.update', $rrhhUnidad->id], 'method' => 'patch','class' => 'esperar']) !!}
+                   {!! Form::model($rrhhUnidad, ['route' => ['rrhhUnidades.update', $rrhhUnidad->id], 'method' => 'patch','class' => 'esperar']) !!}
                         <div class="form-row">
 
                             @include('rrhh_unidads.fields')
 
                             <!-- Submit Field -->
                             <div class="form-group col-sm-12 text-right">
-                                <a href="{!! route('rrhhUnidads.index') !!}" class="btn btn-outline-secondary">
+                                <a href="{!! route('rrhhUnidades.index') !!}" class="btn btn-outline-secondary">
                                     Cancelar
                                 </a>
                                 &nbsp;

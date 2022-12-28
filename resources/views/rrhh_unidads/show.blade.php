@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page',__('Rrhh Unidad'))
+@section('title_page',__('Unidad / Dependencia'))
 
 @section('content')
 
@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>{{__('Rrhh Unidad')}}</h1>
+                    <h1>{{__('Unidad / Dependencia')}}</h1>
                 </div>
                 <div class="col-sm-6">
 
@@ -24,7 +24,7 @@
                 <div class="row">
                     <div class="form-group col-sm-12">
                         @include('rrhh_unidads.show_fields')
-                        <a href="{{ route('rrhhUnidads.index') }}" class="btn btn-default">
+                        <a href="{{ route('rrhhUnidades.index') }}" class="btn btn-default">
                         {{__('Back')}}
                         </a>
                     </div>

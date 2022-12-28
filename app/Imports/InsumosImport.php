@@ -16,10 +16,12 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\WithBatchInserts;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithProgressBar;
 
-class InsumosImport implements ToCollection, WithHeadingRow, WithProgressBar
+class InsumosImport implements ToCollection, WithHeadingRow, WithProgressBar,WithChunkReading,WithBatchInserts
 {
 
     use Importable;
@@ -58,6 +60,7 @@ class InsumosImport implements ToCollection, WithHeadingRow, WithProgressBar
         foreach ($rows as $index => $row) {
 
 
+//            dd($row);
             $renglon = null;
             $unimed = null;
             $presentacion = null;
@@ -101,13 +104,14 @@ class InsumosImport implements ToCollection, WithHeadingRow, WithProgressBar
                         ],
                         [
 //                            'codigo' => null,
-                            'codigo_insumo' => $row['codigo_de_insumo']=='' ? null : $row['codigo_de_insumo'],
+                            'codigo_insumo' => $row['codigo_de_insumo'] ?? '',
+                            'codigo_presentacion' => $row['codigo_de_presentacion'] ?? '',
                             'nombre' => $row['nombre'],
                             'renglon_id' => $renglon->id ?? null,
                             'presentacion_id' => $presentacion->id ?? null,
                             'descripcion' => $row['caracteristicas'] ?? null,
-                            'precio_compra' => $row['precio_compra'] ?? $precio_compra,
-                            'precio_promedio' => $row['precio_promedio'] ?? $precio_compra,
+                            'precio_compra' => $row['precio_compra'] ?? 0,
+                            'precio_promedio' => $row['precio_promedio'] ?? 0,
                             'ubicacion' => $row['ubicacion']  ?? null,
                             'inventariable' => 1,
                             'tipo_id' => ItemTipo::MATERIALES_SUMINISTROS,
@@ -121,11 +125,11 @@ class InsumosImport implements ToCollection, WithHeadingRow, WithProgressBar
 
 
 
-                    $stock = $row['stockexistencias'] ?? rand(20,40);
+//                    $stock = $row['stockexistencias'] ?? rand(20,40);
 
-                    $fechaVence = Carbon::now()->addMonths(rand(4,12))->format('Y-m-d');
+//                    $fechaVence = Carbon::now()->addMonths(rand(4,12))->format('Y-m-d');
 
-                    $item->actualizaOregistraStcokInicial($stock,$fechaVence);
+//                    $item->actualizaOregistraStcokInicial($stock,$fechaVence);
 
                 }
                 catch(QueryException $e){
@@ -160,4 +164,13 @@ class InsumosImport implements ToCollection, WithHeadingRow, WithProgressBar
         return $this->noInsertados;
     }
 
+    public function batchSize(): int
+    {
+        return 15000;
+    }
+
+    public function chunkSize(): int
+    {
+        return 15000;
+    }
 }

@@ -168,3 +168,6 @@ Vue.component('select-colaborador',SelectColaborador)
 
 import SelectActivoSolicitudTipo from "./components/SelectActivoSolicitudTipo";
 Vue.component('select-activo-solicitud-tipo',SelectActivoSolicitudTipo)
+
+import SelectBodegas from "./components/SelectBodegas";
+Vue.component('select-bodega',SelectBodegas)

@@ -2,11 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Imports\ActivosImport;
 use App\Imports\InsumosImport;
-use App\Models\Activo;
-use App\Models\ActivoEstado;
-use App\Models\ActivoTipo;
 use App\Models\Item;
 use App\Models\ItemPresentacion;
 use App\Models\Renglon;
@@ -16,6 +12,7 @@ use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Validators\ValidationException;
 
 class InsumosImportCommand extends Command
@@ -83,14 +80,13 @@ class InsumosImportCommand extends Command
                 $erros[] = "Error en fila ".$failure->row().": ".implode($failure->errors());
             }
 
-            \Log::debug($erros);
+            Log::error($e->getMessage(),$erros);
 
         }
         catch (Exception $e){
 
-            \Log::debug($e);
+            Log::error($e->getMessage());
 
-            throw $e;
 
         }
 
