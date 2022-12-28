@@ -50,19 +50,17 @@ class InsumosImportCommand extends Command
         Unimed::truncate();
         ItemPresentacion::truncate();
         Renglon::truncate();
+        DB::table('item_has_categoria')->truncate();
+        DB::table('stocks')->truncate();
+        DB::table('stocks_transacciones')->truncate();
+        DB::table('kardexs')->truncate();
+        DB::table('compras')->truncate();
+        DB::table('compra_detalles')->truncate();
 
-//        Artisan::call('db:seed', [
-//            '--class' => 'ActivoEstadosTableSeeder',
-//        ]);
-//
 //        Artisan::call('db:seed', [
 //            '--class' => 'RenglonesTableSeeder',
 //        ]);
 //
-//        Artisan::call('db:seed', [
-//            '--class' => 'ActivoTiposTableSeeder',
-//        ]);
-
         $this->output->info('Tablas truncadas y seeder ejecutados');
 
         try {
