@@ -87,7 +87,7 @@
                     <td></td>
                     <td style="">
                         <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 0;"></div>
-                        {{ dvs().nf( $compra->total_venta ) }}
+                        {{ dvs().nf( $compra->detalles->sum('sub_total') ) }}
                         <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 2px;"></div>
                         <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 0;"></div>
                     </td>
