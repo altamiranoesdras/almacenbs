@@ -195,4 +195,16 @@ class Consumo extends Model
     {
         return $this->estado_id==ConsumoEstado::INGRESADO;
     }
+
+    public function egreso()
+    {
+
+        /**
+         * @var ConsumoDetalle $detalle
+         */
+        foreach ($this->detalles as $detalle){
+            $detalle->egreso();
+        }
+
+    }
 }

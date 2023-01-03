@@ -23,9 +23,20 @@
             <div class="card-body">
                 <div class="row">
                     <div class="form-group col-sm-12">
+
+
+
                         @include('consumos.show_fields')
+
+                    </div>
+
+                    <div class="col-sm-12">
+                        @include('consumos.tabla_detalles')
+                    </div>
+
+                    <div class="col-sm-12">
                         <a href="{{ route('consumos.index') }}" class="btn btn-default">
-                        {{__('Back')}}
+                            {{__('Back')}}
                         </a>
                     </div>
                 </div>

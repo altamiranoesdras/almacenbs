@@ -25,7 +25,7 @@ class ItemAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $query = Item::query()->limit(100);
+        $query = Item::with('stocks')->limit(100);
 
         if ($request->get('skip')) {
             $query->skip($request->get('skip'));
