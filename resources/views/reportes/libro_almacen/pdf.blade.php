@@ -32,24 +32,24 @@
             }
         @endphp
 {{--        table table-bordered--}}
-        <table class="  table-sm" >
+        <table class=" table-sm text-sm" style="width: 100%; font-size: 13px;" >
             <tbody>
                 <tr style="">
-                    <td style="width: 8%; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
+                    <td style="width: 7.17%; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
                         {{ fechaLtn($compra->fecha_ingreso) }}
                     </td>
-                    <td style="width: 8%; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
+                    <td style="width: 7.59%; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
                         Serie: {{ $compra->serie }}
                         <br>
                         No. {{ $compra->numero }}
                     </td>
-                    <td style="width: 8%; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
+                    <td style="width: 6.75%; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
                         {{ fechaLtn($compra->fecha_documento) }}
                     </td>
-                    <td style="width: 15%; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
+                    <td style="width: 18.57%; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
                         {{ $compra->proveedor->nombre }}
                     </td>
-                    <td style="width: 5%; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
+                    <td style="width: 8.02%; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
                         {{ $compra->proveedor->nit }}
                     </td>
                 </tr>
@@ -58,19 +58,19 @@
                         $conteoLineas ++;
                     @endphp
                     <tr>
-                        <td style="width: 20%;" class="py-0">
+                        <td style="width: 23.21%;" class="py-0">
 {{--                            {{ $compra->id }} ---}}
 {{--                            {{ $detalle->id }} ---}}
 {{--                            {{ $conteoLineas }} ---}}
                             {{ $detalle->item->texto_principal }}
                         </td>
-                        <td style="width: 5%; text-align: center;" class="py-0">
+                        <td style="width: 9.28%; text-align: center;" class="py-0">
                             {{ nf( $detalle->cantidad ) }}
                         </td>
-                        <td style="width: 5%; text-align: center;" class="py-0">
+                        <td style="width: 8.86%; text-align: center;" class="py-0">
                             {{ dvs().nf( $detalle->precio ) }}
                         </td>
-                        <td style="width: 5%; text-align: center;" class="py-0">
+                        <td style=" text-align: center;" class="py-0">
                             {{ dvs().nf( $detalle->sub_total ) }}
                         </td>
                     </tr>
@@ -116,7 +116,7 @@
 {{--                </tr>--}}
 {{--            </tfoot>--}}
         </table>
-{{--        <div style="page-break-after:always;"></div>--}}
+       <div style="page-break-after:always;"></div>
     @endforeach
 </div>
 
