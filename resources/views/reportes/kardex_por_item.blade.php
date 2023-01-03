@@ -73,7 +73,7 @@
                 <div class="col">
 
                     @if(isset($buscar))
-                        @if($kardex )
+                        @if($kardex->count() > 0)
                             <div class="card ">
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -82,12 +82,12 @@
 
                                             <h2 class="float-right">
                                                 Folio: <span class="text-danger">{{$folio}}</span>
-                                                <button type="button" class="btn btn-primary">
+                                                <a href="{{route('reportes.kardex.pdf',$folio)}}" target="_blank" class="btn btn-primary">
                                                     <i class="fa fa-print"></i>
                                                     Imprimir
-                                                </button>
+                                                </a>
                                             </h2>
-                                            <table class="table table-bordered table-hover table-striped table-xtra-condensed dataTable">
+                                            <table class="table table-bordered table-hover table-striped table-xtra-condensed ">
                                                 <thead>
                                                 <tr>
                                                     <th>Fecha</th>

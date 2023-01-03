@@ -44,6 +44,22 @@ class ReportesAlmacenController extends Controller
         return view('reportes.kardex_por_item',compact('kardex','item_id','buscar','saldo'));
     }
 
+    public function kardexPdf($folio)
+    {
+
+
+        /**
+         * @var Collection $kardex
+         */
+        $kardex = Kardex::whereFolio($folio)
+            ->orderBy('created_at','asc')
+            ->get();
+
+        return $kardex;
+
+
+    }
+
     public function stock(StockDataTable $dataTable,Request $request)
     {
         $renglon = $request->renglon ?? null;
