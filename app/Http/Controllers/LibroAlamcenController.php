@@ -52,15 +52,16 @@ class LibroAlamcenController extends Controller
         $view = view('reportes.libro_almacen.pdf', compact('request','listadoCompras'))->render();
 
         $pdf->loadHTML($view)
-//            ->setOption('page-width', '220')
-//            ->setOption('page-height', '280')
+           ->setOption('page-width', 216)
+           ->setOption('page-height', 280)
             ->setOrientation('landscape')
             // ->setOption('footer-html',utf8_decode($footer))
             ->setOption('margin-top', 30)
-            ->setOption('margin-bottom',20)
-            ->setOption('margin-left',15)
-            ->setOption('margin-right',15);
-        // ->stream('report.pdf');
+            ->setOption('margin-bottom',0)
+            ->setOption('margin-left',0)
+            ->setOption('margin-right',0)
+            ->stream('report.pdf')
+            ;
 
         return $pdf->inline('Libro almacen '.mesLetras($mes).' '.$anio.' .pdf');
     }
