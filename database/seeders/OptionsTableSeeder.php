@@ -697,7 +697,7 @@ class OptionsTableSeeder extends Seeder
                 'id' => 43,
                 'option_id' => 3,
                 'nombre' => 'Libro Almacen',
-                'ruta' => 'reportes.libro.almacen',
+                'ruta' => 'compras.libro.almacen',
                 'descripcion' => NULL,
                 'icono_l' => 'fa-book',
                 'icono_r' => NULL,

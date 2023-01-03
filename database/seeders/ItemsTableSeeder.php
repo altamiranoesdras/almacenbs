@@ -39,9 +39,9 @@ class ItemsTableSeeder extends Seeder
     public function importarSql()
     {
 
-        $db = env('DB_DATABASE');
-        $user = env('DB_USERNAME');
-        $pass = env('DB_PASSWORD');
+        $db = config('database.connections.mysql.database');
+        $user = config('database.connections.mysql.username');
+        $pass = config('database.connections.mysql.password');
         $path = storage_path('insumos.sql');
 
         $comando = "mysql --user=\"$user\" --password=\"$pass\"  $db < $path";
