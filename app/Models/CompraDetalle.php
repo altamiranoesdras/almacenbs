@@ -209,7 +209,7 @@ class CompraDetalle extends Model
             'item_id' => $this->item->id,
             'cantidad' => $this->cantidad,
             'tipo' => Kardex::TIPO_INGRESO,
-            'codigo' => $this->compra->compra1h->id,
+            'codigo' => $this->compra->compra1h->id ?? $this->compra->orden_compra,
             'responsable' => $this->compra->proveedor->nombre,
             'usuario_id' => auth()->user()->id ?? User::PRINCIPAL
         ]);

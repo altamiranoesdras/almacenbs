@@ -26,7 +26,7 @@ class SolicitudDetalleFactory extends Factory
         /**
          * @var Item $item
          */
-        $item = Item::all()->random();
+        $item = Item::limit(2)->get()->random();
 
         $cantidadSolicitada = rand(5,10);
         $cantidadDespachada = $cantidadSolicitada - rand(0,2);

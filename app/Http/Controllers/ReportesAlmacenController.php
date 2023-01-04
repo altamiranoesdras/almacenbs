@@ -33,7 +33,8 @@ class ReportesAlmacenController extends Controller
         /**
          * @var Collection $kardex
          */
-        $kardex = Kardex::delItem($item_id)
+        $kardex = Kardex::with(['item.unimed','item.marca'])
+            ->delItem($item_id)
             ->orderBy('created_at','asc')
             ->get();
 
@@ -50,21 +51,33 @@ class ReportesAlmacenController extends Controller
 
 
         /**
-         * @var Collection $kardex
+         * @var Kardex $kardex
          */
-        $kardex = Kardex::whereFolio($folio)
+        $kardex = Kardex::with(['item.unimed','item.marca'])
+            ->whereFolio($folio)
+            ->orderBy('created_at','asc')
+            ->first();
+
+        /**
+         * @var Collection $kardexs
+         */
+        $kardexs = Kardex::with(['item.unimed','item.marca'])
+            ->delItem($kardex->item_id)
             ->orderBy('created_at','asc')
             ->get();
 
-        return $kardex;
+
+        $kardex = $kardexs->where('folio',$folio)->groupBy('folio');
+
+        $siguienteFolio = 0;
 
         /**
          * @var PdfWrapper $pdf
          */
         $pdf = App::make('snappy.pdf.wrapper');
 
-        $view = view('reportes.kardex_por_item_pdf', compact('solicitud'))->render();
-        // $footer = view('compras.pdf_footer')->render();
+        $view = view('reportes.kardex_por_item_pdf', compact('kardex'))->render();
+         $footer = view('reportes.kardex_por_item_pdf_footer',compact('siguienteFolio'))->render();
 
 //        dd($solicitud->toArray());
 
@@ -72,13 +85,13 @@ class ReportesAlmacenController extends Controller
             ->setOption('page-width', '220')
             ->setOption('page-height', '280')
             ->setOrientation('landscape')
-            // ->setOption('footer-html',utf8_decode($footer))
+             ->setOption('footer-html',utf8_decode($footer))
             ->setOption('margin-top', 20)
             ->setOption('margin-bottom',3)
             ->setOption('margin-left',20)
             ->setOption('margin-right',20);
 
-        return $pdf->inline('Despacho '.$solicitud->id. '_'. time().'.pdf');
+        return $pdf->inline('Kardex folio '.$folio.'.pdf');
 
 
     }
