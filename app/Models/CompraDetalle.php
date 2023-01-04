@@ -198,18 +198,21 @@ class CompraDetalle extends Model
 
         }
 
+        $this->addStockTransaccion(StockTransaccion::INGRESO,$stock->id,$this->cantidad,$this->precio);
+
+        return $stock;
+    }
+
+    public function agregarKardex()
+    {
         $this->kardex()->create([
             'item_id' => $this->item->id,
             'cantidad' => $this->cantidad,
             'tipo' => Kardex::TIPO_INGRESO,
-            'codigo' => $this->compra->codigo,
+            'codigo' => $this->compra->compra1h->id,
             'responsable' => $this->compra->proveedor->nombre,
             'usuario_id' => auth()->user()->id ?? User::PRINCIPAL
         ]);
-
-        $this->addStockTransaccion(StockTransaccion::INGRESO,$stock->id,$this->cantidad,$this->precio);
-
-        return $stock;
     }
 
     public function anular()

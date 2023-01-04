@@ -7,10 +7,11 @@ use App\DataTables\Scopes\ScopeStockDataTable;
 use App\DataTables\StockDataTable;
 use App\Models\Kardex;
 use App\Models\Stock;
-use App\VistaStock;
+use Barryvdh\Snappy\PdfWrapper;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class ReportesAlmacenController extends Controller
 {
@@ -56,6 +57,28 @@ class ReportesAlmacenController extends Controller
             ->get();
 
         return $kardex;
+
+        /**
+         * @var PdfWrapper $pdf
+         */
+        $pdf = App::make('snappy.pdf.wrapper');
+
+        $view = view('reportes.kardex_por_item_pdf', compact('solicitud'))->render();
+        // $footer = view('compras.pdf_footer')->render();
+
+//        dd($solicitud->toArray());
+
+        $pdf->loadHTML($view)
+            ->setOption('page-width', '220')
+            ->setOption('page-height', '280')
+            ->setOrientation('landscape')
+            // ->setOption('footer-html',utf8_decode($footer))
+            ->setOption('margin-top', 20)
+            ->setOption('margin-bottom',3)
+            ->setOption('margin-left',20)
+            ->setOption('margin-right',20);
+
+        return $pdf->inline('Despacho '.$solicitud->id. '_'. time().'.pdf');
 
 
     }
