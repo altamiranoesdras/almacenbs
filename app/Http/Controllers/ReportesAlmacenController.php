@@ -82,14 +82,14 @@ class ReportesAlmacenController extends Controller
 //        dd($solicitud->toArray());
 
         $pdf->loadHTML($view)
-            ->setOption('page-width', '220')
-            ->setOption('page-height', '280')
+            ->setOption('page-width', 216)
+            ->setOption('page-height', 280)
             ->setOrientation('landscape')
              ->setOption('footer-html',utf8_decode($footer))
-            ->setOption('margin-top', 20)
+            ->setOption('margin-top', 50)
             ->setOption('margin-bottom',3)
-            ->setOption('margin-left',20)
-            ->setOption('margin-right',20);
+            ->setOption('margin-left',13)
+            ->setOption('margin-right',14);
 
         return $pdf->inline('Kardex folio '.$folio.'.pdf');
 
