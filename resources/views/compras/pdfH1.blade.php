@@ -126,20 +126,20 @@
                     <td class="py-0" style="border-color: black;
                         width: 10.53%;
                         text-align: right;
-                        padding-left: 7px;
+                        padding-right: 3px;
                         font-size: small" >
                         {{dvs().nfp($det->precio)}}
                     </td>
                     <td class="py-0" style="border-color: black;
                         width: 11.58%;
                         text-align: right;
-                        padding-left: 7px;
+                        padding-right: 3px;
                         font-size: small" >
                         {{dvs().nfp($det->sub_total)}}
                     </td>
                     <td class="py-0" style="border-color: black;
                         width: 9.47%;
-                        padding-left: 7px;
+                        padding-right: 3px;
                         text-align: right;
                             font-size: small" >
                         {!! $compra->folio_inventario ?? '<span style="color: white">XXXXXXXXX</span>'!!}
