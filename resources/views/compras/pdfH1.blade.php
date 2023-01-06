@@ -17,55 +17,47 @@
 </div>
 
 <div style="margin-top: 1.15cm; font-size: 14px">
-    <table class="table table-borderless table-sm" style="width: 100%">
+    <table class="table table-borderless table-sm" style="width: 100%" >
         <tr style="">
-            <td style="width:58%; vertical-align: middle; padding-left: 3.5cm">
+            <td style="width:70%; vertical-align: middle; padding-left: 3.5cm">
                 Secretaría Ejecutiva de la ICMSJ
             </td>
-            <td style="width:15%;">
-
-            </td>
-            <td style="width:1%; vertical-align: middle; text-align: left;color: white">
+            <td style="width:10%; vertical-align: middle; text-align: left;color: white">
                 Número
             </td>
-            <td style="width:25%; font-size: 11px; padding-top: 7px" colspan="2">
+            <td style="width:18%; font-size: 10px; padding-top: 0">
 
                     <b>
-                        <div style="margin-left: -1.3cm; width: 100%">
+                        <div style="padding: 0;margin-top: 5px;text-wrap: none; width: 100%;">
                             Serie: {{ $compra->serie }}
                         </div>
-                        <div style="margin-left: -1.3cm; width: 100%">
+                        <div style="padding: 0;margin: 0; width: 100%;">
                             No. &nbsp;{{ $compra->numero }}
                         </div>
                     </b>
             </td>
         </tr>
         <tr style="">
-            <td style="width:50%; padding-left: 3.5cm">
+            <td style="width:70%; padding-left: 3.5cm">
                 Secretaría Ejecutiva de la ICMSJ
             </td>
-            <td style="width:15%;">
-
-            </td>
-            <td style="width:1%;color: white">
+            <td style="width:10%;color: white">
                 Fecha:
             </td>
-            <td style="width:15%;">
-                <span style="margin-left: -1.5cm">{{ fechaLtn($compra->fecha_documento) }}</span>
+            <td style="width:18%;">
+                <span style="margin-left: 0">{{ fechaLtn($compra->fecha_documento) }}</span>
             </td>
         </tr>
         <tr style="">
-            <td style="width:5%; padding-left: 3.5cm">
+            <td style="width:70%; padding-left: 3.5cm">
                 {{strtoupper($compra->proveedor->razon_social)}} / NIT: {{$compra->proveedor->nit}}
             </td>
-            <td style="width:5%;">
-
-            </td>
-            <td style="width:15%;color: white">
+            <td style="width:10%;color: white">
                 Orden de C.
             </td>
-            <td style="width:15%; padding-left: 0.75cm;">
-                {{ $compra->orden_compra }}
+
+            <td style="width:18%; padding-left: 2cm" >
+                {{ $compra->orden_compra ?? "SIN NUMERO" }}
             </td>
         </tr>
     </table>
