@@ -99,27 +99,55 @@
                     <td style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" class="py-0">
                         {{nf($det->cantidad)}}
                     </td>
-                    <td style="border-color: black; width: 32.63%; text-align: left; padding-left: 12px; padding-right: 3px; font-size: small" class="py-0">
-                        <span style="margin-left: 10px">
-                            {{strtoupper($det->item->texto_principal)}}
-                        </span>
+                    <td  class="py-0 text-left"
+                         style="border-color: black;
+                         width: 32.63%;
+                         text-align: left;
+                         padding-right: 3px;
+                         font-size: small">
+
+                         {{strtoupper($det->item->texto_principal)}}
                     </td>
-                    <td style="border-color: black; width: 10.53%; text-align: center; padding-left: 5px; font-size: small" class="">
+                    <td class="" style="border-color: black;
+                        width: 10.53%;
+                        text-align: center;
+                        padding-left: 5px;
+                        font-size: small" >
+
                         {{$det->item->renglon->numero}}
                     </td>
-                    <td style="border-color: black; width: 8.95%;  text-align: center; padding: 5px; font-size: small" class="py-0">
+                    <td class="py-0" style="border-color: black;
+                        width: 8.95%;
+                        text-align: center;
+                            padding: 5px;
+                            font-size: small" >
                         {!! $compra->folio_almacen ?? '<span style="color: white">XXXXXXXXX</span>' !!}
                     </td>
-                    <td style="border-color: black; width: 10.53%;  text-align: right; padding: 6px; font-size: small" class="py-0">
+                    <td class="py-0" style="border-color: black;
+                        width: 10.53%;
+                        text-align: right;
+                        padding-left: 7px;
+                        font-size: small" >
                         {{dvs().nfp($det->precio)}}
                     </td>
-                    <td style="border-color: black; width: 11.58%; text-align: right; padding: 5px; font-size: small" class="py-0">
+                    <td class="py-0" style="border-color: black;
+                        width: 11.58%;
+                        text-align: right;
+                        padding-left: 7px;
+                        font-size: small" >
                         {{dvs().nfp($det->sub_total)}}
                     </td>
-                    <td style="border-color: black; width: 9.47%; padding: 5px; text-align: right; font-size: small" class="py-0">
+                    <td class="py-0" style="border-color: black;
+                        width: 9.47%;
+                        padding-left: 7px;
+                        text-align: right;
+                            font-size: small" >
                         {!! $compra->folio_inventario ?? '<span style="color: white">XXXXXXXXX</span>'!!}
                     </td>
-                    <td style="border-color: black; text-align: center; padding: 5px; font-size: small" class="py-0">
+                    <td class="py-0" style="border-color: black;
+                        text-align: center;
+                        padding: 5px;
+                        font-size: small" >
 
                     </td>
                 </tr>
@@ -129,6 +157,7 @@
             @endforeach
             @php
                 $total = 0;
+
                 foreach ($compra->compra1h->detalles as $i => $det) {
                     $total = $total + $det->sub_total;
                 }
