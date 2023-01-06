@@ -75,7 +75,7 @@
         @foreach ($solicitud->detalles as $detalle)
             <tr style="line-height: 20px">
                 <td style="border-color: black; "class="py-0">
-                    {{ $detalle->item->nombre }}
+                    {{ $detalle->item->texto_principal }}
                 </td>
                 <td style="border-color: black; width: 16%; font-size: 0.8em;  text-align: center;" class="py-0">
                     {{ $detalle->item->unimed->nombre }}
