@@ -51,10 +51,25 @@
             </thead>
             <tbody>
 
+                {{-- codigo del producto --}}
+                <tr style="font-size: 12px; text-align: center;">
+                    <td></td>
+                    <td>CODIGO</td>
+                    <td></td>
+                    <td></td>
+                    <td colspan="5"> NOMBRE DEL PRODUCTO</td>
+                    <td></td>
+                    <td>01/01/2023</td>
+                    <td></td>
+                    <td>06/01/2023</td>
+                </tr>
+                <tr>
+                    <td style="padding-bottom: 55px "></td>
+                </tr>
 
             @foreach($datalles as  $det )
 
-                <tr class="text-sm" style="font-size: 12px; text-align: center;">
+                <tr style="font-size: 12px; text-align: center;">
                     <td style="width: 5.53%">{{fechaLtn($det->created_at)}}</td>
                     <td class="text-uppercase" style="width: 5.93%">{{$det->ingreso ? $det->codigo : ''}}</td>
                     <td class="text-uppercase" style="width: 6.72%">{{$det->salida ? $det->codigo : ''}}</td>

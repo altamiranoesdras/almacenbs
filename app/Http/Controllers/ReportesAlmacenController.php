@@ -86,7 +86,7 @@ class ReportesAlmacenController extends Controller
             ->setOption('page-height', 280)
             ->setOrientation('landscape')
              ->setOption('footer-html',utf8_decode($footer))
-            ->setOption('margin-top', 49)
+            ->setOption('margin-top', 33)
             ->setOption('margin-bottom',3)
             ->setOption('margin-left',16)
             ->setOption('margin-right',13);
