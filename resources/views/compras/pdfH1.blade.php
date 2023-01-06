@@ -99,7 +99,7 @@
                     <td style="border-color: black;
                         width: 7.85%;
                         text-align: center;
-                        padding: 5px;
+                        padding-right: 7px;
                         font-size: small" class="py-0">
 
                         {{nf($det->cantidad)}}
@@ -108,7 +108,7 @@
                          style="border-color: black;
                          width: 32.63%;
                          text-align: left;
-                         padding-right: 1px;
+                         padding-left: 0px;
                          font-size: small">
 
                          {{strtoupper($det->item->texto_principal)}}
@@ -131,22 +131,23 @@
                     <td class="py-0" style="border-color: black;
                         width: 10.53%;
                         text-align: right;
-                        padding-right: 6px;
+                        padding-right: 8px;
                         font-size: small" >
                         {{dvs().nfp($det->precio)}}
                     </td>
                     <td class="py-0" style="border-color: black;
                         width: 11.58%;
                         text-align: right;
-                        padding-right: 6px;
+                        padding-right: 8px;
                         font-size: small" >
                         {{dvs().nfp($det->sub_total)}}
                     </td>
                     <td class="py-0" style="border-color: black;
                         width: 9.47%;
-                        padding-right: 6px;
+                        padding-right: 8px;
                         text-align: right;
-                            font-size: small" >
+                        font-size: small"
+                    >
                         {!! $compra->folio_inventario ?? '<span style="color: white">XXXXXXXXX</span>'!!}
                     </td>
                     <td class="py-0" style="border-color: black;
@@ -192,7 +193,7 @@
                 <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
                     &nbsp;
                 </td>
-                <td class="py-0 text-left" style="border-color: black;  text-align: center; padding: 5px; font-size: small" >
+                <td class="py-0 text-left" style="border-color: black;  text-align: center; padding: 2px; font-size: small" >
                     {{$totalTexto}}
                 </td>
 
@@ -213,7 +214,8 @@
                     vertical-align: middle;
                     text-align: right;
                     font-size: 12px;
-                    padding: 0" >
+                    padding-right: 8px;
+                    ">
 
                     <table style="width: 101%; height: 100%" border="0" >
                         <tr >
