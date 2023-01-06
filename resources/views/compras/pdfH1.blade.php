@@ -96,7 +96,12 @@
         <tbody>
             @foreach($compra->compra1h->detalles as $i => $det)
                 <tr style="">
-                    <td style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" class="py-0">
+                    <td style="border-color: black;
+                        width: 7.85%;
+                        text-align: center;
+                        padding: 5px;
+                        font-size: small" class="py-0">
+
                         {{nf($det->cantidad)}}
                     </td>
                     <td  class="py-0 text-left"
@@ -126,20 +131,20 @@
                     <td class="py-0" style="border-color: black;
                         width: 10.53%;
                         text-align: right;
-                        padding-right: 3px;
+                        padding-right: 6px;
                         font-size: small" >
                         {{dvs().nfp($det->precio)}}
                     </td>
                     <td class="py-0" style="border-color: black;
                         width: 11.58%;
                         text-align: right;
-                        padding-right: 3px;
+                        padding-right: 6px;
                         font-size: small" >
                         {{dvs().nfp($det->sub_total)}}
                     </td>
                     <td class="py-0" style="border-color: black;
                         width: 9.47%;
-                        padding-right: 3px;
+                        padding-right: 6px;
                         text-align: right;
                             font-size: small" >
                         {!! $compra->folio_inventario ?? '<span style="color: white">XXXXXXXXX</span>'!!}
