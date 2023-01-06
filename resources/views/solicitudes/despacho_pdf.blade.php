@@ -60,7 +60,7 @@
                 <td rowspan="2" style="border-color: black; vertical-align: middle;
                     text-align: center" width="40%">Nombre del Producto</td>
                 <td rowspan="2" style="border-color: black; vertical-align: middle;
-                    text-align: center">Unidad de Medida</td>
+                    text-align: center">Unidad de Medida y Presentación</td>
                 <th colspan="2" scope="colgroup" style="border-color: black; vertical-align: middle;
                     text-align: center; font-weight: normal" width="80%">CANTIDAD</th>
             </tr>
