@@ -127,7 +127,7 @@ class Item extends Model implements HasMedia
 
     protected $dates = ['deleted_at'];
 
-    protected $appends= ['text',"texto_principal",'img','thumb','stock_total','stock_bodega'];
+    protected $appends= ['text','texto_libro_almacen',"texto_principal",'img','thumb','stock_total','stock_bodega'];
 
     protected $with = ['unimed','marca','stocks','media'];
 
@@ -398,6 +398,16 @@ class Item extends Model implements HasMedia
         $unidad = $this->unimed->nombre ?? '';
 
         return $this->nombre." - ".$this->descripcion."-".$presentacion." - ".$unidad;
+    }
+
+
+    public function getTextoLibroAlmacenAttribute()
+    {
+
+        $presentacion = $this->presentacion->nombre ?? '';
+        $unidad = $this->unimed->nombre ?? '';
+
+        return $this->nombre."-".$presentacion." - ".$unidad;
     }
 
 
