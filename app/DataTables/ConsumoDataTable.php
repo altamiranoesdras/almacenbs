@@ -110,7 +110,7 @@ class ConsumoDataTable extends DataTable
             Column::make('codigo'),
             Column::make('usuario')->name('usuarioCrea.name')->data('usuario_crea.name'),
             Column::make('unidad')->name('unidad.nombre')->data('unidad.nombre'),
-            Column::make('bodega')->name('bodega.nombre')->data('bodega.nombre'),
+            Column::make('CAJ')->name('bodega.nombre')->data('bodega.nombre'),
             Column::make('estado')->name('estado.nombre')->data('estado.nombre'),
             Column::computed('action')
                             ->exportable(false)
