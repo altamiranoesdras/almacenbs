@@ -29,15 +29,14 @@
                 Número
             </td>
             <td style="width:25%; font-size: 11px; padding-top: 7px" colspan="2">
-                
+
                     <b>
-                        <span style="margin-left: -1.5cm">
+                        <div style="margin-left: -1.3cm; width: 100%">
                             Serie: {{ $compra->serie }}
-                        </span>
-                        <br>
-                        <span style="margin-left: -1.5cm">
+                        </div>
+                        <div style="margin-left: -1.3cm; width: 100%">
                             No. &nbsp;{{ $compra->numero }}
-                        </span>
+                        </div>
                     </b>
             </td>
         </tr>
@@ -73,7 +72,7 @@
 </div>
 
 <div>
-    <table class="" style="width: 100%">
+    <table class="" style="width: 100%" border="0">
         <thead>
         <tr style="text-align: center; font-size: 12px" class="">
             <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px;color: white">
@@ -126,10 +125,10 @@
                         {{dvs().nfp($det->sub_total)}}
                     </td>
                     <td style="border-color: black; width: 9.47%; padding: 5px; text-align: right; font-size: small" class="py-0">
-                        {!! $compra->folio_inventario ?? '<span style="color: white">XXXXXXXXX</span>'!!} 
+                        {!! $compra->folio_inventario ?? '<span style="color: white">XXXXXXXXX</span>'!!}
                     </td>
                     <td style="border-color: black; text-align: center; padding: 5px; font-size: small" class="py-0">
-                        
+
                     </td>
                 </tr>
             @endforeach
@@ -159,23 +158,43 @@
                 </td>
             </tr>
             <tr >
-                <td colspan="20" style="border-color: black;  text-align: center; padding: 5px; font-size: small" class="py-0">
-                    &nbsp;
-                </td>
-            </tr>
-            <tr >
                 <td colspan="20" style="border-color: black; text-align: center; padding: 5px; font-size: small" class="py-0">
                     &nbsp;
                 </td>
             </tr>
             <tr >
-                <td colspan="5" style="border-color: black;  text-align: center; padding: 5px; font-size: small" class="py-0">
+                <td style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" class="py-0">
+                    &nbsp;
+                </td>
+                <td style="border-color: black;  text-align: center; padding: 5px; font-size: small" class="py-0">
                     {{$totalTexto}}
                 </td>
-                <td style="border-color: black; border-top-style: solid; border-bottom-style: double; vertical-align: middle;
-                 text-align: right; font-size: 11px" class="py-0">
-                    {{dvs().nf($total)}}
+
+                <td style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" class="py-0">
+                    &nbsp;
                 </td>
+
+                <td style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" class="py-0">
+                    &nbsp;
+                </td>
+
+                <td style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" class="py-0">
+                    &nbsp;
+                </td>
+                <td style="border-color: black; border-top-style: solid; border-bottom: solid; vertical-align: middle;
+                 text-align: right; font-size: 11px; padding: 0" >
+                    <table style="width: 101%; height: 100%" border="0" >
+                        <tr style="margin-right: 5px">
+                            <td style="border-bottom: solid">
+                                {{dvs().nf($total)}}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td style="border-color: black;  text-align: center; padding: 5px; font-size: small" class="py-0">
+
+                </td>
+
                 <td style="border-color: black;  text-align: center; padding: 5px; font-size: small" class="py-0">
 
                 </td>
