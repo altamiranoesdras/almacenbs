@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\ConsumoDataTable;
+use App\DataTables\ConsumoUserDataTable;
 use App\Http\Requests;
 use App\Http\Requests\CreateConsumoRequest;
 use App\Http\Requests\UpdateConsumoRequest;
@@ -10,6 +11,7 @@ use App\Models\Bodega;
 use App\Models\Consumo;
 use App\Models\ConsumoEstado;
 use App\Models\ConsumoDetalle;
+use App\Models\Item;
 use App\Models\RrhhUnidad;
 use Carbon\Carbon;
 use Exception;
@@ -40,11 +42,15 @@ class ConsumoController extends AppBaseController
         return $consumoDataTable->render('consumos.index');
     }
 
-    public function user(ConsumoDataTable $solicitudDataTable)
+    public function user(ConsumoUserDataTable $solicitudDataTable)
     {
 
+//        $item = Item::where('codigo_presentacion',32153)->get();
+//
+//        return $item;
 
-        return $solicitudDataTable->render('solicitudes.usuario.index');
+
+        return $solicitudDataTable->render('consumos.usuario.index');
     }
 
     /**
@@ -54,6 +60,7 @@ class ConsumoController extends AppBaseController
      */
     public function create()
     {
+
         $consumo = $this->obtenerTemporal();
 
         return view('consumos.create',compact('consumo'));
@@ -140,6 +147,17 @@ class ConsumoController extends AppBaseController
         }
 
 
+        $request->merge([
+            'usuario_crea' => auth()->user()->id,
+            'unidad_id' => auth()->user()->unidad_id,
+            'bodega_id' => auth()->user()->bodega_id,
+            'estado_id' => ConsumoEstado::INGRESADO,
+        ]);
+
+
+        $consumo->fill($request->all());
+        $consumo->save();
+
 
         if ($request->procesar){
 
@@ -171,21 +189,12 @@ class ConsumoController extends AppBaseController
 
             return redirect(route('consumos.usuario'));
 
-        }else{
-
-            $request->merge([
-                'estado_id' => ConsumoEstado::INGRESADO,
-            ]);
-
-
-            $consumo->fill($request->all());
-            $consumo->save();
-
-            flash()->success('Consumo guardado exitosamente.');
-
-            return redirect(route('consumos.edit',$consumo->id));
-
         }
+
+        flash()->success('Consumo guardado exitosamente.');
+
+        return redirect(route('consumos.edit',$consumo->id));
+
     }
 
     public function procesar(consumo $consumo,UpdateconsumoRequest $request){
@@ -195,14 +204,14 @@ class ConsumoController extends AppBaseController
         $request->merge([
             'codigo' => $this->getCodigo(),
             'correlativo' => $this->getCorrelativo(),
-            'unidad_id' => auth()->user()->unidad_id ?? RrhhUnidad::PRINCIPAL,
-            'bodega_id' => auth()->user()->bodega_id ?? Bodega::PRINCIPAL,
             'estado_id' => ConsumoEstado::PROCESADO,
         ]);
 
 
         $consumo->fill($request->all());
         $consumo->save();
+
+        $consumo->egreso();
 
 
         return $consumo;

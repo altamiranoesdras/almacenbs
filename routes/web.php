@@ -223,6 +223,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::resource('itemPresentaciones', App\Http\Controllers\ItemPresentacionController::class);
 
 
+    Route::get('reportes/kardex/{folio}', [ReportesAlmacenController::class,'kardexPdf'])->name('reportes.kardex.pdf');
     Route::get('reportes/kardex', [ReportesAlmacenController::class,'kardex'])->name('reportes.kardex');
     Route::get('reportes/stock', [ReportesAlmacenController::class,'stock'])->name('reportes.stock');
     Route::get('reportes/items/vencen', [ReportesAlmacenController::class,'itemsAvencer'])->name('reportes.items.vencen');

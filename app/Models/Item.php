@@ -643,7 +643,7 @@ class Item extends Model implements HasMedia
 
     public function getStockBodegaAttribute()
     {
-        $bodega = request()->bodega_id ?? auth()->user()->bodega_id;
+        $bodega = request()->bodega_id ?? auth()->user()->bodega_id ?? Bodega::PRINCIPAL;
 
         return $this->stocks->where('bodega_id',$bodega)->sum('cantidad');
     }

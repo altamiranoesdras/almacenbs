@@ -1,7 +1,3 @@
-<!-- Correlativo Field -->
-{!! Form::label('correlativo', 'Correlativo:') !!}
-{!! $consumo->correlativo !!}<br>
-
 
 <!-- Codigo Field -->
 {!! Form::label('codigo', 'Codigo:') !!}
@@ -9,22 +5,22 @@
 
 
 <!-- Estado Id Field -->
-{!! Form::label('estado_id', 'Estado Id:') !!}
-{!! $consumo->estado_id !!}<br>
+{!! Form::label('estado_id', 'Estado:') !!}
+{!! $consumo->estado->nombre ?? '' !!}<br>
 
 
 <!-- Unidad Id Field -->
-{!! Form::label('unidad_id', 'Unidad Id:') !!}
-{!! $consumo->unidad_id !!}<br>
+{!! Form::label('unidad_id', 'Unidad:') !!}
+{!! $consumo->unidad->nombre ?? '' !!}<br>
 
 
 <!-- Bodega Id Field -->
-{!! Form::label('bodega_id', 'Bodega Id:') !!}
-{!! $consumo->bodega_id !!}<br>
+{!! Form::label('bodega_id', 'Bodega:') !!}
+{!! $consumo->bodega->nombre ?? '' !!}<br>
 
 
 <!-- Usuario Crea Field -->
 {!! Form::label('usuario_crea', 'Usuario Crea:') !!}
-{!! $consumo->usuario_crea !!}<br>
+{!! $consumo->usuarioCrea->name ?? ''  !!}<br>
 
 

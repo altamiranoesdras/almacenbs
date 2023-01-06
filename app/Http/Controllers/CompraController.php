@@ -461,7 +461,7 @@ class CompraController extends AppBaseController
             if ($compra->detalles->count() > 0) {
 
                 /**
-                 * @var Compra1hDetalle $detalle
+                 * @var CompraDetalle $detalle
                  */
                 foreach ($compra->detalles as $detalle) {
 
@@ -501,9 +501,13 @@ class CompraController extends AppBaseController
 
                     }
 
+
                 }
 
             }
+
+            $compra->procesarKardex();
+
 
         } catch (\Exception $exception) {
             DB::rollBack();

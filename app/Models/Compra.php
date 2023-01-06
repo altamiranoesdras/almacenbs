@@ -297,6 +297,18 @@ class Compra extends Model
         $this->actualizaPreciosItem();
     }
 
+    public function procesarKardex()
+    {
+
+        /**
+         * @var CompraDetalle $detalle
+         */
+        foreach ($this->detalles as $index => $detalle) {
+            $detalle->agregarKardex();
+        }
+
+    }
+
     public function scopeDelItem($query,$item)
     {
         return $query->whereIn('id', function($q) use ($item){

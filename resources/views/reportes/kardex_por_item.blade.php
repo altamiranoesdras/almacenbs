@@ -73,7 +73,7 @@
                 <div class="col">
 
                     @if(isset($buscar))
-                        @if($kardex )
+                        @if($kardex->count() > 0)
                             <div class="card ">
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -82,20 +82,33 @@
 
                                             <h2 class="float-right">
                                                 Folio: <span class="text-danger">{{$folio}}</span>
-                                                <button type="button" class="btn btn-primary">
+                                                <a href="{{route('reportes.kardex.pdf',$folio)}}" target="_blank" class="btn btn-primary">
                                                     <i class="fa fa-print"></i>
                                                     Imprimir
-                                                </button>
+                                                </a>
                                             </h2>
-                                            <table class="table table-bordered table-hover table-striped table-xtra-condensed dataTable">
+                                            <table class="table table-bordered table-hover table-striped table-xtra-condensed ">
                                                 <thead>
-                                                <tr>
-                                                    <th>Fecha</th>
-                                                    <th>Proveedor o Solicitante</th>
-                                                    <th>Serie/Numero</th>
-                                                    <th>Ingresos</th>
-                                                    <th>Salidas</th>
-                                                    <th>Saldo</th>
+                                                <tr class="text-center">
+                                                    <th rowspan="2">Fecha</th>
+                                                    <th colspan="2">DOCUMENTO NO.</th>
+                                                    <th rowspan="2">Nombre Solicitante</th>
+                                                    <th colspan="3">Entradas</th>
+                                                    <th colspan="3">Salidas</th>
+                                                    <th colspan="3">Existencias</th>
+                                                </tr>
+                                                <tr class="text-center">
+                                                    <th>Forma 1H</th>
+                                                    <th>Requisición</th>
+                                                    <th>Cantidad</th>
+                                                    <th>P.U.</th>
+                                                    <th>Valor Total</th>
+                                                    <th>Cantidad</th>
+                                                    <th>P.U.</th>
+                                                    <th>Valor Total</th>
+                                                    <th>Cantidad</th>
+                                                    <th>P.U.</th>
+                                                    <th>Valor Total</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -105,11 +118,24 @@
 
                                                     <tr class="text-sm">
                                                         <td>{{fechaLtn($det->created_at)}}</td>
+                                                        <td class="text-uppercase">{{$det->ingreso ? $det->codigo : ''}}</td>
+                                                        <td class="text-uppercase">{{$det->salida ? $det->codigo : ''}}</td>
                                                         <td class="text-uppercase">{{$det->responsable}}</td>
-                                                        <td>{{$det->codigo}}</td>
                                                         <td>{{$det->ingreso}}</td>
+                                                        <td>{{$det->ingreso ? nfp($det->precio) : ''}}</td>
+                                                        <td>{{$det->ingreso ? nfp($det->precio * $det->ingreso) : ''}}</td>
                                                         <td>{{$det->salida}}</td>
-                                                        <td class="{{$loop->last ? 'text-bold' :''}}">{{$saldo+=$det->ingreso-=$det->salida}}</td>
+                                                        <td>{{$det->salida ? nfp($det->precio) : $det->salida}}</td>
+                                                        <td>{{$det->salida ? nfp($det->precio * $det->salida) : ''}}</td>
+
+                                                        @php
+                                                            $saldo+=$det->ingreso-=$det->salida
+                                                        @endphp
+                                                        <td class="{{$loop->last ? 'text-bold' :''}}">
+                                                            {{$saldo}}
+                                                        </td>
+                                                        <td>{{nfp($det->precio)}}</td>
+                                                        <td>{{nfp($det->precio * $saldo)}}</td>
                                                     </tr>
                                                 @endforeach
                                                 </tbody>

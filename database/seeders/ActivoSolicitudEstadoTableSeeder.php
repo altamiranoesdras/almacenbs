@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\ActivoSolicitudEstado;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ActivoSolicitudEstadoTableSeeder extends Seeder
 {
@@ -14,7 +16,11 @@ class ActivoSolicitudEstadoTableSeeder extends Seeder
     public function run()
     {
 
-        \DB::table('activo_solicitud_estados')->insert(array (
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
+        ActivoSolicitudEstado::truncate();
+
+        DB::table('activo_solicitud_estados')->insert(array (
             0 =>
                 array (
                     'id' => 1,

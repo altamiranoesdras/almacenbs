@@ -7,10 +7,11 @@ use App\DataTables\Scopes\ScopeStockDataTable;
 use App\DataTables\StockDataTable;
 use App\Models\Kardex;
 use App\Models\Stock;
-use App\VistaStock;
+use Barryvdh\Snappy\PdfWrapper;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class ReportesAlmacenController extends Controller
 {
@@ -32,7 +33,8 @@ class ReportesAlmacenController extends Controller
         /**
          * @var Collection $kardex
          */
-        $kardex = Kardex::delItem($item_id)
+        $kardex = Kardex::with(['item.unimed','item.marca'])
+            ->delItem($item_id)
             ->orderBy('created_at','asc')
             ->get();
 
@@ -42,6 +44,56 @@ class ReportesAlmacenController extends Controller
 
 
         return view('reportes.kardex_por_item',compact('kardex','item_id','buscar','saldo'));
+    }
+
+    public function kardexPdf($folio)
+    {
+
+
+        /**
+         * @var Kardex $kardex
+         */
+        $kardex = Kardex::with(['item.unimed','item.marca'])
+            ->whereFolio($folio)
+            ->orderBy('created_at','asc')
+            ->first();
+
+        /**
+         * @var Collection $kardexs
+         */
+        $kardexs = Kardex::with(['item.unimed','item.marca'])
+            ->delItem($kardex->item_id)
+            ->orderBy('created_at','asc')
+            ->get();
+
+
+        $kardex = $kardexs->where('folio',$folio)->groupBy('folio');
+
+        $siguienteFolio = 0;
+
+        /**
+         * @var PdfWrapper $pdf
+         */
+        $pdf = App::make('snappy.pdf.wrapper');
+
+        $view = view('reportes.kardex_por_item_pdf', compact('kardex'))->render();
+         $footer = view('reportes.kardex_por_item_pdf_footer',compact('siguienteFolio'))->render();
+
+//        dd($solicitud->toArray());
+
+        $pdf->loadHTML($view)
+            ->setOption('page-width', '220')
+            ->setOption('page-height', '280')
+            ->setOrientation('landscape')
+             ->setOption('footer-html',utf8_decode($footer))
+            ->setOption('margin-top', 20)
+            ->setOption('margin-bottom',3)
+            ->setOption('margin-left',20)
+            ->setOption('margin-right',20);
+
+        return $pdf->inline('Kardex folio '.$folio.'.pdf');
+
+
     }
 
     public function stock(StockDataTable $dataTable,Request $request)

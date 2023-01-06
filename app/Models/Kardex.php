@@ -75,6 +75,8 @@ class Kardex extends Model
 
     protected $dates = ['deleted_at'];
 
+    protected $appends = ['precio'];
+
     protected static function booted()
     {
         static::created(function (Kardex $kardex) {
@@ -179,6 +181,13 @@ class Kardex extends Model
         return $q->whereHas('item' ,function (Builder $q){
             $q->where('inventariable' ,1);
         });
+    }
+
+
+    public function getPrecioAttribute()
+    {
+        return $this->item->precio_compra;
+
     }
 
     public function scopeDelItem($q,$item)
