@@ -108,7 +108,7 @@
                          style="border-color: black;
                          width: 32.63%;
                          text-align: left;
-                         padding-right: 3px;
+                         padding-right: 1px;
                          font-size: small">
 
                          {{strtoupper($det->item->texto_principal)}}
@@ -189,35 +189,41 @@
                 </td>
             </tr>
             <tr >
-                <td style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" class="py-0">
+                <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
                     &nbsp;
                 </td>
-                <td style="border-color: black;  text-align: center; padding: 5px; font-size: small" class="py-0">
+                <td class="py-0 text-left" style="border-color: black;  text-align: center; padding: 5px; font-size: small" >
                     {{$totalTexto}}
                 </td>
 
-                <td style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" class="py-0">
+                <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
                     &nbsp;
                 </td>
 
-                <td style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" class="py-0">
+                <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
                     &nbsp;
                 </td>
 
-                <td style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" class="py-0">
+                <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
                     &nbsp;
                 </td>
-                <td style="border-color: black; border-top-style: solid; border-bottom: solid; vertical-align: middle;
-                 text-align: right; font-size: 11px; padding: 0" >
+                <td style="border-color: black;
+                    border-top-style: solid;
+                    border-bottom-style: solid;
+                    vertical-align: middle;
+                    text-align: right;
+                    font-size: 12px;
+                    padding: 0" >
+
                     <table style="width: 101%; height: 100%" border="0" >
-                        <tr style="margin-right: 5px">
-                            <td style="border-bottom: solid">
+                        <tr >
+                            <td style="border-bottom: solid;border-width: 1px">
                                 {{dvs().nf($total)}}
                             </td>
                         </tr>
                     </table>
                 </td>
-                <td style="border-color: black;  text-align: center; padding: 5px; font-size: small" class="py-0">
+                <td class="py-0" style="border-color: black;  text-align: center; padding: 5px; font-size: small" >
 
                 </td>
 
