@@ -25,8 +25,8 @@
 
     @foreach($kardex as  $folio => $datalles )
 
-        <table class="table table-bordered table-hover table-striped table-xtra-condensed ">
-            <thead>
+        <table class="" style="width: 100%" >
+            <thead style="color: white">
             <tr class="text-center">
                 <th rowspan="2">Fecha</th>
                 <th colspan="2">DOCUMENTO NO.</th>
@@ -51,29 +51,44 @@
             </thead>
             <tbody>
 
+                {{-- codigo del producto --}}
+                <tr style="font-size: 12px; text-align: center;">
+                    <td></td>
+                    <td>CODIGO</td>
+                    <td></td>
+                    <td></td>
+                    <td colspan="5"> NOMBRE DEL PRODUCTO</td>
+                    <td></td>
+                    <td>01/01/2023</td>
+                    <td></td>
+                    <td>06/01/2023</td>
+                </tr>
+                <tr>
+                    <td style="padding-bottom: 55px "></td>
+                </tr>
 
             @foreach($datalles as  $det )
 
-                <tr class="text-sm">
-                    <td>{{fechaLtn($det->created_at)}}</td>
-                    <td class="text-uppercase">{{$det->ingreso ? $det->codigo : ''}}</td>
-                    <td class="text-uppercase">{{$det->salida ? $det->codigo : ''}}</td>
-                    <td class="text-uppercase">{{$det->responsable}}</td>
-                    <td>{{$det->ingreso}}</td>
-                    <td>{{$det->ingreso ? nfp($det->precio) : ''}}</td>
-                    <td>{{$det->ingreso ? nfp($det->precio * $det->ingreso) : ''}}</td>
-                    <td>{{$det->salida}}</td>
-                    <td>{{$det->salida ? nfp($det->precio) : $det->salida}}</td>
-                    <td>{{$det->salida ? nfp($det->precio * $det->salida) : ''}}</td>
+                <tr style="font-size: 12px; text-align: center;">
+                    <td style="width: 5.53%">{{fechaLtn($det->created_at)}}</td>
+                    <td class="text-uppercase" style="width: 5.93%">{{$det->ingreso ? $det->codigo : ''}}</td>
+                    <td class="text-uppercase" style="width: 6.72%">{{$det->salida ? $det->codigo : ''}}</td>
+                    <td class="text-uppercase" style="width: 15.81%">{{$det->responsable}}</td>
+                    <td style="width: 6.32%">{{$det->ingreso}}</td>
+                    <td style="width: 6.32%">{{$det->ingreso ? nfp($det->precio) : ''}}</td>
+                    <td style="width: 8.70%">{{$det->ingreso ? nfp($det->precio * $det->ingreso) : ''}}</td>
+                    <td style="width: 5.93%">{{$det->salida}}</td>
+                    <td style="width: 6.72%">{{$det->salida ? nfp($det->precio) : $det->salida}}</td>
+                    <td style="width: 9.49%">{{$det->salida ? nfp($det->precio * $det->salida) : ''}}</td>
 
                     @php
                         $saldo+=$det->ingreso-=$det->salida
                     @endphp
-                    <td class="{{$loop->last ? 'text-bold' :''}}">
+                    <td style="width: 6.72%" class="{{$loop->last ? 'text-bold' :'000-xxx'}}">
                         {{$saldo}}
                     </td>
-                    <td>{{nfp($det->precio)}}</td>
-                    <td>{{nfp($det->precio * $saldo)}}</td>
+                    <td style="width: 6.72%">{{nfp($det->precio)}}</td>
+                    <td style="width: 9.09%">{{nfp($det->precio * $saldo)}}</td>
                 </tr>
             @endforeach
             </tbody>
