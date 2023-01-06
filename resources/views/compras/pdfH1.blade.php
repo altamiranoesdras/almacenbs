@@ -215,11 +215,12 @@
                     text-align: right;
                     font-size: 12px;
                     padding-right: 8px;
+                    padding-bottom: 0;
                     ">
 
-                    <table style="width: 101%; height: 100%" border="0" >
+                    <table style="width: 109%; height: 100%" border="0" >
                         <tr >
-                            <td style="border-bottom: solid;border-width: 1px">
+                            <td style="border-bottom-style: solid;">
                                 {{dvs().nf($total)}}
                             </td>
                         </tr>
