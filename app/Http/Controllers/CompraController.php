@@ -423,8 +423,8 @@ class CompraController extends AppBaseController
             // ->setOption('footer-html',utf8_decode($footer))
             ->setOption('margin-top', 30)
             ->setOption('margin-bottom',3)
-            ->setOption('margin-left',10)
-            ->setOption('margin-right',16);
+            ->setOption('margin-left',9)
+            ->setOption('margin-right',17);
         // ->stream('report.pdf');
 
         return $pdf->inline('CompraH1-'.$compra->id. '_'. time().'.pdf');
