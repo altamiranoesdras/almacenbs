@@ -57,14 +57,14 @@
                 <tr class="text-sm" style="font-size: 12px; text-align: center;">
                     <td style="width: 5.53%">{{fechaLtn($det->created_at)}}</td>
                     <td class="text-uppercase" style="width: 5.93%">{{$det->ingreso ? $det->codigo : ''}}</td>
-                    <td class="text-uppercase" style="width: 6.72%">{{$det->salida ? $det->codigo : ''}} 000-xxx</td>
+                    <td class="text-uppercase" style="width: 6.72%">{{$det->salida ? $det->codigo : ''}}</td>
                     <td class="text-uppercase" style="width: 15.81%">{{$det->responsable}}</td>
                     <td style="width: 6.32%">{{$det->ingreso}}</td>
                     <td style="width: 6.32%">{{$det->ingreso ? nfp($det->precio) : ''}}</td>
                     <td style="width: 8.70%">{{$det->ingreso ? nfp($det->precio * $det->ingreso) : ''}}</td>
-                    <td style="width: 5.93%">{{$det->salida}} 150</td>
-                    <td style="width: 6.72%">{{$det->salida ? nfp($det->precio) : $det->salida}} 150</td>
-                    <td style="width: 9.49%">{{$det->salida ? nfp($det->precio * $det->salida) : ''}} 150</td>
+                    <td style="width: 5.93%">{{$det->salida}}</td>
+                    <td style="width: 6.72%">{{$det->salida ? nfp($det->precio) : $det->salida}}</td>
+                    <td style="width: 9.49%">{{$det->salida ? nfp($det->precio * $det->salida) : ''}}</td>
 
                     @php
                         $saldo+=$det->ingreso-=$det->salida
