@@ -57,6 +57,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Query\Builder|Kardex withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Kardex withoutTrashed()
  * @mixin \Eloquent
+ * @property-read mixed $precio
  */
 class Kardex extends Model
 {

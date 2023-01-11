@@ -76,6 +76,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read mixed $anio
  * @property-read mixed $mes
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereFolioAlmacen($value)
+ * @property string|null $folio_inventario
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereFolioInventario($value)
  */
 class Compra extends Model
 {
