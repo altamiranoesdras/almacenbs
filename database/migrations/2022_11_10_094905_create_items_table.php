@@ -23,6 +23,7 @@ class CreateItemsTable extends Migration
             $table->unsignedBigInteger('tipo_id')->index('fk_items_item_tipos1_idx');
             $table->unsignedBigInteger('renglon_id')->index('fk_items_renglones1_idx');
             $table->unsignedBigInteger('marca_id')->nullable()->index('fk_items_marcas1_idx');
+            $table->unsignedBigInteger('modelo_id')->nullable()->index('fk_items_item_modelos1_idx');
             $table->unsignedBigInteger('unimed_id')->nullable()->index('fk_items_unimeds1_idx');
             $table->unsignedBigInteger('presentacion_id')->nullable()->index('fk_items_item_presentaciones1_idx');
             $table->unsignedBigInteger('categoria_id')->nullable()->index('fk_items_icategorias1_idx');
