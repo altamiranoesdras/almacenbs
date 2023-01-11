@@ -60,19 +60,17 @@
                 {!! Form::number('precio_compra', null, ['class' => 'form-control','step'=>".01"]) !!}
             </div>
 
-            <!-- Icategoria Id Field -->
-            <div class="form-group col-sm-12">
-                {!! Form::label('icatecoria_id','Categorias: ') !!}
-                <a class="success" data-toggle="modal" href="#modal-form-icategorias" tabindex="1000">Nueva</a>
-                {!!
-                    Form::select(
-                        'categorias[]',
-                        select(\App\Models\ItemCategoria::class,'nombre','id',null)
-                        , $categoriasItem ?? null
-                        , ['id'=>'icatecorias','class' => 'form-control ','multiple','style'=>'width: 100%']
-                    )
-                !!}
+
+
+
+            <div class="form-group col-sm-6">
+                <select-unimed v-model="unimed" label="Unidad de medida"></select-unimed>
             </div>
+
+            <div class="form-group col-sm-6">
+                <select-item-presentacion v-model="presentacion" label="Presentación"></select-item-presentacion>
+            </div>
+
 
             <div class="form-group col-sm-6">
                 <select-renglon v-model="renglon" label="Renglón"></select-renglon>
@@ -116,16 +114,25 @@
                     <div class="form-group col-sm-6">
                         <!-- Descripcion Field -->
                         <div class="form-group col-sm-12 col-lg-12">
-                            {!! Form::label('descripcion', 'Descripcion:') !!}
+                            {!! Form::label('descripcion', 'Descripción / Características:') !!}
                             {!! Form::textarea('descripcion', null, ['id' => 'editor','class' => '']) !!}
                         </div>
                     </div>
                     <div class="form-group col-sm-6">
                         <div class="row">
 
-                            <!-- Unimed Id Field -->
-                            <div class="form-group col-sm-6">
-                                <select-unimed v-model="unimed" label="Unidad de medida"></select-unimed>
+                            <!-- Icategoria Id Field -->
+                            <div class="form-group col-sm-12">
+                                {!! Form::label('icatecoria_id','Categorías: ') !!}
+                                <a class="success" data-toggle="modal" href="#modal-form-icategorias" tabindex="1000">Nueva</a>
+                                {!!
+                                    Form::select(
+                                        'categorias[]',
+                                        select(\App\Models\ItemCategoria::class,'nombre','id',null)
+                                        , $categoriasItem ?? null
+                                        , ['id'=>'icatecorias','class' => 'form-control ','multiple','style'=>'width: 100%']
+                                    )
+                                !!}
                             </div>
 
                             <!-- Marca Id Field -->
@@ -246,7 +253,8 @@
             renglon : @json($item->renglon ?? \App\Models\Renglon::find(old('renglon_id')) ?? null),
             marca : @json($item->marca ?? \App\Models\Marca::find(old('marca_id')) ?? null),
             unimed : @json($item->unimed ?? \App\Models\Marca::find(old('unimed_id')) ?? null),
-            tipo : @json($item->tipo ?? \App\Models\ItemTipo::find(old('tipo_id')) ?? null)
+            tipo : @json($item->tipo ?? \App\Models\ItemTipo::find(old('tipo_id')) ?? null),
+            presentacion : @json($item->presentacion ?? \App\Models\ItemPresentacion::find(old('presentacion_id')) ?? null)
         },
         methods: {
             getDatos(){

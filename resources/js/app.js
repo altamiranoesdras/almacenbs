@@ -171,3 +171,6 @@ Vue.component('select-activo-solicitud-tipo',SelectActivoSolicitudTipo)
 
 import SelectBodegas from "./components/SelectBodegas";
 Vue.component('select-bodega',SelectBodegas)
+
+import SelectItemPresentacion from "./components/SelectItemPresentacion";
+Vue.component('select-item-presentacion',SelectItemPresentacion)
