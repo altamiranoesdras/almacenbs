@@ -54,7 +54,7 @@ class MarcaAPIController extends AppBaseController
         /** @var Marca $marca */
         $marca = Marca::create($input);
 
-        return $this->sendResponse($marca->toArray(), 'Marca guardado exitosamente');
+        return $this->sendResponse($marca->toArray(), 'Marca guardada exitosamente');
     }
 
     /**
@@ -98,7 +98,7 @@ class MarcaAPIController extends AppBaseController
         $marca->fill($request->all());
         $marca->save();
 
-        return $this->sendResponse($marca->toArray(), 'Marca actualizado con éxito');
+        return $this->sendResponse($marca->toArray(), 'Marca actualizada con éxito');
     }
 
     /**
@@ -122,6 +122,6 @@ class MarcaAPIController extends AppBaseController
 
         $marca->delete();
 
-        return $this->sendSuccess('Marca deleted successfully');
+        return $this->sendSuccess('Marca eliminada con éxito');
     }
 }

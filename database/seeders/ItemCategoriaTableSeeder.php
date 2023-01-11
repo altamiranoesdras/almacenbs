@@ -20,12 +20,15 @@ class ItemCategoriaTableSeeder extends Seeder
 
             DB::table('item_categorias')->truncate();
 
-            ItemCategoria::factory()->count(5)->create()->each(function (ItemCategoria $icategoria){
+            if (app()->environment()=="local"){
 
-                if (config('app.seed_img')){
-                    $icategoria->addMediaFromUrl("https://picsum.photos/600/400")->toMediaCollection('categories');
-                }
-            });
+                ItemCategoria::factory()->count(5)->create()->each(function (ItemCategoria $icategoria){
+
+                    if (config('app.seed_img')){
+                        $icategoria->addMediaFromUrl("https://picsum.photos/600/400")->toMediaCollection('categories');
+                    }
+                });
+            }
         }
 
 

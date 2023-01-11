@@ -36,7 +36,7 @@ class ItemModeloAPIController extends AppBaseController
 
         $itemModelos = $query->get();
 
-        return $this->sendResponse($itemModelos->toArray(), 'Item Modelos retrieved successfully');
+        return $this->sendResponse($itemModelos->toArray(), 'Modelos retrieved successfully');
     }
 
     /**
@@ -54,7 +54,7 @@ class ItemModeloAPIController extends AppBaseController
         /** @var ItemModelo $itemModelo */
         $itemModelo = ItemModelo::create($input);
 
-        return $this->sendResponse($itemModelo->toArray(), 'Item Modelo guardado exitosamente');
+        return $this->sendResponse($itemModelo->toArray(), 'Modelo guardado  con éxito');
     }
 
     /**
@@ -71,10 +71,10 @@ class ItemModeloAPIController extends AppBaseController
         $itemModelo = ItemModelo::find($id);
 
         if (empty($itemModelo)) {
-            return $this->sendError('Item Modelo no encontrado');
+            return $this->sendError('Modelo no encontrado');
         }
 
-        return $this->sendResponse($itemModelo->toArray(), 'Item Modelo retrieved successfully');
+        return $this->sendResponse($itemModelo->toArray(), 'Modelo retrieved successfully');
     }
 
     /**
@@ -92,13 +92,13 @@ class ItemModeloAPIController extends AppBaseController
         $itemModelo = ItemModelo::find($id);
 
         if (empty($itemModelo)) {
-            return $this->sendError('Item Modelo no encontrado');
+            return $this->sendError('Modelo no encontrado');
         }
 
         $itemModelo->fill($request->all());
         $itemModelo->save();
 
-        return $this->sendResponse($itemModelo->toArray(), 'ItemModelo actualizado con éxito');
+        return $this->sendResponse($itemModelo->toArray(), 'Modelo actualizado con éxito');
     }
 
     /**
@@ -117,11 +117,11 @@ class ItemModeloAPIController extends AppBaseController
         $itemModelo = ItemModelo::find($id);
 
         if (empty($itemModelo)) {
-            return $this->sendError('Item Modelo no encontrado');
+            return $this->sendError('Modelo no encontrado');
         }
 
         $itemModelo->delete();
 
-        return $this->sendSuccess('Item Modelo deleted successfully');
+        return $this->sendSuccess('Modelo deleted successfully');
     }
 }

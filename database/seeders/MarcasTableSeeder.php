@@ -22,12 +22,15 @@ class MarcasTableSeeder extends Seeder
 
             DB::table('marcas')->truncate();
 
-            Marca::factory()->count(5)->create()->each(function (Marca $marca){
+            if (app()->environment()=='local'){
 
-                if (config('app.seed_img')){
-                    $marca->addMediaFromUrl("https://picsum.photos/600/400")->toMediaCollection('marcas');
-                }
-            });
+                Marca::factory()->count(5)->create()->each(function (Marca $marca){
+
+                    if (config('app.seed_img')){
+                        $marca->addMediaFromUrl("https://picsum.photos/600/400")->toMediaCollection('marcas');
+                    }
+                });
+            }
 
         }
 

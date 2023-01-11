@@ -140,6 +140,11 @@
                                 <select-marca v-model="marca" label="Marca"></select-marca>
                             </div>
 
+                            <!-- Modelo Id Field -->
+                            <div class="form-group col-sm-6">
+                                <select-item-modelo v-model="modelo" label="Modelo"></select-item-modelo>
+                            </div>
+
                             <!-- Ubicacion Field -->
                             <div class="form-group col-sm-12">
                                 {!! Form::label('ubicacion', 'Ubicacion:') !!}
@@ -252,6 +257,7 @@
         data: {
             renglon : @json($item->renglon ?? \App\Models\Renglon::find(old('renglon_id')) ?? null),
             marca : @json($item->marca ?? \App\Models\Marca::find(old('marca_id')) ?? null),
+            modelo : @json($item->modelo ?? \App\Models\ItemModelo::find(old('modelo_id')) ?? null),
             unimed : @json($item->unimed ?? \App\Models\Marca::find(old('unimed_id')) ?? null),
             tipo : @json($item->tipo ?? \App\Models\ItemTipo::find(old('tipo_id')) ?? null),
             presentacion : @json($item->presentacion ?? \App\Models\ItemPresentacion::find(old('presentacion_id')) ?? null)

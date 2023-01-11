@@ -2,6 +2,11 @@
     <div>
         <label v-text="label+':'"></label>
         <span class="text-danger" v-show="required">*</span>
+
+        <a href="#" v-if="!item" @click.prevent="newItem()" v-show="!disabled">
+            Nuevo
+        </a>
+
         <a href="#" v-if="item" @click.prevent="editItem(item)" v-show="!disabled">
             editar
         </a>
