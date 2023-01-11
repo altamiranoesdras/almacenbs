@@ -20,11 +20,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property integer $folio_almacen
  * @property integer $folio_inventario
  * @property string $codigo_inventario
+ * @property string $texto_extra
  * @property int $id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \App\Models\Compra1h $f1h
+ * @property-read \App\Models\Compra1h $compra1h
  * @property-read mixed $sub_total
  * @method static \Database\Factories\Compra1hDetalleFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle newModelQuery()
@@ -69,7 +70,8 @@ class Compra1hDetalle extends Model
         'cantidad',
         'folio_almacen',
         'folio_inventario',
-        'codigo_inventario'
+        'codigo_inventario',
+        'texto_extra'
     ];
 
     /**
@@ -109,7 +111,7 @@ class Compra1hDetalle extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
-    public function f1h()
+    public function compra1h()
     {
         return $this->belongsTo(\App\Models\Compra1h::class, '1h_id');
     }
@@ -125,5 +127,11 @@ class Compra1hDetalle extends Model
     public function getSubTotalAttribute()
     {
         return $this->cantidad * $this->precio;
+    }
+
+    public function getTextAttribute()
+    {
+        $textoExtra = $this->texto_extra ? " / ".$this->texto_extra : '';
+        return $this->item->texto_principal.$textoExtra;
     }
 }

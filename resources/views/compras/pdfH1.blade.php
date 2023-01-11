@@ -111,7 +111,7 @@
                          padding-left: 0px;
                          font-size: small">
 
-                         {{strtoupper($det->item->texto_principal)}}
+                         {{strtoupper($det->text)}}
                     </td>
                     <td class="" style="border-color: black;
                         width: 10.53%;

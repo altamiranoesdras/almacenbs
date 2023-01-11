@@ -1,6 +1,7 @@
 <table class="table table-bordered table-hover table-xtra-condensed">
     <thead>
     <tr  class="text-center">
+        <th>id</th>
         <th>Cantidad</th>
         <th>Descripción Articulo</th>
         <th>U/M</th>
@@ -15,8 +16,19 @@
     <tbody>
     @foreach($compra->compra1h->detalles as $det)
         <tr >
+            <td>{{nf($det->item->id)}}</td>
             <td>{{nf($det->cantidad)}}</td>
-            <td>{{$det->item->texto_principal}}</td>
+            <td>
+                {{$det->item->texto_principal}}
+                @if($det->item->esGrupo300())
+                <input type="text"
+                       class="form-control form-control-sm"
+                       placeholder="Series o descripción adicional"
+                       name="textos_extras[{{$det->id}}]"
+                       value="{{$det->texto_extra ?? ''}}"
+                >
+                @endif
+            </td>
             <td>{{$det->item->unimed->nombre}}</td>
             <td>{{$det->item->renglon->numero}}</td>
             <td>{{$compra->folio_almacen ?? ''}}</td>

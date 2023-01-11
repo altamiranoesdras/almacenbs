@@ -661,4 +661,9 @@ class Item extends Model implements HasMedia
 
         return $this->stocks->where('bodega_id',$bodega)->sum('cantidad');
     }
+
+    public function esGrupo300()
+    {
+        return $this->renglon->numero >= 300 && $this->renglon->numero < 400;
+    }
 }

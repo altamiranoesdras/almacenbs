@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Response;
 use Carbon\Carbon;
 use App\Models\Item;
@@ -556,8 +557,27 @@ class CompraController extends AppBaseController
             return redirect(route('compra1hs.index'));
         }
 
-        $compra1h->fill($request->all());
-        $compra1h->save();
+        try {
+            DB::beginTransaction();
+
+
+            $compra1h->fill($request->all());
+            $compra1h->save();
+
+            foreach ($compra1h->detalles as $index => $detalle) {
+                $detalle->texto_extra = $request->textos_extras[$detalle->id] ?? null;
+                $detalle->save();
+            }
+
+
+        } catch (Exception $exception) {
+            DB::rollBack();
+
+            throw new Exception($exception);
+        }
+
+        DB::commit();
+
 
         flash()->success('1H actualizado con éxito.');
 
