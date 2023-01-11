@@ -203,7 +203,10 @@ Route::group(['as'=>'api.'], function () {
 
         Route::resource('consumo_detalles', App\Http\Controllers\API\ConsumoDetalleAPIController::class);
 
+        Route::resource('item_modelos', App\Http\Controllers\API\ItemModeloAPIController::class);
+
     });
 
 
 });
+

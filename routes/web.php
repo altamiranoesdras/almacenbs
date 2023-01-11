@@ -284,6 +284,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::post('consumos/anular/{consumo}', [ConsumoController::class,'anular'])->name('consumos.anular');
     Route::resource('consumos', ConsumoController::class);
 
+    Route::resource('itemModelos', App\Http\Controllers\ItemModeloController::class);
+
 });
 
 
