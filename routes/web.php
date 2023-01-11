@@ -93,6 +93,10 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
         Route::resource('configurations', ConfigurationController::class);
 
+
+        Route::get('option/create/{option}', [OptionController::class,'create'])->name('option.create');
+        Route::get('option/orden', [OptionController::class,'updateOrden'])->name('option.order.store');
+        Route::resource('options',OptionController::class);
     });
 
 
@@ -110,9 +114,6 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('user/{user}/menu', [UserController::class,'menu'])->name('user.menu');;
     Route::patch('user/menu/{user}', [UserController::class,'menuStore'])->name('users.menuStore');
 
-    Route::get('option/create/{option}', [OptionController::class,'create'])->name('option.create');
-    Route::get('option/orden', [OptionController::class,'updateOrden'])->name('option.order.store');
-    Route::resource('options',OptionController::class);
 
     Route::resource('roles', RoleController::class);
 

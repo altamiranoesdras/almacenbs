@@ -174,3 +174,6 @@ Vue.component('select-bodega',SelectBodegas)
 
 import SelectItemPresentacion from "./components/SelectItemPresentacion";
 Vue.component('select-item-presentacion',SelectItemPresentacion)
+
+import SelectItemModelo from "./components/SelectItemModelo";
+Vue.component('select-item-modelo',SelectItemModelo);
