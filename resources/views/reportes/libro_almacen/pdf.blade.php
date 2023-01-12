@@ -20,9 +20,9 @@
 {{-- EL ROWSPAN SE TIENE QUE HACER UN COUNT DEL LIST DE LOS ITEMS + 1, ASI SE MOSTRARA CORRECTAMENTE--}}
 <div style="margin-top: 1.15cm;">
     @php
+        $borde = 1;
         $conteoLineas = 0;
-        $conteoDetalles = 0;
-        $maximoLineas = 20;
+        $maximoLineas = 25;
     @endphp
     @foreach($listadoCompras as $compra)
         @php
@@ -32,7 +32,7 @@
             }
         @endphp
 {{--        table table-bordered--}}
-        <table class=" table-sm text-sm" style="width: 100%; font-size: 13px;" >
+        <table class="table-sm text-sm {{$borde ? 'table-bordered' : ''}}" style="width: 100%; font-size: 13px;" >
             <tbody>
                 <tr style="">
                     <td style="width: 7.17%; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
@@ -64,13 +64,13 @@
 {{--                            {{ $conteoLineas }} ---}}
                             {{ $detalle->item->texto_libro_almacen }}
                         </td>
-                        <td style="width: 9.28%; text-align: center;" class="py-0">
+                        <td style="width: 9.28%; text-align: center;" class="py-0 text-right">
                             {{ nf( $detalle->cantidad ) }}
                         </td>
-                        <td style="width: 8.86%; text-align: center;" class="py-0">
+                        <td style="width: 8.86%; text-align: center;" class="py-0 text-right">
                             {{ dvs().nf( $detalle->precio ) }}
                         </td>
-                        <td style=" text-align: center;" class="py-0">
+                        <td style=" text-align: center;" class="py-0 text-right">
                             {{ dvs().nf( $detalle->sub_total ) }}
                         </td>
                     </tr>
@@ -85,7 +85,7 @@
                         <b class="pull-left">SUB TOTAL</b>
                     <td></td>
                     <td></td>
-                    <td style="">
+                    <td class="text-right">
                         <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 0;"></div>
                         {{ dvs().nf( $compra->detalles->sum('sub_total') ) }}
                         <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 2px;"></div>
@@ -116,7 +116,6 @@
 {{--                </tr>--}}
 {{--            </tfoot>--}}
         </table>
-       <div style="page-break-after:always;"></div>
     @endforeach
 </div>
 
