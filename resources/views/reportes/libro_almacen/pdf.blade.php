@@ -96,25 +96,7 @@
                     <td colspan="20">&nbsp;</td>
                 </tr>
             </tbody>
-{{--            <tfoot >--}}
-{{--                <tr>--}}
-{{--                    <td></td>--}}
-{{--                    <td></td>--}}
-{{--                    <td></td>--}}
-{{--                    <td></td>--}}
-{{--                    <td></td>--}}
-{{--                    <td style="vertical-align: middle;">--}}
-{{--                        <b class="pull-left">SUB TOTAL</b>--}}
-{{--                    <td></td>--}}
-{{--                    <td></td>--}}
-{{--                    <td style="">--}}
-{{--                        <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 0;"></div>--}}
-{{--                        {{ dvs().nf( $compra->total_venta ) }}--}}
-{{--                        <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 2px;"></div>--}}
-{{--                        <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 0;"></div>--}}
-{{--                    </td>--}}
-{{--                </tr>--}}
-{{--            </tfoot>--}}
+
         </table>
     @endforeach
 </div>
