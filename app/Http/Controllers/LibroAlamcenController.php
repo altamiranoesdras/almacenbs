@@ -53,13 +53,13 @@ class LibroAlamcenController extends Controller
 
         $pdf->loadHTML($view)
            ->setOption('page-width', 216)
-           ->setOption('page-height', 280)
+           ->setOption('page-height', 279)
             ->setOrientation('landscape')
             // ->setOption('footer-html',utf8_decode($footer))
-            ->setOption('margin-top', 52)
+            ->setOption('margin-top', 46)
             ->setOption('margin-bottom',0)
-            ->setOption('margin-left',24)
-            ->setOption('margin-right',20)
+            ->setOption('margin-left',15)
+            ->setOption('margin-right',15)
             ->stream('report.pdf')
             ;
 

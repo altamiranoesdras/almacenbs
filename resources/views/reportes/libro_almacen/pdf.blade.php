@@ -10,17 +10,9 @@
 
 <body style="width: 100%;">
 
-<div>
-    <span style="font-size: 1.4em">
-{{--        <span style="margin-left: 9.5cm; font-weight: 600">Libro Almacen</span><br>--}}
-        <div style="margin-top: 0.35cm"></div>
-    </span>
-</div>
 
-{{-- EL ROWSPAN SE TIENE QUE HACER UN COUNT DEL LIST DE LOS ITEMS + 1, ASI SE MOSTRARA CORRECTAMENTE--}}
-<div style="margin-top: 1.15cm;">
     @php
-        $borde = 1;
+        $borde = 0;
         $conteoLineas = 0;
         $maximoLineas = 25;
     @endphp
@@ -32,24 +24,24 @@
             }
         @endphp
 {{--        table table-bordered--}}
-        <table class="table-sm text-sm {{$borde ? 'table-bordered' : ''}}" style="width: 100%; font-size: 13px;" >
+        <table border="{{$borde}}" style="width: 100%; font-size: 12px;" >
             <tbody>
                 <tr style="">
-                    <td style="width: 7.17%; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
+                    <td style="width: 18mm; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
                         {{ fechaLtn($compra->fecha_ingreso) }}
                     </td>
-                    <td style="width: 7.59%; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
+                    <td style="width: 18mm; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
                         Serie: {{ $compra->serie }}
                         <br>
                         No. {{ $compra->numero }}
                     </td>
-                    <td style="width: 6.75%; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
+                    <td style="width: 16mm; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
                         {{ fechaLtn($compra->fecha_documento) }}
                     </td>
-                    <td style="width: 18.57%; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
+                    <td style="width: 44mm; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
                         {{ $compra->proveedor->nombre }}
                     </td>
-                    <td style="width: 8.02%; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
+                    <td style="width: 20mm; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
                         {{ $compra->proveedor->nit }}
                     </td>
                 </tr>
@@ -58,19 +50,16 @@
                         $conteoLineas ++;
                     @endphp
                     <tr>
-                        <td style="width: 23.21%;" class="py-0">
-{{--                            {{ $compra->id }} ---}}
-{{--                            {{ $detalle->id }} ---}}
-{{--                            {{ $conteoLineas }} ---}}
+                        <td style="width: 56mm;" class="py-0 pl-2">
                             {{ $detalle->item->texto_libro_almacen }}
                         </td>
-                        <td style="width: 9.28%; text-align: center;" class="py-0 text-right">
+                        <td style="width: 22mm; text-align: center;" class="py-0 text-center">
                             {{ nf( $detalle->cantidad ) }}
                         </td>
-                        <td style="width: 8.86%; text-align: center;" class="py-0 text-right">
+                        <td style="width: 21mm; text-align: center;" class="py-0 text-right pr-2">
                             {{ dvs().nf( $detalle->precio ) }}
                         </td>
-                        <td style=" text-align: center;" class="py-0 text-right">
+                        <td style="width: 24mm; text-align: center;" class="py-0 text-right pr-2">
                             {{ dvs().nf( $detalle->sub_total ) }}
                         </td>
                     </tr>
@@ -81,11 +70,11 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td style="vertical-align: middle;">
+                    <td style="vertical-align: middle;" class="pl-2">
                         <b class="pull-left">SUB TOTAL</b>
                     <td></td>
                     <td></td>
-                    <td class="text-right">
+                    <td class="text-right px-2">
                         <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 0;"></div>
                         {{ dvs().nf( $compra->detalles->sum('sub_total') ) }}
                         <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 2px;"></div>
@@ -99,7 +88,6 @@
 
         </table>
     @endforeach
-</div>
 
 </body>
 
