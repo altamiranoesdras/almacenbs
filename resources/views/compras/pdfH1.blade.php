@@ -57,7 +57,7 @@
             </td>
 
             <td style="width:18%; padding-left: 2cm" >
-                {{ $compra->orden_compra ?? "SIN NUMERO" }}
+                {{ $compra->orden_compra ?? "" }}
             </td>
         </tr>
     </table>
