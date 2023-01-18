@@ -600,6 +600,7 @@ class Item extends Model implements HasMedia
          */
         $stock =  $this->stocks
             ->where('precio_compra',$this->precio_compra)
+            ->where('bodega_id',Bodega::PRINCIPAL)
             ->sortBy('orden_salida')
             ->sortBy('fecha_vence')
             ->sortBy('created_at')
@@ -617,6 +618,7 @@ class Item extends Model implements HasMedia
         }else{
 
             $stock= Stock::create([
+                'bodega_id' => Bodega::PRINCIPAL,
                 'item_id' => $this->id,
                 'lote' =>  null,
                 'precio_compra' => $this->precio_compra,
