@@ -12,7 +12,7 @@
     @foreach($compra->detalles as $det)
         <tr >
             <td>{{$det->item->text}}</td>
-            <td class="text-right">{{dvs().nf($det->precio)}}</td>
+            <td class="text-right">{{dvs().nfp($det->precio)}}</td>
             <td class="text-right">{{nf($det->cantidad)}}</td>
             <td class="text-right">{{fecha($det->fecha_vence)}}</td>
             <td class="text-right">{{dvs().nf($det->cantidad*$det->precio)}}</td>
@@ -24,7 +24,7 @@
     <tr>
         <th colspan="4">Sub Total</th>
         <th class="text-right">
-            {{dvs().nf($compra->sub_total)}}
+            {{dvs().nfp($compra->sub_total,2)}}
         </th>
     </tr>
 

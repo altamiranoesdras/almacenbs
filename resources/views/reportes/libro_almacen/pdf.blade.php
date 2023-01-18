@@ -57,10 +57,10 @@
                             {{ nf( $detalle->cantidad ) }}
                         </td>
                         <td style="width: 21mm; text-align: center;" class="py-0 text-right pr-2">
-                            {{ dvs().nf( $detalle->precio ) }}
+                            {{ dvs().nfp( $detalle->precio ) }}
                         </td>
                         <td style="width: 24mm; text-align: center;" class="py-0 text-right pr-2">
-                            {{ dvs().nf( $detalle->sub_total ) }}
+                            {{ dvs().nfp( $detalle->sub_total ,2) }}
                         </td>
                     </tr>
                 @endforeach
@@ -76,7 +76,7 @@
                     <td></td>
                     <td class="text-right px-2">
                         <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 0;"></div>
-                        {{ dvs().nf( $compra->detalles->sum('sub_total') ) }}
+                        {{ dvs().nfp( $compra->detalles->sum('sub_total'),2 ) }}
                         <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 2px;"></div>
                         <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 0;"></div>
                     </td>

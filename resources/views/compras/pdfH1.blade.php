@@ -111,7 +111,7 @@
                          padding-left: 0px;
                          font-size: small">
 
-                         {{strtoupper($det->text)}}
+                         {{mb_strtoupper($det->text)}}
                     </td>
                     <td class="" style="border-color: black;
                         width: 10.53%;
@@ -140,7 +140,7 @@
                         text-align: right;
                         padding-right: 8px;
                         font-size: small" >
-                        {{dvs().nfp($det->sub_total)}}
+                        {{dvs().nfp($det->sub_total,2)}}
                     </td>
                     <td class="py-0" style="border-color: black;
                         width: 9.47%;
@@ -221,7 +221,7 @@
                     <table style="width: 109%; height: 100%" border="0" >
                         <tr >
                             <td style="border-bottom-style: solid;">
-                                {{dvs().nf($total)}}
+                                {{dvs().nfp($total,2)}}
                             </td>
                         </tr>
                     </table>
