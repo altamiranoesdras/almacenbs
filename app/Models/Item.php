@@ -411,7 +411,8 @@ class Item extends Model implements HasMedia
         $presentacion = $this->presentacion->nombre ?? '';
         $unidad = $this->unimed->nombre ?? '';
 
-        return $this->nombre."-".$presentacion." - ".$unidad;
+//        return $this->nombre."-".$presentacion." - ".$unidad;
+        return $this->nombre;
     }
 
 

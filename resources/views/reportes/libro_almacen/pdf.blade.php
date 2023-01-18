@@ -24,7 +24,7 @@
             }
         @endphp
 {{--        table table-bordered--}}
-        <table border="{{$borde}}" style="width: 100%; font-size: 12px;" >
+        <table border="{{$borde}}" style="width: 100%; font-size: 11px;" >
             <tbody>
                 <tr style="">
                     <td style="width: 18mm; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
