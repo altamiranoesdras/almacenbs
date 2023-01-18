@@ -25,6 +25,9 @@
 
     @foreach($kardex as  $folio => $datalles )
 
+        @php
+            $item = $datalles->first()->item;
+        @endphp
         <table class="" style="width: 100%" >
             <thead style="color: white">
             <tr class="text-center">
@@ -57,7 +60,9 @@
                     <td>CODIGO</td>
                     <td></td>
                     <td></td>
-                    <td colspan="5"> NOMBRE DEL PRODUCTO</td>
+                    <td colspan="5">
+                         {!! $item->texto_kardex  !!}
+                    </td>
                     <td></td>
                     <td>01/01/2023</td>
                     <td></td>
@@ -76,10 +81,10 @@
                     <td class="text-uppercase" style="width: 15.81%">{{$det->responsable}}</td>
                     <td style="width: 6.32%">{{$det->ingreso}}</td>
                     <td style="width: 6.32%">{{$det->ingreso ? nfp($det->precio) : ''}}</td>
-                    <td style="width: 8.70%">{{$det->ingreso ? nfp($det->precio * $det->ingreso) : ''}}</td>
+                    <td style="width: 8.70%">{{$det->ingreso ? nfp($det->precio * $det->ingreso,2) : ''}}</td>
                     <td style="width: 5.93%">{{$det->salida}}</td>
                     <td style="width: 6.72%">{{$det->salida ? nfp($det->precio) : $det->salida}}</td>
-                    <td style="width: 9.49%">{{$det->salida ? nfp($det->precio * $det->salida) : ''}}</td>
+                    <td style="width: 9.49%">{{$det->salida ? nfp($det->precio * $det->salida,2) : ''}}</td>
 
                     @php
                         $saldo+=$det->ingreso-=$det->salida
@@ -88,7 +93,7 @@
                         {{$saldo}}
                     </td>
                     <td style="width: 6.72%">{{nfp($det->precio)}}</td>
-                    <td style="width: 9.09%">{{nfp($det->precio * $saldo)}}</td>
+                    <td style="width: 9.09%">{{nfp($det->precio * $saldo,2)}}</td>
                 </tr>
             @endforeach
             </tbody>
