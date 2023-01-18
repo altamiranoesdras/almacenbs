@@ -211,6 +211,7 @@
             methods: {
 
                 nfp: function(numero){
+                    console.log(numero);
                     let decimales = parseInt(@json(config('app.cantidad_decimales_precio')));
                     return number_format(numero,decimales)
                 },

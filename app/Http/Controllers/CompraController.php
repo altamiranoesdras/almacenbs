@@ -93,6 +93,8 @@ class CompraController extends AppBaseController
     {
         $temporal = $this->compraTemporal();
 
+//        dd($temporal->detalles->first()->toArray());
+
         return view('compras.create',compact('temporal'));
     }
 

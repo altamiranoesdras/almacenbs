@@ -18,8 +18,8 @@ class CreateCompraDetallesTable extends Migration
             $table->unsignedBigInteger('compra_id')->index('fk_compra_detalles_compra1_idx');
             $table->unsignedBigInteger('item_id')->index('fk_compra_detalles_items1_idx');
             $table->decimal('cantidad', 12);
-            $table->decimal('precio', 12);
-            $table->decimal('descuento', 12)->default(0.00);
+            $table->decimal('precio', 12,4);
+            $table->decimal('descuento', 12,4)->default(0);
             $table->date('fecha_vence')->nullable();
             $table->timestamps();
             $table->softDeletes();
