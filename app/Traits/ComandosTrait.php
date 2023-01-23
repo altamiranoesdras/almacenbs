@@ -4,6 +4,7 @@
 namespace App\Traits;
 
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 
 trait ComandosTrait
@@ -19,7 +20,7 @@ trait ComandosTrait
      * Devuelve el texto "Tiempo empleado: ". $minutes.' min '. $seconds." Segundos"
      * @return string
      */
-    public function fin()
+    public function fin(Collection $errores)
     {
 
         $tiempoFin = microtime(true);
@@ -31,6 +32,18 @@ trait ComandosTrait
         $this->info("\n### Fin ####");
         $tiempoEmpleadoText = "Tiempo empleado: ". $minutes.' min '. $seconds." Segundos";
         $this->info($tiempoEmpleadoText);
+
+
+        if ($errores->count() > 0){
+
+            $this->output->error("Errores");
+            dump($errores->toArray());
+
+        }else{
+
+            $this->output->success('Importación Exitosa!');
+
+        }
 
         return $tiempoEmpleadoText;
     }
