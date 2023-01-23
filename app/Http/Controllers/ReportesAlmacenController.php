@@ -126,7 +126,9 @@ class ReportesAlmacenController extends Controller
             $query = $query->where('cantidad','0');
         }
 
-        $stocks = $query->conIngresos()->get();
+        $stocks = $query
+//            ->conIngresos()
+            ->get();
 
         return view('reportes.stock.index_old',compact('stocks','renglon','bodega_id','stock','buscar'));
 
