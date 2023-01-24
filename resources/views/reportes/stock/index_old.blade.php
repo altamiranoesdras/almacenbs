@@ -123,7 +123,7 @@
                                                     <td>{{$det->item->renglon->numero}}</td>
                                                     <td>{{$det->item->unimed->nombre}}</td>
                                                     <td>{{fechaLtn($det->fecha_vence)}}</td>
-                                                    <td>{{nf($det->cantidad)}}</td>
+                                                    <td>{{nf($det->cantidad,0)}}</td>
                                                     <td>{{ dvs().nfp($det->precio_compra)}}</td>
                                                     <td>{{ dvs().nfp($det->sub_total)}}</td>
                                                 </tr>
