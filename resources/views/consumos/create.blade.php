@@ -27,11 +27,11 @@
 
             @include('layouts.errores')
 
-            {!! Form::model($consumo, ['route' => ['consumos.update', $consumo->id], 'method' => 'patch']) !!}
+            {!! Form::model($consumo, ['route' => ['consumos.update', $consumo->id], 'method' => 'patch','class' => 'esperar']) !!}
             <div class="row mt-2">
 
                 <!-- Articulos -->
-                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 ">
                     <div class="card card-info card-outline">
                         <div class="card-header with-border py-2">
                             <h3 class="card-title">
@@ -204,7 +204,7 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Solicitar requisicion!</h5>
+                                            <h5 class="modal-title">Procesar Consumo!</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                         </div>
                                         <div class="modal-body">
@@ -212,7 +212,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
-                                            <button type="submit" class="btn btn-primary" name="procesar" value="1">
+                                            <button type="submit" class="btn btn-primary" name="procesar" value="1" onclick="esperar()">
                                                 SI
                                             </button>
                                         </div>

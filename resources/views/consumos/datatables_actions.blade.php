@@ -12,14 +12,17 @@
     @endcan
 @endif
 
-@can('Eliminar Consumos')
-<a href="#" onclick="deleteItemDt(this)" data-id="{{$id}}" data-toggle="tooltip" title="Anular" class='btn btn-outline-danger btn-sm'>
-    <i class="fa fa-ban"></i>
-</a>
+@if($consumo->puedeAnular())
+
+    @can('Eliminar Consumos')
+    <a href="#" onclick="deleteItemDt(this)" data-id="{{$id}}" data-toggle="tooltip" title="Anular" class='btn btn-outline-danger btn-sm'>
+        <i class="fa fa-ban"></i>
+    </a>
 
 
-<form action="{{ route('consumos.anular', $id)}}" method="POST" id="delete-form{{$id}}">
-    @method('POST')
-    @csrf
-</form>
-@endcan
+    <form action="{{ route('consumos.anular', $id)}}" method="POST" id="delete-form{{$id}}">
+        @method('POST')
+        @csrf
+    </form>
+    @endcan
+@endif
