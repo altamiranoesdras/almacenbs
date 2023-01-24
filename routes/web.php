@@ -135,7 +135,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('compras/factura/pdf/{compra}', [CompraController::class,'pdf'])->name('compra.pdf');
     Route::get('compras/h1/pdf/{compra}', [CompraController::class,'pdfH1'])->name('compra.h1.pdf');
     Route::post('comprar/actualizar/1h/{compra}',[CompraController::class,'actualizar1h'])->name('compra.actualiza.1h');
-    Route::get('comprar/generar/1h/{compra}',[CompraController::class,'generar1h'])->name('compra.generar.1h');
+    Route::post('comprar/generar/1h/{compra}',[CompraController::class,'generar1h'])->name('compra.generar.1h');
 
     Route::post('compras/actualizar/procesada/{compra}', [CompraController::class,'actualizarProcesada'])->name('compras.actualizar.procesada');
     Route::resource('compras', CompraController::class);
@@ -225,6 +225,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
 
     Route::get('reportes/kardex/{folio}', [ReportesAlmacenController::class,'kardexPdf'])->name('reportes.kardex.pdf');
+    Route::patch('reportes/kardex/{folio}', [ReportesAlmacenController::class,'actualizaKardex'])->name('reportes.kardex.actualizar');
     Route::get('reportes/kardex', [ReportesAlmacenController::class,'kardex'])->name('reportes.kardex');
     Route::get('reportes/stock', [ReportesAlmacenController::class,'stock'])->name('reportes.stock');
     Route::get('reportes/items/vencen', [ReportesAlmacenController::class,'itemsAvencer'])->name('reportes.items.vencen');

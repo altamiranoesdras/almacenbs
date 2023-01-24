@@ -450,6 +450,7 @@ class CompraController extends AppBaseController
              * @var Compra1h $compra1h
              */
             $compra1h = Compra1h::create([
+                'folio' => request()->folio,
                 'compra_id' => $compra->id,
                 'envio_fiscal_id' => 1,
                 'codigo' => $this->getCodigo1h(),

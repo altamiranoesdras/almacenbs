@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \App\Models\User $usuarioProcesa
  * @property \App\Models\EnvioFiscal $envioFiscal
  * @property \Illuminate\Database\Eloquent\Collection $compra1hDetalles
+ * @property string $folio
  * @property integer $compra_id
  * @property integer $envio_fiscal_id
  * @property string $codigo
@@ -69,6 +70,7 @@ class Compra1h extends Model
 
 
     public $fillable = [
+        'folio',
         'compra_id',
         'envio_fiscal_id',
         'codigo',

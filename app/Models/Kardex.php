@@ -18,6 +18,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property integer $item_id
  * @property integer $model_id
  * @property integer $folio
+ * @property string $codigo_insumo
+ * @property string $del
+ * @property string $al
  * @property string $model_type
  * @property number $cantidad
  * @property string $tipo
@@ -93,6 +96,9 @@ class Kardex extends Model
         'model_id',
         'model_type',
         'folio',
+        'codigo_insumo',
+        'del',
+        'al',
         'cantidad',
         'tipo',
         'codigo',

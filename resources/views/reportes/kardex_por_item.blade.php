@@ -38,8 +38,8 @@
                                     {!!
                                         Form::select(
                                             'item_id',
-                                            select(\App\Models\Item::conIngresos(),'text','id',null)
-                                            , $item_id ?? null
+                                            select(\App\Models\Item::whereHas('stocks'),'text','id',null)
+                                            , $item->id ?? null
                                             , ['id'=>'items','class' => 'form-control ','multiple','style'=>'width: 100%']
                                         )
                                     !!}
@@ -74,74 +74,126 @@
 
                     @if(isset($buscar))
                         @if($kardex->count() > 0)
+
                             <div class="card ">
                                 <div class="card-body">
-                                    <div class="table-responsive">
+                                    <h3 class="text-info">
+                                        {{$item->text}}
+                                    </h3>
 
                                         @foreach($kardex as  $folio => $datalles )
+                                            @php
+                                                $codigo_insumo = $datalles->first()->codigo_insumo;
+                                                $del = $datalles->first()->del;
+                                                $al = $datalles->first()->al;
+                                            @endphp
 
-                                            <h2 class="float-right">
-                                                Folio: <span class="text-danger">{{$folio}}</span>
-                                                <a href="{{route('reportes.kardex.pdf',$folio)}}" target="_blank" class="btn btn-primary">
-                                                    <i class="fa fa-print"></i>
-                                                    Imprimir
-                                                </a>
-                                            </h2>
-                                            <table class="table table-bordered table-hover table-striped table-xtra-condensed ">
-                                                <thead>
-                                                <tr class="text-center">
-                                                    <th rowspan="2">Fecha</th>
-                                                    <th colspan="2">DOCUMENTO NO.</th>
-                                                    <th rowspan="2">Nombre Solicitante</th>
-                                                    <th colspan="3">Entradas</th>
-                                                    <th colspan="3">Salidas</th>
-                                                    <th colspan="3">Existencias</th>
-                                                </tr>
-                                                <tr class="text-center">
-                                                    <th>Forma 1H</th>
-                                                    <th>Requisición</th>
-                                                    <th>Cantidad</th>
-                                                    <th>P.U.</th>
-                                                    <th>Valor Total</th>
-                                                    <th>Cantidad</th>
-                                                    <th>P.U.</th>
-                                                    <th>Valor Total</th>
-                                                    <th>Cantidad</th>
-                                                    <th>P.U.</th>
-                                                    <th>Valor Total</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
+                                        <form action="{{route('reportes.kardex.actualizar',$folio)}}" method="post">
+                                            @csrf
+                                            @method('PATCH')
 
+                                            <div class="row  mp-1">
+                                                <div class="col-sm-6">
 
-                                                @foreach($datalles as  $det )
+                                                    <div class="row">
 
-                                                    <tr class="text-sm">
-                                                        <td>{{fechaLtn($det->created_at)}}</td>
-                                                        <td class="text-uppercase">{{$det->ingreso ? $det->codigo : ''}}</td>
-                                                        <td class="text-uppercase">{{$det->salida ? $det->codigo : ''}}</td>
-                                                        <td class="text-uppercase">{{$det->responsable}}</td>
-                                                        <td>{{$det->ingreso}}</td>
-                                                        <td>{{$det->ingreso ? nfp($det->precio) : ''}}</td>
-                                                        <td>{{$det->ingreso ? nfp($det->precio * $det->ingreso) : ''}}</td>
-                                                        <td>{{$det->salida}}</td>
-                                                        <td>{{$det->salida ? nfp($det->precio) : $det->salida}}</td>
-                                                        <td>{{$det->salida ? nfp($det->precio * $det->salida) : ''}}</td>
+                                                        <div class="col-sm-4">
+                                                            {!! Form::label('codigo_insumo', 'Código:') !!}
+                                                            {!! Form::text('codigo_insumo', $codigo_insumo, ['class' => 'form-control']) !!}
+                                                        </div>
 
-                                                        @php
-                                                            $saldo+=$det->ingreso-=$det->salida
-                                                        @endphp
-                                                        <td class="{{$loop->last ? 'text-bold' :''}}">
-                                                            {{$saldo}}
-                                                        </td>
-                                                        <td>{{nfp($det->precio)}}</td>
-                                                        <td>{{nfp($det->precio * $saldo)}}</td>
+                                                        <div class="col-sm-4">
+                                                            {!! Form::label('del', 'Del:') !!}
+                                                            {!! Form::date('del', $del, ['class' => 'form-control']) !!}
+                                                        </div>
+
+                                                        <div class="col-sm-4">
+                                                            {!! Form::label('al', 'Al:') !!}
+                                                            {!! Form::date('al', $al, ['class' => 'form-control']) !!}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 pt-3 pb-0 text-right" >
+
+                                                    <h3 class="mt-3">
+                                                        Folio: <span class="text-danger">{{$folio}}</span>
+                                                    </h3>
+                                                </div>
+                                            </div>
+
+                                            <div class="table-responsive mt-1">
+                                                <table class="table table-bordered table-hover table-striped table-xtra-condensed ">
+                                                    <thead>
+                                                    <tr class="text-center">
+                                                        <th rowspan="2">Fecha</th>
+                                                        <th colspan="2">DOCUMENTO NO.</th>
+                                                        <th rowspan="2">Nombre Solicitante</th>
+                                                        <th colspan="3">Entradas</th>
+                                                        <th colspan="3">Salidas</th>
+                                                        <th colspan="3">Existencias</th>
                                                     </tr>
-                                                @endforeach
-                                                </tbody>
-                                            </table>
+                                                    <tr class="text-center">
+                                                        <th>Forma 1H</th>
+                                                        <th>Requisición</th>
+                                                        <th>Cantidad</th>
+                                                        <th>P.U.</th>
+                                                        <th>Valor Total</th>
+                                                        <th>Cantidad</th>
+                                                        <th>P.U.</th>
+                                                        <th>Valor Total</th>
+                                                        <th>Cantidad</th>
+                                                        <th>P.U.</th>
+                                                        <th>Valor Total</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+
+
+                                                    @foreach($datalles as  $det )
+
+                                                        <tr class="text-sm text-right">
+                                                            <td>{{fechaLtn($det->created_at)}}</td>
+                                                            <td class="text-uppercase">{{$det->ingreso ? $det->codigo : ''}}</td>
+                                                            <td class="text-uppercase">{{$det->salida ? $det->codigo : ''}}</td>
+                                                            <td class="text-uppercase">{{$det->responsable}}</td>
+                                                            <td>{{$det->ingreso}}</td>
+                                                            <td>{{$det->ingreso ? nfp($det->precio) : ''}}</td>
+                                                            <td>{{$det->ingreso ? nfp($det->precio * $det->ingreso,2) : ''}}</td>
+                                                            <td>{{$det->salida}}</td>
+                                                            <td>{{$det->salida ? nfp($det->precio) : $det->salida}}</td>
+                                                            <td>{{$det->salida ? nfp($det->precio * $det->salida,2) : ''}}</td>
+
+                                                            @php
+                                                                $saldo+=$det->ingreso-=$det->salida
+                                                            @endphp
+                                                            <td class="{{$loop->last ? 'text-bold' :''}}">
+                                                                {{$saldo}}
+                                                            </td>
+                                                            <td>{{nfp($det->precio)}}</td>
+                                                            <td>{{nfp($det->precio * $saldo,2)}}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-12 text-right">
+
+                                                    <input type="hidden" name="item_id" value="{{$item->id}}">
+                                                    <button type="submit" class="btn btn-success mr-3">
+                                                        <i class="fa fa-save"></i>
+                                                        Actualizar
+                                                    </button>
+
+                                                    <a href="{{route('reportes.kardex.pdf',$folio)}}" target="_blank" class="btn btn-primary">
+                                                        <i class="fa fa-print"></i>
+                                                        Imprimir
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </form>
                                         @endforeach
-                                    </div>
                                 </div>
                             </div>
                         @else

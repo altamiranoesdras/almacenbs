@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\DataTables\ItemsAvencerDataTable;
 use App\DataTables\Scopes\ScopeStockDataTable;
 use App\DataTables\StockDataTable;
+use App\Models\Item;
 use App\Models\Kardex;
 use App\Models\Stock;
 use Barryvdh\Snappy\PdfWrapper;
+use DB;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -30,6 +33,8 @@ class ReportesAlmacenController extends Controller
         $saldo = 0;
 
 
+        $item = Item::find($item_id);
+
         /**
          * @var Collection $kardex
          */
@@ -43,7 +48,36 @@ class ReportesAlmacenController extends Controller
 
 
 
-        return view('reportes.kardex_por_item',compact('kardex','item_id','buscar','saldo'));
+        return view('reportes.kardex_por_item',compact('kardex','item','buscar','saldo'));
+    }
+
+    public function actualizaKardex($folio,Request $request)
+    {
+
+
+
+        try {
+            DB::beginTransaction();
+
+
+            Kardex::whereFolio($folio)->update([
+                "codigo_insumo" => $request->codigo_insumo,
+                "del" => $request->del,
+                "al" => $request->al,
+            ]);
+
+        } catch (Exception $exception) {
+            DB::rollBack();
+
+            $msj = manejarException($exception);
+
+            return redirect()->back()->withErrors([$msj])->withInput();
+        }
+
+        DB::commit();
+
+        return redirect(route('reportes.kardex')."?item_id=".$request->item_id."&buscar=1");
+
     }
 
     public function kardexPdf($folio)

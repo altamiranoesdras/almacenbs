@@ -157,16 +157,45 @@
                             @else
 
                                 @if(!$compra->tiene1h())
-                                    <div class="col-12 text-center esperarClick">
-                                        <a href="{!! route('compra.generar.1h', $compra->id) !!}" type="button"
-                                           class="btn btn-outline-primary">
-                                            <i class="fa fa-gears"></i> Generar 1H
-                                        </a>
-                                    </div>
+
+                                    <form action="{{route('compra.generar.1h',$compra->id)}}" method="post" class="esperar">
+
+                                        @csrf
+                                        <div class="form-row">
+
+
+                                            <div class="form-group col-sm-4">
+                                                {!! Form::label('folio', 'Folio:') !!}
+                                                {!! Form::text('folio', null, ['class' => 'form-control','required']) !!}
+                                            </div>
+
+                                            <div class="form-group col-sm-8 ">
+                                                <label for="generar">&nbsp;</label>
+                                                <div>
+                                                    <button type="submit" id="generar" class="btn btn-outline-primary" >
+                                                        <i class="fa fa-gears"></i>
+                                                        Generar 1H
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </form>
+
                                 @else
 
                                     <form action="{{route('compra.actualiza.1h',$compra->id)}}" method="post">
                                         @csrf
+
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
+                                            <h3>
+                                                Folio:
+                                                <span class="text-danger">
+                                                {{$compra->compra1h->folio}}
+                                                </span>
+                                            </h3>
+                                        </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                             @include('compras.tabla_detalles_1h')
                                         </div>
