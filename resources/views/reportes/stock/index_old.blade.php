@@ -117,7 +117,7 @@
                                                 <tr class="text-sm  ">
 {{--                                                    <td>{{$det->id}}</td>--}}
                                                     <td>{{$det->bodega->nombre}}</td>
-                                                    <td>{{$det->item->nombre}}</td>
+                                                    <td>{{$det->item->texto_principal}}</td>
                                                     <td>{{$det->item->codigo_insumo}}</td>
                                                     <td>{{$det->item->codigo_presentacion}}</td>
                                                     <td>{{$det->item->renglon->numero}}</td>
