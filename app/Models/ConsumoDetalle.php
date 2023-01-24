@@ -127,7 +127,7 @@ class ConsumoDetalle extends Model
     public function egreso()
     {
 
-        $bodega = $this->consumo->bodega_id;
+        $bodega = $this->consumo->bodega_id ?? Bodega::PRINCIPAL;
 
         if (!$this->item->inventariable)
             return null;
@@ -183,7 +183,6 @@ class ConsumoDetalle extends Model
 
     public function anular()
     {
-        $this->kardex()->delete();
 
         /**
          * @var StockTransaccion $transacion

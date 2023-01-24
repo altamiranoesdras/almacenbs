@@ -10,26 +10,36 @@
 
 <body style="width: 100%;">
 
-<div>
-    <span style="font-size: 1.4em">
-{{--        <span style="margin-left: 9.5cm; font-weight: 600">Libro Almacen</span><br>--}}
-        <div style="margin-top: 0.35cm"></div>
-    </span>
-</div>
 
-{{-- EL ROWSPAN SE TIENE QUE HACER UN COUNT DEL LIST DE LOS ITEMS + 1, ASI SE MOSTRARA CORRECTAMENTE--}}
 <div style="margin-top: 1.15cm;">
     @php
+        $encabezdosYBorde = 1;
         $saldo = 0;
     @endphp
 
     @foreach($kardex as  $folio => $datalles )
 
         @php
-            $item = $datalles->first()->item;
+            $primerDetalle = $datalles->first();
         @endphp
-        <table class="" style="width: 100%" >
-            <thead style="color: white">
+        <table style="width: 100%" border="{{$encabezdosYBorde}}">
+            <tr style="font-size: 12px; text-align: center;">
+                <td></td>
+                <td>{{$primerDetalle->codigo_insumo}}</td>
+                <td></td>
+                <td></td>
+                <td colspan="5">
+                    {!! $primerDetalle->item->texto_kardex  !!}
+                </td>
+                <td></td>
+                <td>{{$primerDetalle->del}}</td>
+                <td></td>
+                <td>{{$primerDetalle->al}}</td>
+            </tr>
+        </table>
+        <br>
+        <table  style="width: 100%;" border="{{$encabezdosYBorde}}" >
+            <thead style="color: {{$encabezdosYBorde ? 'black' : 'white'}}">
             <tr class="text-center">
                 <th rowspan="2">Fecha</th>
                 <th colspan="2">DOCUMENTO NO.</th>
@@ -54,23 +64,7 @@
             </thead>
             <tbody>
 
-                {{-- codigo del producto --}}
-                <tr style="font-size: 12px; text-align: center;">
-                    <td></td>
-                    <td>CODIGO</td>
-                    <td></td>
-                    <td></td>
-                    <td colspan="5">
-                         {!! $item->texto_kardex  !!}
-                    </td>
-                    <td></td>
-                    <td>01/01/2023</td>
-                    <td></td>
-                    <td>06/01/2023</td>
-                </tr>
-                <tr>
-                    <td style="padding-bottom: 55px "></td>
-                </tr>
+
 
             @foreach($datalles as  $det )
 
@@ -103,12 +97,7 @@
 
 </body>
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
-        crossorigin="anonymous"></script>
+
 </html>
 
 

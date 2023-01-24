@@ -208,4 +208,33 @@ class Consumo extends Model
         }
 
     }
+
+    public function puedeEditar()
+    {
+        return in_array($this->estado_id,[
+            ConsumoEstado::TEMPORAL,
+            ConsumoEstado::INGRESADO,
+        ]);
+    }
+
+    public function puedeAnular()
+    {
+        return in_array($this->estado_id,[
+            ConsumoEstado::PROCESADO,
+        ]);
+    }
+
+    public function anular()
+    {
+        $this->estado_id = ConsumoEstado::ANULADO;
+        $this->save();
+
+
+        /**
+         * @var ConsumoDetalle $detalle
+         */
+        foreach ($this->detalles as $detalle){
+            $detalle->anular();
+        }
+    }
 }
