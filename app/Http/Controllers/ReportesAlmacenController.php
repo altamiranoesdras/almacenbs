@@ -29,26 +29,31 @@ class ReportesAlmacenController extends Controller
     public function kardex(Request $request)
     {
         $item_id = $request->item_id ?? null;
+        $item = null;
+        $kardex = null;
         $buscar = $request->buscar ?? null;
         $saldo = 0;
 
 
-        $item = Item::find($item_id);
+        if ($buscar){
 
-        /**
-         * @var Collection $kardex
-         */
-        $kardex = Kardex::with(['item',function($queryItem){
+            $item = Item::find($item_id);
+
+            /**
+             * @var Collection $kardex
+             */
+            $kardex = Kardex::with(['item' => function($queryItem){
                 $queryItem->with(['unimed','stocks','marca','presentacion']);
             }])
-            ->delItem($item_id)
-            ->orderBy('created_at','asc')
-            ->get();
+                ->delItem($item_id)
+                ->orderBy('created_at','asc')
+                ->get();
 
 
-        $kardex = $kardex->groupBy('folio');
+            $kardex = $kardex->groupBy('folio');
 
 
+        }
 
         return view('reportes.kardex_por_item',compact('kardex','item','buscar','saldo'));
     }
@@ -115,17 +120,18 @@ class ReportesAlmacenController extends Controller
         $view = view('reportes.kardex_por_item_pdf', compact('kardex'))->render();
          $footer = view('reportes.kardex_por_item_pdf_footer',compact('siguienteFolio'))->render();
 
+//         return $view;
 //        dd($solicitud->toArray());
 
         $pdf->loadHTML($view)
             ->setOption('page-width', 216)
-            ->setOption('page-height', 280)
+            ->setOption('page-height', 279)
             ->setOrientation('landscape')
              ->setOption('footer-html',utf8_decode($footer))
-            ->setOption('margin-top', 33)
+            ->setOption('margin-top', 45)
             ->setOption('margin-bottom',3)
-            ->setOption('margin-left',16)
-            ->setOption('margin-right',13);
+            ->setOption('margin-left',15)
+            ->setOption('margin-right',14);
 
         return $pdf->inline('Kardex folio '.$folio.'.pdf');
 

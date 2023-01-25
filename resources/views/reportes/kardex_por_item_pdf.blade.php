@@ -11,9 +11,9 @@
 <body style="width: 100%;">
 
 
-<div style="margin-top: 1.15cm;">
     @php
-        $encabezdosYBorde = 1;
+        $encabezdos = 0;
+        $borde = 1;
         $saldo = 0;
     @endphp
 
@@ -21,79 +21,124 @@
 
         @php
             $primerDetalle = $datalles->first();
+            $anchos = [
+               "margen_izq" => 15,
+               "fecha" => 14,
+               "1h" => 15.5,
+               "requi" => 17,
+               "solicita" => 39,
+               "cant_ing" => 15.5,
+               "precio_ing" => 15.5,
+               "total_ing" => 21.5,
+               "cant_sal" => 15.5,
+               "precio_sal" => 17,
+               "total_sal" => 24,
+               "cant_ext" => 16,
+               "precio_ext" => 17.5,
+               "total_ext" => 22,
+               "margen_der" => 14,
+            ];
+
+            $totalAnchos = array_sum(array_values($anchos));
+
+            $anchoNombreProducto = $anchos['requi']+$anchos['solicita'];
+            $anchoNombreProductoValor = $anchos['cant_ing']+$anchos['precio_ing']+$anchos['total_ing']+$anchos['cant_sal']+$anchos['precio_sal'];
+
+            $prueba = $anchos['margen_izq']+$anchos['margen_der']+$anchos['fecha']+$anchos['1h']+$anchoNombreProducto+$anchoNombreProductoValor+$anchos['total_sal']+$anchos['cant_ext']+$anchos['precio_ext']+$anchos['total_ext'];
+
+
         @endphp
-        <table style="width: 100%" border="{{$encabezdosYBorde}}">
+
+
+
+
+
+
+        <table  style="width: 100%;" border="{{$borde}}" >
+
             <tr style="font-size: 12px; text-align: center;">
-                <td></td>
-                <td>{{$primerDetalle->codigo_insumo}}</td>
-                <td></td>
-                <td></td>
-                <td colspan="5">
+
+                <td style="width: {{$anchos['fecha']}}mm; vertical-align: middle; color: {{$encabezdos ? 'black' : 'white'}}">
+                    {{$prueba}}
+                </td>
+                <td style="width: {{$anchos['1h']}}mm; text-align: center; vertical-align: middle;">
+                    {{$primerDetalle->codigo_insumo}}
+                </td>
+                <td style="width: {{$anchoNombreProducto}}mm; text-align: center; vertical-align: middle; color: {{$encabezdos ? 'black' : 'white'}}" colspan="2" >
+                    Nombre del producto
+                </td>
+                <td style="width: {{$anchoNombreProductoValor}}mm; text-align: center; vertical-align: middle;" colspan="5">
                     {!! $primerDetalle->item->texto_kardex  !!}
                 </td>
-                <td></td>
-                <td>{{$primerDetalle->del}}</td>
-                <td></td>
-                <td>{{$primerDetalle->al}}</td>
-            </tr>
-        </table>
-        <br>
-        <table  style="width: 100%;" border="{{$encabezdosYBorde}}" >
-            <thead style="color: {{$encabezdosYBorde ? 'black' : 'white'}}">
-            <tr class="text-center">
-                <th rowspan="2">Fecha</th>
-                <th colspan="2">DOCUMENTO NO.</th>
-                <th rowspan="2">Nombre Solicitante</th>
-                <th colspan="3">Entradas</th>
-                <th colspan="3">Salidas</th>
-                <th colspan="3">Existencias</th>
-            </tr>
-            <tr class="text-center">
-                <th>Forma 1H</th>
-                <th>Requisición</th>
-                <th>Cantidad</th>
-                <th>P.U.</th>
-                <th>Valor Total</th>
-                <th>Cantidad</th>
-                <th>P.U.</th>
-                <th>Valor Total</th>
-                <th>Cantidad</th>
-                <th>P.U.</th>
-                <th>Valor Total</th>
-            </tr>
-            </thead>
-            <tbody>
+                <td style="width: {{$anchos['total_sal']}}mm; text-align: center; vertical-align: middle; color: {{$encabezdos ? 'black' : 'white'}}">
+                    Periodo del
+                </td>
+                <td style="width: {{$anchos['cant_ext']}}mm; text-align: center; vertical-align: middle;">
+                    {{fechaLtn($primerDetalle->del)}}
+                </td>
+                <td style="width: {{$anchos['precio_ext']}}mm; text-align: center; vertical-align: middle; color: {{$encabezdos ? 'black' : 'white'}}">
+                    al
+                </td>
+                <td style="width: {{$anchos['total_ext']}}mm; text-align: center; vertical-align: middle;">
+                    {{fechaLtn($primerDetalle->al)}}
+                </td>
 
+            </tr>
+            <tr>
+                <td colspan="20" style="color: {{$encabezdos ? 'black' : 'white'}}">
+                    espacio
+                </td>
+            </tr>
 
+            <tr class="text-center" style="font-size: 12px; text-align: center; color: {{$encabezdos ? 'black' : 'white'}}">
+                <th rowspan="2" style="width: {{$anchos['fecha']}}mm">Fecha</th>
+                <th colspan="2" >DOCUMENTO NO.</th>
+                <th rowspan="2" style="width: {{$anchos['solicita']}}mm">Nombre Solicitante</th>
+                <th colspan="3" >Entradas</th>
+                <th colspan="3" >Salidas</th>
+                <th colspan="3" >Existencias</th>
+            </tr>
+            <tr class="text-center" style="font-size: 12px; text-align: center; color: {{$encabezdos ? 'black' : 'white'}}">
+                <th style="width: {{$anchos['1h']}}mm; font-size: 10px;">FORMA 1H</th>
+                <th style="width: {{$anchos['requi']}}mm; font-size: 10px;">REQUISICIÓN</th>
+                <th style="width: {{$anchos['cant_ing']}}mm">CANTIDAD</th>
+                <th style="width: {{$anchos['precio_ing']}}mm">P.U.</th>
+                <th style="width: {{$anchos['total_ing']}}mm">VALOR TOTAL</th>
+                <th style="width: {{$anchos['cant_sal']}}mm">CANTIDAD</th>
+                <th style="width: {{$anchos['precio_sal']}}mm">P.U.</th>
+                <th style="width: {{$anchos['total_sal']}}mm">VALOR TOTAL</th>
+                <th style="width: {{$anchos['cant_ext']}}mm">CANTIDAD</th>
+                <th style="width: {{$anchos['precio_ext']}}mm">P.U.</th>
+                <th style="width: {{$anchos['total_ext']}}mm">VALOR TOTAL</th>
+            </tr>
 
             @foreach($datalles as  $det )
 
                 <tr style="font-size: 12px; text-align: center;">
-                    <td style="width: 5.53%">{{fechaLtn($det->created_at)}}</td>
-                    <td class="text-uppercase" style="width: 5.93%">{{$det->ingreso ? $det->codigo : ''}}</td>
-                    <td class="text-uppercase" style="width: 6.72%">{{$det->salida ? $det->codigo : ''}}</td>
-                    <td class="text-uppercase" style="width: 15.81%">{{$det->responsable}}</td>
-                    <td style="width: 6.32%">{{$det->ingreso}}</td>
-                    <td style="width: 6.32%">{{$det->ingreso ? nfp($det->precio) : ''}}</td>
-                    <td style="width: 8.70%">{{$det->ingreso ? nfp($det->precio * $det->ingreso,2) : ''}}</td>
-                    <td style="width: 5.93%">{{$det->salida}}</td>
-                    <td style="width: 6.72%">{{$det->salida ? nfp($det->precio) : $det->salida}}</td>
-                    <td style="width: 9.49%">{{$det->salida ? nfp($det->precio * $det->salida,2) : ''}}</td>
+
+                    <td >{{fechaLtn($det->created_at)}}</td>
+                    <td class="text-uppercase">{{$det->ingreso ? $det->codigo : ''}}</td>
+                    <td class="text-uppercase">{{$det->salida ? $det->codigo : ''}}</td>
+                    <td class="text-uppercase">{{$det->responsable}}</td>
+                    <td >{{$det->ingreso}}</td>
+                    <td >{{$det->ingreso ? nfp($det->precio) : ''}}</td>
+                    <td >{{$det->ingreso ? nfp($det->precio * $det->ingreso,2) : ''}}</td>
+                    <td >{{$det->salida}}</td>
+                    <td >{{$det->salida ? nfp($det->precio) : $det->salida}}</td>
+                    <td >{{$det->salida ? nfp($det->precio * $det->salida,2) : ''}}</td>
 
                     @php
                         $saldo+=$det->ingreso-=$det->salida
                     @endphp
-                    <td style="width: 6.72%" class="{{$loop->last ? 'text-bold' :'000-xxx'}}">
+                    <td  class="{{$loop->last ? 'text-bold' :'000-xxx'}}">
                         {{$saldo}}
                     </td>
-                    <td style="width: 6.72%">{{nfp($det->precio)}}</td>
-                    <td style="width: 9.09%">{{nfp($det->precio * $saldo,2)}}</td>
+                    <td >{{nfp($det->precio)}}</td>
+                    <td >{{nfp($det->precio * $saldo,2)}}</td>
                 </tr>
             @endforeach
-            </tbody>
         </table>
     @endforeach
-</div>
 
 </body>
 
