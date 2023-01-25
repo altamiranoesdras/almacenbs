@@ -120,8 +120,8 @@
                                                     <td>{{$det->item->texto_principal}}</td>
                                                     <td>{{$det->item->codigo_insumo}}</td>
                                                     <td>{{$det->item->codigo_presentacion}}</td>
-                                                    <td>{{$det->item->renglon->numero}}</td>
-                                                    <td>{{$det->item->unimed->nombre}}</td>
+                                                    <td>{{$det->item->renglon->numero ?? ''}}</td>
+                                                    <td>{{$det->item->unimed->nombre ?? ''}}</td>
                                                     <td>{{fechaLtn($det->fecha_vence)}}</td>
                                                     <td>{{nf($det->cantidad,0)}}</td>
                                                     <td>{{ dvs().nfp($det->precio_compra)}}</td>
