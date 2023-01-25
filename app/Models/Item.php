@@ -410,8 +410,7 @@ class Item extends Model implements HasMedia
         $presentacion = $this->presentacion->nombre ?? '';
         $unidad = $this->unimed->nombre ?? '';
 
-        $texto = "Código insumo &nbsp;&nbsp;&nbsp; ".$this->codigo_insumo."  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  ";
-        $texto .= $this->nombre;
+        $texto = "CI: ".$this->codigo_insumo." CP: ".$this->codigo_presentacion." ".$this->nombre;
         return str_limit($texto,199,'');
     }
 

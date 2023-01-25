@@ -13,7 +13,7 @@
 
     @php
         $encabezdos = 0;
-        $borde = 1;
+        $borde = 0;
         $saldo = 0;
     @endphp
 
