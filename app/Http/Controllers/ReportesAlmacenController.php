@@ -38,7 +38,9 @@ class ReportesAlmacenController extends Controller
         /**
          * @var Collection $kardex
          */
-        $kardex = Kardex::with(['item.unimed','item.marca'])
+        $kardex = Kardex::with(['item',function($queryItem){
+                $queryItem->with(['unimed','stocks','marca','presentacion']);
+            }])
             ->delItem($item_id)
             ->orderBy('created_at','asc')
             ->get();

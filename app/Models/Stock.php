@@ -76,6 +76,8 @@ class Stock extends Model
 
     protected $appends =['sub_total'];
 
+    protected $with = ['bodega'];
+
 
     public $fillable = [
         'item_id',

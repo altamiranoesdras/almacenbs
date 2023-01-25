@@ -133,7 +133,7 @@ class Item extends Model implements HasMedia
 
     protected $appends= ['text','texto_libro_almacen',"texto_principal",'img','thumb','stock_total','stock_bodega'];
 
-    protected $with = ['unimed','marca','stocks','media'];
+    protected $with = ['unimed','marca','stocks','media','presentacion','renglon'];
 
     public static $withoutAppends = false;
 
