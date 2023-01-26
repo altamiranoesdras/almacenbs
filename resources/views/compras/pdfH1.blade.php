@@ -209,8 +209,6 @@
                     &nbsp;
                 </td>
                 <td style="border-color: black;
-                    border-top-style: solid;
-                    border-bottom-style: solid;
                     vertical-align: middle;
                     text-align: right;
                     font-size: 12px;
@@ -218,13 +216,11 @@
                     padding-bottom: 0;
                     ">
 
-                    <table style="width: 109%; height: 100%" border="0" >
-                        <tr >
-                            <td style="border-bottom-style: solid;">
-                                {{dvs().nfp($total,2)}}
-                            </td>
-                        </tr>
-                    </table>
+                    <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 2px;"></div>
+
+                    {{dvs().nfp($total,2)}}
+                    <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 2px;"></div>
+                    <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 0;"></div>
                 </td>
                 <td class="py-0" style="border-color: black;  text-align: center; padding: 5px; font-size: small" >
 

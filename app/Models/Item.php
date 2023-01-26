@@ -410,7 +410,14 @@ class Item extends Model implements HasMedia
         $presentacion = $this->presentacion->nombre ?? '';
         $unidad = $this->unimed->nombre ?? '';
 
-        $texto = "CI: ".$this->codigo_insumo." CP: ".$this->codigo_presentacion." ".$this->nombre;
+        if ($this->esGrupo100()){
+
+            $texto = "Renglón ".$this->renglon->numero." - ".$this->nombre;
+
+        }else{
+
+            $texto = "CI: ".$this->codigo_insumo." CP: ".$this->codigo_presentacion." ".$this->nombre;
+        }
         return str_limit($texto,100,'');
     }
 
@@ -678,5 +685,10 @@ class Item extends Model implements HasMedia
     public function esGrupo300()
     {
         return $this->renglon->numero >= 300 && $this->renglon->numero < 400;
+    }
+
+    public function esGrupo100()
+    {
+        return $this->renglon->numero >= 100 && $this->renglon->numero < 200;
     }
 }
