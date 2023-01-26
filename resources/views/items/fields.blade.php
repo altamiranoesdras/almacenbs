@@ -214,15 +214,7 @@
 @push('scripts')
     <script src="https://cdn.ckeditor.com/ckeditor5/11.1.1/classic/ckeditor.js"></script>
     <script type="text/javascript">
-        ClassicEditor
-            .create( document.querySelector( '#editor' ), {
-                removePlugins: [ 'Heading', 'Link' ],
-                toolbar: [ 'bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote' ],
-                minHeight: '800px'
-            } )
-            .catch( error => {
-                console.log( error );
-            } );
+
     </script>
 <script>
     $(function () {
@@ -249,6 +241,15 @@
         el: '#campos_item',
         name: 'campos_item',
         mounted() {
+            ClassicEditor
+                .create( document.querySelector( '#editor' ), {
+                    removePlugins: [ 'Heading', 'Link' ],
+                    toolbar: [ 'bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote' ],
+                    minHeight: '800px'
+                } )
+                .catch( error => {
+                    console.log( error );
+                } );
             console.log('Instancia vue montada');
         },
         created() {
