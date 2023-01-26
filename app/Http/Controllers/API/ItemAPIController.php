@@ -39,8 +39,8 @@ class ItemAPIController extends AppBaseController
             $query->where('codigo_insumo',$search)
                 ->orWhereRaw(
                 "CONCAT_WS(' ',nombre  ) like '%{$search}%'"
-                );
-//                ->orWhere('codigo_presentacion',$search);
+                )
+                ->orWhere('descripcion','like','%'.$search.'%');
         }
 
         $items = $query->get();
