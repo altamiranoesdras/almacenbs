@@ -29,8 +29,8 @@
                 >
                 @endif
             </td>
-            <td>{{$det->item->unimed->nombre}}</td>
-            <td>{{$det->item->renglon->numero}}</td>
+            <td>{{$det->item->unimed->nombre ?? ''}}</td>
+            <td>{{$det->item->renglon->numero ?? ''}}</td>
             <td>{{$compra->folio_almacen ?? ''}}</td>
             <td class="text-right">{{dvs().nfp($det->precio)}}</td>
             <td class="text-right">{{dvs().nfp($det->cantidad*$det->precio,2)}}</td>
