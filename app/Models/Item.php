@@ -401,7 +401,7 @@ class Item extends Model implements HasMedia
         $presentacion = $this->presentacion->nombre ?? '';
         $unidad = $this->unimed->nombre ?? '';
 
-        return $this->nombre." - ".$this->descripcion."-".$presentacion." - ".$unidad;
+        return $this->nombre." - ".strip_tags($this->descripcion)."-".$presentacion." - ".$unidad;
     }
 
     public function getTextoKardexAttribute()
