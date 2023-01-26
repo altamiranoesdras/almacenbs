@@ -5,7 +5,7 @@
 @include('layouts.plugins.bootstrap_fileinput')
 
 @section('title_page')
-	Editar {{$item->nombre}}
+	Editar Insumo
 @endsection
 
 @section('content')
@@ -15,13 +15,14 @@
             <div class="row">
                 <div class="col">
                     <h1 class="m-0 text-dark">
-                        Editar Artículo
+                        Editar Insumo
                     </h1>
                 </div><!-- /.col -->
                 <div class="col">
                     <a class="btn btn-outline-info float-right"
                        href="{{route('items.index')}}">
-                        <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span class="d-none d-sm-inline">Listado</span>
+                        <i class="fa fa-arrow-left"></i>
+                        <span class="d-none d-sm-inline">Regresar</span>
                     </a>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -40,14 +41,24 @@
                     <div class="card">
                         <div class="card-body">
 
-                            {!! Form::model($item, ['route' => ['items.update', $item->id], 'method' => 'patch',"enctype"=>"multipart/form-data","autocomplete"=>"off"]) !!}
+                            {!! Form::model($item, [
+                                    'route' => ['items.update', $item->id],
+                                     'method' => 'patch',
+                                     "enctype"=>"multipart/form-data",
+                                     "autocomplete"=>"off",
+                                     'class' => 'esperar'
+                                 ]) !!}
                                 <div class="form-row">
 
                                     @include('items.fields')
                                     <!-- Submit Field -->
-                                    <div class="form-group col-sm-12">
-                                        <button type="submit" onClick="this.form.submit(); this.disabled=true;" class="btn btn-outline-success">Guardar</button>
-                                        <a href="{!! route('items.index') !!}" class="btn btn-outline-secondary">Cancelar</a>
+
+                                    <div class="form-group col-sm-12 text-right">
+                                        <a href="{!! route('items.index') !!}" class="btn btn-outline-secondary mr-3">Cancelar</a>
+                                        <button type="submit"  class="btn btn-outline-success">
+                                            <i class="fa fa-save"></i>
+                                            Actualizar
+                                        </button>
                                     </div>
                                 </div>
 

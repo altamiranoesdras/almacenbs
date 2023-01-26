@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title_page')
-    Artículos
+    Insumos
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
-                    <h1 class="m-0 text-dark">Artículos</h1>
+                    <h1 class="m-0 text-dark">Insumos</h1>
                 </div><!-- /.col -->
                 <div class="col">
                     <ol class="breadcrumb float-right">
