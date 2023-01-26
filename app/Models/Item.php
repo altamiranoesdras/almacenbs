@@ -389,19 +389,37 @@ class Item extends Model implements HasMedia
     public function getTextAttribute()
     {
         $codigo = $this->codigo ?? $this->codigo_insumo ?? '(sin codigo)';
-        $presentacion = $this->presentacion->nombre ?? '';
-        $unidad = $this->unimed->nombre ?? '';
 
-        return "CI:".$codigo." CP:".$this->codigo_presentacion.' - '.$this->nombre." - ".$presentacion." - ".$unidad;
+        $presentacion =  '';
+        $unidad =  '';
+
+        if (($this->presentacion->nombre ?? null)){
+            $presentacion .=  " ".$this->presentacion->nombre;
+        }
+
+        if (($this->unimed->nombre ?? null)) {
+            $unidad .= " ".$this->unimed->nombre;
+        }
+
+
+        return "CI:".$codigo." CP:".$this->codigo_presentacion.' - '.$this->nombre.$presentacion.$unidad;
     }
 
     public function getTextoPrincipalAttribute()
     {
 
-        $presentacion = $this->presentacion->nombre ?? '';
-        $unidad = $this->unimed->nombre ?? '';
+        $presentacion =  '';
+        $unidad =  '';
 
-        return $this->nombre." - ".strip_tags($this->descripcion)."-".$presentacion." - ".$unidad;
+        if (($this->presentacion->nombre ?? null)){
+            $presentacion .=  " ".$this->presentacion->nombre;
+        }
+
+        if (($this->unimed->nombre ?? null)) {
+            $unidad .= " ".$this->unimed->nombre;
+        }
+
+        return $this->nombre." - ".strip_tags($this->descripcion).$presentacion.$unidad;
     }
 
     public function getTextoKardexAttribute()
