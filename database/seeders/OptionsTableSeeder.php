@@ -14,13 +14,12 @@ class OptionsTableSeeder extends Seeder
      */
     public function run()
     {
-
-        \DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        
 
         \DB::table('options')->delete();
-
+        
         \DB::table('options')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 1,
                 'option_id' => NULL,
@@ -36,7 +35,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2020-03-13 15:01:02',
                 'deleted_at' => '2022-09-01 00:10:52',
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 2,
                 'option_id' => NULL,
@@ -52,7 +51,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2022-12-08 08:45:43',
                 'deleted_at' => '2022-12-08 08:45:43',
             ),
-            2 =>
+            2 => 
             array (
                 'id' => 3,
                 'option_id' => NULL,
@@ -68,7 +67,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2022-12-08 08:48:01',
                 'deleted_at' => NULL,
             ),
-            3 =>
+            3 => 
             array (
                 'id' => 4,
                 'option_id' => 3,
@@ -84,7 +83,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2022-12-08 08:48:01',
                 'deleted_at' => NULL,
             ),
-            4 =>
+            4 => 
             array (
                 'id' => 5,
                 'option_id' => 3,
@@ -100,7 +99,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2022-12-08 08:48:01',
                 'deleted_at' => NULL,
             ),
-            5 =>
+            5 => 
             array (
                 'id' => 6,
                 'option_id' => 3,
@@ -116,7 +115,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2022-12-08 08:48:01',
                 'deleted_at' => NULL,
             ),
-            6 =>
+            6 => 
             array (
                 'id' => 7,
                 'option_id' => NULL,
@@ -132,7 +131,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            7 =>
+            7 => 
             array (
                 'id' => 8,
                 'option_id' => 7,
@@ -148,7 +147,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            8 =>
+            8 => 
             array (
                 'id' => 9,
                 'option_id' => 7,
@@ -164,7 +163,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            9 =>
+            9 => 
             array (
                 'id' => 10,
                 'option_id' => 7,
@@ -180,7 +179,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            10 =>
+            10 => 
             array (
                 'id' => 11,
                 'option_id' => 7,
@@ -196,7 +195,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            11 =>
+            11 => 
             array (
                 'id' => 12,
                 'option_id' => 7,
@@ -212,7 +211,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2022-12-06 08:09:21',
                 'deleted_at' => '2022-12-06 08:09:21',
             ),
-            12 =>
+            12 => 
             array (
                 'id' => 13,
                 'option_id' => NULL,
@@ -228,7 +227,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            13 =>
+            13 => 
             array (
                 'id' => 14,
                 'option_id' => 13,
@@ -244,7 +243,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            14 =>
+            14 => 
             array (
                 'id' => 15,
                 'option_id' => 13,
@@ -260,7 +259,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            15 =>
+            15 => 
             array (
                 'id' => 16,
                 'option_id' => 13,
@@ -276,7 +275,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            16 =>
+            16 => 
             array (
                 'id' => 17,
                 'option_id' => 13,
@@ -292,7 +291,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            17 =>
+            17 => 
             array (
                 'id' => 18,
                 'option_id' => 13,
@@ -308,7 +307,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            18 =>
+            18 => 
             array (
                 'id' => 19,
                 'option_id' => 13,
@@ -324,7 +323,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            19 =>
+            19 => 
             array (
                 'id' => 20,
                 'option_id' => 13,
@@ -340,7 +339,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            20 =>
+            20 => 
             array (
                 'id' => 21,
                 'option_id' => 13,
@@ -356,7 +355,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            21 =>
+            21 => 
             array (
                 'id' => 22,
                 'option_id' => 13,
@@ -372,7 +371,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2022-07-27 12:48:06',
                 'deleted_at' => '2022-07-27 12:48:06',
             ),
-            22 =>
+            22 => 
             array (
                 'id' => 23,
                 'option_id' => NULL,
@@ -388,7 +387,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            23 =>
+            23 => 
             array (
                 'id' => 24,
                 'option_id' => 23,
@@ -404,7 +403,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            24 =>
+            24 => 
             array (
                 'id' => 25,
                 'option_id' => 23,
@@ -420,7 +419,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            25 =>
+            25 => 
             array (
                 'id' => 26,
                 'option_id' => 23,
@@ -436,7 +435,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            26 =>
+            26 => 
             array (
                 'id' => 27,
                 'option_id' => NULL,
@@ -452,7 +451,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            27 =>
+            27 => 
             array (
                 'id' => 28,
                 'option_id' => 27,
@@ -468,7 +467,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            28 =>
+            28 => 
             array (
                 'id' => 29,
                 'option_id' => 27,
@@ -484,7 +483,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            29 =>
+            29 => 
             array (
                 'id' => 30,
                 'option_id' => 27,
@@ -500,7 +499,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:30:42',
                 'deleted_at' => '2023-01-10 21:30:42',
             ),
-            30 =>
+            30 => 
             array (
                 'id' => 31,
                 'option_id' => 27,
@@ -516,7 +515,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            31 =>
+            31 => 
             array (
                 'id' => 32,
                 'option_id' => 7,
@@ -532,7 +531,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2022-12-08 08:46:08',
                 'deleted_at' => '2022-12-08 08:46:08',
             ),
-            32 =>
+            32 => 
             array (
                 'id' => 33,
                 'option_id' => 7,
@@ -548,7 +547,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            33 =>
+            33 => 
             array (
                 'id' => 34,
                 'option_id' => NULL,
@@ -564,7 +563,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            34 =>
+            34 => 
             array (
                 'id' => 35,
                 'option_id' => 34,
@@ -580,7 +579,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            35 =>
+            35 => 
             array (
                 'id' => 36,
                 'option_id' => 34,
@@ -596,7 +595,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            36 =>
+            36 => 
             array (
                 'id' => 37,
                 'option_id' => 34,
@@ -612,7 +611,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            37 =>
+            37 => 
             array (
                 'id' => 38,
                 'option_id' => 34,
@@ -628,7 +627,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            38 =>
+            38 => 
             array (
                 'id' => 39,
                 'option_id' => 34,
@@ -644,7 +643,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            39 =>
+            39 => 
             array (
                 'id' => 40,
                 'option_id' => 34,
@@ -660,7 +659,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            40 =>
+            40 => 
             array (
                 'id' => 41,
                 'option_id' => NULL,
@@ -676,7 +675,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            41 =>
+            41 => 
             array (
                 'id' => 42,
                 'option_id' => 41,
@@ -692,7 +691,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            42 =>
+            42 => 
             array (
                 'id' => 43,
                 'option_id' => 3,
@@ -708,7 +707,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:28:44',
                 'deleted_at' => NULL,
             ),
-            43 =>
+            43 => 
             array (
                 'id' => 44,
                 'option_id' => NULL,
@@ -724,7 +723,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            44 =>
+            44 => 
             array (
                 'id' => 45,
                 'option_id' => 44,
@@ -740,7 +739,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:31:21',
                 'deleted_at' => NULL,
             ),
-            45 =>
+            45 => 
             array (
                 'id' => 46,
                 'option_id' => 44,
@@ -756,7 +755,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            46 =>
+            46 => 
             array (
                 'id' => 47,
                 'option_id' => 44,
@@ -772,7 +771,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            47 =>
+            47 => 
             array (
                 'id' => 48,
                 'option_id' => 41,
@@ -788,7 +787,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            48 =>
+            48 => 
             array (
                 'id' => 49,
                 'option_id' => NULL,
@@ -804,12 +803,12 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:29:03',
                 'deleted_at' => NULL,
             ),
-            49 =>
+            49 => 
             array (
                 'id' => 50,
                 'option_id' => 49,
                 'nombre' => 'Menu',
-                'ruta' => 'options.index',
+                'ruta' => 'dev.options.index',
                 'descripcion' => NULL,
                 'icono_l' => 'fa-list',
                 'icono_r' => NULL,
@@ -817,10 +816,10 @@ class OptionsTableSeeder extends Seeder
                 'color' => NULL,
                 'dev' => 1,
                 'created_at' => '2023-01-10 21:29:18',
-                'updated_at' => '2023-01-10 21:29:26',
+                'updated_at' => '2023-01-27 10:29:30',
                 'deleted_at' => NULL,
             ),
-            50 =>
+            50 => 
             array (
                 'id' => 51,
                 'option_id' => 49,
@@ -836,7 +835,7 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:33:30',
                 'deleted_at' => NULL,
             ),
-            51 =>
+            51 => 
             array (
                 'id' => 52,
                 'option_id' => 49,
@@ -852,9 +851,24 @@ class OptionsTableSeeder extends Seeder
                 'updated_at' => '2023-01-10 21:34:24',
                 'deleted_at' => NULL,
             ),
+            52 => 
+            array (
+                'id' => 53,
+                'option_id' => 49,
+                'nombre' => 'Logs',
+                'ruta' => 'dev.logs',
+                'descripcion' => NULL,
+                'icono_l' => 'fa-circle-notch',
+                'icono_r' => NULL,
+                'orden' => 0,
+                'color' => NULL,
+                'dev' => 0,
+                'created_at' => '2023-01-27 10:33:34',
+                'updated_at' => '2023-01-27 10:33:34',
+                'deleted_at' => NULL,
+            ),
         ));
-
-        \DB::statement('SET FOREIGN_KEY_CHECKS=1');
-
+        
+        
     }
 }
