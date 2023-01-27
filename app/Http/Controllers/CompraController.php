@@ -148,12 +148,13 @@ class CompraController extends AppBaseController
     public function edit($id)
     {
         /** @var Compra $compra */
-        $compra = Compra::find($id);
+        $compra = Compra::with(['detalles' => function ($q){ $q->whereHas('item'); }])->find($id);
 
         /**
          * @var Compra1h $compra1h
          */
-        $compra1h = Compra1h::where('compra_id', $compra->id)->first();
+        $compra1h = Compra1h::with(['detalles' => function ($q){ $q->whereHas('item'); }])->where('compra_id', $compra->id)->first();
+
 
         if (empty($compra)) {
             flash()->error('Compra no encontrado');

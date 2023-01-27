@@ -80,7 +80,17 @@ class CompraDataTable extends DataTable
         $query = $model->newQuery()
             ->select('compras.*')
             ->noTemporal()
-            ->with(['detalles.item','tipo','usuarioCrea','estado','proveedor']);
+            ->with([
+                'detalles' => function($q){
+                    $q->with('item',function ($q){
+                        $q->withTrashed();
+                    });
+                },
+                'tipo',
+                'usuarioCrea',
+                'estado',
+                'proveedor'
+            ]);
 
 //        $user = Auth::user();
 

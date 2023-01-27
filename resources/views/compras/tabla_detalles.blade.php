@@ -11,7 +11,15 @@
     <tbody>
     @foreach($compra->detalles as $det)
         <tr >
-            <td>{{$det->item->text}}</td>
+            <td>
+                @if($det->item->deleted_at)
+                    <del>
+                        {{$det->item->text}}
+                    </del>
+                @else
+                    {{$det->item->text}}
+                @endif
+            </td>
             <td class="text-right">{{dvs().nfp($det->precio)}}</td>
             <td class="text-right">{{nf($det->cantidad)}}</td>
             <td class="text-right">{{fecha($det->fecha_vence)}}</td>
