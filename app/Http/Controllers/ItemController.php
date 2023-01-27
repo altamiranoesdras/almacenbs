@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\ItemDataTable;
+use App\DataTables\Scopes\ScopeItemDataTable;
 use App\Http\Requests;
 use App\Http\Requests\CreateItemRequest;
 use App\Http\Requests\UpdateItemRequest;
@@ -38,6 +39,10 @@ class ItemController extends AppBaseController
      */
     public function index(ItemDataTable $itemDataTable)
     {
+        $scope = new ScopeItemDataTable();
+
+        $itemDataTable->addScope($scope);
+
         return $itemDataTable->render('items.index');
     }
 
