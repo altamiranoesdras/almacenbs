@@ -145,7 +145,7 @@ class ReportesAlmacenController extends Controller
         $buscar = $request->buscar ?? null;
         $stock = $request->stock ?? null;
 
-        $query = Stock::with(['item']);
+        $query = Stock::with(['item'])->whereHas('item');
 
 
         if ($renglon){
