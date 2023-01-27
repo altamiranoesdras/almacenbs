@@ -24,7 +24,7 @@
                 <div class="row">
                     <div class="form-group col-sm-12">
                         @include('admin.options.show_fields')
-                        <a href="{{ route('options.index') }}" class="btn btn-outline-secondary">{{__('Back')}}</a>
+                        <a href="{{ route('dev.options.index') }}" class="btn btn-outline-secondary">{{__('Back')}}</a>
                     </div>
                 </div>
             </div>

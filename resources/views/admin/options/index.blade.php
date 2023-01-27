@@ -60,7 +60,7 @@
                         opciones.push($(this).attr('id'));
                     });
 
-                    var url = "{{route("option.order.store")}}";
+                    var url = "{{route("dev.option.order.store")}}";
                     var params= { params: {opciones: opciones} };
 
                     console.log(opciones,url);

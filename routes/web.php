@@ -4,6 +4,7 @@ use App\Http\Controllers\ColaboradorController;
 use App\Http\Controllers\ConsumoController;
 use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\LibroAlamcenController;
+use App\Http\Controllers\LogController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -93,8 +94,10 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
         Route::resource('configurations', ConfigurationController::class);
 
+        Route::get('logs', [LogController::class,'index'])->name('logs');
 
-        Route::get('option/create/{option}', [OptionController::class,'create'])->name('option.create');
+
+        Route::get('option/create/{option?}', [OptionController::class,'create'])->name('option.create');
         Route::get('option/orden', [OptionController::class,'updateOrden'])->name('option.order.store');
         Route::resource('options',OptionController::class);
     });
