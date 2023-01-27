@@ -39,7 +39,15 @@ class LibroAlamcenController extends Controller
         list($anio,$mes) = explode("-", $request->get('mes'));
 
 
-        $listadoCompras = Compra::with(['proveedor','detalles.item'])
+        $listadoCompras = Compra::with([
+                'proveedor',
+                'detalles' => function($queryDetalles){
+                    $queryDetalles->with('item')->whereHas('item');
+                }
+            ])
+            ->whereHas('detalles',function ($queryDetalles){
+                $queryDetalles->whereHas('item');
+            })
             ->where('estado_id', CompraEstado::RECIBIDA)
             ->whereMonth('fecha_documento', '=', $mes)
             ->whereYear('fecha_documento', '=', $anio)
