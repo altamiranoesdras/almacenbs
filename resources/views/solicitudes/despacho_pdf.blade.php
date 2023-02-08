@@ -37,7 +37,7 @@
             </tr>
         </table>
     </div>
-    <p style="margin: 0">Unidad Solicitante: {{$solicitud->unidad->nombre}}</p>
+    <p style="margin: 0">Unidad Solicitante: {{$solicitud->unidad->nombre ?? ''}}</p>
     <table style="width: 100%" border="1">
         <tr>
             <td colspan="2">Lugar y Fecha: <b>{{ fechaLtnMesEnTexto($solicitud->fecha_despacha) }}</b></td>
@@ -78,7 +78,7 @@
                     {{ $detalle->item->texto_principal }}
                 </td>
                 <td style="border-color: black; width: 16%; font-size: 0.8em;  text-align: center;" class="py-0">
-                    {{$detalle->item->presentacion->nombre}} / {{ $detalle->item->unimed->nombre }}
+                    {{$detalle->item->presentacion->nombre ?? ''}} / {{ $detalle->item->unimed->nombre ?? '' }}
                 </td>
                 <td style="border-color: black; width: 16%;  text-align: center;"class="py-0">
                     {{ $detalle->cantidad_solicitada }}
