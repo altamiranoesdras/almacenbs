@@ -36,12 +36,12 @@
         </th>
     </tr>
 
-{{--    <tr>--}}
-{{--        <th colspan="4">Descuento</th>--}}
-{{--        <th class="text-right text-success">--}}
-{{--            {{dvs().nf($compra->descuento_monto)}}--}}
-{{--        </th>--}}
-{{--    </tr>--}}
+    <tr>
+        <th colspan="4">Descuento</th>
+        <th class="text-right text-success">
+            {{dvs().nf($compra->descuento)}}
+        </th>
+    </tr>
 
     <tr>
         <th colspan="4">Total</th>

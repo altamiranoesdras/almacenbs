@@ -14,7 +14,7 @@ class AddField2ToComprasTable extends Migration
     public function up()
     {
         Schema::table('compras', function (Blueprint $table) {
-            $table->decimal('descuento')->after('orden_compra');
+            $table->decimal('descuento')->after('orden_compra')->default(0);
         });
     }
 

@@ -206,6 +206,7 @@
 
                 proveedor: @json($compra->proveedor ?? Proveedor::find(old('proveedor_id')) ?? null),
                 tipo: @json($compra->tipo ?? CompraTipo::find(old('tipo_id')) ?? CompraTipo::find(CompraTipo::FACTURA)),
+                descuento: @json($compra->descuento ?? old('descuento') ?? 0),
 
             },
             methods: {
@@ -336,10 +337,18 @@
                 },
                 total: function () {
                     var t=0;
+                    var descuento = parseFloat(this.descuento || 0);
+
 
                     $.each(this.detalles,function (i,det) {
                         t+=det.sub_total;
                     });
+
+                    if (!isNaN(descuento) && descuento > 0 && t>0){
+                        t-=descuento;
+                    }
+
+
 
                     return t;
                 },

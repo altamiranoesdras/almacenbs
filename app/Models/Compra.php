@@ -227,7 +227,7 @@ class Compra extends Model
 
     public function getTotalAttribute()
     {
-        return $this->sub_total - ($this->descuento_monto ?? 0);
+        return $this->sub_total - ($this->descuento ?? 0);
     }
 
 

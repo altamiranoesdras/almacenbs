@@ -38,6 +38,21 @@
         <tfoot>
         <tr>
             <td >
+                <b>Descuento (Q)</b>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+
+                <input type="number" class="form-control" step="any" v-model="descuento" name="descuento" >
+            <td>
+
+            </td>
+
+        </tr>
+        <tr>
+            <td >
                 <b>Total</b>
             </td>
             <td></td>

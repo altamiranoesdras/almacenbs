@@ -86,12 +86,6 @@
                                                 Anular Ingreso <i class="fa fa-undo-alt"></i>
                                             </a>
 
-
-                                            <form action="{{ route('compras.anular', $compra->id)}}"
-                                                  method="POST" id="delete-form{{$compra->id}}">
-                                                @method('POST')
-                                                @csrf
-                                            </form>
                                         @endif
 
                                     @endcan
@@ -126,6 +120,14 @@
 
 
                             </div>
+                            </form>
+
+
+
+                            <form action="{{ route('compras.anular', $compra->id)}}"
+                                  method="POST" id="delete-form{{$compra->id}}">
+                                @method('POST')
+                                @csrf
                             </form>
 
                         </div>
