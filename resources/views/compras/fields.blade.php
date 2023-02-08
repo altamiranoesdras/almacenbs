@@ -93,6 +93,18 @@
                 {!! Form::text('orden_compra', null, ['class' => 'form-control']) !!}
             </div>
 
+            <div class="form-group col-sm-6 ">
+                {!! Form::label('descuento', 'Descuento:') !!}
+
+                <div class="input-group ">
+
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Q</span>
+                </div>
+                {!! Form::text('descuento', 0, ['class' => 'form-control']) !!}
+                </div>
+            </div>
+
         </div>
 
 

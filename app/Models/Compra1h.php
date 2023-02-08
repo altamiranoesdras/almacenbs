@@ -52,6 +52,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Query\Builder|Compra1h withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Compra1h withoutTrashed()
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra1h whereFolio($value)
  */
 class Compra1h extends Model
 {

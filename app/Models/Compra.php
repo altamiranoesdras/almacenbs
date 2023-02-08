@@ -78,6 +78,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereFolioAlmacen($value)
  * @property string|null $folio_inventario
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereFolioInventario($value)
+ * @property string $descuento
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereDescuento($value)
  */
 class Compra extends Model
 {
@@ -108,6 +110,7 @@ class Compra extends Model
         'usuario_recibe',
         'observaciones',
         'orden_compra',
+        'descuento',
         'folio_almacen',
         'folio_inventario',
     ];

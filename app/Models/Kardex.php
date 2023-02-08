@@ -61,6 +61,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Query\Builder|Kardex withoutTrashed()
  * @mixin \Eloquent
  * @property-read mixed $precio
+ * @method static Builder|Kardex whereAl($value)
+ * @method static Builder|Kardex whereCodigoInsumo($value)
+ * @method static Builder|Kardex whereDel($value)
  */
 class Kardex extends Model
 {
