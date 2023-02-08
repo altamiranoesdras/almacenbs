@@ -81,10 +81,10 @@
                     {{$detalle->item->presentacion->nombre ?? ''}} - {{ $detalle->item->unimed->nombre ?? '' }}
                 </td>
                 <td style="border-color: black; width: 16%;  text-align: center;"class="py-0">
-                    {{ $detalle->cantidad_solicitada }}
+                    {{ nf($detalle->cantidad_solicitada,0) }}
                 </td>
                 <td style="border-color: black; width: 16%; text-align: center;"class="py-0">
-                    {{ $detalle->cantidad_despachada }}
+                    {{ nf($detalle->cantidad_despachada,0) }}
                 </td>
             </tr>
             @php
