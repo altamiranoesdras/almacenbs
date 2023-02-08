@@ -78,7 +78,7 @@
                     {{ $detalle->item->texto_principal }}
                 </td>
                 <td style="border-color: black; width: 16%; font-size: 0.8em;  text-align: center;" class="py-0">
-                    {{$detalle->item->presentacion->nombre ?? ''}} / {{ $detalle->item->unimed->nombre ?? '' }}
+                    {{$detalle->item->presentacion->nombre ?? ''}} - {{ $detalle->item->unimed->nombre ?? '' }}
                 </td>
                 <td style="border-color: black; width: 16%;  text-align: center;"class="py-0">
                     {{ $detalle->cantidad_solicitada }}
