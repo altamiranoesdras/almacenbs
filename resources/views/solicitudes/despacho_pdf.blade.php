@@ -19,7 +19,7 @@
                         border-bottom-color: black;
                         border-left-color: black;
                         border-right-color: white" width="10%">
-                    <img src="{{asset('/img/SEICMSJ-logo.jpg')}}" height="150px">
+                    <img src="{{asset('/img/SEICMSJ-logo.jpg')}}" height="125px">
                 </td>
                 <td style="border-top-color: black;
                         border-bottom-color: black;
@@ -103,7 +103,7 @@
                 </td>
             </tr>
             @php
-                $totalLineas = 15;
+                $totalLineas = config('solicitudes.maximo_detalles',13);
                 $final = $totalLineas - $loop->iteration;
             @endphp
         @endforeach
