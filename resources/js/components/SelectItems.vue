@@ -16,7 +16,7 @@
           :clear-on-select="true"
           :close-on-select="true"
           :allow-empty="false"
-          :options-limit="20"
+          :options-limit="100"
           :max-height="600"
           :show-no-results="false"
           :hide-selected="false"
