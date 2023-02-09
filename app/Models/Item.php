@@ -425,6 +425,29 @@ class Item extends Model implements HasMedia
         return $this->nombre." - ".$descripcion.$presentacion.$unidad;
     }
 
+    public function getTextoRequisicionAttribute()
+    {
+
+        $presentacion =  '';
+        $unidad =  '';
+
+        if (($this->presentacion->nombre ?? null)){
+            $presentacion .=  " ".$this->presentacion->nombre;
+        }
+
+        if (($this->unimed->nombre ?? null)) {
+            $unidad .= " ".$this->unimed->nombre;
+        }
+
+        $descripcion = str_replace('&nbsp;','',strip_tags($this->descripcion));
+
+        if ($descripcion){
+            $descripcion .=  " - ".$descripcion;
+        }
+
+        return $this->nombre.$descripcion;
+    }
+
     public function getTextoKardexAttribute()
     {
 

@@ -202,7 +202,7 @@
                 loading: false,
 
                 idEliminando: '',
-                maxmimoDetalles : @json(config('solicitudes.maximo_detalles',20)),
+                maxmimoDetalles : @json(config('solicitudes.maximo_detalles',15)),
 
 
             },

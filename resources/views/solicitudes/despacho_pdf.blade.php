@@ -57,12 +57,27 @@
             <colgroup span="2"></colgroup>
             <colgroup span="2"></colgroup>
             <tr>
-                <td rowspan="2" style="border-color: black; vertical-align: middle;
-                    text-align: center" width="40%">Nombre del Producto</td>
-                <td rowspan="2" style="border-color: black; vertical-align: middle;
-                    text-align: center">Unidad de Medida y Presentación</td>
-                <th colspan="2" scope="colgroup" style="border-color: black; vertical-align: middle;
-                    text-align: center; font-weight: normal" width="80%">CANTIDAD</th>
+                <td rowspan="2"
+                    style="border-color: black;
+                    vertical-align: middle;
+                    text-align: center" width="60%">
+                    Nombre del Producto
+                </td>
+                <td rowspan="2"
+                    style="border-color: black;
+                    vertical-align: middle;
+                    text-align: center"
+                    width="20%">
+                    Unidad de Medida y Presentación
+                </td>
+                <th colspan="2"
+                    style="border-color: black;
+                    vertical-align: middle;
+                    text-align: center;
+                    font-weight: normal"
+                    width="20%">
+                    CANTIDAD
+                </th>
             </tr>
             <tr>
                 <th style="border-color: black; vertical-align: middle;
@@ -73,11 +88,11 @@
         </thead>
         <tbody style="margin-bottom: 0">
         @foreach ($solicitud->detalles as $detalle)
-            <tr style="line-height: 20px">
+            <tr style="line-height: 20px; font-size: 12px;">
                 <td style="border-color: black; "class="py-0">
-                    {{ $detalle->item->texto_principal }}
+                    {{ $detalle->item->texto_requisicion }}
                 </td>
-                <td style="border-color: black; width: 16%; font-size: 0.8em;  text-align: center;" class="py-0">
+                <td style="border-color: black; width: 16%;  text-align: center;" class="py-0">
                     {{$detalle->item->presentacion->nombre ?? ''}} - {{ $detalle->item->unimed->nombre ?? '' }}
                 </td>
                 <td style="border-color: black; width: 16%;  text-align: center;"class="py-0">
@@ -88,7 +103,7 @@
                 </td>
             </tr>
             @php
-                $totalLineas = 20;
+                $totalLineas = 15;
                 $final = $totalLineas - $loop->iteration;
             @endphp
         @endforeach
