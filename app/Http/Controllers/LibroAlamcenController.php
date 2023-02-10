@@ -57,7 +57,7 @@ class LibroAlamcenController extends Controller
 
         $pdf = App::make('snappy.pdf.wrapper');
 
-        $view = view('reportes.libro_almacen.pdf', compact('request','listadoCompras'))->render();
+        $view = view('reportes.libro_almacen.pdf', compact('request','listadoCompras','mes'))->render();
 
         $pdf->loadHTML($view)
            ->setOption('page-width', 216)
