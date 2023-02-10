@@ -442,7 +442,7 @@ class Item extends Model implements HasMedia
         $descripcion = str_replace('&nbsp;','',strip_tags($this->descripcion));
 
         if ($descripcion){
-            $descripcion .=  " - ".$descripcion;
+            $descripcion =  " - ".$descripcion;
         }
 
         return $this->nombre.$descripcion;
