@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Imports\ImportColaboradores;
-use App\Models\Activo;
 use App\Models\ActivoTarjeta;
 use App\Models\ActivoTarjetaDetalle;
 use App\Models\Bodega;
@@ -12,8 +11,11 @@ use App\Models\RrhhPuesto;
 use App\Models\RrhhUnidad;
 use App\Models\User;
 use App\Traits\ComandosTrait;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Validators\ValidationException;
 
 class ImportPersonalCommand extends Command
 {
@@ -63,11 +65,36 @@ class ImportPersonalCommand extends Command
         ActivoTarjeta::truncate();
         ActivoTarjetaDetalle::truncate();
 
-        $importable = new ImportColaboradores();
 
-        $importable->withOutput($this->output)->import(storage_path('imports/DIRECTORIO DE EMPLEADOS, SERVIDORES PÚBLICOS Y ASESORES SEICMSJ.xlsx'));
+        try {
+
+
+
+            $importable = new ImportColaboradores();
+
+            $importable->withOutput($this->output)->import(storage_path('imports/DIRECTORIO DE EMPLEADOS, SERVIDORES PÚBLICOS Y ASESORES SEICMSJ.xlsx'));
+
+        }
+        catch (ValidationException $e) {
+
+            DB::rollBack();
+            $erros = array();
+            foreach ($e->failures() as $failure) {
+                $erros[] = "Error en fila ".$failure->row().": ".implode($failure->errors());
+            }
+
+            Log::error($e->getMessage(),$erros);
+
+        }
+        catch (Exception $e){
+
+            Log::error($e->getMessage());
+
+        }
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
-        $this->fin();
+
+        $this->fin($importable->errores);
+
     }
 }

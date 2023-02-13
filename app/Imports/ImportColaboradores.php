@@ -25,6 +25,16 @@ class ImportColaboradores implements ToModel , WithHeadingRow
 
     use Importable,RemembersRowNumber;
 
+    public $errores;
+
+    /**
+     * ImportSaldosInsumos constructor.
+     */
+    public function __construct()
+    {
+        $this->errores = collect();
+    }
+
     public function model(array $row)
     {
 
@@ -129,8 +139,9 @@ class ImportColaboradores implements ToModel , WithHeadingRow
 //                ]);
 
             }catch (\Exception $exception){
-                dump('Error en fila',$this->getRowNumber());
-                dd($exception->getMessage());
+
+                $this->errores->push(['Error en fila '.$this->getRowNumber() => $exception->getMessage()]);
+
             }
 
         }
