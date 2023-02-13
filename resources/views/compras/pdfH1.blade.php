@@ -151,6 +151,8 @@
 
                         @if($det->item->esGrupo300())
                             {!! $compra->folio_inventario ?? ''!!}
+                        @else
+                            0
                         @endif
 
                     </td>
