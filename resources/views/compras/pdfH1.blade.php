@@ -126,7 +126,7 @@
                         text-align: center;
                             padding: 5px;
                             font-size: small" >
-                        {!! $compra->folio_almacen ?? '<span style="color: white">XXXXXXXXX</span>' !!}
+                        {!! $compra->folio_almacen ?? '' !!}
                     </td>
                     <td class="py-0" style="border-color: black;
                         width: 10.53%;
@@ -148,7 +148,11 @@
                         text-align: right;
                         font-size: small"
                     >
-                        {!! $compra->folio_inventario ?? '<span style="color: white">XXXXXXXXX</span>'!!}
+
+                        @if($det->item->esGrupo300())
+                            {!! $compra->folio_inventario ?? ''!!}
+                        @endif
+
                     </td>
                     <td class="py-0" style="border-color: black;
                         text-align: center;
