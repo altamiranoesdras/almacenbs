@@ -14,10 +14,10 @@
     @php
         $borde = 0;
         $conteoLineas = 0;
-        $maximoLineas = 25;
+        $maximoLineas = 11;
     @endphp
 
-    <table border="{{$borde}}" style="width: 100%; font-size: 11px;" >
+
         @foreach($listadoCompras as $compra)
             @php
                 if ( ($conteoLineas + $compra->detalles->count()) > $maximoLineas && $loop->index > 0 ) {
@@ -26,11 +26,12 @@
                 }
             @endphp
     {{--        table table-bordered--}}
+            <table border="{{$borde}}" style="width: 100%; font-size: 11px;" >
 
                 <tbody>
                     <tr style="">
                         <td style="width: 18mm; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
-                            {{ fechaLtn($compra->fecha_ingreso) }}
+                            {{ fechaLtn($compra->fecha_ingreso) }} {{$loop->index}}
                         </td>
                         <td style="width: 18mm; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
                             Serie: {{ $compra->serie }}
@@ -87,19 +88,23 @@
                         <td colspan="20">&nbsp;</td>
                     </tr>
                 </tbody>
+            </table>
 
         @endforeach
+
+    <table border="{{$borde}}" style="width: 100%; font-size: 11px;" >
         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td style="vertical-align: middle;" class="pl-2">
+            <td style="width: 116mm; text-align: center; vertical-align: middle;"></td>
+            <td style="width: 56mm; vertical-align: middle;" class="pl-2">
                 <b class="pull-left">TOTAL MES {{mb_strtoupper(mesLetras($mes))}}</b>
-            <td></td>
-            <td></td>
-            <td class="text-right px-2">
+            </td>
+            <td style="width: 22mm; text-align: center;" class="py-0 text-center">
+
+            </td>
+            <td style="width: 21mm; text-align: center;" class="py-0 text-right pr-2">
+
+            </td>
+            <td style="width: 24mm; text-align: center;" class="py-0 text-right pr-2">
                 <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 0;"></div>
                 {{ dvs().nfp( $listadoCompras->sum('total'),2 ) }}
                 <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 2px;"></div>
