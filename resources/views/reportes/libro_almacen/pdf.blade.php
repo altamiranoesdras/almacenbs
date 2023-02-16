@@ -18,7 +18,7 @@
     @endphp
 
 
-        @foreach($listadoCompras as $compra)
+        @foreach($listadoCompras->sortBy('fecha_ingreso') as $compra)
             @php
                 if ( ($conteoLineas + $compra->detalles->count()) > $maximoLineas && $loop->index > 0 ) {
                     $conteoLineas = 0;
