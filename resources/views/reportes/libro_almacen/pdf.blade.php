@@ -57,7 +57,7 @@
                                 {{ $detalle->item->texto_libro_almacen }}
                             </td>
                             <td style="width: 22mm; text-align: center;" class="py-0 text-center">
-                                {{ nf( $detalle->cantidad ) }}
+                                {{ nf( $detalle->cantidad,0 ) }}
                             </td>
                             <td style="width: 21mm; text-align: center;" class="py-0 text-right pr-2">
                                 {{ dvs().nfp( $detalle->precio ) }}
