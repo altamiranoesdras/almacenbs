@@ -14,7 +14,7 @@
     @php
         $borde = 0;
         $conteoLineas = 0;
-        $maximoLineas = 10;
+        $maximoLineas = 11;
     @endphp
 
 
@@ -85,7 +85,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="20">&nbsp;</td>
+                        <td colspan="20" style="height: 2mm"></td>
                     </tr>
                 </tbody>
             </table>
