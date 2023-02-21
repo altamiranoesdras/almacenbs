@@ -48,7 +48,7 @@ class EnviarEnlaceNotificacion extends Notification
         $user = $notifiable;
 
         return (new MailMessage)
-
+                    ->subject("Enlace y credenciales acceso sistema almacén")
                     ->greeting("Buen día ".($user->name ?? "name"))
                     ->from(env('MAIL_USERNAME'),config('app.name'))
                     ->line('A continuación se te proporcionan tus credenciales para usar el sistema de almacén')
