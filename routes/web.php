@@ -88,6 +88,11 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'dev','as' => 'dev.'],function (){
 
+        Route::get('prueba/mail',function (){
+            return (new \App\Notifications\EnviarEnlaceNotificacion())
+                ->toMail('ejemplo@dominio.com');
+        });
+
         Route::get('prueba/api',[PruebaApiController::class,'index'])->name('prueba.api');
 
         Route::get('passport/clients', [PassportClientsController::class,'index'])->name('passport.clients');
