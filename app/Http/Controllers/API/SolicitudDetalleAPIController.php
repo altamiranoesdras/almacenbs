@@ -62,9 +62,9 @@ class SolicitudDetalleAPIController extends AppBaseController
          */
         $item= Item::find($request->item_id);
 
-        if($item->inventariable && $item->stock_total < $request->cantidad_solicitada){
-            return $this->sendError('El stock del articulo no alcanza');
-        }
+//        if($item->inventariable && $item->stock_total < $request->cantidad_solicitada){
+//            return $this->sendError('El stock del articulo no alcanza');
+//        }
 
 
         /** @var SolicitudDetalle $solicitudDetalle */
