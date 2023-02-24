@@ -26,6 +26,7 @@
                 }
 
                 if ( $compra->id == 27) {
+                    $conteoLineas = 2;
                     echo '<div style="page-break-after:always;"></div>';
                 }
             @endphp
@@ -35,7 +36,7 @@
                 <tbody>
                     <tr style="">
                         <td style="width: 18mm; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
-                            {{ fechaLtn($compra->fecha_ingreso) }} {{$loop->index}}
+                            {{ fechaLtn($compra->fecha_ingreso) }}
                         </td>
                         <td style="width: 18mm; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
                             Serie: {{ $compra->serie }}
