@@ -49,7 +49,7 @@
             </td>
         </tr>
         <tr style="">
-            <td style="width:70%; padding-left: 3.5cm; font-size: 13px">
+            <td style="width:70%; padding-left: 3.5cm; font-size: 12px">
                 {{strtoupper($compra->proveedor->razon_social)}} / NIT: {{$compra->proveedor->nit}}
             </td>
             <td style="width:10%;color: white">
