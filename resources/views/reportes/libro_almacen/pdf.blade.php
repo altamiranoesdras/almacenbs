@@ -26,7 +26,7 @@
                 }
 
                 if ( $compra->id == 27) {
-                    $conteoLineas = 2;
+                    $conteoLineas = 0;
                     echo '<div style="page-break-after:always;"></div>';
                 }
             @endphp
