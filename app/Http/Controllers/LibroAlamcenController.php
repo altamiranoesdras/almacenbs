@@ -20,12 +20,14 @@ class LibroAlamcenController extends Controller
 
         $mes = null;
         $anio = null;
+        $fecha = $request->fecha;
+
         if ($request->fecha){
             list($anio,$mes) = explode("-", $request->fecha);
         }
 
 
-        return view('reportes.libro_almacen.libro_almacen',compact('mes','anio'));
+        return view('reportes.libro_almacen.libro_almacen',compact('mes','anio','fecha'));
     }
 
     /**
@@ -51,7 +53,10 @@ class LibroAlamcenController extends Controller
             ->where('estado_id', CompraEstado::RECIBIDA)
             ->whereMonth('fecha_documento', '=', $mes)
             ->whereYear('fecha_documento', '=', $anio)
+            ->noAnuladas()
             ->get();
+
+
 
 //            return $listadoCompras;
 

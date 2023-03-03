@@ -339,6 +339,11 @@ class Compra extends Model
         $q->where('estado_id','!=',CompraEstado::TEMPORAL);
     }
 
+    public function scopeNoAnuladas($q)
+    {
+        $q->where('estado_id','!=',CompraEstado::ANULADA);
+    }
+
 
     public function anular()
     {
