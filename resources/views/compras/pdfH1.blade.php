@@ -102,7 +102,7 @@
                         padding-right: 7px;
                         font-size: small" class="py-0">
 
-                        {{nf($det->cantidad)}}
+                        {{nf($det->cantidad,0)}}
                     </td>
                     <td  class="py-0 text-left"
                          style="border-color: black;
