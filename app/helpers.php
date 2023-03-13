@@ -605,6 +605,10 @@ function diaSemana($fecha){
 
 function fechaHoraLtn($fecha){
 
+    if (!$fecha){
+        return null;
+    }
+
     return date('d/m/Y H:i:s A',strtotime($fecha));
 }
 

@@ -237,7 +237,7 @@ class SolicitudController extends AppBaseController
             'unidad_id' => auth()->user()->unidad_id ?? RrhhUnidad::PRINCIPAL,
             'bodega_id' => auth()->user()->bodega_id ?? Bodega::PRINCIPAL,
             'usuario_solicita' => $request->usuario_solicita,
-            'fecha_solicita' => hoyDb(),
+            'fecha_solicita' => Carbon::now(),
             'estado_id' => SolicitudEstado::SOLICITADA,
         ]);
 
