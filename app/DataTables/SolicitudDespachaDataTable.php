@@ -58,11 +58,11 @@ class SolicitudDespachaDataTable extends DataTable
 
             })
             ->editColumn('fecha_solicita',function (Solicitud $solicitud){
-                return fechaLtn($solicitud->fecha_solicita);
+                return fechaHoraLtn($solicitud->fecha_solicita);
             })
             ->editColumn('fecha_despacha',function (Solicitud $solicitud){
                 if ($solicitud->fecha_despacha){
-                    return fechaLtn($solicitud->fecha_despacha);
+                    return fechaHoraLtn($solicitud->fecha_despacha);
                 }
             })
             ->rawColumns(['action','codigo']);
