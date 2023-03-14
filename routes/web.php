@@ -114,6 +114,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     Route::get('profile', [ProfileController::class,'index'])->name('profile');
     Route::patch('profile/{user}', [ProfileController::class,'update'])->name('profile.update');
+    Route::patch('profile/{user}/update/password', [ProfileController::class,'updatePassword'])->name('profile.update.password');
     Route::post('profile/{user}/edit/avatar', [ProfileController::class,'editAvatar'])->name('profile.edit.avatar');
     Route::get('profile/{user}/remove/avatar', [ProfileController::class,'removeAvatar'])->name('profile.remove.avatar');
 

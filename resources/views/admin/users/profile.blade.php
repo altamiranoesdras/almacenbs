@@ -161,15 +161,19 @@
                     <div class="card">
                         <div class="card-header p-2">
                             <ul class="nav nav-pills">
-                                <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">{{__('Data')}}</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#activity" data-toggle="tab">{{__('Activity')}}</a></li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{(request()->tab ?? 1)==1 ? 'active' : ''}}" href="#settings" data-toggle="tab">{{__('Información principal')}}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{(request()->tab ?? 1)==2 ? 'active' : ''}}" href="#activity" data-toggle="tab">{{__('Cambiar Contraseña')}}</a>
+                                </li>
                             </ul>
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="tab-content">
 
-                                <div class="tab-pane active" id="settings">
-                                    {!! Form::model($profile, ['route' => ['profile.update', $profile->id], 'method' => 'patch']) !!}
+                                <div class="tab-pane {{(request()->tab ?? 1)==1 ? 'active' : ''}}" id="settings">
+                                    {!! Form::model($profile, ['url' => route('profile.update', $profile->id), 'method' => 'patch']) !!}
 
                                     <div class="form-group row">
                                         {!! Form::label('username', __('Username'),["class"=>"col-sm-2 col-form-label"]) !!}
@@ -190,6 +194,7 @@
                                             </div>
                                         </div>
 
+
 {{--                                        <div class="form-group row">--}}
 {{--                                            <div class="offset-sm-2 col-sm-10">--}}
 {{--                                                <div class="checkbox">--}}
@@ -208,8 +213,32 @@
                                 </div>
                                 <!-- /.tab-pane -->
 
-                                <div class="tab-pane" id="activity">
+                                <div class="tab-pane {{(request()->tab ?? 1)==2 ? 'active' : ''}}" id="activity">
+                                    {!! Form::model($profile, ['route' => ['profile.update.password', $profile->id], 'method' => 'patch']) !!}
 
+
+                                    <!-- Password Field -->
+                                    <div class="form-group row">
+                                        {!! Form::label('password', 'Contraseña Actual:',["class"=>"col-sm-2 col-form-label"]) !!}
+                                        <div class="col-10">
+                                            {!! Form::password('contrasena_actual', ['class' => 'form-control']) !!}
+                                        </div>
+                                    </div>
+
+                                    <!-- Password Field -->
+                                    <div class="form-group row">
+                                        {!! Form::label('password', 'Nueva Contraseña:',["class"=>"col-sm-2 col-form-label"]) !!}
+                                        <div class="col-10">
+                                            {!! Form::password('nueva_contrasena', ['class' => 'form-control']) !!}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="offset-sm-2 col-sm-10">
+                                            <button type="submit" class="btn btn-outline-success">{{__('Submit')}}</button>
+                                        </div>
+                                    </div>
+                                    {!! Form::close() !!}
                                 </div>
                                 <!-- /.tab-pane -->
 
