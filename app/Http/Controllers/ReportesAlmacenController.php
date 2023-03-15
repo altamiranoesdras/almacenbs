@@ -94,6 +94,8 @@ class ReportesAlmacenController extends Controller
 
         DB::commit();
 
+        flash('Kardex actualizado')->success();
+
         return redirect(route('reportes.kardex')."?item_id=".$request->item_id."&buscar=1");
 
     }
