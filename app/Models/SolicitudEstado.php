@@ -54,6 +54,9 @@ class SolicitudEstado extends Model
     const DESPACHADA =  6;
     const ANULADA =     7;
     const CANCELADA =   8;
+    const RETORNO_SOLICITADA  =   9;
+    const RETORNO_AUTORIZADA =   10;
+    const RETORNO_APROBADA =   11;
 
     protected $dates = ['deleted_at'];
 

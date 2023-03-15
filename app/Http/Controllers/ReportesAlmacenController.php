@@ -73,6 +73,17 @@ class ReportesAlmacenController extends Controller
                 "al" => $request->al,
             ]);
 
+            foreach ($request->codigos_salidas as $id => $codigo) {
+
+                if ($id && $codigo){
+
+                    Kardex::find($id)->update([
+                        'codigo' => $codigo
+                    ]);
+                }
+
+            }
+
         } catch (Exception $exception) {
             DB::rollBack();
 

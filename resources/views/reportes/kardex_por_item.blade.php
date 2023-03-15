@@ -154,7 +154,11 @@
                                                         <tr class="text-sm text-right">
                                                             <td>{{fechaLtn($det->created_at)}}</td>
                                                             <td class="text-uppercase">{{$det->ingreso ? $det->codigo : ''}}</td>
-                                                            <td class="text-uppercase">{{$det->salida ? $det->codigo : ''}}</td>
+                                                            <td class="text-uppercase ">
+                                                                @if($det->salida)
+                                                                    {!! Form::text("codigos_salidas[$det->id]", $det->codigo, ['class' => 'form-control form-control-sm']) !!}
+                                                                @endif
+                                                            </td>
                                                             <td class="text-uppercase">{{$det->responsable}}</td>
                                                             <td>{{$det->ingreso}}</td>
                                                             <td>{{$det->ingreso ? nfp($det->precio) : ''}}</td>
