@@ -176,6 +176,13 @@ class Stock extends Model
         return $query->conStock()->whereBetween('fecha_vence',[$fechaIni,$fechaFin])->vencidos();
     }
 
+    public function scopeDeBodega($query,$bodega=null){
+
+        $bodega = $bodega ?? session('bodega');
+
+        return $query->where('bodega_id',$bodega);
+    }
+
 
 
     //---MUTADORES---

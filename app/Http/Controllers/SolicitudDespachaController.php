@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\DataTables\Scopes\ScopeSolicitudDataTable;
 use App\DataTables\SolicitudDespachaDataTable;
 use App\Mail\DespacharSolicitud;
-use App\Mail\StockCriticoPorSolicitudMail;
+use App\Models\Role;
 use App\Models\Solicitud;
 use App\Models\SolicitudDetalle;
 use App\Models\SolicitudEstado;
+use App\Models\User;
+use App\Notifications\RequisicionSolicitidaNotificacion;
+use App\Notifications\StockCriticoNotificacion;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -129,20 +132,27 @@ class SolicitudDespachaController extends Controller
 
     public function verificaStockCritico(Solicitud $solicitud)
     {
-        $itemStockCritico= collect();
+        $itemsStockCritico= collect();
 
         /**
          * @var SolicitudDetalle $detalle
          */
         foreach ($solicitud->detalles as $detalle){
 
-            if($detalle->item->stock_total <= $detalle->item->stock_minimo){
-                $itemStockCritico->push($detalle->item);
+            if($detalle->item->stock_bodega <= $detalle->item->stock_minimo){
+                $itemsStockCritico->push($detalle->item);
             }
         }
 
-        if ($itemStockCritico->count()>0){
-            Mail::send(new StockCriticoPorSolicitudMail($itemStockCritico,$solicitud));
+
+        if ($itemsStockCritico->count() > 0){
+
+            $usuarios = User::role(Role::JEFE_ALMACEN)->get();
+
+
+            foreach ($usuarios as $usuario) {
+                $usuario->notify(new StockCriticoNotificacion($itemsStockCritico));
+            }
         }
     }
 
