@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Markdown;
@@ -42,15 +43,24 @@ class StockCriticoNotificacion extends Notification
      */
     public function toMail($notifiable)
     {
+
+        /**
+         * @var User $user
+         */
+        $user = $notifiable;
+
         $itemsStockCritico = $this->itemsStockCritico;
 
         $items = Markdown::parse(view('emails.parse_markdown.stock_critico_mail',compact('itemsStockCritico')));
 
         return (new MailMessage)
                     ->subject('Stock critico')
+                    ->greeting("Hola ".($user->name ?? "name"))
+                    ->from(env('MAIL_USERNAME'),config('app.name'))
                     ->line('Se ha alcanzado el stock crítico para los siguientes artículos')
+                    ->line($items)
                     ->action('Reporte Stock Critico', route('reportes.stock'))
-                    ->line(__('Thank you for using our application!'));
+                    ->salutation('Gracias por usar nuestra aplicación!');
     }
 
     /**

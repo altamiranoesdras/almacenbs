@@ -89,7 +89,10 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::group(['prefix' => 'dev','as' => 'dev.'],function (){
 
         Route::get('prueba/mail',function (){
-            return (new \App\Notifications\EnviarEnlaceNotificacion())
+
+            $items = \App\Models\Item::limit(5)->get();
+
+            return (new \App\Notifications\StockCriticoNotificacion($items))
                 ->toMail('ejemplo@dominio.com');
         });
 
