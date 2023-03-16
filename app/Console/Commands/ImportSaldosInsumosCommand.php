@@ -58,7 +58,7 @@ class ImportSaldosInsumosCommand extends Command
 
             $import = new ImportSaldosInsumos();
 
-            $import->withOutput($this->output)->import(storage_path('imports/Saldos Insumos.xlsx'));
+            $import->withOutput($this->output)->import(storage_path('imports/STOCK AL 15-03-2023.xlsx'));
 
         }
         catch (ValidationException $e) {
