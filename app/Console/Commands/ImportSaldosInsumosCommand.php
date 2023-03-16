@@ -51,7 +51,7 @@ class ImportSaldosInsumosCommand extends Command
 
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
         DB::table('stocks')->truncate();
-        DB::table('items')->update(['precio_compra' => 0]);
+//        DB::table('items')->update(['precio_compra' => 0]);
 
         try {
 
