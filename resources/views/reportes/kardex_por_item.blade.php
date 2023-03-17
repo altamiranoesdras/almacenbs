@@ -144,6 +144,9 @@
                                                         <th>Cantidad</th>
                                                         <th>P.U.</th>
                                                         <th>Valor Total</th>
+                                                        <th>
+                                                            <i class="fa fa-print"></i>
+                                                        </th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -175,6 +178,10 @@
                                                             </td>
                                                             <td>{{nfp($det->precio)}}</td>
                                                             <td>{{nfp($det->precio * $saldo,2)}}</td>
+                                                            <td>
+                                                                <input type="hidden" name="impresos[{{$det->id}}]" value="0">
+                                                                <input type="checkbox" name="impresos[{{$det->id}}]" value="1" {{$det->impreso ? 'checked' : ''}}>
+                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                     </tbody>

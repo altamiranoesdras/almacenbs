@@ -717,7 +717,7 @@ function manejarException(Exception $exception){
     Log::error($exception->getMessage(),[
         'archivo' =>   $exception->getFile() . '  Linea: ' . $exception->getLine(),
         'request' => request()->all(),
-        'usuario' => $user->datosPrincipales(),
+        'usuario' => $user->id." ".$user->name,
 //        'trace' => $exception->getTrace(),
     ]);
 

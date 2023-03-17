@@ -67,22 +67,30 @@ class ReportesAlmacenController extends Controller
             DB::beginTransaction();
 
 
-            Kardex::whereFolio($folio)->update([
-                "codigo_insumo" => $request->codigo_insumo,
-                "del" => $request->del,
-                "al" => $request->al,
-            ]);
+            $kardexs = Kardex::whereFolio($folio)->get();
 
-            foreach ($request->codigos_salidas as $id => $codigo) {
+            $impresos = $request->impresos;
+            $codigosSalida = $request->codigos_salidas;
 
-                if ($id && $codigo){
 
-                    Kardex::find($id)->update([
-                        'codigo' => $codigo
-                    ]);
-                }
+
+            /**
+             * @var Kardex $kardex
+             */
+            foreach ($kardexs as $kardex) {
+
+                $codigo = $codigosSalida[$kardex->id] ?? null;
+                $impreso = $impresos[$kardex->id] ?? 0;
+
+                $kardex->codigo = $codigo;
+                $kardex->impreso = $impreso;
+                $kardex->codigo_insumo = $request->codigo_insumo;
+                $kardex->del = $request->del;
+                $kardex->al = $request->al;
+                $kardex->save();
 
             }
+
 
         } catch (Exception $exception) {
             DB::rollBack();
@@ -100,7 +108,7 @@ class ReportesAlmacenController extends Controller
 
     }
 
-    public function kardexPdf($folio)
+    public function kardexPdf($folio,Request $request)
     {
 
 
