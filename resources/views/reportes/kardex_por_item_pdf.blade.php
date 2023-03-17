@@ -17,7 +17,7 @@
         $saldo = 0;
     @endphp
 
-    @foreach($kardex as  $folio => $datalles )
+    @foreach($folios as  $folio => $datalles )
 
         @php
             $primerDetalle = $datalles->first();
@@ -56,6 +56,7 @@
 
         <table  style="width: 100%;" border="{{$borde}}" >
 
+            @if($imprimeEncabezado)
             <tr style="font-size: 12px; text-align: center;">
 
                 <td style="width: {{$anchos['fecha']}}mm; vertical-align: middle; color: {{$encabezdos ? 'black' : 'white'}}">
@@ -84,6 +85,8 @@
                 </td>
 
             </tr>
+            @endif
+
             <tr>
                 <td colspan="20" style="color: {{$encabezdos ? 'black' : 'white'}}">
                     espacio

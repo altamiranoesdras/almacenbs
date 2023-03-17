@@ -113,10 +113,9 @@ class ReportesAlmacenController extends Controller
 
 
         /**
-         * @var Kardex $kardex
+         * @var Kardex $primerKardex
          */
-        $kardex = Kardex::with(['item.unimed','item.marca'])
-            ->whereFolio($folio)
+        $primerKardex = Kardex::whereFolio($folio)
             ->orderBy('created_at','asc')
             ->first();
 
@@ -124,12 +123,16 @@ class ReportesAlmacenController extends Controller
          * @var Collection $kardexs
          */
         $kardexs = Kardex::with(['item.unimed','item.marca'])
-            ->delItem($kardex->item_id)
+            ->delItem($primerKardex->item_id)
             ->orderBy('created_at','asc')
             ->get();
 
 
-        $kardex = $kardexs->where('folio',$folio)->groupBy('folio');
+        $folios = $kardexs->where('folio',$folio)->groupBy('folio');
+
+        //si el folio tiene detalles y hay algún detalle para imprimir
+        $imprimeEncabezado = $folios[$folio]->count() > 0  &&  $folios[$folio]->first()->impreso;
+
 
         $siguienteFolio = 0;
 
@@ -138,7 +141,7 @@ class ReportesAlmacenController extends Controller
          */
         $pdf = App::make('snappy.pdf.wrapper');
 
-        $view = view('reportes.kardex_por_item_pdf', compact('kardex'))->render();
+        $view = view('reportes.kardex_por_item_pdf', compact('folios','imprimeEncabezado'))->render();
          $footer = view('reportes.kardex_por_item_pdf_footer',compact('siguienteFolio'))->render();
 
 //         return $view;
