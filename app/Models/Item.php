@@ -702,7 +702,7 @@ class Item extends Model implements HasMedia
                     'item_id' => $stock->item_id,
                     'cantidad' => $stock->cantidad,
                     'tipo' => Kardex::TIPO_INGRESO,
-                    'codigo' => $stock->id,
+                    'codigo' => null,
                     'responsable' => 'Stock Inicial',
                     'usuario_id' => auth()->user()->id ?? User::PRINCIPAL
                 ]);

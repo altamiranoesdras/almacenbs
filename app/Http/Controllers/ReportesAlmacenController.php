@@ -87,6 +87,7 @@ class ReportesAlmacenController extends Controller
                 $kardex->codigo_insumo = $request->codigo_insumo;
                 $kardex->del = $request->del;
                 $kardex->al = $request->al;
+                $kardex->folio_siguiente = $request->folio_siguiente;
                 $kardex->save();
 
             }
@@ -134,7 +135,8 @@ class ReportesAlmacenController extends Controller
         $imprimeEncabezado = $folios[$folio]->count() > 0  &&  $folios[$folio]->first()->impreso;
 
 
-        $siguienteFolio = 0;
+        $siguienteFolio = $folios[$folio]->first()->folio_siguiente;
+
 
         /**
          * @var PdfWrapper $pdf
@@ -153,7 +155,7 @@ class ReportesAlmacenController extends Controller
             ->setOrientation('landscape')
              ->setOption('footer-html',utf8_decode($footer))
             ->setOption('margin-top', 45)
-            ->setOption('margin-bottom',3)
+            ->setOption('margin-bottom',43)
             ->setOption('margin-left',15)
             ->setOption('margin-right',14);
 

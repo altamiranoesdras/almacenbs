@@ -86,6 +86,7 @@
                                                 $codigo_insumo = $datalles->first()->codigo_insumo;
                                                 $del = $datalles->first()->del;
                                                 $al = $datalles->first()->al;
+                                                $folioSigiente = $datalles->first()->folio_siguiente;
                                             @endphp
 
                                         <form action="{{route('reportes.kardex.actualizar',$folio)}}" method="post">
@@ -189,7 +190,17 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-sm-12 text-right">
+
+                                                <div class="col-sm-10">
+
+                                                </div>
+                                                <div class="col-sm-2 pt-3 pb-0 text-right" >
+
+                                                        {!! Form::label('folio_siguiente', 'SALDOS PASAN A TARJETA:') !!}
+                                                        {!! Form::text('folio_siguiente', $folioSigiente, ['class' => 'form-control']) !!}
+                                                </div>
+
+                                                <div class="col-sm-12 text-right mt-3">
 
                                                     <input type="hidden" name="item_id" value="{{$item->id}}">
                                                     <button type="submit" class="btn btn-success mr-3">

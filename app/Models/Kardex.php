@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string $responsable
  * @property string $observacion
  * @property boolean $impreso
+ * @property string $folio_siguiente
  * @property integer $usuario_id
  * @property int $id
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -108,6 +109,7 @@ class Kardex extends Model
         'responsable',
         'observacion',
         'impreso',
+        'folio_siguiente',
         'usuario_id'
     ];
 
