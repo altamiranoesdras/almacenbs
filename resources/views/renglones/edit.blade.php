@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page',__('New Renglon'))
+@section('title_page',__('Edit Renglon'))
 
 @section('content')
 
@@ -8,12 +8,12 @@
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>{{__('New Renglon')}}</h1>
+                <div class="col">
+                    <h1>{{__('Edit Renglon')}}</h1>
                 </div>
-                <div class="col ">
+                <div class="col">
                     <a class="btn btn-outline-info float-right"
-                       href="{{route('renglons.index')}}">
+                       href="{{route('renglones.index')}}">
                         <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span class="d-none d-sm-inline">{{__('List')}}</span>
                     </a>
                 </div>
@@ -24,18 +24,20 @@
     <div class="content">
         <div class="container-fluid">
 
+
             @include('layouts.partials.request_errors')
 
             <div class="card">
                 <div class="card-body">
-                    {!! Form::open(['route' => 'renglons.store','class' => 'esperar']) !!}
+
+                   {!! Form::model($renglon, ['route' => ['renglones.update', $renglon->id], 'method' => 'patch','class' => 'esperar']) !!}
                         <div class="form-row">
 
-                            @include('renglons.fields')
+                            @include('renglones.fields')
 
                             <!-- Submit Field -->
                             <div class="form-group col-sm-12 text-right">
-                                <a href="{!! route('renglons.index') !!}" class="btn btn-outline-secondary">
+                                <a href="{!! route('renglones.index') !!}" class="btn btn-outline-secondary">
                                     Cancelar
                                 </a>
                                 &nbsp;
@@ -44,7 +46,8 @@
                                 </button>
                             </div>
                         </div>
-                    {!! Form::close() !!}
+
+                   {!! Form::close() !!}
                 </div>
             </div>
         </div>

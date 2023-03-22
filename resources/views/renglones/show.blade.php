@@ -23,8 +23,8 @@
             <div class="card-body">
                 <div class="row">
                     <div class="form-group col-sm-12">
-                        @include('renglons.show_fields')
-                        <a href="{{ route('renglons.index') }}" class="btn btn-default">
+                        @include('renglones.show_fields')
+                        <a href="{{ route('renglones.index') }}" class="btn btn-default">
                         {{__('Back')}}
                         </a>
                     </div>

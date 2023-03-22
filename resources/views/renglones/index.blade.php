@@ -15,7 +15,7 @@
                     <ol class="breadcrumb float-right">
                         <li class="breadcrumb-item">
                             <a class="btn btn-outline-success"
-                                href="{!! route('renglons.create') !!}">
+                                href="{!! route('renglones.create') !!}">
                                 <i class="fa fa-plus"></i>
                                 <span class="d-none d-sm-inline">Nuevo</span>
                             </a>
@@ -35,7 +35,7 @@
             <div class="clearfix"></div>
             <div class="card card-primary">
                 <div class="card-body">
-                        @include('renglons.table')
+                        @include('renglones.table')
                 </div>
             </div>
             <div class="text-center">
