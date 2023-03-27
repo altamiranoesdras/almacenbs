@@ -123,7 +123,9 @@
                     <td >{{fechaLtn($det->created_at)}}</td>
                     <td class="text-uppercase">{{$det->ingreso ? $det->codigo : ''}}</td>
                     <td class="text-uppercase">{{$det->salida ? $det->codigo : ''}}</td>
-                    <td class="text-uppercase">{{$det->responsable}}</td>
+                    <td class="text-uppercase" style="width: {{$anchos['solicita']}}mm !important;font-size: 11px; text-align: left;">
+                        {{$det->responsable}}
+                    </td>
                     <td >{{$det->ingreso}}</td>
                     <td >{{$det->ingreso ? nfp($det->precio) : ''}}</td>
                     <td >{{$det->ingreso ? nfp($det->precio * $det->ingreso,2) : ''}}</td>
