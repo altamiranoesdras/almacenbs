@@ -405,21 +405,24 @@ class SolicitudController extends AppBaseController
 
         $pdf = App::make('snappy.pdf.wrapper');
 
-        $view = view('solicitudes.despacho_pdf', compact('solicitud'))->render();
+        $view = view('solicitudes.despachar.pdf', compact('solicitud'))->render();
         // $footer = view('compras.pdf_footer')->render();
 
+        $footer = view('solicitudes.despachar.pdf_footer',compact('solicitud'))->render();
+
+//         return $view;
 //        dd($solicitud->toArray());
 
         $pdf->loadHTML($view)
-        ->setOption('page-width', '220')
-        ->setOption('page-height', '280')
-            ->setOrientation('portrait')
-            // ->setOption('footer-html',utf8_decode($footer))
-            ->setOption('margin-top', 10)
-            ->setOption('margin-bottom',3)
-            ->setOption('margin-left',20)
-            ->setOption('margin-right',20);
-            // ->stream('report.pdf');
+            ->setOption('page-width', 279)
+            ->setOption('page-height', 216)
+            ->setOrientation('landscape')
+            ->setOption('footer-html',utf8_decode($footer))
+            ->setOption('margin-top', 45)
+            ->setOption('margin-bottom',43)
+            ->setOption('margin-left',9.5)
+            ->setOption('margin-right',15.5);
+
         return $pdf->inline('Despacho '.$solicitud->id. '_'. time().'.pdf');
 
 
