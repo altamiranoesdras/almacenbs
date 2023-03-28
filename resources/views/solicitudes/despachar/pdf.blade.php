@@ -99,7 +99,7 @@
                     {{ nf($detalle->cantidad_despachada,0) }}
                 </td>
                 <td style="text-align: center">
-                    {{ nf($detalle->cantidad_despachada,0) }}
+
                 </td>
             </tr>
             @php
