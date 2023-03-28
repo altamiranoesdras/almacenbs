@@ -85,7 +85,8 @@
 
         @foreach ($solicitud->detalles as $detalle)
             <tr style="font-size: 12px; height: 6.5mm">
-                <td style="">
+                <td style="width: 75mm;
+                    vertical-align: middle;">
                     {{ $detalle->item->texto_requisicion }}
                 </td>
                 <td style="">
