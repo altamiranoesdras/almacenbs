@@ -176,7 +176,7 @@ class Solicitud extends Model
     public static $rules = [
         'codigo' => 'nullable|string|max:255',
         'correlativo' => 'nullable|integer',
-        'justificacion' => 'required|string',
+        'justificacion' => 'required|string|max:350',
         'unidad_id' => 'nullable',
         'usuario_crea' => 'nullable',
         'usuario_solicita' => 'nullable',

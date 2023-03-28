@@ -1,12 +1,9 @@
 
-<table  style="width: 100%;" border="0" >
-    <tr style="font-size: 12px; text-align: center;">
-
-
-        <td style="width: 194.5mm"></td>
-        <td style="width: 16mm"></td>
-        <td style="width: 17.5mm"></td>
-        <td style="width: 22mm">{{$solicitud->observaciones ?? ""}}</td>
+<table  style="width: 100%; margin-left: 0; margin-right: 0" border="0" >
+    <tr style="font-size: 12px; text-align: left;line-height: 7mm">
+        <td>
+            {{$solicitud->justificacion ?? ""}}
+        </td>
     </tr>
 </table>
 
