@@ -115,9 +115,12 @@
                 <th style="width: {{$anchos['total_ext']}}mm">VALOR TOTAL</th>
             </tr>
 
-            @foreach($datalles as  $det )
+            @foreach($datalles as  $il => $det )
 
-                <tr style="font-size: 12px; text-align: center; color: {{$det->impreso ? '' : 'white'}}">
+                <!--            height: {{$il==0 ? 'auto' : '15mm'}};
+                ------------------------------------------------------------------------>
+
+                <tr style="font-size: 12px;  text-align: center; color: {{$det->impreso ? '' : 'white'}}">
 
                     <td >{{fechaLtn($det->created_at)}}</td>
                     <td class="text-uppercase">{{$det->ingreso ? $det->codigo : ''}}</td>
@@ -140,6 +143,11 @@
                     </td>
                     <td >{{nfp($det->precio)}}</td>
                     <td >{{nfp($det->precio * $saldo,2)}}</td>
+                </tr>
+
+                <tr style="height: 7mm">
+                    <td colspan="50">
+                    </td>
                 </tr>
             @endforeach
         </table>
