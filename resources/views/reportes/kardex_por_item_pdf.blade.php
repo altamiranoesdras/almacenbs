@@ -117,8 +117,7 @@
 
             @foreach($datalles as  $det )
 
-                @if($det->impreso)
-                <tr style="font-size: 12px; text-align: center;">
+                <tr style="font-size: 12px; text-align: center; color: {{$det->impreso ? '' : 'white'}}">
 
                     <td >{{fechaLtn($det->created_at)}}</td>
                     <td class="text-uppercase">{{$det->ingreso ? $det->codigo : ''}}</td>
@@ -142,7 +141,6 @@
                     <td >{{nfp($det->precio)}}</td>
                     <td >{{nfp($det->precio * $saldo,2)}}</td>
                 </tr>
-                @endif
             @endforeach
         </table>
     @endforeach
