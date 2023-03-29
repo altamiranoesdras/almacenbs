@@ -24,6 +24,11 @@
                     $conteoLineas = 0;
                     echo '<div style="page-break-after:always;"></div>';
                 }
+
+                if ( $compra->id == 17) {
+                    $conteoLineas = 0;
+                    echo '<div style="page-break-after:always;"></div>';
+                }
             @endphp
     {{--        table table-bordered--}}
             <table border="{{$borde}}" style="width: 100%; font-size: 11px;" >
