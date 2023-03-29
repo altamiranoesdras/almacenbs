@@ -14,18 +14,13 @@
     @php
         $borde = 0;
         $conteoLineas = 0;
-        $maximoLineas = 14;
+        $maximoLineas = 12;
     @endphp
 
 
         @foreach($listadoCompras->sortBy('fecha_ingreso') as $compra)
             @php
                 if ( ($conteoLineas + $compra->detalles->count()) > $maximoLineas && $loop->index > 0 ) {
-                    $conteoLineas = 0;
-                    echo '<div style="page-break-after:always;"></div>';
-                }
-
-                if ( $compra->id == 27) {
                     $conteoLineas = 0;
                     echo '<div style="page-break-after:always;"></div>';
                 }
