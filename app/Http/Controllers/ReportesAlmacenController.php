@@ -79,10 +79,14 @@ class ReportesAlmacenController extends Controller
              */
             foreach ($kardexs as $kardex) {
 
-                $codigo = $codigosSalida[$kardex->id] ?? null;
+                if ($kardex->salida){
+                    $codigo = $codigosSalida[$kardex->id] ?? null;
+                    $kardex->codigo = $codigo;
+                }
+
                 $impreso = $impresos[$kardex->id] ?? 0;
 
-                $kardex->codigo = $codigo;
+
                 $kardex->impreso = $impreso;
                 $kardex->codigo_insumo = $request->codigo_insumo;
                 $kardex->del = $request->del;
