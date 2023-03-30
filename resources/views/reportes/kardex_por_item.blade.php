@@ -170,23 +170,23 @@
                                                             </td>
                                                             <td class="text-uppercase">{{$det->responsable}}</td>
                                                             <td>{{$det->ingreso}}</td>
-                                                            <td>{{$det->ingreso ? nfp($det->model->precio) : ''}}</td>
-                                                            <td>{{$det->ingreso ? nfp($det->model->precio * $det->ingreso,2) : ''}}</td>
+                                                            <td>{{$det->ingreso ? nfp($det->precio) : ''}}</td>
+                                                            <td>{{$det->ingreso ? nfp($det->precio * $det->ingreso,2) : ''}}</td>
                                                             <td>{{$det->salida}}</td>
-                                                            <td>{{$det->salida ? nfp($det->model->precio) : $det->salida}}</td>
-                                                            <td>{{$det->salida ? nfp($det->model->precio * $det->salida,2) : ''}}</td>
+                                                            <td>{{$det->salida ? nfp($det->precio) : $det->salida}}</td>
+                                                            <td>{{$det->salida ? nfp($det->precio * $det->salida,2) : ''}}</td>
 
                                                             @php
                                                                 $saldo+=$det->ingreso-=$det->salida;
-                                                                $totalIngreso += ($det->model->precio * $det->ingreso);
-                                                                $totalEgreso += ($det->model->precio * $det->salida);
+                                                                $totalIngreso += ($det->precio * $det->ingreso);
+                                                                $totalEgreso += ($det->precio * $det->salida);
                                                             @endphp
                                                             <td class="{{$loop->last ? 'text-bold' :''}}">
                                                                 {{$saldo}}
                                                             </td>
-                                                            <td>{{nfp($det->model->precio)}}</td>
+                                                            <td>{{nfp($det->precio)}}</td>
                                                             <td>
-{{--                                                                {{nfp($det->model->precio * $saldo,2)}}--}}
+{{--                                                                {{nfp($det->precio * $saldo,2)}}--}}
 {{--                                                                <br>--}}
 {{--                                                                IN: {{$totalIngreso}}--}}
 {{--                                                                <br>--}}

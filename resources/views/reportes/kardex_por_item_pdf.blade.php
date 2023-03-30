@@ -136,13 +136,20 @@
                     <td >{{$det->salida ? nfp($det->precio * $det->salida,2) : ''}}</td>
 
                     @php
-                        $saldo+=$det->ingreso-=$det->salida
+                        $saldo+=$det->ingreso-=$det->salida;
+                        $totalIngreso += ($det->precio * $det->ingreso);
+                        $totalEgreso += ($det->precio * $det->salida);
                     @endphp
                     <td  class="{{$loop->last ? 'text-bold' :'000-xxx'}}">
                         {{$saldo}}
                     </td>
                     <td >{{nfp($det->precio)}}</td>
-                    <td >{{nfp($det->precio * $saldo,2)}}</td>
+                    <td >
+                        @php
+                            $total = $totalIngreso > 0 ? $totalIngreso-$totalEgreso : $totalEgreso
+                        @endphp
+                        {{nfp($total,2)}}
+                    </td>
                 </tr>
 
                 <tr style="height: 7mm">
