@@ -35,7 +35,7 @@
             <td style="width: 139mm; text-align: left; vertical-align: middle;">{{ $solicitud->usuarioSolicita->name }}</td>
         </tr>
     </table>
-    <table  style="width: 100%; margin-bottom: 8mm" border="{{$borde}} " >
+    <table  style="width: 100%; margin-bottom: 11mm" border="{{$borde}} " >
         <tr style="height: 8mm; !important;">
             <td style="width: 17mm; text-align: left; vertical-align: middle; color: {{$color}}" >Cargo:</td>
             <td style="width: 174mm; text-align: left; vertical-align: middle;"><b>{{ $solicitud->usuarioSolicita->puesto->nombre ?? "Sin puesto" }}</b></td>
@@ -84,27 +84,31 @@
         </tr>
 
         @foreach ($solicitud->detalles as $detalle)
-            <tr style="font-size: 12px; height: 6.5mm">
+            @php
+                $longitudTexto = strlen($detalle->item->texto_requisicion);
+                $longitudMaxima = 64;
+            @endphp
+            <tr style="font-size: 12px; height: 6.5mm;line-height: {{$longitudTexto > $longitudMaxima ? '6.4mm' : 'auto'}}">
                 <td style="width: 75mm;
                     vertical-align: middle;">
                     {{ $detalle->item->texto_requisicion }}
                 </td>
-                <td style="">
+                <td style="vertical-align: top;">
 {{--                    {{$detalle->item->presentacion->nombre ?? ''}} ---}}
                      {{ $detalle->item->unimed->nombre ?? '' }}
                 </td>
-                <td style="text-align: center">
+                <td style="vertical-align: top;text-align: center">
                     {{ nf($detalle->cantidad_solicitada,0) }}
                 </td>
-                <td style="text-align: center">
+                <td style="vertical-align: top;text-align: center">
                     {{ nf($detalle->cantidad_despachada,0) }}
                 </td>
-                <td style="text-align: center">
+                <td style="vertical-align: top;text-align: center">
 
                 </td>
             </tr>
             @php
-                $totalLineas = 26;
+                $totalLineas = 20;
                 $final = $totalLineas - $loop->iteration;
             @endphp
         @endforeach
