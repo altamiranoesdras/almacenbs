@@ -15,6 +15,9 @@
         $encabezdos = 0;
         $borde = 0;
         $saldo = 0;
+        $totalIngreso=0;
+        $totalEgreso=0;
+
     @endphp
 
     @foreach($folios as  $folio => $datalles )
