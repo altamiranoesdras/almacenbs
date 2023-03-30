@@ -73,6 +73,11 @@
                 <div class="col">
 
                     @if(isset($buscar))
+                        @php
+                            $totalIngreso=0;
+                            $totalEgreso=0;
+
+                        @endphp
                         @if($kardex->count() > 0)
 
                             <div class="card ">
@@ -165,20 +170,33 @@
                                                             </td>
                                                             <td class="text-uppercase">{{$det->responsable}}</td>
                                                             <td>{{$det->ingreso}}</td>
-                                                            <td>{{$det->ingreso ? nfp($det->precio) : ''}}</td>
-                                                            <td>{{$det->ingreso ? nfp($det->precio * $det->ingreso,2) : ''}}</td>
+                                                            <td>{{$det->ingreso ? nfp($det->model->precio) : ''}}</td>
+                                                            <td>{{$det->ingreso ? nfp($det->model->precio * $det->ingreso,2) : ''}}</td>
                                                             <td>{{$det->salida}}</td>
-                                                            <td>{{$det->salida ? nfp($det->precio) : $det->salida}}</td>
-                                                            <td>{{$det->salida ? nfp($det->precio * $det->salida,2) : ''}}</td>
+                                                            <td>{{$det->salida ? nfp($det->model->precio) : $det->salida}}</td>
+                                                            <td>{{$det->salida ? nfp($det->model->precio * $det->salida,2) : ''}}</td>
 
                                                             @php
-                                                                $saldo+=$det->ingreso-=$det->salida
+                                                                $saldo+=$det->ingreso-=$det->salida;
+                                                                $totalIngreso += ($det->model->precio * $det->ingreso);
+                                                                $totalEgreso += ($det->model->precio * $det->salida);
                                                             @endphp
                                                             <td class="{{$loop->last ? 'text-bold' :''}}">
                                                                 {{$saldo}}
                                                             </td>
-                                                            <td>{{nfp($det->precio)}}</td>
-                                                            <td>{{nfp($det->precio * $saldo,2)}}</td>
+                                                            <td>{{nfp($det->model->precio)}}</td>
+                                                            <td>
+{{--                                                                {{nfp($det->model->precio * $saldo,2)}}--}}
+{{--                                                                <br>--}}
+{{--                                                                IN: {{$totalIngreso}}--}}
+{{--                                                                <br>--}}
+{{--                                                                EG: {{$totalEgreso}}--}}
+{{--                                                                <br>--}}
+                                                                @php
+                                                                $total = $totalIngreso > 0 ? $totalIngreso-$totalEgreso : $totalEgreso
+                                                                @endphp
+                                                                {{nfp($total,2)}}
+                                                            </td>
                                                             <td>
                                                                 <input type="hidden" name="impresos[{{$det->id}}]" value="0">
                                                                 <input type="checkbox" name="impresos[{{$det->id}}]" value="1" {{$det->impreso ? 'checked' : ''}}>

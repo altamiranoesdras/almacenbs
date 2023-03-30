@@ -42,7 +42,7 @@ class ReportesAlmacenController extends Controller
             /**
              * @var Collection $kardex
              */
-            $kardex = Kardex::with(['item' => function($queryItem){
+            $kardex = Kardex::with(['model','item' => function($queryItem){
                 $queryItem->with(['unimed','stocks','marca','presentacion']);
             }])
                 ->delItem($item_id)
@@ -51,6 +51,8 @@ class ReportesAlmacenController extends Controller
 
 
             $kardex = $kardex->groupBy('folio');
+
+//            return $kardex;
 
 
         }
