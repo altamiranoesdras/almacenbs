@@ -199,13 +199,26 @@ class Kardex extends Model
     public function getPrecioAttribute()
     {
 
-        if ($this->model instanceof CompraDetalle){
-            return $this->model->precio;
-
+        if ($this->model instanceof Stock){
+            return $this->item->precio_compra;
         }
 
-        return $this->item->precio_compra;
+        return $this->model->precio;
 
+
+
+
+    }
+
+    public function getSubTotalAttribute()
+    {
+        if ($this->salida){
+            return $this->precio * $this->salida;
+        }
+
+        if ($this->ingreso){
+            return  $this->precio * $this->ingreso;
+        }
 
     }
 
