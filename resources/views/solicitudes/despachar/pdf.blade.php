@@ -23,7 +23,7 @@
             <td style="width: 160mm; text-align: left; vertical-align: middle;">{{ fechaLtnMesEnTexto($solicitud->fecha_despacha) }}</td>
         </tr>
     </table>
-    <table  style="width: 100%; margin-bottom: 2mm" border="{{$borde}} " >
+    <table  style="width: 100%; margin-bottom: 4mm" border="{{$borde}} " >
         <tr style="height: 8mm; !important;">
             <td style="width: 46mm; text-align: left; vertical-align: middle; color: {{$color}}">Unidad Solicitante:</td>
             <td style="width: 148mm; text-align: left; vertical-align: middle;"> {{$solicitud->unidad->nombre ?? ''}}</td>
@@ -35,7 +35,7 @@
             <td style="width: 139mm; text-align: left; vertical-align: middle;">{{ $solicitud->usuarioSolicita->name }}</td>
         </tr>
     </table>
-    <table  style="width: 100%; margin-bottom: 11mm" border="{{$borde}} " >
+    <table  style="width: 100%; margin-bottom: 9mm" border="{{$borde}} " >
         <tr style="height: 8mm; !important;">
             <td style="width: 17mm; text-align: left; vertical-align: middle; color: {{$color}}" >Cargo:</td>
             <td style="width: 174mm; text-align: left; vertical-align: middle;"><b>{{ $solicitud->usuarioSolicita->puesto->nombre ?? "Sin puesto" }}</b></td>
