@@ -13,8 +13,8 @@
         <tr>
             <td>{{$det->item->text}}</td>
             <td>{{$det->cantidad_solicitada}}</td>
-            <td> {{$solicitud->muestraCantidadAprobar() ? $det->cantidad_aprobada : "Pendiente"}}</td>
-            <td> {{$solicitud->muestraCantidadDespachar() ? $det->cantidad_despachada : "Pendiente"}}</td>
+            <td> {{$solicitud->estaAprobada() || $solicitud->estaDespachada() ? $det->cantidad_aprobada : "Pendiente"}}</td>
+            <td> {{$solicitud->estaDespachada() ? $det->cantidad_despachada : "Pendiente"}}</td>
         </tr>
     @endforeach
 
