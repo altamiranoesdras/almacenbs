@@ -285,23 +285,21 @@ class Solicitud extends Model
     public function muestraCantidadAprobar()
     {
 
-        /**
-         * @var User $user;
-         */
-        $user = auth()->user();
-
         return in_array($this->estado_id,[
             SolicitudEstado::SOLICITADA,
             SolicitudEstado::AUTORIZADA,
-            SolicitudEstado::APROBADA
-        ]) && $user->can('Aprobar Requisición');
+            SolicitudEstado::APROBADA,
+            SolicitudEstado::ANULADA,
+        ]);
     }
 
     public function muestraCantidadDespachar()
     {
         return in_array($this->estado_id,[
             SolicitudEstado::AUTORIZADA,
-            SolicitudEstado::APROBADA
+            SolicitudEstado::APROBADA,
+            SolicitudEstado::DESPACHADA,
+            SolicitudEstado::ANULADA,
         ]);
     }
 
