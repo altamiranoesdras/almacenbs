@@ -46,7 +46,7 @@ class SolicitudController extends AppBaseController
     {
         $scope = new ScopeSolicitudDataTable();
 
-        $scope->estados = [
+        $estadosIniciales =  [
             SolicitudEstado::SOLICITADA,
             SolicitudEstado::AUTORIZADA,
             SolicitudEstado::APROBADA,
@@ -54,6 +54,9 @@ class SolicitudController extends AppBaseController
             SolicitudEstado::ANULADA,
             SolicitudEstado::CANCELADA,
         ];
+
+        $scope->estados = request()->estados ?? $estadosIniciales;
+
         $solicitudDataTable->addScope($scope);
 
 
