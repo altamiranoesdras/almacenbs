@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Mail;
 
 /**
  * Class Bitacora
+ *
  * @package App\Models
  * @version March 17, 2022, 10:16 am CST
- *
  * @property \App\Models\User usuario
  * @property \Illuminate\Database\Eloquent\Collection usuariosNotificar
  * @property string model_type
@@ -21,6 +21,29 @@ use Illuminate\Support\Facades\Mail;
  * @property string comentario
  * @property integer notificado
  * @property integer usuario_id
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $deleted_at
+ * @property-read mixed $fecha_crea
+ * @property-read Model|\Eloquent $model
+ * @property-read \App\Models\User|null $usuario
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $usuariosNotificar
+ * @property-read int|null $usuarios_notificar_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Bitacora newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Bitacora newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Bitacora query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Bitacora whereComentario($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bitacora whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bitacora whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bitacora whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bitacora whereModelId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bitacora whereModelType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bitacora whereSeccion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bitacora whereTitulo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bitacora whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bitacora whereUsuarioId($value)
+ * @mixin \Eloquent
  */
 class Bitacora extends Model
 {

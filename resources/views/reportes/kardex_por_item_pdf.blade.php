@@ -146,10 +146,11 @@
                     <td  class="{{$loop->last ? 'text-bold' :'000-xxx'}}">
                         {{$saldo}}
                     </td>
-                    <td >{{nfp($det->precio)}}</td>
+                    <td >{{nfp(($det->precio_existencia ?? $det->precio))}}</td>
                     <td >
                         @php
-                            $total = $totalIngreso > 0 ? $totalIngreso-$totalEgreso : $totalEgreso
+//                            $total = $totalIngreso > 0 ? $totalIngreso-$totalEgreso : $totalEgreso;
+                            $total = $saldo * ($det->precio_existencia ?? $det->precio);
                         @endphp
                         {{nfp($total,2)}}
                     </td>

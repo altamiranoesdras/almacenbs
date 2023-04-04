@@ -184,7 +184,9 @@
                                                             <td class="{{$loop->last ? 'text-bold' :''}}">
                                                                 {{$saldo}}
                                                             </td>
-                                                            <td>{{nfp($det->precio)}}</td>
+                                                            <td>
+                                                                {!! Form::text("precios_existencia[$det->id]", $det->precio_existencia ?? $det->precio, ['class' => 'form-control form-control-sm']) !!}
+                                                            </td>
                                                             <td>
 {{--                                                                {{nfp($det->precio * $saldo,2)}}--}}
 {{--                                                                <br>--}}
@@ -193,7 +195,8 @@
 {{--                                                                EG: {{$totalEgreso}}--}}
 {{--                                                                <br>--}}
                                                                 @php
-                                                                $total = $totalIngreso > 0 ? $totalIngreso-$totalEgreso : $totalEgreso
+//                                                                $total = $totalIngreso > 0 ? $totalIngreso-$totalEgreso : $totalEgreso;
+                                                                $total = $saldo * ($det->precio_existencia ?? $det->precio);
                                                                 @endphp
                                                                 {{nfp($total,2)}}
                                                             </td>

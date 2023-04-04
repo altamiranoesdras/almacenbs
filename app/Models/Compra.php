@@ -80,6 +80,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereFolioInventario($value)
  * @property string $descuento
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereDescuento($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra noAnuladas()
  */
 class Compra extends Model
 {

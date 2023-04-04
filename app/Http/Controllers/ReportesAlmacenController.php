@@ -63,6 +63,7 @@ class ReportesAlmacenController extends Controller
     public function actualizaKardex($folio,Request $request)
     {
 
+//        dd($request->all());
 
 
         try {
@@ -72,14 +73,18 @@ class ReportesAlmacenController extends Controller
             $kardexs = Kardex::whereFolio($folio)->get();
 
             $impresos = $request->impresos;
+            $preciosExistencia = $request->precios_existencia;
             $codigosSalida = $request->codigos_salidas;
 
 
+//            dd($preciosExistencia);
 
             /**
              * @var Kardex $kardex
              */
             foreach ($kardexs as $kardex) {
+
+
 
                 if ($kardex->salida){
                     $codigo = $codigosSalida[$kardex->id] ?? null;
@@ -89,7 +94,9 @@ class ReportesAlmacenController extends Controller
                 $impreso = $impresos[$kardex->id] ?? 0;
 
 
+
                 $kardex->impreso = $impreso;
+                $kardex->precio_existencia = $preciosExistencia[$kardex->id];
                 $kardex->codigo_insumo = $request->codigo_insumo;
                 $kardex->del = $request->del;
                 $kardex->al = $request->al;
@@ -97,6 +104,7 @@ class ReportesAlmacenController extends Controller
                 $kardex->save();
 
             }
+
 
 
         } catch (Exception $exception) {

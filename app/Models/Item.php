@@ -117,6 +117,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property-read mixed $texto_principal
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereModeloId($value)
  * @property-read mixed $texto_kardex
+ * @property-read mixed $texto_requisicion
  */
 class Item extends Model implements HasMedia
 {

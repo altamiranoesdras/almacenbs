@@ -59,6 +59,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|Stock conIngresos()
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereBodegaId($value)
  * @property-read \App\Models\Bodega|null $bodega
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock deBodega($bodega = null)
  */
 class Stock extends Model
 {

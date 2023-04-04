@@ -65,6 +65,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Kardex whereAl($value)
  * @method static Builder|Kardex whereCodigoInsumo($value)
  * @method static Builder|Kardex whereDel($value)
+ * @property string|null $precio_existencia Precio unitario del las existencias
+ * @property string|null $precio_movimiento Precio unitario del ingreso o egreso
+ * @property-read mixed $sub_total
+ * @method static Builder|Kardex whereFolioSiguiente($value)
+ * @method static Builder|Kardex wherePrecioExistencia($value)
+ * @method static Builder|Kardex wherePrecioMovimiento($value)
  */
 class Kardex extends Model
 {
@@ -104,6 +110,8 @@ class Kardex extends Model
         'del',
         'al',
         'cantidad',
+        'precio_movimiento',
+        'precio_existencia',
         'tipo',
         'codigo',
         'responsable',
@@ -124,6 +132,8 @@ class Kardex extends Model
         'model_id' => 'integer',
         'model_type' => 'string',
         'cantidad' => 'decimal:2',
+        'precio_movimiento' => 'decimal:2',
+        'precio_existencia' => 'decimal:2',
         'tipo' => 'string',
         'codigo' => 'string',
         'responsable' => 'string',
@@ -266,4 +276,6 @@ class Kardex extends Model
 
         return $folioItem;
     }
+
+
 }
