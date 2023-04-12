@@ -446,7 +446,7 @@ class Item extends Model implements HasMedia
             $descripcion =  " - ".$descripcion;
         }
 
-        return $this->nombre.$descripcion;
+        return "CI: ".$this->codigo_insumo." - ".$this->nombre;
     }
 
     public function getTextoKardexAttribute()
