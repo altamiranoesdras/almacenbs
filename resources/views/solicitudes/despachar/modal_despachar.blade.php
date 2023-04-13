@@ -31,15 +31,15 @@
                         Cancelar
                     </button>
 
-                    @if($solicitud->tieneStock())
+{{--                    @if($solicitud->tieneStock())--}}
                         <button type="submit"   class="btn btn-outline-success">
                             Despachar
                         </button>
-                    @else
-                        <div class="alert alert-danger" role="alert">
-                            <strong>No tiene stock suficiente para despachar esta solicitud</strong>
-                        </div>
-                    @endif
+{{--                    @else--}}
+{{--                        <div class="alert alert-danger" role="alert">--}}
+{{--                            <strong>No tiene stock suficiente para despachar esta solicitud</strong>--}}
+{{--                        </div>--}}
+{{--                    @endif--}}
 
                 </div>
 
