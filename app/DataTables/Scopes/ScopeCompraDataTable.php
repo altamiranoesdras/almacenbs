@@ -75,7 +75,7 @@ class ScopeCompraDataTable implements DataTableScope
             $del = Carbon::parse($this->del)->startOfDay();
             $al = Carbon::parse($this->al)->endOfDay();
 
-            $query->whereBetween('created_at',[$del,$al]);
+            $query->whereBetween('fecha_documento',[$del,$al]);
 
         }
 
