@@ -133,7 +133,8 @@ class Compra1hDetalle extends Model
 
     public function getTextAttribute()
     {
+        $codigoInsumo = " CI: ".$this->item->codigo_insumo." ";
         $textoExtra = $this->texto_extra ? " / ".$this->texto_extra : '';
-        return $this->item->texto_principal.$textoExtra;
+        return $this->item->texto_principal.$codigoInsumo.$textoExtra;
     }
 }
