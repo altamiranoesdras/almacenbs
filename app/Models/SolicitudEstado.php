@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @package App\Models
  * @version July 27, 2022, 12:24 pm CST
  * @property \Illuminate\Database\Eloquent\Collection $solicitudes
+ * @property string $color
  * @property string $nombre
  * @property int $id
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -61,6 +62,7 @@ class SolicitudEstado extends Model
     protected $dates = ['deleted_at'];
 
 
+    protected $appends = ['color'];
 
     public $fillable = [
         'nombre'
@@ -99,5 +101,25 @@ class SolicitudEstado extends Model
     public function scopePrincipales(Builder $q)
     {
         $q->whereIn('id',[self::SOLICITADA,self::AUTORIZADA,self::APROBADA,self::DESPACHADA,self::ANULADA]);
+    }
+
+    public function getColorAttribute()
+    {
+
+        switch ($this->id){
+            case self::SOLICITADA:
+                return "info";
+            case self::APROBADA:
+                return "primary";
+            case self::DESPACHADA:
+                return "success";
+            case self::RETORNO_APROBADA:
+            case self::RETORNO_AUTORIZADA:
+            case self::RETORNO_SOLICITADA:
+                return "warning";
+            default:
+                return "secondary";
+        }
+
     }
 }

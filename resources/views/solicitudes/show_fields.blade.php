@@ -1,48 +1,59 @@
-<span class="float-right">
-    {!! Form::label('solicitud_estado_id', 'Estado:') !!}
-    <span class="badge badge-pill badge-info">{!! $solicitude->estado->nombre !!}</span>
-</span>
-<!-- Id Field -->
-{!! Form::label('id', 'Id:') !!}
-{!! $solicitude->id !!}<br>
+<div class="row">
+    <div class="col-sm-6">
+
+        <!-- Id Field -->
+        {!! Form::label('id', 'Id:') !!}
+        {!! $solicitude->id !!}<br>
 
 
-<!-- Numero Field -->
-{!! Form::label('numero', 'Código:') !!}
-{!! $solicitude->codigo !!}<br>
+        <!-- Numero Field -->
+        {!! Form::label('numero', 'Código:') !!}
+        {!! $solicitude->codigo !!}<br>
 
 
-<!-- Observaciones Field -->
-{!! Form::label('justificacion', 'Justificacion:') !!}
-{!! $solicitude->justificacion !!}<br>
+        <!-- Observaciones Field -->
+        {!! Form::label('justificacion', 'Justificacion:') !!}
+        {!! $solicitude->justificacion !!}<br>
 
 
-<!-- User Id Field -->
-{!! Form::label('user_id', 'Departamento solicita:') !!}
-{!! $solicitude->unidad->nombre ?? '' !!}<br>
+        <!-- User Id Field -->
+        {!! Form::label('user_id', 'Departamento solicita:') !!}
+        {!! $solicitude->unidad->nombre ?? '' !!}<br>
 
 
-<!-- User Id Field -->
-{!! Form::label('user_id', 'Solicitante:') !!}
-{!! $solicitude->usuarioSolicita->name ?? '' !!}<br>
+        <!-- User Id Field -->
+        {!! Form::label('user_id', 'Solicitante:') !!}
+        {!! $solicitude->usuarioSolicita->name ?? '' !!}<br>
 
 
-<!-- Created At Field -->
-{!! Form::label('created_at', 'Fecha solicita:') !!}
-{!! fechaLtn($solicitude->fecha_solicita) !!}<br>
+        <!-- Created At Field -->
+        {!! Form::label('created_at', 'Fecha solicita:') !!}
+        {!! fechaLtn($solicitude->fecha_solicita) !!}<br>
 
 
-@if ($solicitude->estaDespachada())
+        @if ($solicitude->estaDespachada())
 
-<!-- User Despacha Field -->
-{!! Form::label('user_despacha', 'User Despacha:') !!}
-{!! $solicitude->usuarioDespacha->name  ??  ''!!}<br>
+            <!-- User Despacha Field -->
+            {!! Form::label('user_despacha', 'User Despacha:') !!}
+            {!! $solicitude->usuarioDespacha->name  ??  ''!!}<br>
 
-<!-- Fecha Despacha Field -->
-{!! Form::label('fecha_despacha', 'Despachada El:') !!}
-{!! fechaLtn($solicitude->fecha_despacha) !!}<br>
+            <!-- Fecha Despacha Field -->
+            {!! Form::label('fecha_despacha', 'Despachada El:') !!}
+            {!! fechaLtn($solicitude->fecha_despacha) !!}<br>
 
-@endif
+        @endif
+    </div>
+
+
+    <div class="col-sm-6 text-right">
+        <label for="estado">Estado:</label>
+        <span class="badge badge-pill badge-{{$solicitude->estado->color}}">
+            {!! $solicitude->estado->nombre !!}
+        </span>
+        <br>
+        {{$solicitude->motivo_retorna}}
+    </div>
+</div>
 
 
 

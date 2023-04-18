@@ -65,7 +65,14 @@ class SolicitudApruebaDataTable extends DataTable
                     return fechaHoraLtn($solicitud->fecha_despacha);
                 }
             })
-            ->rawColumns(['action','codigo']);
+            ->editColumn('estado.nombre',function (Solicitud $solicitud){
+
+                $color = $solicitud->estado->color;
+
+                return "<span class='badge badge-$color'>{$solicitud->estado->nombre}</span>";
+
+            })
+            ->rawColumns(['action','codigo','estado.nombre']);
     }
 
     /**

@@ -38,36 +38,21 @@ class SolicitudApruebaController extends Controller
 
 
 
-
         try {
             DB::beginTransaction();
 
 
-            /**
-             * @var SolicitudDetalle $detalle
-             */
-            foreach ($solicitud->detalles as $index => $detalle) {
-                $detalle->cantidad_aprobada = $request->cantidades_aprueba[$index];
-                $detalle->save();
-            }
+            if ($request->retornar){
 
-            $solicitud->estado_id = SolicitudEstado::APROBADA;
-            $solicitud->usuario_aprueba = auth()->user()->id;
-            $solicitud->fecha_aprueba = Carbon::now();
-            $solicitud->save();
+                $this->retornar($solicitud,$request);
+                $msj="Solicitud retornada correctamente";
 
+            }else{
 
-
-            try {
-
-//                $this->enviarNotificacionDespechador();
-//                $solicitud->usuarioSolicita->notify(new RequisicionInformaAprobacionNotificacion());
-
-                event(new EventoCambioEstadoSolicitud($solicitud));
-            }catch (Exception $exception){
+                $this->aprueba($solicitud,$request);
+                $msj="Solicitud aprobada correctamente";
 
             }
-//            Mail::send(new DespacharSolicitud($solicitud));
 
 
         } catch (Exception $exception) {
@@ -81,7 +66,7 @@ class SolicitudApruebaController extends Controller
 
         DB::commit();
 
-        flash('Solicitud aprobada correctamente')->success()->important();
+        flash($msj)->success()->important();
 
         return redirect(route('solicitudes.aprobar'));
     }
@@ -99,5 +84,57 @@ class SolicitudApruebaController extends Controller
 
     }
 
+    public function aprueba(Solicitud $solicitud,Request $request)
+    {
+
+
+        /**
+         * @var SolicitudDetalle $detalle
+         */
+        foreach ($solicitud->detalles as $index => $detalle) {
+            $detalle->cantidad_aprobada = $request->cantidades_aprueba[$index];
+            $detalle->save();
+        }
+
+        $solicitud->estado_id = SolicitudEstado::APROBADA;
+        $solicitud->usuario_aprueba = auth()->user()->id;
+        $solicitud->fecha_aprueba = Carbon::now();
+        $solicitud->save();
+
+
+
+        try {
+
+//                $this->enviarNotificacionDespechador();
+//                $solicitud->usuarioSolicita->notify(new RequisicionInformaAprobacionNotificacion());
+
+            event(new EventoCambioEstadoSolicitud($solicitud));
+        }catch (Exception $exception){
+
+        }
+//            Mail::send(new DespacharSolicitud($solicitud));
+
+        $solicitud->addBitacora("SISTEMA","REQUISICIÓN APROBADA",'');
+    }
+
+
+    public function retornar(Solicitud $solicitud,Request $request)
+    {
+
+        $solicitud->estado_id = SolicitudEstado::RETORNO_SOLICITADA;
+        $solicitud->usuario_aprueba = null;
+        $solicitud->fecha_aprueba = null;
+        $solicitud->save();
+
+        try {
+
+//            Mail::send(new DespacharSolicitud($solicitud));
+
+        }catch (Exception $exception){
+
+        }
+
+        $solicitud->addBitacora("SISTEMA","REQUISICIÓN RETORNADA","Motivo: ".$request->motivo);
+    }
 
 }

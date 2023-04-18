@@ -13,6 +13,12 @@
                 <div class="col">
                     <h1 class="m-0 text-dark">
                         {{ $solicitud->esTemporal() ? 'Nueva requisición' : 'Editar requisición' }}
+                        @if($solicitud->motivo_retorna)
+                            <small class="text-warning">
+                                Retornada por {{$solicitud->motivo_retorna}}
+                            </small>
+                        @endif
+
                     </h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->

@@ -53,6 +53,9 @@ class SolicitudController extends AppBaseController
             SolicitudEstado::DESPACHADA,
             SolicitudEstado::ANULADA,
             SolicitudEstado::CANCELADA,
+            SolicitudEstado::RETORNO_SOLICITADA,
+            SolicitudEstado::RETORNO_AUTORIZADA,
+            SolicitudEstado::RETORNO_APROBADA,
         ];
 
         $scope->estados = request()->estados ?? $estadosIniciales;
@@ -71,6 +74,9 @@ class SolicitudController extends AppBaseController
             SolicitudEstado::AUTORIZADA,
             SolicitudEstado::APROBADA,
             SolicitudEstado::DESPACHADA,
+            SolicitudEstado::RETORNO_SOLICITADA,
+//            SolicitudEstado::RETORNO_AUTORIZADA,
+//            SolicitudEstado::RETORNO_APROBADA,
         ];
 
         $scope = new ScopeSolicitudDataTable();
@@ -434,12 +440,15 @@ class SolicitudController extends AppBaseController
     public function enviarNotificacion()
     {
 
-        $usuarios = User::all()->filter(function (User $user) {
-            return $user->can('Aprobar Requisición') && $user->id > 3;
-        });
+        if(entornoEstaEnProduccion()){
 
-        foreach ($usuarios as $usuario) {
-            $usuario->notify(new RequisicionSolicitidaNotificacion());
+            $usuarios = User::all()->filter(function (User $user) {
+                return $user->can('Aprobar Requisición') && $user->id > 3;
+            });
+
+            foreach ($usuarios as $usuario) {
+                $usuario->notify(new RequisicionSolicitidaNotificacion());
+            }
         }
 
     }

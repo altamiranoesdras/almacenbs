@@ -16,7 +16,7 @@
                 <td> {{$det->cantidad_aprobada}}</td>
             @else
                 <td>
-                    <input type="number" name="cantidades_aprueba[]" step="any" class="form-control form-control-sm" required >
+                    <input type="number" name="cantidades_aprueba[]" step="any" class="form-control form-control-sm cantidades" required >
                 </td>
             @endif
         </tr>

@@ -60,12 +60,19 @@ class SolicitudUserDataTable extends DataTable
                 return fechaHoraLtn($solicitud->fecha_solicita);
 
             })
+            ->editColumn('estado.nombre',function (Solicitud $solicitud){
+
+                $color = $solicitud->estado->color;
+
+                return "<span class='badge badge-$color'>{$solicitud->estado->nombre}</span>";
+
+            })
             ->editColumn('fecha_despacha',function (Solicitud $solicitud){
 
                 return fechaHoraLtn($solicitud->fecha_despacha);
 
             })
-            ->rawColumns(['action','codigo']);
+            ->rawColumns(['action','codigo','estado.nombre']);
     }
 
     /**

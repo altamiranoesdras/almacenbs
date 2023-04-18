@@ -861,3 +861,8 @@ function fechaLtnMesEnTexto(){
 
     return $dia."/".mesLetras($mes)."/".$anio;
 }
+
+function entornoEstaEnProduccion(){
+    return app()->environment()=='production';
+}
+

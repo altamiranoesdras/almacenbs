@@ -9,6 +9,7 @@ use App\Models\Solicitud;
 use App\Models\SolicitudEstado;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class SolicitudAutorizaController extends Controller
@@ -30,25 +31,24 @@ class SolicitudAutorizaController extends Controller
     }
 
 
-    public function store(Solicitud $solicitud)
+    public function store(Solicitud $solicitud,Request $request)
     {
 
 
         try {
             DB::beginTransaction();
 
-            $solicitud->estado_id = SolicitudEstado::AUTORIZADA;
-            $solicitud->usuario_autoriza = auth()->user()->id;
-            $solicitud->fecha_autoriza = Carbon::now();
-            $solicitud->save();
+            if ($request->retornar){
 
-            try {
+                $this->retornar($solicitud,$request);
+                $msj="Solicitud retornada correctamente";
 
-                event(new EventoCambioEstadoSolicitud($solicitud));
-            }catch (Exception $exception){
+            }else{
+
+                $this->autorizar($solicitud,$request);
+                $msj="Solicitud autorizada correctamente";
 
             }
-//            Mail::send(new DespacharSolicitud($solicitud));
 
 
         } catch (Exception $exception) {
@@ -62,8 +62,48 @@ class SolicitudAutorizaController extends Controller
 
         DB::commit();
 
-        flash('Solicitud autorizada correctamente')->success()->important();
+        flash($msj)->success()->important();
 
         return redirect(route('solicitudes.autorizar'));
+    }
+
+    public function autorizar(Solicitud $solicitud,Request $request)
+    {
+
+
+        $solicitud->estado_id = SolicitudEstado::AUTORIZADA;
+        $solicitud->usuario_autoriza = auth()->user()->id;
+        $solicitud->fecha_autoriza = Carbon::now();
+        $solicitud->save();
+
+        try {
+
+            event(new EventoCambioEstadoSolicitud($solicitud));
+        }catch (Exception $exception){
+
+        }
+//            Mail::send(new DespacharSolicitud($solicitud));
+
+        $solicitud->addBitacora("SISTEMA","REQUISICIÓN APROBADA",null);
+    }
+
+
+    public function retornar(Solicitud $solicitud,Request $request)
+    {
+
+        $solicitud->estado_id = SolicitudEstado::INGRESADA;
+        $solicitud->usuario_autoriza = null;
+        $solicitud->fecha_autoriza = null;
+        $solicitud->save();
+
+        try {
+
+//            Mail::send(new DespacharSolicitud($solicitud));
+
+        }catch (Exception $exception){
+
+        }
+
+        $solicitud->addBitacora("SISTEMA","REQUISICIÓN RETORNADA",$request->observacion);
     }
 }

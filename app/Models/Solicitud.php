@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasBitacora;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -96,6 +97,7 @@ class Solicitud extends Model
     use SoftDeletes;
 
     use HasFactory;
+    use HasBitacora;
 
     public $table = 'solicitudes';
 
@@ -104,6 +106,8 @@ class Solicitud extends Model
 
 
     protected $dates = ['deleted_at'];
+
+    protected $appends = ['motivo_retorna'];
 
     protected static function booted()
     {
@@ -333,12 +337,19 @@ class Solicitud extends Model
 
     public function puedeEditar()
     {
-        return $this->estado_id==SolicitudEstado::TEMPORAL || $this->estado_id==SolicitudEstado::INGRESADA;
+        return in_array($this->estado_id,[
+                SolicitudEstado::TEMPORAL,
+                SolicitudEstado::INGRESADA,
+                SolicitudEstado::RETORNO_SOLICITADA,
+            ]);
     }
 
     public function puedeSolicitar()
     {
-        return $this->estado_id==SolicitudEstado::INGRESADA;
+        return in_array($this->estado_id,[
+            SolicitudEstado::INGRESADA,
+            SolicitudEstado::RETORNO_SOLICITADA,
+        ]);
     }
 
     public function puedeAutorizar()
@@ -461,4 +472,25 @@ class Solicitud extends Model
     {
         $q->where('estado_id',SolicitudEstado::APROBADA);
     }
+
+    public function ultimaBitacora()
+    {
+        return $this->bitacoras->last() ?? null;
+    }
+
+    public function getMotivoRetornaAttribute()
+    {
+        $retornada = in_array($this->estado_id,[
+            SolicitudEstado::RETORNO_SOLICITADA,
+            SolicitudEstado::RETORNO_APROBADA,
+            SolicitudEstado::RETORNO_AUTORIZADA,
+        ]);
+
+        if ($retornada){
+            return $this->ultimaBitacora()->comentario ?? null;
+        }
+
+        return null;
+    }
+
 }
