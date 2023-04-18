@@ -75,8 +75,8 @@ class SolicitudController extends AppBaseController
             SolicitudEstado::APROBADA,
             SolicitudEstado::DESPACHADA,
             SolicitudEstado::RETORNO_SOLICITADA,
-//            SolicitudEstado::RETORNO_AUTORIZADA,
-//            SolicitudEstado::RETORNO_APROBADA,
+            SolicitudEstado::RETORNO_AUTORIZADA,
+            SolicitudEstado::RETORNO_APROBADA,
         ];
 
         $scope = new ScopeSolicitudDataTable();
@@ -261,6 +261,9 @@ class SolicitudController extends AppBaseController
         }catch (Exception $exception){
 
         }
+
+        $solicitud->addBitacora("SISTEMA","REQUISICIÓN SOLICITADA","");
+
 
         return $solicitud;
 

@@ -384,7 +384,8 @@ class Solicitud extends Model
 
     public function puedeAnular()
     {
-        return $this->estado_id != SolicitudEstado::ANULADA && $this->estado_id == SolicitudEstado::DESPACHADA;
+        return $this->estado_id != SolicitudEstado::ANULADA;
+//        return $this->estado_id != SolicitudEstado::ANULADA && $this->estado_id == SolicitudEstado::DESPACHADA;
     }
 
     public function tieneStock()
@@ -439,16 +440,24 @@ class Solicitud extends Model
 
     public function anular()
     {
+
+
+        if ($this->estado_id == SolicitudEstado::DESPACHADA){
+
+            /**
+             * @var SolicitudDetalle $detalle
+             */
+            foreach ($this->detalles as $detalle){
+                $detalle->anular();
+            }
+        }
+
         $this->estado_id = SolicitudEstado::ANULADA;
         $this->save();
 
+        $this->addBitacora("SISTEMA","REQUISICIÓN ANULADA","");
 
-        /**
-         * @var SolicitudDetalle $detalle
-         */
-        foreach ($this->detalles as $detalle){
-            $detalle->anular();
-        }
+
     }
 
     public function scopeDeUnidad(Builder $q,$unidad = null)
