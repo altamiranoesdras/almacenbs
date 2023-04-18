@@ -26,7 +26,7 @@ class SolicitudApruebaController extends Controller
     public function index(SolicitudApruebaDataTable $solicitudeDataTable)
     {
         $scope = new ScopeSolicitudDataTable();
-        $scope->estados = [SolicitudEstado::SOLICITADA,SolicitudEstado::AUTORIZADA];
+        $scope->estados = [SolicitudEstado::SOLICITADA,SolicitudEstado::AUTORIZADA,SolicitudEstado::RETORNO_APROBADA];
         $solicitudeDataTable->addScope($scope);
 
         return $solicitudeDataTable->render('solicitudes.aprobar.index');
@@ -126,13 +126,6 @@ class SolicitudApruebaController extends Controller
         $solicitud->fecha_aprueba = null;
         $solicitud->save();
 
-        try {
-
-//            Mail::send(new DespacharSolicitud($solicitud));
-
-        }catch (Exception $exception){
-
-        }
 
         $solicitud->addBitacora("SISTEMA","REQUISICIÓN RETORNADA","Motivo: ".$request->motivo);
     }

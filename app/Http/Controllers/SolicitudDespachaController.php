@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\Scopes\ScopeSolicitudDataTable;
 use App\DataTables\SolicitudDespachaDataTable;
+use App\Events\EventoCambioEstadoSolicitud;
 use App\Mail\DespacharSolicitud;
 use App\Models\Role;
 use App\Models\Solicitud;
@@ -12,6 +13,7 @@ use App\Models\SolicitudEstado;
 use App\Models\User;
 use App\Notifications\RequisicionSolicitidaNotificacion;
 use App\Notifications\StockCriticoNotificacion;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -54,26 +56,17 @@ class SolicitudDespachaController extends Controller
         try {
             DB::beginTransaction();
 
-            /**
-             * @var SolicitudDetalle $detalle
-             */
-            foreach ($solicitud->detalles as $index => $detalle) {
-                $detalle->cantidad_despachada = $request->cantidades_despacha[$index] ?? $detalle->cantidad_aprobada;
-                $detalle->save();
+            if ($request->retornar){
+
+                $this->retornar($solicitud,$request);
+                $msj="Solicitud retornada correctamente";
+
+            }else{
+
+                $this->despachar($solicitud,$request);
+                $msj="Solicitud aprobada correctamente";
+
             }
-
-            $solicitud->estado_id = SolicitudEstado::DESPACHADA;
-            $solicitud->usuario_despacha = auth()->user()->id;
-            $solicitud->fecha_despacha = fechaHoraActualDb();
-            $solicitud->save();
-
-
-            $solicitud->egreso();
-            $solicitud->ingreso();
-
-//            $this->verificaStockCritico($solicitud);
-
-//            Mail::send(new DespacharSolicitud($solicitud));
 
 
         } catch (Exception $exception) {
@@ -87,9 +80,52 @@ class SolicitudDespachaController extends Controller
 
         DB::commit();
 
-        flash('Solicitud despachada correctamente')->success()->important();
+        flash($msj)->success()->important();
 
         return redirect(route('solicitudes.despachar'));
+    }
+
+
+
+    public function despachar(Solicitud $solicitud,Request $request)
+    {
+
+        /**
+         * @var SolicitudDetalle $detalle
+         */
+        foreach ($solicitud->detalles as $index => $detalle) {
+            $detalle->cantidad_despachada = $request->cantidades_despacha[$index] ?? $detalle->cantidad_aprobada;
+            $detalle->save();
+        }
+
+        $solicitud->estado_id = SolicitudEstado::DESPACHADA;
+        $solicitud->usuario_despacha = auth()->user()->id;
+        $solicitud->fecha_despacha = fechaHoraActualDb();
+        $solicitud->save();
+
+
+        $solicitud->egreso();
+        $solicitud->ingreso();
+
+//            $this->verificaStockCritico($solicitud);
+
+//            Mail::send(new DespacharSolicitud($solicitud));
+
+
+        $solicitud->addBitacora("SISTEMA","REQUISICIÓN DESPACHADA",'');
+    }
+
+
+    public function retornar(Solicitud $solicitud,Request $request)
+    {
+
+        $solicitud->estado_id = SolicitudEstado::RETORNO_APROBADA;
+        $solicitud->usuario_despacha = null;
+        $solicitud->fecha_despacha = null;
+        $solicitud->save();
+
+
+        $solicitud->addBitacora("SISTEMA","REQUISICIÓN RETORNADA","Motivo: ".$request->motivo);
     }
 
 
@@ -155,5 +191,6 @@ class SolicitudDespachaController extends Controller
             }
         }
     }
+
 
 }
