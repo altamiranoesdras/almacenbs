@@ -14,7 +14,7 @@
     @php
         $borde = 0;
         $conteoLineas = 0;
-        $maximoLineas = 14;
+        $maximoLineas = 15;
     @endphp
 
 
