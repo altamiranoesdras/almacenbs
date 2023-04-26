@@ -46,12 +46,6 @@ class SolicitudDespachaController extends Controller
     {
 
 
-        $errores = $this->validaCantidadAprobadaYStock($solicitud,$request);
-
-        if ($errores->count() > 0){
-            return redirect()->back()->withErrors($errores->toArray());
-        }
-
 
         try {
             DB::beginTransaction();
@@ -62,6 +56,12 @@ class SolicitudDespachaController extends Controller
                 $msj="Solicitud retornada correctamente";
 
             }else{
+
+                $errores = $this->validaCantidadAprobadaYStock($solicitud,$request);
+
+                if ($errores->count() > 0){
+                    return redirect()->back()->withErrors($errores->toArray());
+                }
 
                 $this->despachar($solicitud,$request);
                 $msj="Solicitud aprobada correctamente";
