@@ -209,6 +209,10 @@ class Kardex extends Model
     public function getPrecioAttribute()
     {
 
+        if ($this->precio_movimiento){
+            return  $this->precio_movimiento;
+        }
+
         if ($this->model instanceof Stock){
             return $this->item->precio_compra;
         }
