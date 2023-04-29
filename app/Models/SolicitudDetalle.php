@@ -141,6 +141,20 @@ class SolicitudDetalle extends Model
             ->sortBy('id');
 
 
+        /**
+         * @var Stock $primerStock
+         */
+
+        $primerStock = $stocks->first();
+
+        /**
+         * @var Stock $ultimoStock
+         */
+
+        $ultimoStock = $stocks->last();
+
+
+
         foreach ($stocks as $key => $stock) {
 
             /**
@@ -160,20 +174,29 @@ class SolicitudDetalle extends Model
                 $stock->save();
 
                 $this->addStockTransaccion(StockTransaccion::EGRESO,$stock->id,$rebajado,$stock->precio_compra);
+
+
+                $this->kardex()->create([
+                    'item_id' => $this->item->id,
+                    'cantidad' => $rebajado,
+                    'precio_movimiento' => $stock->precio_compra,
+                    'precio_existencia' => $stock->precio_compra,
+                    'tipo' => Kardex::TIPO_SALIDA,
+                    'codigo' => $this->solicitud->codigo,
+                    'responsable' => $this->solicitud->unidad->nombre,
+                    'usuario_id' => auth()->user()->id ?? User::PRINCIPAL
+                ]);
             }
+
+
 
             if($cantidad>0)
                 break;
         }
 
-        $this->kardex()->create([
-            'item_id' => $this->item->id,
-            'cantidad' => $this->cantidad_despachada,
-            'tipo' => Kardex::TIPO_SALIDA,
-            'codigo' => $this->solicitud->codigo,
-            'responsable' => $this->solicitud->unidad->nombre,
-            'usuario_id' => auth()->user()->id ?? User::PRINCIPAL
-        ]);
+        $this->precio = $primerStock->precio_compra;
+        $this->save();
+
 
         return $stocks;
 
