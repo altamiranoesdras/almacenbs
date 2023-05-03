@@ -161,7 +161,7 @@
                                                     @foreach($datalles as  $det )
 
                                                         <tr class="text-sm text-right">
-                                                            <td>{{fechaLtn($det->created_at)}}</td>
+                                                            <td>{{$det->fecha_ordena}}</td>
                                                             <td class="text-uppercase">{{$det->ingreso ? $det->codigo : ''}}</td>
                                                             <td class="text-uppercase ">
                                                                 @if($det->salida)
@@ -169,9 +169,11 @@
                                                                 @endif
                                                             </td>
                                                             <td class="text-uppercase">{{$det->responsable}}</td>
+
                                                             <td>{{$det->ingreso}}</td>
                                                             <td>{{$det->ingreso ? nfp($det->precio) : ''}}</td>
                                                             <td>{{$det->ingreso ? nfp($det->precio * $det->ingreso,2) : ''}}</td>
+
                                                             <td>{{$det->salida}}</td>
                                                             <td>{{$det->salida ? nfp($det->precio) : $det->salida}}</td>
                                                             <td>{{$det->salida ? nfp($det->precio * $det->salida,2) : ''}}</td>
@@ -181,9 +183,13 @@
                                                                 $totalIngreso += ($det->precio * $det->ingreso);
                                                                 $totalEgreso += ($det->precio * $det->salida);
                                                             @endphp
-                                                            <td class="{{$loop->last ? 'text-bold' :''}}">
-                                                                {{$saldo}}
-                                                            </td>
+
+                                                                <td class="text-bold">
+{{--                                                                    {{$saldo}}--}}
+                                                                    {{$det->saldo_stock}}
+
+                                                                </td>
+
                                                             <td>
                                                                 {!! Form::text("precios_existencia[$det->id]", $det->precio_existencia ?? $det->precio, ['class' => 'form-control form-control-sm']) !!}
                                                             </td>
@@ -194,11 +200,12 @@
 {{--                                                                <br>--}}
 {{--                                                                EG: {{$totalEgreso}}--}}
 {{--                                                                <br>--}}
-                                                                @php
-//                                                                $total = $totalIngreso > 0 ? $totalIngreso-$totalEgreso : $totalEgreso;
-                                                                $total = $saldo * ($det->precio_existencia ?? $det->precio);
-                                                                @endphp
-                                                                {{nfp($total,2)}}
+{{--                                                                @php--}}
+{{--//                                                                $total = $totalIngreso > 0 ? $totalIngreso-$totalEgreso : $totalEgreso;--}}
+{{--                                                                $total = $saldo * ($det->precio_existencia ?? $det->precio);--}}
+{{--                                                                @endphp--}}
+{{--                                                                {{nfp($total,2)}}--}}
+                                                                {{nfp($det->sub_total_saldo)}}
                                                             </td>
                                                             <td>
                                                                 <input type="hidden" name="impresos[{{$det->id}}]" value="0">

@@ -89,7 +89,7 @@ class Kardex extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $appends = ['precio'];
+    protected $appends = ['precio','fecha_ordena','saldo_stock'];
 
     protected static function booted()
     {
@@ -224,6 +224,32 @@ class Kardex extends Model
 
     }
 
+    public function getFechaOrdenaAttribute()
+    {
+
+        if ($this->model instanceof CompraDetalle){
+            return $this->model->compra->fecha_ingreso->format('d/m/Y');
+        }
+
+        return $this->created_at->format('d/m/Y');
+
+    }
+
+    public function getSaldoStockAttribute()
+    {
+        if ($this->salida){
+
+            return $this->item->stocks->sum(function (Stock  $stock){
+                if ($this->precio_movimiento==$stock->precio_compra && $stock->bodega_id==Bodega::PRINCIPAL){
+                    return $stock->cantidad;
+                }
+            });
+        }
+
+        return $this->cantidad;
+    }
+
+
     public function getSubTotalAttribute()
     {
         if ($this->salida){
@@ -234,6 +260,12 @@ class Kardex extends Model
             return  $this->precio * $this->ingreso;
         }
 
+    }
+
+
+    public function getSubTotalSaldoAttribute()
+    {
+        return  $this->precio * $this->saldo_stock;
     }
 
     public function scopeDelItem($q,$item)

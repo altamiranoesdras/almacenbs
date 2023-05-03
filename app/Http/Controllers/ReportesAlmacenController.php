@@ -45,12 +45,12 @@ class ReportesAlmacenController extends Controller
             $kardex = Kardex::with(['model','item' => function($queryItem){
                 $queryItem->with(['unimed','stocks','marca','presentacion']);
             }])
-                ->delItem($item_id)
-                ->orderBy('created_at','asc')
-                ->get();
+            ->delItem($item_id)
+            ->orderBy('created_at','asc')
+            ->get();
 
 
-            $kardex = $kardex->groupBy('folio');
+            $kardex = $kardex->sortBy('fecha_ordena')->groupBy('folio');
 
 //            return $kardex;
 
@@ -143,7 +143,7 @@ class ReportesAlmacenController extends Controller
             ->get();
 
 
-        $folios = $kardexs->where('folio',$folio)->groupBy('folio');
+        $folios = $kardexs->where('folio',$folio)->sortBy('fecha_ordena')->groupBy('folio');
 
         //si el folio tiene detalles y hay algún detalle para imprimir
         $imprimeEncabezado = $folios[$folio]->count() > 0  &&  $folios[$folio]->first()->impreso;
