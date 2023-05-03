@@ -125,7 +125,7 @@
 
                 <tr style="font-size: 12px;  text-align: center; color: {{$det->impreso ? '' : 'white'}}">
 
-                    <td >{{fechaLtn($det->created_at)}}</td>
+                    <td >{{$det->fecha_ordena}}</td>
                     <td class="text-uppercase">{{$det->ingreso ? $det->codigo : ''}}</td>
                     <td class="text-uppercase">{{$det->salida ? $det->codigo : ''}}</td>
                     <td class="text-uppercase" style="width: {{$anchos['solicita']}}mm !important;font-size: 11px; text-align: left;">
