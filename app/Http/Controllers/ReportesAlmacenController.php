@@ -143,7 +143,7 @@ class ReportesAlmacenController extends Controller
             ->get();
 
 
-        $folios = $kardexs->where('folio',$folio)->sortByDesc('fecha_ordena')->groupBy('folio');
+        $folios = $kardexs->where('folio',$folio)->sortBy('fecha_ordena_timestamp')->groupBy('folio');
 
         //si el folio tiene detalles y hay algún detalle para imprimir
         $imprimeEncabezado = $folios[$folio]->count() > 0  &&  $folios[$folio]->first()->impreso;

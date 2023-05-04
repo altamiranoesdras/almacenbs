@@ -142,9 +142,11 @@
                         $saldo+=$det->ingreso-=$det->salida;
                         $totalIngreso += ($det->precio * $det->ingreso);
                         $totalEgreso += ($det->precio * $det->salida);
+                        $saldoStock = $det->saldo_stock==0 ? $saldo : $det->saldo_stock;
+                        $subTotalStock = $saldoStock * $det->precio;
                     @endphp
                     <td  class="{{$loop->last ? 'text-bold' :'000-xxx'}}">
-                        {{$det->saldo_stock}}
+                        {{$saldoStock}}
 
                     </td>
                     <td >{{nfp(($det->precio_existencia ?? $det->precio))}}</td>
@@ -154,7 +156,7 @@
 {{--                            $total = $saldo * ($det->precio_existencia ?? $det->precio);--}}
 {{--                        @endphp--}}
 {{--                        {{nfp($total,2)}}--}}
-                        {{nfp($det->sub_total_saldo)}}
+                        {{nfp($subTotalStock)}}
 
                     </td>
                 </tr>

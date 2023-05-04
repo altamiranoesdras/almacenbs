@@ -182,12 +182,12 @@
                                                                 $saldo+=$det->ingreso-=$det->salida;
                                                                 $totalIngreso += ($det->precio * $det->ingreso);
                                                                 $totalEgreso += ($det->precio * $det->salida);
+                                                                $saldoStock = $det->saldo_stock==0 ? $saldo : $det->saldo_stock;
+                                                                $subTotalStock = $saldoStock * $det->precio;
                                                             @endphp
 
                                                                 <td class="text-bold">
-{{--                                                                    {{$saldo}}--}}
-                                                                    {{$det->saldo_stock}}
-
+                                                                        {{$saldoStock}}
                                                                 </td>
 
                                                             <td>
@@ -205,7 +205,7 @@
 {{--                                                                $total = $saldo * ($det->precio_existencia ?? $det->precio);--}}
 {{--                                                                @endphp--}}
 {{--                                                                {{nfp($total,2)}}--}}
-                                                                {{nfp($det->sub_total_saldo)}}
+                                                                {{nfp($subTotalStock)}}
                                                             </td>
                                                             <td>
                                                                 <input type="hidden" name="impresos[{{$det->id}}]" value="0">
