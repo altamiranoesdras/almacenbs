@@ -89,7 +89,7 @@ class Kardex extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $appends = ['precio','fecha_ordena','saldo_stock'];
+    protected $appends = ['precio','fecha_ordena','fecha_ordena_timestamp','saldo_stock'];
 
     protected static function booted()
     {
@@ -214,7 +214,7 @@ class Kardex extends Model
         }
 
         if ($this->model instanceof Stock){
-            return $this->item->precio_compra;
+            return $this->model->precio_compra;
         }
 
         return $this->model->precio;
@@ -232,6 +232,17 @@ class Kardex extends Model
         }
 
         return $this->created_at->format('d/m/Y');
+
+    }
+
+    public function getFechaOrdenaTimestampAttribute()
+    {
+
+        if ($this->model instanceof CompraDetalle){
+            return $this->model->compra->fecha_ingreso->timestamp;
+        }
+
+        return $this->created_at->timestamp;
 
     }
 
