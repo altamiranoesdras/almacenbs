@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string $al
  * @property string $model_type
  * @property number $cantidad
+ * @property number $saldo
  * @property string $tipo
  * @property string $codigo
  * @property string $responsable
@@ -110,6 +111,7 @@ class Kardex extends Model
         'del',
         'al',
         'cantidad',
+        'saldo',
         'precio_movimiento',
         'precio_existencia',
         'tipo',
@@ -132,6 +134,7 @@ class Kardex extends Model
         'model_id' => 'integer',
         'model_type' => 'string',
         'cantidad' => 'decimal:2',
+        'saldo' => 'decimal:2',
         'precio_movimiento' => 'decimal:2',
         'precio_existencia' => 'decimal:2',
         'tipo' => 'string',

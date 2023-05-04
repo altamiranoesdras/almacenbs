@@ -75,6 +75,7 @@ class ReportesAlmacenController extends Controller
             $impresos = $request->impresos;
             $preciosExistencia = $request->precios_existencia;
             $codigosSalida = $request->codigos_salidas;
+            $saldos = $request->saldos;
 
 
 //            dd($preciosExistencia);
@@ -97,6 +98,7 @@ class ReportesAlmacenController extends Controller
 
                 $kardex->impreso = $impreso;
                 $kardex->precio_existencia = $preciosExistencia[$kardex->id];
+                $kardex->saldo = $saldos[$kardex->id];
                 $kardex->codigo_insumo = $request->codigo_insumo;
                 $kardex->del = $request->del;
                 $kardex->al = $request->al;

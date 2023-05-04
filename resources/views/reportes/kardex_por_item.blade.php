@@ -183,12 +183,12 @@
                                                                 $totalIngreso += ($det->precio * $det->ingreso);
                                                                 $totalEgreso += ($det->precio * $det->salida);
                                                                 $saldoStock = $det->saldo_stock==0 ? $saldo : $det->saldo_stock;
-                                                                $subTotalStock = $saldoStock * $det->precio;
+                                                                $subTotalStock = ($det->saldo ?? $saldoStock) * ($det->precio_existencia ?? $det->precio);
                                                             @endphp
 
-                                                                <td class="text-bold">
-                                                                        {{$saldoStock}}
-                                                                </td>
+                                                            <td class="text-bold">
+                                                                {!! Form::text("saldos[$det->id]", $det->saldo ?? $saldoStock, ['class' => 'form-control form-control-sm']) !!}
+                                                            </td>
 
                                                             <td>
                                                                 {!! Form::text("precios_existencia[$det->id]", $det->precio_existencia ?? $det->precio, ['class' => 'form-control form-control-sm']) !!}
