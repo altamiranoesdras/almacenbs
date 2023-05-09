@@ -171,11 +171,21 @@
                                                             <td class="text-uppercase">{{$det->responsable}}</td>
 
                                                             <td>{{$det->ingreso}}</td>
-                                                            <td>{{$det->ingreso ? nfp($det->precio) : ''}}</td>
+{{--                                                            <td>{{$det->ingreso ? nfp($det->precio) : ''}}</td>--}}
+                                                            <td>
+                                                                @if($det->ingreso)
+                                                                    {!! Form::text("precios_movimiento[$det->id]", $det->precio, ['class' => 'form-control form-control-sm']) !!}
+                                                                @endif
+                                                            </td>
                                                             <td>{{$det->ingreso ? nfp($det->precio * $det->ingreso,2) : ''}}</td>
 
                                                             <td>{{$det->salida}}</td>
-                                                            <td>{{$det->salida ? nfp($det->precio) : $det->salida}}</td>
+{{--                                                            <td>{{$det->salida ? nfp($det->precio) : $det->salida}}</td>--}}
+                                                            <td>
+                                                                @if($det->salida)
+                                                                    {!! Form::text("precios_movimiento[$det->id]", $det->precio, ['class' => 'form-control form-control-sm']) !!}
+                                                                @endif
+                                                            </td>
                                                             <td>{{$det->salida ? nfp($det->precio * $det->salida,2) : ''}}</td>
 
                                                             @php
