@@ -160,7 +160,7 @@
                     </td>
                 </tr>
 
-                <tr style="height: 7mm">
+                <tr style="height: {{$folio > 300 ? '5mm' : '7mm'}}">
                     <td colspan="50">
                     </td>
                 </tr>

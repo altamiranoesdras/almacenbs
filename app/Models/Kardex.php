@@ -314,7 +314,7 @@ class Kardex extends Model
             //cantidad de registros con el mimsmo folio y mismo item
             $cantidad = self::delItem($this->item_id)->where('folio',$folioItem)->get()->count();
 
-            if ($cantidad >= 30){
+            if ($cantidad >= config('app.max_lineas_kardex',10)){
                 $folioItem = $maximoFolio+1;
             }
         }
