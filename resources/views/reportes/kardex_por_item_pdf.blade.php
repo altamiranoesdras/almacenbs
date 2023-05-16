@@ -123,7 +123,7 @@
                 <!--            height: {{$il==0 ? 'auto' : '15mm'}};
                 ------------------------------------------------------------------------>
 
-                <tr style="font-size: 12px;  text-align: center; color: {{$det->impreso ? '' : 'white'}}">
+                <tr style="font-size: 10px;  text-align: center; color: {{$det->impreso ? '' : 'white'}}">
 
                     <td >{{$det->fecha_ordena}}</td>
                     <td class="text-uppercase">{{$det->ingreso ? $det->codigo : ''}}</td>
