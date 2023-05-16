@@ -151,6 +151,7 @@ class ReportesAlmacenController extends Controller
 
         //si el folio tiene detalles y hay algún detalle para imprimir
         $imprimeEncabezado = $folios[$folio]->count() > 0  &&  $folios[$folio]->first()->impreso;
+        $fechaFinImprimeEncabezado = $folios[$folio]->count() > 0  &&  $folios[$folio]->last()->impreso;
 
 
         $siguienteFolio = $folios[$folio]->first()->folio_siguiente;
@@ -161,7 +162,7 @@ class ReportesAlmacenController extends Controller
          */
         $pdf = App::make('snappy.pdf.wrapper');
 
-        $view = view('reportes.kardex_por_item_pdf', compact('folios','imprimeEncabezado'))->render();
+        $view = view('reportes.kardex_por_item_pdf', compact('folios','imprimeEncabezado','fechaFinImprimeEncabezado'))->render();
          $footer = view('reportes.kardex_por_item_pdf_footer',compact('siguienteFolio'))->render();
 
 //         return $view;

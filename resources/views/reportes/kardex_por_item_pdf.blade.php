@@ -13,6 +13,7 @@
 
     @php
         $encabezdos = 0;
+        $fechaFinEncabezdos = 0;
         $borde = 0;
         $saldo = 0;
         $totalIngreso=0;
@@ -59,36 +60,34 @@
 
         <table  style="width: 100%;" border="{{$borde}}" >
 
-            @if($imprimeEncabezado)
             <tr style="font-size: 12px; text-align: center;">
 
                 <td style="width: {{$anchos['fecha']}}mm; vertical-align: middle; color: {{$encabezdos ? 'black' : 'white'}}">
-                    {{$prueba}}
+
                 </td>
-                <td style="width: {{$anchos['1h']}}mm; text-align: center; vertical-align: middle;">
+                <td style="width: {{$anchos['1h']}}mm; text-align: center; vertical-align: middle; color: {{$imprimeEncabezado ? 'black' : 'white'}}">
                     {{$primerDetalle->codigo_insumo}}
                 </td>
                 <td style="width: {{$anchoNombreProducto}}mm; text-align: center; vertical-align: middle; color: {{$encabezdos ? 'black' : 'white'}}" colspan="2" >
                     Nombre del producto
                 </td>
-                <td style="width: {{$anchoNombreProductoValor}}mm; text-align: center; vertical-align: middle;" colspan="5">
+                <td style="width: {{$anchoNombreProductoValor}}mm; text-align: center; vertical-align: middle; color: {{$imprimeEncabezado ? 'black' : 'white'}}" colspan="5">
                     {!! $primerDetalle->item->texto_kardex  !!}
                 </td>
                 <td style="width: {{$anchos['total_sal']}}mm; text-align: center; vertical-align: middle; color: {{$encabezdos ? 'black' : 'white'}}">
                     Periodo del
                 </td>
-                <td style="width: {{$anchos['cant_ext']}}mm; text-align: center; vertical-align: middle;">
+                <td style="width: {{$anchos['cant_ext']}}mm; text-align: center; vertical-align: middle; color: {{$imprimeEncabezado ? 'black' : 'white'}}">
                     {{fechaLtn($primerDetalle->del)}}
                 </td>
                 <td style="width: {{$anchos['precio_ext']}}mm; text-align: center; vertical-align: middle; color: {{$encabezdos ? 'black' : 'white'}}">
                     al
                 </td>
-                <td style="width: {{$anchos['total_ext']}}mm; text-align: center; vertical-align: middle;">
+                <td style="width: {{$anchos['total_ext']}}mm; text-align: center; vertical-align: middle; color: {{$fechaFinImprimeEncabezado ? 'black' : 'white'}}">
                     {{fechaLtn($primerDetalle->al)}}
                 </td>
 
             </tr>
-            @endif
 
             <tr>
                 <td colspan="20" style="color: {{$encabezdos ? 'black' : 'white'}}">
