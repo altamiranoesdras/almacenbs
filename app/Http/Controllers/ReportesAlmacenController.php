@@ -43,11 +43,12 @@ class ReportesAlmacenController extends Controller
              * @var Collection $kardex
              */
             $kardex = Kardex::with(['model','item' => function($queryItem){
-                $queryItem->with(['unimed','stocks','marca','presentacion']);
-            }])
-            ->delItem($item_id)
-            ->orderBy('created_at','asc')
-            ->get();
+                    $queryItem->with(['unimed','stocks','marca','presentacion']);
+                }])
+                ->where('cantidad','>',0)
+                ->delItem($item_id)
+                ->orderBy('created_at','asc')
+                ->get();
 
 
             $kardex = $kardex->sortBy('fecha_ordena_timestamp')->groupBy('folio');
@@ -136,12 +137,14 @@ class ReportesAlmacenController extends Controller
          */
         $primerKardex = Kardex::whereFolio($folio)
             ->orderBy('created_at','asc')
+            ->where('cantidad','>',0)
             ->first();
 
         /**
          * @var Collection $kardexs
          */
         $kardexs = Kardex::with(['item.unimed','item.marca'])
+            ->where('cantidad','>',0)
             ->delItem($primerKardex->item_id)
             ->orderBy('created_at','asc')
             ->get();
