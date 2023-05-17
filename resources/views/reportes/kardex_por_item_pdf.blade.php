@@ -130,11 +130,13 @@
                     <td class="text-uppercase" style="width: {{$anchos['solicita']}}mm !important;font-size: 11px; text-align: left;">
                         {{$det->responsable}}
                     </td>
+
                     <td >{{$det->ingreso}}</td>
-                    <td >{{$det->ingreso ? nfp($det->precio) : ''}}</td>
+                    <td >{{$det->ingreso ? nfp($det->precio,2) : ''}}</td>
                     <td >{{$det->ingreso ? nfp($det->precio * $det->ingreso,2) : ''}}</td>
+
                     <td >{{$det->salida}}</td>
-                    <td >{{$det->salida ? nfp($det->precio) : $det->salida}}</td>
+                    <td >{{$det->salida ? nfp($det->precio,2) : $det->salida}}</td>
                     <td >{{$det->salida ? nfp($det->precio * $det->salida,2) : ''}}</td>
 
                     @php
@@ -147,14 +149,14 @@
                     <td  class="{{$loop->last ? 'text-bold' :'000-xxx'}}">
                         {{$det->saldo ?? $saldoStock}}
                     </td>
-                    <td >{{nfp(($det->precio_existencia ?? $det->precio))}}</td>
+                    <td >{{nfp(($det->precio_existencia ?? $det->precio),2)}}</td>
                     <td >
 {{--                        @php--}}
 {{--//                            $total = $totalIngreso > 0 ? $totalIngreso-$totalEgreso : $totalEgreso;--}}
 {{--                            $total = $saldo * ($det->precio_existencia ?? $det->precio);--}}
 {{--                        @endphp--}}
 {{--                        {{nfp($total,2)}}--}}
-                        {{nfp($subTotalStock)}}
+                        {{nfp($subTotalStock,2)}}
 
                     </td>
                 </tr>
