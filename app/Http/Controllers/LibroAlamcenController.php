@@ -50,13 +50,16 @@ class LibroAlamcenController extends Controller
             ->whereHas('detalles',function ($queryDetalles){
                 $queryDetalles->whereHas('item');
             })
+            ->whereNotNull('folio_almacen')
             ->where('estado_id', CompraEstado::RECIBIDA)
             ->whereMonth('fecha_documento', '=', $mes)
             ->whereYear('fecha_documento', '=', $anio)
+            ->orderBy('fecha_ingreso')
             ->noAnuladas()
             ->get();
 
 
+        $listadoCompras = $listadoCompras->groupBy('folio_almacen');
 
 //            return $listadoCompras;
 
@@ -73,8 +76,7 @@ class LibroAlamcenController extends Controller
             ->setOption('margin-bottom',0)
             ->setOption('margin-left',15)
             ->setOption('margin-right',15)
-            ->stream('report.pdf')
-            ;
+            ->stream('report.pdf');
 
         return $pdf->inline('Libro almacen '.mesLetras($mes).' '.$anio.' .pdf');
     }

@@ -13,18 +13,27 @@
 
     @php
         $borde = 0;
+        $conteoLineas = 0;
+        $maximoLineas = 15;
     @endphp
 
 
+        @foreach($listadoCompras->sortBy('fecha_ingreso') as $compra)
+            @php
+                if ( ($conteoLineas + $compra->detalles->count()) > $maximoLineas && $loop->index > 0 ) {
+                    $conteoLineas = 0;
+                    echo '<div style="page-break-after:always;"></div>';
+                }
 
-
-        @foreach($listadoCompras as $folio => $compras)
-
+                if ( $compra->id == 17) {
+                    $conteoLineas = 0;
+                    echo '<div style="page-break-after:always;"></div>';
+                }
+            @endphp
+    {{--        table table-bordered--}}
             <table border="{{$borde}}" style="width: 100%; font-size: 11px;" >
+
                 <tbody>
-                @foreach($compras as $compra)
-
-
                     <tr style="">
                         <td style="width: 18mm; text-align: center; vertical-align: middle;" class="py-0" rowspan="{{ $compra->detalles->count() + 1 }}">
                             {{ fechaLtn($compra->fecha_ingreso) }}
@@ -45,6 +54,9 @@
                         </td>
                     </tr>
                     @foreach($compra->detalles as $detalle)
+                        @php
+                            $conteoLineas ++;
+                        @endphp
                         <tr>
                             <td style="width: 56mm;" class="py-0 pl-2">
                                 {{ $detalle->item->texto_libro_almacen }}
@@ -80,39 +92,32 @@
                     <tr>
                         <td colspan="20" style="height: 2mm"></td>
                     </tr>
-
-                @endforeach
                 </tbody>
-
             </table>
 
-            @if($loop->last)
-
-                <table border="{{$borde}}" style="width: 100%; font-size: 11px;" >
-                    <tr>
-                        <td style="width: 116mm; text-align: center; vertical-align: middle;"></td>
-                        <td style="width: 56mm; vertical-align: middle;" class="pl-2">
-                            <b class="pull-left">TOTAL MES {{mb_strtoupper(mesLetras($mes))}}</b>
-                        </td>
-                        <td style="width: 22mm; text-align: center;" class="py-0 text-center">
-
-                        </td>
-                        <td style="width: 21mm; text-align: center;" class="py-0 text-right pr-2">
-
-                        </td>
-                        <td style="width: 24mm; text-align: center;" class="py-0 text-right pr-2">
-                            <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 0;"></div>
-                            {{ dvs().nfp( $listadoCompras->sum('total'),2 ) }}
-                            <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 2px;"></div>
-                            <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 0;"></div>
-                        </td>
-                    </tr>
-
-                </table>
-            @endif
-            <div style="page-break-after:always;"></div>
-
         @endforeach
+
+    <table border="{{$borde}}" style="width: 100%; font-size: 11px;" >
+        <tr>
+            <td style="width: 116mm; text-align: center; vertical-align: middle;"></td>
+            <td style="width: 56mm; vertical-align: middle;" class="pl-2">
+                <b class="pull-left">TOTAL MES {{mb_strtoupper(mesLetras($mes))}}</b>
+            </td>
+            <td style="width: 22mm; text-align: center;" class="py-0 text-center">
+
+            </td>
+            <td style="width: 21mm; text-align: center;" class="py-0 text-right pr-2">
+
+            </td>
+            <td style="width: 24mm; text-align: center;" class="py-0 text-right pr-2">
+                <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 0;"></div>
+                {{ dvs().nfp( $listadoCompras->sum('total'),2 ) }}
+                <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 2px;"></div>
+                <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 0;"></div>
+            </td>
+        </tr>
+
+    </table>
 
 
 </body>
