@@ -102,7 +102,7 @@
                         </td>
                         <td style="width: 24mm; text-align: center;" class="py-0 text-right pr-2">
                             <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 0;"></div>
-                            {{ dvs().nfp( $listadoCompras->sum('total'),2 ) }}
+                            {{ dvs().nfp( $compras->sum('total'),2 ) }}
                             <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 2px;"></div>
                             <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 0;"></div>
                         </td>
