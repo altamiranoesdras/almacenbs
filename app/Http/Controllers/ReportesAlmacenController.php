@@ -194,35 +194,71 @@ class ReportesAlmacenController extends Controller
         $bodega_id = $request->bodega_id ?? null;
         $buscar = $request->buscar ?? null;
         $stock = $request->stock ?? null;
+        $itemId = $request->item_id ?? null;
 
         $query = Stock::with(['item'])->whereHas('item');
+
+        $queryItmes = Item::with('stocks')->whereHas('stocks');
+
+
+
+        if ($itemId){
+            $query = $query->whereHas('item',function (Builder $q) use ($itemId) {
+                $q->where('item_id',$itemId);
+            });
+
+            $queryItmes = $queryItmes->where('id',$itemId);
+        }
 
 
         if ($renglon){
             $query = $query->whereHas('item',function (Builder $q) use ($renglon){
                 $q->where('renglon_id',$renglon);
             });
+
+            $queryItmes = $queryItmes->whereHas('item',function (Builder $q) use ($renglon,$itemId){
+                $q->where('renglon_id',$renglon);
+            });
         }
+
 
         if ($bodega_id){
             $query = $query->where('bodega_id',$bodega_id);
+
+            $queryItmes = $queryItmes->whereHas('stocks',function (Builder $q) use ($bodega_id){
+                $q->where('bodega_id',$bodega_id);
+            });
         }
 
         if ($stock=="con_stock"){
             $query = $query->where('cantidad','!=','0');
+
+            $queryItmes = $queryItmes->whereHas('stocks',function ($q){
+                $q->where('cantidad','!=','0');
+            });
         }
 
 
         if ($stock=="sin_stock"){
 
             $query = $query->where('cantidad','0');
+
+            $queryItmes = $queryItmes->whereHas('stocks',function ($q){
+                $q->where('cantidad','0');
+            });
         }
 
         $stocks = $query
 //            ->conIngresos()
             ->get();
 
-        return view('reportes.stock.index_old',compact('stocks','renglon','bodega_id','stock','buscar'));
+        $items = $queryItmes->get();
+
+//        dd($stocks->sum('cantidad'),$items->first()->toArray());
+
+
+
+        return view('reportes.stock.index_old',compact('stocks','items','renglon','bodega_id','stock','buscar'));
 
     }
 
