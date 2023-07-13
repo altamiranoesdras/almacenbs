@@ -856,8 +856,9 @@ function nombreModulo(){
 
 }
 
-function fechaLtnMesEnTexto(){
-    list($dia,$mes,$anio)=explode("/",fechaActual());
+function fechaLtnMesEnTexto($fecha){
+
+    list($dia,$mes,$anio)=explode("/",fechaLtn($fecha));
 
     return $dia."/".mesLetras($mes)."/".$anio;
 }
