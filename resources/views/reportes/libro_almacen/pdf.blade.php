@@ -88,6 +88,14 @@
 
             @if($loop->last)
 
+                @php
+
+                    $total = $listadoCompras->sum(function ($comprasFolio){
+                        return $comprasFolio->sum('sub_total');
+                    });
+
+                @endphp
+
                 <table border="{{$borde}}" style="width: 100%; font-size: 11px;" >
                     <tr>
                         <td style="width: 116mm; text-align: center; vertical-align: middle;"></td>
@@ -102,7 +110,7 @@
                         </td>
                         <td style="width: 24mm; text-align: center;" class="py-0 text-right pr-2">
                             <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 0;"></div>
-                            {{ dvs().nfp( $compras->sum('total'),2 ) }}
+                            {{ dvs().nfp( $total,2 ) }}
                             <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 2px;"></div>
                             <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 0;"></div>
                         </td>
