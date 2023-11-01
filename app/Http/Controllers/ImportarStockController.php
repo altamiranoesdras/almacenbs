@@ -38,19 +38,6 @@ class ImportarStockController extends Controller
 
             $import->import($request->file('file'));
 
-
-        }
-        catch (ValidationException $e) {
-            DB::rollBack();
-
-            $erros = array();
-            foreach ($e->failures() as $failure) {
-                $erros[] = "Error en fila ".$failure->row().": ".implode($failure->errors());
-            }
-
-            flash('error', 'Error al intentar importar los datos!')->error();
-
-            return redirect()->back()->withErrors([$erros]);
         }
         catch (Exception $e){
 
@@ -58,12 +45,22 @@ class ImportarStockController extends Controller
 
             $msj = manejarException($e);
 
-            flash('error', 'Error al intentar importar los datos!')->error();
+            flash('error', $msj)->error();
 
         }
 
-        DB::commit();
 
+        $errores = $import->getErrores();
+
+
+        if ($errores->count() > 0){
+
+            DB::rollBack();
+
+            return redirect()->back()->withErrors( $errores->toArray());
+        }
+
+        DB::commit();
 
 
         flash('Datos Importados con éxito!')->success();

@@ -14,6 +14,7 @@ use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithValidation;
 
 class StockImport implements ToCollection, WithHeadingRow
 {
@@ -29,8 +30,7 @@ class StockImport implements ToCollection, WithHeadingRow
 
 
 
-    private $noInsertados;
-    private $codigosExistentes;
+    private $errores;
     private $bodegas;
     private $totalRegistros;
 
@@ -40,7 +40,7 @@ class StockImport implements ToCollection, WithHeadingRow
     public function __construct()
     {
         $this->noInsertados = collect();
-        $this->codigosExistentes = collect();
+        $this->errores = collect();
         $this->bodegas = Bodega::all();
         $this->totalRegistros = 0;
 
@@ -77,7 +77,11 @@ class StockImport implements ToCollection, WithHeadingRow
                 /**
                  * @var Bodega $bodega
                  */
-                $bodega = $this->bodegas->where('nombre',$nombreBodega)->first();
+                $bodega = $this->bodegas->where('nombre',$nombreBodega)->first() ?? null;
+
+
+
+
                 /**
                  * @var Item $item
                  */
@@ -86,6 +90,8 @@ class StockImport implements ToCollection, WithHeadingRow
 //                dump($bodega->nombre,$item->id,$precioCompra,$existenciasActuales);
 
                 try {
+
+                    $this->validarBodegas($row,$bodega);
 
                     Stock::updateOrCreate([
                         'bodega_id' => $bodega->id,
@@ -101,15 +107,8 @@ class StockImport implements ToCollection, WithHeadingRow
                         'lote' => null,
                     ]);
                 }
-                catch(QueryException $e){
-
-                    //Duplicate entry
-                    if($e->errorInfo[1] == '1062'){
-                        $this->codigosExistentes->push($row['codigo']." / ".$row['nombre']);
-                    }
-                }
                 catch (\Exception $exception){
-                    $this->noInsertados->push([$row['nombre'] => $exception->getMessage()]);
+                    $this->errores->push($exception->getMessage());
                 }
 
 
@@ -126,12 +125,33 @@ class StockImport implements ToCollection, WithHeadingRow
 
     }
 
-    public function getCodigosExistentes(){
-        return $this->codigosExistentes;
+    public function getErrores(){
+        return $this->errores;
     }
 
-    public function getNoInsertados(){
-        return $this->noInsertados;
+
+    /**
+     * @param $fila
+     * @param Bodega|null $bodega
+     * @return mixed
+     * @throws \Exception
+     */
+    public function validarBodegas($fila,$bodega)
+    {
+
+            $nombreBodega = $fila[self::BODEGA] ?? '';
+
+            if(!$bodega){
+                throw new \Exception('La bodega '.$nombreBodega.' no existe');
+            }
+
+            if($bodega->id == Bodega::PRINCIPAL){
+
+                throw new \Exception('La bodega no puede ser la principal');
+            }
+
+            return $bodega;
+
     }
 
 }
