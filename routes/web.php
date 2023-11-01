@@ -300,6 +300,11 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     Route::resource('itemModelos', App\Http\Controllers\ItemModeloController::class);
 
+
+
+    Route::get('stocks/import', [\App\Http\Controllers\ImportarStockController::class,'index'])->name('stocks.importar');
+    Route::post('stocks/import', [\App\Http\Controllers\ImportarStockController::class,'importar'])->name('stocks.importar.procesar');
+
 });
 
 
