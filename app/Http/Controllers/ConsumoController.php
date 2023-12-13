@@ -25,10 +25,10 @@ class ConsumoController extends AppBaseController
 
     public function __construct()
     {
-        $this->middleware('permission:Ver Consumos')->only(['show']);
-        $this->middleware('permission:Crear Consumos')->only(['create','store']);
-        $this->middleware('permission:Editar Consumos')->only(['edit','update',]);
-        $this->middleware('permission:Eliminar Consumos')->only(['destroy']);
+//        $this->middleware('permission:Ver Consumos')->only(['show']);
+//        $this->middleware('permission:Crear Consumos')->only(['create','store']);
+//        $this->middleware('permission:Editar Consumos')->only(['edit','update',]);
+//        $this->middleware('permission:Eliminar Consumos')->only(['destroy']);
     }
 
     /**
