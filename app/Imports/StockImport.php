@@ -89,26 +89,33 @@ class StockImport implements ToCollection, WithHeadingRow
 
 //                dump($bodega->nombre,$item->id,$precioCompra,$existenciasActuales);
 
-                try {
+                if (!$item){
+                    $this->errores->push('El Insumo con código de insumo '.$codigoInsumo.' y código de presentación '.$codigoPresentacion.' no existe');
+                }else{
 
-                    $this->validarBodegas($row,$bodega);
 
-                    Stock::updateOrCreate([
-                        'bodega_id' => $bodega->id,
-                        'item_id' => $item->id,
-                        'precio_compra' => $precioCompra,
-                    ],[
-                        'bodega_id' => $bodega->id,
-                        'item_id' => $item->id,
-                        'cantidad' => $existenciasActuales,
-                        'cantidad_inicial' => $existenciasActuales,
-                        'precio_compra' => $precioCompra,
-                        'fecha_vence' => null,
-                        'lote' => null,
-                    ]);
-                }
-                catch (\Exception $exception){
-                    $this->errores->push($exception->getMessage());
+                    try {
+
+                        $this->validarBodegas($row,$bodega);
+
+                        Stock::updateOrCreate([
+                            'bodega_id' => $bodega->id,
+                            'item_id' => $item->id,
+                            'precio_compra' => $precioCompra,
+                        ],[
+                            'bodega_id' => $bodega->id,
+                            'item_id' => $item->id,
+                            'cantidad' => $existenciasActuales,
+                            'cantidad_inicial' => $existenciasActuales,
+                            'precio_compra' => $precioCompra,
+                            'fecha_vence' => null,
+                            'lote' => null,
+                        ]);
+                    }
+                    catch (\Exception $exception){
+                        $this->errores->push($exception->getMessage());
+                    }
+
                 }
 
 

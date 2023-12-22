@@ -74,7 +74,7 @@
 
                                             <div class="form-group col-sm-6 ">
                                                 {!! Form::label('file', 'Cargar la plantilla:') !!}
-                                                {!! Form::file('file', ['class' => 'form-control file']) !!}
+                                                {!! Form::file('file', ['class' => 'form-control ','id' => 'archivo']) !!}
                                             </div>
                                         </div>
                                     </div>
@@ -88,8 +88,9 @@
 
 
                                         <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-outline-success" data-toggle="modal"
+                                        <button type="button" class="btn btn-outline-success ml-3" data-toggle="modal"
                                                 data-target="#modelId">
+                                            <i class="fa fa-file-import"></i>
                                             Importar
                                         </button>
 
@@ -154,24 +155,17 @@
 <script>
     $(function () {
 
-        $("#formImport").submit(function (e) {
-            e.preventDefault();
-
-            $("#btnSubmit").prop('disabled',true);
-
-            this.submit();
-
-            Swal.fire({
-                allowOutsideClick: false,
-                title: 'Importando!',
-                html: `Espera un momento por favor...`,
-                onBeforeOpen: () => {
-                    Swal.showLoading();
-                }
-            });
-
-
-
+        $("#archivo").fileinput({
+            language: "es",
+            dropZoneEnabled: true,
+            maxFileCount: 1,
+            maxFileSize: 5000,
+            showUpload: false,
+            showBrowse: true,
+            showRemove: true,
+            theme: "fa",
+            browseOnZoneClick: true,
+            allowedFileExtensions: ["xls", "xlsx"],
         });
 
     })
