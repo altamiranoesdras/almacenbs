@@ -295,9 +295,11 @@ class Kardex extends Model
     {
 
 
-        $maximoFolio = self::whereRaw('year(created_at) ='.Carbon::now()->year)->max('folio');
+        $maximoFolio = self::max('folio');//whereRaw('year(created_at) ='.Carbon::now()->year)->
 
-        $folioItem = self::delItem($this->item_id)->whereRaw('year(created_at) ='.Carbon::now()->year)->max('folio');
+        $folioItem = self::delItem($this->item_id)
+            //->whereRaw('year(created_at) ='.Carbon::now()->year)
+            ->max('folio');
 
 
         //si ele item no tiene folio
