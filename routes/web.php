@@ -295,6 +295,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     Route::get('mis/consumos', [ConsumoController::class,'user'])->name('consumos.usuario');
     Route::get('consumos/cancelar/{consumo}', [ConsumoController::class,'cancelar'])->name('consumos.cancelar');
+    Route::get('consumos/pdf/{consumo}', [ConsumoController::class,'pdf'])->name('consumos.pdf');
     Route::post('consumos/anular/{consumo}', [ConsumoController::class,'anular'])->name('consumos.anular');
     Route::resource('consumos', ConsumoController::class);
 

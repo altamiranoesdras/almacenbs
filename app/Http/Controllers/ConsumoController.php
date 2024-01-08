@@ -13,6 +13,7 @@ use App\Models\ConsumoEstado;
 use App\Models\ConsumoDetalle;
 use App\Models\Item;
 use App\Models\RrhhUnidad;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Exception;
 use Flash;
@@ -336,5 +337,20 @@ class ConsumoController extends AppBaseController
             return $correlativo+1;
 
         return 1;
+    }
+
+
+    /**
+     * Genera pdf con usando libreria DOMPDF
+     * @param Consumo $consumo
+     * @return mixed
+     */
+    public function pdf(Consumo $consumo)
+    {
+
+        $pdf = Pdf::loadView('consumos.pdf', compact('consumo'));
+
+        return $pdf->stream('consumo.pdf');
+
     }
 }

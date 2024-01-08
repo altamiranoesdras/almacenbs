@@ -11,6 +11,7 @@
         "php": "^7.3|^8.0",
         "arcanedev/log-viewer": "^8.3",
         "arielcr/numero-a-letras": "dev-master",
+        "barryvdh/laravel-dompdf": "^2.0",
         "barryvdh/laravel-snappy": "^0.4.8",
         "beyondcode/laravel-websockets": "^1.13",
         "codedge/laravel-fpdf": "^1.9",
