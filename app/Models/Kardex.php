@@ -26,6 +26,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property number $saldo
  * @property string $tipo
  * @property string $codigo
+ * @property string $fecha_ordena
+ * @property string $fecha_ordena_timestamp
  * @property string $responsable
  * @property string $observacion
  * @property boolean $impreso

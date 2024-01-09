@@ -117,6 +117,7 @@ Route::group(['as'=>'api.'], function () {
 
 
         Route::resource('kardexes', KardexAPIController::class);
+        Route::post('kardexes/ordenar/filas', [KardexAPIController::class,'ordenarFilas'])->name('kardexes.ordenar_filas');
 
 
         Route::resource('solicitud_estados', SolicitudEstadoAPIController::class);

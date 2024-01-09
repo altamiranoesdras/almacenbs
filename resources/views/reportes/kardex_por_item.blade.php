@@ -155,12 +155,12 @@
                                                         </th>
                                                     </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody id="sortable{{$folio}}" class="connectedSortable" data-folio="{{$folio}}">
 
 
                                                     @foreach($datalles as  $det )
 
-                                                        <tr class="text-sm text-right">
+                                                        <tr class="text-sm text-right" id="{{$det->id}}">
                                                             <td>{{$det->fecha_ordena}}</td>
                                                             <td class="text-uppercase">{{$det->ingreso ? $det->codigo : ''}}</td>
                                                             <td class="text-uppercase ">
@@ -308,6 +308,55 @@
                 maximumSelectionLength: 1,
                 allowClear: true
             });
+
+            @if (isset($buscar) && $kardex->count() > 0)
+
+                let elementosSortables = @json($kardex->keys()->map(function ($item){
+                    return "#sortable".$item;
+                })->implode(','));
+
+
+                $( elementosSortables ).sortable({
+                    connectWith: ".connectedSortable",
+                    update: async function( event, ui ){
+
+                        let folioOrigen = $(this).data('folio');
+                        let folioDestino = ui.item.parent().data('folio');
+
+                        if(folioOrigen != folioDestino){
+
+                            let id = ui.item.attr('id');
+
+                            console.log(id,folioOrigen,folioDestino);
+
+                            try {
+                                let response = await actualizarOrden(folioOrigen,folioDestino,id);
+
+                                iziTs(response.data.message);
+
+                            }catch (e) {
+
+                                notifyErrorApi(e)
+
+                            }
+
+                        }
+
+                    }
+                }).disableSelection();
+
+                async function actualizarOrden(folioOrigen,folioDestino,id){
+                    let data = {
+                        folioOrigen,
+                        folioDestino,
+                        id
+                    };
+                    let response = await axios.post(route('api.kardexes.ordenar_filas'),data);
+
+                    return response;
+                }
+            @endif
+
 
         })
     </script>
