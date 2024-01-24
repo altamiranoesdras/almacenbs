@@ -13,11 +13,12 @@ use App\Models\ConsumoEstado;
 use App\Models\ConsumoDetalle;
 use App\Models\Item;
 use App\Models\RrhhUnidad;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Barryvdh\DomPDF\PDF;
 use Carbon\Carbon;
 use Exception;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Response;
 
@@ -348,9 +349,18 @@ class ConsumoController extends AppBaseController
     public function pdf(Consumo $consumo)
     {
 
-        $pdf = Pdf::loadView('consumos.pdf', compact('consumo'));
 
-        return $pdf->stream('consumo.pdf');
+        /**
+         * @var PDF $pdf
+         */
+        $pdf = App::make('dompdf.wrapper');
+
+        $vita = view('consumos.pdf',compact('consumo'))->render();
+
+
+        return $pdf->loadHTML($vita)
+            ->setPaper('letter','portrait')
+            ->stream("consumo_".$consumo->codigo.".pdf");
 
     }
 }

@@ -12,6 +12,13 @@
 {{--    @endcan--}}
 @endif
 
+<!-- boton imprimir -->
+{{--@can('Imprimir Consumos')--}}
+    <a href="{{ route('consumos.pdf', $id) }}" data-toggle="tooltip" title="Imprimir" class='btn btn-outline-success btn-sm'>
+        <i class="fa fa-print"></i>
+    </a>
+{{--@endcan--}}
+
 @if($consumo->puedeAnular())
 
 {{--    @can('Eliminar Consumos')--}}
