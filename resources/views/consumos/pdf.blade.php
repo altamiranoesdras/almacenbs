@@ -109,8 +109,8 @@
             <td style="width: 10%" class="text-center">
                 {{$key+1}}
             </td>
-            <td style="width: 50%" class="text-center">
-                {{$detalle->item->nombre}}
+            <td style="width: 50%" class="text-left">
+                {{$detalle->item->texto_requisicion }}
             </td>
             <td style="width: 20%" class="text-center">
                 {{$detalle->item->unimed->nombre}}
