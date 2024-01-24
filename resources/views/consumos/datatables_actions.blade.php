@@ -13,11 +13,13 @@
 @endif
 
 <!-- boton imprimir -->
+@if($consumo->codigo)
 {{--@can('Imprimir Consumos')--}}
-    <a href="{{ route('consumos.pdf', $id) }}" data-toggle="tooltip" title="Imprimir" class='btn btn-outline-primary btn-sm'>
+    <a href="{{ route('consumos.pdf', $id) }}" data-toggle="tooltip" title="Imprimir" class='btn btn-outline-primary btn-sm' target="_blank">
         <i class="fa fa-print"></i>
     </a>
 {{--@endcan--}}
+@endif
 
 @if($consumo->puedeAnular())
 
