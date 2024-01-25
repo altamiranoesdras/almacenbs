@@ -35,7 +35,8 @@
             SECRETARIA EJECUTIVA DE LA INSTANCIA COORDINADORA DE LA MODERNIZACIÓN DEL SECTOR JUSTICIA
         </td>
         <td style="width: 20%" class="text-danger text-sm" >
-           No. {{$consumo->codigo}}
+           No.
+{{--            {{$consumo->codigo}}--}}
         </td>
     </tr>
 
