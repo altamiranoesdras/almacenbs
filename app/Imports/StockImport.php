@@ -71,7 +71,7 @@ class StockImport implements ToCollection, WithHeadingRow
 
 
 
-            if($codigoInsumo!='' && $codigoPresentacion!='' && $precioCompra!='' && $existenciasActuales!=''){
+            if($codigoInsumo!='' && $codigoPresentacion!='' && $precioCompra!='' && $existenciasActuales!==''){
 
 
                 /**
