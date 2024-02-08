@@ -25,7 +25,7 @@ class ComprasSeeder extends Seeder
             ->create()
             ->each(function (Compra $compra){
                 CompraDetalle::factory()
-                    ->count(rand(10,20))
+                    ->count(rand(3,5))
                     ->create([
                         'compra_id' => $compra->id
                     ]);

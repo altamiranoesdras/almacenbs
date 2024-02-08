@@ -23,7 +23,7 @@ class EnvioFiscalFactory extends Factory
     {
         return [
         'nuemero_constancia' => $this->faker->randomDigitNotNull,
-        'serie_constancia' => $this->faker->word,
+        'serie_constancia' => $this->faker->randomElement(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']),
         'fecha' => $this->faker->date('Y-m-d'),
         'numero_cuenta' => $this->faker->word,
         'forma' => $this->faker->word,
