@@ -20,7 +20,7 @@ trait ComandosTrait
      * Devuelve el texto "Tiempo empleado: ". $minutes.' min '. $seconds." Segundos"
      * @return string
      */
-    public function fin(Collection $errores)
+    public function fin(Collection $errores= null)
     {
 
         $tiempoFin = microtime(true);
@@ -29,19 +29,22 @@ trait ComandosTrait
         $minutes = (int)($duration/60)-$hours*60;
         $seconds = (int)$duration-$hours*60*60-$minutes*60;
 
-        $this->info("\n### Fin ####");
-        $tiempoEmpleadoText = "Tiempo empleado: ". $minutes.' min '. $seconds." Segundos";
-        $this->info($tiempoEmpleadoText);
 
 
-        if ($errores->count() > 0){
+
+        if (isset($errores) && $errores->count() > 0){
 
             $this->output->error("Errores");
-            dump($errores->toArray());
+            $this->table(['Error'], $errores->toArray());
 
         }else{
 
-            $this->output->success('Importación Exitosa!');
+            $this->output->success('Comando ejecutado correctamente');
+
+            $this->info("\n### Fin ####");
+            $tiempoEmpleadoText = "Tiempo empleado: ". $minutes.' min '. $seconds." Segundos";
+            $this->info($tiempoEmpleadoText);
+
 
         }
 
