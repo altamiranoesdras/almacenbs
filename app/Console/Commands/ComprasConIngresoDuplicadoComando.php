@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Bodega;
 use App\Models\Compra;
 use App\Traits\ComandosTrait;
 use Illuminate\Console\Command;
@@ -45,28 +46,26 @@ class ComprasConIngresoDuplicadoComando extends Command
 
 
 
-        $this->info('Buscando compras con ingreso duplicado');
 
         $id = $this->option('id');
+
         $duplicadas = $this->comprasConIngresoDuplicado($id);
 
-        $this->info('Se encontraron ' . $duplicadas->count() . ' compras con ingreso duplicado');
 
         /**
          * @var Compra $duplicada
          */
         foreach ($duplicadas as $index => $duplicada) {
             $this->line('');
-            $this->warn('Compra: ' . $duplicada->id . ' - ' . $duplicada->codigo." Estado: " . $duplicada->estado->nombre);
+            $this->warn('Compra: ' . $duplicada->id . ' - ' . $duplicada->codigo." Proveedor: " . $duplicada->proveedor->nombre);
 
             $this->dibujarTablaDetalles($duplicada);
 
-//            $this->dibujarTablaTransaciones($duplicada);
+            $this->dibujarTablaTransaciones($duplicada);
 
-//            $this->dibujarTablaStocks($duplicada);
+            $this->dibujarTablaStocks($duplicada);
 
-//            $this->realizarAjuste($duplicada);
-
+            $this->realizarAjuste($duplicada);
 
         }
 
@@ -80,21 +79,17 @@ class ComprasConIngresoDuplicadoComando extends Command
         $duplicadas = collect();
 
         if ($id){
-            $compras = Compra::where('id', $id)->get();
+            $compra = Compra::find($id);
+            $duplicadas->push($compra);
+
         } else {
-            $compras = Compra::all();
-        }
+            $this->info('Buscando compras con ingreso duplicado');
 
-        foreach ($compras as $index => $compra) {
-
-
-            $detallesConDobleTransaccion = $compra->detalles->filter(function ($detalle) {
-                return $detalle->transaccionesStock->count() > 1;
+            $duplicadas = Compra::all()->filter(function ($compra) {
+                return $compra->tieneDobleIngreso();
             });
 
-            if ($detallesConDobleTransaccion->count() > 0){
-                $duplicadas->push($compra);
-            }
+            $this->info('Se encontraron ' . $duplicadas->count() . ' compras con ingreso duplicado');
 
         }
 
@@ -102,26 +97,35 @@ class ComprasConIngresoDuplicadoComando extends Command
     }
 
     function realizarAjuste(Compra $compra){
-        $this->line("Realizando ajustes");
 
-        //elimina transacciones duplicadas
-        $compra->detalles->each(function ($detalle) {
-            //si tiene mas de una transaccion el detalle
-            if ($detalle->transaccionesStock->count() > 1){
-                /**
-                 * @var \App\Models\StockTransaccion $ultimaTransaccion
-                 */
-                $ultimaTransaccion = $detalle->transaccionesStock->last();
-                $stock = $ultimaTransaccion->stock;
+        $this->line('');
 
-                if ($stock->cantidad >= $ultimaTransaccion->cantidad){
-                    $stock->cantidad -= $ultimaTransaccion->cantidad;
-                    $stock->save();
+        if ($compra->tieneDobleIngreso()){
+
+            $this->warn("Realizando ajustes ...");
+
+            //elimina transacciones duplicadas
+            $compra->detalles->each(function ($detalle) {
+                //si tiene mas de una transaccion el detalle
+                if ($detalle->transaccionesStock->count() > 1){
+                    /**
+                     * @var \App\Models\StockTransaccion $ultimaTransaccion
+                     */
+                    $ultimaTransaccion = $detalle->transaccionesStock->last();
+                    $stock = $ultimaTransaccion->stock;
+
+                    if ($stock->cantidad >= $ultimaTransaccion->cantidad){
+                        $stock->cantidad -= $ultimaTransaccion->cantidad;
+                        $stock->save();
+                    }
+
+                    $ultimaTransaccion->delete();
                 }
+            });
+        }else{
+            $this->warn("No se puede realizar ajuste, la compra no tiene ingreso duplicado");
+        }
 
-                $ultimaTransaccion->delete();
-            }
-        });
     }
 
     function dibujarTablaDetalles(Compra $compra){
@@ -159,13 +163,16 @@ class ComprasConIngresoDuplicadoComando extends Command
         $this->line('');
 
         $this->table(['id','cantidad','precio_compra','fecha_vence'], $compra->detalles->map(function ($detalle) {
-            return $detalle->transaccionesStock->map(function ($transaccion) {
-                return [
-                    'id' => $transaccion->stock->id,
-                    'cantidad' => $transaccion->stock->cantidad,
-                    'precio_compra' => $transaccion->stock->precio_compra,
-                    'fecha_vence' => $transaccion->stock->fecha_vence,
-                ];
+            return $detalle->item->stocks->map(function ($stock) {
+
+                if ($stock->bodega_id == Bodega::PRINCIPAL){
+                    return [
+                        'id' => $stock->id,
+                        'cantidad' => $stock->cantidad,
+                        'precio_compra' => $stock->precio_compra,
+                        'fecha_vence' => $stock->fecha_vence,
+                    ];
+                }
             });
         })->flatten(1));
     }

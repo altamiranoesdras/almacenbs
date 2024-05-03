@@ -399,4 +399,16 @@ class Compra extends Model
             CompraEstado::RECIBIDA
         ]);
     }
+
+    public function tieneDobleIngreso()
+    {
+
+        $detallesConDobleTransaccion = $this->detalles->filter(function ($detalle) {
+            return $detalle->transaccionesStock->count() > 1;
+        });
+
+        return $detallesConDobleTransaccion->count() > 0;
+
+    }
+
 }
