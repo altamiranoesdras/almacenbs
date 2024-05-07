@@ -71,7 +71,10 @@ class ReportesAlmacenController extends Controller
             DB::beginTransaction();
 
 
-            $kardexs = Kardex::whereFolio($folio)->get();
+            $kardexs = Kardex::whereFolio($folio)
+                ->whereItemId($request->item_id)
+                ->get();
+
 
             $impresos = $request->impresos;
             $preciosExistencia = $request->precios_existencia;
