@@ -59,8 +59,12 @@ class ComprasConIngresoDuplicadoComando extends Command
 
             $this->dibujarDetalles($duplicada);
 
+            $res = $this->ask("Confirma realizar ajuste? (s/n) ");
 
-            $this->realizarAjuste($duplicada);
+            if ($res == 's' || $res == 'S'){
+                $this->realizarAjuste($duplicada);
+                $this->dibujarDetalles($duplicada);
+            }
 
         }
 
@@ -91,16 +95,21 @@ class ComprasConIngresoDuplicadoComando extends Command
         return $duplicadas;
     }
 
-    function realizarAjuste(Compra $compra){
+    function realizarAjuste(Compra $compra)
+    {
 
         $this->line('');
+
+        $ajustesEnOtrosStoks = collect();
+
 
         if ($compra->tieneDobleIngreso()){
 
             $this->warn("Realizando ajustes ...");
 
+
             //elimina transacciones duplicadas
-            $compra->detalles->each(function ($detalle) {
+            $compra->detalles->each(function ($detalle) use ($ajustesEnOtrosStoks) {
                 //si tiene mas de una transaccion el detalle
                 if ($detalle->transaccionesStock->count() > 1){
                     /**
@@ -121,6 +130,7 @@ class ComprasConIngresoDuplicadoComando extends Command
                             $stock = $otrosStoks->first();
                             $stock->cantidad -= $ultimaTransaccion->cantidad;
                             $stock->save();
+                            $ajustesEnOtrosStoks->push($stock);
                         }
                     }
 
@@ -131,11 +141,25 @@ class ComprasConIngresoDuplicadoComando extends Command
             $this->warn("No se puede realizar ajuste, la compra no tiene ingreso duplicado");
         }
 
+        if ($ajustesEnOtrosStoks->count() > 0){
+            $this->warn('Se realizaron ajustes en stock diferentes a las transacciones');
+            $this->table(['id', 'cantidad', 'precio_compra', 'fecha_vence'], $ajustesEnOtrosStoks->map(function ($stock) {
+                return [
+                    'id' => $stock->id,
+                    'cantidad' => $stock->cantidad,
+                    'precio_compra' => $stock->precio_compra,
+                    'fecha_vence' => $stock->fecha_vence,
+                ];
+            }));
+        }
+
     }
 
 
     public function dibujarDetalles(Compra $compra)
     {
+
+        $compra->refresh();
 
         $this->dibujarTablaDetalles($compra);
 
