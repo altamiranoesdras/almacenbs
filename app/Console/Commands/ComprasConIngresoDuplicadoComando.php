@@ -59,11 +59,14 @@ class ComprasConIngresoDuplicadoComando extends Command
 
             $this->dibujarDetalles($duplicada);
 
-            $res = $this->ask("Confirma realizar ajuste? (s/n) ");
+            if ($id){
 
-            if ($res == 's' || $res == 'S'){
-                $this->realizarAjuste($duplicada);
-                $this->dibujarDetalles($duplicada);
+                $res = $this->ask("Confirma realizar ajuste? (s/n) ");
+
+                if ($res == 's' || $res == 'S'){
+                    $this->realizarAjuste($duplicada);
+                    $this->dibujarDetalles($duplicada);
+                }
             }
 
         }
@@ -163,9 +166,13 @@ class ComprasConIngresoDuplicadoComando extends Command
 
         $this->dibujarTablaDetalles($compra);
 
-        $this->dibujarTablaTransaciones($compra);
 
-        $this->dibujarTablaStocks($compra);
+        if ($this->option('id')){
+
+            $this->dibujarTablaTransaciones($compra);
+
+            $this->dibujarTablaStocks($compra);
+        }
 
     }
     function dibujarTablaDetalles(Compra $compra){
