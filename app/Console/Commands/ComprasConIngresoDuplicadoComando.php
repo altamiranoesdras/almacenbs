@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Bodega;
 use App\Models\Compra;
+use App\Models\StockTransaccion;
 use App\Traits\ComandosTrait;
 use Illuminate\Console\Command;
 
@@ -44,9 +45,6 @@ class ComprasConIngresoDuplicadoComando extends Command
     {
         $this->inicio();
 
-
-
-
         $id = $this->option('id');
 
         $duplicadas = $this->comprasConIngresoDuplicado($id);
@@ -59,11 +57,8 @@ class ComprasConIngresoDuplicadoComando extends Command
             $this->line('');
             $this->warn('Compra: ' . $duplicada->id . ' - ' . $duplicada->codigo." Proveedor: " . $duplicada->proveedor->nombre);
 
-            $this->dibujarTablaDetalles($duplicada);
+            $this->dibujarDetalles($duplicada);
 
-            $this->dibujarTablaTransaciones($duplicada);
-
-            $this->dibujarTablaStocks($duplicada);
 
             $this->realizarAjuste($duplicada);
 
@@ -114,9 +109,19 @@ class ComprasConIngresoDuplicadoComando extends Command
                     $ultimaTransaccion = $detalle->transaccionesStock->last();
                     $stock = $ultimaTransaccion->stock;
 
-                    if ($stock->cantidad >= $ultimaTransaccion->cantidad){
+                    if ($stock->cantidad > 0){
                         $stock->cantidad -= $ultimaTransaccion->cantidad;
                         $stock->save();
+                    }else{
+                        $otrosStoks = $detalle->item->stocks->filter(function ($stock) {
+                            return $stock->cantidad > 0 && $stock->bodega_id == Bodega::PRINCIPAL;
+                        });
+
+                        if ($otrosStoks->count() > 0){
+                            $stock = $otrosStoks->first();
+                            $stock->cantidad -= $ultimaTransaccion->cantidad;
+                            $stock->save();
+                        }
                     }
 
                     $ultimaTransaccion->delete();
@@ -128,8 +133,19 @@ class ComprasConIngresoDuplicadoComando extends Command
 
     }
 
+
+    public function dibujarDetalles(Compra $compra)
+    {
+
+        $this->dibujarTablaDetalles($compra);
+
+        $this->dibujarTablaTransaciones($compra);
+
+        $this->dibujarTablaStocks($compra);
+
+    }
     function dibujarTablaDetalles(Compra $compra){
-        $this->line('');
+        $this->line('Detalles');
 
         $this->table(['id','codigo_insumo','nombre_insumo','cantidad','precio'], $compra->detalles->map(function ($detalle) {
             return [
@@ -143,7 +159,7 @@ class ComprasConIngresoDuplicadoComando extends Command
     }
 
     function dibujarTablaTransaciones(Compra $compra){
-        $this->line('');
+        $this->line('Transacciones:');
 
         $this->table(['id','fecha','cantidad','precio','tipo','stock_id'], $compra->detalles->map(function ($detalle) {
             return $detalle->transaccionesStock->map(function ($transaccion) {
@@ -160,20 +176,33 @@ class ComprasConIngresoDuplicadoComando extends Command
     }
 
     function dibujarTablaStocks(Compra $compra){
-        $this->line('');
+        $this->line('Stoks:');
 
-        $this->table(['id','cantidad','precio_compra','fecha_vence'], $compra->detalles->map(function ($detalle) {
-            return $detalle->item->stocks->map(function ($stock) {
+        $stocks = $this->obtenerStocksItemsDetalles($compra->detalles);
 
+        $this->table(['id','cantidad','precio_compra','fecha_vence'], $stocks->map(function ($stock) {
+            return [
+                'id' => $stock->id,
+                'cantidad' => $stock->cantidad,
+                'precio_compra' => $stock->precio_compra,
+                'fecha_vence' => $stock->fecha_vence,
+            ];
+        }));
+    }
+
+    public function obtenerStocksItemsDetalles($detalles): \Illuminate\Support\Collection
+    {
+        $stoks = collect();
+
+        $detalles->each(function ($detalle) use ($stoks) {
+            $detalle->item->stocks->each(function ($stock) use ($stoks) {
                 if ($stock->bodega_id == Bodega::PRINCIPAL){
-                    return [
-                        'id' => $stock->id,
-                        'cantidad' => $stock->cantidad,
-                        'precio_compra' => $stock->precio_compra,
-                        'fecha_vence' => $stock->fecha_vence,
-                    ];
+                    $stoks->push($stock);
                 }
             });
-        })->flatten(1));
+        });
+
+        return $stoks;
+
     }
 }
