@@ -156,7 +156,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
-				<button type="submit" class="btn btn-primary" name="procesar" value="1"  id="btn-confirma-procesar" data-loading-text="<i class='fa fa-cog fa-spin fa-1x fa-fw'></i> Procesando">SI</button>
+                <button type="submit" class="btn btn-primary" name="procesar" value="1"  onclick="esperar()">SI</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
