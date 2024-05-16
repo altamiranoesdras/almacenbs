@@ -178,12 +178,13 @@ class ComprasConIngresoDuplicadoComando extends Command
     function dibujarTablaDetalles(Compra $compra){
         $this->line('Detalles');
 
-        $this->table(['id','insumo','cantidad','precio'], $compra->detalles->map(function ($detalle) {
+        $this->table(['id','insumo','cantidad','precio','Cantidad Trx'], $compra->detalles->map(function ($detalle) {
             return [
                 'id' => $detalle->id,
                 'nombre_insumo' => $detalle->item->text,
                 'cantidad' => $detalle->cantidad,
                 'precio' => $detalle->precio,
+                'cantidad_transacciones' => $detalle->transaccionesStock->count(),
             ];
         }));
     }
