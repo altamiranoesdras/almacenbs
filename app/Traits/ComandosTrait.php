@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\File;
 
 trait ComandosTrait
 {
+    private $barraProceso;
+
     public function inicio()
     {
         $this->tiempoIni = microtime(true);
@@ -65,5 +67,22 @@ trait ComandosTrait
 
         File::put($file,$contenido);
 
+    }
+
+    public function barraProcesoIniciar($cantidadRegistros)
+    {
+
+        $this->barraProceso = $this->output->createProgressBar($cantidadRegistros);
+        $this->barraProceso->start();
+    }
+
+    public function barraProcesoAvanzar()
+    {
+        $this->barraProceso->advance();
+    }
+
+    public function barraProcesoFin()
+    {
+        $this->barraProceso->finish();
     }
 }
