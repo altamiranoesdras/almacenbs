@@ -102,12 +102,12 @@ class CompararKardexConStock extends Command
 
         $this->info("Insumos con diferencias: ".$isumosConDiferencia->count());
 
-        $this->table(['id','nombre','stock_kardex','stock_principal'], $isumosConDiferencia->map(function(Item $insumo){
+        $this->table(['id','nombre','Stock Bodega','Stock Según Kardex'], $isumosConDiferencia->map(function(Item $insumo){
             return [
-                'id' => $insumo->id,
-                'nombre' => $insumo->text,
-                'stock_kardex' => $insumo->getStockCalculado(),
-                'stock_principal' => $insumo->stock_bodega
+                $insumo->id,
+                $insumo->text,
+                $insumo->stock_bodega,
+                $insumo->getStockCalculado(),
             ];
         }));
 
