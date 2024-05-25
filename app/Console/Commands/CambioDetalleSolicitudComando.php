@@ -5,7 +5,9 @@ namespace App\Console\Commands;
 use App\Models\Solicitud;
 use App\Models\SolicitudDetalle;
 use App\Traits\ComandosTrait;
+use Exception;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class CambioDetalleSolicitudComando extends Command
 {
@@ -63,9 +65,43 @@ class CambioDetalleSolicitudComando extends Command
 
         $this->dibujaDetalles($solicitud,$idDetalle);
 
+        $detalleCambiar = $solicitud->detalles->where('id',$idDetalle)->first();
+
+
+        $idNuevoInsumo = $this->ask("Ingrese el id del nuevo insumo");
+        $nuevaCantidad = $this->ask("Ingrese la nueva cantidad");
+        $nuevoInsumo = \App\Models\Item::find($idNuevoInsumo);
+
+
+        $this->table(["Insumo Origen","Cantidad Despachada","Insumo Nuevo","Nueva Cantidad"],[[
+            $detalleCambiar->item->text,
+            $detalleCambiar->cantidad_despachada,
+            $nuevoInsumo->text,
+            $nuevaCantidad
+        ]]);
 
 
 
+        try {
+            DB::beginTransaction();
+
+            $detalleCambiar->anular();
+
+            $detalleCambiar->cantidad_solicitada = $nuevaCantidad;
+            $detalleCambiar->cantidad_aprobada = $nuevaCantidad;
+            $detalleCambiar->cantidad_despachada = $nuevaCantidad;
+            $detalleCambiar->item_id = $nuevoInsumo->id;
+            $detalleCambiar->save();
+
+            $detalleCambiar->egreso();
+
+        } catch (Exception $exception) {
+            DB::rollBack();
+
+            throw new Exception($exception);
+        }
+
+        DB::commit();
 
         return 0;
     }
@@ -91,8 +127,6 @@ class CambioDetalleSolicitudComando extends Command
                 $detalle->cantidad_despachada,
             ];
         });
-
-
 
         $this->table(['Id', 'insumo','Cantidad Sol','Cantidad Apro','Cantidad Desp'], $detalles->toArray() );
 
