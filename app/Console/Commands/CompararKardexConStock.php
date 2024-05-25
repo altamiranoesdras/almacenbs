@@ -52,21 +52,18 @@ class CompararKardexConStock extends Command
 
 
         //tabla filtros id, codigo insumo, codigo presentacion
-        $this->table(['No.','filtro'], [
-            ['1','id'],
-            ['2','codigo insumo y presentacion'],
-            ['3','sin filtro']
+        $res = $this->choice("Seleccione un filtro para buscar insumos con diferencias", [
+            '1' => 'Id',
+            '2' => 'Codigo Insumo y Codigo Presentación',
+            '3' => 'Todos'
         ]);
 
-        $res = $this->ask("Seleccione un filtro para buscar insumos con diferencias");
-
-
         switch ($res) {
-            case '1':
+            case 'Id':
                 $id = $this->ask("Ingrese el id del insumo");
                 $queryInsumos->where('id',$id);
                 break;
-            case '2':
+            case "Codigo Insumo y Codigo Presentación":
                 $codigoInsumo = $this->ask("Ingrese el codigo del insumo");
 
                 $codigoPresentacion = $this->ask("Ingrese el codigo de la presentacion");
@@ -74,7 +71,7 @@ class CompararKardexConStock extends Command
                 $queryInsumos->where('codigo_presentacion',$codigoPresentacion);
 
                 break;
-            case '3':
+            case "Todos":
                 break;
         }
 
