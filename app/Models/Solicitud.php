@@ -289,22 +289,28 @@ class Solicitud extends Model
     public function muestraCantidadAprobar()
     {
 
-        return in_array($this->estado_id,[
-            SolicitudEstado::SOLICITADA,
-            SolicitudEstado::AUTORIZADA,
-            SolicitudEstado::APROBADA,
-            SolicitudEstado::ANULADA,
-        ]);
+        return $this->fecha_aprueba && $this->fecha_aprueba->isPast();
+
+//        return in_array($this->estado_id,[
+//            SolicitudEstado::SOLICITADA,
+//            SolicitudEstado::AUTORIZADA,
+//            SolicitudEstado::APROBADA,
+//            SolicitudEstado::ANULADA,
+//            SolicitudEstado::DESPACHADA,
+//        ]);
     }
 
     public function muestraCantidadDespachar()
     {
-        return in_array($this->estado_id,[
-            SolicitudEstado::AUTORIZADA,
-            SolicitudEstado::APROBADA,
-            SolicitudEstado::DESPACHADA,
-            SolicitudEstado::ANULADA,
-        ]);
+
+        return $this->fecha_despacha && $this->fecha_despacha->isPast();
+
+//        return in_array($this->estado_id,[
+//            SolicitudEstado::AUTORIZADA,
+//            SolicitudEstado::APROBADA,
+//            SolicitudEstado::DESPACHADA,
+//            SolicitudEstado::ANULADA,
+//        ]);
     }
 
     public function esTemporal()
