@@ -92,6 +92,7 @@ class CambioDetalleSolicitudComando extends Command
             $detalleCambiar->cantidad_despachada = $nuevaCantidad;
             $detalleCambiar->item_id = $nuevoInsumo->id;
             $detalleCambiar->save();
+            $detalleCambiar->refresh();
 
             $detalleCambiar->egreso();
 

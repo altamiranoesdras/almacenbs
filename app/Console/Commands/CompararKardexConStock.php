@@ -54,14 +54,27 @@ class CompararKardexConStock extends Command
         //tabla filtros id, codigo insumo, codigo presentacion
         $res = $this->choice("Seleccione un filtro para buscar insumos con diferencias", [
             '1' => 'Id',
-            '2' => 'Codigo Insumo y Codigo Presentación',
-            '3' => 'Todos'
+            '2' => 'Multiples Ids',
+            '3' => 'Codigo Insumo y Codigo Presentación',
+            '4' => 'Todos'
         ]);
+
+        $sinFiltros = false;
+
 
         switch ($res) {
             case 'Id':
                 $id = $this->ask("Ingrese el id del insumo");
                 $queryInsumos->where('id',$id);
+                break;
+            case "Multiples Ids":
+                $res = $this->ask("Ingrese los ids separados por coma");
+
+                $ids = explode(',',$res);
+
+
+                $queryInsumos->whereIn('id',$ids);
+
                 break;
             case "Codigo Insumo y Codigo Presentación":
                 $codigoInsumo = $this->ask("Ingrese el codigo del insumo");
@@ -72,13 +85,28 @@ class CompararKardexConStock extends Command
 
                 break;
             case "Todos":
+                $sinFiltros = true;
                 break;
         }
 
 
         $insumos = $queryInsumos->get();
 
+        if ($sinFiltros) {
 
+            list($isumosConDiferencia,$conErrores) = $this->filtraInsumosCondifencia($insumos);
+        }else{
+            $isumosConDiferencia = $insumos;
+            $conErrores = collect();
+        }
+
+        $this->dibujaTablaInsumos($isumosConDiferencia,$conErrores);
+
+
+    }
+
+    public function filtraInsumosCondifencia($insumos): array
+    {
         $this->barraProcesoIniciar($insumos->count());
 
         $conErrores = collect();
@@ -97,9 +125,17 @@ class CompararKardexConStock extends Command
 
         $this->barraProcesoFin();
 
-        $this->info("Insumos con diferencias: ".$isumosConDiferencia->count());
 
-        $this->table(['id','nombre','Stock Bodega','Stock Según Kardex'], $isumosConDiferencia->map(function(Item $insumo){
+        return [$isumosConDiferencia,$conErrores];
+
+    }
+
+    public function dibujaTablaInsumos($insumos,$conErrores)
+    {
+
+        $this->info("Insumos con diferencias: ".$insumos->count());
+
+        $this->table(['id','nombre','Stock Bodega','Stock Según Kardex'], $insumos->map(function(Item $insumo){
             return [
                 $insumo->id,
                 $insumo->text,
@@ -108,13 +144,16 @@ class CompararKardexConStock extends Command
             ];
         }));
 
-        $this->info("Con errores: ".$conErrores->count());
-        $this->table(['id','nombre','stock_kardex','stock_principal'], $conErrores->map(function(Item $insumo){
-            return [
-                'id' => $insumo->id,
-                'nombre' => $insumo->text,
-            ];
-        }));
+        if ($conErrores->count() > 0) {
+            $this->info("Con errores: ".$conErrores->count());
+            $this->table(['id','nombre','stock_kardex','stock_principal'], $conErrores->map(function(Item $insumo){
+                return [
+                    'id' => $insumo->id,
+                    'nombre' => $insumo->text,
+                ];
+            }));
+        }
+
 
     }
 }
