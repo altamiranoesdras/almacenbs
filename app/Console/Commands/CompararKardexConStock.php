@@ -2,7 +2,11 @@
 
 namespace App\Console\Commands;
 
+use App\Models\CompraDetalle;
+use App\Models\CompraEstado;
 use App\Models\Item;
+use App\Models\SolicitudDetalle;
+use App\Models\SolicitudEstado;
 use App\Traits\ComandosTrait;
 use Illuminate\Console\Command;
 
@@ -52,7 +56,7 @@ class CompararKardexConStock extends Command
 
 
         //tabla filtros id, codigo insumo, codigo presentacion
-        $res = $this->choice("Seleccione un filtro para buscar insumos con diferencias", [
+        $resMenu = $this->choice("Seleccione un filtro para buscar insumos con diferencias", [
             '1' => 'Id',
             '2' => 'Multiples Ids',
             '3' => 'Codigo Insumo y Codigo Presentación',
@@ -62,7 +66,7 @@ class CompararKardexConStock extends Command
         $sinFiltros = false;
 
 
-        switch ($res) {
+        switch ($resMenu) {
             case 'Id':
                 $id = $this->ask("Ingrese el id del insumo");
                 $queryInsumos->where('id',$id);
@@ -77,9 +81,10 @@ class CompararKardexConStock extends Command
 
                 break;
             case "Codigo Insumo y Codigo Presentación":
-                $codigoInsumo = $this->ask("Ingrese el codigo del insumo");
+                $codigos = $this->ask("Ingrese el codigo de insumo y presentacion separados por coma");
 
-                $codigoPresentacion = $this->ask("Ingrese el codigo de la presentacion");
+                list($codigoInsumo,$codigoPresentacion) = explode(',',$codigos);
+
                 $queryInsumos->where('codigo_insumo',$codigoInsumo);
                 $queryInsumos->where('codigo_presentacion',$codigoPresentacion);
 
@@ -102,6 +107,9 @@ class CompararKardexConStock extends Command
 
         $this->dibujaTablaInsumos($isumosConDiferencia,$conErrores);
 
+        if ($resMenu == 'Id' && $isumosConDiferencia->count() > 0){
+            $this->dibujarIngresosEgresoInsumo($isumosConDiferencia->first());
+        }
 
     }
 
@@ -153,6 +161,55 @@ class CompararKardexConStock extends Command
                 ];
             }));
         }
+
+
+    }
+
+    public function dibujarIngresosEgresoInsumo(Item $insumo)
+    {
+
+        $this->line("");
+
+        $this->line("Entradas: ");
+
+        $detalles = $insumo->compraDetalles()->whereHas('compra',function($query){
+            $query->where('estado_id',CompraEstado::RECIBIDA);
+        })->get();
+
+        $this->table(['id','codigo','fecha','cantidad','precio'], $detalles->map(function(CompraDetalle $detalle){
+            return [
+               $detalle->compra_id,
+               $detalle->compra->compra1h->folio,
+                fechaLtn($detalle->compra->fecha_ingreso),
+               $detalle->cantidad,
+               $detalle->precio
+            ];
+        }));
+
+        $this->line("Salidas: ");
+
+        $detalles = $insumo->solicitudDetalles()->whereHas('solicitud',function($query){
+            $query->where('estado_id',"!=",SolicitudEstado::ANULADA);
+        })->get();
+
+        $this->table(['id','fecha','codigo','Cantidad Sol','Cantidad Desp','precio'], $detalles->map(function(SolicitudDetalle $detalle){
+            return [
+               $detalle->solicitud_id,
+                fechaLtn($detalle->solicitud->fecha_despacha),
+                $detalle->solicitud->codigo,
+               $detalle->cantidad_solicitada,
+               $detalle->cantidad_despachada,
+               $detalle->precio
+            ];
+        }));
+
+        $this->line("Totales");
+
+        $this->table(['Stock Inicia','Entradas','Salidas'],[[
+            $insumo->getStockInicial(),
+            $insumo->getEntradasStock(),
+            $insumo->getSalidasStock()
+        ]]);
 
 
     }
