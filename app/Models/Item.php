@@ -603,7 +603,7 @@ class Item extends Model implements HasMedia
             }
         });
 
-        return $egresos->sum('cantidad_solicitada');
+        return $egresos->sum('cantidad_despachada');
 
     }
 
