@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\UseStockTransaccion;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -27,6 +28,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\Kardex|null $kardex
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\StockTransaccion[] $transaccionesStock
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Kardex[] $kardexes
  * @property-read int|null $transacciones_stock_count
  * @method static \Database\Factories\SolicitudDetalleFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle newModelQuery()
@@ -123,6 +125,12 @@ class SolicitudDetalle extends Model
     {
         return $this->morphOne(Kardex::class,'model');
     }
+
+    public function kardexs(): MorphMany
+    {
+        return $this->morphMany(Kardex::class,'model','model_type','model_id');
+    }
+
 
     public function egreso()
     {

@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Solicitud;
 use App\Models\SolicitudDetalle;
+use App\Models\StockTransaccion;
 use App\Traits\ComandosTrait;
 use Exception;
 use Illuminate\Console\Command;
@@ -85,7 +86,18 @@ class CambioDetalleSolicitudComando extends Command
         try {
             DB::beginTransaction();
 
+            $diferencia = abs($detalleCambiar->cantidad_despachada - $nuevaCantidad);
+            $kardexAntes = $detalleCambiar->kardex;
+
             $detalleCambiar->anular();
+
+            $stock = $detalleCambiar->transaccionesStock->filter(function(StockTransaccion $transaccion){
+                return $transaccion->stock->cantidad > 0;
+            })->first()->stock;
+
+            $stock->cantidad = $stock->cantidad - $diferencia;
+            $stock->save();
+
 
             $detalleCambiar->cantidad_solicitada = $nuevaCantidad;
             $detalleCambiar->cantidad_aprobada = $nuevaCantidad;
@@ -94,7 +106,16 @@ class CambioDetalleSolicitudComando extends Command
             $detalleCambiar->save();
             $detalleCambiar->refresh();
 
+
             $detalleCambiar->egreso();
+            $detalleCambiar->refresh();
+
+            $kardexDespues = $detalleCambiar->kardex;
+            $kardexDespues->created_at = $kardexAntes->created_at;
+            $kardexDespues->updated_at = $kardexAntes->updated_at;
+            $kardexDespues->save();
+
+
 
         } catch (Exception $exception) {
             DB::rollBack();

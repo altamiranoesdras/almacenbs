@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Bodega;
+use App\Models\Kardex;
 use App\Models\Solicitud;
 use App\Models\SolicitudDetalle;
 use App\Models\Stock;
@@ -19,7 +21,7 @@ class AjustarDetalleSolicitudComando extends Command
      *
      * @var string
      */
-    protected $signature = 'ajuste_detalle_solicitud {id}';
+    protected $signature = 'ajuste_detalle_solicitud';
 
     /**
      * The console command description.
@@ -47,9 +49,9 @@ class AjustarDetalleSolicitudComando extends Command
     {
         $this->inicio();
 
-        $id = $this->argument('id');
+        $codigo = $this->ask("Ingrese el id de la solicitud");
 
-        $solicitud = Solicitud::find($id);
+        $solicitud = Solicitud::where('codigo', $codigo)->first();
 
         if ($solicitud) {
             $this->info("Solicitud encontrada: " . $solicitud->id);
@@ -77,16 +79,23 @@ class AjustarDetalleSolicitudComando extends Command
                 //solicitar cantidad a ajustar
                 $cantidadAjuste = $this->ask("Ingrese la cantidad a ajustar:");
                 $diferencia = $cantidadAjuste - $cantidadDespachada;
-//
-//                $detalle->anular();
-//
-//                $detalle->cantidad_solicitada = $cantidadAjuste;
-//                $detalle->cantidad_aprobada = $cantidadAjuste;
-//                $detalle->cantidad_despachada = $cantidadAjuste;
-//                $detalle->save();
 
-                $detalle->egreso();
+                $detalle->cantidad_solicitada = $cantidadAjuste;
+                $detalle->cantidad_aprobada = $cantidadAjuste;
+                $detalle->cantidad_despachada = $cantidadAjuste;
+                $detalle->save();
 
+                $transaccion = $detalle->transaccionesStock->first();
+                $stock = $transaccion->stock;
+                $kardex = $detalle->kardexs->first();
+
+                $transaccion->cantidad = $cantidadAjuste;
+                $transaccion->save();
+
+                $stock->cantidad = $stock->cantidad + $diferencia;
+                $stock->save();
+
+                $kardex->can = $cantidadAjuste;
 
                 $this->info("Detalle ajustado correctamente");
 
@@ -128,13 +137,26 @@ class AjustarDetalleSolicitudComando extends Command
         }));
 
         $this->info("Stoks");
-        $this->table(['id', 'bodega_id','precio_compra','cantidad','cantidad_inicial'], $detalle->item->stocks->map(function (Stock $stock) {
+        $stocks =$detalle->item->stocks()->where('bodega_id',Bodega::PRINCIPAL)->get();
+        $this->table(['id', 'bodega_id','precio_compra','cantidad','cantidad_inicial'], $stocks->map(function (Stock $stock) {
             return [
                 'id' => $stock->id,
                 'bodega_id' => $stock->bodega_id,
                 'precio_compra' => $stock->precio_compra,
                 'cantidad' => $stock->cantidad,
                 'cantidad_inicial' => $stock->cantidad_inicial,
+            ];
+        }));
+
+        $this->info("Kardex:");
+
+        $this->table(['id','cantidad','precio_movimiento','precio_existencia','tipo'], $detalle->kardexs->map(function (Kardex $kardex) {
+            return [
+                'id' => $kardex->id,
+                'cantidad' => $kardex->cantidad,
+                'precio_movimiento' => $kardex->precio_movimiento,
+                'precio_existencia' => $kardex->precio_existencia,
+                'tipo' => $kardex->tipo,
             ];
         }));
 
