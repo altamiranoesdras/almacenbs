@@ -10,7 +10,7 @@ use App\Models\SolicitudEstado;
 use App\Traits\ComandosTrait;
 use Illuminate\Console\Command;
 
-class CompararKardexConStock extends Command
+class CompararStockCalculadoStockAlmacenado extends Command
 {
 
     use ComandosTrait;
@@ -20,7 +20,7 @@ class CompararKardexConStock extends Command
      *
      * @var string
      */
-    protected $signature = 'comparar:kardex-stock';
+    protected $signature = 'compara:stock_calculado';
 
     /**
      * The console command description.
