@@ -72,6 +72,7 @@ class ReportesAlmacenController extends Controller
 
 
             $kardexs = Kardex::whereFolio($folio)
+                ->where('cantidad','>',0)
                 ->whereItemId($request->item_id)
                 ->get();
 
