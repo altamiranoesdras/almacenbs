@@ -139,6 +139,7 @@ class ReportesAlmacenController extends Controller
          * @var Kardex $primerKardex
          */
         $primerKardex = Kardex::whereFolio($folio)
+            ->whereItemId($request->item)
             ->orderBy('created_at','asc')
             ->where('cantidad','>',0)
             ->first();

@@ -246,7 +246,7 @@
                                                         Actualizar
                                                     </button>
 
-                                                    <a href="{{route('reportes.kardex.pdf',$folio)}}" target="_blank" class="btn btn-primary">
+                                                    <a href="{{route('reportes.kardex.pdf',$folio)."?item=".$item->id}}" target="_blank" class="btn btn-primary">
                                                         <i class="fa fa-print"></i>
                                                         Imprimir
                                                     </a>
