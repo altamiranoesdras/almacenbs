@@ -598,7 +598,7 @@ class Item extends Model implements HasMedia
 
         $egresos = $this->solicitudDetalles->filter(function (SolicitudDetalle $det){
 
-            if ($det->solicitud->estado_id!=SolicitudEstado::ANULADA){
+            if ($det->solicitud && $det->solicitud->estado_id!=SolicitudEstado::ANULADA){
                 return $det;
             }
         });
