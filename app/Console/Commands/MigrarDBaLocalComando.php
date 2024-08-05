@@ -58,9 +58,6 @@ class MigrarDBaLocalComando extends Command
         $this->ssh = new SSH(false);
         $this->sftp = new SFTP(false);
 
-        $this->ssh->conectarConLlavePrivada();
-        $this->sftp->conectarConLlavePrivada();
-
         $this->fechaBackup = Carbon::now()->format('Y-m-d');
         $this->nombreBaseDatos = config('database.connections.mysql.database');
         $this->directorioDescarga = storage_path('temp/backups');
@@ -116,9 +113,12 @@ class MigrarDBaLocalComando extends Command
 
 
         $this->warn('------------------------------------------');
-        $this->warn('Ejecutar script en el servidor remoto...');
+        $this->warn('Ejecutar script en el servidor remoto');
         $this->warn('------------------------------------------');
 
+        $this->line("Conectando mediante ssh...");
+
+        $this->ssh->conectarConLlavePrivada();
 
         $this->line('Ejecutando script...');
 
@@ -143,9 +143,11 @@ class MigrarDBaLocalComando extends Command
     public function descargarArchivos(): void
     {
         $this->line('-----------------------------------');
-        $this->warn('Descargando archivos de respaldo...');
+        $this->warn('Descargando archivos de respaldo');
         $this->line('-----------------------------------');
 
+        $this->line("Conectando mediante sftp...");
+        $this->sftp->conectarConLlavePrivada();
 
         //crea directorio si no existe
         if (!is_dir($this->directorioDescarga)) {
