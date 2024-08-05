@@ -18,7 +18,8 @@ return [
                  * The list of directories and files that will be included in the backup.
                  */
                 'include' => [
-                    base_path(),
+//                    base_path(),
+                    storage_path()
                 ],
 
                 /*
@@ -146,7 +147,7 @@ return [
      * For Slack you need to install laravel/slack-notification-channel.
      *
      * You can also use your own notification classes, just make sure the class is named after one of
-     * the `Spatie\Backup\Events` classes.
+     * the `Spatie\Backup\Notifications\Notifications` classes.
      */
     'notifications' => [
 
