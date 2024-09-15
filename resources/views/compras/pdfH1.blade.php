@@ -149,7 +149,7 @@
                         font-size: small"
                     >
 
-                        @if($det->item->esGrupo300())
+                        @if($det->item->esGrupo300() || $det->item->esGrupo200())
                             {!! $compra->folio_inventario ?? ''!!}
                         @else
                             0

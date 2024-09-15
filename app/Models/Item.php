@@ -732,6 +732,12 @@ class Item extends Model implements HasMedia
         return $this->renglon->numero >= 300 && $this->renglon->numero < 400;
     }
 
+    //es grupo 200
+    public function esGrupo200()
+    {
+        return $this->renglon->numero >= 200 && $this->renglon->numero < 300;
+    }
+
     public function esGrupo100()
     {
         return $this->renglon->numero >= 100 && $this->renglon->numero < 200;
