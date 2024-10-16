@@ -44,7 +44,7 @@ class CrearFolioUltimoRegistroKardex extends Command
         /**
          * @var Kardex $ultimoRegistro
          */
-        $ultimoRegistro = Kardex::without('model')->where('item_id', $id)->orderBy('id', 'desc')->first();
+        $ultimoRegistro = Kardex::without('model')->where('item_id', $id)->orderBy('folio', 'desc')->first();
 
         if(!$ultimoRegistro){
             $this->error('No se encontraron registros para el insumo con id: ' . $id);
