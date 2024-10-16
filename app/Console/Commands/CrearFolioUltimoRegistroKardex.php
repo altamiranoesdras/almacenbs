@@ -51,6 +51,10 @@ class CrearFolioUltimoRegistroKardex extends Command
             return 0;
         }
 
+        $folioActual = $ultimoRegistro->folio;
+
+        $this->line('Ultimo registro del folio ' . $folioActual);
+
         //dibuja la tabla con los registros
         $this->table([
             'id',
@@ -74,18 +78,35 @@ class CrearFolioUltimoRegistroKardex extends Command
             ]
         ]);
 
+        $siguienteFolio = $ultimoRegistro->siguienteFolio();
 
         //informa cual es el siguiente folio
-        $this->line("-----------------------------------");
-        $this->line('El siguiente folio es: ' . $ultimoRegistro->siguienteFolio());
-        $this->line("-----------------------------------");
+        $this->line('El siguiente folio a crear es: ' . $siguienteFolio);
+
+        if ($siguienteFolio == $folioActual) {
+            $this->error('El siguiente folio es igual al folio actual');
+            //pregunta si se desea forzar la creación del folio
+            $forzar = $this->askWithCompletion('¿Desea forzar la creación del folio?', ['si', 'no'], 'no');
+            if($forzar=='no'){
+                $this->warn('No se creó el folio');
+            }else{
+                $siguienteFolio = $ultimoRegistro->siguienteFolio(true);
+                $this->line('El siguiente folio a crear es: ' . $siguienteFolio);
+            }
+        }
 
         //confirmar si se crea el nuevo folio
-        if($this->confirm('¿Desea crear un nuevo folio para el registro anterior?')){
-            $ultimoRegistro->folio = $ultimoRegistro->siguienteFolio();
-            $ultimoRegistro->save();
-            $this->info('Folio actualizado correctamente');
+        $confirma = $this->askWithCompletion('¿Escriba "si" para confirmar la creación del folio?', ['si', 'no'], 'no');
+
+        if($confirma=='no'){
+            $this->warn('No se creó el folio');
+            return 0;
         }
+
+
+        $ultimoRegistro->folio = $siguienteFolio;
+        $ultimoRegistro->save();
+        $this->info('Folio actualizado correctamente');
 
     }
 }

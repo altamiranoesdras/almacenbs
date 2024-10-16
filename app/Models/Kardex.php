@@ -293,7 +293,7 @@ class Kardex extends Model
 
 
 
-    public function siguienteFolio()
+    public function siguienteFolio($forzar=false)
     {
 
 
@@ -318,7 +318,8 @@ class Kardex extends Model
             //cantidad de registros con el mimsmo folio y mismo item
             $cantidad = self::delItem($this->item_id)->where('folio',$folioItem)->get()->count();
 
-            if ($cantidad >= config('app.max_lineas_kardex',8)){
+            //si la cantidad de registros es mayor o igual al maximo de lineas por kardex o la variable forzar es verdadera
+            if ($cantidad >= config('app.max_lineas_kardex',8) || $forzar){
                 $folioItem = $maximoFolio+1;
             }
         }
