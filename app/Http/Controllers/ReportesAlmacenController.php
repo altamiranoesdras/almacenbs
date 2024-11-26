@@ -277,4 +277,36 @@ class ReportesAlmacenController extends Controller
         return $dataTable->render('items.reportes.proximos_a_vencer');
 
     }
+
+    public function nuevoFolio(Kardex $kardex)
+    {
+
+        if (!$kardex){
+            flash('No se encontró el kardex')->error();
+            return redirect()->back();
+        }
+
+        try {
+            DB::beginTransaction();
+
+
+            $folio = $kardex->siguienteFolio(true);
+
+            $kardex->folio = $folio;
+            $kardex->save();
+
+            $kardex->addBitacora('Se generó un nuevo folio '.$folio,'',auth()->user()->id);
+
+        } catch (Exception $exception) {
+            DB::rollBack();
+
+            throw new Exception($exception);
+        }
+
+        DB::commit();
+
+        flash('El ultimo movimiento se le asignó el nuevo folio '.$folio)->success();
+
+        return redirect()->back();
+    }
 }

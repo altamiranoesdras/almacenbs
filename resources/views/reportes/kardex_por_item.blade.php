@@ -92,6 +92,7 @@
                                                 $del = $datalles->first()->del;
                                                 $al = $datalles->first()->al;
                                                 $folioSigiente = $datalles->first()->folio_siguiente;
+                                                $ultimoDetalle = $datalles->last();
                                             @endphp
 
                                         <form action="{{route('reportes.kardex.actualizar',$folio)}}" method="post">
@@ -223,6 +224,49 @@
                                                             </td>
                                                         </tr>
                                                     @endforeach
+
+                                                    @if($loop->last)
+                                                        <tr class="text-sm text-center">
+                                                            <td colspan="20">
+                                                                <!-- Button trigger modal -->
+                                                                <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#exampleModal">
+                                                                    <i class="fa fa-arrow-down"></i>
+                                                                    Pasar ultimo movimiento a nuevo folio
+                                                                </button>
+
+                                                                <!-- Modal -->
+                                                                <div class="modal fade text-left" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="exampleModalLabel">Confirmar</h5>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <p> si esta seguro de pasar a un nuevo folio, presione el boton "Sí, Pasar a nuevo folio"</p>
+                                                                            </div>
+
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                                                <a href="{{route('reportes.kardex.nuevo.folio',$ultimoDetalle->id)}}"
+                                                                                   class="btn btn-sm btn-success"
+                                                                                   onclick="esperar()">
+                                                                                    Sí, Pasar a nuevo folio
+                                                                                </a>
+                                                                            </div>
+
+
+                                                                            </div>
+                                                                    </div>
+                                                                </div>
+
+
+
+                                                            </td>
+                                                        </tr>
+                                                    @endif
                                                     </tbody>
                                                 </table>
                                             </div>
