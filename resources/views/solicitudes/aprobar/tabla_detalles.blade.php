@@ -2,6 +2,7 @@
     <thead>
     <tr>
         <th>Producto</th>
+        <th>Tu Stock</th>
         <th>Cantidad Solicitada</th>
         <th>Cantidad Aprobada</th>
     </tr>
@@ -11,6 +12,7 @@
     @foreach($solicitud->detalles as $det)
         <tr>
             <td>{{$det->item->text}}</td>
+            <th>{{$det->item->stock_total}}</th>
             <td>{{$det->cantidad_solicitada}}</td>
             @if( $solicitud->estaAprobada())
                 <td> {{$det->cantidad_aprobada}}</td>
