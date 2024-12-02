@@ -31,11 +31,27 @@
             </td>
             <td>{{$det->item->unimed->nombre ?? ''}}</td>
             <td>{{$det->item->renglon->numero ?? ''}}</td>
-            <td>{{$compra->folio_almacen ?? ''}}</td>
+            <td>
+                <input type="number"
+                       class="form-control form-control-sm"
+                       name="folios_almacen[{{$det->id}}]"
+                       value="{{$det->folio_almacen ?? $compra->folio_almacen ?? ''}}">
+
+            </td>
             <td class="text-right">{{dvs().nfp($det->precio)}}</td>
             <td class="text-right">{{dvs().nfp($det->cantidad*$det->precio,2)}}</td>
-            <td>{{$compra->folio_inventario}}</td>
-            <td></td>
+            <td>
+                <input type="number"
+                       class="form-control form-control-sm"
+                       name="folios_inventario[{{$det->id}}]"
+                       value="{{$det->folio_inventario ?? $compra->folio_inventario ?? ''}}">
+            </td>
+            <td>
+                <input type="text"
+                       class="form-control form-control-sm"
+                       name="codigos_inventario[{{$det->id}}]"
+                       value="{{$det->codigo_inventario ?? ''}}">
+            </td>
         </tr>
     @endforeach
 

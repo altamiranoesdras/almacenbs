@@ -126,7 +126,7 @@
                         text-align: center;
                             padding: 5px;
                             font-size: small" >
-                        {!! $compra->folio_almacen ?? '' !!}
+                        {!! $det->folio_almacen ?? $compra->folio_almacen ?? '' !!}
                     </td>
                     <td class="py-0" style="border-color: black;
                         width: 10.53%;
@@ -148,12 +148,13 @@
                         text-align: right;
                         font-size: small"
                     >
+                        {!! $det->folio_inventario ?? $compra->folio_inventario ?? '' !!}
 
-                        @if($det->item->esGrupo300() || $det->item->esGrupo200())
-                            {!! $compra->folio_inventario ?? ''!!}
-                        @else
-                            0
-                        @endif
+{{--                        @if($det->item->esGrupo300() || $det->item->esGrupo200())--}}
+{{--                            {!! $compra->folio_inventario ?? ''!!}--}}
+{{--                        @else--}}
+{{--                            0--}}
+{{--                        @endif--}}
 
                     </td>
                     <td class="py-0" style="border-color: black;

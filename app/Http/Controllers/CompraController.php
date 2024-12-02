@@ -570,6 +570,9 @@ class CompraController extends AppBaseController
 
             foreach ($compra1h->detalles as $index => $detalle) {
                 $detalle->texto_extra = $request->textos_extras[$detalle->id] ?? null;
+                $detalle->folio_almacen = $request->folios_almacen[$detalle->id] ?? null;
+                $detalle->folio_inventario = $request->folios_inventario[$detalle->id] ?? null;
+                $detalle->codigo_inventario = $request->codigos_inventario[$detalle->id] ?? null;
                 $detalle->save();
             }
 
