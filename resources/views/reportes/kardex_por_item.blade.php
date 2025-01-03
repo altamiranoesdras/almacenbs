@@ -69,7 +69,7 @@
             </div>
             <!-- /.row -->
 
-            <div class="row">
+            <div class="row" id="resultadoKardex">
                 <div class="col">
 
                     @if(isset($buscar))
@@ -95,7 +95,7 @@
                                                 $ultimoDetalle = $datalles->last();
                                             @endphp
 
-                                        <form action="{{route('reportes.kardex.actualizar',$folio)}}" method="post">
+                                        <form action="{{route('reportes.kardex.actualizar',$folio)}}" @submit.prevent="actualizaKardex({{$folio}})" method="post">
                                             @csrf
                                             @method('PATCH')
 
@@ -318,6 +318,35 @@
     <!--    Scripts fields clientes
 ------------------------------------------------->
     <script>
+
+        new Vue({
+            el: '#resultadoKardex',
+            name: 'resultadoKardex',
+            mounted() {
+            },
+            created() {
+            },
+            data: {
+            },
+            methods: {
+                async actualizaKardex(folio){
+
+                    esperar();
+
+                    try {
+                        let response = await axios.post(route('reportes.kardex.actualizar.ajax',folio),$('form').serialize());
+
+                        iziTs(response.data.message);
+
+                    }catch (e) {
+                        notifyErrorApi(e)
+                    }
+
+                    finEspera();
+                }
+            }
+        });
+
         $(function () {
 
             var hoy=new Date();

@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
-class ReportesAlmacenController extends Controller
+class ReportesAlmacenController extends AppBaseController
 {
     /**
      * KardexController constructor.
@@ -129,6 +129,75 @@ class ReportesAlmacenController extends Controller
         flash('Kardex actualizado')->success();
 
         return redirect(route('reportes.kardex')."?item_id=".$request->item_id."&buscar=1");
+
+    }
+
+    public function actualizaKardexAjax($folio,Request $request)
+    {
+
+//        dd($request->all());
+
+
+        try {
+            DB::beginTransaction();
+
+
+            $kardexs = Kardex::whereFolio($folio)
+                ->where('cantidad','>',0)
+                ->whereItemId($request->item_id)
+                ->get();
+
+
+            $impresos = $request->impresos;
+            $preciosExistencia = $request->precios_existencia;
+            $preciosMovimientos = $request->precios_movimiento;
+            $codigosSalida = $request->codigos_salidas;
+            $saldos = $request->saldos;
+
+
+//            dd($preciosExistencia);
+
+            /**
+             * @var Kardex $kardex
+             */
+            foreach ($kardexs as $kardex) {
+
+
+
+                if ($kardex->salida){
+                    $codigo = $codigosSalida[$kardex->id] ?? null;
+                    $kardex->codigo = $codigo;
+                }
+
+                $impreso = $impresos[$kardex->id] ?? 0;
+
+
+
+                $kardex->impreso = $impreso;
+                $kardex->precio_existencia = $preciosExistencia[$kardex->id];
+                $kardex->precio_movimiento = $preciosMovimientos[$kardex->id];
+                $kardex->saldo = $saldos[$kardex->id];
+                $kardex->codigo_insumo = $request->codigo_insumo;
+                $kardex->del = $request->del;
+                $kardex->al = $request->al;
+                $kardex->folio_siguiente = $request->folio_siguiente;
+                $kardex->save();
+
+            }
+
+
+
+        } catch (Exception $exception) {
+            DB::rollBack();
+
+            $msj = manejarException($exception);
+
+            return redirect()->back()->withErrors([$msj])->withInput();
+        }
+
+        DB::commit();
+
+        return $this->sendSuccess("Folio $folio actualizado");
 
     }
 
