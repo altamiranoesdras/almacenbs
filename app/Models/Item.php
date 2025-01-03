@@ -45,6 +45,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property number $stock_minimo
  * @property number $stock_maximo
  * @property number $stock_total
+ * @property string $stock_reservado
  * @property string $ubicacion
  * @property boolean $perecedero
  * @property boolean $inventariable
@@ -110,6 +111,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property string|null $codigo_presentacion
  * @property-read \App\Models\ItemPresentacion|null $presentacion
  * @method static \Illuminate\Database\Eloquent\Builder|Item conIngresos()
+ * @method static \Illuminate\Database\Eloquent\Builder|Item conDetSolicitudesAprobadas()
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereCodigoPresentacion($value)
  * @property-read mixed $stock_bodega
  * @property int|null $modelo_id
@@ -133,7 +135,7 @@ class Item extends Model implements HasMedia
 
     protected $dates = ['deleted_at'];
 
-    protected $appends= ['text','texto_libro_almacen',"texto_principal",'img','thumb','stock_total','stock_bodega'];
+    protected $appends= ['text','texto_libro_almacen',"texto_principal",'img','thumb','stock_total','stock_bodega','stock_reservado'];
 
     protected $with = ['unimed','marca','stocks','media','presentacion','renglon'];
 
@@ -741,5 +743,29 @@ class Item extends Model implements HasMedia
     public function esGrupo100()
     {
         return $this->renglon->numero >= 100 && $this->renglon->numero < 200;
+    }
+
+
+    /**
+     * Suma el stock de las solicitudes que estén aprobadas
+     * @return void
+     */
+    public function getStockReservadoAttribute()
+    {
+        return $this->solicitudDetalles
+            ->where('solicitud.bodega_id',Bodega::PRINCIPAL)
+            ->where('solicitud.estado_id',SolicitudEstado::APROBADA)
+            ->sum('cantidad_aprobada');
+
+    }
+
+    public function scopeConDetSolicitudesAprobadas($q): \Illuminate\Database\Eloquent\Builder
+    {
+        return $q->with(['solicitudDetalles' => function($q){
+            $q->whereHas('solicitud',function($q){
+                $q->where('bodega_id',Bodega::PRINCIPAL)
+                    ->where('estado_id',SolicitudEstado::APROBADA);
+            });
+        }]);
     }
 }
