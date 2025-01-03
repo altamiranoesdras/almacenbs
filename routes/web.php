@@ -240,7 +240,12 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::patch('reportes/kardex/{folio}', [ReportesAlmacenController::class,'actualizaKardex'])->name('reportes.kardex.actualizar');
     Route::get('reportes/kardex', [ReportesAlmacenController::class,'kardex'])->name('reportes.kardex');
     Route::get('reportes/kardex/nuevo/folio/{kardex}', [ReportesAlmacenController::class,'nuevoFolio'])->name('reportes.kardex.nuevo.folio');
+
     Route::get('reportes/stock', [ReportesAlmacenController::class,'stock'])->name('reportes.stock');
+    //actualiara fecha de vencimiento
+    Route::patch('reportes/stock', [ReportesAlmacenController::class,'actualizaStock'])->name('reportes.stock.actualizar');
+
+
     Route::get('reportes/items/vencen', [ReportesAlmacenController::class,'itemsAvencer'])->name('reportes.items.vencen');
 
     Route::get('compras/libro/almacen/pdf', [LibroAlamcenController::class,'pdf'])->name('compras.libro.almacen.pdf');

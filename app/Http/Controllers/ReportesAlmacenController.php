@@ -267,6 +267,41 @@ class ReportesAlmacenController extends Controller
 
     }
 
+    public function actualizaStock(Request $request)
+    {
+
+        $fechas = $request->fechas_vence ?? [];
+
+        try {
+            DB::beginTransaction();
+
+            foreach ($fechas as $stock_id => $fecha) {
+
+                $stock = Stock::find($stock_id);
+
+                if ($stock->fecha_vence != $fecha){
+                    $stock->fecha_vence = $fecha;
+                    $stock->save();
+                }
+
+            }
+
+        } catch (Exception $exception) {
+            DB::rollBack();
+
+            $msj = manejarException($exception);
+
+            return redirect()->back()->withErrors([$msj])->withInput();
+        }
+
+        DB::commit();
+
+        flash('Stock actualizado')->success();
+
+        return redirect()->back();
+
+    }
+
     public function itemsAvencer(ItemsAvencerDataTable $dataTable,Request $request)
     {
 

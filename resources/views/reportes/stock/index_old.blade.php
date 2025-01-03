@@ -119,6 +119,13 @@
                                 <div class="tab-content" id="custom-tabs-four-tabContent">
                                   <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
 
+
+                                      <form action="{{route('reportes.stock.actualizar')}}" method="post">
+                                            @csrf
+                                            @method('patch')
+
+
+
                                       <div class="table-responsive">
                                           <table class="table table-bordered table-hover table-striped table-xtra-condensed" id="tabla-desglosado">
                                               <thead>
@@ -151,7 +158,12 @@
                                                       <td>{{$det->item->codigo_presentacion}}</td>
                                                       <td>{{$det->item->renglon->numero ?? ''}}</td>
                                                       <td>{{$det->item->unimed->nombre ?? ''}}</td>
-                                                      <td>{{fechaLtn($det->fecha_vence)}}</td>
+                                                      <td>
+                                                          <!-- campo fecha vence -->
+                                                          <input type="date" class="form-control form-control-sm" name="fechas_vence[{{$det->id}}]"
+                                                                 value="{{fechaIngles($det->fecha_vence)}}">
+
+                                                      </td>
                                                       <td>{{nf($det->cantidad,0)}}</td>
                                                       <td>{{ dvs().nfp($det->precio_compra)}}</td>
                                                       <td>{{ dvs().nfp($det->sub_total)}}</td>
@@ -175,6 +187,28 @@
                                               </tfoot>
                                           </table>
                                       </div>
+
+                                          <div class="form-row">
+
+                                              <!-- Boton Cancelar -->
+                                                <div class="form-group col-sm-6 text-left">
+                                                    <a href="{{route('reportes.stock')}}" class="btn btn-secondary">
+                                                        <i class="fa fa-times"></i> Cancelar
+                                                    </a>
+                                                </div>
+
+                                              <!-- Boton Guardar -->
+                                              <div class="form-group col-sm-6 text-right">
+                                                  <button class="btn btn-success" type="submit">
+                                                      <i class="fa fa-save"></i> Guardar
+                                                  </button>
+                                              </div>
+                                          </div>
+
+
+                                      </form>
+
+
 
                                   </div>
                                   <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">

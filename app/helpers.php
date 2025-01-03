@@ -867,3 +867,11 @@ function entornoEstaEnProduccion(){
     return app()->environment()=='production';
 }
 
+function fechaIngles($fecha=null){
+
+    if (is_null($fecha)){
+        return null;
+    }
+
+    return Carbon::parse($fecha)->format('Y-m-d');
+}
