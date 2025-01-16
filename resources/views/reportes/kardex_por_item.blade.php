@@ -95,7 +95,7 @@
                                                 $ultimoDetalle = $datalles->last();
                                             @endphp
 
-                                        <form action="{{route('reportes.kardex.actualizar',$folio)}}" @submit.prevent="actualizaKardex({{$folio}})" method="post">
+                                        <form action="{{route('reportes.kardex.actualizar',$folio)}}" @submit.prevent="actualizaKardex({{$folio}})" id="form{{$folio}}" method="post">
                                             @csrf
                                             @method('PATCH')
 
@@ -334,7 +334,12 @@
                     esperar();
 
                     try {
-                        let response = await axios.post(route('reportes.kardex.actualizar.ajax',folio),$('form').serialize());
+
+
+                        let datos = $('#form'+folio).serialize();
+
+
+                        let response = await axios.post(route('reportes.kardex.actualizar.ajax',folio),datos);
 
                         iziTs(response.data.message);
 
