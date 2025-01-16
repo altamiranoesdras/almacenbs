@@ -290,10 +290,10 @@
                                                         Actualizar
                                                     </button>
 
-                                                    <a href="{{route('reportes.kardex.pdf',$folio)."?item=".$item->id}}" target="_blank" class="btn btn-primary">
+                                                    <button type="button" class="btn btn-primary" @click.prevente="imprimirFolio({{$folio}})">
                                                         <i class="fa fa-print"></i>
                                                         Imprimir
-                                                    </a>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </form>
@@ -348,6 +348,16 @@
                     }
 
                     finEspera();
+                },
+                async imprimirFolio(folio){
+
+                    await this.actualizaKardex(folio);
+
+                    let ruta =route('reportes.kardex.pdf',folio)+"?item={{$item->id}}";
+
+                    //abre en nueva ventana
+                    window.open(ruta, '_blank');
+
                 }
             }
         });
