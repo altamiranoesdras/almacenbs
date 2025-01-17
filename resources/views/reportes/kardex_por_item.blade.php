@@ -353,7 +353,7 @@
 
                     await this.actualizaKardex(folio);
 
-                    let ruta =route('reportes.kardex.pdf',folio)+"?item={{$item->id}}";
+                    let ruta =route('reportes.kardex.pdf',folio)+"?item={{$item->id ?? ''}}";
 
                     //abre en nueva ventana
                     window.open(ruta, '_blank');
