@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\ConsumoDataTable;
 use App\DataTables\ConsumoUserDataTable;
+use App\DataTables\Scopes\ScopeComsumoDataTable;
 use App\Http\Requests;
 use App\Http\Requests\CreateConsumoRequest;
 use App\Http\Requests\UpdateConsumoRequest;
@@ -41,18 +42,23 @@ class ConsumoController extends AppBaseController
      */
     public function index(ConsumoDataTable $consumoDataTable)
     {
+
+        $scope = new ScopeComsumoDataTable();
+
+        $consumoDataTable->addScope($scope);
+
         return $consumoDataTable->render('consumos.index');
     }
 
-    public function user(ConsumoUserDataTable $solicitudDataTable)
+    public function user(ConsumoUserDataTable $consumoDataTable)
     {
 
-//        $item = Item::where('codigo_presentacion',32153)->get();
-//
-//        return $item;
+        $scope = new ScopeComsumoDataTable();
+
+        $consumoDataTable->addScope($scope);
 
 
-        return $solicitudDataTable->render('consumos.usuario.index');
+        return $consumoDataTable->render('consumos.usuario.index');
     }
 
     /**

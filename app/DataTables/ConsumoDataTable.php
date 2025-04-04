@@ -44,6 +44,11 @@ class ConsumoDataTable extends DataTable
                 return fechaLtn($consumo->fecha_procesa);
 
             })
+            ->editColumn('usuario_crea.name',function (Consumo $consumo){
+
+                return $consumo->usuarioCrea->name ?? '';
+
+            })
             ->rawColumns(['action','id']);
 
     }

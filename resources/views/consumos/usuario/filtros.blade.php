@@ -6,12 +6,12 @@
 
         <div class="form-group col-sm-2">
             <label for="del">DEL:</label>
-            <input type="date" class="form-control" name="del_solicita">
+            <input type="date" class="form-control" name="del">
         </div>
 
         <div class="form-group col-sm-2">
             <label for="al">AL:</label>
-            <input type="date" class="form-control" name="al_solicita">
+            <input type="date" class="form-control" name="al">
         </div>
 
 
@@ -19,7 +19,7 @@
             <label for="tipos">Estado:</label>
             <multiselect v-model="estados_seleccionados" :options="estados" label="nombre" :multiple="true" track-by="id" placeholder="Seleccione uno..." >
             </multiselect>
-            <input type="hidden" name="estados[]" v-for="estado in estados_seleccionados" :value="estado.id">
+            <input type="hidden" name="estado_id[]" v-for="estado in estados_seleccionados" :value="estado.id">
         </div>
 
 
@@ -81,7 +81,7 @@
             data: {
 
                 estados_seleccionados: [],
-                estados: @json($estados ?? []),
+                estados: @json(\App\Models\ConsumoEstado::whereNotIn('id',[1])->get() ?? []),
 
 
             },
