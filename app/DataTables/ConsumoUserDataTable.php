@@ -41,6 +41,10 @@ class ConsumoUserDataTable extends DataTable
 
 
              })
+                ->editColumn('fecha_procesa',function (Consumo $consumo){
+
+                    return fechaLtn($consumo->fecha_procesa);
+                })
             ->rawColumns(['action','id']);
 
     }
@@ -122,9 +126,10 @@ class ConsumoUserDataTable extends DataTable
     {
         return [
             Column::make('codigo'),
-            Column::make('fecha')->name('created_at')->data('created_at'),
+            Column::make('fecha_crea')->name('created_at')->data('created_at'),
+            Column::make('fecha_procesa')->name('fecha_procesa')->data('fecha_procesa'),
             Column::make('unidad')->name('unidad.nombre')->data('unidad.nombre'),
-            Column::make('bodega')->name('bodega.nombre')->data('bodega.nombre'),
+            Column::make('CAJ')->name('bodega.nombre')->data('bodega.nombre'),
             Column::make('estado')->name('estado.nombre')->data('estado.nombre'),
             Column::computed('action')
                             ->exportable(false)

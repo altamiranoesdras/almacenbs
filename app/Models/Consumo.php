@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property integer $usuario_crea
  * @property int $id
  * @property string|null $observaciones
+ * @property string|null $fecha_procesa
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -77,7 +78,8 @@ class Consumo extends Model
         'unidad_id',
         'bodega_id',
         'usuario_crea',
-        'observaciones'
+        'observaciones',
+        'fecha_procesa'
     ];
 
     /**

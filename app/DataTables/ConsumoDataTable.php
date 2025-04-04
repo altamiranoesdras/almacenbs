@@ -34,6 +34,16 @@ class ConsumoDataTable extends DataTable
                  //return view('consumos.modal_detalles',compact('consumo'))->render();
 
              })
+            ->editColumn('created_at',function (Consumo $consumo){
+
+                return fechaLtn($consumo->created_at);
+
+            })
+            ->editColumn('fecha_procesa',function (Consumo $consumo){
+
+                return fechaLtn($consumo->fecha_procesa);
+
+            })
             ->rawColumns(['action','id']);
 
     }
@@ -108,6 +118,8 @@ class ConsumoDataTable extends DataTable
     {
         return [
             Column::make('codigo'),
+            Column::make('fecha_crea')->name('created_at')->data('created_at'),
+            Column::make('fecha_procesa')->name('fecha_procesa')->data('fecha_procesa'),
             Column::make('usuario')->name('usuarioCrea.name')->data('usuario_crea.name'),
             Column::make('unidad')->name('unidad.nombre')->data('unidad.nombre'),
             Column::make('CAJ')->name('bodega.nombre')->data('bodega.nombre'),

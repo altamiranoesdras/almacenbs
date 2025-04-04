@@ -207,6 +207,7 @@ class ConsumoController extends AppBaseController
             'codigo' => $this->getCodigo(),
             'correlativo' => $this->getCorrelativo(),
             'estado_id' => ConsumoEstado::PROCESADO,
+            'fecha_procesa' => Carbon::now(),
         ]);
 
 
