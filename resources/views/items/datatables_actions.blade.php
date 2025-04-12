@@ -1,16 +1,16 @@
 
 @can('Crear Artículos')
-<a href="{{ route('items.show', $item->id) }}" class='btn btn-default btn-xs' data-toggle="tooltip" title="Ver">
+<a href="{{ route('items.show', $item->id) }}" class='btn btn-icon btn-flat-secondary rounded-circle' data-toggle="tooltip" title="Ver">
     <i class="fa fa-eye"></i>
 </a>
 @endcan
 
-{{--<a href="{{ route('items.clonar', $item->id) }}" class='btn btn-default btn-xs' data-toggle="tooltip" title="Copiar articulo">--}}
+{{--<a href="{{ route('items.clonar', $item->id) }}" class='btn btn-icon btn-flat-secondary rounded-circle' data-toggle="tooltip" title="Copiar articulo">--}}
 {{--    <i class="fa fa-clone"></i>--}}
 {{--</a>--}}
 
 @can('Editar Artículos')
-    <a href="{{ route('items.edit', $item->id) }}" class='btn btn-info btn-xs' data-toggle="tooltip" title="Editar">
+    <a href="{{ route('items.edit', $item->id) }}" class='btn btn-icon btn-flat-info rounded-circle' data-toggle="tooltip" title="Editar">
     <i class="fa fa-edit"></i>
 </a>
 @endcan
@@ -18,7 +18,7 @@
 
 @can('Eliminar Artículos')
 <span data-toggle="tooltip" title="Eliminar">
-    <a href="#modal-delete-{{$item->id}}" data-toggle="modal" data-keyboard="true" class='btn btn-danger btn-xs'>
+    <a href="#modal-delete-{{$item->id}}" data-toggle="modal" data-keyboard="true" class='btn btn-icon btn-flat-danger rounded-circle'>
         <i class="fa fa-trash-alt"></i>
     </a>
 </span>

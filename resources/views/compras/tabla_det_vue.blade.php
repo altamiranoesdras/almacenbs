@@ -21,10 +21,10 @@
             <td v-text="detalle.fecha_vence"></td>
             <td v-text="dvs + nfp(detalle.sub_total)"></td>
             <td width="10px">
-                {{--<button type="button" class="btn btn-info btn-xs" @click="editDet(detalle)">--}}
+                {{--<button type="button" class="btn btn-icon btn-flat-info rounded-circle" @click="editDet(detalle)">--}}
                     {{--<i class="fa fa-edit"></i>--}}
                 {{--</button>--}}
-                <button type="button" class='btn btn-danger btn-xs' @click="deleteItem(detalle)" :disabled="(idEliminando===detalle.id)">
+                <button type="button" class='btn btn-icon btn-flat-danger rounded-circle' @click="deleteItem(detalle)" :disabled="(idEliminando===detalle.id)">
                     <span v-show="(idEliminando===detalle.id)" >
                         <i  class="fa fa-sync-alt fa-spin"></i>
                     </span>

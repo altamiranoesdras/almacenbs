@@ -7,7 +7,7 @@
 @endcan
 
 @if($solicitud->puedeImprimir())
-{{--    <a href="{{ route('solicitudes.preimpreso', $id) }}"  class='btn btn-danger btn-xs' data-toggle="tooltip" title="PDF de requision">--}}
+{{--    <a href="{{ route('solicitudes.preimpreso', $id) }}"  class='btn btn-icon btn-flat-danger rounded-circle' data-toggle="tooltip" title="PDF de requision">--}}
 {{--        <i class="fa fa-file-pdf"></i>--}}
 {{--    </a>--}}
 
@@ -18,7 +18,7 @@
 
 @if($solicitud->puedeEditar())
     @can('Editar Requisición')
-        <a href="{{ route('solicitudes.edit', $solicitud->id) }}" class='btn btn-info btn-xs' data-toggle="tooltip" title="Editar">
+        <a href="{{ route('solicitudes.edit', $solicitud->id) }}" class='btn btn-icon btn-flat-info rounded-circle' data-toggle="tooltip" title="Editar">
             <i class="fa fa-edit"></i>
         </a>
     @endcan

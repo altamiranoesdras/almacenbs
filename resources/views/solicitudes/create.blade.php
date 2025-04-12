@@ -114,7 +114,7 @@
                                             <td v-text="detalle.item.text"></td>
                                             <td class="text-right" v-text="nf(detalle.cantidad_solicitada)"></td>
                                             <td class="text-center">
-                                                <button type="button" class='btn btn-danger btn-xs'
+                                                <button type="button" class='btn btn-icon btn-flat-danger rounded-circle'
                                                         @click="deleteItem(detalle)"
                                                         :disabled="(idEliminando===detalle.id)">
                                                     <i  v-show="(idEliminando===detalle.id)" class="fa fa-spinner fa-spin"></i>

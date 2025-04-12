@@ -1,11 +1,11 @@
 
 <span data-toggle="tooltip" title="Ver" >
-    <button class='btn btn-default btn-xs' data-toggle="modal" data-target="#modalShowitemTraslados{{$id}}">
+    <button class='btn btn-icon btn-flat-secondary rounded-circle' data-toggle="modal" data-target="#modalShowitemTraslados{{$id}}">
         <i class="fa fa-eye"></i>
     </button>
 </span>
 
-{{--<a href="{{ route('itemTraslados.edit', $id) }}" class='btn btn-info btn-xs' data-toggle="tooltip" title="Editar">--}}
+{{--<a href="{{ route('itemTraslados.edit', $id) }}" class='btn btn-icon btn-flat-info rounded-circle' data-toggle="tooltip" title="Editar">--}}
 {{--    <i class="fa fa-edit"></i>--}}
 {{--</a>--}}
 

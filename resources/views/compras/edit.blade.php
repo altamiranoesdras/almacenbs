@@ -91,7 +91,7 @@
                                     @endcan
 
                                     @if($compra->puedeCancelar() )
-                                        {{--<a href="#modal-delete-{{$compra->id}}" data-toggle="modal" class='btn btn-danger btn-xs'>--}}
+                                        {{--<a href="#modal-delete-{{$compra->id}}" data-toggle="modal" class='btn btn-icon btn-flat-danger rounded-circle'>--}}
                                         {{--<i class="far fa-trash-alt" data-toggle="tooltip" title="Eliminar Solicitud de Compra"></i>--}}
                                         {{--</a>--}}
                                         <span data-toggle="tooltip" title="Cancelar Solicitud de Compra">

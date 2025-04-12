@@ -6,13 +6,13 @@
 @endcan
 
 @can('Editar configuración')
-<a href="{{ route('dev.configurations.edit', $id) }}" data-toggle="tooltip" title="Editar" class='btn btn-outline-info btn-sm'>
+<a href="{{ route('dev.configurations.edit', $id) }}" data-toggle="tooltip" title="Editar" class='btn btn-icon btn-flat-info rounded-circle'>
     <i class="fa fa-edit"></i>
 </a>
 @endcan
 
 @can('Eliminar configuración')
-<a href="#" onclick="deleteItemDt(this)" data-id="{{$id}}" data-toggle="tooltip" title="Eliminar" class='btn btn-outline-danger btn-sm'>
+<a href="#" onclick="deleteItemDt(this)" data-id="{{$id}}" data-toggle="tooltip" title="Eliminar" class='btn btn-icon btn-flat-danger rounded-circle'>
     <i class="fa fa-trash-alt"></i>
 </a>
 

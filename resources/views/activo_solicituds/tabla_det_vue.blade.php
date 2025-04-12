@@ -24,10 +24,10 @@
             <td v-text="detalle.estado_del_bien"></td>
             <td v-text="detalle.observaciones"></td>
             <td width="10px">
-{{--                <button type="button" class="btn btn-info btn-xs" @click="editDet(detalle)">--}}
+{{--                <button type="button" class="btn btn-icon btn-flat-info rounded-circle" @click="editDet(detalle)">--}}
 {{--                    <i class="fa fa-edit"></i>--}}
 {{--                </button>--}}
-                <button type="button" class='btn btn-danger btn-xs' @click="deleteItem(detalle)" :disabled="(idEliminando===detalle.id)">
+                <button type="button" class='btn btn-icon btn-flat-danger rounded-circle' @click="deleteItem(detalle)" :disabled="(idEliminando===detalle.id)">
                     <span v-show="(idEliminando===detalle.id)" >
                         <i  class="fa fa-sync-alt fa-spin"></i>
                     </span>

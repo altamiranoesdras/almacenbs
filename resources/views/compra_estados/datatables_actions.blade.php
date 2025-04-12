@@ -1,17 +1,17 @@
 @can('Ver Compra Estados')
-<a href="{{ route('compraEstados.show', $id) }}" data-toggle="tooltip" title="Ver" class='btn btn-default btn-sm'>
+<a href="{{ route('compraEstados.show', $id) }}" data-toggle="tooltip" title="Ver" class='btn btn-icon btn-flat-secondary rounded-circle'>
     <i class="fa fa-eye"></i>
 </a>
 @endcan
 
 @can('Editar Compra Estados')
-<a href="{{ route('compraEstados.edit', $id) }}" data-toggle="tooltip" title="Editar" class='btn btn-outline-info btn-sm'>
+<a href="{{ route('compraEstados.edit', $id) }}" data-toggle="tooltip" title="Editar" class='btn btn-icon btn-flat-info rounded-circle'>
     <i class="fa fa-edit"></i>
 </a>
 @endcan
 
 @can('Eliminar Compra Estados')
-<a href="#" onclick="deleteItemDt(this)" data-id="{{$id}}" data-toggle="tooltip" title="Eliminar" class='btn btn-outline-danger btn-sm'>
+<a href="#" onclick="deleteItemDt(this)" data-id="{{$id}}" data-toggle="tooltip" title="Eliminar" class='btn btn-icon btn-flat-danger rounded-circle'>
     <i class="fa fa-trash-alt"></i>
 </a>
 

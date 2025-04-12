@@ -1,12 +1,12 @@
 
 
     <span data-toggle="tooltip" title="Ver detalles">
-        <a href="#modal-detalles-{{$compra->id}}" data-keyboard="true" data-toggle="modal" class='btn btn-info btn-xs' >
+        <a href="#modal-detalles-{{$compra->id}}" data-keyboard="true" data-toggle="modal" class='btn btn-icon btn-flat-info rounded-circle' >
             <i class="fa fa-eye"></i>
         </a>
     </span>
 
-{{--    <a href="{{ route('compras.show', $compra->id) }}" class='btn btn-info btn-xs' data-toggle="tooltip" title="Ver Detalles">--}}
+{{--    <a href="{{ route('compras.show', $compra->id) }}" class='btn btn-icon btn-flat-info rounded-circle' data-toggle="tooltip" title="Ver Detalles">--}}
 {{--        <i class="fa fa-eye"></i>--}}
 {{--    </a>--}}
 
@@ -41,7 +41,7 @@
             </form>
         @endif
         @if($compra->estado_id == \App\Models\CompraEstado::CREADA )
-            {{--<a href="#modal-delete-{{$compra->id}}" data-toggle="modal" class='btn btn-danger btn-xs'>--}}
+            {{--<a href="#modal-delete-{{$compra->id}}" data-toggle="modal" class='btn btn-icon btn-flat-danger rounded-circle'>--}}
                 {{--<i class="far fa-trash-alt" data-toggle="tooltip" title="Eliminar Solicitud de Compra"></i>--}}
             {{--</a>--}}
             <span data-toggle="tooltip" title="Cancelar Solicitud de Compra">

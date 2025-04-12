@@ -15,10 +15,10 @@
             <td>@{{ detalle.item.nombre }}</td>
             <td>@{{ nf(detalle.cantidad) }}</td>
             <td width="10px">
-                <button type="button" class="btn btn-info btn-xs" @click="editDet(detalle)">
+                <button type="button" class="btn btn-icon btn-flat-info rounded-circle" @click="editDet(detalle)">
                     <i class="fa fa-edit"></i>
                 </button>
-                <button type="button" class='btn btn-danger btn-xs' @click="deleteDet(detalle)" :disabled="(idEliminando===detalle.id)">
+                <button type="button" class='btn btn-icon btn-flat-danger rounded-circle' @click="deleteDet(detalle)" :disabled="(idEliminando===detalle.id)">
                     <i  v-show="(idEliminando===detalle.id)" class="fa fa-spinner fa-spin"></i>
                     <i v-show="!(idEliminando===detalle.id)" class="fa fa-trash-alt"></i>
                 </button>
