@@ -182,7 +182,10 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'Example' => App\Facades\Example::class,
+        'Proveedor' => \App\Models\Proveedor::class,
+        'CompraTipo' => \App\Models\CompraTipo::class,
+        'CompraEstado' => \App\Models\CompraEstado::class,
+        'SolicitudEstado' => \App\Models\SolicitudEstado::class,
     ])->toArray(),
 
 ];
