@@ -31,12 +31,12 @@
                 <div class="card-body">
 
                    {!! Form::model($compraTipo, ['route' => ['compraTipos.update', $compraTipo->id], 'method' => 'patch','class' => 'esperar']) !!}
-                        <div class="form-row">
+                        <div class="row">
 
                             @include('compra_tipos.fields')
 
                             <!-- Submit Field -->
-                            <div class="form-group col-sm-12 text-right">
+                            <div class="col-sm-12 mb-1 text-right">
                                 <a href="{!! route('compraTipos.index') !!}" class="btn btn-outline-secondary">
                                     Cancelar
                                 </a>

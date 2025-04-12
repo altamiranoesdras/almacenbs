@@ -78,7 +78,7 @@
                 @csrf
                 <div class="modal-body">
 
-                    <div class="form-group col-sm-12">
+                    <div class="col-sm-12 mb-1">
                         {!! Form::label('motivo', 'Motivo de retorno:') !!}
                         {!! Form::textarea('motivo', null, ['class' => 'form-control','rows' => 3]) !!}
                     </div>

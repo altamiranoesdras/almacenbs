@@ -12,7 +12,7 @@
                     <div class="row">
 
                         <!-- Titulo Field -->
-                        <div class="form-group col-sm-6">
+                        <div class="col-sm-6 mb-1">
                             {!! Form::label('titulo', 'Cantidad:') !!}
                             <input type="text"  class="form-control" required="required" v-model="detalleEdita.cantidad">
                         </div>

@@ -31,16 +31,16 @@
                 <div class="card-body">
                     {!! Form::open(['route' => 'compras.libro.almacen','method' => 'get']) !!}
 
-                    <div class="form-row">
+                    <div class="row">
 
 
-                        <div class="form-group col-sm-2">
+                        <div class="col-sm-2 mb-1">
                             <label for="del">Mes:</label>
                             <input type="month" value="{{$fecha}}" class="form-control" name="fecha" id="fecha">
                         </div>
 
 
-                        <div class="form-group col-sm-2 pt-2">
+                        <div class="col-sm-2 mb-1 pt-2">
                             <labe for="">&nbsp;</labe>
                             <button class="btn btn-success btn-block" id="buscar" type="submit" name="buscar"  value="1">
                                 <i class="fa fa-search"></i> Consultar
@@ -48,7 +48,7 @@
                         </div>
 
 
-                        <div class="form-group col-sm-2 pt-2">
+                        <div class="col-sm-2 mb-1 pt-2">
                             <labe>&nbsp;</labe>
 
                             <a  href="{{url()->current()}}" type="submit" id="boton" class="btn btn-info btn-block">

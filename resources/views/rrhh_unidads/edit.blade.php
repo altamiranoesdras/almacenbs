@@ -31,12 +31,12 @@
                 <div class="card-body">
 
                    {!! Form::model($rrhhUnidad, ['route' => ['rrhhUnidades.update', $rrhhUnidad->id], 'method' => 'patch','class' => 'esperar']) !!}
-                        <div class="form-row">
+                        <div class="row">
 
                             @include('rrhh_unidads.fields')
 
                             <!-- Submit Field -->
-                            <div class="form-group col-sm-12 text-right">
+                            <div class="col-sm-12 mb-1 text-right">
                                 <a href="{!! route('rrhhUnidades.index') !!}" class="btn btn-outline-secondary">
                                     Cancelar
                                 </a>

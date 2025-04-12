@@ -31,12 +31,12 @@
                 <div class="card-body">
 
                    {!! Form::model($itemCategoria, ['route' => ['itemCategorias.update', $itemCategoria->id], 'method' => 'patch','class' => 'esperar']) !!}
-                        <div class="form-row">
+                        <div class="row">
 
                             @include('item_categorias.fields')
 
                             <!-- Submit Field -->
-                            <div class="form-group col-sm-12 text-right">
+                            <div class="col-sm-12 mb-1 text-right">
                                 <a href="{!! route('itemCategorias.index') !!}" class="btn btn-outline-secondary">
                                     Cancelar
                                 </a>

@@ -67,7 +67,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <div class="form-group col-sm-12">
+                <div class="col-sm-12 mb-1">
                     <div id="jstree-ajax"></div>
                     <div id="event_result"></div>
                     <input type="hidden" name="options" id="options">

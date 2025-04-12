@@ -1,7 +1,7 @@
-<div class="form-row" id="camposTrasladoUnidades">
+<div class="row" id="camposTrasladoUnidades">
 
     <!-- Item Id Field -->
-    <div class="form-group col-sm-10">
+    <div class="col-sm-10 mb-1">
         {!! Form::label('item_origen', 'Artículo origen:') !!}
         <select-items
             api="{{route('api.items.index')}}"
@@ -14,14 +14,14 @@
         <span class="help-block" v-text="info"></span>
     </div>
 
-    <div class="form-group col-sm-2">
+    <div class="col-sm-2 mb-1">
         {!! Form::label('cantidad_origen', 'Cantidad: ') !!}
         <input type="number" step="any" class="form-control" name="cantidad_origen" v-model="candida_origen" @keyup="calculaCantidadDestino()" required>
         <input type="hidden" id="equivalencia" v-model="equivalencia" >
     </div>
 
     <!-- Item Id Field -->
-    <div class="form-group col-sm-10">
+    <div class="col-sm-10 mb-1">
         {!! Form::label('item_destino', 'Artículo destino:') !!}
         <select-items
             api="{{route('api.items.index')}}"
@@ -33,7 +33,7 @@
         <input type="hidden" name="item_destino" :value="getId(item_destino)">
     </div>
 
-    <div class="form-group col-sm-2">
+    <div class="col-sm-2 mb-1">
         <label for="cantidad_destino">Cantidad:</label>
         <input type="number" step="any" class="form-control" name="cantidad_destino" v-model="cantidad_destino" required>
     </div>

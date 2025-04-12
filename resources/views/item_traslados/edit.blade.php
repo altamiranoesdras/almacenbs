@@ -37,11 +37,11 @@
                         <div class="card-body">
 
                            {!! Form::model($itemTraslado, ['route' => ['itemTraslados.update', $itemTraslado->id], 'method' => 'patch','class' => 'esperar']) !!}
-                                <div class="form-row">
+                                <div class="row">
 
                                     @include('item_traslados.fields')
                                     <!-- Submit Field -->
-                                    <div class="form-group col-sm-12">
+                                    <div class="col-sm-12 mb-1">
                                         <button type="submit"  class="btn btn-outline-success">Guardar</button>
                                         <a href="{!! route('itemTraslados.index') !!}" class="btn btn-outline-default">Cancelar</a>
                                     </div>

@@ -41,13 +41,13 @@
                                   class='esperar'
                             >
                                 @csrf
-                                <div class="form-row">
+                                <div class="row">
 
 
-                                    <div class="form-group col-sm-12">
+                                    <div class="col-sm-12 mb-1">
                                         <div class="row">
 
-                                            <div class="form-group col-sm-3">
+                                            <div class="col-sm-3 mb-1">
                                                 <label for="">&nbsp;</label>
                                                 <a class="btn btn-outline-success"
                                                    href="{{ asset('plantilla_importar_stock_cajs.xlsx') }}">
@@ -56,12 +56,12 @@
                                                 </a>
                                             </div>
 
-                                            <div class="form-group col-sm-9 ">
+                                            <div class="col-sm-9 mb-1 ">
                                                 <img src="{{asset('img/instrucciones_importar_stock.png')}}" style="max-width: 100%" class="img-responsive" alt="Image">
                                             </div>
 
 
-                                            <div class="form-group col-sm-6 ">
+                                            <div class="col-sm-6 mb-1 ">
                                                 <label for="">Instrucciones:</label>
                                                 <ul>
                                                     <li>Descargue la plantilla </li>
@@ -72,7 +72,7 @@
                                             </div>
                                             <!-- Imagen Field -->
 
-                                            <div class="form-group col-sm-6 ">
+                                            <div class="col-sm-6 mb-1 ">
                                                 {!! Form::label('file', 'Cargar la plantilla:') !!}
                                                 {!! Form::file('file', ['class' => 'form-control ','id' => 'archivo']) !!}
                                             </div>
@@ -81,7 +81,7 @@
 
 
                                     <!-- Submit Field -->
-                                    <div class="form-group col-sm-12 text-right">
+                                    <div class="col-sm-12 mb-1 text-right">
                                         <a href="{!! route('items.index') !!}" class="btn btn-outline-secondary">
                                             Cancelar
                                         </a>

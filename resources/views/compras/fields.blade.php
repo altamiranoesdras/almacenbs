@@ -1,6 +1,6 @@
 <ul class="list-group">
     <li class="list-group-item pb-0 pl-2 pr-2">
-        <div class="form-group col-sm-12">
+        <div class="col-sm-12 mb-1">
             <select-proveedor v-model="proveedor" label="Proveedor"></select-proveedor>
         </div>
     </li>
@@ -30,12 +30,12 @@
 
 
     <li class="list-group-item pb-0 pl-2 pr-2">
-        <div class="form-group col-sm-12">
+        <div class="col-sm-12 mb-1">
             <select-compra-tipo v-model="tipo" label="Tipo"></select-compra-tipo>
         </div>
     </li>
     <li class="list-group-item pb-0 pl-2 pr-2" v-show="esFactura">
-        <div class="form-group col-sm-12">
+        <div class="col-sm-12 mb-1">
             <div class="input-group ">
                 <div class="input-group-prepend">
                     <span class="input-group-text">S</span>
@@ -55,7 +55,7 @@
     <li class="list-group-item pb-0 pt-1  text-bold ">
         <div class="row ">
 
-            <div class="form-group col-sm-7 py-0 m-0">
+            <div class="col-sm-7 mb-1 py-0 m-0">
                 Ingreso inmediato
                 <input type="hidden" name="ingreso_inmediato" :value="ingreso_inmediato ? 1 : 0">
                 <span class="float-right">
@@ -78,17 +78,17 @@
 
         <div class="row">
 
-            <div class="form-group col-sm-6 ">
+            <div class="col-sm-6 mb-1 ">
                 {!! Form::label('fecha_documento', 'Fecha Documento:') !!}
                 {!! Form::date('fecha_documento', hoyDb(), ['class' => 'form-control']) !!}
             </div>
 
-            <div class="form-group col-sm-6 ">
+            <div class="col-sm-6 mb-1 ">
                 {!! Form::label('fecha_ingreso', 'Fecha Ingreso:') !!}
                 {!! Form::date('fecha_ingreso', hoyDb(), ['class' => 'form-control']) !!}
             </div>
 
-            <div class="form-group col-sm-6 ">
+            <div class="col-sm-6 mb-1 ">
                 {!! Form::label('orden_compra', 'Orden Compra:') !!}
                 {!! Form::text('orden_compra', null, ['class' => 'form-control']) !!}
             </div>
@@ -123,13 +123,13 @@
 
         <div class="row">
 
-            <div class="form-group col-sm-4">
+            <div class="col-sm-4 mb-1">
                 <a class="btn btn-outline-danger pull-right btn-block" data-toggle="modal" href="#modal-cancel-compra">
                     <span data-toggle="tooltip" title="Cancelar compra">Cancelar</span>
                 </a>
             </div>
 
-            <div class="form-group col-sm-8">
+            <div class="col-sm-8 mb-1">
                 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
 
                 <button type="button"  class="btn btn-outline-success btn-block" @click="procesar()">

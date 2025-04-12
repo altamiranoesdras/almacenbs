@@ -22,7 +22,7 @@
         <div class="card card-primary">
             <div class="card-body">
                 <div class="row">
-                    <div class="form-group col-sm-12">
+                    <div class="col-sm-12 mb-1">
                         @include('item_categorias.show_fields')
                         <a href="{{ route('itemCategorias.index') }}" class="btn btn-default">
                         {{__('Back')}}

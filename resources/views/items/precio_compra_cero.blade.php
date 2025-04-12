@@ -16,7 +16,7 @@
                 <div class="row">
                     {!! Form::open(['route' => 'items.store.precio.compra']) !!}
 
-                    <div class="form-group col-sm-12">
+                    <div class="col-sm-12 mb-1">
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover table-condensed table-striped" id="tbl-dets">
                                 <thead>
@@ -47,7 +47,7 @@
                     </div>
 
                     <!-- Submit Field -->
-                    <div class="form-group col-sm-12">
+                    <div class="col-sm-12 mb-1">
                         {!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
                         <a href="{!! route('items.index') !!}" class="btn btn-default">Cancelar</a>
                     </div>

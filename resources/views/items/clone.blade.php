@@ -37,10 +37,10 @@
                     <div class="card">
                         <div class="card-body">
                             {!! Form::model($item,['route' => 'items.store',"enctype"=>"multipart/form-data"]) !!}
-                            <div class="form-row">
+                            <div class="row">
                                 @include('items.fields')
                                 <!-- Submit Field -->
-                                    <div class="form-group col-sm-12">
+                                    <div class="col-sm-12 mb-1">
                                         <button type="submit" onClick="this.form.submit(); this.disabled=true;" class="btn btn-outline-success">Guardar</button>
                                         <a href="{!! route('items.index') !!}" class="btn btn-outline-secondary">Cancelar</a>
                                     </div>

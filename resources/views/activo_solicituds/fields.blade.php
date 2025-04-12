@@ -1,12 +1,12 @@
 <ul class="list-group">
     <li class="list-group-item pb-0 pl-2 pr-2">
-        <div class="form-group col-sm-12">
+        <div class="col-sm-12 mb-1">
             <select-colaborador v-model="colaborador_origen" label="Colaborador Origen" :name="'colaborador_origen'"></select-colaborador>
         </div>
     </li>
 
     <li class="list-group-item pb-0 pl-2 pr-2">
-        <div class="form-group col-sm-12">
+        <div class="col-sm-12 mb-1">
             <select-colaborador v-model="colaborador_destino" label="Colaborador Destino" :name="'colaborador_destino'"></select-colaborador>
         </div>
     </li>
@@ -33,14 +33,14 @@
 
         <div class="row">
 
-            <div class="form-group col-sm-8">
+            <div class="col-sm-8 mb-1">
                 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
 
                 <button type="button"  class="btn btn-outline-success btn-block" @click="procesar()">
                     <span class="glyphicon glyphicon-ok"></span> Procesar
                 </button>
             </div>
-            <div class="form-group col-sm-4">
+            <div class="col-sm-4 mb-1">
                 <a class="btn btn-outline-danger pull-right btn-block" data-toggle="modal" href="#modal-cancel-compra">
                     <span data-toggle="tooltip" title="Cancelar compra">Cancelar</span>
                 </a>
@@ -93,73 +93,73 @@
 </div><!-- /.modal -->
 
 {{--<!-- Tarjeta Id Field -->--}}
-{{--<div class="form-group col-sm-6">--}}
+{{--<div class="col-sm-6 mb-1">--}}
 {{--    {!! Form::label('tarjeta_id', 'Tarjeta Id:') !!}--}}
 {{--    {!! Form::number('tarjeta_id', null, ['class' => 'form-control']) !!}--}}
 {{--</div>--}}
 
 {{--<!-- Tipo Id Field -->--}}
-{{--<div class="form-group col-sm-6">--}}
+{{--<div class="col-sm-6 mb-1">--}}
 {{--    {!! Form::label('tipo_id', 'Tipo Id:') !!}--}}
 {{--    {!! Form::number('tipo_id', null, ['class' => 'form-control']) !!}--}}
 {{--</div>--}}
 
 {{--<!-- Codigo Field -->--}}
-{{--<div class="form-group col-sm-6">--}}
+{{--<div class="col-sm-6 mb-1">--}}
 {{--    {!! Form::label('codigo', 'Codigo:') !!}--}}
 {{--    {!! Form::text('codigo', null, ['class' => 'form-control','maxlength' => 45,'maxlength' => 45,'maxlength' => 45]) !!}--}}
 {{--</div>--}}
 
 {{--<!-- Correlativo Field -->--}}
-{{--<div class="form-group col-sm-6">--}}
+{{--<div class="col-sm-6 mb-1">--}}
 {{--    {!! Form::label('correlativo', 'Correlativo:') !!}--}}
 {{--    {!! Form::number('correlativo', null, ['class' => 'form-control']) !!}--}}
 {{--</div>--}}
 
 {{--<!-- Usuario Origen Field -->--}}
-{{--<div class="form-group col-sm-6">--}}
+{{--<div class="col-sm-6 mb-1">--}}
 {{--    {!! Form::label('usuario_origen', 'Usuario Origen:') !!}--}}
 {{--    {!! Form::number('usuario_origen', null, ['class' => 'form-control']) !!}--}}
 {{--</div>--}}
 
 {{--<!-- Usuario Destino Field -->--}}
-{{--<div class="form-group col-sm-6">--}}
+{{--<div class="col-sm-6 mb-1">--}}
 {{--    {!! Form::label('usuario_destino', 'Usuario Destino:') !!}--}}
 {{--    {!! Form::number('usuario_destino', null, ['class' => 'form-control']) !!}--}}
 {{--</div>--}}
 
 {{--<!-- Usuario Autoriza Field -->--}}
-{{--<div class="form-group col-sm-6">--}}
+{{--<div class="col-sm-6 mb-1">--}}
 {{--    {!! Form::label('usuario_autoriza', 'Usuario Autoriza:') !!}--}}
 {{--    {!! Form::number('usuario_autoriza', null, ['class' => 'form-control']) !!}--}}
 {{--</div>--}}
 
 {{--<!-- Usuario Inventario Field -->--}}
-{{--<div class="form-group col-sm-6">--}}
+{{--<div class="col-sm-6 mb-1">--}}
 {{--    {!! Form::label('usuario_inventario', 'Usuario Inventario:') !!}--}}
 {{--    {!! Form::number('usuario_inventario', null, ['class' => 'form-control']) !!}--}}
 {{--</div>--}}
 
 {{--<!-- Unidad Origen Field -->--}}
-{{--<div class="form-group col-sm-6">--}}
+{{--<div class="col-sm-6 mb-1">--}}
 {{--    {!! Form::label('unidad_origen', 'Unidad Origen:') !!}--}}
 {{--    {!! Form::number('unidad_origen', null, ['class' => 'form-control']) !!}--}}
 {{--</div>--}}
 
 {{--<!-- Unidad Destino Field -->--}}
-{{--<div class="form-group col-sm-6">--}}
+{{--<div class="col-sm-6 mb-1">--}}
 {{--    {!! Form::label('unidad_destino', 'Unidad Destino:') !!}--}}
 {{--    {!! Form::number('unidad_destino', null, ['class' => 'form-control']) !!}--}}
 {{--</div>--}}
 
 {{--<!-- Observaciones Field -->--}}
-{{--<div class="form-group col-sm-12 col-lg-12">--}}
+{{--<div class="col-sm-12 mb-1 col-lg-12">--}}
 {{--    {!! Form::label('observaciones', 'Observaciones:') !!}--}}
 {{--    {!! Form::textarea('observaciones', null, ['class' => 'form-control']) !!}--}}
 {{--</div>--}}
 
 {{--<!-- Estado Id Field -->--}}
-{{--<div class="form-group col-sm-6">--}}
+{{--<div class="col-sm-6 mb-1">--}}
 {{--    {!! Form::label('estado_id', 'Estado Id:') !!}--}}
 {{--    {!! Form::number('estado_id', null, ['class' => 'form-control']) !!}--}}
 {{--</div>--}}

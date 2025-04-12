@@ -48,12 +48,12 @@
                                      "autocomplete"=>"off",
                                      'class' => 'esperar'
                                  ]) !!}
-                                <div class="form-row">
+                                <div class="row">
 
                                     @include('items.fields')
                                     <!-- Submit Field -->
 
-                                    <div class="form-group col-sm-12 text-right">
+                                    <div class="col-sm-12 mb-1 text-right">
                                         <a href="{!! route('items.index') !!}" class="btn btn-outline-secondary mr-3">Cancelar</a>
                                         <button type="submit"  class="btn btn-outline-success">
                                             <i class="fa fa-save"></i>

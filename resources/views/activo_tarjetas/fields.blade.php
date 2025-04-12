@@ -1,4 +1,4 @@
-<div class="form-row col-md-12" id="camposTarjeta">
+<div class="row col-md-12" id="camposTarjeta">
     <!-- Responsable Id Field -->
     <div class="form-group col-8">
         {!! Form::label('colaborador_id', 'Responsable:') !!}

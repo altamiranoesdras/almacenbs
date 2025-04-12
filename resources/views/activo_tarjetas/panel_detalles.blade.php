@@ -30,18 +30,18 @@
                     <form @submit.prevent="save()">
                         <div class="modal-body">
 
-                            <div class="form-row">
-                                <div class="form-group col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-12 mb-1">
                                     <label for="descripcion">Descripción</label>
                                     <select-activo v-model="activo" label="activo" ></select-activo>
                                 </div>
 
-{{--                                <div class="form-group col-sm-4">--}}
+{{--                                <div class="col-sm-4 mb-1">--}}
 {{--                                    <label for="">Tipo</label>--}}
 {{--                                    <multiselect v-model="tipo" :options="tipos"></multiselect>--}}
 {{--                                </div>--}}
 
-                                <div class="form-group col-sm-4">
+                                <div class="col-sm-4 mb-1">
                                     <label for="precio">Fecha Asigna</label>
                                     <input @keydown.enter.prevent="save()" type="date" class="form-control" id="precio" v-model="editedItem.fecha_asigna">
                                 </div>

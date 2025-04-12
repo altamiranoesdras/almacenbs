@@ -1,28 +1,28 @@
-<div class="form-row" id="campos_item">
+<div class="row" id="campos_item">
 
-    <div class="form-group col-sm-12">
+    <div class="col-sm-12 mb-1">
         <span class="text-danger">(*)</span> Campos obligatorios
     </div>
-    <div class="form-group col-sm-5">
+    <div class="col-sm-5 mb-1">
         <div class="row">
             <!-- Imagen Field -->
-            <div class="form-group col-sm-12 ">
+            <div class="col-sm-12 mb-1 ">
                 {!! Form::label('imagen', 'Imagen:') !!}
                 {!! Form::file('imagen', ['class' => 'form-control file']) !!}
             </div>
         </div>
     </div>
 
-    <div class="form-group col-sm-7">
+    <div class="col-sm-7 mb-1">
         <div class="row">
 
             <!-- Codigo Field -->
-            <div class="form-group col-sm-6" >
+            <div class="col-sm-6 mb-1" >
                 {!! Form::label('codigo_insumo', 'Código Insumo:') !!}
                 {!! Form::text('codigo_insumo', null, ['class' => 'form-control','autofocus']) !!}
             </div>
 
-            <div class="form-group col-sm-6" >
+            <div class="col-sm-6 mb-1" >
                 {!! Form::label('codigo_presentacion', 'Código Presentación:') !!}
                 {!! Form::text('codigo_presentacion', null, ['class' => 'form-control','autofocus']) !!}
             </div>
@@ -30,7 +30,7 @@
 
 
             <!-- Nombre Field -->
-            <div class="form-group col-sm-12" >
+            <div class="col-sm-12 mb-1" >
 
                 {!! Form::label('nombre', 'Nombre: ') !!}
                 <span class="text-danger"> *</span>
@@ -43,19 +43,19 @@
             </div>
 
             <!-- Stock Field -->
-            <div class="form-group col-sm-4">
+            <div class="col-sm-4 mb-1">
                 {!! Form::label('stock', 'Existencias:') !!}<span class="text-danger"> *</span>
                 {!! Form::number('stock', $item->stocks->sum('cantidad') ?? 0, ['class' => 'form-control',($item->puedeEditarNombre() ?? true) ? '' : 'readonly']) !!}
             </div>
 
 {{--            <!-- Precio Venta Field -->--}}
-{{--            <div class="form-group col-sm-4">--}}
+{{--            <div class="col-sm-4 mb-1">--}}
 {{--                {!! Form::label('precio_venta', 'Precio Venta:') !!}<span class="text-danger"> *</span>--}}
 {{--                {!! Form::number('precio_venta', null, ['class' => 'form-control','step'=>".01"]) !!}--}}
 {{--            </div>--}}
 
             <!-- Precio Compra Field -->
-            <div class="form-group col-sm-4">
+            <div class="col-sm-4 mb-1">
                 {!! Form::label('precio_compra', 'Precio Compra:') !!}<span class="text-danger"> *</span>
                 {!! Form::number('precio_compra', null, ['class' => 'form-control','step'=>".01"]) !!}
             </div>
@@ -63,30 +63,30 @@
 
 
 
-            <div class="form-group col-sm-6">
+            <div class="col-sm-6 mb-1">
                 <select-unimed v-model="unimed" label="Unidad de medida"></select-unimed>
             </div>
 
-            <div class="form-group col-sm-6">
+            <div class="col-sm-6 mb-1">
                 <select-item-presentacion v-model="presentacion" label="Presentación"></select-item-presentacion>
             </div>
 
 
-            <div class="form-group col-sm-6">
+            <div class="col-sm-6 mb-1">
                 <select-renglon v-model="renglon" label="Renglón"></select-renglon>
             </div>
 
-            <div class="form-group col-sm-6">
+            <div class="col-sm-6 mb-1">
                 <select-item-tipo v-model="tipo" label="Tipo"></select-item-tipo>
             </div>
 
             <!-- Precio Compra Field -->
-            <div class="form-group col-sm-4">
+            <div class="col-sm-4 mb-1">
                 {!! Form::label('stock_minimo', 'Stock mínimo:') !!}
                 {!! Form::number('stock_minimo', null, ['class' => 'form-control','step'=>".01"]) !!}
             </div>
 
-            <div class="form-group col-sm-4">
+            <div class="col-sm-4 mb-1">
                 {!! Form::label('stock_maximo', 'Stock maximo:') !!}
                 {!! Form::number('stock_maximo', null, ['class' => 'form-control','step'=>".01"]) !!}
             </div>
@@ -95,7 +95,7 @@
     </div>
 
 
-    <div class="form-group col-sm-12"  >
+    <div class="col-sm-12 mb-1"  >
         <div class="card card-outline card-success">
             <div class="card-header">
                 <h3 class="card-title">Información adicional</h3>
@@ -110,19 +110,19 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <div class="form-row">
-                    <div class="form-group col-sm-6">
+                <div class="row">
+                    <div class="col-sm-6 mb-1">
                         <!-- Descripcion Field -->
-                        <div class="form-group col-sm-12 col-lg-12">
+                        <div class="col-sm-12 mb-1 col-lg-12">
                             {!! Form::label('descripcion', 'Descripción / Características:') !!}
                             {!! Form::textarea('descripcion', null, ['id' => 'editor','class' => '']) !!}
                         </div>
                     </div>
-                    <div class="form-group col-sm-6">
+                    <div class="col-sm-6 mb-1">
                         <div class="row">
 
                             <!-- Icategoria Id Field -->
-                            <div class="form-group col-sm-12">
+                            <div class="col-sm-12 mb-1">
                                 {!! Form::label('icatecoria_id','Categorías: ') !!}
                                 <a class="success" data-toggle="modal" href="#modal-form-icategorias" tabindex="1000">Nueva</a>
                                 {!!
@@ -136,17 +136,17 @@
                             </div>
 
                             <!-- Marca Id Field -->
-                            <div class="form-group col-sm-6">
+                            <div class="col-sm-6 mb-1">
                                 <select-marca v-model="marca" label="Marca"></select-marca>
                             </div>
 
                             <!-- Modelo Id Field -->
-                            <div class="form-group col-sm-6">
+                            <div class="col-sm-6 mb-1">
                                 <select-item-modelo v-model="modelo" label="Modelo"></select-item-modelo>
                             </div>
 
                             <!-- Ubicacion Field -->
-                            <div class="form-group col-sm-12">
+                            <div class="col-sm-12 mb-1">
                                 {!! Form::label('ubicacion', 'Ubicacion:') !!}
                                 {!! Form::text('ubicacion', null, ['class' => 'form-control']) !!}
                             </div>

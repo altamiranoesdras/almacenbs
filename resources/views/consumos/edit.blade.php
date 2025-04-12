@@ -31,12 +31,12 @@
                 <div class="card-body">
 
                    {!! Form::model($consumo, ['route' => ['consumos.update', $consumo->id], 'method' => 'patch','class' => 'esperar']) !!}
-                        <div class="form-row">
+                        <div class="row">
 
                             @include('consumos.fields')
 
                             <!-- Submit Field -->
-                            <div class="form-group col-sm-12 text-right">
+                            <div class="col-sm-12 mb-1 text-right">
                                 <a href="{!! route('consumos.index') !!}" class="btn btn-outline-secondary">
                                     Cancelar
                                 </a>

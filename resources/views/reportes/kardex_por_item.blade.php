@@ -30,10 +30,10 @@
                     <div class="card">
                         <div class="card-body">
                             {!! Form::open(['route' => 'reportes.kardex','method' => 'get']) !!}
-                            <div class="form-row">
+                            <div class="row">
 
 
-                                <div class="form-group col-sm-10">
+                                <div class="col-sm-10 mb-1">
                                     {!! Form::label('item_id','Item:') !!}
                                     {!!
                                         Form::select(
@@ -45,12 +45,12 @@
                                     !!}
                                 </div>
 
-                                {{--<div class="form-group col-sm-3">--}}
+                                {{--<div class="col-sm-3 mb-1">--}}
                                 {{--{!! Form::label('fecha','Fecha:') !!}--}}
                                 {{--{!! Form::text('fecha', $fecha, ['class' => 'form-control','id' => 'fecha']) !!}--}}
                                 {{--</div>--}}
 
-                                <div class="form-group col-sm-2">
+                                <div class="col-sm-2 mb-1">
                                     {!! Form::label('boton','&nbsp;') !!}
                                     <div>
                                         <button type="submit" id="boton" class="btn btn-info" name="buscar" value="1">

@@ -164,7 +164,7 @@
 
 
                                 <li class="list-group-item pb-0 pl-2 pr-2 ">
-                                    <div class="form-group col-sm-12 text-center">
+                                    <div class="col-sm-12 mb-1 text-center">
 
 
 
@@ -186,7 +186,7 @@
 
                                 @if($consumo->puedeProcesar())
                                     <li class="list-group-item pb-0 pl-2 pr-2 ">
-                                        <div class="form-group col-sm-12 text-center">
+                                        <div class="col-sm-12 mb-1 text-center">
 
                                             <button type="button"  class="btn btn-outline-primary" @click="procesar()">
                                                 <i class="fa fa-check"></i>

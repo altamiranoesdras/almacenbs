@@ -1,21 +1,21 @@
 
 <form id="formFiltersDatatables">
 
-    <div class="form-row">
+    <div class="row">
 
 
-        <div class="form-group col-sm-2">
+        <div class="col-sm-2 mb-1">
             <label for="del">DEL:</label>
             <input type="date" class="form-control" name="del_solicita">
         </div>
 
-        <div class="form-group col-sm-2">
+        <div class="col-sm-2 mb-1">
             <label for="al">AL:</label>
             <input type="date" class="form-control" name="al_solicita">
         </div>
 
 
-        <div class="form-group col-sm-4">
+        <div class="col-sm-4 mb-1">
             <label for="tipos">Estado:</label>
             <multiselect v-model="estados_seleccionados" :options="estados" label="nombre" :multiple="true" track-by="id" placeholder="Seleccione uno..." >
             </multiselect>
@@ -23,13 +23,13 @@
         </div>
 
 
-        <div class="form-group col-sm-2">
+        <div class="col-sm-2 mb-1">
             <label for="codigo">Código</label>
             <input type="text" class="form-control" name="codigo" value="">
         </div>
 
 
-{{--        <div class="form-group col-sm-2">--}}
+{{--        <div class="col-sm-2 mb-1">--}}
 {{--            <label for="switch">Switch</label>--}}
 {{--            <br>--}}
 {{--            <input type="checkbox" data-toggle="toggle" data-size="normal" data-on="Si" data-off="No" data-style="ios"--}}
@@ -37,7 +37,7 @@
 {{--                   value="1">--}}
 {{--        </div>--}}
 
-        <div class="form-group col-sm-2 ">
+        <div class="col-sm-2 mb-1 ">
             <label for="">&nbsp;</label>
             <div>
                 <button type="submit" id="boton" class="btn btn-info btn-block">
@@ -46,7 +46,7 @@
             </div>
         </div>
 
-        <div class="form-group col-sm-2">
+        <div class="col-sm-2 mb-1">
             <label for="">&nbsp;</label>
             <div>
                 <a  href="{{url()->current()}}" type="submit" id="boton" class="btn btn-info btn-block">

@@ -72,7 +72,7 @@
                                     {!! Form::text('folio_inventario', $compra->folio_inventario, ['class' => 'form-control']) !!}
                                 </div>
 
-                                <div class="form-group col-sm-12" style="padding: 0px; margin: 0px"></div>
+                                <div class="col-sm-12 mb-1" style="padding: 0px; margin: 0px"></div>
                                 <br>
                                 <div class=" col-sm-6 text-left">
 
@@ -163,15 +163,15 @@
                                     <form action="{{route('compra.generar.1h',$compra->id)}}" method="post" class="esperar">
 
                                         @csrf
-                                        <div class="form-row">
+                                        <div class="row">
 
 
-                                            <div class="form-group col-sm-4">
+                                            <div class="col-sm-4 mb-1">
                                                 {!! Form::label('folio', 'Folio:') !!}
                                                 {!! Form::text('folio', null, ['class' => 'form-control','required']) !!}
                                             </div>
 
-                                            <div class="form-group col-sm-8 ">
+                                            <div class="col-sm-8 mb-1 ">
                                                 <label for="generar">&nbsp;</label>
                                                 <div>
                                                     <button type="submit" id="generar" class="btn btn-outline-primary" >
@@ -202,7 +202,7 @@
                                             @include('compras.tabla_detalles_1h')
                                         </div>
 
-                                        <div class="form-row">
+                                        <div class="row">
 
                                             <div class="form-group col-md-12">
                                                 <label>Observaciones:</label>
@@ -210,7 +210,7 @@
                                             </div>
 
                                             <!-- Submit Field -->
-                                            <div class="form-group col-sm-12 text-right">
+                                            <div class="col-sm-12 mb-1 text-right">
                                                 <a href="{!! route('compras.index') !!}" class="btn btn-outline-secondary">
                                                     Regresar
                                                 </a>

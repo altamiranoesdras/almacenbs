@@ -32,15 +32,15 @@
                     <div class="card">
                         <div class="card-body">
                             {!! Form::open(['route' => 'reportes.stock','method' => 'get']) !!}
-                            <div class="form-row">
+                            <div class="row">
 
 
-                                <div class="form-group col-sm-6">
+                                <div class="col-sm-6 mb-1">
                                     {!! Form::label('bodega_id','Sede / Bodega:') !!}
                                     {!! Form::select('bodega_id', select(\App\Models\Bodega::class,'nombre','id'), $bodega_id ?? null, ['id'=>'bodegas','class' => 'form-control']) !!}
                                 </div>
 
-                                <div class="form-group col-sm-6">
+                                <div class="col-sm-6 mb-1">
                                     {!! Form::label('item_id','Insumo:') !!}
                                     {!!
                                         Form::select(
@@ -52,12 +52,12 @@
                                     !!}
                                 </div>
 
-                                <div class="form-group col-sm-6">
+                                <div class="col-sm-6 mb-1">
                                     {!! Form::label('renglon','Renglón:') !!}
                                     {!! Form::select('renglon', select(\App\Models\Renglon::class,'text','id','Ver Todos'), $renglon, ['id'=>'categorias','class' => 'form-control']) !!}
                                 </div>
 
-                                <div class="form-group col-sm-2 ">
+                                <div class="col-sm-2 mb-1 ">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="stock" id="radio_stock1" value="con_stock" {{ $stock=='con_stock'  ? 'checked' : '' }}>
                                         <label class="form-check-label" for="radio_stock1">Con Stock</label>
@@ -75,7 +75,7 @@
                                 </div>
 
 
-                                <div class="form-group col-sm-2 ">
+                                <div class="col-sm-2 mb-1 ">
                                     {!! Form::label('buscar','&nbsp;') !!}
                                     <div>
                                         <button class="btn btn-success" id="buscar" type="submit" name="buscar"  value="1">
@@ -188,17 +188,17 @@
                                           </table>
                                       </div>
 
-                                          <div class="form-row">
+                                          <div class="row">
 
                                               <!-- Boton Cancelar -->
-                                                <div class="form-group col-sm-6 text-left">
+                                                <div class="col-sm-6 mb-1 text-left">
                                                     <a href="{{route('reportes.stock')}}" class="btn btn-secondary">
                                                         <i class="fa fa-times"></i> Cancelar
                                                     </a>
                                                 </div>
 
                                               <!-- Boton Guardar -->
-                                              <div class="form-group col-sm-6 text-right">
+                                              <div class="col-sm-6 mb-1 text-right">
                                                   <button class="btn btn-success" type="submit">
                                                       <i class="fa fa-save"></i> Guardar
                                                   </button>

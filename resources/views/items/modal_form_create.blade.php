@@ -11,7 +11,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-row">
+                    <div class="row">
                         @include('items.fields')
                     </div>
                 </div>

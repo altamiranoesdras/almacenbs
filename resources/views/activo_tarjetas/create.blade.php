@@ -34,10 +34,10 @@
 
                             @include('activo_tarjetas.panel_detalles')
 
-                        <div class="form-row">
+                        <div class="row">
 
                             <!-- Submit Field -->
-                            <div class="form-group col-sm-12 text-right">
+                            <div class="col-sm-12 mb-1 text-right">
                                 <a href="{!! route('activoTarjetas.index') !!}" class="btn btn-outline-secondary">
                                     Cancelar
                                 </a>

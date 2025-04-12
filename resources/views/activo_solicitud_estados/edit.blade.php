@@ -31,12 +31,12 @@
                 <div class="card-body">
 
                    {!! Form::model($activoSolicitudEstado, ['route' => ['activoSolicitudEstados.update', $activoSolicitudEstado->id], 'method' => 'patch','class' => 'esperar']) !!}
-                        <div class="form-row">
+                        <div class="row">
 
                             @include('activo_solicitud_estados.fields')
 
                             <!-- Submit Field -->
-                            <div class="form-group col-sm-12 text-right">
+                            <div class="col-sm-12 mb-1 text-right">
                                 <a href="{!! route('activoSolicitudEstados.index') !!}" class="btn btn-outline-secondary">
                                     Cancelar
                                 </a>

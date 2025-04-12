@@ -31,11 +31,11 @@
                 <div class="card-body">
 
                    {!! Form::model($configuration, ['route' => ['dev.configurations.update', $configuration->id], 'method' => 'patch','class' => 'esperar']) !!}
-                        <div class="form-row">
+                        <div class="row">
 
                             @include('admin.configurations.fields')
                             <!-- Submit Field -->
-                            <div class="form-group col-sm-12">
+                            <div class="col-sm-12 mb-1">
                                 <button type="submit"  class="btn btn-outline-success">Guardar</button>
                                 <a href="{!! route('dev.configurations.index') !!}" class="btn btn-outline-secondary">Cancelar</a>
                             </div>

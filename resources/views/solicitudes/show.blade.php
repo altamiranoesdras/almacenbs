@@ -35,7 +35,7 @@
             <!-- /.row -->
 
             <div class="row">
-                <div class="form-group col-sm-12">
+                <div class="col-sm-12 mb-1">
                 <a href="{!! url()->previous() !!}" class="btn btn-default">Regresar</a>
                 </div>
             </div>

@@ -33,13 +33,13 @@
                         <div class="card-body">
                             {!! Form::model($user, ['route' => ['users.menuStore', $user->id], 'method' => 'patch']) !!}
 
-                                <div class="form-row">
+                                <div class="row">
 
-                                    <div class="form-group col-sm-12">
+                                    <div class="col-sm-12 mb-1">
                                         <div id="tree"></div>
                                     </div>
 
-                                    <div class="form-group col-sm-12">
+                                    <div class="col-sm-12 mb-1">
 
                                         <input type="hidden" name="options" id="options">
                                         <button type="button" id="#btnSave"  class="btn btn-outline-success">Guardar</button>

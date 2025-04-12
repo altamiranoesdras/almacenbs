@@ -36,8 +36,8 @@
                         <div class="card-body p-2">
 
                             {!! Form::open(['rout' => 'rpt.items.vencen','id' =>'form-filter-items-vencen']) !!}
-                            <div class="form-row">
-                                <div class="form-group col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-6 mb-1">
                                     {!! Form::label('cliente_id','Meses a validar: ') !!}
                                     {!!
                                         Form::select(
@@ -49,7 +49,7 @@
                                     !!}
                                 </div>
 
-                                <div class="form-group col-sm-4">
+                                <div class="col-sm-4 mb-1">
                                     {!! Form::label('boton','&nbsp;') !!}
                                     <div>
                                         <button type="submit" id="boton" class="btn btn-info">

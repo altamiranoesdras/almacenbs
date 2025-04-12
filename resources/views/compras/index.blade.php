@@ -44,8 +44,8 @@
                         <!-- /.card-header -->
                         <div class="card-body p-2">
                             <form id="formFiltersDatatables">
-                                <div class="form-row">
-                                    <div class="form-group col-sm-4">
+                                <div class="row">
+                                    <div class="col-sm-4 mb-1">
                                         {!! Form::label('proveedor_id','Proveedor: ') !!}
                                         {!!
                                             Form::select(
@@ -57,17 +57,17 @@
                                         !!}
                                     </div>
 
-                                    <div class="form-group col-sm-2">
+                                    <div class="col-sm-2 mb-1">
                                         {!! Form::label('del', 'Del:') !!}
                                         {!! Form::date('del', iniMesDb(), ['class' => 'form-control ']) !!}
                                     </div>
 
-                                    <div class="form-group col-sm-2">
+                                    <div class="col-sm-2 mb-1">
                                         {!! Form::label('al', 'Al:') !!}
                                         {!! Form::date('al', hoyDb(), ['class' => 'form-control ']) !!}
                                     </div>
 
-                                    <div class="form-group col-sm-4">
+                                    <div class="col-sm-4 mb-1">
                                         {!! Form::label('item_id','Artículo: ') !!}
                                         {!!
                                             Form::select(
@@ -79,7 +79,7 @@
                                         !!}
                                     </div>
 
-                                    <div class="form-group col-sm-3">
+                                    <div class="col-sm-3 mb-1">
                                         {!! Form::label('estado_id','Estado: ') !!}
                                         {!!
                                             Form::select(
@@ -93,14 +93,14 @@
 
 
 
-                                    <div class="form-group col-sm-3">
+                                    <div class="col-sm-3 mb-1">
                                         {!! Form::label('codigo', 'Codigo:') !!}
                                         {!! Form::text('codigo', null, ['class' => 'form-control']) !!}
                                     </div>
 
 
 
-                                    <div class="form-group col-sm-3 pl-3">
+                                    <div class="col-sm-3 mb-1 pl-3">
                                         {!! Form::label('boton','&nbsp;') !!}
                                         <div>
                                             <button type="submit" id="boton" class="btn btn-info">Filtrar</button>

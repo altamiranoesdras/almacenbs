@@ -54,7 +54,7 @@
                                             @include('activo_solicituds.tabla_detalles',['detalles'=>$activoSolicitud->detalles])
                                         </div>
 
-                                        <div class="form-group col-sm-12 text-right">
+                                        <div class="col-sm-12 mb-1 text-right">
                                             <a href="{!! route('activoSolicitudes.index') !!}" class="btn btn-outline-secondary">Regresar</a>
 
                                         </div>

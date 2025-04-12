@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <!-- Nombre Field -->
-                            <div class="form-group col-sm-12">
+                            <div class="col-sm-12 mb-1">
                                 {!! Form::label('nombre', 'Nombre:') !!}
                                 {!! Form::text('nombre', '', ['class' => 'form-control']) !!}
                             </div>
