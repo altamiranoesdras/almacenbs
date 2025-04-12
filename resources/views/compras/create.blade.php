@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
-@section('titulo_pagina','Compra o Ingreso')
-
+@section('titulo_pagina', 'Ingreso de compra')
 
 @include('layouts.plugins.select2')
 @include('layouts.xtra_condensed_css')
@@ -9,32 +8,41 @@
 @push('sidebar_class','sidebar-collapse')
 
 @section('content')
-    <!-- Content Header (Page header) -->
-    <div class="content-header pb-1 pt-2">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col">
-                    <h1 class="m-0 text-dark">
-                        Nueva Compra o Ingreso
-                    </h1>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+
+    <div class="content-header row">
+        <div class="content-header-left col-md-9 col-12 mb-2">
+            <div class="row breadcrumbs-top">
+                <div class="col-12">
+                    <h2 class="content-header-title float-start mb-0">
+                        Ingreso de compra
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
+            <div class="mb-1 breadcrumb-right">
+                <div class="dropdown">
+                    <a class="btn btn-primary float-right"
+                       href="{{ url()->previous() }}">
+                        Regresar
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- /.content-header -->
 
-    <!-- Main content -->
-    <div class="content" id="root">
-        <div class="container-fluid">
+    <div class="content-body" id="root">
 
+        <div class="row">
+            <div class="col-12">
+                @include('layouts.errores')
 
-            @include('layouts.errores')
-
-            {!! Form::model($temporal, ['route' => ['compras.update', $temporal->id], 'method' => 'patch']) !!}
-            <div class="row mt-2">
+                {!! Form::model($temporal, ['route' => ['compras.update', $temporal->id], 'method' => 'patch']) !!}
+                <div class="row">
 
                     <!-- Articulos -->
-                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+                    <div class="col-12 col-sm-8 col-md-8 col-lg-8">
                         <div class="card card-warning card-outline">
                             <div class="card-header with-border py-2">
                                 <h3 class="card-title">
@@ -63,7 +71,7 @@
 
                                 <div class="row pt-3">
 
-                                    <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                    <div class="form-group col-12 col-sm-4 col-md-4 col-lg-4">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" data-toggle="tooltip" title="Fecha Vence">
@@ -79,7 +87,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                                    <div class="form-group col-12 col-sm-3 col-md-3 col-lg-3">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" data-toggle="tooltip" title="Cantidad">Cant</span>
@@ -95,7 +103,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group  col-xs-12 col-sm-5 col-md-5 col-lg-5">
+                                    <div class="form-group  col-12 col-sm-5 col-md-5 col-lg-5">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" data-toggle="tooltip" title="Precio compra">{{ dvs() }}</span>
@@ -132,7 +140,7 @@
                     <!-- /. Articulos -->
 
                     <!-- Resumen -->
-                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
                         <div class="card card-warning card-outline">
                             <div class="card-header py-2">
                                 <h3 class="card-title">
@@ -157,16 +165,16 @@
                     <!-- /. Resumen -->
 
 
-{{--                @include('ventas.edit_modal_detalle')--}}
+                    {{--                @include('ventas.edit_modal_detalle')--}}
+                </div>
+                {!! Form::close() !!}
             </div>
-            {!! Form::close() !!}
         </div>
-        <!-- /.container-fluid -->
-    </div>
-    <!-- /.content -->
 
+    </div>
 
 @endsection
+
 
 @push('scripts')
     <!--    Scripts compras
