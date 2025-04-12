@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page',__('Nueva tarjeta de responsabilidad'))
+@section('titulo_pagina',__('Nueva tarjeta de responsabilidad'))
 
 @section('content')
 

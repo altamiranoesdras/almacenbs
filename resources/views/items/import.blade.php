@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page','Importar articulos')
+@section('titulo_pagina','Importar articulos')
 @include('layouts.plugins.bootstrap_fileinput')
 
 @section('content')

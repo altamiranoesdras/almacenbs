@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page',__('Bodega'))
+@section('titulo_pagina',__('Bodega'))
 
 @section('content')
 

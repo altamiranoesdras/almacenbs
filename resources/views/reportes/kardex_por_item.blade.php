@@ -3,7 +3,7 @@
 @include('layouts.plugins.select2')
 @include('layouts.plugins.datatables_reportes')
 
-@section('title_page','Kardex por artículo')
+@section('titulo_pagina','Kardex por artículo')
 
 
 @section('content')

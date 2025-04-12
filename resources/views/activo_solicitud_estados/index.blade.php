@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page',__('Activo Solicitud Estados'))
+@section('titulo_pagina',__('Activo Solicitud Estados'))
 
 @section('content')
 
@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div class="text-center">
-                
+
             </div>
         </div>
     </div>

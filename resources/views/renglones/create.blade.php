@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page',__('New Renglon'))
+@section('titulo_pagina',__('New Renglon'))
 
 @section('content')
 

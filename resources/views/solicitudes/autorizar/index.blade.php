@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page','Autorizar requisiciones')
+@section('titulo_pagina','Autorizar requisiciones')
 
 
 @section('content')

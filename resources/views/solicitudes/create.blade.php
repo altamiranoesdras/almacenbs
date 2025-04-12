@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page', $solicitud->esTemporal() ? 'Nueva requisición' : 'Editar requisición')
+@section('titulo_pagina', $solicitud->esTemporal() ? 'Nueva requisición' : 'Editar requisición')
 
 @include('layouts.xtra_condensed_css')
 {{--@push('sidebar_class','sidebar-collapse')--}}

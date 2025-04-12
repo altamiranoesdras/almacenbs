@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page',__('New Activo Solicitud'))
+@section('titulo_pagina',__('New Activo Solicitud'))
 
 @include('layouts.plugins.select2')
 @include('layouts.xtra_condensed_css')

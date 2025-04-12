@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page')
+@section('titulo_pagina')
 	Traslado enter unidades
 @endsection
 

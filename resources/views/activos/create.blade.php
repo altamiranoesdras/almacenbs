@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page',__('New Activo'))
+@section('titulo_pagina',__('New Activo'))
 @include('layouts.plugins.bootstrap_fileinput')
 
 @section('content')

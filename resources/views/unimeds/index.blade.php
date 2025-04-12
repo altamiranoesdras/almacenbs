@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page',__('Unidades de medida'))
+@section('titulo_pagina',__('Unidades de medida'))
 
 @section('content')
 

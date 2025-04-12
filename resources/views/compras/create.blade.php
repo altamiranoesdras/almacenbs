@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page','Compra o Ingreso')
+@section('titulo_pagina','Compra o Ingreso')
 
 
 @include('layouts.plugins.select2')

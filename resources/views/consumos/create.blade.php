@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page', $consumo->esTemporal() ? 'Nuevo consumo' : 'Editar consumo')
+@section('titulo_pagina', $consumo->esTemporal() ? 'Nuevo consumo' : 'Editar consumo')
 
 @include('layouts.xtra_condensed_css')
 {{--@push('sidebar_class','sidebar-collapse')--}}

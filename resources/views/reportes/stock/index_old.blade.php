@@ -2,7 +2,7 @@
 
 @include('layouts.xtra_condensed_css')
 @include('layouts.plugins.datatables_reportes')
-@section('title_page', "Reporte Stock")
+@section('titulo_pagina', "Reporte Stock")
 
 
 @section('htmlheader_title')

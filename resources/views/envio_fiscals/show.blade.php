@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page',__('Envio Fiscal'))
+@section('titulo_pagina',__('Envio Fiscal'))
 
 @section('content')
 

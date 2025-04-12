@@ -3,7 +3,7 @@
 @include('layouts.plugins.select2')
 @include('layouts.plugins.bootstrap_fileinput')
 
-@section('title_page')
+@section('titulo_pagina')
 	Crear Insumo
 @endsection
 

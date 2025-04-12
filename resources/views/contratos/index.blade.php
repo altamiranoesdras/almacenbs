@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page',__('Contratos'))
+@section('titulo_pagina',__('Contratos'))
 
 @section('content')
 
@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div class="text-center">
-                
+
             </div>
         </div>
     </div>

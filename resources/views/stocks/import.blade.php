@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page','Importar existencias de bodegas')
+@section('titulo_pagina','Importar existencias de bodegas')
 @include('layouts.plugins.bootstrap_fileinput')
 
 @section('content')

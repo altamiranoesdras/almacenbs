@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page',__('Activo Tarjeta Estado'))
+@section('titulo_pagina',__('Activo Tarjeta Estado'))
 
 @section('content')
 
