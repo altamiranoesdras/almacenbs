@@ -54,7 +54,7 @@ Route::group(['as'=>'api.'], function () {
 
 
 
-    Route::group(['middleware' => 'auth:api'], function () {
+    Route::group(['middleware' => 'auth:sanctum'], function () {
 
         Route::resource('permissions', PermissionAPIController::class);
 
