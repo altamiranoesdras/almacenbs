@@ -5,14 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class Permission
+ * App\Models\Permission
  *
- * @package App\Models
- * @version January 30, 2020, 4:00 pm CST
- * @property \App\Models\ModelHasPermission modelHasPermission
- * @property \Illuminate\Database\Eloquent\Collection roles
- * @property string name
- * @property string guard_name
  * @property int $id
  * @property string $name
  * @property string $guard_name
@@ -59,7 +53,9 @@ class Permission extends \Spatie\Permission\Models\Permission
     protected $casts = [
         'id' => 'integer',
         'name' => 'string',
-        'guard_name' => 'string'
+        'guard_name' => 'string',
+        'created_at' => 'date:d/m/Y H:i:s',
+        'updated_at' => 'date:d/m/Y H:i:s',
     ];
 
     /**
@@ -69,7 +65,10 @@ class Permission extends \Spatie\Permission\Models\Permission
      */
     public static $rules = [
         'name' => 'required',
-        'guard_name' => 'required'
+    ];
+
+    public static $messages = [
+
     ];
 
 }

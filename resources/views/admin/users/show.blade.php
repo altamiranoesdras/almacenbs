@@ -1,38 +1,53 @@
 @extends('layouts.app')
 
-@section('title_page',__('User'))
+@section('titulo_pagina', 'Detalle Usuario')
 
 @section('content')
 
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>{{__('User')}}</h1>
-                </div>
-                <div class="col-sm-6">
-
+    <div class="content-header row">
+        <div class="content-header-left col-md-9 col-12 mb-2">
+            <div class="row breadcrumbs-top">
+                <div class="col-12">
+                    <h2 class="content-header-title float-start mb-0">
+                        Usuario
+                    </h2>
                 </div>
             </div>
-        </div><!-- /.container-fluid -->
-    </section>
-
-    <div class="content">
-        <div class="card card-primary">
-            <div class="card-body">
-                <div class="row">
-                    <div class="form-group col-sm-4">
-                        <img src="{{$user->img}}" alt="" class="img-fluid">
-                    </div>
-                    <div class="form-group col-sm-8">
-                        @include('admin.users.show_fields')
-                    </div>
-                    <div class="form-group mt-3 mb-0">
-                        <a href="{{ route('users.index') }}" class="btn btn-outline-secondary">{{__('Back')}}</a>
-                    </div>
+        </div>
+        <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
+            <div class="mb-1 breadcrumb-right">
+                <div class="dropdown">
+                    <a class="btn btn-outline-secondary float-right"
+                       href="{{ url()->previous() }}">
+                        <i class="fa fa-arrow-left"></i>
+                        Regresar
+                    </a>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="content-body">
+
+        <div class="row">
+            <div class="col-12">
+
+                <div class="card">
+                    <div class="card-body">
+                        @include('admin.users.show_fields')
+
+                    </div>
+                    <div class="card-footer text-end">
+
+                        <a href="{{ route('users.index') }}" class="btn btn-outline-secondary me-2">
+                            Regresar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
 @endsection

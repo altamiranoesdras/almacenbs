@@ -10,18 +10,16 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
- * Class Configuration
+ * App\Models\Configuration
  *
- * @package App\Models
- * @version February 14, 2019, 3:40 pm CST
- * @property string key
- * @property string value
- * @property string descripcion
  * @property int $id
+ * @property string $key
+ * @property string $value
+ * @property string $descripcion
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\App\Models\Media[] $media
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|Media[] $media
  * @property-read int|null $media_count
  * @method static \Illuminate\Database\Eloquent\Builder|Configuration newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Configuration newQuery()
@@ -84,6 +82,9 @@ class Configuration extends Model implements HasMedia
         'descripcion' => 'required'
     ];
 
+    public static $messages = [
+
+    ];
 
     /**
      * @return \App\Models\Media
@@ -189,6 +190,14 @@ class Configuration extends Model implements HasMedia
 
 
 
+        //favicon
+        $this->addMediaConversion('32x32')
+            ->width(32)
+            ->height(32)
+            ->format(Manipulations::FORMAT_PNG)
+            ->performOnCollections('icono');
+
+
         $this->addMediaConversion('16x16')
             ->width(16)
             ->height(16)
@@ -204,12 +213,17 @@ class Configuration extends Model implements HasMedia
             ->format(Manipulations::FORMAT_WEBP)
             ->performOnCollections('logo');
 
+        $this->addMediaConversion('webp')
+            ->format(Manipulations::FORMAT_WEBP)
+            ->performOnCollections('promo_factura');
+
 
 
     }
 
     public function puedeEliminar()
     {
+
         return $this->id!=self::LOGO && $this->id!=self::ICONO;
     }
 }

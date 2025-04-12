@@ -1,51 +1,53 @@
 @extends('layouts.app')
 
-@section('title_page',__('Options'))
+@section('titulo_pagina', 'Opciones')
 
 @section('content')
 
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Options</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-right">
-                        <li class="breadcrumb-item">
-                            <a class="btn btn-outline-success"
-                                href="{!! route('dev.option.create') !!}">
-                                <i class="fa fa-plus"></i>
-                                <span class="d-none d-sm-inline">Nueva</span>
-                            </a>
-                        </li>
-                    </ol>
+    <div class="content-header row">
+        <div class="content-header-left col-md-9 col-12 mb-2">
+            <div class="row breadcrumbs-top">
+                <div class="col-12">
+                    <h2 class="content-header-title float-start mb-0">Opciones</h2>
                 </div>
             </div>
-        </div><!-- /.container-fluid -->
-    </section>
-
-    <div class="content">
-        <div class="container-fluid">
-            <div class="clearfix"></div>
-
-
-
-            <div class="clearfix"></div>
-            <div class="card card-primary">
-                <div class="card-body">
-                    <ul class="list-group sortable" >
-                        @include('admin.options.partials.list_admin')
-                    </ul>
+        </div>
+        <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
+            <div class="mb-1 breadcrumb-right">
+                <div class="dropdown">
+                    <a class="btn btn-outline-success"
+                       href="{!! route('options.create') !!}">
+                        <i class="fa fa-plus"></i>
+                        <span class="d-none d-sm-inline">{{__('New')}}</span>
+                    </a>
                 </div>
-            </div>
-            <div class="text-center">
-
             </div>
         </div>
     </div>
+
+    <div class="content-body">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card card-primary">
+                        <div class="card-body">
+                            <ul class="list-group sortable" >
+                                @include('admin.options.partials.list_admin')
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 @endsection
+
+
+
+@include('layouts.plugins.jquery-ui')
 
 @push("scripts")
     <script>
@@ -60,7 +62,7 @@
                         opciones.push($(this).attr('id'));
                     });
 
-                    var url = "{{route("dev.option.order.store")}}";
+                    var url = "{{route("option.order.store")}}";
                     var params= { params: {opciones: opciones} };
 
                     console.log(opciones,url);

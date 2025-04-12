@@ -2,64 +2,43 @@
 
 namespace Database\Factories;
 
-use App\Models\RrhhPuesto;
-use App\Models\RrhhUnidad;
-use App\Models\User;
-use Faker\Provider\Image;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Mmo\Faker\LoremSpaceProvider;
-use Mmo\Faker\PicsumProvider;
 
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ */
 class UserFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
+     * The current password being used by the factory.
      */
-    protected $model = User::class;
+    protected static ?string $password;
 
     /**
      * Define the model's default state.
      *
-     * @return array
+     * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         return [
-            'username' => $this->faker->userName,
-            'name' => $this->faker->name,
-            'dpi' => rand(123456789012345, 999999999999999),
-            'email' => $this->faker->unique()->safeEmail,
+            'name' => fake()->name(),
+            'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => bcrypt(123), // password
-            'unidad_id' => null,
-            'puesto_id' => null,
-            'bodega_id' => null,
+            'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
         ];
     }
 
-    public function configure()
+    /**
+     * Indicate that the model's email address should be unverified.
+     */
+    public function unverified(): static
     {
-        return $this->afterCreating(function (User $user){
-
-            $this->faker->addProvider(new PicsumProvider($this->faker));
-            $this->faker->addProvider(new LoremSpaceProvider($this->faker));
-
-            try {
-
-                $url = $this->faker->loremSpace(LoremSpaceProvider::CATEGORY_FACE,storage_path('temp'));
-
-                $user->addMedia($url)
-                    ->toMediaCollection('avatars');
-
-            }catch (\Exception $exception){
-                dump($exception->getMessage());
-            }
-        });
+        return $this->state(fn (array $attributes) => [
+            'email_verified_at' => null,
+        ]);
     }
-
-
 }

@@ -3,16 +3,14 @@ window._ = require('lodash');
 
 
 try {
-    // window.Popper = require('popper.js').default;
-    window.$ = window.jQuery = require('jquery');
 
-    window.Swal = require('sweetalert2');
-
+    // window.$ = window.jQuery = require('jquery');
 
 } catch (e) {}
 
 
 window.axios = require('axios');
+
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -38,10 +36,35 @@ if (token) {
 // window.Pusher = require('pusher-js');
 //
 // window.Echo = new Echo({
-//     broadcaster:  'pusher',
-//     key:    process.env.MIX_PUSHER_APP_KEY,
-//     wsHost: window.location.hostname,
-//     wsPort: 6001,
-//     forceTLS: false,
-//     disableStats: true,
+//     broadcaster:       'pusher',
+//     key:               process.env.MIX_PUSHER_APP_KEY,
+//     wsHost:            window.location.hostname,
+//     wsPort:            6002,
+//     wssPort:           6002,
+//     disableStats:      false,
+//     encrypted:         true,
+//     enabledTransports: ['ws', 'wss'],
 // });
+
+
+// require('webrtc-adapter');
+// window.Cookies = require('js-cookie');
+//
+// import Echo from "laravel-echo"
+//
+// window.io = require('socket.io-client');
+//
+// window.Echo = new Echo({
+//     broadcaster: 'socket.io',
+//     host: window.location.hostname + ':6001'
+// });
+
+window.Vue = require('vue').default;
+
+
+window.Cropper  = require('cropperjs/dist/cropper.min');
+
+window.Swal = require('sweetalert2');
+
+
+require('bootstrap-toggle/js/bootstrap-toggle.js');

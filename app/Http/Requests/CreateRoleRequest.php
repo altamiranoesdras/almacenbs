@@ -2,12 +2,11 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Role;
+use Illuminate\Foundation\Http\FormRequest;
 
 class CreateRoleRequest extends FormRequest
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -25,6 +24,11 @@ class CreateRoleRequest extends FormRequest
      */
     public function rules()
     {
-        return [];
+        return Role::$rules;
+    }
+
+    public function messages()
+    {
+        return Role::$messages;
     }
 }

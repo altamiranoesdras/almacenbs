@@ -117,7 +117,7 @@ class ContratoDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'contratos_'  . date('YmdHis');
     }

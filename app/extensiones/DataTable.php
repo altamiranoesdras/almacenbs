@@ -8,6 +8,7 @@
 
 namespace App\extensiones;
 
+use Illuminate\Contracts\Support\Renderable;
 use Yajra\DataTables\Services\DataTable as BaseDataTables;
 
 class DataTable extends BaseDataTables
@@ -62,7 +63,7 @@ class DataTable extends BaseDataTables
 
 
 
-    public function snappyPdf()
+    public function snappyPdf(): \Illuminate\Http\Response
     {
         /** @var \Barryvdh\Snappy\PdfWrapper $snappy */
         $snappy      = resolve('snappy.pdf.wrapper');
@@ -76,7 +77,7 @@ class DataTable extends BaseDataTables
             ->inline($this->getFilename() . '.pdf');
     }
 
-    public function printPreview()
+    public function printPreview(): Renderable
     {
         $data = $this->getDataForPrint();
         $titulo = $this->getTitulo();

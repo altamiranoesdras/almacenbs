@@ -1,131 +1,183 @@
-<!-- Navbar -->
-<nav class="main-header navbar navbar-expand navbar-dark navbar-primary">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
-        </li>
-
-    </ul>
-
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3 d-none d-sm-inline-block">
-        <div class="input-group input-group-sm">
-            <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-            <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-        </div>
-    </form>
-
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-
-
-
-
-{{--        <!-- Notifications Dropdown Menu -->--}}
-{{--        <li class="nav-item dropdown">--}}
-{{--            <a class="nav-link" data-toggle="dropdown" href="#">--}}
-{{--                <i class="far fa-bell"></i>--}}
-{{--                <span class="badge badge-warning navbar-badge">15</span>--}}
-{{--            </a>--}}
-{{--            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">--}}
-{{--                <span class="dropdown-item dropdown-header">15 Notifications</span>--}}
-{{--                <div class="dropdown-divider"></div>--}}
-{{--                <a href="#" class="dropdown-item">--}}
-{{--                    <i class="fas fa-envelope mr-2"></i> 4 new messages--}}
-{{--                    <span class="float-right text-muted text-sm">3 mins</span>--}}
-{{--                </a>--}}
-{{--                <div class="dropdown-divider"></div>--}}
-{{--                <a href="#" class="dropdown-item">--}}
-{{--                    <i class="fas fa-users mr-2"></i> 8 friend requests--}}
-{{--                    <span class="float-right text-muted text-sm">12 hours</span>--}}
-{{--                </a>--}}
-{{--                <div class="dropdown-divider"></div>--}}
-{{--                <a href="#" class="dropdown-item">--}}
-{{--                    <i class="fas fa-file mr-2"></i> 3 new reports--}}
-{{--                    <span class="float-right text-muted text-sm">2 days</span>--}}
-{{--                </a>--}}
-{{--                <div class="dropdown-divider"></div>--}}
-{{--                <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>--}}
-{{--            </div>--}}
-{{--        </li>--}}
-        <!-- Authentication Links -->
-        @guest
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-            </li>
-            @if (Route::has('register'))
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+<!-- BEGIN: Header-->
+<nav class="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-dark navbar-shadow container-xxl">
+    <div class="navbar-container d-flex content">
+        <div class="bookmark-wrapper d-flex align-items-center">
+            <ul class="nav navbar-nav d-xl-none">
+                <li class="nav-item"><a class="nav-link menu-toggle" href="#"><i class="ficon" data-feather="menu"></i></a></li>
+            </ul>
+            <ul class="nav navbar-nav bookmark-icons">
+                <li class="nav-item d-none d-lg-block" style="font-size: 1.2rem">
+                    <a class="nav-link me-1" href="{{route('home')}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Inicio">
+                        <i class="fa fa-home"></i>
+                    </a>
                 </li>
-            @endif
-        @else
-            <li class="nav-item dropdown">
-                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                    <img src="{{Auth::user()->thumb}}" class="img-circle elevation-2" width="30" height="30" alt="User Image">
-                    <span class="caret"></span>
+                <li class="nav-item d-none d-lg-block" style="font-size: 1.2rem">
+                    <a class="nav-link me-1" href="{{route('home')}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Email">
+                        <i class="fa fa-inbox"></i>
+                    </a>
+                </li>
+                <li class="nav-item d-none d-lg-block" style="font-size: 1.2rem">
+                    <a class="nav-link me-1" href="{{route('home')}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Chat">
+                        <i class="fa fa-message"></i>
+                    </a>
+                </li>
+                <li class="nav-item d-none d-lg-block" style="font-size: 1.2rem">
+                    <a class="nav-link me-1" href="{{route('home')}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Calendar">
+                        <i class="fa fa-calendar"></i>
+                    </a>
+                </li>
+                <li class="nav-item d-none d-lg-block" style="font-size: 1.2rem">
+                    <a class="nav-link me-1" href="{{route('home')}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tareas">
+                        <i class="fa fa-tasks"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <ul class="nav navbar-nav align-items-center ms-auto">
+
+            <!--            Selector de idiomas
+            ------------------------------------------------------------------------>
+            <li class="nav-item dropdown dropdown-language">
+                <a class="nav-link dropdown-toggle" id="dropdown-flag" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="flag-icon flag-icon-us"></i>
+                    <span class="selected-language">English</span>
                 </a>
-
-                <div class="dropdown-menu dropdown-menu-right p-0" style="max-height: calc(100vh - 62px - 100px);width: 354px" aria-labelledby="navbarDropdown">
-                    <div class="card card-widget widget-user m-0">
-                        <!-- Add the bg color to the header using any of the bg-* classes -->
-                        <div class="widget-user-header bg-info">
-                            <h3 class="widget-user-username">{{Auth::user()->name}}</h3>
-{{--                            <h5 class="widget-user-desc">Founder & CEO</h5>--}}
-                        </div>
-                        <div class="widget-user-image">
-                            <img class="img-circle elevation-2" src="{{Auth::user()->img}}" alt="{{Auth::user()->name}}">
-                        </div>
-                        <div class="card-footer pb-0">
-                            <div class="row border-top ">
-                                <div class="col border-right ">
-                                    <div class="description-block">
-                                        <a class="btn btn-outline-info" href="{{ route('profile') }}">
-                                            {{ __('Profile') }}
-                                        </a>
-                                    </div>
-                                    <!-- /.description-block -->
-                                </div>
-                                <!-- /.col -->
-                                <div class="col">
-                                    <div class="description-block">
-{{--                                        <h5 class="description-header">35</h5>--}}
-{{--                                        <span class="description-text">PRODUCTS</span>--}}
-
-                                        <a class="btn btn-outline-warning" href="{{ route('logout') }}"
-                                           onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            @csrf
-                                        </form>
-                                    </div>
-                                    <!-- /.description-block -->
-                                </div>
-                                <!-- /.col -->
-                            </div>
-                            <!-- /.row -->
-                        </div>
-                    </div>
-
-
-
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-flag">
+                    <a class="dropdown-item" href="#" data-language="en">
+                        <i class="flag-icon flag-icon-us"></i> English
+                    </a>
+                    <a class="dropdown-item" href="#" data-language="es">
+                        <i class="flag-icon flag-icon-es"></i> Español
+                    </a>
                 </div>
             </li>
-        @endguest
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#">--}}
-{{--                <i class="fas fa-th-large"></i>--}}
-{{--            </a>--}}
-{{--        </li>--}}
 
+            <li class="nav-item d-none d-lg-block">
+                <a class="nav-link nav-link-style">
+                    <i class="ficon" data-feather="sun"></i>
+                </a>
+            </li>
 
-    </ul>
+            <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon" data-feather="search"></i></a>
+                <div class="search-input">
+                    <div class="search-input-icon"><i data-feather="search"></i></div>
+                    <input class="form-control input" type="text" placeholder="Explore Vuexy..." tabindex="-1" data-search="search">
+                    <div class="search-input-close"><i data-feather="x"></i></div>
+                    <ul class="search-list search-list-main"></ul>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown dropdown-notification me-25">
+                <a class="nav-link" href="#" data-bs-toggle="dropdown">
+                    <i class="ficon" data-feather="bell"></i>
+                    @if($cant = auth()->user()->unreadNotifications->count() )
+                        <span class="badge rounded-pill bg-danger badge-up">
+                            {{$cant}}
+                        </span>
+                    @endif
+                </a>
+                <ul class="dropdown-menu dropdown-menu-media dropdown-menu-end">
+                    <li class="dropdown-menu-header">
+                        <div class="dropdown-header d-flex">
+                            <h4 class="notification-title mb-0 me-auto">{{__('Notifications')}}</h4>
+                            @if($cant = auth()->user()->unreadNotifications->count() )
+
+                                <div class="badge rounded-pill badge-light-primary">{{$cant}} nuevas</div>
+                            @endif
+                        </div>
+                    </li>
+                    <li class="scrollable-container media-list">
+                        @forelse(auth()->user()->unreadNotifications as $notificacion)
+                            <a class="d-flex" href="{{route('notificaciones.leer',$notificacion->id)}}">
+                                <div class="list-item d-flex align-items-start">
+                                    <div class="me-1">
+                                        <div class="avatar">
+                                            <img src="{{$notificacion->data['imagen']}}" alt="avatar" width="32" height="32">
+                                        </div>
+                                    </div>
+                                    <div class="list-item-body flex-grow-1">
+                                        <p class="media-heading">
+                                            <span class="fw-bolder">{{$notificacion->data['titulo'] ?? 'Titulo'}}</span>
+                                        </p>
+                                        <small class="notification-text">
+                                            {{$notificacion->data['texto'] ?? 'Texto'}}
+                                        </small>
+                                    </div>
+                                </div>
+                            </a>
+                        @empty
+                        @endforelse
+                    </li>
+                    <li class="dropdown-menu-footer">
+                        <a class="btn btn-primary w-100" href="{{route('notificaciones.index')}}">
+                            {{__('Read all notifications')}}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown dropdown-user">
+                <a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="user-nav d-sm-flex d-none">
+                        <span class="user-name fw-bolder">
+                            {{auth()->user()->name}}
+                        </span><span class="user-status">
+                            {{auth()->user()->maxRol()->name ?? 'Rol'}}
+                        </span>
+                    </div>
+                    <span class="avatar">
+                        <img class="round" src="{{auth()->user()->miniatura}}" alt="avatar" height="40" width="40">
+                        <span class="avatar-status-online"></span>
+                    </span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user">
+                    <a class="dropdown-item" href="{{route('profile')}}">
+                        <i class="fa fa-user"></i>
+                        {{__('Profile')}}
+                    </a>
+                    <a class="dropdown-item" href="{{route('profile')}}">
+                        <i class="fa fa-inbox"></i>
+                        {{__('Inbox')}}
+                    </a>
+                    <a class="dropdown-item" href="{{route('profile')}}">
+                        <i class="fa fa-tasks"></i>
+                        {{__('Task')}}
+                    </a>
+                    <a class="dropdown-item" href="{{route('profile')}}">
+                        <i class="fa fa-message"></i>
+                        {{__('Chats')}}
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{route('profile')}}">
+                        <i class="fa fa-cog"></i>
+                        {{__('Settings')}}
+                    </a>
+                    <a class="dropdown-item" href="{{route('profile')}}">
+                        <i class="fa fa-credit-card"></i>
+                        {{__('Pricing')}}
+                    </a>
+{{--                    <a class="dropdown-item" href="{{route('profile')}}">--}}
+{{--                        <i class="fa fa-info-circle"></i>--}}
+{{--                        {{__('FAQ')}}--}}
+{{--                    </a>--}}
+                    <a class="dropdown-item" href="{{route('logout')}}"
+                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                    >
+                        <i class="fa fa-sign-out"></i>
+                        {{__('Logout')}}
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </div>
+            </li>
+        </ul>
+    </div>
 </nav>
-<!-- /.navbar -->
+
+@include('layouts.partials.barra_busqueda')
+
+
+<!-- END: Header-->

@@ -68,9 +68,7 @@ class UserAPIController extends AppBaseController
     public function show($id)
     {
         /** @var User $user */
-        $user = User::with(['shortcuts','options' => function($q){
-            $q->whereNotNull('ruta');
-        }])->find($id);
+        $user = User::with(['shortcuts','options'])->find($id);
 
         if (empty($user)) {
             return $this->sendError('User no encontrado');

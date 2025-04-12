@@ -114,7 +114,7 @@ class StockInicialDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'stock_inicials_'  . date('YmdHis');
     }

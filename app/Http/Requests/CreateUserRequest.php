@@ -28,6 +28,11 @@ class CreateUserRequest extends FormRequest
         return User::$rules;
     }
 
+    public function messages()
+    {
+        return User::$messages;
+    }
+
     public function all($keys = null)
     {
         $inputs = parent::input();
@@ -37,4 +42,5 @@ class CreateUserRequest extends FormRequest
 
         return $inputs;
     }
+
 }

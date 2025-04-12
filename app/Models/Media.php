@@ -5,33 +5,26 @@ namespace App\Models;
 use Spatie\MediaLibrary\MediaCollections\Models\Media as BaseMedia;
 
 /**
- * Class Media
+ * App\Models\Media
  *
- * @package App\Models
- * @version March 26, 2021, 4:50 pm CST
+ * @property int $id
  * @property string $model_type
- * @property integer $model_id
+ * @property int $model_id
+ * @property string|null $uuid
  * @property string $collection_name
  * @property string $name
  * @property string $file_name
- * @property string $mime_type
+ * @property string|null $mime_type
  * @property string $disk
- * @property integer $size
- * @property string $manipulations
- * @property string $custom_properties
- * @property string $responsive_images
- * @property integer $order_column
- * @property string $generated_conversions
- * @property string $conversions_disk
- * @property string $uuid
- * @property int $id
+ * @property string|null $conversions_disk
+ * @property int $size
+ * @property array $manipulations
+ * @property array $custom_properties
+ * @property array $generated_conversions
+ * @property array $responsive_images
+ * @property int|null $order_column
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read string $extension
- * @property-read string $human_readable_size
- * @property-read mixed $original_url
- * @property-read mixed $preview_url
- * @property-read string $type
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $model
  * @method static \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|static[] all($columns = ['*'])
  * @method static \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|static[] get($columns = ['*'])

@@ -1,262 +1,174 @@
 @extends('layouts.app')
 
-@section('title_page',__('Profile'))
-
-@push('css')
-    <style>
-
-        .icon-edit-avatar{
-            position: absolute;
-            right:20px;
-            top:10px;
-            text-align: center;
-            border-radius: 30px 30px 30px 30px;
-            color:white;
-            padding:5px 10px;
-            font-size:20px;
-        }
-    </style>
-@endpush
+@section('titulo_pagina', 'Tu perfil')
 
 @section('content')
 
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>{{__('Profile')}}</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                        <li class="breadcrumb-item active">User Profile</li>
-                    </ol>
+    <div class="content-header row">
+        <div class="content-header-left col-md-9 col-12 mb-2">
+            <div class="row breadcrumbs-top">
+                <div class="col-12">
+                    <h2 class="content-header-title float-start mb-0">Tu perfil</h2>
                 </div>
             </div>
-        </div><!-- /.container-fluid -->
-    </section>
+        </div>
+        <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
+            <div class="mb-1 breadcrumb-right">
+                <div class="dropdown">
+                    <a class="btn btn-outline-secondary float-right"
+                       href="{{ url()->previous() }}">
+                        <i class="fa fa-arrow-left"></i>
+                        Regresar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
+    <div class="content-body">
 
-            @include('layouts.partials.request_errors')
+        <div class="row">
+            <div class="col-12">
+                {!! Form::model($profile, ['route' => ['profile.update', $profile->id], 'method' => 'patch']) !!}
+                    @include('layouts.partials.request_errors')
 
-            <div class="row">
-                <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-md-3">
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="modalRemoveAvatar" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-                         aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="modelTitleId">
-                                        Eliminar Avatar
-                                    </h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                            <!-- Profile Image -->
+                            <div class="card card-primary ">
+                                <div class="card-body ">
+
+                                    <div class="text-center p-2" >
+                                        <img class="profile-user-img img-fluid rounded-circle"
+                                             src="{{auth()->user()->img}}"
+                                             alt="User profile picture">
+
+                                        <!-- Modal -->
+
+                                        <div class="btn-group icon-edit-avatar">
+                                            <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fa fa-camera"></i>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-start">
+                                                <button class="dropdown-item" href="#" id="upload_link">
+                                                    <i class="fa fa-upload"></i>
+                                                    {{__('Upload your photo')}}
+                                                </button>
+                                                <button class="dropdown-item " href="#">
+                                                    <i class="fa fa-times"></i>
+                                                    {{__('Remove photo')}}
+                                                </button>
+                                                <input id="upload" type="file" style="display: none"/>
+                                            </div>
+                                        </div>
+
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="modal-edit-avatar" tabindex="-1" role="dialog"
+                                             aria-labelledby="modelTitleId" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header" >
+                                                        <h4 class="modal-title" id="myModalLabel1">
+                                                            {{__('Crop your new profile picture')}}
+                                                        </h4>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+
+
+
+                                                    <div class="modal-body">
+                                                        <div class="container-fluid">
+                                                            <div class="img-container">
+                                                                <img id="imgNewAvatar" src="{{auth()->user()->img}}" alt="Picture" class="img-fluid">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-outline-success " id="set_new_profile_pictur">
+                                                            {{__('Set new profile picture')}}
+                                                        </button>
+                                                        <div class="spinner-border text-success" role="status" id="uploadaAvatarSpinner" style="display: none">
+                                                            <span class="sr-only">Loading...</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <h3 class="profile-username text-center">{{Auth::user()->name}}</h3>
+
+                                    <p class="text-muted text-center">
+                                        <a class="text-center" href="{{ route('password.request') }}">
+                                            {{ __('Forgot Your Password?') }}
+                                        </a>
+                                    </p>
+
                                 </div>
-                                <div class="modal-body">
-                                    Esta seguro?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-info" data-dismiss="modal">NO</button>
-                                    <a class="btn btn-success " href="{{route('profile.remove.avatar',auth()->user()->id)}}">
-                                        SI
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-9">
+                            <div class="card">
+
+
+                                <div class="card-body">
+                                    <div class="row" id="">
+
+
+                                        <div class="col-6 mb-1">
+                                            {!! Form::label('username', __('Username')) !!}
+                                            {!! Form::text('username', null, ['class' => 'form-control' , 'readonly' => auth()->user()->cannot('Editar nombre usuario')]) !!}
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            {!! Form::label('name', __('Name')) !!}
+                                            {!! Form::text('name', null, ['class' => 'form-control', 'readonly' => auth()->user()->cannot('Editar nombre propio')]) !!}
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            {!! Form::label('email', __('Email')) !!}
+                                            {!! Form::text('email', null, ['class' => 'form-control', 'readonly' => auth()->user()->cannot('Editar correo electrónico')]) !!}
+                                        </div>
+
+                                    </div>
+
+                                </div><!-- /.card-body -->
+                                <div class="card-footer text-end">
+
+                                    <a href="{{ route('users.index') }}" class="btn btn-outline-secondary round me-1">
+                                        <i class="fa fa-ban"></i>
+                                        Cancelar
                                     </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- Profile Image -->
-                    <div class="card card-primary card-outline">
-                        <div class="card-body box-profile pb-1">
-                            <div class="text-center box-img-profile" >
-                                <img class="profile-user-img img-fluid img-circle"
-                                     src="{{Auth::user()->img}}"
-                                     alt="User profile picture">
-
-                                <!-- Modal -->
-
-
-
-                                <div class="dropdown open icon-edit-avatar" >
-                                    <button class="btn  " type="button" id="triggerId"
-                                            data-toggle="dropdown" >
-                                        <i class="fa fa-camera text-primary" style="font-size: 1.5rem"></i>
+                                    <button type="submit" class="btn btn-success round ">
+                                        <i class="fa fa-save"></i>
+                                        Guardar
                                     </button>
-                                    <div class="dropdown-menu" aria-labelledby="triggerId">
-                                        <input id="upload" type="file" style="display: none"/>
-                                        <button class="dropdown-item" href="#" id="upload_link">
-                                            {{__('Upload your photo')}}
-                                        </button>
-                                        <button type="button" class="dropdown-item " data-toggle="modal" data-target="#modalRemoveAvatar">
-                                            {{__('Remove photo')}}
-                                        </button>
-
-                                    </div>
                                 </div>
 
-                                <div class="modal fade" id="modal-edit-avatar" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="modalLabel">
-                                                    {{__('Crop your new profile picture')}}
-                                                </h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="img-container">
-                                                    <img id="imgNewAvatar" src="{{auth()->user()->img}}" alt="Picture" class="img-fluid">
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-outline-success " id="set_new_profile_pictur">
-                                                    {{__('Set new profile picture')}}
-                                                </button>
-                                                <div class="spinner-border text-success" role="status" id="uploadaAvatarSpinner" style="display: none">
-                                                    <span class="sr-only">Loading...</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
-
-                            <h3 class="profile-username text-center">{{Auth::user()->name}}</h3>
-
-                            <p class="text-muted text-center">
-                                <a class="text-center" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
-                                </a>
-                            </p>
-
-                            <ul class="list-group list-group-unbordered mb-3">
-{{--                                <li class="list-group-item">--}}
-{{--                                    <b>Ventas Promedio/día</b>--}}
-{{--                                    <span class="float-right">--}}
-{{--                                        {{auth()->user()->ventas_promedio}}--}}
-{{--                                    </span>--}}
-{{--                                </li>--}}
-                            </ul>
-
-{{--                            <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>--}}
+                            <!-- /.nav-tabs-custom -->
                         </div>
-                        <!-- /.card-body -->
+                        <!-- /.col -->
                     </div>
-                    <!-- /.card -->
-
-                    <!-- About Me Box -->
-                    <!-- /.card -->
-                </div>
-                <!-- /.col -->
-                <div class="col-md-9">
-                    <div class="card">
-                        <div class="card-header p-2">
-                            <ul class="nav nav-pills">
-                                <li class="nav-item">
-                                    <a class="nav-link {{(request()->tab ?? 1)==1 ? 'active' : ''}}" href="#settings" data-toggle="tab">{{__('Información principal')}}</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link {{(request()->tab ?? 1)==2 ? 'active' : ''}}" href="#activity" data-toggle="tab">{{__('Cambiar Contraseña')}}</a>
-                                </li>
-                            </ul>
-                        </div><!-- /.card-header -->
-                        <div class="card-body">
-                            <div class="tab-content">
-
-                                <div class="tab-pane {{(request()->tab ?? 1)==1 ? 'active' : ''}}" id="settings">
-                                    {!! Form::model($profile, ['url' => route('profile.update', $profile->id), 'method' => 'patch']) !!}
-
-                                    <div class="form-group row">
-                                        {!! Form::label('username', __('Username'),["class"=>"col-sm-2 col-form-label"]) !!}
-                                        <div class="col-10">
-                                            {!! Form::text('username', null, ['class' => 'form-control','readonly']) !!}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                            {!! Form::label('name', __('Name'),["class"=>"col-sm-2 col-form-label"]) !!}
-                                            <div class="col-10">
-                                                {!! Form::text('name', null, ['class' => 'form-control']) !!}
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            {!! Form::label('email', __('Email'),["class"=>"col-sm-2 col-form-label"]) !!}
-                                            <div class="col-10">
-                                                {!! Form::text('email', null, ['class' => 'form-control']) !!}
-                                            </div>
-                                        </div>
-
-
-{{--                                        <div class="form-group row">--}}
-{{--                                            <div class="offset-sm-2 col-sm-10">--}}
-{{--                                                <div class="checkbox">--}}
-{{--                                                    <label>--}}
-{{--                                                        <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>--}}
-{{--                                                    </label>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-                                        <div class="form-group row">
-                                            <div class="offset-sm-2 col-sm-10">
-                                                <button type="submit" class="btn btn-outline-success">{{__('Submit')}}</button>
-                                            </div>
-                                        </div>
-                                    {!! Form::close() !!}
-                                </div>
-                                <!-- /.tab-pane -->
-
-                                <div class="tab-pane {{(request()->tab ?? 1)==2 ? 'active' : ''}}" id="activity">
-                                    {!! Form::model($profile, ['route' => ['profile.update.password', $profile->id], 'method' => 'patch']) !!}
-
-
-                                    <!-- Password Field -->
-                                    <div class="form-group row">
-                                        {!! Form::label('password', 'Contraseña Actual:',["class"=>"col-sm-2 col-form-label"]) !!}
-                                        <div class="col-10">
-                                            {!! Form::password('contrasena_actual', ['class' => 'form-control']) !!}
-                                        </div>
-                                    </div>
-
-                                    <!-- Password Field -->
-                                    <div class="form-group row">
-                                        {!! Form::label('password', 'Nueva Contraseña:',["class"=>"col-sm-2 col-form-label"]) !!}
-                                        <div class="col-10">
-                                            {!! Form::password('nueva_contrasena', ['class' => 'form-control']) !!}
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <div class="offset-sm-2 col-sm-10">
-                                            <button type="submit" class="btn btn-outline-success">{{__('Submit')}}</button>
-                                        </div>
-                                    </div>
-                                    {!! Form::close() !!}
-                                </div>
-                                <!-- /.tab-pane -->
-
-
-                            </div>
-                            <!-- /.tab-content -->
-                        </div><!-- /.card-body -->
-                    </div>
-                    <!-- /.nav-tabs-custom -->
-                </div>
-                <!-- /.col -->
+                {!! Form::close() !!}
             </div>
-            <!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
+        </div>
+
+    </div>
 
 @endsection
+
+
+
 
 @push('scripts')
     <script>
@@ -353,4 +265,20 @@
 
         });
     </script>
+@endpush
+
+@push('estilos')
+
+    <style>
+        .icon-edit-avatar{
+            position: absolute;
+            right:20px;
+            top:10px;
+            text-align: center;
+            border-radius: 30px 30px 30px 30px;
+            color:white;
+            padding:5px 10px;
+            font-size:20px;
+        }
+    </style>
 @endpush

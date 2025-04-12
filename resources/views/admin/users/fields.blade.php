@@ -1,101 +1,98 @@
-<div class="form-row" id="campos_usuario">
-
+<div class="row" id="campos_usuario">
     <!-- Username Field -->
-    <div class="form-group col-sm-4">
-        {!! Form::label('username', 'Nombre Usuario:') !!}
+    <div class="col-sm-6 mb-1">
+        {!! Form::label('username', 'Usuario:') !!}
         {!! Form::text('username', null, ['class' => 'form-control']) !!}
     </div>
 
     <!-- Name Field -->
-    <div class="form-group col-sm-4">
-        {!! Form::label('name', 'Nombre Personal:') !!}
+    <div class="col-sm-6 mb-1">
+        {!! Form::label('name', 'Nombre:') !!}
         {!! Form::text('name', null, ['class' => 'form-control']) !!}
     </div>
 
-    <!-- Name Field -->
-    <div class="form-group col-sm-4">
-        {!! Form::label('nit', 'NIT:') !!}
-        {!! Form::text('nit', null, ['class' => 'form-control']) !!}
-    </div>
-
     <!-- Email Field -->
-    <div class="form-group col-sm-4">
-        {!! Form::label('email', 'Correo Electrónico:') !!}
+    <div class="col-sm-6 mb-1">
+        {!! Form::label('email', 'Correo:') !!}
         {!! Form::email('email', null, ['class' => 'form-control']) !!}
     </div>
 
 
     <!-- Password Field -->
-    <div class="form-group col-sm-4">
+    <div class="col-sm-6 mb-1">
         {!! Form::label('password', 'Contraseña:') !!}
         {!! Form::password('password', ['class' => 'form-control']) !!}
     </div>
 
-    <div class="form-group col-sm-4">
-        <select-unidad v-model="unidad" label="Unidad"></select-unidad>
-    </div>
-
-    <div class="form-group col-sm-4">
-        <select-puesto v-model="puesto" label="puesto"></select-puesto>
-    </div>
-
-    <div class="form-group col-sm-4">
-        <select-bodega v-model="bodega" label="bodega"></select-bodega>
-    </div>
-
     <!-- Avatar Field -->
-    <div class="form-group col-sm-4">
-        {!! Form::label('avatar', 'Foto:') !!}
-        <div class="custom-file">
-            <input type="file" name="avatar" class="custom-file-input" >
-            <label class="custom-file-label" for="exampleInputFile">{{__("Choose file")}}</label>
+    <div class="col-sm-6 mb-1">
+        {!! Form::label('avatar', 'Avatar:') !!}
+        <input type="file" name="avatar" class="form-control" >
+    </div>
+
+
+    <div class="col-sm-12 mb-1">
+        <div class="table-responsive">
+
+            <dual-listbox-roles
+                :fuente="roles"
+                :destino="roles_asignados"
+                label="name"
+            >
+
+            </dual-listbox-roles>
         </div>
     </div>
 
 
+    <div class="col-sm-12 mb-1">
+        <div class="table-responsive">
+
+            <dual-listbox-permisos
+                :fuente="permisos"
+                :destino="permisos_asignados"
+                label="name"
+            >
+
+            </dual-listbox-permisos>
+        </div>
+    </div>
 
 
+    <div class="col-sm-12 mb-1">
+
+        <div class="card card-outline card-success">
+            <div class="card-header">
+                <h3 class="card-title">Opciones del menu</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="form-group col-sm-12">
+                    <div id="jstree-ajax"></div>
+                    <div id="event_result"></div>
+                    <input type="hidden" name="options" id="options">
+                </div>
+            </div>
+            <!-- /.card-body -->
+        </div>
+
+    </div>
 </div>
-
-
-<div class="form-group col-sm-12">
-    {!! Form::label('name', 'Roles:') !!}
-            <a class="success" data-toggle="modal" href="#modal-form-roles" tabindex="1000">nuevo</a>
-    {!!
-        Form::select(
-            'roles[]',
-            select(\App\Models\Role::class,'name','id',null)
-            , null
-            , ['id'=>'roless','class' => 'form-control duallistbox','multiple']
-        )
-    !!}
-</div>
-
-
-{{--<div class="form-group col-sm-12">--}}
-{{--    {!! Form::label('name', 'Permisos:') !!}--}}
-{{--            <a class="success" data-toggle="modal" href="#modal-form-permissions" tabindex="1000">nuevo</a>--}}
-{{--    {!!--}}
-{{--        Form::select(--}}
-{{--            'permissions_user[]',--}}
-{{--            select(\App\Models\Permission::class,'name','id',null)--}}
-{{--            , null--}}
-{{--            , ['class' => 'form-control duallistbox','multiple']--}}
-{{--        )--}}
-{{--    !!}--}}
-{{--</div>--}}
 
 @push('scripts')
 <script>
-    const camposUsuario = new Vue({
+    const app = new Vue({
         el: '#campos_usuario',
+        name: '#campos_usuario',
         created() {
 
         },
         data: {
-            unidad : @json($user->unidad ?? \App\Models\Renglon::find(old('unidad_id')) ?? null),
-            puesto : @json($user->puesto ?? \App\Models\Marca::find(old('puesto_id')) ?? null),
-            bodega : @json($user->bodega ?? \App\Models\Bodega::find(old('bodega_id')) ?? null),
+            roles : @json(\App\Models\Role::whereNotIn('id',isset($user) ? $user->roles->pluck('id') :  [])->get()),
+            roles_asignados : @json($user->roles ?? []),
+
+            permisos : @json(\App\Models\Permission::whereNotIn('id',isset($user) ? $user->permissions->pluck('id') :  [])->get()),
+            permisos_asignados : @json($user->permissions ?? []),
         },
         methods: {
 
@@ -103,3 +100,58 @@
     });
 </script>
 @endpush
+
+
+@push('scripts')
+    <script>
+        $(function () {
+
+            $('#jstree-ajax').jstree({
+                core: {
+                    data: {
+                        url: "{{route('api.options.index')}}?parentes=1&no_dev=1",
+                        dataType: 'json',
+                        data: function (node) {
+                            return {
+                                id: node.id
+                            };
+                        }
+                    }
+                },
+                plugins: ['types', 'checkbox'],
+                types: {
+                    default: {
+                        icon: 'far fa-folder'
+                    },
+                    html: {
+                        icon: 'fab fa-html5 text-danger'
+                    },
+                    css: {
+                        icon: 'fab fa-css3-alt text-info'
+                    },
+                    img: {
+                        icon: 'far fa-file-image text-success'
+                    },
+                    js: {
+                        icon: 'fab fa-node-js text-warning'
+                    }
+                }
+            }).on('changed.jstree', function (e, data) {
+
+                $("#options").val(data.selected);
+            }).on('ready.jstree', function (e, data) {
+
+                @isset($user)
+                @foreach($user->options as $op)
+                $.jstree.reference('#jstree-ajax')
+                    .select_node('{{$op->id}}');
+                @endforeach
+                @endisset
+
+            });
+
+
+        })
+    </script>
+@endpush
+

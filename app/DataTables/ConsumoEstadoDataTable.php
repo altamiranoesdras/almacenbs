@@ -112,7 +112,7 @@ class ConsumoEstadoDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'consumo_estados_'  . date('YmdHis');
     }

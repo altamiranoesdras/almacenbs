@@ -1,35 +1,38 @@
 <!-- Username Field -->
-{!! Form::label('username', 'Username:') !!}
-{!! $user->username !!}<br>
-
+<div class="col-sm-12">
+    {!! Form::label('username', 'Username:') !!}
+    <p>{{ $user->username }}</p>
+</div>
 
 <!-- Name Field -->
-{!! Form::label('name', 'Name:') !!}
-{!! $user->name !!}<br>
-
-
-<!-- Email Field -->
-{!! Form::label('nit', 'NIT:') !!}
-{!! $user->nit !!}<br>
+<div class="col-sm-12">
+    {!! Form::label('name', 'Name:') !!}
+    <p>{{ $user->name }}</p>
+</div>
 
 <!-- Email Field -->
-{!! Form::label('email', 'Email:') !!}
-{!! $user->email !!}<br>
-
+<div class="col-sm-12">
+    {!! Form::label('email', 'Email:') !!}
+    <p>{{ $user->email }}</p>
+</div>
 
 <!-- Email Verified At Field -->
-{!! Form::label('email_verified_at', 'Email Verified At:') !!}
-{!! $user->email_verified_at !!}<br>
+<div class="col-sm-12">
+    {!! Form::label('email_verified_at', 'Email Verified At:') !!}
+    <p>{{ $user->email_verified_at }}</p>
+</div>
 
 
-<!-- Provider Field -->
-{!! Form::label('provider', 'Provider:') !!}
-{!! $user->provider !!}<br>
+<!-- Created At Field -->
+<div class="col-sm-12">
+    {!! Form::label('created_at', 'Created At:') !!}
+    <p>{{ $user->created_at }}</p>
+</div>
 
-
-<!-- Provider Uid Field -->
-{!! Form::label('provider_uid', 'Provider Uid:') !!}
-{!! $user->provider_uid !!}<br>
-
+<!-- Updated At Field -->
+<div class="col-sm-12">
+    {!! Form::label('updated_at', 'Updated At:') !!}
+    <p>{{ $user->updated_at }}</p>
+</div>
 
 

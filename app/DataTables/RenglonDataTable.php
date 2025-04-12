@@ -113,7 +113,7 @@ class RenglonDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'renglons_'  . date('YmdHis');
     }

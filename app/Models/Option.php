@@ -7,22 +7,19 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 
 /**
- * Class Option
+ * App\Models\Option
  *
- * @package App\Models
- * @version September 21, 2021, 3:53 pm CST
- * @property \Illuminate\Database\Eloquent\Collection $roles
- * @property \Illuminate\Database\Eloquent\Collection $users
- * @property integer $option_id
- * @property string $nombre
- * @property string $ruta
- * @property string $descripcion
- * @property string $icono_l
- * @property string $icono_r
- * @property integer $orden
- * @property string $color
- * @property boolean $dev
  * @property int $id
+ * @property int|null $option_id opcion padre
+ * @property string $nombre
+ * @property string|null $ruta
+ * @property string|null $descripcion
+ * @property string $icono_l
+ * @property string|null $icono_r
+ * @property int|null $orden
+ * @property string|null $color
+ * @property int $recursos
+ * @property bool $dev
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -33,7 +30,9 @@ use Illuminate\Support\Facades\Auth;
  * @property-read mixed $text
  * @property-read mixed $visible_to_user
  * @property-read Option|null $parent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Role[] $roles
  * @property-read int|null $roles_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
  * @property-read int|null $users_count
  * @method static \Illuminate\Database\Eloquent\Builder|Option newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Option newQuery()
@@ -52,6 +51,7 @@ use Illuminate\Support\Facades\Auth;
  * @method static \Illuminate\Database\Eloquent\Builder|Option whereNombre($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Option whereOptionId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Option whereOrden($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereRecursos($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Option whereRuta($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Option whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Option withTrashed()
@@ -68,40 +68,18 @@ class Option extends Model
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
-    const PANEL_DE_CONTROL =        1;
-    const NUEVA_COMPRA_SOLA =       2;
-    const NUEVA_COMPRA =            4;
-    const PROVEEDORES =             5;
-    const BUSCAR_COMPRAS =          6;
-    const NUEVA_REQUISICION =       8;
-    const MIS_REQUISICIONES =       9;
-    const DESPACHAR_REQUISICION =   10;
-    const BUSCAR_REQUISICION =      11;
-    const NUEVO_ARTICULO =          14;
-    const BUSCAR_ARTÍCULO =         15;
-    const CATEGORIAS =              16;
-    const UNIDADES_DE_MEDIDA =      17;
-    const MARCAS =                  18;
-    const MAGNITUDES =              19;
-    const IMPORTAR_EXCEL =          20;
-    const TRASLADO_ENTRE_UNIDADES = 21;
-    const STOCK =                   24;
-    const KARDEX =                  25;
-    const ARTICULOS_A_VENCER =      26;
-    const USUARIOS =                28;
-    const ROLES =                   29;
-    const PERMISOS =                30;
-    const CONFIGURACIONES =         31;
-    const AUTORIZAR_REQUISICION =   32;
-    const APROBAR_REQISICION =      33;
 
-    const INVENTARIOS =             34;
-    const ACTIVOS =                 35;
-    const TARJETA_RESPONSABILIDAD = 36;
-    const INGRESO_INVENTARIO_1H =   37;
-    const SOLICITUD_CD_BIENES =     38;
-    const RPT_BIENES_POR_UNIDAD =   39;
-
+    const DASHBOARD =  1;
+    const ADMIN =  2;
+    const USUARIOS =  3;
+    const ROLES =  4;
+    const PERMISOS =  5;
+    const CONFIGURACIONES =  6;
+    const DEVELOPER =  7;
+    const PRUEBA_APIS =  8;
+    const CONFIGURACIONES_DEV =  9;
+    const MENU =  11;
+    const PRUEBAS =  12;
 
     protected $appends= ['active','visible_to_user','text','ruta_evaluada'];
 
@@ -114,6 +92,7 @@ class Option extends Model
         'icono_r',
         'orden',
         'color',
+        'recursos',
         'dev'
     ];
 
@@ -188,7 +167,17 @@ class Option extends Model
         if (!$this->ruta){
             return '';
         }
-        return request()->route()->getName() == $this->ruta ? 'active' : '';
+
+        $tieneIndex = str_contains($this->ruta,'index');
+
+
+        if ($this->recursos && $tieneIndex){
+            $ruta = str_replace("index","*",$this->ruta);
+            return request()->routeIs($ruta)  ? 'active' : '';
+        }else{
+            return request()->routeIs($this->ruta)  ? 'active' : '';
+        }
+
     }
 
     public function openTreeView($children=null)
@@ -256,3 +245,5 @@ class Option extends Model
         return rutaOpcion($this);
     }
 }
+
+

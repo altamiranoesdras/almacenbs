@@ -3,55 +3,41 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\ConfigurationDataTable;
-use App\Http\Requests;
 use App\Http\Requests\CreateConfigurationRequest;
 use App\Http\Requests\UpdateConfigurationRequest;
-use App\Models\Configuration;
-use Flash;
 use App\Http\Controllers\AppBaseController;
-use Response;
+use App\Models\Configuration;
+use Illuminate\Http\Request;
 
 class ConfigurationController extends AppBaseController
 {
-    /**
-     * ConfigurationController constructor.
-     */
+
     public function __construct()
     {
-        $this->middleware('permission:Ver Configuración')->only('show');
-        $this->middleware('permission:Crear Configuración')->only(['create','store']);
-        $this->middleware('permission:Editar Configuración')->only(['edit','update']);
-        $this->middleware('permission:Eliminar Configuración')->only('destroy');
+        $this->middleware('permission:Ver Configurations')->only('show');
+        $this->middleware('permission:Crear Configurations')->only(['create','store']);
+        $this->middleware('permission:Editar Configurations')->only(['edit','update']);
+        $this->middleware('permission:Eliminar Configurations')->only('destroy');
     }
-
-
     /**
      * Display a listing of the Configuration.
-     *
-     * @param ConfigurationDataTable $configurationDataTable
-     * @return Response
      */
     public function index(ConfigurationDataTable $configurationDataTable)
     {
-        return $configurationDataTable->render('admin.configurations.index');
+    return $configurationDataTable->render('configurations.index');
     }
+
 
     /**
      * Show the form for creating a new Configuration.
-     *
-     * @return Response
      */
     public function create()
     {
-        return view('admin.configurations.create');
+        return view('configurations.create');
     }
 
     /**
      * Store a newly created Configuration in storage.
-     *
-     * @param CreateConfigurationRequest $request
-     *
-     * @return Response
      */
     public function store(CreateConfigurationRequest $request)
     {
@@ -60,17 +46,13 @@ class ConfigurationController extends AppBaseController
         /** @var Configuration $configuration */
         $configuration = Configuration::create($input);
 
-        Flash::success('Configuration saved successfully.');
+        flash()->success('Configuration guardado.');
 
-        return redirect(route('dev.configurations.index'));
+        return redirect(route('configurations.index'));
     }
 
     /**
      * Display the specified Configuration.
-     *
-     * @param  int $id
-     *
-     * @return Response
      */
     public function show($id)
     {
@@ -78,20 +60,16 @@ class ConfigurationController extends AppBaseController
         $configuration = Configuration::find($id);
 
         if (empty($configuration)) {
-            Flash::error('Configuration not found');
+            flash()->error('Configuration no encontrado');
 
-            return redirect(route('dev.configurations.index'));
+            return redirect(route('configurations.index'));
         }
 
-        return view('admin.configurations.show')->with('configuration', $configuration);
+        return view('configurations.show')->with('configuration', $configuration);
     }
 
     /**
      * Show the form for editing the specified Configuration.
-     *
-     * @param  int $id
-     *
-     * @return Response
      */
     public function edit($id)
     {
@@ -99,21 +77,16 @@ class ConfigurationController extends AppBaseController
         $configuration = Configuration::find($id);
 
         if (empty($configuration)) {
-            Flash::error('Configuration not found');
+            flash()->error('Configuration no encontrado');
 
-            return redirect(route('dev.configurations.index'));
+            return redirect(route('configurations.index'));
         }
 
-        return view('admin.configurations.edit')->with('configuration', $configuration);
+        return view('configurations.edit')->with('configuration', $configuration);
     }
 
     /**
      * Update the specified Configuration in storage.
-     *
-     * @param  int              $id
-     * @param UpdateConfigurationRequest $request
-     *
-     * @return Response
      */
     public function update($id, UpdateConfigurationRequest $request)
     {
@@ -121,27 +94,23 @@ class ConfigurationController extends AppBaseController
         $configuration = Configuration::find($id);
 
         if (empty($configuration)) {
-            Flash::error('Configuration not found');
+            flash()->error('Configuration no encontrado');
 
-            return redirect(route('dev.configurations.index'));
+            return redirect(route('configurations.index'));
         }
 
         $configuration->fill($request->all());
         $configuration->save();
 
-        Flash::success('Configuration updated successfully.');
+        flash()->success('Configuration actualizado.');
 
-        return redirect(route('dev.configurations.index'));
+        return redirect(route('configurations.index'));
     }
 
     /**
      * Remove the specified Configuration from storage.
      *
-     * @param  int $id
-     *
      * @throws \Exception
-     *
-     * @return Response
      */
     public function destroy($id)
     {
@@ -149,15 +118,15 @@ class ConfigurationController extends AppBaseController
         $configuration = Configuration::find($id);
 
         if (empty($configuration)) {
-            Flash::error('Configuration not found');
+            flash()->error('Configuration no encontrado');
 
-            return redirect(route('dev.configurations.index'));
+            return redirect(route('configurations.index'));
         }
 
         $configuration->delete();
 
-        Flash::success('Configuration deleted successfully.');
+        flash()->success('Configuration eliminado.');
 
-        return redirect(route('dev.configurations.index'));
+        return redirect(route('configurations.index'));
     }
 }

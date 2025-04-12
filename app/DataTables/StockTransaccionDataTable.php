@@ -117,7 +117,7 @@ class StockTransaccionDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'stock_transaccions_'  . date('YmdHis');
     }

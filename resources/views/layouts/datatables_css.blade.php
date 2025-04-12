@@ -1,4 +1,6 @@
-<!-- DataTable Bootstrap -->
-<link rel="stylesheet" href="{{asset('plugins/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
-<link rel="stylesheet" href="{{asset('plugins/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css')}}">
-<link rel="stylesheet" href="{{asset('plugins/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css')}}">
+<!-- Estilos DataTable Bootstrap -->
+<link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/tables/datatable/dataTables.bootstrap5.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/tables/datatable/responsive.bootstrap5.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/tables/datatable/buttons.bootstrap5.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/tables/datatable/rowGroup.bootstrap5.min.css')}}">
+<!-- Fin Estilos DataTable Bootstrap -->

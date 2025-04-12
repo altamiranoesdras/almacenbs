@@ -2,12 +2,11 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Permission;
+use Illuminate\Foundation\Http\FormRequest;
 
 class UpdatePermissionRequest extends FormRequest
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -25,6 +24,13 @@ class UpdatePermissionRequest extends FormRequest
      */
     public function rules()
     {
-        return [];
+        $rules = Permission::$rules;
+        
+        return $rules;
+    }
+
+    public function messages()
+    {
+        return Permission::$messages;
     }
 }

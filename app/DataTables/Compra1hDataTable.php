@@ -120,7 +120,7 @@ class Compra1hDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'compra1hs_'  . date('YmdHis');
     }

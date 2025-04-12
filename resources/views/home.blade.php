@@ -1,136 +1,130 @@
 @extends('layouts.app')
 
-@section('title_page',__('Home'))
+@section('titulo_pagina',__('Home'))
 
-@push('css')
-
-    <style>
-        .card {
-            min-width: 12rem !important;
-            max-width: 12rem !important;
-        }
-
-
-        .badge-float {
-            font-size: 10px;
-            font-weight: 400;
-            position: absolute;
-            right: -10px;
-            top: -3px;
-        }
-    </style>
-@endpush
-
+@include('layouts.plugins.jquery-ui')
 
 @section('content')
 
+    <div id="root">
 
-        <!-- Content Header (Page header) -->
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col">
-                        <h1 class="m-0 text-dark">Bienvenido {{Auth::user()->name}}</h1>
-                    </div><!-- /.col -->
-                    <div class="col ">
-                        <button class="btn btn-outline-primary float-right" :class="{'btn-outline-success' : editando}" @click="editando=!editando">
-                            <i class="fa fa-edit" v-if="!editando"></i>
-                            <i class="fa fa-save" v-if="editando"></i>
-                            <span class="d-none d-sm-inline" v-if="!editando">
+        <div class="content-header row">
+            <div class="content-header-left col-md-9 col-12 mb-2">
+                <div class="row breadcrumbs-top">
+                    <div class="col-12">
+                        <h2 class="content-header-title float-start mb-0">
+                            Bienvenido {{Auth::user()->name}}
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
+                <div class="mb-1 breadcrumb-right">
+                    <button class="btn btn-outline-primary float-right" :class="{'btn-outline-success' : editando}" @click="editando=!editando">
+                        <i class="fa fa-edit" v-if="!editando"></i>
+                        <i class="fa fa-save" v-if="editando"></i>
+                        <span class="d-none d-sm-inline" v-if="!editando">
                             {{__('Edit Shortcuts')}}
                         </span>
-                            <span class="d-none d-sm-inline" v-if="editando">
+                        <span class="d-none d-sm-inline" v-if="editando">
                             {{__('Finish edition')}}
                         </span>
-                        </button>
-
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </div><!-- /.container-fluid -->
-        </div>
-        <!-- /.content-header -->
-
-        <!-- Main content -->
-        <div class="content">
-            <div class="container-fluid">
-
-                <div class="row">
-
-
-                    <div class="col-6 col-lg-3 py-2  text-center" v-for="shortcut in user.shortcuts" >
-
-                        <div class="card" style="padding: 1rem">
-                            <span class="badge badge-float bg-danger" v-if="editando"  >
-                                 <button type="button" class="btn btn-sm" @click="removerAcceso(shortcut)" >
-                                    <i class="fa fa-trash  text-white"></i>
-                                </button>
-                            </span>
-                            <a :href="shortcut.ruta_evaluada"  style="color: black !important;">
-                                <i class="fas fa-3x mb-1" :class="shortcut.icono_l+' '+colorIcono(shortcut.color)" ></i>
-                                <h6 class="text-uppercase" v-text="shortcut.nombre"></h6>
-                            </a>
-                        </div>
-
-
-                    </div>
+                    </button>
 
                 </div>
-
-                <div class="row" v-show="editando">
-
-                    <div class="col-12">
-                        <hr>
-                        <br>
-                    </div>
+            </div>
+        </div>
 
 
-                    <div class="col-6 col-lg-3 py-2 text-center" v-for="option in opcionesFiltradas">
+        <!-- Main content -->
+
+        <div class="content-body">
+            <br>
+            <div class="row">
+
+                <div class="col-6 col-lg-3 px-2" v-for="shortcut in user.shortcuts">
 
 
-
-
-                        <div class="card" style="padding: 1rem">
-                            <span class="badge badge-float bg-success" v-if="editando"  >
-                                 <button type="button" class="btn btn-sm" @click="agregarAcceso(option)" >
-                                    <i class="fa fa-plus text-white"></i>
-                                </button>
-                            </span>
-                            <a :href="option.ruta_evaluada"  style="color: black !important;">
-                                <i class="fas fa-3x mb-1" :class="option.icono_l+' '+colorIcono(option.color)" ></i>
-                                <h6 class="text-uppercase" v-text="option.nombre"></h6>
-                            </a>
+                    <div class="card text-center">
+                        <span class="badge rounded-pill bg-danger badge-up badge-glow" v-if="editando">
+                            <button type="button" class="btn btn-flat-warning btn-sm px-1" @click="removerAcceso(shortcut)">
+                                <i class="fa fa-trash fa-3x  text-white"></i>
+                            </button>
+                        </span>
+                        <a :href="shortcut.ruta_evaluada" >
+                        <div class="card-body p-1">
+                            <div class="avatar p-50 mb-1" :class="shortcut.color">
+                                <div class="avatar-content">
+                                    <i class="fa fa-2x" :class="shortcut.icono_l" style="color: white !important;"></i>
+                                </div>
+                            </div>
+                            <p class="card-text" v-text="shortcut.nombre">
+                            </p>
                         </div>
-
+                        </a>
                     </div>
 
                 </div>
 
             </div>
-            <!-- /.container-fluid -->
+
+            <div class="row" v-show="editando">
+
+                <div class="col-12">
+                    <hr>
+                    <br>
+                </div>
+
+                <div class="col-6 col-lg-3 px-2" v-for="option in opcionesFiltradas">
+
+                    <div class="card text-center">
+                        <span class="badge rounded-pill bg-success badge-up badge-glow" v-if="editando">
+                            <button type="button" class="btn btn-flat-warning btn-sm px-1" @click="agregarAcceso(option)">
+                                <i class="fa fa-plus text-white"></i>
+                            </button>
+                        </span>
+                        <a :href="option.ruta_evaluada" >
+                            <div class="card-body p-1">
+                                <div class="avatar p-50 mb-1" :class="option.color">
+                                    <div class="avatar-content">
+                                        <i class="fa fa-2x" :class="option.icono_l" style="color: white !important;"></i>
+                                    </div>
+                                </div>
+                                <p class="card-text" v-text="option.nombre">
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
-        <!-- /.content -->
 
 
+
+
+    </div>
+
+
+    <!-- Modal -->
 
 @endsection
 
 @push('scripts')
+    <script src="{{asset('app-assets/vendors/js/blockui/blockui.min.js')}}"></script>
     <script>
         const app = new Vue({
-            el: '#contenido',
+            el: '#root',
             created() {
                 this.getData();
             },
             data: {
-                user : @json(\App\Models\User::with(['shortcuts','options'])->find(auth()->user()->id)),
+                user : @json($user),
                 editando: false,
             },
             methods: {
-                colorIcono(clase){
-                    if (clase){
-                        return clase.replace('bg-','text-')
-                    }
-                },
                 async getData(){
 
 
@@ -146,7 +140,7 @@
                 },
                 async agregarAcceso(option){
 
-                    esperar();
+                    this.bloquear();
 
                     try {
                         let res = await axios.post(route("api.users.add_shortcut",this.user.id), {'option' : option.id});
@@ -161,11 +155,11 @@
                         notifyErrorApi(e)
                     }
 
-                    finEspera();
+                    this.desbloquear();
                 },
                 async removerAcceso(option){
 
-                    esperar();
+                    this.bloquear();
                     logI('remove shortcut',option);
 
 
@@ -182,8 +176,30 @@
 
                     }
 
-                    finEspera();
+                    this.desbloquear();
                 },
+                bloquear(){
+                    $.blockUI({
+                        message: `
+                            <div class="d-flex justify-content-center align-items-center">
+                                <p class="me-50 mb-0">{{__('Please wait')}}...</p>
+                                <div class="spinner-grow spinner-grow-sm text-white" role="status">
+                                </div>
+                            </div>
+                        `,
+                        css: {
+                            backgroundColor: 'transparent',
+                            color: '#fff',
+                            border: '0'
+                        },
+                        overlayCSS: {
+                            opacity: 0.5
+                        }
+                    });
+                },
+                desbloquear(){
+                    $.unblockUI();
+                }
             },
             computed: {
                 opcionesFiltradas(){
@@ -220,5 +236,4 @@
 
 
 @endpush
-
 

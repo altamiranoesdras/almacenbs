@@ -1,10 +1,12 @@
 <!-- Name Field -->
-{!! Form::label('name', 'Name:') !!}
-{!! $permission->name !!}<br>
-
+<div class="col-sm-12">
+    {!! Form::label('name', 'Name:') !!}
+    <p>{{ $permission->name }}</p>
+</div>
 
 <!-- Guard Name Field -->
-{!! Form::label('guard_name', 'Guard Name:') !!}
-{!! $permission->guard_name !!}<br>
-
+<div class="col-sm-12">
+    {!! Form::label('guard_name', 'Guard Name:') !!}
+    <p>{{ $permission->guard_name }}</p>
+</div>
 

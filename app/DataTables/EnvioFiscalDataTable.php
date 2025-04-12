@@ -129,7 +129,7 @@ class EnvioFiscalDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'envio_fiscals_'  . date('YmdHis');
     }

@@ -42,7 +42,11 @@ ul.pagination {
     flex-wrap: wrap !important;
 }
 
+.wait-on-submit{
 
-.esperar {
+}
 
+//fix
+.swal2-title {
+    color: inherit !important;
 }

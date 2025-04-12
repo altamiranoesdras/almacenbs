@@ -28,12 +28,6 @@ window.iziTe = (tile,message) => {
     });
 }
 
-$('.duallistbox').bootstrapDualListbox()
-
-
-$('[data-toggle="tooltip"]').tooltip();
-
-window.Swal = require('sweetalert2')
 
 window.alertSucces = (title,text,html,time) => {
 
@@ -149,9 +143,10 @@ window.deleteItemDt = (data) =>{
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí\n!'
+        confirmButtonText: 'Si, elimínalo\n!'
     }).then((result) => {
-        if (result.value) {
+        if (result.isConfirmed) {
+            esperar()
             $("#delete-form"+id).submit();
         }
     });
@@ -217,10 +212,11 @@ window.notifyErrorApi = (e) =>{
 Vue.prototype.$eventBus = new Vue();
 
 
-$(".esperar").submit(function( event ) {
-
+$('.esperar').submit(function (e){
     esperar();
 });
+
+
 
 window.esperar = (e) =>{
 
@@ -240,3 +236,45 @@ window.finEspera = (e) =>{
     Swal.close()
 
 }
+
+
+
+
+/**
+ * Formatea los datos de los inputs de un formulario
+ * solo se utiliza en archivos de servicio DataTable ej: VentaDataTable.php
+ * en el método html
+ * ->ajax([
+ *      'data' => "function(data) { formatDataDatatables($('#formFiltersDatatables').serializeArray(), data);   }"
+ *  ])
+ * @param source
+ * @param target
+ */
+window.formatDataDataTables = function (source, target) {
+
+    $(source).each(function (i, v) {
+
+        // console.log(i, v);
+        if(v['name'].includes('[]')){
+
+            if (!target[v['name']]){
+                target[v['name']] =  [v['value']]
+            }else{
+                target[v['name']].push(v['value']) ;
+            }
+        }else{
+            target[v['name']] = v['value'];
+        }
+    })
+
+}
+
+var { log, logI, logD, logW, logE, logConfig } = require("./override-console-log");
+
+window.log = log;
+window.logI = logI;
+window.logD = logD;
+window.logW = logW;
+window.logE = logE;
+window.logConfig = logConfig;
+

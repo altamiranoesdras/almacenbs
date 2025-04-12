@@ -112,7 +112,7 @@ class ActivoEstadoDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'activo_estados_'  . date('YmdHis');
     }

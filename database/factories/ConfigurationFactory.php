@@ -1,17 +1,35 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
 use App\Models\Configuration;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Configuration::class, function (Faker $faker) {
 
-    return [
-        'key' => $faker->word,
-        'value' => $faker->word,
-        'descripcion' => $faker->text,
-        'created_at' => $faker->date('Y-m-d H:i:s'),
-        'updated_at' => $faker->date('Y-m-d H:i:s'),
-    ];
-});
+class ConfigurationFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Configuration::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+
+        return [
+            'key' => $this->faker->text($this->faker->numberBetween(5, 4096)),
+            'value' => $this->faker->text($this->faker->numberBetween(5, 4096)),
+            'descripcion' => $this->faker->text($this->faker->numberBetween(5, 4096)),
+            'created_at' => $this->faker->date('Y-m-d H:i:s'),
+            'updated_at' => $this->faker->date('Y-m-d H:i:s'),
+
+        ];
+    }
+}

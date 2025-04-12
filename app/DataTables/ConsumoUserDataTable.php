@@ -144,7 +144,7 @@ class ConsumoUserDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'consumos_'  . date('YmdHis');
     }

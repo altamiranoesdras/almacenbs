@@ -50,16 +50,19 @@ class RoleAPIController extends AppBaseController
      */
     public function store(CreateRoleAPIRequest $request)
     {
-        $input = $request->all();
+
+        $request->merge([
+           'guard_name' => 'web'
+        ]);
 
         try {
             DB::beginTransaction();
 
             /** @var Role $role */
-            $role = Role::create($input);
+            $role = Role::create($request->all());
 
             // se coloca (permissions[]) con los corchetes porque asi lo transforma la funcion js serializeObject
-            $role->syncPermissions($input['permissions[]']);
+            $role->syncPermissions($request->input('permissions[]') ?? []);
 
         } catch (Exception $exception) {
             DB::rollBack();
@@ -103,7 +106,6 @@ class RoleAPIController extends AppBaseController
      */
     public function update($id, UpdateRoleAPIRequest $request)
     {
-        $input = $request->all();
 
         /** @var Role $role */
         $role = Role::find($id);
@@ -115,12 +117,15 @@ class RoleAPIController extends AppBaseController
         try {
             DB::beginTransaction();
 
+            $request->merge([
+                'guard_name' => 'web'
+            ]);
 
-            $role->fill($input);
+            $role->fill($request->all());
             $role->save();
 
             // se coloca (permissions[]) con los corchetes porque asi lo transforma la funcion js serializeObject
-            $role->syncPermissions($input['permissions[]']);
+            $role->syncPermissions($request->input('permissions[]') ?? []);
 
         } catch (Exception $exception) {
             DB::rollBack();

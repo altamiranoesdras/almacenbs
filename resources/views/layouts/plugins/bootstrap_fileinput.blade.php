@@ -1,5 +1,5 @@
-@push('css')
-<link rel="stylesheet" href="{{asset('plugins/bootstrap-fileinput/css/fileinput.min.css')}}" />
+@push('estilos')
+    <link rel="stylesheet" href="{{asset('plugins/bootstrap-fileinput/css/fileinput.min.css')}}" />
 @endpush
 @push('scripts')
     <script>

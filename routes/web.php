@@ -5,6 +5,8 @@ use App\Http\Controllers\ConsumoController;
 use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\LibroAlamcenController;
 use App\Http\Controllers\LogController;
+use App\Http\Controllers\NotificacionesController;
+use App\Http\Controllers\PruebasController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -87,6 +89,19 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     });
 
     Route::group(['prefix' => 'dev','as' => 'dev.'],function (){
+
+        Route::get('logs', [LogController::class,'index'])->name('logs');
+
+        Route::group(['prefix' => 'pruebas','as' => 'pruebas.'],function (){
+
+            Route::get('/',[PruebasController::class,'index'])->name('index');
+            Route::post('enviar/notificacion',[PruebasController::class,'enviarNotificacion'])->name('enviar.notificacion');
+            Route::get('correo/vista/previa',[PruebasController::class,'vistaPreviaCorreo'])->name('correo.vista.previa');
+            Route::get('api',[PruebaApiController::class,'index'])->name('api');
+            Route::get('error/{codigo}',function ($codigo){
+                return abort($codigo);
+            })->name('error');
+        });
 
         Route::get('prueba/mail',function (){
 
@@ -312,6 +327,9 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     Route::get('stocks/import', [\App\Http\Controllers\ImportarStockController::class,'index'])->name('stocks.importar');
     Route::post('stocks/import', [\App\Http\Controllers\ImportarStockController::class,'importar'])->name('stocks.importar.procesar');
+
+    Route::get('notificaciones/leer/{notification}', [NotificacionesController::class,'leer'])->name('notificaciones.leer');
+    Route::resource('notificaciones', NotificacionesController::class);
 
 });
 

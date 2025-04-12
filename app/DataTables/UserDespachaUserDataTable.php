@@ -112,7 +112,7 @@ class UserDespachaUserDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'user_despacha_users_'  . date('YmdHis');
     }

@@ -113,7 +113,7 @@ class ItemPresentacionDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'item_presentaciones_'  . date('YmdHis');
     }

@@ -2,12 +2,11 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Configuration;
+use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateConfigurationRequest extends FormRequest
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -28,5 +27,10 @@ class UpdateConfigurationRequest extends FormRequest
         $rules = Configuration::$rules;
         
         return $rules;
+    }
+
+    public function messages()
+    {
+        return Configuration::$messages;
     }
 }

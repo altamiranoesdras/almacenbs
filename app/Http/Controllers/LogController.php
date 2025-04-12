@@ -9,7 +9,7 @@ class LogController extends Controller
     public function index()
     {
 
-        return view('developer.log_viewer');
+        return view('log_viewer');
 
     }
 }
