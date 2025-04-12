@@ -1,71 +1,60 @@
 @extends('layouts.app')
 
-@section('titulo_pagina')
-    Insumos
-@endsection
+@section('titulo_pagina', 'Insumos')
 
 @section('content')
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col">
-                    <h1 class="m-0 text-dark">Insumos</h1>
-                </div><!-- /.col -->
-                <div class="col">
-                    <ol class="breadcrumb float-right">
-                        <li class="breadcrumb-item">
-                            <a class="btn btn-outline-success"
-                                href="{!! route('items.create') !!}">
-                                <i class="fa fa-plus"></i>
-                                <span class="d-none d-sm-inline">Agregar Nuevo</span>
-                            </a>
-                        </li>
-                    </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
 
-    <!-- Main content -->
-    <div class="content">
-        <div class="container-fluid">
-
-
-            <div class="row">
-                <div class="col-lg-12">
-
-                    <div class="card card-outline card-success">
-                        <div class="card-header">
-                            <h3 class="card-title">Filtros</h3>
-
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                </button>
-                            </div>
-                            <!-- /.card-tools -->
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            @include('items.filtros')
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-
-                    <div class="card">
-                        <div class="card-body">
-                           @include('items.table')
-                        </div>
-                    </div>
-                    <!-- /.card -->
+    <div class="content-header row">
+        <div class="content-header-left col-md-9 col-12 mb-2">
+            <div class="row breadcrumbs-top">
+                <div class="col-12">
+                    <h2 class="content-header-title float-start mb-0">
+                        Insumos
+                    </h2>
                 </div>
-                <!-- /.col-md-6 -->
             </div>
-            <!-- /.row -->
         </div>
-        <!-- /.container-fluid -->
-    </div>
-    <!-- /.content -->
-@endsection
 
+        <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
+            <div class="mb-1 breadcrumb-right">
+                <div class="dropdown">
+                    <a class="btn btn-primary float-right"
+                       href="{{ route('items.create') }}">
+                        Agregar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-body">
+
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Filtros</h4>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        <li>
+                            <a data-action="collapse"><i data-feather="chevron-up"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-content collapse hide">
+                <div class="card-body">
+                    @include('items.filtros')
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    @include('items.table')
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+@endsection
