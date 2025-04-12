@@ -29,7 +29,7 @@ class SolicitudApruebaDataTable extends DataTable
             })
             ->editColumn('codigo',function (Solicitud $solicitud){
 
-                return view('solicitudes.modal_show',compact('solicitud'))->render();
+                return view('solicitudes.aprobar.modal_aprobar',compact('solicitud'))->render();
 
             })
             ->editColumn('justificacion',function (Solicitud $solicitud){
@@ -58,14 +58,21 @@ class SolicitudApruebaDataTable extends DataTable
 
             })
             ->editColumn('fecha_solicita',function (Solicitud $solicitud){
-                return fechaLtn($solicitud->fecha_solicita);
+                return fechaHoraLtn($solicitud->fecha_solicita);
             })
             ->editColumn('fecha_despacha',function (Solicitud $solicitud){
                 if ($solicitud->fecha_despacha){
-                    return fechaLtn($solicitud->fecha_despacha);
+                    return fechaHoraLtn($solicitud->fecha_despacha);
                 }
             })
-            ->rawColumns(['action','codigo']);
+            ->editColumn('estado.nombre',function (Solicitud $solicitud){
+
+                $color = $solicitud->estado->color;
+
+                return "<span class='badge badge-$color'>{$solicitud->estado->nombre}</span>";
+
+            })
+            ->rawColumns(['action','codigo','estado.nombre']);
     }
 
     /**
@@ -78,7 +85,7 @@ class SolicitudApruebaDataTable extends DataTable
     {
         return $model->newQuery()
             ->select('solicitudes.*')
-            ->with(['detalles.item','usuarioSolicita','usuarioAutoriza','usuarioAprueba','usuarioDespacha','estado']);
+            ->with(['detalles.item','usuarioSolicita','usuarioAutoriza','usuarioAprueba','usuarioDespacha','estado','unidad','bodega','bitacoras']);
     }
 
     /**
@@ -141,10 +148,18 @@ class SolicitudApruebaDataTable extends DataTable
                 ->name('usuarioSolicita.name')
                 ->data('usuario_solicita.name'),
 
-            Column::make('usuario_autoriza')
-                ->name('usuarioAutoriza.name')
-                ->data('usuario_autoriza.name'),
+//            Column::make('usuario_autoriza')
+//                ->name('usuarioAutoriza.name')
+//                ->data('usuario_autoriza.name'),
 
+
+            Column::make('unidad')
+                ->name('unidad.nombre')
+                ->data('unidad.nombre'),
+
+            Column::make('Sede/Bodega')
+                ->name('bodega.nombre')
+                ->data('bodega.nombre'),
 
             Column::make('estado')
                 ->name('estado.nombre')
@@ -163,7 +178,7 @@ class SolicitudApruebaDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'solicitudesdatatable_' . time();
     }

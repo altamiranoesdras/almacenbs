@@ -18,7 +18,7 @@ class ColaboradorAPIController extends AppBaseController
 {
     /**
      * Display a listing of the Colaborador.
-     * GET|HEAD /colaboradors
+     * GET|HEAD /colaboradores
      *
      * @param Request $request
      * @return Response
@@ -34,14 +34,14 @@ class ColaboradorAPIController extends AppBaseController
             $query->limit($request->get('limit'));
         }
 
-        $colaboradors = $query->get();
+        $colaboradores = $query->get();
 
-        return $this->sendResponse($colaboradors->toArray(), 'Colaboradors retrieved successfully');
+        return $this->sendResponse($colaboradores->toArray(), 'Colaboradores retrieved successfully');
     }
 
     /**
      * Store a newly created Colaborador in storage.
-     * POST /colaboradors
+     * POST /colaboradores
      *
      * @param CreateColaboradorAPIRequest $request
      *
@@ -59,7 +59,7 @@ class ColaboradorAPIController extends AppBaseController
 
     /**
      * Display the specified Colaborador.
-     * GET|HEAD /colaboradors/{id}
+     * GET|HEAD /colaboradores/{id}
      *
      * @param int $id
      *
@@ -79,7 +79,7 @@ class ColaboradorAPIController extends AppBaseController
 
     /**
      * Update the specified Colaborador in storage.
-     * PUT/PATCH /colaboradors/{id}
+     * PUT/PATCH /colaboradores/{id}
      *
      * @param int $id
      * @param UpdateColaboradorAPIRequest $request
@@ -103,7 +103,7 @@ class ColaboradorAPIController extends AppBaseController
 
     /**
      * Remove the specified Colaborador from storage.
-     * DELETE /colaboradors/{id}
+     * DELETE /colaboradores/{id}
      *
      * @param int $id
      *

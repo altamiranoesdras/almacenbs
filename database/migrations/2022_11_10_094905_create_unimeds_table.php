@@ -17,7 +17,7 @@ class CreateUnimedsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('magnitud_id')->index('fk_unimeds_magnitudes1_idx');
             $table->string('simbolo', 10);
-            $table->string('nombre', 45);
+            $table->string('nombre');
             $table->timestamps();
             $table->softDeletes();
         });

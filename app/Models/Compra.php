@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class Compra
+ *
  * @package App\Models
  * @version July 27, 2022, 12:21 pm CST
- *
  * @property \App\Models\User $usuarioCrea
  * @property \App\Models\Proveedor $proveedor
  * @property \App\Models\CompraTipo $tipo
@@ -22,8 +23,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property integer $proveedor_id
  * @property string $codigo
  * @property integer $correlativo
- * @property string $fecha_documento
- * @property string $fecha_ingreso
+ * @property Carbon $fecha_documento
+ * @property Carbon $fecha_ingreso
  * @property string $serie
  * @property string $numero
  * @property integer $estado_id
@@ -31,6 +32,55 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property integer $usuario_recibe
  * @property string $observaciones
  * @property string $orden_compra
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Compra1h|null $compra1h
+ * @property-read int|null $compra1hs_count
+ * @property-read int|null $detalles_count
+ * @property-read mixed $sub_total
+ * @property-read mixed $total
+ * @property-read mixed $total_venta
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra delItem($item)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra delUser($user = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra delUsuarioCrea($user = null)
+ * @method static \Database\Factories\CompraFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra noTemporal()
+ * @method static \Illuminate\Database\Query\Builder|Compra onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra temporal()
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereCodigo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereCorrelativo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereEstadoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereFechaDocumento($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereFechaIngreso($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereNumero($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereObservaciones($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereOrdenCompra($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereProveedorId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereSerie($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereTipoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereUsuarioCrea($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereUsuarioRecibe($value)
+ * @method static \Illuminate\Database\Query\Builder|Compra withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Compra withoutTrashed()
+ * @mixin \Eloquent
+ * @property string|null $folio_almacen
+ * @property-read mixed $anio
+ * @property-read mixed $mes
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereFolioAlmacen($value)
+ * @property string|null $folio_inventario
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereFolioInventario($value)
+ * @property string $descuento
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereDescuento($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra noAnuladas()
  */
 class Compra extends Model
 {
@@ -61,6 +111,9 @@ class Compra extends Model
         'usuario_recibe',
         'observaciones',
         'orden_compra',
+        'descuento',
+        'folio_almacen',
+        'folio_inventario',
     ];
 
     /**
@@ -108,6 +161,8 @@ class Compra extends Model
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'
     ];
+
+    protected $appends = ['total_venta'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -171,29 +226,27 @@ class Compra extends Model
     }
 
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     **/
-    public function ventas()
-    {
-        return $this->belongsToMany(Venta::class, 'compra_venta');
-    }
-
-
     public function getTotalAttribute()
     {
-        return $this->sub_total - ($this->descuento_monto ?? 0);
+        return $this->sub_total - ($this->descuento ?? 0);
     }
 
 
-    public function precioPromedioItems()
+    public function actualizaPreciosItem()
     {
-        foreach ($this->detalles as $index => $compraDetalle) {
+        /**
+         * @var CompraDetalle $detalle
+         */
+        foreach ($this->detalles as $index => $detalle) {
 
-            $item = $compraDetalle->item;
+            /**
+             * @var Item $item
+             */
+            $item = $detalle->item;
 
-            if($compraDetalle->precio > 0){
+            if($detalle->precio > 0){
 
+                $item->precio_compra = $detalle->precio;
                 $item->precio_promedio = $item->precioPromedio();
                 $item->save();
             }
@@ -208,7 +261,7 @@ class Compra extends Model
 
         if ($user){
 
-            return $query->where('user_id',$user);
+            return $query->where('usuario_crea',$user);
         }
 
         return $query;
@@ -226,7 +279,8 @@ class Compra extends Model
     {
 
         return $this->detalles->sum(function ($det){
-            return $det->cantidad*$det->item->precio_venta;
+            return $det->cantidad*$det->item->precio_compra;
+//            return $det->cantidad*$det->item->precio_venta;
         });
 
     }
@@ -243,10 +297,22 @@ class Compra extends Model
         }
 
         $this->estado_id = CompraEstado::RECIBIDA;
-        $this->fecha_ingreso = hoyDb();
+//        $this->fecha_ingreso = hoyDb();
         $this->save();
 
-        $this->precioPromedioItems();
+        $this->actualizaPreciosItem();
+    }
+
+    public function procesarKardex()
+    {
+
+        /**
+         * @var CompraDetalle $detalle
+         */
+        foreach ($this->detalles as $index => $detalle) {
+            $detalle->agregarKardex();
+        }
+
     }
 
     public function scopeDelItem($query,$item)
@@ -274,6 +340,11 @@ class Compra extends Model
         $q->where('estado_id','!=',CompraEstado::TEMPORAL);
     }
 
+    public function scopeNoAnuladas($q)
+    {
+        $q->where('estado_id','!=',CompraEstado::ANULADA);
+    }
+
 
     public function anular()
     {
@@ -294,4 +365,50 @@ class Compra extends Model
     {
         return $this->compra1hs->count() > 0;
     }
+
+    public function estaRecibida()
+    {
+        return $this->estado_id==CompraEstado::RECIBIDA;
+    }
+
+    public function puedeAnular()
+    {
+        return $this->estado_id != CompraEstado::ANULADA && $this->estado_id == CompraEstado::RECIBIDA;
+    }
+
+    public function puedeCancelar()
+    {
+        return $this->estado_id == CompraEstado::CREADA;
+    }
+
+    public function getAnioAttribute()
+    {
+        return $this->fecha_ingreso ? $this->fecha_ingreso->format('Y') : null;
+    }
+
+
+    public function getMesAttribute()
+    {
+        return $this->fecha_ingreso ? $this->fecha_ingreso->format('m') : null;
+    }
+
+    public function puedeEditar()
+    {
+        return in_array($this->estado_id,[
+            CompraEstado::CREADA,
+            CompraEstado::RECIBIDA
+        ]);
+    }
+
+    public function tieneDobleIngreso()
+    {
+
+        $detallesConDobleTransaccion = $this->detalles->filter(function ($detalle) {
+            return $detalle->transaccionesStock->count() > 1;
+        });
+
+        return $detallesConDobleTransaccion->count() > 0;
+
+    }
+
 }

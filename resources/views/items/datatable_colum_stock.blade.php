@@ -23,7 +23,7 @@
                         <tr>
                             <th>{{$st->tienda->nombre}}</th>
                             <th>{{$st->lote}}</th>
-                            <th>{{fecha($st->fecha_ven)}}</th>
+                            <th>{{fecha($st->fecha_vence)}}</th>
                             <th>{{nf($st->cantidad)}}</th>
                         </tr>
                     @endforeach

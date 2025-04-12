@@ -25,7 +25,7 @@ class ItemAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $query = Item::query();
+        $query = Item::conDetSolicitudesAprobadas()->with('stocks')->limit(100);
 
         if ($request->get('skip')) {
             $query->skip($request->get('skip'));
@@ -34,9 +34,13 @@ class ItemAPIController extends AppBaseController
             $query->limit($request->get('limit'));
         }
         if ($request->search){
-            $query->where('nombre','like','%'.$request->search.'%')
-                ->orWhere('descripcion','like','%'.$request->search.'%')
-                ->orWhere('codigo','like','%'.$request->search.'%');
+            $search = str_replace(" ","%",$request->search);
+
+            $query->where('codigo_insumo',$search)
+                ->orWhereRaw(
+                "CONCAT_WS(' ',nombre  ) like '%{$search}%'"
+                )
+                ->orWhere('descripcion','like','%'.$search.'%');
         }
 
         $items = $query->get();

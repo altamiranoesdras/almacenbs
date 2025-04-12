@@ -112,7 +112,7 @@ class ItemTrasladoEstadoDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'item_traslado_estados_'  . date('YmdHis');
     }

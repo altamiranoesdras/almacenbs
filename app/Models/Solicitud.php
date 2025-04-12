@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasBitacora;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -11,9 +12,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class Solicitud
+ *
  * @package App\Models
  * @version July 27, 2022, 12:25 pm CST
- *
  * @property User $usuarioDespacha
  * @property User $usuarioSolicita
  * @property SolicitudEstado $estado
@@ -42,12 +43,61 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string|Carbon $fecha_informa
  * @property string|Carbon $fecha_despacha
  * @property integer $estado_id
+ * @property int $id
+ * @property string|null $observaciones
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read int|null $detalles_count
+ * @method static Builder|Solicitud aprobadas()
+ * @method static Builder|Solicitud autorizadas()
+ * @method static Builder|Solicitud deUnidad($unidad = null)
+ * @method static Builder|Solicitud delUsuarioCrea($user = null)
+ * @method static \Database\Factories\SolicitudFactory factory(...$parameters)
+ * @method static Builder|Solicitud newModelQuery()
+ * @method static Builder|Solicitud newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Solicitud onlyTrashed()
+ * @method static Builder|Solicitud query()
+ * @method static Builder|Solicitud solicitadas()
+ * @method static Builder|Solicitud temporal()
+ * @method static Builder|Solicitud whereCodigo($value)
+ * @method static Builder|Solicitud whereCorrelativo($value)
+ * @method static Builder|Solicitud whereCreatedAt($value)
+ * @method static Builder|Solicitud whereDeletedAt($value)
+ * @method static Builder|Solicitud whereEstadoId($value)
+ * @method static Builder|Solicitud whereFechaAlmacenFirma($value)
+ * @method static Builder|Solicitud whereFechaAprueba($value)
+ * @method static Builder|Solicitud whereFechaAutoriza($value)
+ * @method static Builder|Solicitud whereFechaDespacha($value)
+ * @method static Builder|Solicitud whereFechaInforma($value)
+ * @method static Builder|Solicitud whereFechaSolicita($value)
+ * @method static Builder|Solicitud whereFirmaAlmacen($value)
+ * @method static Builder|Solicitud whereFirmaAprueba($value)
+ * @method static Builder|Solicitud whereFirmaAutoriza($value)
+ * @method static Builder|Solicitud whereFirmaRequiere($value)
+ * @method static Builder|Solicitud whereId($value)
+ * @method static Builder|Solicitud whereJustificacion($value)
+ * @method static Builder|Solicitud whereObservaciones($value)
+ * @method static Builder|Solicitud whereUnidadId($value)
+ * @method static Builder|Solicitud whereUpdatedAt($value)
+ * @method static Builder|Solicitud whereUsuarioAprueba($value)
+ * @method static Builder|Solicitud whereUsuarioAutoriza($value)
+ * @method static Builder|Solicitud whereUsuarioCrea($value)
+ * @method static Builder|Solicitud whereUsuarioDespacha($value)
+ * @method static Builder|Solicitud whereUsuarioSolicita($value)
+ * @method static \Illuminate\Database\Query\Builder|Solicitud withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Solicitud withoutTrashed()
+ * @mixin \Eloquent
+ * @property int|null $bodega_id
+ * @property-read \App\Models\Bodega|null $bodega
+ * @method static Builder|Solicitud whereBodegaId($value)
  */
 class Solicitud extends Model
 {
     use SoftDeletes;
 
     use HasFactory;
+    use HasBitacora;
 
     public $table = 'solicitudes';
 
@@ -56,6 +106,8 @@ class Solicitud extends Model
 
 
     protected $dates = ['deleted_at'];
+
+    protected $appends = ['motivo_retorna'];
 
     protected static function booted()
     {
@@ -70,6 +122,7 @@ class Solicitud extends Model
         'correlativo',
         'justificacion',
         'unidad_id',
+        'bodega_id',
 
         'usuario_crea',
         'usuario_solicita',
@@ -127,7 +180,7 @@ class Solicitud extends Model
     public static $rules = [
         'codigo' => 'nullable|string|max:255',
         'correlativo' => 'nullable|integer',
-        'justificacion' => 'required|string',
+        'justificacion' => 'required|string|max:350',
         'unidad_id' => 'nullable',
         'usuario_crea' => 'nullable',
         'usuario_solicita' => 'nullable',
@@ -206,6 +259,12 @@ class Solicitud extends Model
         return $this->belongsTo(RrhhUnidad::class, 'unidad_id');
     }
 
+    public function bodega()
+    {
+        return $this->belongsTo(Bodega::class, 'bodega_id');
+    }
+
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
@@ -225,6 +284,33 @@ class Solicitud extends Model
 
 
         $q->where('usuario_crea',$user->id);
+    }
+
+    public function muestraCantidadAprobar()
+    {
+
+        return $this->fecha_aprueba && $this->fecha_aprueba->isPast();
+
+//        return in_array($this->estado_id,[
+//            SolicitudEstado::SOLICITADA,
+//            SolicitudEstado::AUTORIZADA,
+//            SolicitudEstado::APROBADA,
+//            SolicitudEstado::ANULADA,
+//            SolicitudEstado::DESPACHADA,
+//        ]);
+    }
+
+    public function muestraCantidadDespachar()
+    {
+
+        return $this->fecha_despacha && $this->fecha_despacha->isPast();
+
+//        return in_array($this->estado_id,[
+//            SolicitudEstado::AUTORIZADA,
+//            SolicitudEstado::APROBADA,
+//            SolicitudEstado::DESPACHADA,
+//            SolicitudEstado::ANULADA,
+//        ]);
     }
 
     public function esTemporal()
@@ -257,12 +343,19 @@ class Solicitud extends Model
 
     public function puedeEditar()
     {
-        return $this->estado_id==SolicitudEstado::TEMPORAL || $this->estado_id==SolicitudEstado::INGRESADA;
+        return in_array($this->estado_id,[
+                SolicitudEstado::TEMPORAL,
+                SolicitudEstado::INGRESADA,
+                SolicitudEstado::RETORNO_SOLICITADA,
+            ]);
     }
 
     public function puedeSolicitar()
     {
-        return $this->estado_id==SolicitudEstado::INGRESADA;
+        return in_array($this->estado_id,[
+            SolicitudEstado::INGRESADA,
+            SolicitudEstado::RETORNO_SOLICITADA,
+        ]);
     }
 
     public function puedeAutorizar()
@@ -272,7 +365,10 @@ class Solicitud extends Model
 
     public function puedeAprobar()
     {
-        return $this->estado_id == SolicitudEstado::AUTORIZADA;
+        return in_array($this->estado_id,[
+            SolicitudEstado::SOLICITADA,
+            SolicitudEstado::AUTORIZADA
+        ]);
     }
 
     public function puedeDespachar()
@@ -285,13 +381,17 @@ class Solicitud extends Model
         return in_array($this->estado_id,[
             SolicitudEstado::SOLICITADA,
             SolicitudEstado::APROBADA,
-            SolicitudEstado::AUTORIZADA
+            SolicitudEstado::AUTORIZADA,
+            SolicitudEstado::DESPACHADA,
+            SolicitudEstado::ANULADA,
+//            SolicitudEstado::CANCELADA,
         ]);
     }
 
     public function puedeAnular()
     {
-        return $this->estado_id != SolicitudEstado::ANULADA && $this->estado_id == SolicitudEstado::DESPACHADA;
+        return $this->estado_id != SolicitudEstado::ANULADA;
+//        return $this->estado_id != SolicitudEstado::ANULADA && $this->estado_id == SolicitudEstado::DESPACHADA;
     }
 
     public function tieneStock()
@@ -327,18 +427,43 @@ class Solicitud extends Model
 
     }
 
+    public function ingreso()
+    {
+
+        $bodega = $this->bodega_id ?? null;
+
+        if ($bodega && $bodega != Bodega::PRINCIPAL) {
+            /**
+             * @var SolicitudDetalle $detalle
+             */
+            foreach ($this->detalles as $detalle) {
+
+                $detalle->ingreso($bodega);
+            }
+        }
+
+    }
+
     public function anular()
     {
+
+
+        if ($this->estado_id == SolicitudEstado::DESPACHADA){
+
+            /**
+             * @var SolicitudDetalle $detalle
+             */
+            foreach ($this->detalles as $detalle){
+                $detalle->anular();
+            }
+        }
+
         $this->estado_id = SolicitudEstado::ANULADA;
         $this->save();
 
+        $this->addBitacora("SISTEMA","REQUISICIÓN ANULADA","");
 
-        /**
-         * @var SolicitudDetalle $detalle
-         */
-        foreach ($this->detalles as $detalle){
-            $detalle->anular();
-        }
+
     }
 
     public function scopeDeUnidad(Builder $q,$unidad = null)
@@ -362,4 +487,25 @@ class Solicitud extends Model
     {
         $q->where('estado_id',SolicitudEstado::APROBADA);
     }
+
+    public function ultimaBitacora()
+    {
+        return $this->bitacoras->last() ?? null;
+    }
+
+    public function getMotivoRetornaAttribute()
+    {
+        $retornada = in_array($this->estado_id,[
+            SolicitudEstado::RETORNO_SOLICITADA,
+            SolicitudEstado::RETORNO_APROBADA,
+            SolicitudEstado::RETORNO_AUTORIZADA,
+        ]);
+
+        if ($retornada){
+            return $this->ultimaBitacora()->comentario ?? null;
+        }
+
+        return null;
+    }
+
 }

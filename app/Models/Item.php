@@ -12,9 +12,9 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * Class Item
+ *
  * @package App\Models
  * @version July 27, 2022, 12:22 pm CST
- *
  * @property \App\Models\ItemCategoria $categoria
  * @property \App\Models\Renglon $renglon
  * @property \App\Models\Marca $marca
@@ -45,9 +45,81 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property number $stock_minimo
  * @property number $stock_maximo
  * @property number $stock_total
+ * @property string $stock_reservado
  * @property string $ubicacion
  * @property boolean $perecedero
  * @property boolean $inventariable
+ * @property int $id
+ * @property string|null $codigo_insumo
+ * @property int|null $presentacion_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ItemCategoria[] $categorias
+ * @property-read int|null $categorias_count
+ * @property-read int|null $compra1h_detalles_count
+ * @property-read int|null $compra_detalles_count
+ * @property-read int|null $equivalencia1s_count
+ * @property-read int|null $equivalencias_count
+ * @property-read mixed $img
+ * @property-read mixed $text
+ * @property-read mixed $thumb
+ * @property-read int|null $kardexes_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Kardex[] $kardexs
+ * @property-read int|null $kardexs_count
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\App\Models\Media[] $media
+ * @property-read int|null $media_count
+ * @property-read int|null $solicitud_detalles_count
+ * @property-read int|null $stocks_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Item deCategoria($categoria)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item deMarca($marca)
+ * @method static \Database\Factories\ItemFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Item newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Item onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Item query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Item tipoActivo()
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereCategoriaId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereCodigo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereCodigoInsumo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereDescripcion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereInventariable($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereMarcaId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereNombre($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item wherePerecedero($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item wherePrecioCompra($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item wherePrecioPromedio($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item wherePrecioVenta($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item wherePresentacionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereRenglonId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereStockMaximo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereStockMinimo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereTipoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereUbicacion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereUnimedId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Item withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Item withoutAppends()
+ * @method static \Illuminate\Database\Query\Builder|Item withoutTrashed()
+ * @mixin \Eloquent
+ * @property-read int|null $items_traslado3s_count
+ * @property-read int|null $items_traslados_count
+ * @property-read int|null $stock_iniciales_count
+ * @property string|null $codigo_presentacion
+ * @property-read \App\Models\ItemPresentacion|null $presentacion
+ * @method static \Illuminate\Database\Eloquent\Builder|Item conIngresos()
+ * @method static \Illuminate\Database\Eloquent\Builder|Item conDetSolicitudesAprobadas()
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereCodigoPresentacion($value)
+ * @property-read mixed $stock_bodega
+ * @property int|null $modelo_id
+ * @property-read mixed $texto_libro_almacen
+ * @property-read mixed $texto_principal
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereModeloId($value)
+ * @property-read mixed $texto_kardex
+ * @property-read mixed $texto_requisicion
  */
 class Item extends Model implements HasMedia
 {
@@ -63,9 +135,9 @@ class Item extends Model implements HasMedia
 
     protected $dates = ['deleted_at'];
 
-    protected $appends= ['text','img','thumb','stock_total'];
+    protected $appends= ['text','texto_libro_almacen',"texto_principal",'img','thumb','stock_total','stock_bodega','stock_reservado'];
 
-    protected $with = ['unimed','marca','stocks','media'];
+    protected $with = ['unimed','marca','stocks','media','presentacion','renglon'];
 
     public static $withoutAppends = false;
 
@@ -89,12 +161,15 @@ class Item extends Model implements HasMedia
 
     public $fillable = [
         'codigo',
+        'codigo_insumo',
+        'codigo_presentacion',
         'nombre',
         'descripcion',
         'tipo_id',
         'renglon_id',
         'marca_id',
         'unimed_id',
+        'presentacion_id',
         'categoria_id',
         'precio_venta',
         'precio_compra',
@@ -121,9 +196,9 @@ class Item extends Model implements HasMedia
         'marca_id' => 'integer',
         'unimed_id' => 'integer',
         'categoria_id' => 'integer',
-        'precio_venta' => 'decimal:2',
-        'precio_compra' => 'decimal:2',
-        'precio_promedio' => 'decimal:2',
+        'precio_venta' => 'decimal:4',
+        'precio_compra' => 'decimal:4',
+        'precio_promedio' => 'decimal:4',
         'stock_minimo' => 'decimal:6',
         'stock_maximo' => 'decimal:6',
         'ubicacion' => 'string',
@@ -242,7 +317,7 @@ class Item extends Model implements HasMedia
      **/
     public function itemsTraslados()
     {
-        return $this->hasMany(\App\Models\ItemsTraslado::class, 'item_destino');
+        return $this->hasMany(\App\Models\ItemTraslado::class, 'item_destino');
     }
 
     /**
@@ -250,7 +325,7 @@ class Item extends Model implements HasMedia
      **/
     public function itemsTraslado3s()
     {
-        return $this->hasMany(\App\Models\ItemsTraslado::class, 'item_origen');
+        return $this->hasMany(\App\Models\ItemTraslado::class, 'item_origen');
     }
 
     /**
@@ -274,7 +349,7 @@ class Item extends Model implements HasMedia
      **/
     public function stockIniciales()
     {
-        return $this->hasMany(\App\Models\StockIniciale::class, 'item_id');
+        return $this->hasMany(\App\Models\StockInicial::class, 'item_id');
     }
 
     /**
@@ -284,6 +359,14 @@ class Item extends Model implements HasMedia
     {
         return $this->hasMany(\App\Models\Stock::class, 'item_id');
     }
+
+    public function presentacion()
+    {
+        return $this->belongsTo(ItemPresentacion::class);
+    }
+
+
+
 
     /**
      *MÉTODOS Y MUTADORES
@@ -309,8 +392,91 @@ class Item extends Model implements HasMedia
 
     public function getTextAttribute()
     {
-        $codigo = $this->codigo ? $this->codigo : 'sin codigo';
-        return $codigo.' / '.$this->nombre;
+        $codigo = $this->codigo ?? $this->codigo_insumo ?? '(sin codigo)';
+
+        $presentacion =  '';
+        $unidad =  '';
+
+        if (($this->presentacion->nombre ?? null)){
+            $presentacion .=  " ".$this->presentacion->nombre;
+        }
+
+        if (($this->unimed->nombre ?? null)) {
+            $unidad .= " ".$this->unimed->nombre;
+        }
+
+
+        return "CI:".$codigo." CP:".$this->codigo_presentacion.' - '.$this->nombre.$presentacion.$unidad;
+    }
+
+    public function getTextoPrincipalAttribute()
+    {
+
+        $presentacion =  '';
+        $unidad =  '';
+
+        if (($this->presentacion->nombre ?? null)){
+            $presentacion .=  " ".$this->presentacion->nombre;
+        }
+
+        if (($this->unimed->nombre ?? null)) {
+            $unidad .= " ".$this->unimed->nombre;
+        }
+
+        $descripcion = str_replace('&nbsp;','',strip_tags($this->descripcion));
+
+        return $this->nombre." - ".$descripcion.$presentacion.$unidad;
+    }
+
+    public function getTextoRequisicionAttribute()
+    {
+
+        $presentacion =  '';
+        $unidad =  '';
+
+        if (($this->presentacion->nombre ?? null)){
+            $presentacion .=  " ".$this->presentacion->nombre;
+        }
+
+        if (($this->unimed->nombre ?? null)) {
+            $unidad .= " ".$this->unimed->nombre;
+        }
+
+        $descripcion = str_replace('&nbsp;','',strip_tags($this->descripcion));
+
+        if ($descripcion){
+            $descripcion =  " - ".$descripcion;
+        }
+
+        return "CI: ".$this->codigo_insumo." - ".$this->nombre;
+    }
+
+    public function getTextoKardexAttribute()
+    {
+
+        $presentacion = $this->presentacion->nombre ?? '';
+        $unidad = $this->unimed->nombre ?? '';
+
+        if ($this->esGrupo100()){
+
+            $texto = "Renglón ".$this->renglon->numero." - ".$this->nombre;
+
+        }else{
+
+            $texto = "CI: ".$this->codigo_insumo." CP: ".$this->codigo_presentacion." ".$this->nombre;
+        }
+        return str_limit($texto,100,'');
+    }
+
+
+    public function getTextoLibroAlmacenAttribute()
+    {
+
+        $presentacion = $this->presentacion->nombre ?? '';
+        $unidad = $this->unimed->nombre ?? '';
+
+//        return $this->nombre."-".$presentacion." - ".$unidad;
+        return $this->nombre;
     }
 
 
@@ -361,11 +527,20 @@ class Item extends Model implements HasMedia
      */
 
 
+    public function scopeConIngresos($q)
+    {
+        return $q->whereHas('compraDetalles');
+    }
+
+    public function scopeTipoActivo($q)
+    {
+        return $q->where('tipo_id',ItemTipo::ACTIVO_FIJO);
+    }
 
     public function scopeDeCategoria($query,$categoria)
     {
         return $query->whereIn('id', function($q) use ($categoria){
-            $q->select('item_id')->from('icategoria_item')->where('icategoria_id',$categoria)->whereNull('deleted_at');
+            $q->select('item_id')->from('icategoria_item')->where('categoria_id',$categoria)->whereNull('deleted_at');
         });
     }
 
@@ -425,12 +600,12 @@ class Item extends Model implements HasMedia
 
         $egresos = $this->solicitudDetalles->filter(function (SolicitudDetalle $det){
 
-            if ($det->solicitud->estado_id!=SolicitudEstado::ANULADA){
+            if ($det->solicitud && $det->solicitud->estado_id!=SolicitudEstado::ANULADA){
                 return $det;
             }
         });
 
-        return $egresos->sum('cantidad_solicitada');
+        return $egresos->sum('cantidad_despachada');
 
     }
 
@@ -440,8 +615,12 @@ class Item extends Model implements HasMedia
 
         $saldo = 0;
 
+        /**
+         * @var Kardex $det
+         */
         foreach ($kardex as $index => $det) {
-            $saldo+=$det->ingreso-=$det->salida;
+                $saldo+=$det->ingreso;
+                $saldo-=$det->salida;
         }
 
         return $saldo;
@@ -486,6 +665,7 @@ class Item extends Model implements HasMedia
          */
         $stock =  $this->stocks
             ->where('precio_compra',$this->precio_compra)
+            ->where('bodega_id',Bodega::PRINCIPAL)
             ->sortBy('orden_salida')
             ->sortBy('fecha_vence')
             ->sortBy('created_at')
@@ -503,6 +683,7 @@ class Item extends Model implements HasMedia
         }else{
 
             $stock= Stock::create([
+                'bodega_id' => Bodega::PRINCIPAL,
                 'item_id' => $this->id,
                 'lote' =>  null,
                 'precio_compra' => $this->precio_compra,
@@ -524,7 +705,7 @@ class Item extends Model implements HasMedia
                     'item_id' => $stock->item_id,
                     'cantidad' => $stock->cantidad,
                     'tipo' => Kardex::TIPO_INGRESO,
-                    'codigo' => $stock->id,
+                    'codigo' => null,
                     'responsable' => 'Stock Inicial',
                     'usuario_id' => auth()->user()->id ?? User::PRINCIPAL
                 ]);
@@ -538,6 +719,53 @@ class Item extends Model implements HasMedia
 
     public function getStockTotalAttribute()
     {
-        return $this->stocks->sum('cantidad');
+        return $this->stocks->where('bodega_id',Bodega::PRINCIPAL)->sum('cantidad');
+    }
+
+    public function getStockBodegaAttribute()
+    {
+        $bodega = request()->bodega_id ?? auth()->user()->bodega_id ?? Bodega::PRINCIPAL;
+
+        return $this->stocks->where('bodega_id',$bodega)->sum('cantidad');
+    }
+
+    public function esGrupo300()
+    {
+        return $this->renglon->numero >= 300 && $this->renglon->numero < 400;
+    }
+
+    //es grupo 200
+    public function esGrupo200()
+    {
+        return $this->renglon->numero >= 200 && $this->renglon->numero < 300;
+    }
+
+    public function esGrupo100()
+    {
+        return $this->renglon->numero >= 100 && $this->renglon->numero < 200;
+    }
+
+
+    /**
+     * Suma el stock de las solicitudes que estén aprobadas
+     * @return void
+     */
+    public function getStockReservadoAttribute()
+    {
+        return $this->solicitudDetalles
+            ->where('solicitud.bodega_id',Bodega::PRINCIPAL)
+            ->where('solicitud.estado_id',SolicitudEstado::APROBADA)
+            ->sum('cantidad_aprobada');
+
+    }
+
+    public function scopeConDetSolicitudesAprobadas($q): \Illuminate\Database\Eloquent\Builder
+    {
+        return $q->with(['solicitudDetalles' => function($q){
+            $q->whereHas('solicitud',function($q){
+                $q->where('bodega_id',Bodega::PRINCIPAL)
+                    ->where('estado_id',SolicitudEstado::APROBADA);
+            });
+        }]);
     }
 }

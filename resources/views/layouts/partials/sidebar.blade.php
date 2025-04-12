@@ -1,39 +1,32 @@
-<!-- Main Sidebar Container -->
-<aside class="main-sidebar elevation-4 sidebar-dark-primary">
-    <!-- Brand Logo -->
-    <a href="{{route('home')}}" class="brand-link navbar-primary">
-        <img src="{{getLogo()}}" alt="Logo" class="brand-image img-circle elevation-3"
-             style="opacity: .8">
-        <span class="brand-text font-weight-light">{{config('app.name')}}</span>
-    </a>
+<!-- BEGIN: Main Menu-->
+<div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true">
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-                <img src="{{Auth::user()->img}}" class="img-circle elevation-2" alt="User Image">
-            </div>
-            <div class="info">
-                <a href="{{route('profile')}}" class="d-block">{{ Auth::user()->name }} </a>
-            </div>
-        </div>
-
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column nav-compact nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
-
-                @include('layouts.partials.menu')
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-
-            </ul>
-        </nav>
-        <!-- /.sidebar-menu -->
+    <div class="navbar-header">
+        <ul class="nav navbar-nav flex-row">
+            <li class="nav-item me-auto"><a class="navbar-brand" href="{{route('index')}}">
+                    <span class="brand-logo">
+                            <img src="{{getLogo()}}" alt="Logo">
+                    </span>
+                    <h2 class="brand-text">
+                        {{config('app.name')}}
+                    </h2>
+                </a></li>
+            <li class="nav-item nav-toggle">
+                <a class="nav-link modern-nav-toggle pe-0" data-bs-toggle="collapse">
+                    <i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i>
+                    <i class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc" data-ticon="disc"></i>
+                </a>
+            </li>
+        </ul>
     </div>
-    <!-- /.sidebar -->
-</aside>
+
+    <div class="shadow-bottom"></div>
+
+    <div class="main-menu-content">
+        <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+
+            @include('layouts.partials.menu')
+        </ul>
+    </div>
+</div>
+<!-- END: Main Menu-->

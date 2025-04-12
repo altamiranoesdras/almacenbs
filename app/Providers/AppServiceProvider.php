@@ -4,33 +4,28 @@ namespace App\Providers;
 
 use App\Models\Configuration;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Passport\Passport;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
-        Passport::ignoreMigrations();
+        //
     }
 
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-        //si la aplicación no esta corriendo en consola
+        //si la aplicación no está corriendo en consola
         if( !app()->runningInConsole() ){
             $configurations = Configuration::pluck('value','key')->toArray();
 
             foreach ($configurations as $key => $value){
-                config(['app.'.$key => $value]);
+                config([$key => $value]);
             }
 
         }

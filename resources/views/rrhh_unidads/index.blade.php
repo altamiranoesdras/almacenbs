@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page',__('Departamentos'))
+@section('title_page',__('Unidades / Dependencias'))
 
 @section('content')
 
@@ -9,13 +9,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Departamentos</h1>
+                    <h1>Unidades / Dependencias</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-right">
                         <li class="breadcrumb-item">
                             <a class="btn btn-outline-success"
-                                href="{!! route('rrhhUnidads.create') !!}">
+                                href="{!! route('rrhhUnidades.create') !!}">
                                 <i class="fa fa-plus"></i>
                                 <span class="d-none d-sm-inline">Nueva</span>
                             </a>

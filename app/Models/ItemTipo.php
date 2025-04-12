@@ -8,11 +8,29 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class ItemTipo
+ *
  * @package App\Models
  * @version August 4, 2022, 7:00 pm CST
- *
  * @property \Illuminate\Database\Eloquent\Collection $items
  * @property string $nombre
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read int|null $items_count
+ * @method static \Database\Factories\ItemTipoFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|ItemTipo newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ItemTipo newQuery()
+ * @method static \Illuminate\Database\Query\Builder|ItemTipo onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ItemTipo query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ItemTipo whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ItemTipo whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ItemTipo whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ItemTipo whereNombre($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ItemTipo whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|ItemTipo withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|ItemTipo withoutTrashed()
+ * @mixin \Eloquent
  */
 class ItemTipo extends Model
 {

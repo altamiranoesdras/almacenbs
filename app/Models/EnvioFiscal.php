@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class EnvioFiscal
+ *
  * @package App\Models
  * @version July 27, 2022, 12:26 pm CST
- *
  * @property \Illuminate\Database\Eloquent\Collection $compra1hs
  * @property integer $nuemero_constancia
  * @property string $serie_constancia
@@ -30,6 +30,41 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string $fecha_gestion
  * @property string $correlativo
  * @property string $activo
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read int|null $compra1hs_count
+ * @method static \Database\Factories\EnvioFiscalFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal newQuery()
+ * @method static \Illuminate\Database\Query\Builder|EnvioFiscal onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal query()
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereActivo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereCantidad($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereCorrelativo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereCorrelativoAl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereCorrelativoDel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereFecha($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereFechaGestion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereFolio($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereForma($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereLibro($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereNuemeroConstancia($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereNumero($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereNumeroCuenta($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereNumeroGestion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal wherePendientes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereResolucion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereSerie($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereSerieConstancia($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|EnvioFiscal withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|EnvioFiscal withoutTrashed()
+ * @mixin \Eloquent
  */
 class EnvioFiscal extends Model
 {

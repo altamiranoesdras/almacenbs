@@ -2,26 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\CompraDataTable;
-use App\DataTables\Scopes\ScopeCompraDataTable;
+use Exception;
+use Response;
+use Carbon\Carbon;
+use App\Models\Item;
 use App\Http\Requests;
-use App\Http\Requests\CreateCompraRequest;
-use App\Http\Requests\UpdateCompraRequest;
 use App\Models\Compra;
 use App\Models\Compra1h;
-use App\Models\Compra1hDetalle;
-use App\Models\CompraDetalle;
-use App\Models\CompraEstado;
-use App\Models\Item;
 use App\Models\ItemTipo;
 use App\Models\Proveedor;
-use Carbon\Carbon;
-use App\Http\Controllers\AppBaseController;
+use App\Models\CompraEstado;
 use Illuminate\Http\Request;
+use App\Models\CompraDetalle;
+use App\Models\Compra1hDetalle;
+use Illuminate\Support\Facades\DB;
+use App\DataTables\CompraDataTable;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Response;
+use Barryvdh\Snappy\Facades\SnappyPdf;
+use App\Http\Requests\CreateCompraRequest;
+use App\Http\Requests\UpdateCompraRequest;
+use App\Http\Controllers\AppBaseController;
+use App\DataTables\Scopes\ScopeCompraDataTable;
 
 class CompraController extends AppBaseController
 {
@@ -91,6 +93,8 @@ class CompraController extends AppBaseController
     {
         $temporal = $this->compraTemporal();
 
+//        dd($temporal->detalles->first()->toArray());
+
         return view('compras.create',compact('temporal'));
     }
 
@@ -144,12 +148,13 @@ class CompraController extends AppBaseController
     public function edit($id)
     {
         /** @var Compra $compra */
-        $compra = Compra::find($id);
+        $compra = Compra::with(['detalles' => function ($q){ $q->whereHas('item'); }])->find($id);
 
         /**
          * @var Compra1h $compra1h
          */
-        $compra1h = Compra1h::where('compra_id', $compra->id)->first();
+        $compra1h = Compra1h::with(['detalles' => function ($q){ $q->whereHas('item'); }])->where('compra_id', $compra->id)->first();
+
 
         if (empty($compra)) {
             flash()->error('Compra no encontrado');
@@ -157,7 +162,7 @@ class CompraController extends AppBaseController
             return redirect(route('compras.index'));
         }
 
-        return view('compras.editV2', compact('compra', 'compra1h'));
+        return view('compras.edit', compact('compra', 'compra1h'));
     }
 
     /**
@@ -188,11 +193,9 @@ class CompraController extends AppBaseController
 
             DB::rollBack();
 
-            if (auth()->user()->isDev()){
-                throw $exception;
-            }
+            $msj = manejarException($exception);
 
-            flash("Hubo un error intente de nuevo")->error();
+            flash($msj)->error();
 
             return redirect()->back();
         }
@@ -200,6 +203,18 @@ class CompraController extends AppBaseController
         DB::commit();
 
         flash('Listo! compra procesada.')->success();
+
+        return redirect(route('compras.edit', $compra->id));
+    }
+
+    public function actualizarProcesada(Compra $compra,Request $request)
+    {
+//        dd($compra->toArray(),$request->all());
+
+        $compra->fill($request->all());
+        $compra->save();
+
+        flash('Listo! compra actualizada.')->success();
 
         return redirect(route('compras.edit', $compra->id));
     }
@@ -304,7 +319,9 @@ class CompraController extends AppBaseController
         } catch (\Exception $exception) {
             DB::rollBack();
 
-            errorException($exception);
+            $msj = manejarException($exception);
+
+            flash()->error($msj);
 
             return redirect()->back();
         }
@@ -330,13 +347,11 @@ class CompraController extends AppBaseController
 
         } catch (\Exception $exception) {
             DB::rollBack();
-            if (Auth::user()->isDev()){
-                dd($exception->getMessage(),$exception->getLine());
-            }
 
-            $msg = Auth::user()->isAdmin() ? $exception->getMessage() : 'Hubo un error intente de nuevo';
+            $msj = manejarException($exception);
 
-            flash('Error: '.$msg)->error()->important();
+            flash($msj)->error();
+
             return redirect()->back();
         }
 
@@ -345,11 +360,8 @@ class CompraController extends AppBaseController
 
         flash('Ingreso Realizado')->success();
 
-        if($compra){
-            //Mail::send(new RecepcionCompra($compra));
-        }
 
-        return redirect(route('compras.index'));
+        return redirect(route('compras.edit',$compra->id));
 
     }
 
@@ -363,15 +375,18 @@ class CompraController extends AppBaseController
         $footer = view('compras.pdf_footer')->render();
 
         $pdf->loadHTML($view)
-            ->setPaper('letter')
+            ->setOption('page-width', 216)
+            ->setOption('page-height', 278)
             ->setOrientation('portrait')
             ->setOption('footer-html',utf8_decode($footer))
-            ->setOption('margin-top',2)
-            ->setOption('margin-bottom',10)
-            ->setOption('margin-left',2)
-            ->setOption('margin-right',2)
+            ->setOption('margin-top', 2)
+            ->setOption('margin-bottom', 10)
+            ->setOption('margin-left', 0)
+            ->setOption('margin-right', 0)
             ->stream('report.pdf');
+
         return $pdf->inline();
+
 
     }
 
@@ -401,24 +416,22 @@ class CompraController extends AppBaseController
 
 //        return $compra->compra1hs->first()->compra1hDetalles;
 //        return $compra->compra1hs->first();
-
         $pdf = App::make('snappy.pdf.wrapper');
 
         $view = view('compras.pdfH1', compact('compra'))->render();
 
         $pdf->loadHTML($view)
-//            ->setOption('page-width', '220')
-//            ->setOption('page-height', '280')
-            ->setOrientation('landscape')
+           ->setOption('page-width', 217)
+           ->setOption('page-height', 278)
+            ->setOrientation('portrait')
             // ->setOption('footer-html',utf8_decode($footer))
-            ->setOption('margin-top', 10)
+            ->setOption('margin-top', 31)
             ->setOption('margin-bottom',3)
-            ->setOption('margin-left',10)
-            ->setOption('margin-right',10);
+            ->setOption('margin-left',9)
+            ->setOption('margin-right',17);
         // ->stream('report.pdf');
 
         return $pdf->inline('CompraH1-'.$compra->id. '_'. time().'.pdf');
-
     }
 
     public function generar1h($id)
@@ -438,6 +451,7 @@ class CompraController extends AppBaseController
              * @var Compra1h $compra1h
              */
             $compra1h = Compra1h::create([
+                'folio' => request()->folio,
                 'compra_id' => $compra->id,
                 'envio_fiscal_id' => 1,
                 'codigo' => $this->getCodigo1h(),
@@ -452,7 +466,7 @@ class CompraController extends AppBaseController
             if ($compra->detalles->count() > 0) {
 
                 /**
-                 * @var Compra1hDetalle $detalle
+                 * @var CompraDetalle $detalle
                  */
                 foreach ($compra->detalles as $detalle) {
 
@@ -492,19 +506,27 @@ class CompraController extends AppBaseController
 
                     }
 
+
                 }
 
             }
 
+            $compra->procesarKardex();
+
+
         } catch (\Exception $exception) {
             DB::rollBack();
-            if (auth()->user()->can('puede depurar')) {
-                throw $exception;
-            }
-            flash()->warning($exception->getMessage());
+
+            $msj = manejarException($exception);
+
+            flash()->warning($msj);
+
             return back()->withInput();
         }
+
         DB::commit();
+
+        flash('1H generado!')->success();
 
         return redirect()->back();
 
@@ -525,6 +547,48 @@ class CompraController extends AppBaseController
             return $correlativo+1;
 
         return 1;
+    }
+
+
+    public function actualizar1h(Compra $compra, Request $request)
+    {
+        /** @var Compra1h $compra1h */
+        $compra1h = $compra->compra1h;
+
+        if (empty($compra1h)) {
+            Flash::error('1H no encontrado');
+
+            return redirect(route('compra1hs.index'));
+        }
+
+        try {
+            DB::beginTransaction();
+
+
+            $compra1h->fill($request->all());
+            $compra1h->save();
+
+            foreach ($compra1h->detalles as $index => $detalle) {
+                $detalle->texto_extra = $request->textos_extras[$detalle->id] ?? null;
+                $detalle->folio_almacen = $request->folios_almacen[$detalle->id] ?? null;
+                $detalle->folio_inventario = $request->folios_inventario[$detalle->id] ?? null;
+                $detalle->codigo_inventario = $request->codigos_inventario[$detalle->id] ?? null;
+                $detalle->save();
+            }
+
+
+        } catch (Exception $exception) {
+            DB::rollBack();
+
+            throw new Exception($exception);
+        }
+
+        DB::commit();
+
+
+        flash()->success('1H actualizado con éxito.');
+
+        return redirect(route('compras.edit',$compra->id));
     }
 
 }

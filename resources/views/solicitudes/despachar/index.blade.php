@@ -21,6 +21,7 @@
     <div class="content">
         <div class="container-fluid">
 
+            @include('layouts.errores')
 
             <div class="row">
                 <div class="col-lg-12">

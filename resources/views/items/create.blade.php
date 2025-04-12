@@ -4,7 +4,7 @@
 @include('layouts.plugins.bootstrap_fileinput')
 
 @section('title_page')
-	Crear Artículo
+	Crear Insumo
 @endsection
 
 @section('content')
@@ -14,13 +14,14 @@
             <div class="row">
                 <div class="col">
                     <h1 class="m-0 text-dark">
-                        Crear Artículo
+                        Crear Insumo
                     </h1>
                 </div><!-- /.col -->
                 <div class="col ">
                     <a class="btn btn-outline-info float-right"
                        href="{{route('items.index')}}">
-                        <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span class="d-none d-sm-inline">Listado</span>
+                        <i class="fa fa-arrow-left"></i>
+                        <span class="d-none d-sm-inline">Regresar</span>
                     </a>
                 </div><!-- /.col -->
             </div><!-- /.row -->

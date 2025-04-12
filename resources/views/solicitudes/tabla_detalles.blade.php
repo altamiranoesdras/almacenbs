@@ -2,34 +2,19 @@
     <thead>
     <tr>
         <th>Producto</th>
-        @if($solicitud->estaAprobada())
-            <th>Tu Stock</th>
-        @endif
         <th>Cantidad Solicitada</th>
-        @if($solicitud->estaAprobada() || $solicitud->estaDespachada())
-            <th>Cantidad despachada</th>
-        @endif
-
+        <th>Cantidad Aprobada</th>
+        <th>Cantidad despachada</th>
     </tr>
     </thead>
     <tbody>
 
     @foreach($solicitud->detalles as $det)
         <tr>
-            <td>{{$det->item->nombre}}</td>
-            @if($solicitud->estaAprobada() )
-                <th>{{$det->item->stock_total}}</th>
-            @endif
+            <td>{{$det->item->text}}</td>
             <td>{{$det->cantidad_solicitada}}</td>
-            @if($solicitud->estaAprobada() || $solicitud->estaDespachada())
-                @if( $solicitud->estaDespachada())
-                    <td> {{$det->cantidad_despachada}}</td>
-                @else
-                <td>
-                    <input type="number" name="cantidades[]" step="any" class="form-control form-control-sm" required >
-                </td>
-                @endif
-            @endif
+            <td> {{$solicitud->muestraCantidadAprobar() ? $det->cantidad_aprobada : "Pendiente"}}</td>
+            <td> {{$solicitud->muestraCantidadDespachar() ? $det->cantidad_despachada : "Pendiente"}}</td>
         </tr>
     @endforeach
 

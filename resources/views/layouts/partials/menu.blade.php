@@ -1,17 +1,15 @@
-@can('todas las opciones menu')
+@can('Ver todas las opciones del menu')
     @foreach($opciones ?? App\Models\Option::padres()->with('children')->get() as $option)
-        <li class="nav-item {{$option->hasTreeview()}} {{$option->openTreeView()}}">
-            <a href="{{rutaOpcion($option)}}" class="nav-link {{$option->active()}}">
-                <i class="nav-icon fa {{$option->icono_l}}"></i>
-                <p>
+
+        <li class="nav-item {{$option->active()}}">
+            <a class="d-flex align-items-center" href="{{rutaOpcion($option)}}">
+                <i class="fa {{$option->icono_l}}"></i>
+                <span class="menu-title text-truncate" data-i18n="Menu Levels">
                     {{$option->nombre}}
-                    @if($option->hasChildren())
-                        <i class="right fa fa-angle-left"></i>
-                    @endif
-                </p>
+                    </span>
             </a>
             @if($option->hasChildren())
-                <ul class="nav nav-treeview">
+                <ul class="menu-content">
                     @include('layouts.partials.menu',['opciones' => $option->children])
                 </ul>
             @endif
@@ -19,18 +17,15 @@
     @endforeach
 @else
     @foreach($opciones ?? optionsParentAuthUser() as $option)
-        <li class="nav-item {{$option->hasTreeview()}} {{$option->openTreeView()}}">
-            <a href="{{rutaOpcion($option)}}" class="nav-link {{$option->active()}} {{!$option->visible_to_user ? 'd-none' : ''}}">
-                <i class="nav-icon fa {{$option->icono_l}}"></i>
-                <p>
+        <li class="nav-item {{$option->active()}}">
+            <a class="d-flex align-items-center" href="{{rutaOpcion($option)}}">
+                <i class="fa {{$option->icono_l}}"></i>
+                <span class="menu-title text-truncate" data-i18n="Menu Levels">
                     {{$option->nombre}}
-                    @if($option->hasChildren())
-                        <i class="right fa fa-angle-left"></i>
-                    @endif
-                </p>
+                    </span>
             </a>
             @if($option->hasChildren())
-                <ul class="nav nav-treeview">
+                <ul class="menu-content">
                     @include('layouts.partials.menu',['opciones' => $option->children])
                 </ul>
             @endif

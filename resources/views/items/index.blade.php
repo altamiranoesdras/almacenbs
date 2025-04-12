@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title_page')
-    Artículos
+    Insumos
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
-                    <h1 class="m-0 text-dark">Artículos</h1>
+                    <h1 class="m-0 text-dark">Insumos</h1>
                 </div><!-- /.col -->
                 <div class="col">
                     <ol class="breadcrumb float-right">
@@ -35,6 +35,24 @@
 
             <div class="row">
                 <div class="col-lg-12">
+
+                    <div class="card card-outline card-success">
+                        <div class="card-header">
+                            <h3 class="card-title">Filtros</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <!-- /.card-tools -->
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            @include('items.filtros')
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+
                     <div class="card">
                         <div class="card-body">
                            @include('items.table')

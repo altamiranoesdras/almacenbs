@@ -3,8 +3,8 @@
       <multiselect
           v-model="item"
           ref="multiselect"
-          placeholder="Buscador de articulos"
-          label="nombre"
+          placeholder="Buscador de insumos"
+          label="text"
           track-by="id"
           open-direction="bottom"
           :options="items"
@@ -16,7 +16,7 @@
           :clear-on-select="true"
           :close-on-select="true"
           :allow-empty="false"
-          :options-limit="20"
+          :options-limit="100"
           :max-height="600"
           :show-no-results="false"
           :hide-selected="false"
@@ -36,7 +36,7 @@
                   </div>
                   <div class='result-container text-uppercase'>
 
-                      <div class='select-result__nombre' v-text="props.option.nombre"></div>
+                      <div class='select-result__nombre' v-text="props.option.text"></div>
 
                       <div class='select-result__precio' v-show="!solicitud">
                           <i class='far fa-money-bill-alt'></i>
@@ -44,8 +44,14 @@
                       </div>
                       <div class='select-result__stock '>
                           <i class='fas fa-cubes'></i>
-                          <span v-text="props.option.stock_total"></span>
+                          <span v-text="stockReal(props.option)"></span>
                       </div>
+
+                        <div class='select-result__reservado text-xs text-lowercase' >
+                            <span v-show="mostrarStockReservado(props.option)">
+                              (<span v-text="props.option.stock_reservado"></span> Reservado)
+                            </span>
+                        </div>
                       <div class='select-result__ubicacion' v-show="!solicitud">
                           <i class='fas fa-archive'></i>
                           <span v-text="props.option.ubicacion"></span>
@@ -68,7 +74,7 @@
                   </div>
                   <div class='result-container text-uppercase'>
 
-                      <div class='select-result__nombre' v-text="props.option.nombre"></div>
+                      <div class='select-result__nombre' v-text="props.option.text"></div>
 
                       <div class='select-result__precio' v-show="!solicitud">
                           <i class='far fa-money-bill-alt'></i>
@@ -76,11 +82,17 @@
                       </div>
                       <div class='select-result__stock '>
                           <i class='fas fa-cubes'></i>
-                          <span v-text="props.option.stock_total"></span>
+                          <span v-text="stockReal(props.option)"></span>
                       </div>
-                      <div class='select-result__ubicacion'>
+
+                      <div class='select-result__reservado text-xs text-lowercase' >
+                            <span v-show="mostrarStockReservado(props.option)">
+                              (<span v-text="props.option.stock_reservado"></span> Reservado)
+                            </span>
+                      </div>
+                      <div class='select-result__ubicacion' v-show="!solicitud">
                           <i class='fas fa-archive'></i>
-                          <span v-text="props.option.ubicacion" v-show="!solicitud"></span>
+                          <span v-text="props.option.ubicacion" ></span>
                       </div>
                       <div class='select-result__codigo'>
                           <i class='fas fa-barcode'></i>
@@ -192,8 +204,18 @@
             customLabel (option) {
                 return `${option.nombre}`
             },
+            stockReal(option){
+                let stock = parseFloat(option.stock_bodega) - parseFloat(option.stock_reservado);
+
+                return stock;
+
+            },
             clear(){
                 this.items = [];
+            },
+            mostrarStockReservado(item){
+                let stockReservado = parseFloat(item.stock_reservado);
+                return this.solicitud && stockReservado > 0;
             }
 
         }
@@ -210,7 +232,16 @@
     .result-container { margin-left: 65px; }
     .select-result__nombre { color: black; font-weight: bold; word-wrap: break-word; line-height: 1; font-size: 16px}
     .select-result__nombre { margin-bottom: 2px;}
-    .select-result__precio,.select-result__stock, .select-result__ubicacion  { margin-right: 1em; }
+    .select-result__precio, .select-result__ubicacion  {
+        margin-right: 1em;
+    }
+    .select-result__reservado {
+        margin-right: .5rem;
+        margin-left: 0rem;
+        padding: 0px;
+        display: inline-block;
+
+    }
     .select-result__precio, .select-result__ubicacion, .select-result__stock, .select-result__codigo {
         font-weight: bold; margin-bottom: 0px; margin-top: 0px; display: inline-block; color: #4078FA; font-size: 22px; padding: 0px;
     }

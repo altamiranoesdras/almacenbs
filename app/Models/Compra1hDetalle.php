@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class Compra1hDetalle
+ *
  * @package App\Models
  * @version July 27, 2022, 12:27 pm CST
- *
  * @property \App\Models\Compra1h $1h
  * @property \App\Models\Item $item
  * @property integer $1h_id
@@ -20,6 +20,34 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property integer $folio_almacen
  * @property integer $folio_inventario
  * @property string $codigo_inventario
+ * @property string $texto_extra
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Compra1h $compra1h
+ * @property-read mixed $sub_total
+ * @method static \Database\Factories\Compra1hDetalleFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Compra1hDetalle onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle where1hId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle whereCantidad($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle whereCodigoInventario($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle whereFolioAlmacen($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle whereFolioInventario($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle whereItemId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle wherePrecio($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Compra1hDetalle withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Compra1hDetalle withoutTrashed()
+ * @mixin \Eloquent
+ * @property-read mixed $text
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle whereTextoExtra($value)
  */
 class Compra1hDetalle extends Model
 {
@@ -44,7 +72,8 @@ class Compra1hDetalle extends Model
         'cantidad',
         'folio_almacen',
         'folio_inventario',
-        'codigo_inventario'
+        'codigo_inventario',
+        'texto_extra'
     ];
 
     /**
@@ -84,7 +113,7 @@ class Compra1hDetalle extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
-    public function f1h()
+    public function compra1h()
     {
         return $this->belongsTo(\App\Models\Compra1h::class, '1h_id');
     }
@@ -100,5 +129,12 @@ class Compra1hDetalle extends Model
     public function getSubTotalAttribute()
     {
         return $this->cantidad * $this->precio;
+    }
+
+    public function getTextAttribute()
+    {
+        $codigoInsumo = " CI: ".$this->item->codigo_insumo." ";
+        $textoExtra = $this->texto_extra ? " / ".$this->texto_extra : '';
+        return $this->item->texto_principal.$codigoInsumo.$textoExtra;
     }
 }

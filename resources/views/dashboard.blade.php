@@ -1,618 +1,756 @@
 @extends('layouts.app')
 
-@section('title_page',__('Dashboard'))
+@section('titulo_pagina',__('Dashboard'))
 
 @section('content')
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Dashboard</h1>
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard v1</li>
-                    </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
 
-    <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
-            <!-- Small boxes (Stat box) -->
-            <div class="row">
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3>150</h3>
 
-                            <p>New Orders</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-bag"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+
+    <!-- Dashboard Ecommerce Starts -->
+    <section id="dashboard-ecommerce">
+        <div class="row match-height">
+            <!-- Medal Card -->
+            <div class="col-xl-4 col-md-6 col-12">
+                <div class="card card-congratulation-medal">
+                    <div class="card-body">
+                        <h5>Congratulations 🎉 John!</h5>
+                        <p class="card-text font-small-3">You have won gold medal</p>
+                        <h3 class="mb-75 mt-2 pt-50">
+                            <a href="#">$48.9k</a>
+                        </h3>
+                        <button type="button" class="btn btn-primary">View Sales</button>
+                        <img src="../../../app-assets/images/illustration/badge.svg" class="congratulation-medal" alt="Medal Pic" />
                     </div>
                 </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                            <p>Bounce Rate</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-warning">
-                        <div class="inner">
-                            <h3>44</h3>
-
-                            <p>User Registrations</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-person-add"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-danger">
-                        <div class="inner">
-                            <h3>65</h3>
-
-                            <p>Unique Visitors</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-pie-graph"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <!-- ./col -->
             </div>
-            <!-- /.row -->
-            <!-- Main row -->
-            <div class="row">
-                <!-- Left col -->
-                <section class="col-lg-7 connectedSortable">
-                    <!-- Custom tabs (Charts with tabs)-->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                <i class="fas fa-chart-pie mr-1"></i>
-                                Sales
-                            </h3>
-                            <div class="card-tools">
-                                <ul class="nav nav-pills ml-auto">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div><!-- /.card-header -->
-                        <div class="card-body">
-                            <div class="tab-content p-0">
-                                <!-- Morris chart - Sales -->
-                                <div class="chart tab-pane active" id="revenue-chart"
-                                     style="position: relative; height: 300px;">
-                                    <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
-                                </div>
-                                <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                                    <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
-                                </div>
-                            </div>
-                        </div><!-- /.card-body -->
-                    </div>
-                    <!-- /.card -->
+            <!--/ Medal Card -->
 
-                    <!-- DIRECT CHAT -->
-                    <div class="card direct-chat direct-chat-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">Direct Chat</h3>
-
-                            <div class="card-tools">
-                                <span data-toggle="tooltip" title="3 New Messages" class="badge badge-primary">3</span>
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-tool" data-toggle="tooltip" title="Contacts"
-                                        data-widget="chat-pane-toggle">
-                                    <i class="fas fa-comments"></i>
-                                </button>
-                                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <!-- Conversations are loaded here -->
-                            <div class="direct-chat-messages">
-                                <!-- Message. Default to the left -->
-                                <div class="direct-chat-msg">
-                                    <div class="direct-chat-infos clearfix">
-                                        <span class="direct-chat-name float-left">Alexander Pierce</span>
-                                        <span class="direct-chat-timestamp float-right">23 Jan 2:00 pm</span>
-                                    </div>
-                                    <!-- /.direct-chat-infos -->
-                                    <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image">
-                                    <!-- /.direct-chat-img -->
-                                    <div class="direct-chat-text">
-                                        Is this template really for free? That's unbelievable!
-                                    </div>
-                                    <!-- /.direct-chat-text -->
-                                </div>
-                                <!-- /.direct-chat-msg -->
-
-                                <!-- Message to the right -->
-                                <div class="direct-chat-msg right">
-                                    <div class="direct-chat-infos clearfix">
-                                        <span class="direct-chat-name float-right">Sarah Bullock</span>
-                                        <span class="direct-chat-timestamp float-left">23 Jan 2:05 pm</span>
-                                    </div>
-                                    <!-- /.direct-chat-infos -->
-                                    <img class="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="message user image">
-                                    <!-- /.direct-chat-img -->
-                                    <div class="direct-chat-text">
-                                        You better believe it!
-                                    </div>
-                                    <!-- /.direct-chat-text -->
-                                </div>
-                                <!-- /.direct-chat-msg -->
-
-                                <!-- Message. Default to the left -->
-                                <div class="direct-chat-msg">
-                                    <div class="direct-chat-infos clearfix">
-                                        <span class="direct-chat-name float-left">Alexander Pierce</span>
-                                        <span class="direct-chat-timestamp float-right">23 Jan 5:37 pm</span>
-                                    </div>
-                                    <!-- /.direct-chat-infos -->
-                                    <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image">
-                                    <!-- /.direct-chat-img -->
-                                    <div class="direct-chat-text">
-                                        Working with AdminLTE on a great new app! Wanna join?
-                                    </div>
-                                    <!-- /.direct-chat-text -->
-                                </div>
-                                <!-- /.direct-chat-msg -->
-
-                                <!-- Message to the right -->
-                                <div class="direct-chat-msg right">
-                                    <div class="direct-chat-infos clearfix">
-                                        <span class="direct-chat-name float-right">Sarah Bullock</span>
-                                        <span class="direct-chat-timestamp float-left">23 Jan 6:10 pm</span>
-                                    </div>
-                                    <!-- /.direct-chat-infos -->
-                                    <img class="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="message user image">
-                                    <!-- /.direct-chat-img -->
-                                    <div class="direct-chat-text">
-                                        I would love to.
-                                    </div>
-                                    <!-- /.direct-chat-text -->
-                                </div>
-                                <!-- /.direct-chat-msg -->
-
-                            </div>
-                            <!--/.direct-chat-messages-->
-
-                            <!-- Contacts are loaded here -->
-                            <div class="direct-chat-contacts">
-                                <ul class="contacts-list">
-                                    <li>
-                                        <a href="#">
-                                            <img class="contacts-list-img" src="dist/img/user1-128x128.jpg">
-
-                                            <div class="contacts-list-info">
-                            <span class="contacts-list-name">
-                              Count Dracula
-                              <small class="contacts-list-date float-right">2/28/2015</small>
-                            </span>
-                                                <span class="contacts-list-msg">How have you been? I was...</span>
-                                            </div>
-                                            <!-- /.contacts-list-info -->
-                                        </a>
-                                    </li>
-                                    <!-- End Contact Item -->
-                                    <li>
-                                        <a href="#">
-                                            <img class="contacts-list-img" src="dist/img/user7-128x128.jpg">
-
-                                            <div class="contacts-list-info">
-                            <span class="contacts-list-name">
-                              Sarah Doe
-                              <small class="contacts-list-date float-right">2/23/2015</small>
-                            </span>
-                                                <span class="contacts-list-msg">I will be waiting for...</span>
-                                            </div>
-                                            <!-- /.contacts-list-info -->
-                                        </a>
-                                    </li>
-                                    <!-- End Contact Item -->
-                                    <li>
-                                        <a href="#">
-                                            <img class="contacts-list-img" src="dist/img/user3-128x128.jpg">
-
-                                            <div class="contacts-list-info">
-                            <span class="contacts-list-name">
-                              Nadia Jolie
-                              <small class="contacts-list-date float-right">2/20/2015</small>
-                            </span>
-                                                <span class="contacts-list-msg">I'll call you back at...</span>
-                                            </div>
-                                            <!-- /.contacts-list-info -->
-                                        </a>
-                                    </li>
-                                    <!-- End Contact Item -->
-                                    <li>
-                                        <a href="#">
-                                            <img class="contacts-list-img" src="dist/img/user5-128x128.jpg">
-
-                                            <div class="contacts-list-info">
-                            <span class="contacts-list-name">
-                              Nora S. Vans
-                              <small class="contacts-list-date float-right">2/10/2015</small>
-                            </span>
-                                                <span class="contacts-list-msg">Where is your new...</span>
-                                            </div>
-                                            <!-- /.contacts-list-info -->
-                                        </a>
-                                    </li>
-                                    <!-- End Contact Item -->
-                                    <li>
-                                        <a href="#">
-                                            <img class="contacts-list-img" src="dist/img/user6-128x128.jpg">
-
-                                            <div class="contacts-list-info">
-                            <span class="contacts-list-name">
-                              John K.
-                              <small class="contacts-list-date float-right">1/27/2015</small>
-                            </span>
-                                                <span class="contacts-list-msg">Can I take a look at...</span>
-                                            </div>
-                                            <!-- /.contacts-list-info -->
-                                        </a>
-                                    </li>
-                                    <!-- End Contact Item -->
-                                    <li>
-                                        <a href="#">
-                                            <img class="contacts-list-img" src="dist/img/user8-128x128.jpg">
-
-                                            <div class="contacts-list-info">
-                            <span class="contacts-list-name">
-                              Kenneth M.
-                              <small class="contacts-list-date float-right">1/4/2015</small>
-                            </span>
-                                                <span class="contacts-list-msg">Never mind I found...</span>
-                                            </div>
-                                            <!-- /.contacts-list-info -->
-                                        </a>
-                                    </li>
-                                    <!-- End Contact Item -->
-                                </ul>
-                                <!-- /.contacts-list -->
-                            </div>
-                            <!-- /.direct-chat-pane -->
-                        </div>
-                        <!-- /.card-body -->
-                        <div class="card-footer">
-                            <form action="#" method="post">
-                                <div class="input-group">
-                                    <input type="text" name="message" placeholder="Type Message ..." class="form-control">
-                                    <span class="input-group-append">
-                        <button type="button" class="btn btn-primary">Send</button>
-                      </span>
-                                </div>
-                            </form>
-                        </div>
-                        <!-- /.card-footer-->
-                    </div>
-                    <!--/.direct-chat -->
-
-                    <!-- TO DO List -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                <i class="ion ion-clipboard mr-1"></i>
-                                To Do List
-                            </h3>
-
-                            <div class="card-tools">
-                                <ul class="pagination pagination-sm">
-                                    <li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
-                                    <li class="page-item"><a href="#" class="page-link">1</a></li>
-                                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                    <li class="page-item"><a href="#" class="page-link">3</a></li>
-                                    <li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <ul class="todo-list" data-widget="todo-list">
-                                <li>
-                                    <!-- drag handle -->
-                                    <span class="handle">
-                        <i class="fas fa-ellipsis-v"></i>
-                        <i class="fas fa-ellipsis-v"></i>
-                      </span>
-                                    <!-- checkbox -->
-                                    <div  class="icheck-primary d-inline ml-2">
-                                        <input type="checkbox" value="" name="todo1" id="todoCheck1">
-                                        <label for="todoCheck1"></label>
-                                    </div>
-                                    <!-- todo text -->
-                                    <span class="text">Design a nice theme</span>
-                                    <!-- Emphasis label -->
-                                    <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
-                                    <!-- General tools such as edit or delete-->
-                                    <div class="tools">
-                                        <i class="fas fa-edit"></i>
-                                        <i class="fas fa-trash-o"></i>
-                                    </div>
-                                </li>
-                                <li>
-                      <span class="handle">
-                        <i class="fas fa-ellipsis-v"></i>
-                        <i class="fas fa-ellipsis-v"></i>
-                      </span>
-                                    <div  class="icheck-primary d-inline ml-2">
-                                        <input type="checkbox" value="" name="todo2" id="todoCheck2" checked>
-                                        <label for="todoCheck2"></label>
-                                    </div>
-                                    <span class="text">Make the theme responsive</span>
-                                    <small class="badge badge-info"><i class="far fa-clock"></i> 4 hours</small>
-                                    <div class="tools">
-                                        <i class="fas fa-edit"></i>
-                                        <i class="fas fa-trash-o"></i>
-                                    </div>
-                                </li>
-                                <li>
-                      <span class="handle">
-                        <i class="fas fa-ellipsis-v"></i>
-                        <i class="fas fa-ellipsis-v"></i>
-                      </span>
-                                    <div  class="icheck-primary d-inline ml-2">
-                                        <input type="checkbox" value="" name="todo3" id="todoCheck3">
-                                        <label for="todoCheck3"></label>
-                                    </div>
-                                    <span class="text">Let theme shine like a star</span>
-                                    <small class="badge badge-warning"><i class="far fa-clock"></i> 1 day</small>
-                                    <div class="tools">
-                                        <i class="fas fa-edit"></i>
-                                        <i class="fas fa-trash-o"></i>
-                                    </div>
-                                </li>
-                                <li>
-                      <span class="handle">
-                        <i class="fas fa-ellipsis-v"></i>
-                        <i class="fas fa-ellipsis-v"></i>
-                      </span>
-                                    <div  class="icheck-primary d-inline ml-2">
-                                        <input type="checkbox" value="" name="todo4" id="todoCheck4">
-                                        <label for="todoCheck4"></label>
-                                    </div>
-                                    <span class="text">Let theme shine like a star</span>
-                                    <small class="badge badge-success"><i class="far fa-clock"></i> 3 days</small>
-                                    <div class="tools">
-                                        <i class="fas fa-edit"></i>
-                                        <i class="fas fa-trash-o"></i>
-                                    </div>
-                                </li>
-                                <li>
-                      <span class="handle">
-                        <i class="fas fa-ellipsis-v"></i>
-                        <i class="fas fa-ellipsis-v"></i>
-                      </span>
-                                    <div  class="icheck-primary d-inline ml-2">
-                                        <input type="checkbox" value="" name="todo5" id="todoCheck5">
-                                        <label for="todoCheck5"></label>
-                                    </div>
-                                    <span class="text">Check your messages and notifications</span>
-                                    <small class="badge badge-primary"><i class="far fa-clock"></i> 1 week</small>
-                                    <div class="tools">
-                                        <i class="fas fa-edit"></i>
-                                        <i class="fas fa-trash-o"></i>
-                                    </div>
-                                </li>
-                                <li>
-                      <span class="handle">
-                        <i class="fas fa-ellipsis-v"></i>
-                        <i class="fas fa-ellipsis-v"></i>
-                      </span>
-                                    <div  class="icheck-primary d-inline ml-2">
-                                        <input type="checkbox" value="" name="todo6" id="todoCheck6">
-                                        <label for="todoCheck6"></label>
-                                    </div>
-                                    <span class="text">Let theme shine like a star</span>
-                                    <small class="badge badge-secondary"><i class="far fa-clock"></i> 1 month</small>
-                                    <div class="tools">
-                                        <i class="fas fa-edit"></i>
-                                        <i class="fas fa-trash-o"></i>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- /.card-body -->
-                        <div class="card-footer clearfix">
-                            <button type="button" class="btn btn-info float-right"><i class="fas fa-plus"></i> Add item</button>
+            <!-- Statistics Card -->
+            <div class="col-xl-8 col-md-6 col-12">
+                <div class="card card-statistics">
+                    <div class="card-header">
+                        <h4 class="card-title">Statistics</h4>
+                        <div class="d-flex align-items-center">
+                            <p class="card-text font-small-2 me-25 mb-0">Updated 1 month ago</p>
                         </div>
                     </div>
-                    <!-- /.card -->
-                </section>
-                <!-- /.Left col -->
-                <!-- right col (We are only adding the ID to make the widgets sortable)-->
-                <section class="col-lg-5 connectedSortable">
-
-                    <!-- Map card -->
-                    <div class="card bg-gradient-primary">
-                        <div class="card-header border-0">
-                            <h3 class="card-title">
-                                <i class="fas fa-map-marker-alt mr-1"></i>
-                                Visitors
-                            </h3>
-                            <!-- card tools -->
-                            <div class="card-tools">
-                                <button type="button"
-                                        class="btn btn-primary btn-sm daterange"
-                                        data-toggle="tooltip"
-                                        title="Date range">
-                                    <i class="far fa-calendar-alt"></i>
-                                </button>
-                                <button type="button"
-                                        class="btn btn-primary btn-sm"
-                                        data-card-widget="collapse"
-                                        data-toggle="tooltip"
-                                        title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                            <!-- /.card-tools -->
-                        </div>
-                        <div class="card-body">
-                            <div id="world-map" style="height: 250px; width: 100%;"></div>
-                        </div>
-                        <!-- /.card-body-->
-                        <div class="card-footer bg-transparent">
-                            <div class="row">
-                                <div class="col-4 text-center">
-                                    <div id="sparkline-1"></div>
-                                    <div class="text-white">Visitors</div>
-                                </div>
-                                <!-- ./col -->
-                                <div class="col-4 text-center">
-                                    <div id="sparkline-2"></div>
-                                    <div class="text-white">Online</div>
-                                </div>
-                                <!-- ./col -->
-                                <div class="col-4 text-center">
-                                    <div id="sparkline-3"></div>
-                                    <div class="text-white">Sales</div>
-                                </div>
-                                <!-- ./col -->
-                            </div>
-                            <!-- /.row -->
-                        </div>
-                    </div>
-                    <!-- /.card -->
-
-                    <!-- solid sales graph -->
-                    <div class="card bg-gradient-info">
-                        <div class="card-header border-0">
-                            <h3 class="card-title">
-                                <i class="fas fa-th mr-1"></i>
-                                Sales Graph
-                            </h3>
-
-                            <div class="card-tools">
-                                <button type="button" class="btn bg-info btn-sm" data-card-widget="collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn bg-info btn-sm" data-card-widget="remove">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <canvas class="chart" id="line-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                        </div>
-                        <!-- /.card-body -->
-                        <div class="card-footer bg-transparent">
-                            <div class="row">
-                                <div class="col-4 text-center">
-                                    <input type="text" class="knob" data-readonly="true" value="20" data-width="60" data-height="60"
-                                           data-fgColor="#39CCCC">
-
-                                    <div class="text-white">Mail-Orders</div>
-                                </div>
-                                <!-- ./col -->
-                                <div class="col-4 text-center">
-                                    <input type="text" class="knob" data-readonly="true" value="50" data-width="60" data-height="60"
-                                           data-fgColor="#39CCCC">
-
-                                    <div class="text-white">Online</div>
-                                </div>
-                                <!-- ./col -->
-                                <div class="col-4 text-center">
-                                    <input type="text" class="knob" data-readonly="true" value="30" data-width="60" data-height="60"
-                                           data-fgColor="#39CCCC">
-
-                                    <div class="text-white">In-Store</div>
-                                </div>
-                                <!-- ./col -->
-                            </div>
-                            <!-- /.row -->
-                        </div>
-                        <!-- /.card-footer -->
-                    </div>
-                    <!-- /.card -->
-
-                    <!-- Calendar -->
-                    <div class="card bg-gradient-success">
-                        <div class="card-header border-0">
-
-                            <h3 class="card-title">
-                                <i class="far fa-calendar-alt"></i>
-                                Calendar
-                            </h3>
-                            <!-- tools card -->
-                            <div class="card-tools">
-                                <!-- button with a dropdown -->
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown">
-                                        <i class="fas fa-bars"></i></button>
-                                    <div class="dropdown-menu float-right" role="menu">
-                                        <a href="#" class="dropdown-item">Add new event</a>
-                                        <a href="#" class="dropdown-item">Clear events</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a href="#" class="dropdown-item">View calendar</a>
+                    <div class="card-body statistics-body">
+                        <div class="row">
+                            <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
+                                <div class="d-flex flex-row">
+                                    <div class="avatar bg-light-primary me-2">
+                                        <div class="avatar-content">
+                                            <i data-feather="trending-up" class="avatar-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="my-auto">
+                                        <h4 class="fw-bolder mb-0">230k</h4>
+                                        <p class="card-text font-small-3 mb-0">Sales</p>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-success btn-sm" data-card-widget="collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-success btn-sm" data-card-widget="remove">
-                                    <i class="fas fa-times"></i>
-                                </button>
                             </div>
-                            <!-- /. tools -->
+                            <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
+                                <div class="d-flex flex-row">
+                                    <div class="avatar bg-light-info me-2">
+                                        <div class="avatar-content">
+                                            <i data-feather="user" class="avatar-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="my-auto">
+                                        <h4 class="fw-bolder mb-0">8.549k</h4>
+                                        <p class="card-text font-small-3 mb-0">Customers</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-sm-0">
+                                <div class="d-flex flex-row">
+                                    <div class="avatar bg-light-danger me-2">
+                                        <div class="avatar-content">
+                                            <i data-feather="box" class="avatar-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="my-auto">
+                                        <h4 class="fw-bolder mb-0">1.423k</h4>
+                                        <p class="card-text font-small-3 mb-0">Products</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-sm-6 col-12">
+                                <div class="d-flex flex-row">
+                                    <div class="avatar bg-light-success me-2">
+                                        <div class="avatar-content">
+                                            <i data-feather="dollar-sign" class="avatar-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="my-auto">
+                                        <h4 class="fw-bolder mb-0">$9745</h4>
+                                        <p class="card-text font-small-3 mb-0">Revenue</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <!-- /.card-header -->
-                        <div class="card-body pt-0">
-                            <!--The calendar -->
-                            <div id="calendar" style="width: 100%"></div>
-                        </div>
-                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card -->
-                </section>
-                <!-- right col -->
+                </div>
             </div>
-            <!-- /.row (main row) -->
-        </div><!-- /.container-fluid -->
+            <!--/ Statistics Card -->
+        </div>
+
+        <div class="row match-height">
+            <div class="col-lg-4 col-12">
+                <div class="row match-height">
+                    <!-- Bar Chart - Orders -->
+                    <div class="col-lg-6 col-md-3 col-6">
+                        <div class="card">
+                            <div class="card-body pb-50">
+                                <h6>Orders</h6>
+                                <h2 class="fw-bolder mb-1">2,76k</h2>
+                                <div id="statistics-order-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/ Bar Chart - Orders -->
+
+                    <!-- Line Chart - Profit -->
+                    <div class="col-lg-6 col-md-3 col-6">
+                        <div class="card card-tiny-line-stats">
+                            <div class="card-body pb-50">
+                                <h6>Profit</h6>
+                                <h2 class="fw-bolder mb-1">6,24k</h2>
+                                <div id="statistics-profit-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/ Line Chart - Profit -->
+
+                    <!-- Earnings Card -->
+                    <div class="col-lg-12 col-md-6 col-12">
+                        <div class="card earnings-card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h4 class="card-title mb-1">Earnings</h4>
+                                        <div class="font-small-2">This Month</div>
+                                        <h5 class="mb-1">$4055.56</h5>
+                                        <p class="card-text text-muted font-small-2">
+                                            <span class="fw-bolder">68.2%</span><span> more earnings than last month.</span>
+                                        </p>
+                                    </div>
+                                    <div class="col-6">
+                                        <div id="earnings-chart"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/ Earnings Card -->
+                </div>
+            </div>
+
+            <!-- Revenue Report Card -->
+            <div class="col-lg-8 col-12">
+                <div class="card card-revenue-budget">
+                    <div class="row mx-0">
+                        <div class="col-md-8 col-12 revenue-report-wrapper">
+                            <div class="d-sm-flex justify-content-between align-items-center mb-3">
+                                <h4 class="card-title mb-50 mb-sm-0">Revenue Report</h4>
+                                <div class="d-flex align-items-center">
+                                    <div class="d-flex align-items-center me-2">
+                                        <span class="bullet bullet-primary font-small-3 me-50 cursor-pointer"></span>
+                                        <span>Earning</span>
+                                    </div>
+                                    <div class="d-flex align-items-center ms-75">
+                                        <span class="bullet bullet-warning font-small-3 me-50 cursor-pointer"></span>
+                                        <span>Expense</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="revenue-report-chart"></div>
+                        </div>
+                        <div class="col-md-4 col-12 budget-wrapper">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle budget-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    2020
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">2020</a>
+                                    <a class="dropdown-item" href="#">2019</a>
+                                    <a class="dropdown-item" href="#">2018</a>
+                                </div>
+                            </div>
+                            <h2 class="mb-25">$25,852</h2>
+                            <div class="d-flex justify-content-center">
+                                <span class="fw-bolder me-25">Budget:</span>
+                                <span>56,800</span>
+                            </div>
+                            <div id="budget-chart"></div>
+                            <button type="button" class="btn btn-primary">Increase Budget</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/ Revenue Report Card -->
+        </div>
+
+        <div class="row match-height">
+            <!-- Company Table Card -->
+            <div class="col-lg-8 col-12">
+                <div class="card card-company-table">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Company</th>
+                                    <th>Category</th>
+                                    <th>Views</th>
+                                    <th>Revenue</th>
+                                    <th>Sales</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar rounded">
+                                                <div class="avatar-content">
+                                                    <img src="../../../app-assets/images/icons/toolbox.svg" alt="Toolbar svg" />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="fw-bolder">Dixons</div>
+                                                <div class="font-small-2 text-muted">meguc@ruj.io</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar bg-light-primary me-1">
+                                                <div class="avatar-content">
+                                                    <i data-feather="monitor" class="font-medium-3"></i>
+                                                </div>
+                                            </div>
+                                            <span>Technology</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-nowrap">
+                                        <div class="d-flex flex-column">
+                                            <span class="fw-bolder mb-25">23.4k</span>
+                                            <span class="font-small-2 text-muted">in 24 hours</span>
+                                        </div>
+                                    </td>
+                                    <td>$891.2</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <span class="fw-bolder me-1">68%</span>
+                                            <i data-feather="trending-down" class="text-danger font-medium-1"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar rounded">
+                                                <div class="avatar-content">
+                                                    <img src="../../../app-assets/images/icons/parachute.svg" alt="Parachute svg" />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="fw-bolder">Motels</div>
+                                                <div class="font-small-2 text-muted">vecav@hodzi.co.uk</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar bg-light-success me-1">
+                                                <div class="avatar-content">
+                                                    <i data-feather="coffee" class="font-medium-3"></i>
+                                                </div>
+                                            </div>
+                                            <span>Grocery</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-nowrap">
+                                        <div class="d-flex flex-column">
+                                            <span class="fw-bolder mb-25">78k</span>
+                                            <span class="font-small-2 text-muted">in 2 days</span>
+                                        </div>
+                                    </td>
+                                    <td>$668.51</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <span class="fw-bolder me-1">97%</span>
+                                            <i data-feather="trending-up" class="text-success font-medium-1"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar rounded">
+                                                <div class="avatar-content">
+                                                    <img src="../../../app-assets/images/icons/brush.svg" alt="Brush svg" />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="fw-bolder">Zipcar</div>
+                                                <div class="font-small-2 text-muted">davcilse@is.gov</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar bg-light-warning me-1">
+                                                <div class="avatar-content">
+                                                    <i data-feather="watch" class="font-medium-3"></i>
+                                                </div>
+                                            </div>
+                                            <span>Fashion</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-nowrap">
+                                        <div class="d-flex flex-column">
+                                            <span class="fw-bolder mb-25">162</span>
+                                            <span class="font-small-2 text-muted">in 5 days</span>
+                                        </div>
+                                    </td>
+                                    <td>$522.29</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <span class="fw-bolder me-1">62%</span>
+                                            <i data-feather="trending-up" class="text-success font-medium-1"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar rounded">
+                                                <div class="avatar-content">
+                                                    <img src="../../../app-assets/images/icons/star.svg" alt="Star svg" />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="fw-bolder">Owning</div>
+                                                <div class="font-small-2 text-muted">us@cuhil.gov</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar bg-light-primary me-1">
+                                                <div class="avatar-content">
+                                                    <i data-feather="monitor" class="font-medium-3"></i>
+                                                </div>
+                                            </div>
+                                            <span>Technology</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-nowrap">
+                                        <div class="d-flex flex-column">
+                                            <span class="fw-bolder mb-25">214</span>
+                                            <span class="font-small-2 text-muted">in 24 hours</span>
+                                        </div>
+                                    </td>
+                                    <td>$291.01</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <span class="fw-bolder me-1">88%</span>
+                                            <i data-feather="trending-up" class="text-success font-medium-1"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar rounded">
+                                                <div class="avatar-content">
+                                                    <img src="../../../app-assets/images/icons/book.svg" alt="Book svg" />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="fw-bolder">Cafés</div>
+                                                <div class="font-small-2 text-muted">pudais@jife.com</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar bg-light-success me-1">
+                                                <div class="avatar-content">
+                                                    <i data-feather="coffee" class="font-medium-3"></i>
+                                                </div>
+                                            </div>
+                                            <span>Grocery</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-nowrap">
+                                        <div class="d-flex flex-column">
+                                            <span class="fw-bolder mb-25">208</span>
+                                            <span class="font-small-2 text-muted">in 1 week</span>
+                                        </div>
+                                    </td>
+                                    <td>$783.93</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <span class="fw-bolder me-1">16%</span>
+                                            <i data-feather="trending-down" class="text-danger font-medium-1"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar rounded">
+                                                <div class="avatar-content">
+                                                    <img src="../../../app-assets/images/icons/rocket.svg" alt="Rocket svg" />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="fw-bolder">Kmart</div>
+                                                <div class="font-small-2 text-muted">bipri@cawiw.com</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar bg-light-warning me-1">
+                                                <div class="avatar-content">
+                                                    <i data-feather="watch" class="font-medium-3"></i>
+                                                </div>
+                                            </div>
+                                            <span>Fashion</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-nowrap">
+                                        <div class="d-flex flex-column">
+                                            <span class="fw-bolder mb-25">990</span>
+                                            <span class="font-small-2 text-muted">in 1 month</span>
+                                        </div>
+                                    </td>
+                                    <td>$780.05</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <span class="fw-bolder me-1">78%</span>
+                                            <i data-feather="trending-up" class="text-success font-medium-1"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar rounded">
+                                                <div class="avatar-content">
+                                                    <img src="../../../app-assets/images/icons/speaker.svg" alt="Speaker svg" />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="fw-bolder">Payers</div>
+                                                <div class="font-small-2 text-muted">luk@izug.io</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar bg-light-warning me-1">
+                                                <div class="avatar-content">
+                                                    <i data-feather="watch" class="font-medium-3"></i>
+                                                </div>
+                                            </div>
+                                            <span>Fashion</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-nowrap">
+                                        <div class="d-flex flex-column">
+                                            <span class="fw-bolder mb-25">12.9k</span>
+                                            <span class="font-small-2 text-muted">in 12 hours</span>
+                                        </div>
+                                    </td>
+                                    <td>$531.49</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <span class="fw-bolder me-1">42%</span>
+                                            <i data-feather="trending-up" class="text-success font-medium-1"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/ Company Table Card -->
+
+            <!-- Developer Meetup Card -->
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="card card-developer-meetup">
+                    <div class="meetup-img-wrapper rounded-top text-center">
+                        <img src="../../../app-assets/images/illustration/email.svg" alt="Meeting Pic" height="170" />
+                    </div>
+                    <div class="card-body">
+                        <div class="meetup-header d-flex align-items-center">
+                            <div class="meetup-day">
+                                <h6 class="mb-0">THU</h6>
+                                <h3 class="mb-0">24</h3>
+                            </div>
+                            <div class="my-auto">
+                                <h4 class="card-title mb-25">Developer Meetup</h4>
+                                <p class="card-text mb-0">Meet world popular developers</p>
+                            </div>
+                        </div>
+                        <div class="mt-0">
+                            <div class="avatar float-start bg-light-primary rounded me-1">
+                                <div class="avatar-content">
+                                    <i data-feather="calendar" class="avatar-icon font-medium-3"></i>
+                                </div>
+                            </div>
+                            <div class="more-info">
+                                <h6 class="mb-0">Sat, May 25, 2020</h6>
+                                <small>10:AM to 6:PM</small>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <div class="avatar float-start bg-light-primary rounded me-1">
+                                <div class="avatar-content">
+                                    <i data-feather="map-pin" class="avatar-icon font-medium-3"></i>
+                                </div>
+                            </div>
+                            <div class="more-info">
+                                <h6 class="mb-0">Central Park</h6>
+                                <small>Manhattan, New york City</small>
+                            </div>
+                        </div>
+                        <div class="avatar-group">
+                            <div data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="bottom" title="Billy Hopkins" class="avatar pull-up">
+                                <img src="../../../app-assets/images/portrait/small/avatar-s-9.jpg" alt="Avatar" width="33" height="33" />
+                            </div>
+                            <div data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="bottom" title="Amy Carson" class="avatar pull-up">
+                                <img src="../../../app-assets/images/portrait/small/avatar-s-6.jpg" alt="Avatar" width="33" height="33" />
+                            </div>
+                            <div data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="bottom" title="Brandon Miles" class="avatar pull-up">
+                                <img src="../../../app-assets/images/portrait/small/avatar-s-8.jpg" alt="Avatar" width="33" height="33" />
+                            </div>
+                            <div data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="bottom" title="Daisy Weber" class="avatar pull-up">
+                                <img src="../../../app-assets/images/portrait/small/avatar-s-20.jpg" alt="Avatar" width="33" height="33" />
+                            </div>
+                            <div data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="bottom" title="Jenny Looper" class="avatar pull-up">
+                                <img src="../../../app-assets/images/portrait/small/avatar-s-20.jpg" alt="Avatar" width="33" height="33" />
+                            </div>
+                            <h6 class="align-self-center cursor-pointer ms-50 mb-0">+42</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/ Developer Meetup Card -->
+
+            <!-- Browser States Card -->
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="card card-browser-states">
+                    <div class="card-header">
+                        <div>
+                            <h4 class="card-title">Browser States</h4>
+                            <p class="card-text font-small-2">Counter August 2020</p>
+                        </div>
+                        <div class="dropdown chart-dropdown">
+                            <i data-feather="more-vertical" class="font-medium-3 cursor-pointer" data-bs-toggle="dropdown"></i>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" href="#">Last 28 Days</a>
+                                <a class="dropdown-item" href="#">Last Month</a>
+                                <a class="dropdown-item" href="#">Last Year</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="browser-states">
+                            <div class="d-flex">
+                                <img src="../../../app-assets/images/icons/google-chrome.png" class="rounded me-1" height="30" alt="Google Chrome" />
+                                <h6 class="align-self-center mb-0">Google Chrome</h6>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="fw-bold text-body-heading me-1">54.4%</div>
+                                <div id="browser-state-chart-primary"></div>
+                            </div>
+                        </div>
+                        <div class="browser-states">
+                            <div class="d-flex">
+                                <img src="../../../app-assets/images/icons/mozila-firefox.png" class="rounded me-1" height="30" alt="Mozila Firefox" />
+                                <h6 class="align-self-center mb-0">Mozila Firefox</h6>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="fw-bold text-body-heading me-1">6.1%</div>
+                                <div id="browser-state-chart-warning"></div>
+                            </div>
+                        </div>
+                        <div class="browser-states">
+                            <div class="d-flex">
+                                <img src="../../../app-assets/images/icons/apple-safari.png" class="rounded me-1" height="30" alt="Apple Safari" />
+                                <h6 class="align-self-center mb-0">Apple Safari</h6>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="fw-bold text-body-heading me-1">14.6%</div>
+                                <div id="browser-state-chart-secondary"></div>
+                            </div>
+                        </div>
+                        <div class="browser-states">
+                            <div class="d-flex">
+                                <img src="../../../app-assets/images/icons/internet-explorer.png" class="rounded me-1" height="30" alt="Internet Explorer" />
+                                <h6 class="align-self-center mb-0">Internet Explorer</h6>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="fw-bold text-body-heading me-1">4.2%</div>
+                                <div id="browser-state-chart-info"></div>
+                            </div>
+                        </div>
+                        <div class="browser-states">
+                            <div class="d-flex">
+                                <img src="../../../app-assets/images/icons/opera.png" class="rounded me-1" height="30" alt="Opera Mini" />
+                                <h6 class="align-self-center mb-0">Opera Mini</h6>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="fw-bold text-body-heading me-1">8.4%</div>
+                                <div id="browser-state-chart-danger"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/ Browser States Card -->
+
+            <!-- Goal Overview Card -->
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="card-title">Goal Overview</h4>
+                        <i data-feather="help-circle" class="font-medium-3 text-muted cursor-pointer"></i>
+                    </div>
+                    <div class="card-body p-0">
+                        <div id="goal-overview-radial-bar-chart" class="my-2"></div>
+                        <div class="row border-top text-center mx-0">
+                            <div class="col-6 border-end py-1">
+                                <p class="card-text text-muted mb-0">Completed</p>
+                                <h3 class="fw-bolder mb-0">786,617</h3>
+                            </div>
+                            <div class="col-6 py-1">
+                                <p class="card-text text-muted mb-0">In Progress</p>
+                                <h3 class="fw-bolder mb-0">13,561</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/ Goal Overview Card -->
+
+            <!-- Transaction Card -->
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="card card-transaction">
+                    <div class="card-header">
+                        <h4 class="card-title">Transactions</h4>
+                        <div class="dropdown chart-dropdown">
+                            <i data-feather="more-vertical" class="font-medium-3 cursor-pointer" data-bs-toggle="dropdown"></i>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" href="#">Last 28 Days</a>
+                                <a class="dropdown-item" href="#">Last Month</a>
+                                <a class="dropdown-item" href="#">Last Year</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="transaction-item">
+                            <div class="d-flex">
+                                <div class="avatar bg-light-primary rounded float-start">
+                                    <div class="avatar-content">
+                                        <i data-feather="pocket" class="avatar-icon font-medium-3"></i>
+                                    </div>
+                                </div>
+                                <div class="transaction-percentage">
+                                    <h6 class="transaction-title">Wallet</h6>
+                                    <small>Starbucks</small>
+                                </div>
+                            </div>
+                            <div class="fw-bolder text-danger">- $74</div>
+                        </div>
+                        <div class="transaction-item">
+                            <div class="d-flex">
+                                <div class="avatar bg-light-success rounded float-start">
+                                    <div class="avatar-content">
+                                        <i data-feather="check" class="avatar-icon font-medium-3"></i>
+                                    </div>
+                                </div>
+                                <div class="transaction-percentage">
+                                    <h6 class="transaction-title">Bank Transfer</h6>
+                                    <small>Add Money</small>
+                                </div>
+                            </div>
+                            <div class="fw-bolder text-success">+ $480</div>
+                        </div>
+                        <div class="transaction-item">
+                            <div class="d-flex">
+                                <div class="avatar bg-light-danger rounded float-start">
+                                    <div class="avatar-content">
+                                        <i data-feather="dollar-sign" class="avatar-icon font-medium-3"></i>
+                                    </div>
+                                </div>
+                                <div class="transaction-percentage">
+                                    <h6 class="transaction-title">Paypal</h6>
+                                    <small>Add Money</small>
+                                </div>
+                            </div>
+                            <div class="fw-bolder text-success">+ $590</div>
+                        </div>
+                        <div class="transaction-item">
+                            <div class="d-flex">
+                                <div class="avatar bg-light-warning rounded float-start">
+                                    <div class="avatar-content">
+                                        <i data-feather="credit-card" class="avatar-icon font-medium-3"></i>
+                                    </div>
+                                </div>
+                                <div class="transaction-percentage">
+                                    <h6 class="transaction-title">Mastercard</h6>
+                                    <small>Ordered Food</small>
+                                </div>
+                            </div>
+                            <div class="fw-bolder text-danger">- $23</div>
+                        </div>
+                        <div class="transaction-item">
+                            <div class="d-flex">
+                                <div class="avatar bg-light-info rounded float-start">
+                                    <div class="avatar-content">
+                                        <i data-feather="trending-up" class="avatar-icon font-medium-3"></i>
+                                    </div>
+                                </div>
+                                <div class="transaction-percentage">
+                                    <h6 class="transaction-title">Transfer</h6>
+                                    <small>Refund</small>
+                                </div>
+                            </div>
+                            <div class="fw-bolder text-success">+ $98</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/ Transaction Card -->
+        </div>
     </section>
-    <!-- /.content -->
+    <!-- Dashboard Ecommerce ends -->
+
+
 @endsection
 
+
 @push('scripts')
-    <script src="{{asset("js/dashboard.js")}}"></script>
-    <script src="{{asset("js/demo.js")}}"></script>
+
+    <!-- BEGIN: Page Vendor JS-->
+    <script src="{{asset('app-assets/vendors/js/charts/apexcharts.min.js')}}"></script>
+    <script src="{{asset('app-assets/vendors/js/extensions/toastr.min.js')}}"></script>
+    <!-- END: Page Vendor JS-->
+    <!-- BEGIN: Page JS-->
+    <script src="{{asset('app-assets/js/scripts/pages/dashboard-ecommerce.js')}}"></script>
+    <!-- END: Page JS-->
+@endpush
+
+@push('estilos')
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/extensions/toastr.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/plugins/extensions/ext-component-toastr.css')}}">
+
 @endpush

@@ -23,23 +23,18 @@ class UserDataTable extends DataTable
             ->addColumn('action', function($User){
                 $id = $User->id;
                 return view('admin.users.datatables_actions',compact('User','id'));
-            })->editColumn('avatar',function (User $user){
+            })
+            ->editColumn('name',function (User $user){
 
-                return "<img src='{$user->thumb}' alt='' width='50' height='50'>";
+                return view('admin.users.columna_nombre',compact('user'));
 
-            })->editColumn('unidad.nombre',function (User $user){
-
-                return $user->unidad->nombre ?? '';
-
-            })->editColumn('puesto.nombre',function (User $user){
-
-                return $user->puesto->nombre ?? '';
-
-            })->editColumn('roles',function (User $user){
+            })
+            ->editColumn('roles',function (User $user){
 
                 return view('admin.users.partials.roles',compact('user'));
 
-            })->rawColumns(['action','avatar','roles']);
+            })
+            ->rawColumns(['action','nombre','roles']);
     }
 
     /**
@@ -50,7 +45,9 @@ class UserDataTable extends DataTable
      */
     public function query(User $model)
     {
-        $query = $model->newQuery()->with(['roles','media','unidad','puesto']);
+        $query = $model->newQuery()
+            ->select($model->getTable().'.*')
+            ->with(['roles','media']);
 
         //si el usuario no puede ver a todos los usuarios
         if (auth()->user()->cannot('ver todos los usuarios')){
@@ -81,28 +78,47 @@ class UserDataTable extends DataTable
             ->language(['url' => asset('js/SpanishDataTables.json')])
             ->responsive(true)
             ->stateSave(false)
-            ->orderBy(0,'desc')
+            ->orderBy(1,'desc')
             ->dom('
-                <"row mb-2"
-                    <"col-sm-12 col-md-6" B>
+                <"card-header border-bottom p-1"
+                    <"head-label">
+                    <"dt-action-buttons text-start" B>
+                >
+                <"d-flex justify-content-between align-items-center mx-0 row"
+                    <"col-sm-12 col-md-6" l>
                     <"col-sm-12 col-md-6" f>
                 >
-                rt
-                <"row"
-                    <"col-sm-6 order-2 order-sm-1" ip>
-                    <"col-sm-6 order-1 order-sm-2 text-right" l>
-
-                >
+                t
+                <"d-flex justify-content-between mx-0 row"
+                    <"col-sm-12 col-md-6" i>
+                    <"col-sm-12 col-md-6" p>
+                o>
             ')
             ->buttons(
 
-                Button::make('print')
-                    ->formTitle('Titulo')->titleAttr('Titutlo2')
-                    ->text('<i class="fa fa-print"></i> <span class="d-none d-sm-inline">Imprimir</span>'),
+
                 Button::make('reset')
+                    ->addClass('btn btn-outline-secondary')
                     ->text('<i class="fa fa-undo"></i> <span class="d-none d-sm-inline">Reiniciar</span>'),
+
                 Button::make('export')
-                    ->text('<i class="fa fa-download"></i> <span class="d-none d-sm-inline">Exportar</span>'),
+                    ->extend('collection')
+                    ->addClass('dt-button buttons-collection btn btn-outline-secondary dropdown-toggle me-2')
+                    ->text('<i class="fa fa-download"></i> <span class="d-none d-sm-inline">Exportar</span>')
+                    ->buttons([
+                        Button::make('print')
+                            ->addClass('dropdown-item')
+                            ->text('<i class="fa fa-print"></i> <span class="d-none d-sm-inline"> Imprimir</span>'),
+                        Button::make('csv')
+                            ->addClass('dropdown-item')
+                            ->text('<i class="fa fa-file-csv"></i> <span class="d-none d-sm-inline"> Csv</span>'),
+                        Button::make('pdf')
+                            ->addClass('dropdown-item')
+                            ->text('<i class="fa fa-file-pdf"></i> <span class="d-none d-sm-inline"> Pdf</span>'),
+                        Button::make('excel')
+                            ->addClass('dropdown-item')
+                            ->text('<i class="fa fa-file-excel"></i> <span class="d-none d-sm-inline"> Excel</span>'),
+                    ]),
             );
     }
 
@@ -115,12 +131,10 @@ class UserDataTable extends DataTable
     {
         return [
 
+            Column::make('nombre')->name('name')->data('name'),
             Column::make('id'),
-            Column::make('avatar')->data('avatar')->orderable('false')->searchable(false),
             Column::make('username'),
-            Column::make('name'),
-            Column::make('unidad')->data('unidad.nombre')->name('unidad.nombre'),
-            Column::make('puesto')->data('puesto.nombre')->name('puesto.nombre'),
+            Column::make('email'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
@@ -134,7 +148,7 @@ class UserDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'UserDataTable2_' . date('YmdHis');
     }

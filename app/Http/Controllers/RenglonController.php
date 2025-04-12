@@ -30,7 +30,7 @@ class RenglonController extends AppBaseController
      */
     public function index(RenglonDataTable $renglonDataTable)
     {
-        return $renglonDataTable->render('renglons.index');
+        return $renglonDataTable->render('renglones.index');
     }
 
     /**
@@ -40,7 +40,7 @@ class RenglonController extends AppBaseController
      */
     public function create()
     {
-        return view('renglons.create');
+        return view('renglones.create');
     }
 
     /**
@@ -59,7 +59,7 @@ class RenglonController extends AppBaseController
 
         Flash::success('Renglon guardado exitosamente.');
 
-        return redirect(route('renglons.index'));
+        return redirect(route('renglones.index'));
     }
 
     /**
@@ -77,10 +77,10 @@ class RenglonController extends AppBaseController
         if (empty($renglon)) {
             Flash::error('Renglon no encontrado');
 
-            return redirect(route('renglons.index'));
+            return redirect(route('renglones.index'));
         }
 
-        return view('renglons.show')->with('renglon', $renglon);
+        return view('renglones.show')->with('renglon', $renglon);
     }
 
     /**
@@ -98,10 +98,10 @@ class RenglonController extends AppBaseController
         if (empty($renglon)) {
             Flash::error('Renglon no encontrado');
 
-            return redirect(route('renglons.index'));
+            return redirect(route('renglones.index'));
         }
 
-        return view('renglons.edit')->with('renglon', $renglon);
+        return view('renglones.edit')->with('renglon', $renglon);
     }
 
     /**
@@ -120,7 +120,7 @@ class RenglonController extends AppBaseController
         if (empty($renglon)) {
             Flash::error('Renglon no encontrado');
 
-            return redirect(route('renglons.index'));
+            return redirect(route('renglones.index'));
         }
 
         $renglon->fill($request->all());
@@ -128,7 +128,7 @@ class RenglonController extends AppBaseController
 
         Flash::success('Renglon actualizado con éxito.');
 
-        return redirect(route('renglons.index'));
+        return redirect(route('renglones.index'));
     }
 
     /**
@@ -148,13 +148,13 @@ class RenglonController extends AppBaseController
         if (empty($renglon)) {
             Flash::error('Renglon no encontrado');
 
-            return redirect(route('renglons.index'));
+            return redirect(route('renglones.index'));
         }
 
         $renglon->delete();
 
         Flash::success('Renglon deleted successfully.');
 
-        return redirect(route('renglons.index'));
+        return redirect(route('renglones.index'));
     }
 }

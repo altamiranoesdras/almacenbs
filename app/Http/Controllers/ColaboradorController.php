@@ -16,10 +16,10 @@ class ColaboradorController extends AppBaseController
 
     public function __construct()
     {
-        $this->middleware('permission:Ver Colaboradors')->only(['show']);
-        $this->middleware('permission:Crear Colaboradors')->only(['create','store']);
-        $this->middleware('permission:Editar Colaboradors')->only(['edit','update',]);
-        $this->middleware('permission:Eliminar Colaboradors')->only(['destroy']);
+        $this->middleware('permission:Ver Colaboradores')->only(['show']);
+        $this->middleware('permission:Crear Colaboradores')->only(['create','store']);
+        $this->middleware('permission:Editar Colaboradores')->only(['edit','update',]);
+        $this->middleware('permission:Eliminar Colaboradores')->only(['destroy']);
     }
 
     /**
@@ -30,7 +30,7 @@ class ColaboradorController extends AppBaseController
      */
     public function index(ColaboradorDataTable $colaboradorDataTable)
     {
-        return $colaboradorDataTable->render('colaboradors.index');
+        return $colaboradorDataTable->render('colaboradores.index');
     }
 
     /**
@@ -40,7 +40,7 @@ class ColaboradorController extends AppBaseController
      */
     public function create()
     {
-        return view('colaboradors.create');
+        return view('colaboradores.create');
     }
 
     /**
@@ -59,7 +59,7 @@ class ColaboradorController extends AppBaseController
 
         Flash::success('Colaborador guardado exitosamente.');
 
-        return redirect(route('colaboradors.index'));
+        return redirect(route('colaboradores.index'));
     }
 
     /**
@@ -77,10 +77,10 @@ class ColaboradorController extends AppBaseController
         if (empty($colaborador)) {
             Flash::error('Colaborador no encontrado');
 
-            return redirect(route('colaboradors.index'));
+            return redirect(route('colaboradores.index'));
         }
 
-        return view('colaboradors.show')->with('colaborador', $colaborador);
+        return view('colaboradores.show')->with('colaborador', $colaborador);
     }
 
     /**
@@ -98,10 +98,10 @@ class ColaboradorController extends AppBaseController
         if (empty($colaborador)) {
             Flash::error('Colaborador no encontrado');
 
-            return redirect(route('colaboradors.index'));
+            return redirect(route('colaboradores.index'));
         }
 
-        return view('colaboradors.edit')->with('colaborador', $colaborador);
+        return view('colaboradores.edit')->with('colaborador', $colaborador);
     }
 
     /**
@@ -120,7 +120,7 @@ class ColaboradorController extends AppBaseController
         if (empty($colaborador)) {
             Flash::error('Colaborador no encontrado');
 
-            return redirect(route('colaboradors.index'));
+            return redirect(route('colaboradores.index'));
         }
 
         $colaborador->fill($request->all());
@@ -128,7 +128,7 @@ class ColaboradorController extends AppBaseController
 
         Flash::success('Colaborador actualizado con éxito.');
 
-        return redirect(route('colaboradors.index'));
+        return redirect(route('colaboradores.index'));
     }
 
     /**
@@ -148,13 +148,13 @@ class ColaboradorController extends AppBaseController
         if (empty($colaborador)) {
             Flash::error('Colaborador no encontrado');
 
-            return redirect(route('colaboradors.index'));
+            return redirect(route('colaboradores.index'));
         }
 
         $colaborador->delete();
 
         Flash::success('Colaborador deleted successfully.');
 
-        return redirect(route('colaboradors.index'));
+        return redirect(route('colaboradores.index'));
     }
 }

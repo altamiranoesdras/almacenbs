@@ -3,7 +3,9 @@ namespace Database\Seeders;
 
 use App\Models\Compra;
 use App\Models\CompraDetalle;
+use App\Models\Kardex;
 use App\Models\Stock;
+use App\Models\StockTransaccion;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -18,17 +20,22 @@ class ComprasSeeder extends Seeder
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
-        DB::table('compras')->truncate();
-        DB::table('compra_detalles')->truncate();
+        Compra::truncate();
+        CompraDetalle::truncate();
+        Stock::truncate();
+        StockTransaccion::truncate();
+        Kardex::truncate();
 
         Compra::factory()->count(100)
             ->create()
             ->each(function (Compra $compra){
                 CompraDetalle::factory()
-                    ->count(rand(3,5))
+                    ->count(rand(5,10))
                     ->create([
                         'compra_id' => $compra->id
                     ]);
+
+                $compra->procesarKardex();
             });
 
 

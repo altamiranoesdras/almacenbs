@@ -16,6 +16,11 @@
                 $(this).find('thead').addClass('text-sm');
 
                 $('[data-toggle="tooltip"]').tooltip();
+
+                $(".esperar").submit(function( event ) {
+
+                    esperar();
+                });
             });
 
             window.Echo.channel('solicitudes').listen('EventoCambioEstadoSolicitud',(res) => {

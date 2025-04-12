@@ -4,21 +4,53 @@ namespace App\Models;
 
 use App\Traits\UseStockTransaccion;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class SolicitudDetalle
+ *
  * @package App\Models
  * @version July 27, 2022, 12:25 pm CST
- *
  * @property Item $item
  * @property Solicitud $solicitud
  * @property integer $solicitud_id
  * @property integer $item_id
  * @property number $cantidad_solicitada
+ * @property number $cantidad_aprobada
  * @property number $cantidad_despachada
  * @property number $precio
+ * @property int $id
+ * @property string|null $observaciones
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Kardex|null $kardex
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\StockTransaccion[] $transaccionesStock
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Kardex[] $kardexes
+ * @property-read int|null $transacciones_stock_count
+ * @method static \Database\Factories\SolicitudDetalleFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle newQuery()
+ * @method static \Illuminate\Database\Query\Builder|SolicitudDetalle onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle query()
+ * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereCantidadAprobada($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereCantidadDespachada($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereCantidadSolicitada($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereItemId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereObservaciones($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle wherePrecio($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereSolicitudId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|SolicitudDetalle withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|SolicitudDetalle withoutTrashed()
+ * @mixin \Eloquent
+ * @property string|null $fecha_vence
+ * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereFechaVence($value)
  */
 class SolicitudDetalle extends Model
 {
@@ -40,6 +72,7 @@ class SolicitudDetalle extends Model
         'solicitud_id',
         'item_id',
         'cantidad_solicitada',
+        'cantidad_aprobada',
         'cantidad_despachada',
         'precio'
     ];
@@ -93,6 +126,12 @@ class SolicitudDetalle extends Model
         return $this->morphOne(Kardex::class,'model');
     }
 
+    public function kardexs(): MorphMany
+    {
+        return $this->morphMany(Kardex::class,'model','model_type','model_id');
+    }
+
+
     public function egreso()
     {
 
@@ -102,11 +141,26 @@ class SolicitudDetalle extends Model
         $cantidad = $this->cantidad_despachada*-1;
 
         $stocks = $this->item->stocks
+            ->where('bodega_id',Bodega::PRINCIPAL)
             ->where('cantidad','>',0)
             ->sortBy('orden_salida')
-            ->sortBy('fecha_ven')
+            ->sortBy('fecha_vence')
             ->sortBy('created_at')
             ->sortBy('id');
+
+
+        /**
+         * @var Stock $primerStock
+         */
+
+        $primerStock = $stocks->first();
+
+        /**
+         * @var Stock $ultimoStock
+         */
+
+        $ultimoStock = $stocks->last();
+
 
 
         foreach ($stocks as $key => $stock) {
@@ -128,23 +182,77 @@ class SolicitudDetalle extends Model
                 $stock->save();
 
                 $this->addStockTransaccion(StockTransaccion::EGRESO,$stock->id,$rebajado,$stock->precio_compra);
+
+
+                $this->kardex()->create([
+                    'item_id' => $this->item->id,
+                    'cantidad' => $rebajado,
+                    'precio_movimiento' => $stock->precio_compra,
+                    'precio_existencia' => $stock->precio_compra,
+                    'tipo' => Kardex::TIPO_SALIDA,
+                    'codigo' => $this->solicitud->codigo,
+                    'responsable' => $this->solicitud->unidad->nombre,
+                    'usuario_id' => auth()->user()->id ?? User::PRINCIPAL
+                ]);
             }
+
+
 
             if($cantidad>0)
                 break;
         }
 
-        $this->kardex()->create([
-            'item_id' => $this->item->id,
-            'cantidad' => $this->cantidad_despachada,
-            'tipo' => Kardex::TIPO_SALIDA,
-            'codigo' => $this->solicitud->codigo,
-            'responsable' => $this->solicitud->unidad->nombre,
-            'usuario_id' => auth()->user()->id ?? User::PRINCIPAL
-        ]);
+        $this->precio = $primerStock->precio_compra;
+        $this->save();
+
 
         return $stocks;
 
+    }
+
+    public function ingreso($bodega)
+    {
+
+        if(!$this->item->inventariable)
+            return null;
+
+        /**
+         * @var Stock $stock
+         */
+        $stock =  $this->item->stocks
+            ->where('bodega_id',$bodega)
+            ->where('precio_compra',$this->precio)
+            ->sortBy('orden_salida')
+            ->sortBy('fecha_vence')
+            ->sortBy('created_at')
+            ->sortBy('id')
+            ->first();
+
+
+        if($stock){
+
+            $stock->cantidad += $this->cantidad_despachada;
+            $stock->save();
+
+        }else{
+
+            $stock= Stock::create([
+                'bodega_id' => $bodega,
+                'item_id' => $this->item->id,
+                'lote' =>  null,
+                'precio_compra' => $this->precio,
+                'fecha_vence' => null,
+                'cantidad' =>  $this->cantidad_despachada,
+                'cantidad_inicial' =>  $this->cantidad_despachada,
+                'orden_salida' => 0
+            ]);
+
+        }
+
+
+        $this->addStockTransaccion(StockTransaccion::INGRESO,$stock->id,$this->cantidad_despachada,$this->precio);
+
+        return $stock;
     }
 
     public function anular()

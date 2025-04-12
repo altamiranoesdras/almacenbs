@@ -112,7 +112,7 @@ class ActivoSolicitudTipoDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'activo_solicitud_tipos_'  . date('YmdHis');
     }

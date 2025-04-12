@@ -53,7 +53,7 @@ class ItemDataTable extends DataTable
      */
     public function query(Item $model)
     {
-        return $model->newQuery()->select('items.*')->with(['stocks','renglon','marca','unimed']);
+        return $model->newQuery()->select('items.*')->with(['presentacion','stocks','renglon','marca','unimed']);
     }
 
     /**
@@ -106,7 +106,9 @@ class ItemDataTable extends DataTable
     {
         return [
             Column::make('imagen')->searchable(false)->orderable(false),
-            Column::make('codigo'),
+//            Column::make('codigo'),
+            Column::make('codigo_insumo'),
+            Column::make('codigo_presentacion'),
             Column::make('nombre'),
             Column::make('renglon')->name('renglon.numero')->data('renglon.numero'),
             Column::make('renglon_descripcion')
@@ -114,11 +116,11 @@ class ItemDataTable extends DataTable
                 ->data('renglon.descripcion')
                 ->visible(false)
                 ->exportable(false),
-            Column::make('marca')->name('marca.nombre')->data('marca.nombre'),
+//            Column::make('presentacion')->name('presentacion.nombre')->data('presentacion.nombre'),
             Column::make('U/M')->name('unimed.nombre')->data('unimed.nombre'),
             Column::make('stock')->searchable(false)->orderable(false),
             Column::make('precio_compra'),
-            Column::make('ubicacion'),
+//            Column::make('ubicacion'),
             Column::computed('action')
                             ->exportable(false)
                             ->printable(false)
@@ -132,7 +134,7 @@ class ItemDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'items_'  . date('YmdHis');
     }

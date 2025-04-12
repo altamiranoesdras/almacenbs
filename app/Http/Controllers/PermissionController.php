@@ -3,42 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\PermissionDataTable;
-use App\Http\Requests;
 use App\Http\Requests\CreatePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
-use App\Models\Permission;
-use Flash;
 use App\Http\Controllers\AppBaseController;
-use Response;
+use App\Models\Permission;
 
 class PermissionController extends AppBaseController
 {
-    /**
-     * PermissionController constructor.
-     */
+
     public function __construct()
     {
-        $this->middleware('permission:Ver permisos')->only('show');
-        $this->middleware('permission:Crear permisos')->only(['create','store']);
-        $this->middleware('permission:Editar permisos')->only(['edit','update']);
-        $this->middleware('permission:Eliminar permisos')->only('destroy');
+        $this->middleware('permission:Ver Permisos')->only('show');
+        $this->middleware('permission:Crear Permisos')->only(['create','store']);
+        $this->middleware('permission:Editar Permisos')->only(['edit','update']);
+        $this->middleware('permission:Eliminar Permisos')->only('destroy');
     }
-
     /**
      * Display a listing of the Permission.
-     *
-     * @param PermissionDataTable $permissionDataTable
-     * @return Response
      */
     public function index(PermissionDataTable $permissionDataTable)
     {
-        return $permissionDataTable->render('admin.permissions.index');
+    return $permissionDataTable->render('admin.permissions.index');
     }
+
 
     /**
      * Show the form for creating a new Permission.
-     *
-     * @return Response
      */
     public function create()
     {
@@ -47,10 +37,6 @@ class PermissionController extends AppBaseController
 
     /**
      * Store a newly created Permission in storage.
-     *
-     * @param CreatePermissionRequest $request
-     *
-     * @return Response
      */
     public function store(CreatePermissionRequest $request)
     {
@@ -59,17 +45,13 @@ class PermissionController extends AppBaseController
         /** @var Permission $permission */
         $permission = Permission::create($input);
 
-        Flash::success('Permission saved successfully.');
+        flash()->success('Permission guardado.');
 
         return redirect(route('permissions.index'));
     }
 
     /**
      * Display the specified Permission.
-     *
-     * @param  int $id
-     *
-     * @return Response
      */
     public function show($id)
     {
@@ -77,7 +59,7 @@ class PermissionController extends AppBaseController
         $permission = Permission::find($id);
 
         if (empty($permission)) {
-            Flash::error('Permission not found');
+            flash()->error('Permission no encontrado');
 
             return redirect(route('permissions.index'));
         }
@@ -87,10 +69,6 @@ class PermissionController extends AppBaseController
 
     /**
      * Show the form for editing the specified Permission.
-     *
-     * @param  int $id
-     *
-     * @return Response
      */
     public function edit($id)
     {
@@ -98,7 +76,7 @@ class PermissionController extends AppBaseController
         $permission = Permission::find($id);
 
         if (empty($permission)) {
-            Flash::error('Permission not found');
+            flash()->error('Permission no encontrado');
 
             return redirect(route('permissions.index'));
         }
@@ -108,11 +86,6 @@ class PermissionController extends AppBaseController
 
     /**
      * Update the specified Permission in storage.
-     *
-     * @param  int              $id
-     * @param UpdatePermissionRequest $request
-     *
-     * @return Response
      */
     public function update($id, UpdatePermissionRequest $request)
     {
@@ -120,7 +93,7 @@ class PermissionController extends AppBaseController
         $permission = Permission::find($id);
 
         if (empty($permission)) {
-            Flash::error('Permission not found');
+            flash()->error('Permission no encontrado');
 
             return redirect(route('permissions.index'));
         }
@@ -128,7 +101,7 @@ class PermissionController extends AppBaseController
         $permission->fill($request->all());
         $permission->save();
 
-        Flash::success('Permission updated successfully.');
+        flash()->success('Permission actualizado.');
 
         return redirect(route('permissions.index'));
     }
@@ -136,11 +109,7 @@ class PermissionController extends AppBaseController
     /**
      * Remove the specified Permission from storage.
      *
-     * @param  int $id
-     *
      * @throws \Exception
-     *
-     * @return Response
      */
     public function destroy($id)
     {
@@ -148,14 +117,14 @@ class PermissionController extends AppBaseController
         $permission = Permission::find($id);
 
         if (empty($permission)) {
-            Flash::error('Permission not found');
+            flash()->error('Permission no encontrado');
 
             return redirect(route('permissions.index'));
         }
 
         $permission->delete();
 
-        Flash::success('Permission deleted successfully.');
+        flash()->success('Permission eliminado.');
 
         return redirect(route('permissions.index'));
     }

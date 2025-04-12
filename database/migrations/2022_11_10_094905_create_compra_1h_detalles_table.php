@@ -22,6 +22,7 @@ class CreateCompra1hDetallesTable extends Migration
             $table->integer('folio_almacen')->nullable();
             $table->integer('folio_inventario')->nullable();
             $table->string('codigo_inventario', 50)->nullable();
+            $table->string('texto_extra')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

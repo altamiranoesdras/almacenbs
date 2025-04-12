@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class StockTransaccion
+ *
  * @package App\Models
  * @version July 27, 2022, 12:26 pm CST
- *
  * @property \App\Models\Stock $stock
  * @property string $model_type
  * @property integer $model_id
@@ -18,6 +18,23 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string $tipo
  * @property number $cantidad
  * @property number $precio_costo
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Database\Factories\StockTransaccionFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|StockTransaccion newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|StockTransaccion newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|StockTransaccion query()
+ * @method static \Illuminate\Database\Eloquent\Builder|StockTransaccion whereCantidad($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|StockTransaccion whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|StockTransaccion whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|StockTransaccion whereModelId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|StockTransaccion whereModelType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|StockTransaccion wherePrecioCosto($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|StockTransaccion whereStockId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|StockTransaccion whereTipo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|StockTransaccion whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class StockTransaccion extends Model
 {

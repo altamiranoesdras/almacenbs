@@ -14,7 +14,8 @@ class AddForeignKeysToStocksTable extends Migration
     public function up()
     {
         Schema::table('stocks', function (Blueprint $table) {
-            $table->foreign('item_id', 'fk_igresos_items1')->references('id')->on('items')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('item_id', 'fk_stock_items1')->references('id')->on('items')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('bodega_id', 'fk_stock_bodegas1')->references('id')->on('bodegas')->onUpdate('NO ACTION')->onDelete('NO ACTION');
         });
     }
 
@@ -26,7 +27,8 @@ class AddForeignKeysToStocksTable extends Migration
     public function down()
     {
         Schema::table('stocks', function (Blueprint $table) {
-            $table->dropForeign('fk_igresos_items1');
+            $table->dropForeign('fk_stock_items1');
+            $table->dropForeign('fk_stock_bodegas1');
         });
     }
 }

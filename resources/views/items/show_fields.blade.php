@@ -23,8 +23,14 @@
 
 <!-- Codigo Field -->
 <div class="form-group">
-    {!! Form::label('codigo', 'Codigo:') !!}
-    {!! $item->codigo !!}
+    {!! Form::label('codigo', 'Codigo insumo:') !!}
+    {!! $item->codigo_insumo !!}
+</div>
+
+<!-- Codigo presentacion Field -->
+<div class="form-group">
+    {!! Form::label('codigo_presentacion', 'Codigo presentacion:') !!}
+    {!! $item->codigo_presentacion !!}
 </div>
 
 <!-- Precio Venta Field -->
@@ -39,17 +45,6 @@
     {!! $item->precio_compra !!}
 </div>
 
-<!-- Precio Mayoreo Field -->
-<div class="form-group">
-    {!! Form::label('precio_mayoreo', 'Precio Mayoreo:') !!}
-    {!! $item->precio_mayoreo !!}
-</div>
-
-<!-- Cantidad Mayoreo Field -->
-<div class="form-group">
-    {!! Form::label('cantidad_mayoreo', 'Cantidad Mayoreo:') !!}
-    {!! $item->cantidad_mayoreo !!}
-</div>
 
 <!-- Precio Promedio Field -->
 <div class="form-group">
@@ -60,7 +55,7 @@
 <!-- Stock Field -->
 <div class="form-group">
     {!! Form::label('stock', 'Stock:') !!}
-    {!! $item->stock !!}
+    {!! $item->stock_total !!} ({{ $item->stock_reservado }} reservados)
 </div>
 
 <!-- Ubicacion Field -->
@@ -78,20 +73,15 @@
 <!-- Marca Field -->
 <div class="form-group">
     {!! Form::label('marca_id', 'Marca:') !!}
-    {!! $item->marca_id !!}
+    {!! $item->marca->nombre ?? 'Sin marca' !!}
 </div>
 
 <!-- Unimed Field -->
 <div class="form-group">
     {!! Form::label('unimed_id', 'Unidad de medida:') !!}
-    {!! $item->unimed->nombre ?? ''!!}
+    {!! $item->unimed->nombre ?? 'Sin unidad de medida' !!}
 </div>
 
-<!-- Iestado Field -->
-<div class="form-group">
-    {!! Form::label('iestado_id', 'Estado:') !!}
-    {!! $item->iestado->descripcion ?? '' !!}
-</div>
 
 <!-- Created At Field -->
 <div class="form-group">

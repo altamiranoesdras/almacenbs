@@ -24,14 +24,14 @@ class RenglonDataTable extends DataTable
 
                  $id = $renglon->id;
 
-                 return view('renglons.datatables_actions',compact('renglon','id'))->render();
+                 return view('renglones.datatables_actions',compact('renglon','id'))->render();
              })
              ->editColumn('id',function (Renglon $renglon){
 
                  return $renglon->id;
 
                  //se debe crear la vista modal_detalles
-                 //return view('renglons.modal_detalles',compact('renglon'))->render();
+                 //return view('renglones.modal_detalles',compact('renglon'))->render();
 
              })
             ->rawColumns(['action','id']);
@@ -113,7 +113,7 @@ class RenglonDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'renglons_'  . date('YmdHis');
     }

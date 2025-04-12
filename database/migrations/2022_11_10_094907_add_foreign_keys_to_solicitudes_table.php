@@ -21,6 +21,7 @@ class AddForeignKeysToSolicitudesTable extends Migration
             $table->foreign('usuario_autoriza', 'fk_solicitudes_users3')->references('id')->on('users')->onUpdate('NO ACTION')->onDelete('NO ACTION');
             $table->foreign('usuario_aprueba', 'fk_solicitudes_users5')->references('id')->on('users')->onUpdate('NO ACTION')->onDelete('NO ACTION');
             $table->foreign('unidad_id', 'fk_solicitudes_rrhh_unidades1')->references('id')->on('rrhh_unidades')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('bodega_id', 'fk_solicitudes_bodegas1')->references('id')->on('bodegas')->onUpdate('NO ACTION')->onDelete('NO ACTION');
         });
     }
 
@@ -39,6 +40,7 @@ class AddForeignKeysToSolicitudesTable extends Migration
             $table->dropForeign('fk_solicitudes_users3');
             $table->dropForeign('fk_solicitudes_users5');
             $table->dropForeign('fk_solicitudes_rrhh_unidades1');
+            $table->dropForeign('fk_solicitudes_bodegas1');
         });
     }
 }

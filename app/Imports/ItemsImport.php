@@ -92,7 +92,7 @@ class ItemsImport implements ToCollection, WithHeadingRow
                             'perecedero' => $row['perecedero'] ?? 0,
                             'marca_id' => $marca->id ?? null,
                             'unimed_id' => $unimed->id ?? null,
-                            'icategoria_id' => $categoria->id ?? null,
+                            'categoria_id' => $categoria->id ?? null,
                         ]);
 
                     if ($categoria && $item){

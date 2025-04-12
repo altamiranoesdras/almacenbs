@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class RrhhColaborador
+ *
  * @package App\Models
  * @version November 12, 2022, 10:35 am CST
- *
  * @property \App\Models\RrhhPuesto $puesto
  * @property \App\Models\User $user
- * @property \App\Models\RrhhUnidade $unidad
+ * @property \App\Models\RrhhUnidad $unidad
  * @property \Illuminate\Database\Eloquent\Collection $activoSolicitudes
  * @property \Illuminate\Database\Eloquent\Collection $activoSolicitude1s
  * @property \Illuminate\Database\Eloquent\Collection $activoTarjetas
@@ -29,6 +29,38 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property integer $puesto_id
  * @property integer $unidad_id
  * @property integer $user_id
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read int|null $activo_tarjetas_count
+ * @property-read mixed $nombre_completo
+ * @property-read mixed $text
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador newQuery()
+ * @method static \Illuminate\Database\Query\Builder|RrhhColaborador onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador query()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador whereApellidos($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador whereCorreo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador whereDireccion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador whereDpi($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador whereNit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador whereNombres($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador wherePuestoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador whereTelefono($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador whereUnidadId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|RrhhColaborador withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|RrhhColaborador withoutTrashed()
+ * @mixin Model
+ * @property-read int|null $activo_solicitude1s_count
+ * @property-read int|null $activo_solicitudes_count
+ * @property-read int|null $rrhh_unidade2s_count
+ * @property-read int|null $rrhh_contratos_count
  */
 class RrhhColaborador extends Model
 {
@@ -125,7 +157,7 @@ class RrhhColaborador extends Model
      **/
     public function unidad()
     {
-        return $this->belongsTo(\App\Models\RrhhUnidade::class, 'unidad_id');
+        return $this->belongsTo(\App\Models\RrhhUnidad::class, 'unidad_id');
     }
 
     /**
@@ -133,7 +165,7 @@ class RrhhColaborador extends Model
      **/
     public function activoSolicitudes()
     {
-        return $this->hasMany(\App\Models\ActivoSolicitude::class, 'colaborador_destino');
+        return $this->hasMany(\App\Models\ActivoSolicitud::class, 'colaborador_destino');
     }
 
     /**
@@ -141,7 +173,7 @@ class RrhhColaborador extends Model
      **/
     public function activoSolicitude1s()
     {
-        return $this->hasMany(\App\Models\ActivoSolicitude::class, 'colaborador_origen');
+        return $this->hasMany(\App\Models\ActivoSolicitud::class, 'colaborador_origen');
     }
 
     /**
@@ -165,7 +197,7 @@ class RrhhColaborador extends Model
      **/
     public function rrhhUnidade2s()
     {
-        return $this->hasMany(\App\Models\RrhhUnidade::class, 'jefe_id');
+        return $this->hasMany(\App\Models\RrhhUnidad::class, 'jefe_id');
     }
 
     public function getNombreCompletoAttribute()

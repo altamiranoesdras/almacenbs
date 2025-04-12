@@ -8,12 +8,31 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class ActivoEstado
+ *
  * @package App\Models
  * @version August 31, 2022, 10:51 pm CST
- *
  * @property \Illuminate\Database\Eloquent\Collection $activoSolicitudDetalles
  * @property \Illuminate\Database\Eloquent\Collection $activos
  * @property string $nombre
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read int|null $activo_solicitud_detalles_count
+ * @property-read int|null $activos_count
+ * @method static \Database\Factories\ActivoEstadoFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoEstado newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoEstado newQuery()
+ * @method static \Illuminate\Database\Query\Builder|ActivoEstado onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoEstado query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoEstado whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoEstado whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoEstado whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoEstado whereNombre($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoEstado whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|ActivoEstado withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|ActivoEstado withoutTrashed()
+ * @mixin \Eloquent
  */
 class ActivoEstado extends Model
 {

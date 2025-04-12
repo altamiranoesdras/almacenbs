@@ -8,10 +8,27 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class Denominacion
+ *
  * @package App\Models
  * @version July 27, 2022, 12:22 pm CST
- *
  * @property number $monto
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @method static \Database\Factories\DenominacionFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Denominacion newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Denominacion newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Denominacion onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Denominacion query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Denominacion whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Denominacion whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Denominacion whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Denominacion whereMonto($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Denominacion whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Denominacion withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Denominacion withoutTrashed()
+ * @mixin \Eloquent
  */
 class Denominacion extends Model
 {

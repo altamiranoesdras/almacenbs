@@ -60,9 +60,9 @@ Route::group(['as'=>'api.'], function () {
 
         Route::resource('roles', RoleAPIController::class);
 
+        Route::post('user/add/shortcut/{user}', [UserAPIController::class,'addShortcut'])->name('users.add_shortcut');
+        Route::post('user/remove/shortcut/{user}', [UserAPIController::class,'removeShortcut'])->name('users.remove_shortcut');
         Route::resource('users', UserAPIController::class);
-        Route::get('user/add/shortcut/{user}', [UserAPIController::class,'addShortcut'])->name('users.add_shortcut');
-        Route::get('user/remove/shortcut/{user}', [UserAPIController::class,'removeShortcut'])->name('users.remove_shortcut');
 
 
         Route::resource('compra_estados', CompraEstadoAPIController::class);
@@ -117,6 +117,7 @@ Route::group(['as'=>'api.'], function () {
 
 
         Route::resource('kardexes', KardexAPIController::class);
+        Route::post('kardexes/ordenar/filas', [KardexAPIController::class,'ordenarFilas'])->name('kardexes.ordenar_filas');
 
 
         Route::resource('solicitud_estados', SolicitudEstadoAPIController::class);
@@ -186,11 +187,27 @@ Route::group(['as'=>'api.'], function () {
         Route::resource('contratos', App\Http\Controllers\API\ContratoAPIController::class);
 
         Route::resource('activo_tarjeta_estados', App\Http\Controllers\API\ActivoTarjetaEstadoAPIController::class);
+
+        Route::resource('item_presentaciones', App\Http\Controllers\API\ItemPresentacionAPIController::class);
+
+        Route::resource('rrhh_contratos', App\Http\Controllers\API\RrhhContratoAPIController::class);
+
+        Route::resource('bodegas', App\Http\Controllers\API\BodegaAPIController::class);
+
+
+
+        Route::resource('consumo_estados', App\Http\Controllers\API\ConsumoEstadoAPIController::class);
+
+
+        Route::resource('consumos', App\Http\Controllers\API\ConsumoAPIController::class);
+
+
+        Route::resource('consumo_detalles', App\Http\Controllers\API\ConsumoDetalleAPIController::class);
+
+        Route::resource('item_modelos', App\Http\Controllers\API\ItemModeloAPIController::class);
+
     });
 
 
 });
-
-
-
 

@@ -11,9 +11,9 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * Class Activo
+ *
  * @package App\Models
  * @version November 11, 2022, 11:13 am CST
- *
  * @property \App\Models\Renglone $renglon
  * @property \App\Models\ActivoEstado $estado
  * @property \App\Models\Compra1hDetalle $detalle1h
@@ -47,6 +47,55 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property integer $diferencia_act_adq
  * @property integer $diferencia_act_cont
  * @property integer $diferencia_adq_cont
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read mixed $img
+ * @property-read mixed $thumb
+ * @property-read int|null $items_count
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\App\Models\Media[] $media
+ * @property-read int|null $media_count
+ * @property-read int|null $solicitud_detalles_count
+ * @property-read int|null $tarjeta_detalles_count
+ * @method static \Database\Factories\ActivoFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Activo onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereCodigoDonacion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereCodigoInventario($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereCodigoSicoin($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereContabilizado($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereCur($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereDescripcion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereDetalle1hId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereDiferenciaActAdq($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereDiferenciaActCont($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereDiferenciaAdqCont($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereEntidad($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereEstadoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereFechaAprobado($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereFechaContabilizacion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereFechaRegistro($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereFolio($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereNit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereNombre($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereNumeroDocumento($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereRenglonId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereTipoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereTipoInventario($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereUnidadEjecutadora($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereValorActual($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereValorAdquisicion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo whereValorContabilizado($value)
+ * @method static \Illuminate\Database\Query\Builder|Activo withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Activo withoutTrashed()
+ * @mixin \Eloquent
  */
 class Activo extends Model implements HasMedia
 {

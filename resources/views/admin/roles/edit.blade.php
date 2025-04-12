@@ -1,52 +1,73 @@
 @extends('layouts.app')
 
-@section('title_page',__('Edit Role'))
-@include('partials.plugins.gijgo')
+@section('titulo_pagina', 'Editar Role' )
+
+@include('layouts.plugins.bootstrap_duallistbox')
+@include('layouts.plugins.jstree')
+
 
 @section('content')
 
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col">
-                    <h1>Role</h1>
-                </div>
-                <div class="col">
-                    <a class="btn btn-outline-info float-right"
-                       href="{{route('roles.index')}}">
-                        <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span class="d-none d-sm-inline">Listado</span>
-                    </a>
+    <div class="content-header row">
+        <div class="content-header-left col-md-9 col-12 mb-2">
+            <div class="row breadcrumbs-top">
+                <div class="col-12">
+                    <h2 class="content-header-title float-start mb-0">
+                                                    Editar Role
+                                            </h2>
                 </div>
             </div>
-        </div><!-- /.container-fluid -->
-    </section>
-
-    <div class="content">
-        <div class="container-fluid">
-
-
-            @include('layouts.partials.request_errors')
-
-            <div class="card">
-                <div class="card-body">
-
-                   {!! Form::model($role, ['route' => ['roles.update', $role->id], 'method' => 'patch','class' => 'esperar']) !!}
-                        <div class="form-row">
-
-                            @include('admin.roles.fields')
-                            <!-- Submit Field -->
-                            <div class="form-group col-sm-12">
-                                <button type="submit"  class="btn btn-outline-success">Guardar</button>
-                                <a href="{!! route('roles.index') !!}" class="btn btn-outline-secondary">Cancelar</a>
-                            </div>
-                        </div>
-
-                   {!! Form::close() !!}
+        </div>
+        <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
+            <div class="mb-1 breadcrumb-right">
+                <div class="dropdown">
+                    <a class="btn btn-outline-secondary float-right"
+                       href="{{ route('roles.index') }}"
+                    >
+                        <i class="fa fa-arrow-left"></i>
+                        Regresar
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 
-    @include('admin.permissions.modal_form_new')
+    <div class="content-body">
+
+        <div class="row">
+            <div class="col-12">
+
+                @include('layouts.partials.request_errors')
+
+                <div class="card">
+
+                    {!! Form::model($role, ['route' => ['roles.update', $role->id], 'method' => 'patch','class' => 'esperar']) !!}
+
+                    <div class="card-body">
+                        @include('admin.roles.fields')
+                    </div>
+
+                    <div class="card-footer text-end">
+
+                        <a href="{{ route('roles.index') }}"
+                           class="btn btn-outline-secondary round me-1">
+                            <i class="fa fa-ban"></i>
+                            Cancelar
+                        </a>
+
+                        <button type="submit" class="btn btn-success round">
+                            <i class="fa fa-save"></i>
+                            Guardar
+                        </button>
+                    </div>
+
+                    {!! Form::close() !!}
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 @endsection

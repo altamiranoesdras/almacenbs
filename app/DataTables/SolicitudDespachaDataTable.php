@@ -29,7 +29,7 @@ class SolicitudDespachaDataTable extends DataTable
             })
             ->editColumn('codigo',function (Solicitud $solicitud){
 
-                return view('solicitudes.modal_show',compact('solicitud'))->render();
+                return view('solicitudes.despachar.modal_despachar',compact('solicitud'))->render();
 
             })
             ->editColumn('justificacion',function (Solicitud $solicitud){
@@ -58,11 +58,11 @@ class SolicitudDespachaDataTable extends DataTable
 
             })
             ->editColumn('fecha_solicita',function (Solicitud $solicitud){
-                return fechaLtn($solicitud->fecha_solicita);
+                return fechaHoraLtn($solicitud->fecha_solicita);
             })
             ->editColumn('fecha_despacha',function (Solicitud $solicitud){
                 if ($solicitud->fecha_despacha){
-                    return fechaLtn($solicitud->fecha_despacha);
+                    return fechaHoraLtn($solicitud->fecha_despacha);
                 }
             })
             ->rawColumns(['action','codigo']);
@@ -78,7 +78,7 @@ class SolicitudDespachaDataTable extends DataTable
     {
         return $model->newQuery()
             ->select('solicitudes.*')
-            ->with(['detalles.item','unidad','usuarioSolicita','usuarioAutoriza','usuarioAprueba','usuarioDespacha','estado']);
+            ->with(['detalles.item','unidad','usuarioSolicita','usuarioAutoriza','usuarioAprueba','usuarioDespacha','estado','bitacoras']);
     }
 
     /**
@@ -141,9 +141,9 @@ class SolicitudDespachaDataTable extends DataTable
                 ->name('usuarioSolicita.name')
                 ->data('usuario_solicita.name'),
 
-            Column::make('usuario_autoriza')
-                ->name('usuarioAutoriza.name')
-                ->data('usuario_autoriza.name'),
+//            Column::make('usuario_autoriza')
+//                ->name('usuarioAutoriza.name')
+//                ->data('usuario_autoriza.name'),
 
             Column::make('usuario_aprueba')
                 ->name('usuarioAprueba.name')
@@ -168,7 +168,7 @@ class SolicitudDespachaDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'solicitudesdatatable_' . time();
     }

@@ -3,7 +3,14 @@
 namespace Database\Factories;
 
 use App\Models\Activo;
+use App\Models\ActivoEstado;
+use App\Models\ActivoTipo;
+use App\Models\Item;
+use App\Models\Renglon;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Mmo\Faker\LoremSpaceProvider;
+use Mmo\Faker\PicsumProvider;
 
 class ActivoFactory extends Factory
 {
@@ -21,19 +28,25 @@ class ActivoFactory extends Factory
      */
     public function definition()
     {
+
+        /**
+         * @var Item $item
+         */
+        $item = Item::tipoActivo()->get()->random();
+
         return [
-            'nombre' => $this->faker->word,
-            'descripcion' => $this->faker->text,
-            'codigo_inventario' => $this->faker->word,
-            'folio' => $this->faker->word,
-            'valor_actual' => $this->faker->word,
-            'valor_adquisicion' => $this->faker->word,
-            'valor_contabilizado' => $this->faker->word,
-            'fecha_registro' => $this->faker->word,
-            'tipo_id' => $this->faker->word,
-            'estado_id' => $this->faker->word,
-            'detalle_1h_id' => $this->faker->word,
-            'renglon_id' => $this->faker->word,
+            'nombre' => $item->nombre,
+            'descripcion' => $item->descripcion,
+            'codigo_inventario' => $this->faker->randomNumber(6),
+            'folio' => $this->faker->randomNumber(4),
+            'valor_actual' => $item->precio_compra,
+            'valor_adquisicion' => $item->precio_compra,
+            'valor_contabilizado' => 0,
+            'fecha_registro' => Carbon::now()->subMonths(rand(1,5))->subDays(rand(5,20)),
+            'tipo_id' => ActivoTipo::all()->random()->id,
+            'estado_id' => ActivoEstado::BUEN_ESTADO,
+            'detalle_1h_id' => null,
+            'renglon_id' => Renglon::all()->random()->id,
             'entidad' => $this->faker->randomDigitNotNull,
             'unidad_ejecutadora' => $this->faker->randomDigitNotNull,
             'tipo_inventario' => $this->faker->randomDigitNotNull,
@@ -41,40 +54,40 @@ class ActivoFactory extends Factory
             'codigo_donacion' => $this->faker->randomDigitNotNull,
             'nit' => $this->faker->word,
             'numero_documento' => $this->faker->word,
-            'fecha_aprobado' => $this->faker->word,
-            'fecha_contabilizacion' => $this->faker->word,
+            'fecha_aprobado' => null,
+            'fecha_contabilizacion' => null,
             'cur' => $this->faker->word,
             'contabilizado' => $this->faker->word,
-            'diferencia_act_adq' => $this->faker->randomDigitNotNull,
-            'diferencia_act_cont' => $this->faker->randomDigitNotNull,
-            'diferencia_adq_cont' => $this->faker->randomDigitNotNull,
+            'diferencia_act_adq' => null,
+            'diferencia_act_cont' => null,
+            'diferencia_adq_cont' => null,
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s'),
         ];
     }
 
-    public function configure()
-    {
-        return $this->afterCreating(function (Activo $activo){
-            $this->faker->addProvider(new PicsumProvider($this->faker));
-            $this->faker->addProvider(new LoremSpaceProvider($this->faker));
-
-            try {
-
-                $categoria = $this->faker->randomElement([
-                    LoremSpaceProvider::CATEGORY_BOOK,
-                    LoremSpaceProvider::CATEGORY_SHOES,
-                    LoremSpaceProvider::CATEGORY_WATCH,
-                ]);
-
-                $url = $this->faker->loremSpace($categoria,storage_path('temp'));
-
-                $activo->addMedia($url)
-                    ->toMediaCollection('activos');
-
-            }catch (\Exception $exception){
-                dump($exception->getMessage());
-            }
-        });
-    }
+//    public function configure()
+//    {
+////        return $this->afterCreating(function (Activo $activo){
+////            $this->faker->addProvider(new PicsumProvider($this->faker));
+////            $this->faker->addProvider(new LoremSpaceProvider($this->faker));
+////
+////            try {
+////
+////                $categoria = $this->faker->randomElement([
+////                    LoremSpaceProvider::CATEGORY_BOOK,
+////                    LoremSpaceProvider::CATEGORY_SHOES,
+////                    LoremSpaceProvider::CATEGORY_WATCH,
+////                ]);
+////
+////                $url = $this->faker->loremSpace($categoria,storage_path('temp'));
+////
+////                $activo->addMedia($url)
+////                    ->toMediaCollection('activos');
+////
+////            }catch (\Exception $exception){
+////                dump($exception->getMessage());
+////            }
+////        });
+//    }
 }

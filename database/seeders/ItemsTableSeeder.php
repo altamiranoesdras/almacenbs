@@ -9,6 +9,7 @@ use App\Models\Renglon;
 use App\Models\Stock;
 use App\Models\Unimed;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 
 class ItemsTableSeeder extends Seeder
@@ -24,24 +25,29 @@ class ItemsTableSeeder extends Seeder
 
 
 
-        if (app()->environment()=='local'){
 
-            DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
-            DB::table('items')->truncate();
-            DB::table('item_has_categoria')->truncate();
-            DB::table('stocks')->truncate();
-            DB::table('stocks_transacciones')->truncate();
-            DB::table('kardexs')->truncate();
-            DB::table('compras')->truncate();
-            DB::table('compra_detalles')->truncate();
+//        Artisan::call('import:insumos');
 
-            Item::factory()->count(25)->create();
-
-            DB::statement('SET FOREIGN_KEY_CHECKS=1');
-        }
+        $this->importarSql();
 
 
 
     }
+
+    public function importarSql()
+    {
+
+        $db = config('database.connections.mysql.database');
+        $user = config('database.connections.mysql.username');
+        $pass = config('database.connections.mysql.password');
+        $path = storage_path('insumos.sql');
+
+        $comando = "mysql --user=\"$user\" --password=\"$pass\"  $db < $path";
+
+        exec($comando);
+
+    }
+
 }

@@ -25,6 +25,6 @@
 
 <!-- Fecha Ven Field -->
 {!! Form::label('fecha_vence', 'Fecha Ven:') !!}
-{!! $compraDetalle->fecha_ven !!}<br>
+{!! $compraDetalle->fecha_vence !!}<br>
 
 

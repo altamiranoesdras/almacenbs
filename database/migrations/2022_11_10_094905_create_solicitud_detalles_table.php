@@ -18,8 +18,10 @@ class CreateSolicitudDetallesTable extends Migration
             $table->unsignedBigInteger('solicitud_id')->index('fk_solicitud_detalles_solicitudes1_idx');
             $table->unsignedBigInteger('item_id')->index('fk_solicitud_detalles_items1_idx');
             $table->decimal('cantidad_solicitada', 12);
+            $table->decimal('cantidad_aprobada', 12)->default(0);
             $table->decimal('cantidad_despachada', 12)->default(0);
             $table->decimal('precio', 12)->nullable();
+            $table->date('fecha_vence')->nullable();
             $table->text('observaciones')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -35,4 +37,6 @@ class CreateSolicitudDetallesTable extends Migration
     {
         Schema::dropIfExists('solicitud_detalles');
     }
+
+
 }

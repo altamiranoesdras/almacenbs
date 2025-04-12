@@ -41,102 +41,31 @@ class BusinessProfileController extends Controller
     public function store(Request $request)
     {
 
-        Configuration::updateOrCreate([
-            'key' => 'name',
-        ],[
-            'key' => 'name',
-            'value' => $request->name,
-            'descripcion' => $request->name,
-        ]);
 
-        if($request->telefono_negocio){
+//        dump($request->all());
 
-            Configuration::updateOrCreate([
-                'key' => 'telefono_negocio',
-            ],[
-                'key' => 'telefono_negocio',
-                'value' => $request->telefono_negocio,
-                'descripcion' => $request->telefono_negocio,
-            ]);
-        }
+        foreach ($request->all() as $key => $value) {
 
-        if($request->whatsapp_negocio){
 
-            Configuration::updateOrCreate([
-                'key' => 'whatsapp_negocio',
-            ],[
-                'key' => 'whatsapp_negocio',
-                'value' => $request->whatsapp_negocio,
-                'descripcion' => $request->whatsapp_negocio,
-            ]);
+            $key = $this->filtrarKey($key);
+
+            if($key && $value){
+
+                if ($key=='meta_keywords'){
+                    $value = implode(',', $value);
+                }
+
+                Configuration::updateOrCreate([
+                    'key' => $key,
+                ],[
+                    'key' => $key,
+                    'value' => $value,
+                    'descripcion' => $key,
+                ]);
+            }
         }
 
 
-        if ($request->direccion_negocio){
-
-            Configuration::updateOrCreate([
-                'key' => 'direccion_negocio',
-            ],[
-                'key' => 'direccion_negocio',
-                'value' => $request->direccion_negocio,
-                'descripcion' => $request->direccion_negocio,
-            ]);
-        }
-
-        if ($request->correo_negocio){
-
-            Configuration::updateOrCreate([
-                'key' => 'correo_negocio',
-            ],[
-                'key' => 'correo_negocio',
-                'value' => $request->correo_negocio,
-                'descripcion' => $request->correo_negocio,
-            ]);
-        }
-
-        if ($request->horario_negocio){
-
-            Configuration::updateOrCreate([
-                'key' => 'horario_negocio',
-            ],[
-                'key' => 'horario_negocio',
-                'value' => $request->horario_negocio,
-                'descripcion' => $request->horario_negocio,
-            ]);
-        }
-
-        if ($request->meta_descripcion){
-
-            Configuration::updateOrCreate([
-                'key' => 'meta_descripcion',
-            ],[
-                'key' => 'meta_descripcion',
-                'value' => $request->meta_descripcion,
-                'descripcion' => $request->meta_descripcion,
-            ]);
-        }
-
-        if ($request->meta_titulo){
-
-            Configuration::updateOrCreate([
-                'key' => 'meta_titulo',
-            ],[
-                'key' => 'meta_titulo',
-                'value' => $request->meta_titulo,
-                'descripcion' => $request->meta_titulo,
-            ]);
-        }
-
-        if ($request->meta_keywords){
-
-            Configuration::updateOrCreate([
-                'key' => 'meta_keywords',
-            ],[
-                'key' => 'meta_keywords',
-                'value' => implode(',', $request->meta_keywords),
-                'descripcion' => '',
-            ]);
-        }
 
         if ($request->hasFile('logo')){
             /**
@@ -169,7 +98,41 @@ class BusinessProfileController extends Controller
 
         }
 
-        generarManifest();
+        if ($request->hasFile('promo_factura')){
+            /**
+             * @var Configuration $config
+             */
+            $config = Configuration::find(Configuration::LOGO);
+            $config->clearMediaCollection('promo_factura');
+            $config->addMediaFromRequest('promo_factura')
+                ->toMediaCollection('promo_factura');
+
+
+        }
+
+        if ($request->clear_logo){
+            $config = Configuration::find(Configuration::LOGO);
+            $config->clearMediaCollection('logo');
+        }
+
+        if ($request->clear_icono){
+            $config = Configuration::find(Configuration::ICONO);
+            $config->clearMediaCollection('icono');
+        }
+
+        if ($request->clear_fondo_login){
+
+            $config = Configuration::find(Configuration::FONDO_LOGIN);
+            $config->clearMediaCollection('fondo_login');
+        }
+
+        if ($request->clear_promo_factura){
+            $config = Configuration::find(Configuration::LOGO);
+            $config->clearMediaCollection('promo_factura');
+        }
+
+
+//        generarManifest();
 
 
         flash('Listo guardado!')->success();
@@ -177,5 +140,31 @@ class BusinessProfileController extends Controller
         return redirect(route('profile.business'));
     }
 
+
+
+
+    public function filtrarKey($key)
+    {
+
+        if ($key=="_token" || !str_contains($key,'app_')){
+            return false;
+        }
+
+
+        //si nicia con app_
+        if (strpos($key,'app_')==0){
+
+
+            $key = substr_replace($key,"app.",0,4);
+
+        }else{
+
+            $key = str_replace("api_cloud_whatsapp_","api_cloud_whatsapp.",$key);
+
+        }
+
+
+        return $key;
+    }
 
 }

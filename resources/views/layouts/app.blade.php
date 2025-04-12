@@ -1,152 +1,114 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<!DOCTYPE html>
+<html class="loading dark-layout" lang="en" data-layout="dark-layout" data-textdirection="ltr">
+<!-- BEGIN: Head-->
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title> @yield("title_page") - {{config('app.name')}} </title>
+    <title> @yield("titulo_pagina") - {{config('app.name')}} </title>
+    <meta name="description" content="{{config('app.meta_descripcion')}}">
+    <meta name="keywords" content="{{config('app.meta_keywords')}}">
+    <meta name="author" content="Soluciones Altamirano">
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="apple-touch-icon" href="{{getIcono('180x180')}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{getIcono('32x32')}}">
 
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
 
 
-    <link rel="manifest" href="{{asset('manifest.json')}}">
-    <link rel="apple-touch-icon-precomposed" href="{{asset('icons/180.png')}}" />
-    <meta name="theme-color" content="#007BFF">
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/vendors.min.css')}}">
+    @stack('estilos_dt')
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css')}}">
+    <!-- END: Vendor CSS-->
+
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/bootstrap.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/bootstrap-extended.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/colors.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/components.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/themes/dark-layout.css')}}">
+
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/core/menu/menu-types/vertical-menu.css')}}">
+    <!-- END: Page CSS-->
+
+    <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
+    <!-- END: Custom CSS-->
 
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet" type="text/css" />
 
-    <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
-
-    <style>
-        .bg-main {
-            color: #ffffff !important;
-            background-color: #28A745 !important;
-        }
-
-
-        @-webkit-keyframes flash-main-header {
-            0% {
-                background-color: Yellow;
-            }
-            15% {
-                background-color: #28A745;
-            }
-            100% {
-                background-color: #28A745;
-            }
-        }
-
-        .flash-main-header {
-            -webkit-animation-name: flash-main-header;
-            -webkit-animation-duration: 3000ms;
-            -webkit-animation-timing-function: linear;
-            -webkit-animation-iteration-count: infinite;
-        }
-
-    </style>
-    <!--App css-->
-    @yield('css')
-    @stack('css')
+    @stack('estilos')
 
 
 </head>
-<body class="hold-transition sidebar-mini layout-fixed @stack('sidebar_class')">
-<div class="wrapper">
+<!-- END: Head-->
 
+<!-- BEGIN: Body-->
 
+<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
 
     @include('layouts.partials.navbar')
     @include('layouts.partials.sidebar')
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        @can('access_option')
-            @yield('content')
-        @else
-            @include('partials.no_acces_to_option')
-        @endcan
-    </div>
-    <!-- /.content-wrapper -->
 
-    <footer class="main-footer">
-        <div class="float-right d-none d-sm-inline-block">
-            <b>Version</b> 1.0.0
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper container-xxl p-0">
+
+                @yield('content')
+
         </div>
-    </footer>
-
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
+    </div>
+    <!-- END: Content-->
 
 
-{{--Para utilizar las rutas en java script https://github.com/tighten/ziggy--}}
-@routes
+    <div class="sidenav-overlay"></div>
+    <div class="drag-target"></div>
 
-@include('partials.flash_alert')
-
-<script src="{{asset("js/sparkline.js")}}"></script>
-
-<script src="{{asset("js/moment.min.js")}}"></script>
-
-<script src="{{ url (mix('/js/app.js')) }}" type="text/javascript"></script>
-
-<script>
-    @if(appIsDebug())
-        logW("Modo Debug Activo")
-    @else
-        logConfig.stopLogging = true;
-    @endif
+    @include('layouts.partials.footer')
 
 
-    /**
-     * Formatea los datos de los inputs de un formulario
-     * solo se utiliza en archivos de servicio DataTable ej: VentaDataTable.php
-     * en el método html
-     * ->ajax([
-     *      'data' => "function(data) { formatDataDatatables($('#formFiltersDatatables').serializeArray(), data);   }"
-     *  ])
-     * @param source
-     * @param target
-     */
-    function formatDataDataTables(source, target) {
+    <!-- BEGIN: Vendor JS-->
+    <script src="{{asset('app-assets/vendors/js/vendors.min.js')}}"></script>
+    <!-- BEGIN Vendor JS-->
+    <!-- BEGIN: Theme JS-->
+    <script src="{{asset('app-assets/js/core/app-menu.js')}}"></script>
+    <script src="{{asset('app-assets/js/core/app.js')}}"></script>
+    <!-- END: Theme JS-->
 
-        $(source).each(function (i, v) {
 
-            // console.log(i, v);
-            if(v['name'].includes('[]')){
 
-                if (!target[v['name']]){
-                    target[v['name']] =  [v['value']]
-                }else{
-                    target[v['name']].push(v['value']) ;
-                }
-            }else{
-                target[v['name']] = v['value'];
+    <script>
+        $(window).on('load', function() {
+            if (feather) {
+                feather.replace({
+                    width: 14,
+                    height: 14
+                });
             }
         })
+    </script>
 
-    }
+    @include('layouts.partials.flash_alert')
+    @routes
 
-</script>
 
-<!--            Scripts inyectados
------------------------------------------------------------------------->
-@yield('scripts')
-@stack('scripts')
+
+
+    <script src="{{ url (mix('/js/app.js')) }}" type="text/javascript"></script>
+
+
+    @stack('scripts')
 
 </body>
 </html>

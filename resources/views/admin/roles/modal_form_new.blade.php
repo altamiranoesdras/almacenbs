@@ -1,6 +1,6 @@
 <!-- Modal form create roles -->
 <div class="modal fade" id="modal-form-roles">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form action="" method="post" role="form" id="form-modal-roles">
 

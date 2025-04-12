@@ -9,11 +9,31 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class SolicitudEstado
+ *
  * @package App\Models
  * @version July 27, 2022, 12:24 pm CST
- *
  * @property \Illuminate\Database\Eloquent\Collection $solicitudes
+ * @property string $color
  * @property string $nombre
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @method static \Database\Factories\SolicitudEstadoFactory factory(...$parameters)
+ * @method static Builder|SolicitudEstado newModelQuery()
+ * @method static Builder|SolicitudEstado newQuery()
+ * @method static \Illuminate\Database\Query\Builder|SolicitudEstado onlyTrashed()
+ * @method static Builder|SolicitudEstado principales()
+ * @method static Builder|SolicitudEstado query()
+ * @method static Builder|SolicitudEstado whereCreatedAt($value)
+ * @method static Builder|SolicitudEstado whereDeletedAt($value)
+ * @method static Builder|SolicitudEstado whereId($value)
+ * @method static Builder|SolicitudEstado whereNombre($value)
+ * @method static Builder|SolicitudEstado whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|SolicitudEstado withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|SolicitudEstado withoutTrashed()
+ * @mixin \Eloquent
+ * @property-read int|null $solicitudes_count
  */
 class SolicitudEstado extends Model
 {
@@ -35,10 +55,14 @@ class SolicitudEstado extends Model
     const DESPACHADA =  6;
     const ANULADA =     7;
     const CANCELADA =   8;
+    const RETORNO_SOLICITADA  =   9;
+    const RETORNO_AUTORIZADA =   10;
+    const RETORNO_APROBADA =   11;
 
     protected $dates = ['deleted_at'];
 
 
+    protected $appends = ['color'];
 
     public $fillable = [
         'nombre'
@@ -71,11 +95,31 @@ class SolicitudEstado extends Model
      **/
     public function solicitudes()
     {
-        return $this->hasMany(\App\Models\Solicitude::class, 'estado_id');
+        return $this->hasMany(\App\Models\Solicitud::class, 'estado_id');
     }
 
     public function scopePrincipales(Builder $q)
     {
         $q->whereIn('id',[self::SOLICITADA,self::AUTORIZADA,self::APROBADA,self::DESPACHADA,self::ANULADA]);
+    }
+
+    public function getColorAttribute()
+    {
+
+        switch ($this->id){
+            case self::SOLICITADA:
+                return "info";
+            case self::APROBADA:
+                return "primary";
+            case self::DESPACHADA:
+                return "success";
+            case self::RETORNO_APROBADA:
+            case self::RETORNO_AUTORIZADA:
+            case self::RETORNO_SOLICITADA:
+                return "warning";
+            default:
+                return "secondary";
+        }
+
     }
 }

@@ -12,132 +12,170 @@
 @endphp
 
 <body style="width: 100%;">
-    <div style="padding-top: 180px">
-        <table style="width: 100%" border="1">
+    <div>
+        <table class="table table-bordered table-sm" style="margin-bottom: 0">
             <tr>
-                <td colspan="2">DEPARTAMENTO SOLICITANTE: {{ $solicitud->unidad->nombre }}</td>
-            </tr>
-            <tr>
-                <td >NOMBRE SOLICITANTE: {{ $solicitud->usuarioSolicita->name }}</td>
-                <td >FECHA ENTREGA: {{ $solicitud->updated_at->format('d/m/Y') }}</td>
-            </tr>
-        </table>
-        <br>
-        <table class="table table-bordered table-sm" >
-            <thead>
-                <tr style="text-align: center; background-color: #DCDCDC;  " class="py-0">
-                    <th style="border-color: black;" >No.</th>
-                    <th style="border-color: black;">Descripción del articulo</th>
-                    <th style="border-color: black;">Unidad de Medida</th>
-                    <th style="border-color: black;">Cantidad Solicitada</th>
-                    <th style="border-color: black;">Cantidad Despachada</th>
-                </tr>
-            </thead>
-            <tbody >
-                @foreach ($solicitud->detalles as $detalle)
-                    <tr style="">
-                        <td style="border-color: black; width: 7%; text-align: center;" class="py-0">
-                            {{ $loop->iteration }}
-                        </td>
-                        <td style="border-color: black; "class="py-0">
-                            {{ $detalle->item->nombre }}
-                        </td>
-                        <td style="border-color: black; width: 16%; font-size: 0.8em;  text-align: center;" class="py-0">
-                            {{ $detalle->item->unimed->nombre }}
-                        </td>
-                        <td style="border-color: black; width: 16%;  text-align: center;"class="py-0">
-                            {{ $detalle->cantidad_solicitada }}
-                        </td>
-                        <td style="border-color: black; width: 16%; text-align: center;"class="py-0">
-                            {{ $detalle->cantidad_despachada }}
-                        </td>
-                    </tr>
-                    @php
-                        $totalLineas = 20;
-                        $final = $totalLineas - $loop->iteration;
-                    @endphp
-                @endforeach
-                @for ($i =  $final; $i <= $totalLineas ; $i++)
-                    <tr style="">
-                        <td style="border-color: black; text-align: center; " class="py-0">{{  $i  }}</td>
-                        <td style="border-color: black; text-align: center; "  class="py-0">
-                             <span style="color: white">1</span>
-                        </td>
-                        <td style="border-color: black; text-align:center;" class="py-0">
-
-                        </td>
-                        <td style="border-color: black; text-align:center; font-size: 0.6em; " class="py-0">
-
-                        </td>
-                        <td style="border-color: black; text-align:center;" class="py-0">
-
-                        </td>
-
-                    </tr>
-                @endfor
-            </tbody>
-        </table>
-    </div>
-    <div style="width: 100%; border: 1px; border-style: solid; padding: 5px;">
-        OBSERVACIONES: {{ $solicitud->observaciones }}
-    </div>
-
-    <div style="margin-top: 15px">
-        <table class="w-100 table table-bordered ">
-            <tr>
-                <td class="py-0">
-                    RECIBÍ CONFORME: {{ $solicitud->usuarioSolicita->name }}
+                <td style="border-top-color: black;
+                        border-bottom-color: black;
+                        border-left-color: black;
+                        border-right-color: white" width="10%">
+                    <img src="{{asset('/img/SEICMSJ-logo.jpg')}}" height="125px">
                 </td>
-                <td class="py-0">
-                    DESPACHADO POR: {{ $solicitud->usuarioDespacha->name ?? '' }}
+                <td style="border-top-color: black;
+                        border-bottom-color: black;
+                        border-left-color: black;
+                        border-right-color: white;
+                        text-align: center;
+                        vertical-align: middle">
+                    SECRETARIA EJECUTIVA DE LA INSTANCIA COORDINADORA DE LA MODERNIZACIÓN DEL SECTOR JUSTICIA
+                    <br><br>
+                    REQUISICIÓN DE MATERIALES Y SUMINISTROS
                 </td>
-            </tr>
-            <tr>
-                <td class="py-0 px-0 my-0">
-                    <table style="width: 100%" class="table-borderless">
-                        <tr class="py-0 px-0 my-0">
-                            <td class="pt-0" style="padding-bottom: 80px;">FIRMA:</td>
-                            <td class="pt-0">SELLO:</td>
-                        </tr>
-                    </table>
-                    <span style="margin-left: 10px">DPI: {{ $solicitud->usuarioSolicita->dpi }}</span>
-                </td>
-                <td>
-                    <table style="width: 100%" class="table-borderless">
-                        <tr class="py-0 px-0 my-0">
-                            <td class="pt-0" style="padding-bottom: 80px;">FIRMA:</td>
-                            <td class="pt-0">SELLO:</td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td class="py-0">
-                    <span style="margin-left: 10px">Vo.Bo.: JEFE INMEDIATO DE QUIEN RECIBE</span>
-                    <table style="width: 100%" class="table-borderless">
-                        <tr class="py-0 px-0 my-0">
-                            <td class="pt-0" style="padding-bottom: 80px;">FIRMA:</td>
-                            <td class="pt-0">SELLO:</td>
-                        </tr>
-                    </table>
-                    <span style="margin-left: 10px">DPI: </span>
-                </td>
-                <td class="py-0">
-                    <span style="margin-left: 10px">Vo.Bo.: JEFE INMEDIATO DE QUIEN RECIBE</span>
-                    Vo.Bo.: JEFE INMEDIATO DE QUIEN ENTREGA
-                    <table style="width: 100%" class="table-borderless">
-                        <tr class="py-0 px-0 my-0">
-                            <td class="pt-0" style="padding-bottom: 80px;">FIRMA:</td>
-                            <td class="pt-0">SELLO:</td>
-                        </tr>
-                    </table>
+                <td style="border-color: black; padding-top: 30px" width="20%">
+                    <font color="red">No. {{$solicitud->codigo}}</font>
                 </td>
             </tr>
         </table>
     </div>
+    <p style="margin: 0">Unidad Solicitante: {{$solicitud->unidad->nombre ?? ''}}</p>
+    <table style="width: 100%" border="1">
+        <tr>
+            <td colspan="2">Lugar y Fecha: <b>{{ fechaLtnMesEnTexto($solicitud->fecha_despacha) }}</b></td>
+        </tr>
+        <tr>
+            <td>Nombre del Solicitante: <b>{{ $solicitud->usuarioSolicita->name }}</b></td>
+        </tr>
+        <tr>
+            <td>Cargo: <b>{{ $solicitud->usuarioSolicita->puesto->nombre ?? "Sin puesto" }}</b></td>
+        </tr>
+    </table>
+    <br>
+    <table class="table table-bordered table-sm">
+        <thead>
+            <col>
+            <colgroup span="2"></colgroup>
+            <colgroup span="2"></colgroup>
+            <colgroup span="2"></colgroup>
+            <tr>
+                <td rowspan="2"
+                    style="border-color: black;
+                    vertical-align: middle;
+                    text-align: center" width="60%">
+                    Nombre del Producto
+                </td>
+                <td rowspan="2"
+                    style="border-color: black;
+                    vertical-align: middle;
+                    text-align: center"
+                    width="20%">
+                    Unidad de Medida y Presentación
+                </td>
+                <th colspan="2"
+                    style="border-color: black;
+                    vertical-align: middle;
+                    text-align: center;
+                    font-weight: normal"
+                    width="20%">
+                    CANTIDAD
+                </th>
+            </tr>
+            <tr>
+                <th style="border-color: black; vertical-align: middle;
+                    text-align: center; font-weight: normal" scope="col" width="17%">SOLICITADA</th>
+                <th style="border-color: black; vertical-align: middle;
+                    text-align: center; font-weight: normal" scope="col">DESPACHADA</th>
+            </tr>
+        </thead>
+        <tbody style="margin-bottom: 0">
+        @foreach ($solicitud->detalles as $detalle)
+            <tr style="line-height: 20px; font-size: 12px;">
+                <td style="border-color: black; "class="py-0">
+                    {{ $detalle->item->texto_requisicion }}
+                </td>
+                <td style="border-color: black; width: 16%;  text-align: center;" class="py-0">
+                    {{$detalle->item->presentacion->nombre ?? ''}} - {{ $detalle->item->unimed->nombre ?? '' }}
+                </td>
+                <td style="border-color: black; width: 16%;  text-align: center;"class="py-0">
+                    {{ nf($detalle->cantidad_solicitada,0) }}
+                </td>
+                <td style="border-color: black; width: 16%; text-align: center;"class="py-0">
+                    {{ nf($detalle->cantidad_despachada,0) }}
+                </td>
+            </tr>
+            @php
+                $totalLineas = config('solicitudes.maximo_detalles',13);
+                $final = $totalLineas - $loop->iteration;
+            @endphp
+        @endforeach
+        @for ($i = 1; $i <= $final ; $i++)
+            <tr style="line-height: 20px">
+                <td style="border-color: black; text-align: center; "  class="py-0">
+                    <span style="color: white">1</span>
+                </td>
+                <td style="border-color: black; text-align:center;" class="py-0">
+
+                </td>
+                <td style="border-color: black; text-align:center; font-size: 0.6em; " class="py-0">
+
+                </td>
+                <td style="border-color: black; text-align:center;" class="py-0">
+
+                </td>
+
+            </tr>
+        @endfor
+        </tbody>
+    </table>
+   <b>OBSERVACIONES <span style="font-size: 14px;">(Destino del material y/o insumo)</span></b>
+    <table class="table table-bordered table-sm" style="margin-bottom: 0">
+        <tr>
+            <td width="10%" height="85px" style="border-color: black">
+                {{ $solicitud->justificacion }}
+            </td>
+        </tr>
+    </table>
+<br>
+<br>
+<br>
+<br>
+<br>
+    <table style="margin-left: auto; margin-right: auto;">
+        <tr>
+            <td style="padding-right: 50px">
+                <input type="text" class="firma" value="(f)"/>
+            </td>
+            <td style="padding-right: 50px">
+                <input type="text" class="firma" value="(f)"/>
+            </td>
+            <td style="padding-right: 50px">
+                <input type="text" class="firma" value="(f)"/>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding-right: 50px; text-align: center">
+                <p>Firma y Sello de Recibido</p>
+            </td>
+            <td style="padding-right: 50px; text-align: center">
+                Firma y sello Coordinadora <br>
+                Administrativo <br>
+                Autoriza
+            </td>
+            <td style="padding-right: 50px; text-align: center">
+                Firma y sello Enc. Almacén de<br>
+                Suministros <br>
+                Entrega
+            </td>
+        </tr>
+    </table>
 
 </body>
 
+<style>
+    .firma {
+        border: 0;
+        border-bottom: 1px solid #000;
+    }
+</style>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 </html>

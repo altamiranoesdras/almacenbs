@@ -5,25 +5,20 @@ namespace App\Http\Controllers\API;
 use App\Http\Requests\API\CreatePermissionAPIRequest;
 use App\Http\Requests\API\UpdatePermissionAPIRequest;
 use App\Models\Permission;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
-use Response;
 
 /**
- * Class PermissionController
- * @package App\Http\Controllers\API
+ * Class PermissionAPIController
  */
-
 class PermissionAPIController extends AppBaseController
 {
     /**
-     * Display a listing of the Permission.
+     * Display a listing of the Permissions.
      * GET|HEAD /permissions
-     *
-     * @param Request $request
-     * @return Response
      */
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $query = Permission::query();
 
@@ -42,17 +37,15 @@ class PermissionAPIController extends AppBaseController
     /**
      * Store a newly created Permission in storage.
      * POST /permissions
-     *
-     * @param CreatePermissionAPIRequest $request
-     *
-     * @return Response
      */
-    public function store(CreatePermissionAPIRequest $request)
+    public function store(CreatePermissionAPIRequest $request): JsonResponse
     {
-        $input = $request->all();
+        $request->merge([
+            'guard_name' => 'web'
+        ]);
 
         /** @var Permission $permission */
-        $permission = Permission::create($input);
+        $permission = Permission::create($request->all());
 
         return $this->sendResponse($permission->toArray(), 'Permission saved successfully');
     }
@@ -60,12 +53,8 @@ class PermissionAPIController extends AppBaseController
     /**
      * Display the specified Permission.
      * GET|HEAD /permissions/{id}
-     *
-     * @param int $id
-     *
-     * @return Response
      */
-    public function show($id)
+    public function show($id): JsonResponse
     {
         /** @var Permission $permission */
         $permission = Permission::find($id);
@@ -80,13 +69,8 @@ class PermissionAPIController extends AppBaseController
     /**
      * Update the specified Permission in storage.
      * PUT/PATCH /permissions/{id}
-     *
-     * @param int $id
-     * @param UpdatePermissionAPIRequest $request
-     *
-     * @return Response
      */
-    public function update($id, UpdatePermissionAPIRequest $request)
+    public function update($id, UpdatePermissionAPIRequest $request): JsonResponse
     {
         /** @var Permission $permission */
         $permission = Permission::find($id);
@@ -94,6 +78,10 @@ class PermissionAPIController extends AppBaseController
         if (empty($permission)) {
             return $this->sendError('Permission not found');
         }
+
+        $request->merge([
+            'guard_name' => 'web'
+        ]);
 
         $permission->fill($request->all());
         $permission->save();
@@ -105,13 +93,9 @@ class PermissionAPIController extends AppBaseController
      * Remove the specified Permission from storage.
      * DELETE /permissions/{id}
      *
-     * @param int $id
-     *
      * @throws \Exception
-     *
-     * @return Response
      */
-    public function destroy($id)
+    public function destroy($id): JsonResponse
     {
         /** @var Permission $permission */
         $permission = Permission::find($id);

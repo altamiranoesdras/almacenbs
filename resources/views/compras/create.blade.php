@@ -71,7 +71,7 @@
                                                 </span>
                                             </div>
                                             <input
-                                                v-model="editedItem.fecha_ven"
+                                                v-model="editedItem.fecha_vence"
                                                 type="date"
                                                 class="form-control"
                                                 @keydown.enter.prevent="siguienteCampo('cantidad')"
@@ -194,7 +194,7 @@
                     compra_id : @json($temporal->id),
                     item_id: '',
                     cantidad: 0,
-                    fecha_ven: '',
+                    fecha_vence: '',
                     precio: 0,
                 },
                 loading: false,
@@ -204,13 +204,15 @@
 
                 fecha_ingreso_plan: "{{hoyDb() ?? old('fecha_ingreso_plan')}}",
 
-                proveedor: @json($compra->proveedor ?? \App\Models\Proveedor::find(old('proveedor_id')) ?? null),
-                tipo: @json($compra->tipo ?? \App\Models\CompraTipo::find(old('tipo_id')) ?? null),
+                proveedor: @json($compra->proveedor ?? Proveedor::find(old('proveedor_id')) ?? null),
+                tipo: @json($compra->tipo ?? CompraTipo::find(old('tipo_id')) ?? CompraTipo::find(CompraTipo::FACTURA)),
+                descuento: @json($compra->descuento ?? old('descuento') ?? 0),
 
             },
             methods: {
 
                 nfp: function(numero){
+                    console.log(numero);
                     let decimales = parseInt(@json(config('app.cantidad_decimales_precio')));
                     return number_format(numero,decimales)
                 },
@@ -335,10 +337,18 @@
                 },
                 total: function () {
                     var t=0;
+                    var descuento = parseFloat(this.descuento || 0);
+
 
                     $.each(this.detalles,function (i,det) {
                         t+=det.sub_total;
                     });
+
+                    if (!isNaN(descuento) && descuento > 0 && t>0){
+                        t-=descuento;
+                    }
+
+
 
                     return t;
                 },
@@ -361,12 +371,6 @@
                 }
             },
             watch:{
-                ingreso_inmediato(val){
-                    if(val){
-                        this.fecha_ingreso_plan = '{{hoyDb()}}'
-                    }
-
-                },
                 itemSelect (item) {
 
                     if (item){

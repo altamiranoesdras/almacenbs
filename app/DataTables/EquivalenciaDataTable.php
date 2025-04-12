@@ -114,7 +114,7 @@ class EquivalenciaDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'equivalencias_'  . date('YmdHis');
     }

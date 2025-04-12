@@ -5,9 +5,11 @@ namespace App\Imports;
 use App\Models\Activo;
 use App\Models\ActivoTarjeta;
 use App\Models\ActivoTarjetaDetalle;
+use App\Models\Bodega;
 use App\Models\Colaborador;
 use App\Models\Contrato;
 use App\Models\Option;
+use App\Models\Role;
 use App\Models\RrhhPuesto;
 use App\Models\RrhhUnidad;
 use App\Models\User;
@@ -23,24 +25,86 @@ class ImportColaboradores implements ToModel , WithHeadingRow
 
     use Importable,RemembersRowNumber;
 
+    public $errores;
+
+    /**
+     * ImportSaldosInsumos constructor.
+     */
+    public function __construct()
+    {
+        $this->errores = collect();
+    }
+
     public function model(array $row)
     {
 
 
 
-        $nombreCompleto = $row['nombre'] ?? null;
-        $nombreUnidad = $row['ubicacion'] ?? null;
-        $nit = $row['numero_de_identificacion_tributaria_nit'] ?? null;
-        $dpi = $row['codigo_unico_de_identificacion_cui'] ?? null;
-        $numeroContrato = $row['numero_de_contrato'] ?? null;
-        $del = $row['del'] ?? null;
-        $al = $row['al'] ?? null;
+        $nombreCompleto = $row['nombres_y_apellidos'] ?? null;
+        $nombreCompleto = str_replace(",","",$nombreCompleto);
+        $nombrePuesto = $row['cargo'] ?? null;
+        $nombreUnidad = $row['dependencia'] ?? null;
+        $nombreBodega = $row['bodega'] ?? null;
+        $direccionBodega = $row['direccion_de_sede'] ?? null;
+        $correo = $row['correo_electronico_oficial'] ?? null;
+        $telefonoDirecto = $row['telefono_directo'] ?? null;
+        $celular_institucional = $row['celular_institucional'] ?? null;
+        $extension = $row['extension'] ?? null;
 
 
         if ($nombreCompleto && $nombreUnidad){
 
 
-            $unidad = RrhhUnidad::firstOrCreate(['nombre' => $row['ubicacion']]);
+            $unidad = RrhhUnidad::firstOrCreate(['nombre' => $nombreUnidad]);
+            $puesto = RrhhPuesto::firstOrCreate(['nombre' => $nombrePuesto]);
+            $bodega = Bodega::firstOrCreate([
+                'nombre' => $nombreBodega,
+                'direccion' => $direccionBodega,
+                'telefono' => $telefonoDirecto ?? $celular_institucional
+            ]);
+
+
+            $nombreUsuario = generaNombreUsuario($nombreCompleto);
+
+            /**
+             * @var User $usuario
+             */
+            $usuario = User::firstOrCreate([
+                'username' => $nombreUsuario,
+                'name' => $nombreCompleto,
+                'email' => $correo,
+                'password' => bcrypt(123456),
+                'unidad_id' => $unidad->id,
+                'puesto_id' => $puesto->id,
+                'bodega_id' => $bodega->id,
+            ]);
+
+            $usuario->syncRoles(['General']);
+            $usuario->shortcuts()->sync([
+                Option::MIS_REQUISICIONES,
+                Option::NUEVA_REQUISICION,
+            ]);
+
+            if (in_array($usuario->id,[50,45]) ){
+                $usuario->syncRoles([Role::JEFE_ALMACEN]);
+                $usuario->shortcuts()->sync([
+                    Option::MIS_REQUISICIONES,
+                    Option::NUEVA_REQUISICION,
+                    Option::APROBAR_REQISICION,
+                    Option::DESPACHAR_REQUISICION,
+                ]);
+            }
+
+            if (in_array($usuario->id,[36,31,26,24,9]) ){
+                $usuario->syncRoles([Role::ASISTENTE_CAJ]);
+                $usuario->shortcuts()->sync([
+                    Option::MIS_REQUISICIONES,
+                    Option::NUEVA_REQUISICION,
+                    Option::APROBAR_REQISICION,
+                    Option::DESPACHAR_REQUISICION,
+                ]);
+            }
+
 
             list($nombres,$apellidos) = separaNombreCompleto($nombreCompleto);
 
@@ -53,30 +117,31 @@ class ImportColaboradores implements ToModel , WithHeadingRow
                 $colaborador = Colaborador::firstOrCreate([
                     'nombres' => $nombres,
                     'apellidos' => $apellidos,
-                    'dpi' => $dpi,
-                    'correo' => null,
-                    'telefono' => null,
+                    'dpi' => $dpi ?? null,
+                    'correo' => $correo,
+                    'telefono' => $telefonoDirecto ?? $celular_institucional,
                     'direccion' => null,
-                    'nit' => $nit,
-                    'puesto_id' => null,
+                    'nit' => $nit ?? null,
+                    'puesto_id' => $puesto->id,
                     'unidad_id' => $unidad->id,
-                    'user_id' => null
+                    'user_id' => $usuario->id
                 ]);
 
 //                $this->crearTarjeta($colaborador);
 
-                $contrato = Contrato::firstOrCreate([
-                    'colaborador_id' => $colaborador->id,
-                    'unidad_id' => $unidad->id,
-                    'puesto_id' => null,
-                    'numero' => $numeroContrato,
-                    'inicio' => Carbon::parse($del),
-                    'fin' => Carbon::parse($al)
-                ]);
+//                $contrato = Contrato::firstOrCreate([
+//                    'colaborador_id' => $colaborador->id,
+//                    'unidad_id' => $unidad->id,
+//                    'puesto_id' => null,
+//                    'numero' => $numeroContrato,
+//                    'inicio' => Carbon::parse($del),
+//                    'fin' => Carbon::parse($al)
+//                ]);
 
             }catch (\Exception $exception){
-                dump('Error en fila',$this->getRowNumber());
-                dd($exception->getMessage());
+
+                $this->errores->push(['Error en fila '.$this->getRowNumber() => $exception->getMessage()]);
+
             }
 
         }

@@ -64,7 +64,7 @@ class RoleController extends AppBaseController
             /** @var Role $role */
             $role = Role::create($input);
 
-            $permissions = Permission::whereIn('id',$request->permissions ?? [])->get();
+            $permissions = Permission::whereIn('id',$request->permisos ?? [])->get();
 
             $role->syncPermissions($permissions);
 
@@ -155,7 +155,7 @@ class RoleController extends AppBaseController
             $role->fill($request->all());
             $role->save();
 
-            $permissions = Permission::whereIn('id',$request->permissions ?? [])->get();
+            $permissions = Permission::whereIn('id',$request->permisos ?? [])->get();
 
             $role->syncPermissions($permissions);
 

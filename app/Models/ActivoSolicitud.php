@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class ActivoSolicitud
+ *
  * @package App\Models
  * @version November 12, 2022, 10:29 am CST
- *
  * @property \App\Models\RrhhUnidad $unidadOrigen
  * @property \App\Models\User $usuarioAutoriza
  * @property \App\Models\ActivoSolicitudEstado $estado
@@ -29,6 +29,35 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property integer $usuario_inventario
  * @property string $observaciones
  * @property integer $estado_id
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read int|null $detalles_count
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud delUsuarioCrea($user = null)
+ * @method static \Database\Factories\ActivoSolicitudFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud newQuery()
+ * @method static \Illuminate\Database\Query\Builder|ActivoSolicitud onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud temporal()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud whereCodigo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud whereColaboradorDestino($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud whereColaboradorOrigen($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud whereCorrelativo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud whereEstadoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud whereObservaciones($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud whereUnidadDestino($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud whereUnidadOrigen($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud whereUsuarioAutoriza($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud whereUsuarioInventario($value)
+ * @method static \Illuminate\Database\Query\Builder|ActivoSolicitud withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|ActivoSolicitud withoutTrashed()
+ * @mixin \Eloquent
  */
 class ActivoSolicitud extends Model
 {

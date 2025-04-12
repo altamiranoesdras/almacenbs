@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class ActivoTarjetaDetalle
+ *
  * @package App\Models
  * @version September 4, 2022, 7:56 pm CST
- *
  * @property \App\Models\RrhhUnidad $unidad
  * @property \App\Models\Activo $activo
  * @property \App\Models\ActivoTarjeta $tarjeta
@@ -23,6 +23,33 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string $fecha_asigna
  * @property integer $unidad_id
  * @property boolean $impreso
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read int|null $activo_solicitud_detalles_count
+ * @property-read mixed $valor_alza
+ * @property-read mixed $valor_baja
+ * @method static \Database\Factories\ActivoTarjetaDetalleFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaDetalle newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaDetalle newQuery()
+ * @method static \Illuminate\Database\Query\Builder|ActivoTarjetaDetalle onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaDetalle query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaDetalle whereActivoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaDetalle whereCantidad($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaDetalle whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaDetalle whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaDetalle whereFechaAsigna($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaDetalle whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaDetalle whereImpreso($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaDetalle whereTarjetaId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaDetalle whereTipo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaDetalle whereUnidadId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaDetalle whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaDetalle whereValor($value)
+ * @method static \Illuminate\Database\Query\Builder|ActivoTarjetaDetalle withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|ActivoTarjetaDetalle withoutTrashed()
+ * @mixin \Eloquent
  */
 class ActivoTarjetaDetalle extends Model
 {
@@ -94,7 +121,7 @@ class ActivoTarjetaDetalle extends Model
      **/
     public function unidad()
     {
-        return $this->belongsTo(\App\Models\RrhhUnidade::class, 'unidad_id');
+        return $this->belongsTo(\App\Models\RrhhUnidad::class, 'unidad_id');
     }
 
     /**

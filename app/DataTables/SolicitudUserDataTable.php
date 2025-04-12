@@ -57,15 +57,22 @@ class SolicitudUserDataTable extends DataTable
             })
             ->editColumn('fecha_solicita',function (Solicitud $solicitud){
 
-                return fechaLtn($solicitud->fecha_solicita);
+                return fechaHoraLtn($solicitud->fecha_solicita);
+
+            })
+            ->editColumn('estado.nombre',function (Solicitud $solicitud){
+
+                $color = $solicitud->estado->color;
+
+                return "<span class='badge badge-$color'>{$solicitud->estado->nombre}</span>";
 
             })
             ->editColumn('fecha_despacha',function (Solicitud $solicitud){
 
-                return fechaLtn($solicitud->fecha_despacha);
+                return fechaHoraLtn($solicitud->fecha_despacha);
 
             })
-            ->rawColumns(['action','codigo']);
+            ->rawColumns(['action','codigo','estado.nombre']);
     }
 
     /**
@@ -79,7 +86,7 @@ class SolicitudUserDataTable extends DataTable
 
         return $model->newQuery()
             ->select('solicitudes.*')
-            ->with(['detalles.item','usuarioAutoriza','usuarioAprueba','usuarioDespacha','estado'])
+            ->with(['detalles.item','usuarioAutoriza','usuarioAprueba','usuarioDespacha','estado','bitacoras'])
             ->delUsuarioCrea();
     }
 
@@ -139,9 +146,9 @@ class SolicitudUserDataTable extends DataTable
                 ->name('fecha_solicita')
                 ->data('fecha_solicita'),
 
-            Column::make('usuario_autoriza')
-                ->name('usuarioAutoriza.name')
-                ->data('usuario_autoriza.name'),
+//            Column::make('usuario_autoriza')
+//                ->name('usuarioAutoriza.name')
+//                ->data('usuario_autoriza.name'),
 
             Column::make('usuario_aprueba')
                 ->name('usuarioAprueba.name')
@@ -173,7 +180,7 @@ class SolicitudUserDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'solicitudesdatatable_' . time();
     }

@@ -75,11 +75,15 @@ class UserController extends AppBaseController
 
 
             $roles = Role::whereIn('id',$request->roles ?? [])->get();
-            $permissions = Permission::whereIn('id',$request->permissions_user ?? [])->get();
+            $permissions = Permission::whereIn('id',$request->permisos ?? [])->get();
 
             $user->syncRoles($roles);
             $user->syncPermissions($permissions);
 
+            $opciones = explode(",",$request->options);
+            $user->options()->sync($opciones);
+
+            $this->guardarAvatar($user,$request);
 
         } catch (Exception $exception) {
             DB::rollBack();
@@ -134,7 +138,7 @@ class UserController extends AppBaseController
             return  redirect(route('users.index'));
         }
 
-        $user->setAttribute('permissions_user',$user->permissions);
+        $user->setAttribute('permisos',$user->permissions);
 
         return view('admin.users.edit',compact('user'));
     }
@@ -149,10 +153,13 @@ class UserController extends AppBaseController
      */
     public function update(User $user, UpdateUserRequest $request)
     {
+
+
         if ($request->roles){
             $authUser = auth()->user();
 
             $maxRolUserAuth = $authUser->roles->min('id');
+
 
             /**
              * DEVELOPER =   1;
@@ -192,10 +199,15 @@ class UserController extends AppBaseController
             }
 
             $roles = Role::whereIn('id',$request->roles ?? [])->get();
-            $permissions = Permission::whereIn('id',$request->permissions_user ?? [])->get();
+            $permissions = Permission::whereIn('id',$request->permisos ?? [])->get();
 
             $user->syncRoles($roles);
             $user->syncPermissions($permissions);
+
+            $opciones = explode(",",$request->options);
+            $user->options()->sync($opciones);
+
+            $this->guardarAvatar($user,$request);
 
         } catch (Exception $exception) {
             DB::rollBack();
@@ -257,45 +269,6 @@ class UserController extends AppBaseController
         return redirect(route('users.index'));
     }
 
-    /**
-     * Muestra al vista para poder asignar opciones del menu a un usuario
-     *
-     * @param $id id del usuario
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function menu(User $user){
-
-        if (empty($user)) {
-            Flash::error('User not found');
-
-            return redirect(route('users.index'));
-        }
-
-        if (!$this->canEditMenu($user)){
-            return  redirect(route('users.index'));
-        }
-
-        return view("admin.users.menu",compact('user'));
-    }
-
-    /**
-     * Guarda lsa opciones de menu que se decidieron asignar al usuario
-     *
-     * @param Request $request
-     * @param $id usuario
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function menuStore(User $user,Request $request){
-
-
-        $opciones = explode(",",$request->options);
-
-        $user->options()->sync($opciones);
-
-        Flash::success('Menu del usuario actualizado!')->important();
-
-        return redirect(route('users.index'));
-    }
 
     public function canEditUser(User $user)
     {
@@ -340,4 +313,14 @@ class UserController extends AppBaseController
 
         return true;
     }
+
+    public function guardarAvatar(User $user,Request $request)
+    {
+        if ($request->avatar){
+
+            $user->clearMediaCollection('avatars');
+            $user->addMediaFromRequest('avatar')->toMediaCollection('avatars');
+        }
+    }
+
 }

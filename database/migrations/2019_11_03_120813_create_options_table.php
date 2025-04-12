@@ -23,6 +23,7 @@ class CreateOptionsTable extends Migration {
             $table->string('icono_r', 100)->nullable();
             $table->integer('orden')->nullable()->default(0);
             $table->string('color','50')->nullable();
+            $table->boolean('recursos')->default(1);
             $table->boolean('dev')->default(0);
 
             $table->timestamps();

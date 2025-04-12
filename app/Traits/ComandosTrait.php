@@ -4,10 +4,13 @@
 namespace App\Traits;
 
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 
 trait ComandosTrait
 {
+    private $barraProceso;
+
     public function inicio()
     {
         $this->tiempoIni = microtime(true);
@@ -19,7 +22,7 @@ trait ComandosTrait
      * Devuelve el texto "Tiempo empleado: ". $minutes.' min '. $seconds." Segundos"
      * @return string
      */
-    public function fin()
+    public function fin(Collection $errores= null)
     {
 
         $tiempoFin = microtime(true);
@@ -28,9 +31,24 @@ trait ComandosTrait
         $minutes = (int)($duration/60)-$hours*60;
         $seconds = (int)$duration-$hours*60*60-$minutes*60;
 
-        $this->info("\n### Fin ####");
-        $tiempoEmpleadoText = "Tiempo empleado: ". $minutes.' min '. $seconds." Segundos";
-        $this->info($tiempoEmpleadoText);
+
+
+
+        if (isset($errores) && $errores->count() > 0){
+
+            $this->output->error("Errores");
+            $this->table(['Error'], $errores->toArray());
+
+        }else{
+
+            $this->output->success('Comando ejecutado correctamente');
+
+            $this->info("\n### Fin ####");
+            $tiempoEmpleadoText = "Tiempo empleado: ". $minutes.' min '. $seconds." Segundos";
+            $this->info($tiempoEmpleadoText);
+
+
+        }
 
         return $tiempoEmpleadoText;
     }
@@ -49,5 +67,22 @@ trait ComandosTrait
 
         File::put($file,$contenido);
 
+    }
+
+    public function barraProcesoIniciar($cantidadRegistros)
+    {
+
+        $this->barraProceso = $this->output->createProgressBar($cantidadRegistros);
+        $this->barraProceso->start();
+    }
+
+    public function barraProcesoAvanzar()
+    {
+        $this->barraProceso->advance();
+    }
+
+    public function barraProcesoFin()
+    {
+        $this->barraProceso->finish();
     }
 }

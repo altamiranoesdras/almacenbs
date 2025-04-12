@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\ItemDataTable;
+use App\DataTables\Scopes\ScopeItemDataTable;
 use App\Http\Requests;
 use App\Http\Requests\CreateItemRequest;
 use App\Http\Requests\UpdateItemRequest;
@@ -38,6 +39,10 @@ class ItemController extends AppBaseController
      */
     public function index(ItemDataTable $itemDataTable)
     {
+        $scope = new ScopeItemDataTable();
+
+        $itemDataTable->addScope($scope);
+
         return $itemDataTable->render('items.index');
     }
 
@@ -200,7 +205,7 @@ class ItemController extends AppBaseController
 
     public function precioCostoCeroView()
     {
-        $items = Item::where('precio_compra',0)->orderBy('icategoria_id')->get();
+        $items = Item::where('precio_compra',0)->orderBy('categoria_id')->get();
         return view('items.precio_compra_cero',compact('items'));
     }
 
@@ -219,7 +224,7 @@ class ItemController extends AppBaseController
 
 //        dd();
 
-        $items = Item::where('precio_compra',0)->orderBy('icategoria_id')->get();
+        $items = Item::where('precio_compra',0)->orderBy('categoria_id')->get();
         return redirect(route('items.precio.compra.cero'));
     }
 

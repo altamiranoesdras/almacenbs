@@ -1,5 +1,6 @@
 <?php
 
+use App\extensiones\NumeroALetrasConMoneda;
 use App\Models\Configuration;
 use App\Models\Option;
 use App\Models\User;
@@ -8,7 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
-use App\Extenciones\NumeroALetras;
+use App\extensiones\NumeroALetras;
 use Illuminate\Support\Facades\File;
 
 
@@ -135,6 +136,10 @@ function diaActual(){
  */
 function numAletras($numero,$moneda=null,$centimos=null){
     return NumeroALetras::convertir($numero,$moneda,$centimos);
+}
+
+function numALetrasConmoneda($numero, $moneda=null){
+    return NumeroALetrasConMoneda::Convertir($numero,$moneda);
 }
 
 /**
@@ -600,6 +605,10 @@ function diaSemana($fecha){
 
 function fechaHoraLtn($fecha){
 
+    if (!$fecha){
+        return null;
+    }
+
     return date('d/m/Y H:i:s A',strtotime($fecha));
 }
 
@@ -691,6 +700,34 @@ function errorException(Exception $exception){
     $msg = $user->isSuperAdmin() ? $exception->getMessage() : 'Hubo un error intente de nuevo';
 
     flash($msg)->error()->important();
+}
+
+/**
+ * @param Exception $exception
+ * @return string
+ * @throws Exception
+ */
+function manejarException(Exception $exception){
+
+    /**
+     * @var User $user
+     */
+    $user = auth()->user() ?? auth('api')->user();
+
+    Log::error($exception->getMessage(),[
+        'archivo' =>   $exception->getFile() . '  Linea: ' . $exception->getLine(),
+        'request' => request()->all(),
+        'usuario' => $user->id." ".$user->name,
+//        'trace' => $exception->getTrace(),
+    ]);
+
+    if ($user->can('depurar')){
+        throw $exception;
+    }
+
+    $msg = $user->isSuperAdmin() ? $exception->getMessage() : 'Hubo un error intente de nuevo';
+
+    return $msg;
 }
 
 function existeCredencialesSat(){
@@ -808,10 +845,33 @@ function eliminar_acentos($cadena){
 }
 
 function nombreModulo(){
-    $dominio = request()->getHost();
 
-    $temp = explode('.',$dominio);
+    return "ALMACEN";
 
-    return $temp[0] ?? '';
+//    $dominio = request()->getHost();
+//
+//    $temp = explode('.',$dominio);
+//
+//    return $temp[0] ?? '';
 
+}
+
+function fechaLtnMesEnTexto($fecha){
+
+    list($dia,$mes,$anio)=explode("/",fechaLtn($fecha));
+
+    return $dia."/".mesLetras($mes)."/".$anio;
+}
+
+function entornoEstaEnProduccion(){
+    return app()->environment()=='production';
+}
+
+function fechaIngles($fecha=null){
+
+    if (is_null($fecha)){
+        return null;
+    }
+
+    return Carbon::parse($fecha)->format('Y-m-d');
 }

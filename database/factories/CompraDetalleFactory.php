@@ -31,13 +31,14 @@ class CompraDetalleFactory extends Factory
         /**
          * @var Item $item
          */
-        $item = Item::all()->random();
+        $item = Item::limit(2)->get()->random();
+        $precio_compra = $this->faker->randomFloat(2,10,50);
 
         return [
             'compra_id' => Compra::all()->random()->id,
             'item_id' => $item->id,
             'cantidad' => $this->faker->randomFloat(2,10,50),
-            'precio' => $item->precio_compra,
+            'precio' => $precio_compra,
             'descuento' => 0,
             'fecha_vence' => Carbon::now()->addYear()->format('Y-m-d'),
             'created_at' => $this->faker->date('Y-m-d H:i:s'),

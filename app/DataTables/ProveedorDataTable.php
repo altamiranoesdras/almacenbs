@@ -119,7 +119,7 @@ class ProveedorDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'proveedors_'  . date('YmdHis');
     }

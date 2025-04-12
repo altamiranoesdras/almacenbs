@@ -124,4 +124,32 @@ class KardexAPIController extends AppBaseController
 
         return $this->sendSuccess('Kardex deleted successfully');
     }
+
+    public function ordenarFilas(Request $request)
+    {
+
+        $folioOrigen = $request->folioOrigen;
+        $folioDestino = $request->folioDestino;
+        $id = $request->id;
+
+        $kardxeCambia = Kardex::find($id);
+
+        if (!$kardxeCambia){
+            return $this->sendError('Kardex no encontrado');
+        }
+
+        $kardxeCambia->folio = $folioDestino;
+        $kardxeCambia->save();
+
+        $proveedor = $kardxeCambia->tipo == Kardex::TIPO_INGRESO ? ("Proveedor ".$kardxeCambia->responsable) : null;
+        $solicitante = $kardxeCambia->tipo == Kardex::TIPO_SALIDA ? ("Unidad ".$kardxeCambia->responsable) : null;
+
+        $responsable = $proveedor ?? $solicitante ;
+
+        $textoLog = "El kardex id $kardxeCambia->id tipo $kardxeCambia->tipo, de fecha $kardxeCambia->fecha_ordena, Código $kardxeCambia->codigo, $responsable, cambio de folio $folioOrigen a $folioDestino";
+        \Log::info($textoLog);
+
+        return $this->sendResponse([], 'Fila de kardex actualizada con éxito');
+
+    }
 }

@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class CompraDetalle
+ *
  * @package App\Models
  * @version July 27, 2022, 12:22 pm CST
- *
  * @property Compra $compra
  * @property Item $item
  * @property integer $compra_id
@@ -20,6 +20,36 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property number $precio
  * @property number $descuento
  * @property string $fecha_vence
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read mixed $codigo
+ * @property-read mixed $responsable
+ * @property-read mixed $sub_total
+ * @property-read \App\Models\Kardex|null $kardex
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Stock[] $stocks
+ * @property-read int|null $stocks_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\StockTransaccion[] $transaccionesStock
+ * @property-read int|null $transacciones_stock_count
+ * @method static \Database\Factories\CompraDetalleFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle newQuery()
+ * @method static \Illuminate\Database\Query\Builder|CompraDetalle onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle query()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle whereCantidad($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle whereCompraId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle whereDescuento($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle whereFechaVence($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle whereItemId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle wherePrecio($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|CompraDetalle withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|CompraDetalle withoutTrashed()
+ * @mixin \Eloquent
  */
 class CompraDetalle extends Model
 {
@@ -56,8 +86,8 @@ class CompraDetalle extends Model
         'compra_id' => 'integer',
         'item_id' => 'integer',
         'cantidad' => 'decimal:2',
-        'precio' => 'decimal:2',
-        'descuento' => 'decimal:2',
+        'precio' => 'decimal:4',
+        'descuento' => 'decimal:4',
         'fecha_vence' => 'date'
     ];
 
@@ -139,6 +169,7 @@ class CompraDetalle extends Model
          */
         $stock =  $this->item->stocks
             ->where('fecha_vence',$this->fecha_vence)
+            ->where('bodega_id',Bodega::PRINCIPAL)
             ->where('precio_compra',$this->precio)
             ->sortBy('orden_salida')
             ->sortBy('fecha_vence')
@@ -155,6 +186,7 @@ class CompraDetalle extends Model
         }else{
 
             $stock= Stock::create([
+                'bodega_id' => Bodega::PRINCIPAL,
                 'item_id' => $this->item->id,
                 'lote' =>  null,
                 'precio_compra' => $this->precio,
@@ -166,18 +198,21 @@ class CompraDetalle extends Model
 
         }
 
+        $this->addStockTransaccion(StockTransaccion::INGRESO,$stock->id,$this->cantidad,$this->precio);
+
+        return $stock;
+    }
+
+    public function agregarKardex()
+    {
         $this->kardex()->create([
             'item_id' => $this->item->id,
             'cantidad' => $this->cantidad,
             'tipo' => Kardex::TIPO_INGRESO,
-            'codigo' => $this->compra->codigo,
+            'codigo' => $this->compra->compra1h->folio ?? '',
             'responsable' => $this->compra->proveedor->nombre,
             'usuario_id' => auth()->user()->id ?? User::PRINCIPAL
         ]);
-
-        $this->addStockTransaccion(StockTransaccion::INGRESO,$stock->id,$this->cantidad,$this->precio);
-
-        return $stock;
     }
 
     public function anular()

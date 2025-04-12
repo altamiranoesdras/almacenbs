@@ -2,7 +2,7 @@
 namespace Database\Seeders;
 
 use App\Models\SolicitudDetalle;
-use App\Models\Solicitude;
+use App\Models\Solicitud;
 use Illuminate\Database\Seeder;
 
 class SolicitudStockSeeder extends Seeder

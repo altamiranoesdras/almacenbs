@@ -9,9 +9,13 @@ use App\Events\EventoCambioEstadoSolicitud;
 use App\Http\Requests;
 use App\Http\Requests\CreateSolicitudRequest;
 use App\Http\Requests\UpdateSolicitudRequest;
+use App\Models\Bodega;
+use App\Models\RrhhUnidad;
 use App\Models\Solicitud;
 use App\Models\SolicitudDetalle;
 use App\Models\SolicitudEstado;
+use App\Models\User;
+use App\Notifications\RequisicionSolicitidaNotificacion;
 use Carbon\Carbon;
 use Exception;
 use Flash;
@@ -41,6 +45,21 @@ class SolicitudController extends AppBaseController
     public function index(SolicitudDataTable $solicitudDataTable)
     {
         $scope = new ScopeSolicitudDataTable();
+
+        $estadosIniciales =  [
+            SolicitudEstado::SOLICITADA,
+            SolicitudEstado::AUTORIZADA,
+            SolicitudEstado::APROBADA,
+            SolicitudEstado::DESPACHADA,
+            SolicitudEstado::ANULADA,
+            SolicitudEstado::CANCELADA,
+            SolicitudEstado::RETORNO_SOLICITADA,
+            SolicitudEstado::RETORNO_AUTORIZADA,
+            SolicitudEstado::RETORNO_APROBADA,
+        ];
+
+        $scope->estados = request()->estados ?? $estadosIniciales;
+
         $solicitudDataTable->addScope($scope);
 
 
@@ -55,6 +74,9 @@ class SolicitudController extends AppBaseController
             SolicitudEstado::AUTORIZADA,
             SolicitudEstado::APROBADA,
             SolicitudEstado::DESPACHADA,
+            SolicitudEstado::RETORNO_SOLICITADA,
+            SolicitudEstado::RETORNO_AUTORIZADA,
+            SolicitudEstado::RETORNO_APROBADA,
         ];
 
         $scope = new ScopeSolicitudDataTable();
@@ -174,6 +196,7 @@ class SolicitudController extends AppBaseController
             try {
                 DB::beginTransaction();
 
+                $this->enviarNotificacion();
 
                 $this->procesar($solicitud,$request);
 
@@ -220,9 +243,10 @@ class SolicitudController extends AppBaseController
         $request->merge([
             'codigo' => $this->getCodigo(),
             'correlativo' => $this->getCorrelativo(),
-            'unidad_id' => auth()->user()->unidad_id,
+            'unidad_id' => auth()->user()->unidad_id ?? RrhhUnidad::PRINCIPAL,
+            'bodega_id' => auth()->user()->bodega_id ?? Bodega::PRINCIPAL,
             'usuario_solicita' => $request->usuario_solicita,
-            'fecha_solicita' => hoyDb(),
+            'fecha_solicita' => Carbon::now(),
             'estado_id' => SolicitudEstado::SOLICITADA,
         ]);
 
@@ -237,6 +261,9 @@ class SolicitudController extends AppBaseController
         }catch (Exception $exception){
 
         }
+
+        $solicitud->addBitacora("SISTEMA","REQUISICIÓN SOLICITADA","");
+
 
         return $solicitud;
 
@@ -390,21 +417,42 @@ class SolicitudController extends AppBaseController
 
         $pdf = App::make('snappy.pdf.wrapper');
 
-        $view = view('solicitudes.despacho_pdf', compact('solicitud'))->render();
+        $view = view('solicitudes.despachar.pdf', compact('solicitud'))->render();
         // $footer = view('compras.pdf_footer')->render();
 
+        $footer = view('solicitudes.despachar.pdf_footer',compact('solicitud'))->render();
+
+//         return $view;
+//        dd($solicitud->toArray());
+
         $pdf->loadHTML($view)
-        ->setOption('page-width', '220')
-        ->setOption('page-height', '280')
-            ->setOrientation('portrait')
-            // ->setOption('footer-html',utf8_decode($footer))
-            ->setOption('margin-top', 10)
-            ->setOption('margin-bottom',3)
+            ->setOption('page-width', 279)
+            ->setOption('page-height', 216)
+            ->setOrientation('landscape')
+            ->setOption('footer-html',utf8_decode($footer))
+            ->setOption('margin-top', 39)
+            ->setOption('margin-bottom',45)
             ->setOption('margin-left',10)
-            ->setOption('margin-right',10);
-            // ->stream('report.pdf');
+            ->setOption('margin-right',15);
+
         return $pdf->inline('Despacho '.$solicitud->id. '_'. time().'.pdf');
 
+
+    }
+
+    public function enviarNotificacion()
+    {
+
+        if(entornoEstaEnProduccion()){
+
+            $usuarios = User::all()->filter(function (User $user) {
+                return $user->can('Aprobar Requisición') && $user->id > 3;
+            });
+
+            foreach ($usuarios as $usuario) {
+                $usuario->notify(new RequisicionSolicitidaNotificacion());
+            }
+        }
 
     }
 

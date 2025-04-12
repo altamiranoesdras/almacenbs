@@ -1,23 +1,12 @@
 <!-- Name Field -->
-{!! Form::label('name', 'Name:') !!}
-{!! $role->name !!}<br>
-
+<div class="col-sm-12">
+    {!! Form::label('name', 'Name:') !!}
+    <p>{{ $role->name }}</p>
+</div>
 
 <!-- Guard Name Field -->
-{!! Form::label('guard_name', 'Guard Name:') !!}
-{!! $role->guard_name !!}<br>
+<div class="col-sm-12">
+    {!! Form::label('guard_name', 'Guard Name:') !!}
+    <p>{{ $role->guard_name }}</p>
+</div>
 
-
-{!! Form::label('permissions', 'Permisos:') !!}
-@forelse($role->permissions as $permission)
-
-    <span class="badge badge-info">
-    {!! $permission->name !!}
-    </span>
-@empty
-    <span class="badge badge-secondary">
-        Ningún permiso asignado
-    </span>
-
-@endforelse
-<br>
