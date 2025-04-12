@@ -16,15 +16,15 @@ class ConfigurationsTableSeeder extends Seeder
     {
 
 
-        \DB::table('configurations')->delete();
+        \DB::table('configurations')->truncate();
 
         \DB::table('configurations')->insert(array (
             0 =>
             array (
                 'id' => 1,
                 'key' => 'name',
-                'value' => 'SysBase',
-                'descripcion' => 'SysBase',
+                'value' => 'Bienestar Social',
+                'descripcion' => 'Bienestar Social',
                 'created_at' => '2004-07-23 07:21:12',
                 'updated_at' => '2021-07-16 09:30:10',
                 'deleted_at' => NULL,
