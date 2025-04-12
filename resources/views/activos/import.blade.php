@@ -49,7 +49,7 @@
 
                                             <div class="col-sm-3 mb-1">
                                                 <label for="">&nbsp;</label>
-                                                <a class="btn btn-outline-success"
+                                                <a class="btn btn-outline-success round"
                                                    href="{{ asset('plantilla_import_activos.xlsx') }}">
                                                     <i class="fa fa-download"></i>
                                                     <span class="d-none d-sm-inline">Descargar Plantilla</span>
@@ -82,7 +82,7 @@
 
                                     <!-- Submit Field -->
                                     <div class="col-sm-12 mb-1 text-right">
-                                        <a href="{!! route('items.index') !!}" class="btn btn-outline-secondary">
+                                        <a href="{!! route('items.index') !!}" class="btn btn-outline-secondary round me-1">
                                             Cancelar
                                         </a>
 

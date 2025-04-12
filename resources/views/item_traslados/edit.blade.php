@@ -42,7 +42,7 @@
                                     @include('item_traslados.fields')
                                     <!-- Submit Field -->
                                     <div class="col-sm-12 mb-1">
-                                        <button type="submit"  class="btn btn-outline-success">Guardar</button>
+                                        <button type="submit"  class="btn btn-outline-success round">Guardar</button>
                                         <a href="{!! route('itemTraslados.index') !!}" class="btn btn-outline-default">Cancelar</a>
                                     </div>
                                 </div>

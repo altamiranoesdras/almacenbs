@@ -55,7 +55,7 @@
                                         </div>
 
                                         <div class="col-sm-12 mb-1 text-right">
-                                            <a href="{!! route('activoSolicitudes.index') !!}" class="btn btn-outline-secondary">Regresar</a>
+                                            <a href="{!! route('activoSolicitudes.index') !!}" class="btn btn-outline-secondary round me-1">Regresar</a>
 
                                         </div>
 

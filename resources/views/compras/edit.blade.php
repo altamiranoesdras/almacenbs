@@ -107,12 +107,12 @@
 
 
                                     @if($compra->estado_id == \App\Models\CompraEstado::CREADA )
-                                        <a href="{!! route('compra.ingreso',$compra->id) !!}" class="btn btn-outline-success">
+                                        <a href="{!! route('compra.ingreso',$compra->id) !!}" class="btn btn-outline-success round">
                                             Ingresar
                                         </a>
                                     @endif
 
-                                    <button type="submit" class="btn btn-outline-success">
+                                    <button type="submit" class="btn btn-outline-success round">
                                         <i class="fa fa-save "></i>
                                         Actualizar
                                     </button>
@@ -211,12 +211,12 @@
 
                                             <!-- Submit Field -->
                                             <div class="col-sm-12 mb-1 text-right">
-                                                <a href="{!! route('compras.index') !!}" class="btn btn-outline-secondary">
+                                                <a href="{!! route('compras.index') !!}" class="btn btn-outline-secondary round me-1">
                                                     Regresar
                                                 </a>
 
 
-                                                <button type="submit" class="btn btn-outline-success">
+                                                <button type="submit" class="btn btn-outline-success round">
                                                     Actualizar
                                                 </button>
 

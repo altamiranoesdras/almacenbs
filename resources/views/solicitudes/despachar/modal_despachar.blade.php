@@ -46,7 +46,7 @@
                         <div class="col-sm-6 text-right">
 
                             {{--                    @if($solicitud->tieneStock())--}}
-                            <button type="submit"   class="btn btn-outline-success">
+                            <button type="submit"   class="btn btn-outline-success round">
                                 <i class="fa fa-check"></i> Despachar
                             </button>
                             {{--                    @else--}}
@@ -89,7 +89,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
+                    <button type="button" class="btn btn-outline-secondary round me-1" data-dismiss="modal">
                         Cancelar
                     </button>
 

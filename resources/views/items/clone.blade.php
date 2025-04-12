@@ -41,8 +41,8 @@
                                 @include('items.fields')
                                 <!-- Submit Field -->
                                     <div class="col-sm-12 mb-1">
-                                        <button type="submit" onClick="this.form.submit(); this.disabled=true;" class="btn btn-outline-success">Guardar</button>
-                                        <a href="{!! route('items.index') !!}" class="btn btn-outline-secondary">Cancelar</a>
+                                        <button type="submit" onClick="this.form.submit(); this.disabled=true;" class="btn btn-outline-success round">Guardar</button>
+                                        <a href="{!! route('items.index') !!}" class="btn btn-outline-secondary round me-1">Cancelar</a>
                                     </div>
                             </div>
                             {!! Form::close() !!}

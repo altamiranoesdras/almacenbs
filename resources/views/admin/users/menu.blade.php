@@ -42,8 +42,8 @@
                                     <div class="col-sm-12 mb-1">
 
                                         <input type="hidden" name="options" id="options">
-                                        <button type="button" id="#btnSave"  class="btn btn-outline-success">Guardar</button>
-                                        <a href="{!! route('users.index') !!}" class="btn btn-outline-secondary">Cancelar</a>
+                                        <button type="button" id="#btnSave"  class="btn btn-outline-success round">Guardar</button>
+                                        <a href="{!! route('users.index') !!}" class="btn btn-outline-secondary round me-1">Cancelar</a>
                                     </div>
 
                                 </div>

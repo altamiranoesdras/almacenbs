@@ -15,7 +15,7 @@
         <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
             <div class="mb-1 breadcrumb-right">
                 <div class="dropdown">
-                    <a class="btn btn-outline-success"
+                    <a class="btn btn-outline-success round"
                        href="{!! route('options.create') !!}">
                         <i class="fa fa-plus"></i>
                         <span class="d-none d-sm-inline">{{__('New')}}</span>

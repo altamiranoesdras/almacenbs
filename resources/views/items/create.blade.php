@@ -46,7 +46,7 @@
                                     <!-- Submit Field -->
                                     <div class="col-sm-12 mb-1 text-right">
                                         <a href="{!! route('items.index') !!}" class="btn btn-outline-secondary mr-3">Cancelar</a>
-                                        <button type="submit" class="btn btn-outline-success">
+                                        <button type="submit" class="btn btn-outline-success round">
                                             <i class="fa fa-save"></i>
                                             Guardar
                                         </button>

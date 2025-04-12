@@ -49,7 +49,7 @@
 
                                             <div class="col-sm-3 mb-1">
                                                 <label for="">&nbsp;</label>
-                                                <a class="btn btn-outline-success"
+                                                <a class="btn btn-outline-success round"
                                                    href="{{ asset('plantilla_importar_stock_cajs.xlsx') }}">
                                                     <i class="fa fa-download"></i>
                                                     <span class="d-none d-sm-inline">Descargar Plantilla</span>
@@ -82,7 +82,7 @@
 
                                     <!-- Submit Field -->
                                     <div class="col-sm-12 mb-1 text-right">
-                                        <a href="{!! route('items.index') !!}" class="btn btn-outline-secondary">
+                                        <a href="{!! route('items.index') !!}" class="btn btn-outline-secondary round me-1">
                                             Cancelar
                                         </a>
 
@@ -125,10 +125,10 @@
                                                     <strong>Cancelar</strong></p>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-outline-secondary"
+                                                <button type="button" class="btn btn-outline-secondary round me-1"
                                                         data-dismiss="modal">Cancelar
                                                 </button>
-                                                <button type="submit" class="btn btn-outline-success">
+                                                <button type="submit" class="btn btn-outline-success round">
                                                     Importar
                                                 </button>
                                             </div>

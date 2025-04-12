@@ -50,7 +50,7 @@
                         Cancelar
                     </a>
 
-                    <button type="submit"  class="btn btn-outline-success">
+                    <button type="submit"  class="btn btn-outline-success round">
                         <i class="fa fa-save"></i>
                         Guardar
                     </button>

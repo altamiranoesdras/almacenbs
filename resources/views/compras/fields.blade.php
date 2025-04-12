@@ -123,17 +123,21 @@
 
         <div class="row">
 
-            <div class="col-sm-4 mb-1">
-                <a class="btn btn-outline-danger pull-right btn-block" data-toggle="modal" href="#modal-cancel-compra">
-                    <span data-toggle="tooltip" title="Cancelar compra">Cancelar</span>
+            <div class="d-grid col-sm-5 mb-1">
+                <a class="btn btn-outline-danger btn-block" data-toggle="modal" href="#modal-cancel-compra">
+                    <span data-toggle="tooltip" title="Cancelar compra">
+                        <i class="fa fa-ban"></i>
+                        Cancelar
+                    </span>
                 </a>
             </div>
 
-            <div class="col-sm-8 mb-1">
+            <div class="d-grid col-sm-7 mb-1">
                 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
 
                 <button type="button"  class="btn btn-outline-success btn-block" @click="procesar()">
-                    <span class="glyphicon glyphicon-ok"></span> Procesar
+                    <i class="fa fa-check"></i>
+                    Procesar
                 </button>
             </div>
 

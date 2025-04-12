@@ -20,7 +20,7 @@
             </div>
             <div class="modal-footer">
                 @if($compra->estado_id == \App\Models\CompraEstado::CREADA)
-                    <a href="{{route('compra.ingreso', $compra->id)}}" ><div class="btn btn-outline-success" >Ingresar</div></a>
+                    <a href="{{route('compra.ingreso', $compra->id)}}" ><div class="btn btn-outline-success round" >Ingresar</div></a>
                 @else
                     <h4><span class="badge badge-info">{{ $compra->estado->nombre}}</span></h4>
                 @endif

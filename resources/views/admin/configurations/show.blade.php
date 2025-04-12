@@ -24,7 +24,7 @@
                 <div class="row">
                     <div class="col-sm-12 mb-1">
                         @include('admin.configurations.show_fields')
-                        <a href="{{ route('dev.configurations.index') }}" class="btn btn-outline-secondary">{{__('Back')}}</a>
+                        <a href="{{ route('dev.configurations.index') }}" class="btn btn-outline-secondary round me-1">{{__('Back')}}</a>
                     </div>
                 </div>
             </div>

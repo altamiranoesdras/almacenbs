@@ -41,11 +41,11 @@
 
                             <!-- Submit Field -->
                             <div class="col-sm-12 mb-1 text-right">
-                                <a href="{!! route('activoTarjetas.index') !!}" class="btn btn-outline-secondary">
+                                <a href="{!! route('activoTarjetas.index') !!}" class="btn btn-outline-secondary round me-1">
                                     Cancelar
                                 </a>
                                 &nbsp;
-                                <button type="submit" class="btn btn-outline-success">
+                                <button type="submit" class="btn btn-outline-success round">
                                     <i class="fa fa-floppy-o"></i> Guardar
                                 </button>
                             </div>
