@@ -153,7 +153,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
                 <h4 class="modal-title">PROCESAR COMPRA!</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
 				Seguro que desea continuar?
@@ -171,7 +171,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 <h4 class="modal-title">Cancelar compra!</h4>
             </div>
             <div class="modal-body">

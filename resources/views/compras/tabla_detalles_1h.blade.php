@@ -58,24 +58,30 @@
     </tbody>
     <tfoot>
     <tr>
-        <th colspan="8">Sub Total</th>
+        <th colspan="7">Sub Total</th>
         <th class="text-right">
             {{dvs().nf($compra->sub_total)}}
         </th>
+        <th></th>
+        <th></th>
     </tr>
 
     <tr>
-        <th colspan="8">Descuento</th>
+        <th colspan="7">Descuento</th>
         <th class="text-right text-success">
             {{dvs().nf($compra->descuento)}}
         </th>
+        <th></th>
+        <th></th>
     </tr>
 
     <tr>
-        <th colspan="8">Total</th>
+        <th colspan="7">Total</th>
         <th class="text-right">
             {{dvs().nf($compra->total)}}
         </th>
+        <th></th>
+        <th></th>
     </tr>
     </tfoot>
 </table>

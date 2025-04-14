@@ -34,6 +34,7 @@
 
     <div class="content-body" id="root">
 
+
         <div class="row">
             <div class="col-12">
                 @include('layouts.errores')
