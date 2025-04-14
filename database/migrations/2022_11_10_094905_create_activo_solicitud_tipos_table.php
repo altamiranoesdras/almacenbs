@@ -15,7 +15,7 @@ class CreateActivoSolicitudTiposTable extends Migration
     {
         Schema::create('activo_solicitud_tipos', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre')->unique('nombre_UNIQUE');
+            $table->string('nombre')->unique('activo_solicitud_tipos_nombre_UNIQUE');
             $table->timestamps();
             $table->softDeletes();
         });

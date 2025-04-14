@@ -15,7 +15,7 @@ class CreateCompraTiposTable extends Migration
     {
         Schema::create('compra_tipos', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre', 45)->unique('nombre_UNIQUE');
+            $table->string('nombre', 45)->unique('compra_tipos_nombre_UNIQUE');
             $table->timestamps();
             $table->softDeletes();
         });

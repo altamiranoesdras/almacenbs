@@ -15,7 +15,7 @@ class CreateItemCategoriasTable extends Migration
     {
         Schema::create('item_categorias', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre', 45)->unique('nombre_UNIQUE');
+            $table->string('nombre', 45)->unique('item_categorias_nombre_UNIQUE');
             $table->text('descripcion')->nullable();
             $table->timestamps();
             $table->softDeletes();

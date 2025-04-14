@@ -15,7 +15,7 @@ class CreateMagnitudesTable extends Migration
     {
         Schema::create('magnitudes', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre', 100)->unique('nombre_UNIQUE');
+            $table->string('nombre', 100)->unique('magnitudes_nombre_UNIQUE');
             $table->timestamps();
             $table->softDeletes();
         });

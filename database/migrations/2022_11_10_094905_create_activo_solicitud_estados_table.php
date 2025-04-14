@@ -15,7 +15,7 @@ class CreateActivoSolicitudEstadosTable extends Migration
     {
         Schema::create('activo_solicitud_estados', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre')->unique('nombre_UNIQUE');
+            $table->string('nombre')->unique('activo_solicitud_estados_nombre_UNIQUE');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -15,7 +15,7 @@ class CreateConsumoEstadosTable extends Migration
     {
         Schema::create('consumo_estados', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre')->unique('nombre_UNIQUE');
+            $table->string('nombre')->unique('consumo_estados_nombre_UNIQUE');
             $table->timestamps();
             $table->softDeletes();
         });
