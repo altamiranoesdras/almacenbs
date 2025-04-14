@@ -1,19 +1,10 @@
-@section('css')
+@push('estilos_dt')
     @include('layouts.datatables_css')
-@endsection
+@endpush
 
-<div class="table-responsive">
-    {!! $dataTable->table(['width' => '100%']) !!}
-</div>
+{!! $dataTable->table(['width' => '100%', 'class' => 'table-sm table-striped']) !!}
 
-{{--<div class="row">--}}
-{{--    <div class="col">--}}
-{{--        <span class="badge badge-danger">Vencidas</span>--}}
-{{--        <span class="badge badge-warning">Hoy Vencen</span>--}}
-{{--    </div>--}}
-{{--</div>--}}
-
-@section('scripts')
+@push('scripts')
     @include('layouts.datatables_js')
     {!! $dataTable->scripts() !!}
     <script>
@@ -22,9 +13,9 @@
 
             //Cuando dibuja la tabla
             dt.on( 'draw.dt', function () {
-                $(this).addClass('table-sm table-striped table-bordered table-hover');
-                $(this).find('tbody').addClass('text-sm');
-                $(this).find('thead').addClass('text-sm');
+                console.log('draw.dt');
+                $(this).find('tbody').addClass('small');
+                $(this).find('thead').addClass('small');
 
                 $('[data-toggle="tooltip"]').tooltip();
 
@@ -39,4 +30,4 @@
 
         })
     </script>
-@endsection
+@endpush

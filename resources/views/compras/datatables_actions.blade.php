@@ -11,26 +11,26 @@
 {{--    </a>--}}
 
     @if($compra->puedeEditar())
-    <a href="{{ route('compras.edit', $compra->id) }}" class='btn btn-primary btn-xs' data-toggle="tooltip" title="Editar">
+    <a href="{{ route('compras.edit', $compra->id) }}" class='btn btn-icon btn-flat-primary rounded-circle' data-toggle="tooltip" title="Editar">
         <i class="fa fa-edit"></i>
     </a>
     @endif
 
 
 
-{{--     <a href="{{route('compra.pdf',$compra->id)}}" target="_blank" class='btn btn-outline-success btn-xs' data-toggle="tooltip" title="Imprimir Orden de Compra">--}}
+{{--     <a href="{{route('compra.pdf',$compra->id)}}" target="_blank" class='btn btn-icon btn-flat-secondary rounded-circle' data-toggle="tooltip" title="Imprimir Orden de Compra">--}}
 {{--         <i class="fas fa-print"></i>--}}
 {{--     </a>--}}
 
     @if($compra->tiene1h())
-     <a href="{{route('compra.h1.pdf',$compra->id)}}" target="_blank" class='btn btn-outline-primary btn-xs' data-toggle="tooltip" title="Imprimir 1H">
+     <a href="{{route('compra.h1.pdf',$compra->id)}}" target="_blank" class='btn btn-icon btn-flat-primary rounded-circle' data-toggle="tooltip" title="Imprimir 1H">
          <i class="fas fa-print"></i>
      </a>
     @endif
 
     @can('Anular ingreso de compra')
         @if($compra->estado_id != \App\Models\CompraEstado::ANULADA && $compra->estado_id == \App\Models\CompraEstado::RECIBIDA )
-            <a href="#" onclick="deleteItemDt(this)" data-id="{{$compra->id}}" data-toggle="tooltip" title="Anular Ingreso" class='btn btn-outline-danger btn-xs'>
+            <a href="#" onclick="deleteItemDt(this)" data-id="{{$compra->id}}" data-toggle="tooltip" title="Anular Ingreso" class='btn btn-icon btn-flat-danger rounded-circle'>
                 <i class="fa fa-undo-alt"></i>
             </a>
 
