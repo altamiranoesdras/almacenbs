@@ -21,7 +21,7 @@ class SolicitudesTableSeeder extends Seeder
     {
 
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        //DB::statement('SET FOREIGN_KEY_CHECKS=0');
         DB::table('solicitudes')->truncate();
         DB::table('solicitud_detalles')->truncate();
 

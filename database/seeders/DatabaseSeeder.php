@@ -28,13 +28,13 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        //DB::statement('SET FOREIGN_KEY_CHECKS=0');
         DB::table('media')->truncate();
 
+        $this->call(OptionsTableSeeder::class);
         $this->call(PermissionSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(ConfigurationsTableSeeder::class);
-        $this->call(OptionsTableSeeder::class);
 
 //        $this->call(ImportPuestosUnidadesSeeder::class);
         $this->call(UsersTableSeeder::class);

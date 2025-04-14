@@ -14,9 +14,9 @@ class CreateActivoTrasladoTable extends Migration
     public function up()
     {
         Schema::create('activo_traslado', function (Blueprint $table) {
-            $table->unsignedBigInteger('tarjeta_detalle_id')->index('fk_activo_tarjeta_detalles_has_activo_solicitud_detalles_ac_idx1');
-            $table->unsignedBigInteger('solicitud_detalle_id')->index('fk_activo_tarjeta_detalles_has_activo_solicitud_detalles_ac_idx');
-            $table->primary(['tarjeta_detalle_id', 'solicitud_detalle_id']);
+            $table->unsignedBigInteger('tarjeta_detalle_id')->index();
+            $table->unsignedBigInteger('solicitud_detalle_id')->index();
+            $table->primary(['tarjeta_detalle_id', 'solicitud_detalle_id'], 'activo_traslado_pk');
         });
     }
 

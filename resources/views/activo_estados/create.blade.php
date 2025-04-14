@@ -21,6 +21,15 @@
         </div><!-- /.container-fluid -->
     </section>
 
+    <x-content-header titulo="Nuevo estado de activos" >
+        <a class="btn btn-outline-secondary float-right"
+           href="{{route('activoEstados.index')}}">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            <span class="d-none d-sm-inline">Regresar</span>
+        </a>
+    </x-content-header>
+
+
     <div class="content-body">
         <div class="container-fluid">
 
