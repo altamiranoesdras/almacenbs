@@ -16,7 +16,7 @@ class OptionsTableSeeder extends Seeder
     {
 
 
-        //DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
 
         \DB::table('options')->delete();
 

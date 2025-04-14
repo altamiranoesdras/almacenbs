@@ -20,7 +20,7 @@ class ActivoTarjetasTableSeeder extends Seeder
     {
 
 
-        //DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
 
         DB::table('activo_tarjeta_detalles')->truncate();
 

@@ -55,7 +55,7 @@ class ImportPersonalCommand extends Command
     {
         $this->inicio();
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        deshabilitaLlavesForaneas();
 
         Colaborador::truncate();
         User::where('id',">",5)->delete();
@@ -92,7 +92,7 @@ class ImportPersonalCommand extends Command
 
         }
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+        habilitaLlavesForaneas();
 
         $this->fin($importable->errores);
 

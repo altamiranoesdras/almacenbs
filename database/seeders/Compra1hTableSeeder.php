@@ -19,7 +19,7 @@ class Compra1hTableSeeder extends Seeder
     {
 
 
-        //DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
 
         DB::table('compra_1h')->truncate();
         DB::table('compra_1h_detalles')->truncate();

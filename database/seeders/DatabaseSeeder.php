@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
+        deshabilitaLlavesForaneas();
+
         if (!file_exists(storage_path('temp'))){
             mkdir(storage_path('temp'));
         }
@@ -28,7 +30,7 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        //DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
         DB::table('media')->truncate();
 
         $this->call(OptionsTableSeeder::class);
@@ -63,7 +65,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ItemPresentacionesTableSeeder::class);
 
         $this->call(ItemCategoriaTableSeeder::class);
-        $this->call(ItemsTableSeeder::class);
+//        $this->call(ItemsTableSeeder::class);
 
         Artisan::call("import:colaboradores");
 
@@ -72,23 +74,20 @@ class DatabaseSeeder extends Seeder
 
         if(app()->environment()=='local'){
 
-            $this->call(ComprasSeeder::class);
-            $this->call(SolicitudesTableSeeder::class);
+//            $this->call(ComprasSeeder::class);
+//            $this->call(SolicitudesTableSeeder::class);
 //            $this->call(ConsumosTableSeeder::class);
 //            $this->call(Compra1hTableSeeder::class);
 //            $this->call(ActivosTableSeeder::class);
 
         }
 
-
-
-
-
-
         foreach(glob(storage_path('temp/*')) as $file){
             if(is_file($file))
                 unlink($file);
         }
+
+        habilitaLlavesForaneas();
 
     }
 }

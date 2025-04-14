@@ -875,3 +875,20 @@ function fechaIngles($fecha=null){
 
     return Carbon::parse($fecha)->format('Y-m-d');
 }
+
+function deshabilitaLlavesForaneas()
+{
+    //si la conexion es mysql
+    if (config('database.default') == 'mysql') {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+    }
+
+}
+
+function habilitaLlavesForaneas()
+{
+    //si la conexion es mysql
+    if (config('database.default') == 'mysql') {
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+    }
+}
