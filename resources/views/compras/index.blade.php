@@ -6,29 +6,13 @@
 
 @section('content')
 
-    <div class="content-header row">
-        <div class="content-header-left col-md-9 col-12 mb-2">
-            <div class="row breadcrumbs-top">
-                <div class="col-12">
-                    <h2 class="content-header-title float-start mb-0">
-                        Listado de compras
-                    </h2>
-                </div>
-            </div>
-        </div>
-
-        <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
-            <div class="mb-1 breadcrumb-right">
-                <div class="dropdown">
-                    <a class="btn btn-primary float-right"
-                       href="{{ route('compras.create') }}">
-                        <i class="fa fa-plus"></i>
-                        Nueva compra
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <x-content-header titulo="Listado de compras">
+        <a class="btn btn-success float-right"
+           href="{{ route('compras.create') }}">
+            <i class="fa fa-plus"></i>
+            Nueva compra
+        </a>
+    </x-content-header>
 
     <div class="content-body">
 
