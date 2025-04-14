@@ -23,7 +23,7 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <div class="content">
+    <div class="content-body">
         <div class="container-fluid">
 
 

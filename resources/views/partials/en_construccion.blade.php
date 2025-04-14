@@ -27,7 +27,7 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <div class="content">
+    <div class="content-body">
         <div class="container-fluid">
             <div class="col-lg-12 col-12 mb-3">
                 <div class="card ">

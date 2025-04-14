@@ -21,7 +21,7 @@
         </div><!-- /.container-fluid -->
     </section>
 
-    <div class="content">
+    <div class="content-body">
         <div class="container-fluid">
 
 

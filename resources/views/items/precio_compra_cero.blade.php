@@ -7,7 +7,7 @@
             Agregar costo compra Artículo
         </h1>
     </section>
-    <div class="content">
+    <div class="content-body">
 
         @include('layouts.errores')
         <div class="box box-success">

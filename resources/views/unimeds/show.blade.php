@@ -18,7 +18,7 @@
         </div><!-- /.container-fluid -->
     </section>
 
-    <div class="content">
+    <div class="content-body">
         <div class="card card-primary">
             <div class="card-body">
                 <div class="row">
