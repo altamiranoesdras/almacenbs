@@ -68,18 +68,40 @@ class Option extends Model
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
+    const PANEL_DE_CONTROL =        1;
+    const NUEVA_COMPRA_SOLA =       2;
+    const NUEVA_COMPRA =            4;
+    const PROVEEDORES =             5;
+    const BUSCAR_COMPRAS =          6;
+    const NUEVA_REQUISICION =       8;
+    const MIS_REQUISICIONES =       9;
+    const DESPACHAR_REQUISICION =   10;
+    const BUSCAR_REQUISICION =      11;
+    const NUEVO_ARTICULO =          14;
+    const BUSCAR_ARTÍCULO =         15;
+    const CATEGORIAS =              16;
+    const UNIDADES_DE_MEDIDA =      17;
+    const MARCAS =                  18;
+    const MAGNITUDES =              19;
+    const IMPORTAR_EXCEL =          20;
+    const TRASLADO_ENTRE_UNIDADES = 21;
+    const STOCK =                   24;
+    const KARDEX =                  25;
+    const ARTICULOS_A_VENCER =      26;
+    const USUARIOS =                28;
+    const ROLES =                   29;
+    const PERMISOS =                30;
+    const CONFIGURACIONES =         31;
+    const AUTORIZAR_REQUISICION =   32;
+    const APROBAR_REQISICION =      33;
 
-    const DASHBOARD =  1;
-    const ADMIN =  2;
-    const USUARIOS =  3;
-    const ROLES =  4;
-    const PERMISOS =  5;
-    const CONFIGURACIONES =  6;
-    const DEVELOPER =  7;
-    const PRUEBA_APIS =  8;
-    const CONFIGURACIONES_DEV =  9;
-    const MENU =  11;
-    const PRUEBAS =  12;
+    const INVENTARIOS =             34;
+    const ACTIVOS =                 35;
+    const TARJETA_RESPONSABILIDAD = 36;
+    const INGRESO_INVENTARIO_1H =   37;
+    const SOLICITUD_CD_BIENES =     38;
+    const RPT_BIENES_POR_UNIDAD =   39;
+
 
     protected $appends= ['active','visible_to_user','text','ruta_evaluada'];
 

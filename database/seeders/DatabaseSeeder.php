@@ -83,7 +83,7 @@ class DatabaseSeeder extends Seeder
 
 
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+
 
         foreach(glob(storage_path('temp/*')) as $file){
             if(is_file($file))

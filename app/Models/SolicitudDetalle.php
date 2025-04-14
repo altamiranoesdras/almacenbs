@@ -192,7 +192,8 @@ class SolicitudDetalle extends Model
                     'tipo' => Kardex::TIPO_SALIDA,
                     'codigo' => $this->solicitud->codigo,
                     'responsable' => $this->solicitud->unidad->nombre,
-                    'usuario_id' => auth()->user()->id ?? User::PRINCIPAL
+                    'usuario_id' => auth()->user()->id ?? User::PRINCIPAL,
+                    'folio_siguiente' => '',
                 ]);
             }
 

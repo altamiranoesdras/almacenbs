@@ -25,6 +25,6 @@ class ActivosTableSeeder extends Seeder
 
         Activo::factory()->count(20)->create();
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+
     }
 }

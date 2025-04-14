@@ -26,7 +26,7 @@ class ComprasSeeder extends Seeder
         StockTransaccion::truncate();
         Kardex::truncate();
 
-        Compra::factory()->count(100)
+        Compra::factory()->count(20)
             ->create()
             ->each(function (Compra $compra){
                 CompraDetalle::factory()
