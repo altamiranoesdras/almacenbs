@@ -53,8 +53,6 @@
                                     </small>
                                 </h3>
                                 <div class="card-tools pull-right">
-                                    {{--<button class="btn btn-tool" data-widget="collapse" tabindex="1000"><i class="fa fa-minus"></i></button>--}}
-                                    {{--<button class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>--}}
                                 </div>
                             </div>
                             <!-- /.card-header -->
@@ -69,7 +67,7 @@
                                     </select-items>
                                 </div>
 
-                                <div class="row pt-3">
+                                <div class="row mb-2">
 
                                     <div class="form-group col-12 col-sm-4 col-md-4 col-lg-4">
                                         <div class="input-group">

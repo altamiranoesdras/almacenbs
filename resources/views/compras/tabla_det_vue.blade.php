@@ -1,7 +1,7 @@
 <div class="table-responsive">
-    <table width="100%"  class="table table-bordered table-xtra-condensed" id="tablaDetalle" style="margin-bottom: 2px">
+    <table  class="table table-bordered table-sm table-striped" id="tablaDetalle" style="margin-bottom: 2px">
         <thead>
-        <tr class="bg-primary text-sm" align="center" style="font-weight: bold">
+        <tr class="text-sm">
             <td width="50%">Producto</td>
             <td width="10%">Precio</td>
             <td width="10%">Cantidad</td>
