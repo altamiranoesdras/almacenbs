@@ -16,7 +16,7 @@
             <div class="mb-1 breadcrumb-right">
                 <div class="dropdown">
                     <a class="btn btn-outline-success round"
-                       href="{!! route('options.create') !!}">
+                       href="{!! route('dev.options.create') !!}">
                         <i class="fa fa-plus"></i>
                         <span class="d-none d-sm-inline">{{__('New')}}</span>
                     </a>
@@ -62,7 +62,7 @@
                         opciones.push($(this).attr('id'));
                     });
 
-                    var url = "{{route("option.order.store")}}";
+                    var url = "{{route("dev.option.order.store")}}";
                     var params= { params: {opciones: opciones} };
 
                     console.log(opciones,url);

@@ -70,7 +70,7 @@ class OptionController extends AppBaseController
 
         Flash::success('Option saved successfully.');
 
-        return redirect(route('options.index'));
+        return redirect(route('dev.options.index'));
     }
 
     /**
@@ -88,7 +88,7 @@ class OptionController extends AppBaseController
         if (empty($option)) {
             Flash::error('Option not found');
 
-            return redirect(route('options.index'));
+            return redirect(route('dev.options.index'));
         }
 
         return view('admin.options.show')->with('option', $option);
@@ -109,7 +109,7 @@ class OptionController extends AppBaseController
         if (empty($option)) {
             Flash::error('Option not found');
 
-            return redirect(route('options.index'));
+            return redirect(route('dev.options.index'));
         }
 
         $parent = $option->parent ?? null;
@@ -133,7 +133,7 @@ class OptionController extends AppBaseController
         if (empty($option)) {
             Flash::error('Option not found');
 
-            return redirect(route('options.index'));
+            return redirect(route('dev.options.index'));
         }
 
         $option->fill($request->all());
@@ -141,7 +141,7 @@ class OptionController extends AppBaseController
 
         Flash::success('Option updated successfully.');
 
-        return redirect(route('options.index'));
+        return redirect(route('dev.options.index'));
     }
 
     /**
@@ -161,14 +161,14 @@ class OptionController extends AppBaseController
         if (empty($option)) {
             Flash::error('Option not found');
 
-            return redirect(route('options.index'));
+            return redirect(route('dev.options.index'));
         }
 
         $option->delete();
 
         Flash::success('Option deleted successfully.');
 
-        return redirect(route('options.index'));
+        return redirect(route('dev.options.index'));
     }
 
     public function updateOrden(Request $request){

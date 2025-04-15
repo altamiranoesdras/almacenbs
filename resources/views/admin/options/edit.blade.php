@@ -16,7 +16,7 @@
             <div class="mb-1 breadcrumb-right">
                 <div class="dropdown">
                     <a class="btn btn-outline-info float-right"
-                       href="{{route('options.index')}}">
+                       href="{{route('dev.options.index')}}">
                         <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span class="d-none d-sm-inline">Listado</span>
                     </a>
                 </div>
@@ -30,7 +30,7 @@
         @include('layouts.partials.request_errors')
 
         <div class="card">
-            {!! Form::model($option, ['route' => ['options.update', $option->id], 'method' => 'patch','class' => 'esperar']) !!}
+            {!! Form::model($option, ['route' => ['dev.option.update', $option->id], 'method' => 'patch','class' => 'esperar']) !!}
 
             <div class="card-body">
 
@@ -45,7 +45,7 @@
                 <!-- Submit Field -->
                 <div class="col-sm-12 text-end">
 
-                    <a href="{!! route('options.index') !!}" class="btn btn-outline-secondary me-1">
+                    <a href="{!! route('dev.options.index') !!}" class="btn btn-outline-secondary me-1">
                         <i class="fa fa-ban"></i>
                         Cancelar
                     </a>

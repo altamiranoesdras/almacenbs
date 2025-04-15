@@ -15,8 +15,8 @@ class CreateUnimedsTable extends Migration
     {
         Schema::create('unimeds', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('magnitud_id')->index('fk_unimeds_magnitudes1_idx');
-            $table->string('simbolo', 10);
+            $table->unsignedBigInteger('magnitud_id')->default(1)->index('fk_unimeds_magnitudes1_idx');
+            $table->string('simbolo', 10)->default('U');
             $table->string('nombre');
             $table->timestamps();
             $table->softDeletes();
