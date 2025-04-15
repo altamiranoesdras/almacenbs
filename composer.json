@@ -24,7 +24,8 @@
         "spatie/laravel-medialibrary": "^10.15",
         "spatie/laravel-permission": "^6.16",
         "tightenco/ziggy": "^2.5",
-        "yajra/laravel-datatables": "^10.1"
+        "yajra/laravel-datatables": "^10.1",
+        "doctrine/dbal": "^3.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.15",
