@@ -65,7 +65,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ItemPresentacionesTableSeeder::class);
 
         $this->call(ItemCategoriaTableSeeder::class);
-//        $this->call(ItemsTableSeeder::class);
+        $this->call(ItemsTableSeeder::class);
 
         Artisan::call("import:colaboradores");
 
