@@ -7,37 +7,44 @@ use App\Http\Requests\CreateCompraSolicitudRequest;
 use App\Http\Requests\UpdateCompraSolicitudRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Models\CompraSolicitud;
+use App\Models\CompraSolicitudDetalle;
+use App\Models\CompraSolicitudEstado;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CompraSolicitudController extends AppBaseController
 {
 
-    public function __construct()
-    {
-        $this->middleware('permission:Ver Compra Solicituds')->only('show');
-        $this->middleware('permission:Crear Compra Solicituds')->only(['create','store']);
-        $this->middleware('permission:Editar Compra Solicituds')->only(['edit','update']);
-        $this->middleware('permission:Eliminar Compra Solicituds')->only('destroy');
-    }
     /**
      * Display a listing of the CompraSolicitud.
+     *
+     * @param CompraSolicitudDataTable $compraSolicitudDataTable
+     * @return Response
      */
     public function index(CompraSolicitudDataTable $compraSolicitudDataTable)
     {
-    return $compraSolicitudDataTable->render('compra_solicitudes.index');
+        return $compraSolicitudDataTable->render('compra_solicitudes.index');
     }
-
 
     /**
      * Show the form for creating a new CompraSolicitud.
+     *
+     * @return Response
      */
     public function create()
     {
-        return view('compra_solicitudes.create');
+
+        $compraSolicitud = $this->getTemporal();
+
+        return view('compra_solicitudes.formulario', compact('compraSolicitud'));
     }
 
     /**
      * Store a newly created CompraSolicitud in storage.
+     *
+     * @param CreateCompraSolicitudRequest $request
+     *
+     * @return Response
      */
     public function store(CreateCompraSolicitudRequest $request)
     {
@@ -46,13 +53,17 @@ class CompraSolicitudController extends AppBaseController
         /** @var CompraSolicitud $compraSolicitud */
         $compraSolicitud = CompraSolicitud::create($input);
 
-        flash()->success('Compra Solicitud guardado.');
+        Flash::success('Compra Solicitud saved successfully.');
 
         return redirect(route('compraSolicitudes.index'));
     }
 
     /**
      * Display the specified CompraSolicitud.
+     *
+     * @param int $id
+     *
+     * @return Response
      */
     public function show($id)
     {
@@ -60,7 +71,7 @@ class CompraSolicitudController extends AppBaseController
         $compraSolicitud = CompraSolicitud::find($id);
 
         if (empty($compraSolicitud)) {
-            flash()->error('Compra Solicitud no encontrado');
+            Flash::error('Compra Solicitud not found');
 
             return redirect(route('compraSolicitudes.index'));
         }
@@ -70,6 +81,10 @@ class CompraSolicitudController extends AppBaseController
 
     /**
      * Show the form for editing the specified CompraSolicitud.
+     *
+     * @param int $id
+     *
+     * @return Response
      */
     public function edit($id)
     {
@@ -77,16 +92,21 @@ class CompraSolicitudController extends AppBaseController
         $compraSolicitud = CompraSolicitud::find($id);
 
         if (empty($compraSolicitud)) {
-            flash()->error('Compra Solicitud no encontrado');
+            Flash::error('Compra Solicitud not found');
 
             return redirect(route('compraSolicitudes.index'));
         }
 
-        return view('compra_solicitudes.edit')->with('compraSolicitud', $compraSolicitud);
+        return view('compra_solicitudes.formulario')->with('compraSolicitud', $compraSolicitud);
     }
 
     /**
      * Update the specified CompraSolicitud in storage.
+     *
+     * @param int $id
+     * @param UpdateCompraSolicitudRequest $request
+     *
+     * @return Response
      */
     public function update($id, UpdateCompraSolicitudRequest $request)
     {
@@ -94,15 +114,47 @@ class CompraSolicitudController extends AppBaseController
         $compraSolicitud = CompraSolicitud::find($id);
 
         if (empty($compraSolicitud)) {
-            flash()->error('Compra Solicitud no encontrado');
+            Flash::error('Compra Solicitud not found');
 
             return redirect(route('compraSolicitudes.index'));
         }
 
+        $request->merge([
+            'estado_id' => CompraSolicitudEstado::INGRESADA,
+        ]);
+
+
+
         $compraSolicitud->fill($request->all());
+        $compraSolicitud->establecerCodigo();
         $compraSolicitud->save();
 
-        flash()->success('Compra Solicitud actualizado.');
+        if ($request->procesar){
+
+
+            try {
+                DB::beginTransaction();
+
+                $this->generarCompra($compraSolicitud);
+
+            } catch (Exception $exception) {
+                DB::rollBack();
+
+                $msj = manejarException($exception);
+
+                flash($msj)->error();
+
+                return redirect(route('compra.solicitudes.edit',$compraSolicitud->id));
+            }
+
+            DB::commit();
+
+            flash('Cotización procesada correctamente.')->success();
+
+            return redirect(route('compras.create'));
+        }
+
+        flash('Listo!')->success();
 
         return redirect(route('compraSolicitudes.index'));
     }
@@ -110,7 +162,11 @@ class CompraSolicitudController extends AppBaseController
     /**
      * Remove the specified CompraSolicitud from storage.
      *
+     * @param int $id
+     *
      * @throws \Exception
+     *
+     * @return Response
      */
     public function destroy($id)
     {
@@ -118,15 +174,123 @@ class CompraSolicitudController extends AppBaseController
         $compraSolicitud = CompraSolicitud::find($id);
 
         if (empty($compraSolicitud)) {
-            flash()->error('Compra Solicitud no encontrado');
+            Flash::error('Compra Solicitud not found');
 
             return redirect(route('compraSolicitudes.index'));
         }
 
         $compraSolicitud->delete();
 
-        flash()->success('Compra Solicitud eliminado.');
+        Flash::success('Compra Solicitud deleted successfully.');
 
         return redirect(route('compraSolicitudes.index'));
+    }
+
+
+    public function getTemporal()
+    {
+        $compraSolicitud = CompraSolicitud::where('usuario_solicita', auth()->user()->id)
+            ->where('estado_id', CompraSolicitudEstado::TEMPORAL)
+            ->where('bodega_id', session('tienda'))
+            ->first();
+
+        if (empty($compraSolicitud)) {
+            $compraSolicitud = CompraSolicitud::create([
+                'usuario_solicita' => auth()->user()->id,
+                'estado_id' => CompraSolicitudEstado::TEMPORAL,
+                'bodega_id' => session('tienda'),
+            ]);
+        }
+        return $compraSolicitud;
+
+    }
+
+
+    public function generarCompra(CompraSolicitud $compraSolicitud)
+    {
+        $compraSolicitud->estado_id = CompraSolicitudEstado::PROCESADA;
+        $compraSolicitud->usuario_procesa = auth()->user()->id;
+        $compraSolicitud->save();
+
+        $temporal = $this->getCompraTemporal($compraSolicitud);
+
+
+        //se crean detalles de venta temporal a partir de los detalles de cotizacion
+        $detalles = $compraSolicitud->detalles->map(function (CompraSolicitudDetalle  $detalle)  {
+
+            return  new TempCompraDetalle([
+                'item_id' => $detalle->item_id,
+                'cantidad' => $detalle->cantidad,
+                'precio' => $detalle->precio_compra,
+            ]);
+        });
+
+
+        //se asocia la solicitud de compra y cliente a la venta temporal
+        $temporal->solicitud_id = $compraSolicitud->id;
+        $temporal->proveedor_id = $compraSolicitud->proveedor_id ?? null;
+        $temporal->save();
+
+        //se eliminan los detalles de venta temporal y se crean los nuevos
+        $temporal->detalles()->delete();
+        $temporal->detalles()->saveMany($detalles);
+
+
+//        dd($temporal->toArray(),$detalles->toArray());
+
+        return $temporal;
+
+
+    }
+
+
+    /**
+     * @param CompraSolicitud $compraSolicitud
+     */
+    public function getCompraTemporal(CompraSolicitud $compraSolicitud): TempCompra
+    {
+
+        /**
+         * @var TempCompra $temporal
+         */
+        $temporal = TempCompra::where('procesada',0)
+            ->where('user_id', $compraSolicitud->usuario_procesa)
+            ->first();
+
+        if (empty($temporal)) {
+            $temporal = TempCompra::create([
+                'user_id' => $compraSolicitud->usuario_procesa,
+            ]);
+        }
+
+        return $temporal;
+
+
+    }
+
+    public function pdfVista(CompraSolicitud $compraSolicitud)
+    {
+
+        return view('compra.solicitudes.vista_pdf', compact('compraSolicitud'));
+    }
+
+
+    public function pdf(CompraSolicitud $compraSolicitud)
+    {
+        $pdf = \PDF::loadView('compra_solicitudes.pdf', compact('compraSolicitud'));
+
+        return $pdf->stream('Solicitud de compra '.$compraSolicitud->codigo.' '.getNombreNegocio().' .pdf');
+
+    }
+
+    public function anular(CompraSolicitud $compraSolicitud)
+    {
+        $compraSolicitud->estado_id = CompraSolicitudEstado::ANULADA;
+        $compraSolicitud->save();
+
+        flash('Solicitud de compra anulada correctamente.')->success();
+
+        return redirect(route('compraSolicitudes.index'));
+
     }
 }

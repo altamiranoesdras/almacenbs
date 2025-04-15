@@ -31,7 +31,7 @@ class CompraSolicitudDetalle extends Model
         'solicitud_id' => 'required',
         'item_id' => 'required',
         'cantidad' => 'required',
-        'precio_venta' => 'required|numeric',
+        'precio_venta' => 'nullable|numeric',
         'precio_compra' => 'required|numeric',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',

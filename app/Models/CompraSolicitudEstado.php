@@ -14,6 +14,12 @@ class CompraSolicitudEstado extends Model
 
     public $table = 'compra_solicitud_estados';
 
+
+    const TEMPORAL =    1;
+    const INGRESADA =   2;
+    const PROCESADA =   3;
+    const ANULADA =     4;
+
     public $fillable = [
         'nombre'
     ];

@@ -65,7 +65,7 @@ class CompraSolicitud extends Model
 
     public function proveedor(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(\App\Models\Proveedore::class, 'proveedor_id');
+        return $this->belongsTo(\App\Models\Proveedor::class, 'proveedor_id');
     }
 
     public function usuarioAdministra(): \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -83,8 +83,44 @@ class CompraSolicitud extends Model
         return $this->belongsTo(\App\Models\User::class, 'usuario_solicita');
     }
 
-    public function compraSolicitudDetalles(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function detalles(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(\App\Models\CompraSolicitudDetalle::class, 'solicitud_id');
+    }
+
+    public function scopeNoTemporal($q)
+    {
+        return $q->where('estado_id', '!=', CompraSolicitudEstado::TEMPORAL);
+    }
+
+    public function getSubTotalAttribute()
+    {
+        return $this->total;
+
+    }
+
+
+    public function getTotalAttribute()
+    {
+
+        return $this->detalles->sum(function (CompraSolicitudDetalle $det){
+            return $det->cantidad*$det->precio_compra;
+        });
+    }
+
+
+    public function puedeEditar()
+    {
+        return in_array($this->estado_id,[
+            CompraSolicitudEstado::TEMPORAL,
+            CompraSolicitudEstado::INGRESADA
+        ]);
+
+    }
+
+    public function esTemporal()
+    {
+        return $this->estado_id == CompraSolicitudEstado::TEMPORAL;
+
     }
 }

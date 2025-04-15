@@ -331,8 +331,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('notificaciones/leer/{notification}', [NotificacionesController::class,'leer'])->name('notificaciones.leer');
     Route::resource('notificaciones', NotificacionesController::class);
 
-    Route::resource('compraSolicitudes', App\Http\Controllers\CompraSolicitudController::class);
-    Route::resource('compraSolicitudEstados', App\Http\Controllers\CompraSolicitudEstadoController::class);
+    include 'rutas_compra_ordenes.php';
+
 });
 
 
