@@ -69,7 +69,7 @@ class DatabaseSeeder extends Seeder
 
         Artisan::call("import:colaboradores");
 
-
+        $this->call(CompraSolicitudEstadosTableSeeder::class);
 
 
         if(app()->environment()=='local'){

@@ -206,6 +206,9 @@ Route::group(['as'=>'api.'], function () {
 
         Route::resource('item_modelos', App\Http\Controllers\API\ItemModeloAPIController::class);
 
+
+        Route::resource('compra-solicitud-detalles', App\Http\Controllers\API\CompraSolicitudDetalleAPIController::class)
+            ->except(['create', 'edit']);
     });
 
 

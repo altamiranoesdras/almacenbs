@@ -36,3 +36,40 @@
     {!! Form::text('icono_r', null, ['class' => 'form-control input-icon']) !!}
 
 </div>
+
+<div class="col-6 mb-1">
+    {!! Form::label('color', 'Color:') !!}
+    {!! Form::select('color', ['info','primary', 'success', 'warning', 'danger', 'secondary', 'dark'], null, ['class' => 'form-control']) !!}
+</div>
+
+<!--switch para dev -->
+<div class="col-3 mb-1">
+    <div class="d-flex flex-column">
+        <label class="form-check-label mb-50" for="dev">
+            Para desarrolladores
+        </label>
+        <div class="form-check form-switch form-check-primary">
+            <input type="checkbox" class="form-check-input" name="dev" id="dev" {{ $option->dev ? ' checked' : '' }} />
+            <label class="form-check-label" for="dev">
+                <span class="switch-icon-left"><i data-feather="check"></i></span>
+                <span class="switch-icon-right"><i data-feather="x"></i></span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!--switch para recursos -->
+<div class="col-3 mb-1">
+    <div class="d-flex flex-column">
+        <label class="form-check-label mb-50" for="recursos">
+            De recursos
+        </label>
+        <div class="form-check form-switch form-check-primary">
+            <input type="checkbox" class="form-check-input" name="recursos" id="recursos" {{ $option->recursos ? ' checked' : '' }} />
+            <label class="form-check-label" for="recursos">
+                <span class="switch-icon-left"><i data-feather="check"></i></span>
+                <span class="switch-icon-right"><i data-feather="x"></i></span>
+            </label>
+        </div>
+    </div>
+</div>

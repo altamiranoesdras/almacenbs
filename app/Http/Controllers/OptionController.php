@@ -62,8 +62,13 @@ class OptionController extends AppBaseController
      */
     public function store(CreateOptionRequest $request)
     {
+        $request->merge([
+            'dev' => $request->has('dev') ? 1 : 0,
+            'recursos' => $request->has('recursos') ? 1 : 0,
+        ]);
 
         $input = $request->all();
+
 
         /** @var Option $option */
         $option = Option::create($input);
@@ -129,6 +134,11 @@ class OptionController extends AppBaseController
     {
         /** @var Option $option */
         $option = Option::find($id);
+
+        $request->merge([
+            'dev' => $request->has('dev') ? 1 : 0,
+            'recursos' => $request->has('recursos') ? 1 : 0,
+        ]);
 
         if (empty($option)) {
             Flash::error('Option not found');
