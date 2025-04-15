@@ -53,7 +53,7 @@
                         </span>
                         <a :href="shortcut.ruta_evaluada" >
                         <div class="card-body p-1">
-                            <div class="avatar p-50 mb-1" :class="shortcut.color">
+                            <div class="avatar p-50 mb-1" :class="'bg-'+shortcut.color">
                                 <div class="avatar-content">
                                     <i class="fa fa-2x" :class="shortcut.icono_l" style="color: white !important;"></i>
                                 </div>
@@ -85,7 +85,7 @@
                         </span>
                         <a :href="option.ruta_evaluada" >
                             <div class="card-body p-1">
-                                <div class="avatar p-50 mb-1" :class="option.color">
+                                <div class="avatar p-50 mb-1" :class="'bg-'+option.color">
                                     <div class="avatar-content">
                                         <i class="fa fa-2x" :class="option.icono_l" style="color: white !important;"></i>
                                     </div>

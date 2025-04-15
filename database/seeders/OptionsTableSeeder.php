@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Option;
 use Illuminate\Database\Seeder;
 
 class OptionsTableSeeder extends Seeder
@@ -16,7 +17,7 @@ class OptionsTableSeeder extends Seeder
     {
 
 
-
+        deshabilitaLlavesForaneas();
 
         \DB::table('options')->delete();
 
@@ -887,6 +888,30 @@ class OptionsTableSeeder extends Seeder
             ),
         ));
 
+        $this->generarColores();
+
 
     }
+
+    public function generarColores()
+    {
+
+        $opciones = Option::all();
+        $colores =[
+            'primary',
+//            'secondary',
+            'success',
+            'info',
+            'warning',
+            'danger',
+        ];
+
+        foreach ($opciones as $key => $opcion) {
+            $colorAleatorio = $colores[array_rand($colores)];
+            $opcion->color = $colorAleatorio;
+            $opcion->save();
+        }
+
+    }
+
 }

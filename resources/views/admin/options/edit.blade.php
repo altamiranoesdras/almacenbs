@@ -30,7 +30,7 @@
         @include('layouts.partials.request_errors')
 
         <div class="card">
-            {!! Form::model($option, ['route' => ['dev.option.update', $option->id], 'method' => 'patch','class' => 'esperar']) !!}
+            {!! Form::model($option, ['route' => ['dev.options.update', $option->id], 'method' => 'patch','class' => 'esperar']) !!}
 
             <div class="card-body">
 

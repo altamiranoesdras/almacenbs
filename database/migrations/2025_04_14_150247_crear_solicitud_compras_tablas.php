@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('compra_orden_estados', function (Blueprint $table) {
+        Schema::create('compra_solicitud_estados', function (Blueprint $table) {
             $table->id();
             $table->string('nombre', 50);
             $table->timestamps();
             $table->softDeletes();
         });
 
-        Schema::create('compra_ordenes', function (Blueprint $table) {
+        Schema::create('compra_solicitudes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('bodega_id')->nullable()->index();
             $table->unsignedBigInteger('proveedor_id')->nullable()->index();
@@ -35,15 +35,15 @@ return new class extends Migration
 
             $table->foreign('bodega_id')->references('id')->on('bodegas');
             $table->foreign('proveedor_id')->references('id')->on('proveedores');
-            $table->foreign('estado_id')->references('id')->on('compra_orden_estados');
+            $table->foreign('estado_id')->references('id')->on('compra_solicitud_estados');
             $table->foreign('usuario_solicita')->references('id')->on('users');
             $table->foreign('usuario_aprueba')->references('id')->on('users');
             $table->foreign('usuario_administra')->references('id')->on('users');
         });
 
-        Schema::create('compra_orden_detalles', function (Blueprint $table) {
+        Schema::create('compra_solicitud_detalles', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('orden_id')->index();
+            $table->unsignedBigInteger('solicitud_id')->index();
             $table->unsignedBigInteger('item_id')->index();
             $table->integer('cantidad');
             $table->decimal('precio_venta', 14, 2);
@@ -52,7 +52,7 @@ return new class extends Migration
             $table->softDeletes();
 
             $table->foreign('item_id')->references('id')->on('items');
-            $table->foreign('orden_id')->references('id')->on('compra_ordenes');
+            $table->foreign('solicitud_id')->references('id')->on('compra_solicitudes');
         });
 
     }
@@ -63,18 +63,25 @@ return new class extends Migration
     public function down(): void
     {
         //eliminar llaves foraneas
-        Schema::table('compra_ordenes', function (Blueprint $table) {
-            $table->dropForeign(['bodega_id','proveedor_id','estado_id','usuario_solicita','usuario_aprueba','usuario_administra']);
+        Schema::table('compra_solicitudes', function (Blueprint $table) {
+            $table->dropForeign(['bodega_id']);
+            $table->dropForeign(['proveedor_id']);
+            $table->dropForeign(['estado_id']);
+            $table->dropForeign(['usuario_solicita']);
+            $table->dropForeign(['usuario_aprueba']);
+            $table->dropForeign(['usuario_administra']);
+
 
         });
 
-        Schema::table('compra_orden_detalles', function (Blueprint $table) {
-            $table->dropForeign(['orden_id','item_id']);
+        Schema::table('compra_solicitud_detalles', function (Blueprint $table) {
+            $table->dropForeign(['solicitud_id']);
+            $table->dropForeign(['item_id']);
         });
 
         //eliminar tablas
-        Schema::dropIfExists('compra_orden_detalles');
-        Schema::dropIfExists('compra_ordenes');
-        Schema::dropIfExists('compra_orden_estados');
+        Schema::dropIfExists('compra_solicitud_detalles');
+        Schema::dropIfExists('compra_solicitudes');
+        Schema::dropIfExists('compra_solicitud_estados');
     }
 };
