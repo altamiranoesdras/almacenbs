@@ -18,7 +18,7 @@ class CreateItemsTable extends Migration
             $table->string('codigo', 25)->nullable()->unique('codigo_UNIQUE');
             $table->string('codigo_insumo', 25)->nullable();
             $table->string('codigo_presentacion', 25)->nullable();
-            $table->string('nombre', 255)->fulltext();
+            $table->string('nombre', 500)->fulltext();
             $table->text('descripcion')->fulltext()->nullable();
             $table->unsignedBigInteger('tipo_id')->index('fk_items_item_tipos1_idx');
             $table->unsignedBigInteger('renglon_id')->index('fk_items_renglones1_idx');

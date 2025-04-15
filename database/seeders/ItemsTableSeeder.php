@@ -28,7 +28,7 @@ class ItemsTableSeeder extends Seeder
 
 
 
-        Artisan::call('import:insumos');
+        Artisan::call('importar:insumos');
 
 //        $this->importarSql();
 

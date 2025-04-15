@@ -2,17 +2,20 @@
 
 namespace App\Console\Commands;
 
-use App\Imports\InsumosImport;
 use App\Models\Item;
 use App\Models\ItemPresentacion;
+use App\Models\ItemTipo;
 use App\Models\Renglon;
 use App\Models\Unimed;
 use App\Traits\ComandosTrait;
 use Exception;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use League\Csv\Reader;
+use League\Csv\ResultSet;
+use League\Csv\Statement;
 use Maatwebsite\Excel\Validators\ValidationException;
 
 class InsumosImportCommand extends Command
@@ -25,7 +28,7 @@ class InsumosImportCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'import:insumos';
+    protected $signature = 'importar:insumos';
 
     /**
      * The console command description.
@@ -41,10 +44,9 @@ class InsumosImportCommand extends Command
      */
     public function handle()
     {
-        DB::connection()->disableQueryLog();
         $this->inicio();
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        deshabilitaLlavesForaneas();
 
         Item::truncate();
         Unimed::truncate();
@@ -63,11 +65,81 @@ class InsumosImportCommand extends Command
 //
         $this->output->info('Tablas truncadas y seeder ejecutados');
 
+        $path = storage_path('imports/CATALOGO DE INSUMOS AL 07042025.csv');
+        $original = file_get_contents($path);
+
+        // Convierte a UTF-8 (desde ISO-8859-1 o Windows-1252)
+        $utf8 = mb_convert_encoding($original, 'UTF-8', 'ISO-8859-1');
+
+        $csv = Reader::createFromString($utf8);
+        $csv->setDelimiter(';');
+        $csv->setHeaderOffset(1);
+
+        $headers = array_filter($csv->getHeader());
+        $records = (new Statement())->process($csv, $headers);
+
+        $total = count($records);
+
+        $datos = $this->getColeccionColumna($records,'RENGLÓN');
+        $renglones = $this->insertMasivo($datos,'numero',Renglon::class);
+
+        $datos = $this->getColeccionColumna($records,'NOMBRE DE LA PRESENTACIÓN');
+        $presentaciones = $this->insertMasivo($datos,'nombre',ItemPresentacion::class);
+
+        $datos = $this->getColeccionColumna($records,'CANTIDAD Y UNIDAD DE MEDIDA DE LA PRESENTACIÓN');
+        $unidades = $this->insertMasivo($datos,'nombre',Unimed::class);
+
+
         try {
 
-            $import = new InsumosImport();
+            $this->barraProcesoIniciar($total);
 
-            $import->withOutput($this->output)->import(storage_path('imports/CATALOGO DE INSUMOS.xlsx'));
+            foreach ($records as $i => $fila) {
+                if ($i == 0) {
+                    continue;
+                }
+
+                $this->barraProcesoAvanzar();
+
+                $codigoRenglon = $fila['RENGLÓN'] ?? null;
+                $codigoInsumo = $fila['CÓDIGO DE INSUMO'] ?? null;
+                $nombre = $fila['NOMBRE'] ?? null;
+                $caracteristicas = $fila['CARACTERÍSTICAS'] ?? null;
+                $nombrePresentacion = $fila['NOMBRE DE LA PRESENTACIÓN'] ?? null;
+                $cantidadYUnidad = $fila['CANTIDAD Y UNIDAD DE MEDIDA DE LA PRESENTACIÓN'] ?? null;
+                $codigoPresentacion = $fila['CÓDIGO DE PRESENTACIÓN'] ?? null;
+
+                $renglon = $renglones->where('numero', $codigoRenglon)->first() ?? null;
+                $presentacion = $presentaciones->where('nombre', $nombrePresentacion)->first() ?? null;
+                $unimed = $unidades->where('nombre', $cantidadYUnidad)->first() ?? null;
+
+                $item = Item::updateOrCreate(
+                    [
+                        'codigo_insumo' => $codigoInsumo,
+                        'codigo_presentacion' => $codigoPresentacion,
+                    ],
+                    [
+//                            'codigo' => null,
+                        'codigo_insumo' => $codigoInsumo,
+                        'codigo_presentacion' => $codigoPresentacion,
+                        'nombre' => $nombre,
+                        'renglon_id' => $renglon->id ?? null,
+                        'presentacion_id' => $presentacion->id ?? null,
+                        'descripcion' => $caracteristicas ?? null,
+                        'precio_compra' => 0,
+                        'precio_promedio' => 0,
+                        'inventariable' => 1,
+                        'tipo_id' => ItemTipo::MATERIALES_SUMINISTROS,
+                        'perecedero' => 0,
+                        'marca_id' => $marca->id ?? null,
+                        'unimed_id' => $unimed->id ?? null,
+                        'categoria_id' => $categoria->id ?? null,
+                    ]
+                );
+
+            }
+
+            $this->barraProcesoFin();
 
         }
         catch (ValidationException $e) {
@@ -84,6 +156,7 @@ class InsumosImportCommand extends Command
         catch (Exception $e){
 
             Log::error($e->getMessage());
+            dd($e->getMessage());
 
 
         }
@@ -92,9 +165,55 @@ class InsumosImportCommand extends Command
         $this->fin();
         $this->output->success('Importación Exitosa!');
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+        habilitaLlavesForaneas();
 
 
     }
 
+    public function getColeccionColumna(ResultSet $records, $columna): \Illuminate\Support\Collection
+    {
+        $coleccion = collect();
+
+        foreach ($records as $i => $fila) {
+            if ($i == 0) {
+                continue; // salta cabecera
+            }
+
+            $valor = $fila[$columna] ?? null;
+
+
+            if ($valor) {
+                $valorLimpio = trim($valor);
+
+                $coleccion->push($valorLimpio);
+            }
+        }
+
+        return $coleccion->unique(function ($item) {
+            $item = mb_strtolower($item);
+            $item = str_replace(
+                ['á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú'],
+                ['a', 'e', 'i', 'o', 'u', 'a', 'e', 'i', 'o', 'u'],
+                $item
+            );
+            return $item;
+        });
+    }
+
+
+    public function insertMasivo(Collection $collection,$campo,$modelo)
+    {
+
+        $datos = [];
+
+        foreach ($collection as $i => $valor) {
+            $datos[] = [
+                $campo => trim($valor),
+            ];
+        }
+
+        $modelo::insert($datos);
+
+        return $modelo::all();
+    }
 }
