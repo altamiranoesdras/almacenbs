@@ -1,15 +1,16 @@
 <?php
 
+use App\extensiones\NumeroALetras;
 use App\extensiones\NumeroALetrasConMoneda;
 use App\Models\Configuration;
 use App\Models\Option;
 use App\Models\User;
+use App\Services\ConfiguracionService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
-use App\extensiones\NumeroALetras;
 use Illuminate\Support\Facades\File;
 
 
@@ -890,5 +891,16 @@ function habilitaLlavesForaneas()
     //si la conexion es mysql
     if (config('database.default') == 'mysql') {
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+    }
+}
+
+if (!function_exists('configuracion')) {
+
+    /**
+     * @return ConfiguracionService
+     */
+    function configuracion(): ConfiguracionService
+    {
+        return app(ConfiguracionService::class);
     }
 }

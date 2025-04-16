@@ -22,6 +22,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('bodega_id')->nullable()->index();
             $table->unsignedBigInteger('proveedor_id')->nullable()->index();
+            $table->unsignedBigInteger('unidad_id')->nullable()->index();
             $table->integer('correlativo')->nullable();
             $table->string('codigo', 10)->nullable();
             $table->date('fecha_requiere')->nullable();
@@ -35,6 +36,7 @@ return new class extends Migration
 
             $table->foreign('bodega_id')->references('id')->on('bodegas');
             $table->foreign('proveedor_id')->references('id')->on('proveedores');
+            $table->foreign('unidad_id')->references('id')->on('rrhh_unidades');
             $table->foreign('estado_id')->references('id')->on('compra_solicitud_estados');
             $table->foreign('usuario_solicita')->references('id')->on('users');
             $table->foreign('usuario_aprueba')->references('id')->on('users');

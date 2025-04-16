@@ -16,9 +16,13 @@ class CompraSolicitudEstado extends Model
 
 
     const TEMPORAL =    1;
+
     const INGRESADA =   2;
     const PROCESADA =   3;
-    const ANULADA =     4;
+
+    const RESERVADA =   4;
+
+    const ANULADA =     5;
 
     public $fillable = [
         'nombre'
