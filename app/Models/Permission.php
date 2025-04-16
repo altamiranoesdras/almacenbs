@@ -28,6 +28,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Permission whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Permission whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Permission whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Permission withoutPermission($permissions)
+ * @method static \Illuminate\Database\Eloquent\Builder|Permission withoutRole($roles, $guard = null)
  * @mixin \Eloquent
  */
 class Permission extends \Spatie\Permission\Models\Permission

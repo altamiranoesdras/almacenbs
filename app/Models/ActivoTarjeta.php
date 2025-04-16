@@ -50,8 +50,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta whereUsuarioCrea($value)
  * @method static \Illuminate\Database\Query\Builder|ActivoTarjeta withTrashed()
  * @method static \Illuminate\Database\Query\Builder|ActivoTarjeta withoutTrashed()
- * @mixin \Eloquent
  * @property-read int|null $solicitudes_count
+ * @mixin \Eloquent
  */
 class ActivoTarjeta extends Model
 {

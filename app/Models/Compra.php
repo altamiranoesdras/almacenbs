@@ -71,7 +71,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereUsuarioRecibe($value)
  * @method static \Illuminate\Database\Query\Builder|Compra withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Compra withoutTrashed()
- * @mixin \Eloquent
  * @property string|null $folio_almacen
  * @property-read mixed $anio
  * @property-read mixed $mes
@@ -81,6 +80,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string $descuento
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereDescuento($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra noAnuladas()
+ * @mixin \Eloquent
  */
 class Compra extends Model
 {

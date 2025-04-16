@@ -56,11 +56,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador whereUserId($value)
  * @method static \Illuminate\Database\Query\Builder|RrhhColaborador withTrashed()
  * @method static \Illuminate\Database\Query\Builder|RrhhColaborador withoutTrashed()
- * @mixin Model
  * @property-read int|null $activo_solicitude1s_count
  * @property-read int|null $activo_solicitudes_count
  * @property-read int|null $rrhh_unidade2s_count
  * @property-read int|null $rrhh_contratos_count
+ * @mixin Model
  */
 class RrhhColaborador extends Model
 {

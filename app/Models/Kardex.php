@@ -64,7 +64,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Kardex whereUsuarioId($value)
  * @method static \Illuminate\Database\Query\Builder|Kardex withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Kardex withoutTrashed()
- * @mixin \Eloquent
  * @property-read mixed $precio
  * @method static Builder|Kardex whereAl($value)
  * @method static Builder|Kardex whereCodigoInsumo($value)
@@ -75,6 +74,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Kardex whereFolioSiguiente($value)
  * @method static Builder|Kardex wherePrecioExistencia($value)
  * @method static Builder|Kardex wherePrecioMovimiento($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Bitacora> $bitacoras
+ * @property-read int|null $bitacoras_count
+ * @property-read mixed $saldo_stock
+ * @property-read mixed $sub_total_saldo
+ * @method static Builder|Kardex whereSaldo($value)
+ * @mixin \Eloquent
  */
 class Kardex extends Model
 {

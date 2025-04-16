@@ -68,6 +68,7 @@ return new class extends Migration
         Schema::table('compra_solicitudes', function (Blueprint $table) {
             $table->dropForeign(['bodega_id']);
             $table->dropForeign(['proveedor_id']);
+            $table->dropForeign(['unidad_id']);
             $table->dropForeign(['estado_id']);
             $table->dropForeign(['usuario_solicita']);
             $table->dropForeign(['usuario_aprueba']);

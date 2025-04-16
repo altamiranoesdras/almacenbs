@@ -45,9 +45,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Compra1hDetalle withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Compra1hDetalle withoutTrashed()
- * @mixin \Eloquent
  * @property-read mixed $text
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle whereTextoExtra($value)
+ * @mixin \Eloquent
  */
 class Compra1hDetalle extends Model
 {

@@ -54,12 +54,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Stock withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Stock withoutTrashed()
- * @mixin \Eloquent
  * @property int|null $bodega_id
  * @method static \Illuminate\Database\Eloquent\Builder|Stock conIngresos()
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereBodegaId($value)
  * @property-read \App\Models\Bodega|null $bodega
  * @method static \Illuminate\Database\Eloquent\Builder|Stock deBodega($bodega = null)
+ * @mixin \Eloquent
  */
 class Stock extends Model
 {

@@ -31,8 +31,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitudTipo whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|ActivoSolicitudTipo withTrashed()
  * @method static \Illuminate\Database\Query\Builder|ActivoSolicitudTipo withoutTrashed()
- * @mixin \Eloquent
  * @property-read int|null $activo_solicitudes_count
+ * @mixin \Eloquent
  */
 class ActivoSolicitudTipo extends Model
 {

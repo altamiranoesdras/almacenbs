@@ -60,8 +60,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|Colaborador whereUserId($value)
  * @method static \Illuminate\Database\Query\Builder|Colaborador withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Colaborador withoutTrashed()
- * @mixin \Eloquent
  * @property-read int|null $contratos_count
+ * @mixin \Eloquent
  */
 class Colaborador extends Model
 {

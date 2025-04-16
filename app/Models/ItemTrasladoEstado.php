@@ -29,8 +29,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|ItemTrasladoEstado whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|ItemTrasladoEstado withTrashed()
  * @method static \Illuminate\Database\Query\Builder|ItemTrasladoEstado withoutTrashed()
- * @mixin \Eloquent
  * @property-read int|null $items_traslados_count
+ * @mixin \Eloquent
  */
 class ItemTrasladoEstado extends Model
 {

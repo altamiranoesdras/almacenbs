@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class ComprasolicitudDetalle
+ *
  * @package App\Models
  * @version April 18, 2024, 9:29 pm CST
- *
  * @property \App\Models\Item $item
  * @property \App\Models\CompraSolicitud $solicitud
  * @property integer $solicitud_id
@@ -19,6 +19,28 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer $cantidad
  * @property number $precio_venta
  * @property number $precio_compra
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read mixed $sub_total
+ * @method static \Database\Factories\CompraSolicitudDetalleFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle query()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle whereCantidad($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle whereItemId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle wherePrecioCompra($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle wherePrecioVenta($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle whereSolicitudId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle withoutTrashed()
+ * @mixin \Eloquent
  */
 class CompraSolicitudDetalle extends Model
 {

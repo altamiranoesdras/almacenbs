@@ -6,6 +6,60 @@ use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\SoftDeletes;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * 
+ *
+ * @property int $id
+ * @property int|null $bodega_id
+ * @property int|null $proveedor_id
+ * @property int|null $unidad_id
+ * @property int|null $correlativo
+ * @property string|null $codigo
+ * @property \Illuminate\Support\Carbon|null $fecha_requiere
+ * @property string|null $observaciones
+ * @property int $estado_id
+ * @property int $usuario_solicita
+ * @property int|null $usuario_aprueba
+ * @property int|null $usuario_administra
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Bodega|null $bodega
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraSolicitudDetalle> $detalles
+ * @property-read int|null $detalles_count
+ * @property-read \App\Models\CompraSolicitudEstado $estado
+ * @property-read mixed $sub_total
+ * @property-read mixed $total
+ * @property-read \App\Models\Proveedor|null $proveedor
+ * @property-read \App\Models\RrhhUnidad|null $unidad
+ * @property-read \App\Models\User|null $usuarioAdministra
+ * @property-read \App\Models\User|null $usuarioAprueba
+ * @property-read \App\Models\User $usuarioSolicita
+ * @method static \Database\Factories\CompraSolicitudFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud noTemporal()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud query()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereBodegaId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereCodigo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereCorrelativo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereEstadoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereFechaRequiere($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereObservaciones($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereProveedorId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereUnidadId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereUsuarioAdministra($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereUsuarioAprueba($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereUsuarioSolicita($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud withoutTrashed()
+ * @mixin \Eloquent
+ */
 class CompraSolicitud extends Model
 {
 
@@ -17,6 +71,7 @@ class CompraSolicitud extends Model
     public $fillable = [
         'bodega_id',
         'proveedor_id',
+        'unidad_id',
         'correlativo',
         'codigo',
         'fecha_requiere',
@@ -36,6 +91,7 @@ class CompraSolicitud extends Model
     public static $rules = [
         'bodega_id' => 'nullable',
         'proveedor_id' => 'nullable',
+        'unidad_id' => 'nullable',
         'correlativo' => 'nullable',
         'codigo' => 'nullable|string|max:10',
         'fecha_requiere' => 'nullable',
@@ -66,6 +122,11 @@ class CompraSolicitud extends Model
     public function proveedor(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(\App\Models\Proveedor::class, 'proveedor_id');
+    }
+
+    public function unidad(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\Models\RrhhUnidad::class, 'unidad_id');
     }
 
     public function usuarioAdministra(): \Illuminate\Database\Eloquent\Relations\BelongsTo

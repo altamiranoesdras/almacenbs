@@ -7,9 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 use App\Models\Bodega;
 use App\Models\CompraSolicitudEstado;
-use App\Models\Proveedore;
-use App\Models\User;
-use App\Models\User;
+use App\Models\Proveedor;
 use App\Models\User;
 
 class CompraSolicitudFactory extends Factory
@@ -28,7 +26,7 @@ class CompraSolicitudFactory extends Factory
      */
     public function definition()
     {
-        
+
         $user = User::first();
         if (!$user) {
             $user = User::factory()->create();

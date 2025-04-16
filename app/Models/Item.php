@@ -104,7 +104,6 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @method static \Illuminate\Database\Query\Builder|Item withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Item withoutAppends()
  * @method static \Illuminate\Database\Query\Builder|Item withoutTrashed()
- * @mixin \Eloquent
  * @property-read int|null $items_traslado3s_count
  * @property-read int|null $items_traslados_count
  * @property-read int|null $stock_iniciales_count
@@ -120,6 +119,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereModeloId($value)
  * @property-read mixed $texto_kardex
  * @property-read mixed $texto_requisicion
+ * @mixin \Eloquent
  */
 class Item extends Model implements HasMedia
 {

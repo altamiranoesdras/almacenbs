@@ -116,11 +116,14 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUsername($value)
  * @method static \Illuminate\Database\Query\Builder|User withTrashed()
  * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
- * @mixin \Eloquent
  * @property-read int|null $items_traslados_count
  * @property-read int|null $stock_iniciales_count
  * @property int|null $bodega_id
  * @method static \Illuminate\Database\Eloquent\Builder|User whereBodegaId($value)
+ * @property-read mixed $miniatura
+ * @method static \Illuminate\Database\Eloquent\Builder|User withoutPermission($permissions)
+ * @method static \Illuminate\Database\Eloquent\Builder|User withoutRole($roles, $guard = null)
+ * @mixin \Eloquent
  */
 class User extends Authenticatable implements  HasMedia
 {

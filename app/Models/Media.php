@@ -50,6 +50,11 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media as BaseMedia;
  * @method static \Illuminate\Database\Eloquent\Builder|Media whereSize($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Media whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Media whereUuid($value)
+ * @property-read mixed $extension
+ * @property-read mixed $human_readable_size
+ * @property-read mixed $original_url
+ * @property-read mixed $preview_url
+ * @property-read mixed $type
  * @mixin \Eloquent
  */
 class Media extends BaseMedia

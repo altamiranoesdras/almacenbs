@@ -43,6 +43,12 @@ use Illuminate\Support\Facades\Mail;
  * @method static \Illuminate\Database\Eloquent\Builder|Bitacora whereTitulo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Bitacora whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Bitacora whereUsuarioId($value)
+ * @property string $model_type
+ * @property int $model_id
+ * @property string|null $seccion
+ * @property string $titulo
+ * @property string $comentario
+ * @property int $usuario_id
  * @mixin \Eloquent
  */
 class Bitacora extends Model

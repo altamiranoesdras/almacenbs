@@ -32,8 +32,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|SolicitudEstado whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|SolicitudEstado withTrashed()
  * @method static \Illuminate\Database\Query\Builder|SolicitudEstado withoutTrashed()
- * @mixin \Eloquent
  * @property-read int|null $solicitudes_count
+ * @mixin \Eloquent
  */
 class SolicitudEstado extends Model
 {

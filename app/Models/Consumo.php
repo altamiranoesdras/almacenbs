@@ -52,8 +52,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Consumo whereUsuarioCrea($value)
  * @method static \Illuminate\Database\Query\Builder|Consumo withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Consumo withoutTrashed()
- * @mixin Model
  * @property-read int|null $detalles_count
+ * @method static Builder|Consumo whereFechaProcesa($value)
+ * @mixin Model
  */
 class Consumo extends Model
 {

@@ -48,9 +48,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|SolicitudDetalle withTrashed()
  * @method static \Illuminate\Database\Query\Builder|SolicitudDetalle withoutTrashed()
- * @mixin \Eloquent
  * @property string|null $fecha_vence
  * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereFechaVence($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Kardex> $kardexs
+ * @property-read int|null $kardexs_count
+ * @mixin \Eloquent
  */
 class SolicitudDetalle extends Model
 {

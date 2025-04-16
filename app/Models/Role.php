@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role withoutPermission($permissions)
  * @mixin \Eloquent
  */
 class Role extends \Spatie\Permission\Models\Role
