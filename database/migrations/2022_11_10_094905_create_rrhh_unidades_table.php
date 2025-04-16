@@ -15,9 +15,10 @@ class CreateRrhhUnidadesTable extends Migration
     {
         Schema::create('rrhh_unidades', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre')->unique('rrhh_unidades_nombre_UNIQUE');
+            $table->string('codigo')->unique('rrhh_unidades_codigo_UNIQUE');
+            $table->string('nombre');
             $table->unsignedBigInteger('jefe_id')->nullable()->index('fk_rrhh_unidades_rrhh_colaboradores1_idx');
-            $table->enum('activa', ['si', 'no'])->nullable();
+            $table->enum('activa', ['si', 'no'])->default('si');
             $table->timestamps();
             $table->softDeletes();
         });

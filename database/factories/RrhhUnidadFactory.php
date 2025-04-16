@@ -14,6 +14,19 @@ class RrhhUnidadFactory extends Factory
      */
     protected $model = RrhhUnidad::class;
 
+    public $unidades = [
+        'Administración',
+        'Contabilidad',
+        'Recursos Humanos',
+        'Producción',
+        'Logística',
+        'Ventas',
+        'Marketing',
+        'Calidad',
+        'Investigación y Desarrollo',
+        'Tecnología de la Información'
+    ];
+
     /**
      * Define the model's default state.
      *
@@ -22,7 +35,8 @@ class RrhhUnidadFactory extends Factory
     public function definition()
     {
         return [
-            'nombre' => $this->faker->unique()->word,
+            'codigo' => $this->faker->numberBetween(1000, 9999),
+            'nombre' => $this->faker->randomElement($this->unidades),
             'activa' => $this->faker->randomElement(['si','no']),
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s'),

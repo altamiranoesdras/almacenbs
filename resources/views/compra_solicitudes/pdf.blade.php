@@ -4,81 +4,137 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ $compraSolicitud->id }}</title>
+    <title>Requisición {{$compraSolicitud->codigo}}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 </head>
+
 @php
-    $escala = 1.2;
-    $ancho = 22 * $escala;
-    $padding_top = 0.184;
-    $padding_bottom = 0.139;
     $i=0;
+    $borde=1;
+    $color ="black";
 @endphp
-<body style="width: {{ $ancho }}cm;">
-<div style=" width: 100%; padding-left: 0.2cm; height: {{ 3.2 * $escala }}cm; ">
-</div>
-<div>
-        <span style="font-size: 1.4em">
-            <span style="margin-left: 6.5cm; font-weight: 600">{{ $compraSolicitud->unidad->nombre }}</span><br>
-            <div style="margin-top: 0.35cm"></div>
-            <span style="margin-left: 2cm; margin-top: 0.4cm; font-weight: 600"> {{ $compraSolicitud->created_at->format('d/m/Y') }} </span>
-            <span style="margin-left: 11.3cm; margin-top: 0.4cm; font-weight: 600">  1  </span>
-            <span style="margin-left: 3.5cm; margin-top: 0.4cm; font-weight: 600">  {{ $compraSolicitud->detalles->count() }}  </span>
-        </span>
-</div>
-<div style="margin-top: 1.15cm; margin-left: 1.3cm;">
-    <table style="width: 100%">
-        @foreach ($compraSolicitud->detalles as $detalle)
-            <tr style="">
-                <td style="padding-top: {{ $padding_top }}cm; padding-bottom: {{ $padding_bottom }}cm; width:35.08%" >
-                    {{ $detalle->item->nombre }}
-                </td>
-                <td style="width:9.95%; text-align:center;">
-                    {{ $detalle->cantidad_solicitada }}
-                </td>
-                <td style="width:11.78%; text-align:center; font-size: 0.8em; ">
-                    {{ $detalle->item->unimed->nombre }}
-                </td>
-                <td style="width:12.3%; text-align:center;">
-                    {{ $detalle->cantidad_despachada }}
-                </td>
-                <td style="width:25.65%; padding-left: 0.2cm;">
-                    {{ $detalle->obsercaciones }}
-                </td>
-            </tr>
-            @php
-                $end = 20 - $loop->iteration;
-            @endphp
-        @endforeach
-        @for ($i; $i < $end ; $i++)
-            <tr style="">
-                <td style="padding-top: {{ $padding_top }}cm; padding-bottom: {{ $padding_bottom }}cm; width:35.08%" >
-                    <span style="color: white">1</span>
-                </td>
-                <td style="width:9.95%; text-align:center;">
 
-                </td>
-                <td style="width:11.78%; text-align:center; font-size: 0.6em; ">
+<body style="width: 100%;">
 
-                </td>
-                <td style="width:12.3%; text-align:center;">
 
-                </td>
-                <td style="width:25.65%; padding-left: 0.2cm;">
+<table  style="width: 100%; margin-bottom: 2mm" border="{{$borde}} " >
+    <tr style="height: 8mm; !important;">
+        <td style="width: 33mm; text-align: left; vertical-align: middle; color: {{$color}}">Lugar y Fecha:</td>
+        <td style="width: 160mm; text-align: left; vertical-align: middle;">{{ fechaLtnMesEnTexto($compraSolicitud->fecha_requiere ?? hoyDb()) }}</td>
+    </tr>
+</table>
+<table  style="width: 100%; margin-bottom: 4mm" border="{{$borde}} " >
+    <tr style="height: 8mm; !important;">
+        <td style="width: 46mm; text-align: left; vertical-align: middle; color: {{$color}}">Unidad Solicitante:</td>
+        <td style="width: 148mm; text-align: left; vertical-align: middle;"> {{$compraSolicitud->unidad->nombre ?? ''}}</td>
+    </tr>
+</table>
+<table  style="width: 100%; margin-bottom: 1mm" border="{{$borde}} " >
+    <tr style="height: 8mm; !important;">
+        <td style="width: 57mm; text-align: left; vertical-align: middle; color: {{$color}}">Nombre del Solicitante:</td>
+        <td style="width: 139mm; text-align: left; vertical-align: middle;">{{ $compraSolicitud->usuarioSolicita->name }}</td>
+    </tr>
+</table>
+<table  style="width: 100%; margin-bottom: 9mm" border="{{$borde}} " >
+    <tr style="height: 8mm; !important;">
+        <td style="width: 17mm; text-align: left; vertical-align: middle; color: {{$color}}" >Cargo:</td>
+        <td style="width: 174mm; text-align: left; vertical-align: middle;"><b>{{ $compraSolicitud->usuarioSolicita->puesto->nombre ?? "Sin puesto" }}</b></td>
+    </tr>
+</table>
 
-                </td>
-            </tr>
-        @endfor
-    </table>
 
-    <br>
-    <br>
-</div>
-<div style="font-size: 1.2em; font-weight: 600; margin-top: 0.2cm; margin-left: 0.7cm; text-align: center; width: 24%" >
-    {{ $compraSolicitud->usuarioSolicita->name }}
-</div>
+<table  style="width: 100%; margin-bottom: 2mm;  " border="{{$borde}}; " >
+    <tr style="color: {{$color}}">
+        <td
+            style="width: 75mm;
+                    height: 10mm;
+                vertical-align: middle;
+                text-align: center;">
+            Nombre del Producto
+        </td>
+        <td
+            style="width: 26mm;
+                    height: 10mm;
+                vertical-align: middle;
+                text-align: center">
+            Unidad de Medida
+        </td>
+        <th
+            style="width: 29mm;
+                    height: 10mm;
+                vertical-align: middle;
+                text-align: center;
+                font-weight: normal">
+            Solicitada
+        </th>
+        <th style="width: 34mm;
+                height: 10mm;
+                vertical-align: middle;
+                text-align: center;
+                font-weight: normal" >
+            DESPACHADA
+        </th>
+        <th style="width: 27mm;
+                height: 10mm;
+                vertical-align: middle;
+                text-align: center;
+                font-weight: normal" >
+            Kardex
+        </th>
+    </tr>
 
-<div style="font-size: 1.2em; font-weight: 600; margin-top: 3.3cm; margin-left: 0.7cm; text-align: center; width: 24%" >
-    {{-- Jefe --}}
-</div>
+    @foreach ($compraSolicitud->detalles as $detalle)
+        @php
+            $longitudTexto = strlen($detalle->item->texto_requisicion);
+            $longitudMaxima = 64;
+        @endphp
+        <tr style="font-size: 12px; height: 6.5mm;line-height: {{$longitudTexto > $longitudMaxima ? '6.4mm' : 'auto'}}">
+            <td style="width: 75mm;
+                    vertical-align: middle;">
+                {{ $detalle->item->texto_requisicion }}
+            </td>
+            <td style="vertical-align: top;">
+                {{--                    {{$detalle->item->presentacion->nombre ?? ''}} ---}}
+                {{ $detalle->item->unimed->nombre ?? '' }}
+            </td>
+            <td style="vertical-align: top;text-align: center">
+                {{ nf($detalle->cantidad_solicitada,0) }}
+            </td>
+            <td style="vertical-align: top;text-align: center">
+                {{ nf($detalle->cantidad_despachada,0) }}
+            </td>
+            <td style="vertical-align: top;text-align: center">
+
+            </td>
+        </tr>
+        @php
+            $totalLineas = 20;
+            $final = $totalLineas - $loop->iteration;
+        @endphp
+    @endforeach
+
+    @for ($i = 1; $i <= $final ; $i++)
+        <tr style="font-size: 12px; height: 6.5mm">
+            <td style="">
+
+            </td>
+            <td style="">
+
+            </td>
+            <td style="text-align: center">
+
+            </td>
+            <td style="text-align: center">
+
+            </td>
+            <td style="text-align: center">
+
+            </td>
+        </tr>
+    @endfor
+</table>
+
+
 </body>
+
 </html>

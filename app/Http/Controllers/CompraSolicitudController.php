@@ -30,10 +30,20 @@ class CompraSolicitudController extends AppBaseController
     /**
      * Show the form for creating a new CompraSolicitud.
      *
-     * @return Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function create()
     {
+        $usuario = auth()->user();
+
+        if ($usuario->unidad_id == null) {
+
+            $errores= [];
+            $errores[] = 'No se puede crear una solicitud de compra si el usuario no tiene unidad asignada.';
+
+            return redirect(route('compraSolicitudes.index'))
+                ->withErrors($errores);
+        }
 
         $compraSolicitud = $this->getTemporal();
 
@@ -200,6 +210,7 @@ class CompraSolicitudController extends AppBaseController
                 'usuario_solicita' => auth()->user()->id,
                 'estado_id' => CompraSolicitudEstado::TEMPORAL,
                 'bodega_id' => session('tienda'),
+                'unidad_id' => auth()->user()->unidad_id,
             ]);
         }
         return $compraSolicitud;
@@ -245,29 +256,6 @@ class CompraSolicitudController extends AppBaseController
     }
 
 
-    /**
-     * @param CompraSolicitud $compraSolicitud
-     */
-    public function getCompraTemporal(CompraSolicitud $compraSolicitud): TempCompra
-    {
-
-        /**
-         * @var TempCompra $temporal
-         */
-        $temporal = TempCompra::where('procesada',0)
-            ->where('user_id', $compraSolicitud->usuario_procesa)
-            ->first();
-
-        if (empty($temporal)) {
-            $temporal = TempCompra::create([
-                'user_id' => $compraSolicitud->usuario_procesa,
-            ]);
-        }
-
-        return $temporal;
-
-
-    }
 
     public function pdfVista(CompraSolicitud $compraSolicitud)
     {
@@ -281,7 +269,7 @@ class CompraSolicitudController extends AppBaseController
         $pdf = App::make('snappy.pdf.wrapper');
 
         $view = view('compra_solicitudes.pdf', compact('compraSolicitud'))->render();
-        // $footer = view('compras.pdf_footer')->render();
+
 
         $pdf->loadHTML($view)
             ->setOption('page-width', '220')
