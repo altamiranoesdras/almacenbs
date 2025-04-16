@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int|null $bodega_id
@@ -79,13 +79,17 @@ class CompraSolicitud extends Model
         'estado_id',
         'usuario_solicita',
         'usuario_aprueba',
-        'usuario_administra'
+        'usuario_administra',
+        'subproductos',
+        'partidas'
     ];
 
     protected $casts = [
         'codigo' => 'string',
         'fecha_requiere' => 'date',
-        'observaciones' => 'string'
+        'observaciones' => 'string',
+        'subproductos' => 'string',
+        'partidas' => 'string'
     ];
 
     public static $rules = [
@@ -100,6 +104,8 @@ class CompraSolicitud extends Model
         'usuario_solicita' => 'required',
         'usuario_aprueba' => 'nullable',
         'usuario_administra' => 'nullable',
+        'subproductos' => 'nullable|string|max:255',
+        'partidas' => 'nullable|string|max:255',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'

@@ -101,7 +101,10 @@
 
                                     </div>
 
-                                    <h3 class="profile-username text-center">{{Auth::user()->name}}</h3>
+                                    <h3 class="profile-username text-center">
+                                        {{Auth::user()->name}}
+                                        <small>{{auth()->user()->unidad->nombre}}</small>
+                                    </h3>
 
                                     <p class="text-muted text-center">
                                         <a class="text-center" href="{{ route('password.request') }}">

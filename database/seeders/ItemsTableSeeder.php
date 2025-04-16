@@ -23,16 +23,9 @@ class ItemsTableSeeder extends Seeder
     public function run()
     {
 
+//        Artisan::call('importar:insumos');
 
-
-
-
-
-        Artisan::call('importar:insumos');
-
-//        $this->importarSql();
-
-
+        $this->importarSql();
 
     }
 

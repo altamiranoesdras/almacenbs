@@ -59,7 +59,13 @@ class CompraSolicitudController extends AppBaseController
      */
     public function store(CreateCompraSolicitudRequest $request)
     {
+        $request->merge([
+            'partidas' => implode(',', $request->partidas ?? []),
+            'subproductos' => implode(',', $request->subproductos ?? []),
+        ]);
+
         $input = $request->all();
+
 
         /** @var CompraSolicitud $compraSolicitud */
         $compraSolicitud = CompraSolicitud::create($input);
@@ -132,8 +138,9 @@ class CompraSolicitudController extends AppBaseController
 
         $request->merge([
             'estado_id' => CompraSolicitudEstado::INGRESADA,
+            'partidas' => implode(',', $request->partidas ?? []),
+            'subproductos' => implode(',', $request->subproductos ?? []),
         ]);
-
 
 
         $compraSolicitud->fill($request->all());

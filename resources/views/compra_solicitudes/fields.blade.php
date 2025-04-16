@@ -172,31 +172,31 @@
                         </div>
 
                         <div class="col-6 mb-1">
-                            SUBPRODUCTO
+                            subproductos
                             <table class="table table-sm">
                                 <tbody >
                                 <tr>
                                     <td>
-                                        <input type="text" name="subproducto[]" id="subproducto[]" class="form-control"
-                                               value="{{$compraSolicitud->subproducto[0] ?? ''}}">
+                                        <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"
+                                               value="{{$compraSolicitud->subproductos[0] ?? ''}}">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <input type="text" name="subproducto[]" id="subproducto[]" class="form-control"
-                                               value="{{$compraSolicitud->subproducto[1] ?? ''}}">
+                                        <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"
+                                               value="{{$compraSolicitud->subproductos[1] ?? ''}}">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <input type="text" name="subproducto[]" id="subproducto[]" class="form-control"
-                                               value="{{$compraSolicitud->subproducto[2] ?? ''}}">
+                                        <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"
+                                               value="{{$compraSolicitud->subproductos[2] ?? ''}}">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <input type="text" name="subproducto[]" id="subproducto[]" class="form-control"
-                                               value="{{$compraSolicitud->subproducto[3] ?? ''}}">
+                                        <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"
+                                               value="{{$compraSolicitud->subproductos[3] ?? ''}}">
                                     </td>
                                 </tr>
                                 </tbody>

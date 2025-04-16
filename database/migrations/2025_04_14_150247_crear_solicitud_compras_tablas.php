@@ -31,6 +31,8 @@ return new class extends Migration
             $table->unsignedBigInteger('usuario_solicita')->index();
             $table->unsignedBigInteger('usuario_aprueba')->nullable()->index();
             $table->unsignedBigInteger('usuario_administra')->nullable()->index();
+            $table->string('subproductos')->nullable();
+            $table->string('partidas')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

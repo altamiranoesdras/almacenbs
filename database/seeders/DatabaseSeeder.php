@@ -68,14 +68,14 @@ class DatabaseSeeder extends Seeder
         $this->call(ItemCategoriaTableSeeder::class);
         $this->call(ItemsTableSeeder::class);
 
-        Artisan::call("import:colaboradores");
+//        Artisan::call("import:colaboradores");
 
         $this->call(CompraSolicitudEstadosTableSeeder::class);
 
 
         if(app()->environment()=='local'){
 
-//            $this->call(ComprasSeeder::class);
+            $this->call(ComprasSeeder::class);
 //            $this->call(SolicitudesTableSeeder::class);
 //            $this->call(ConsumosTableSeeder::class);
 //            $this->call(Compra1hTableSeeder::class);

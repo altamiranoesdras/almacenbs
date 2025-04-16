@@ -20,6 +20,7 @@ class UsersTableSeeder extends Seeder
     {
 
 
+        deshabilitaLlavesForaneas();
 
         DB::table('users')->truncate();
 
@@ -27,7 +28,9 @@ class UsersTableSeeder extends Seeder
         User::factory(1)->create([
             "username" => "dev",
             "name" => "Developer",
-            "password" => bcrypt("123456")
+            "password" => bcrypt("123456"),
+            'bodega_id' => 1,
+            'unidad_id' => 1,
         ])->each(function (User $user){
             $user->syncRoles([Role::DEVELOPER]);
             $user->options()->sync(Option::pluck('id')->toArray());
@@ -42,7 +45,9 @@ class UsersTableSeeder extends Seeder
         User::factory(1)->create([
             "username" => "Super",
             "name" => "Super Admin",
-            "password" => bcrypt("Fodes2021.")
+            "password" => bcrypt("123456"),
+            'bodega_id' => 1,
+            'unidad_id' => 1,
         ])->each(function (User $user){
             $user->syncRoles(Role::SUPERADMIN);
             $user->options()->sync(Option::pluck('id')->toArray());
@@ -57,7 +62,9 @@ class UsersTableSeeder extends Seeder
         User::factory(1)->create([
             "username" => "Admin",
             "name" => "Administrador",
-            "password" => bcrypt("123456")
+            "password" => bcrypt("123456"),
+            'bodega_id' => 1,
+            'unidad_id' => 1,
         ])->each(function (User $user){
             $user->syncRoles(Role::ADMIN);
             $user->options()->sync(Option::pluck('id')->toArray());
@@ -76,7 +83,9 @@ class UsersTableSeeder extends Seeder
         User::factory(1)->create([
             "username" => "inventarios",
             "name" => "Jefe Inventarios",
-            "password" => bcrypt("123456")
+            "password" => bcrypt("123456"),
+            'bodega_id' => 1,
+            'unidad_id' => 1,
         ])->each(function (User $user){
 
             $user->syncRoles(Role::JEFE_INVENTARIOS);
