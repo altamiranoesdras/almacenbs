@@ -226,4 +226,25 @@ class Configuration extends Model implements HasMedia
 
         return $this->id!=self::LOGO && $this->id!=self::ICONO;
     }
+
+    public static function  faltanCredencialesCorreoSalida()
+    {
+        $configuraciones = [
+            'host_correo_salida',
+            'puerto_correo_salida',
+            'usuario_correo_salida',
+            'password_correo_salida',
+            'encryption_correo_salida',
+        ];
+
+        foreach ($configuraciones as $configuracion){
+            //si no existe la configuración en la tabla configurations
+            if(!config()->has('app.'.$configuracion)){
+                return true;
+            }
+        }
+
+        return false;
+
+    }
 }

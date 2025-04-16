@@ -45,7 +45,7 @@
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        Precio Compra {{dvs()}}
+                                        Monto Estimado {{dvs()}}
                                     </span>
                                 </div>
 

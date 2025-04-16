@@ -116,6 +116,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
         Route::get('passport/clients', [PassportClientsController::class,'index'])->name('passport.clients');
 
         Route::resource('configurations', ConfigurationController::class);
+        Route::post('configurations/prueba/correo',[ConfigurationController::class,'pruebaCorreo'])->name('configurations.prueba.correo');
 
         Route::get('logs', [LogController::class,'index'])->name('logs');
 

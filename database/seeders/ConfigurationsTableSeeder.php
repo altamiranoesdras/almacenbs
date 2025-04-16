@@ -22,7 +22,7 @@ class ConfigurationsTableSeeder extends Seeder
             0 =>
             array (
                 'id' => 1,
-                'key' => 'name',
+                'key' => 'app.name',
                 'value' => 'Bienestar Social',
                 'descripcion' => 'Bienestar Social',
                 'created_at' => '2004-07-23 07:21:12',
@@ -32,7 +32,7 @@ class ConfigurationsTableSeeder extends Seeder
             1 =>
             array (
                 'id' => 2,
-                'key' => 'divisa',
+                'key' => 'app.divisa',
                 'value' => 'Q',
                 'descripcion' => 'Símbolo de la moneda que se utiliza',
                 'created_at' => '1983-04-14 07:01:20',
@@ -42,7 +42,7 @@ class ConfigurationsTableSeeder extends Seeder
             2 =>
             array (
                 'id' => 3,
-                'key' => 'cantidad_decimales',
+                'key' => 'app.cantidad_decimales',
                 'value' => '2',
                 'descripcion' => 'Cantidad de decimales para cantidades que no sean de precio ',
                 'created_at' => '2006-06-01 15:08:36',
@@ -52,7 +52,7 @@ class ConfigurationsTableSeeder extends Seeder
             3 =>
             array (
                 'id' => 4,
-                'key' => 'cantidad_decimales_precio',
+                'key' => 'app.cantidad_decimales_precio',
                 'value' => '2',
                 'descripcion' => 'Cantidad de decimales para cantidades de precio',
                 'created_at' => '1977-06-15 17:41:44',
@@ -62,7 +62,7 @@ class ConfigurationsTableSeeder extends Seeder
             4 =>
             array (
                 'id' => 5,
-                'key' => 'separador_miles',
+                'key' => 'app.separador_miles',
                 'value' => ',',
                 'descripcion' => 'Símbolo para separa los miles o millares en las cantidades',
                 'created_at' => '1974-11-27 20:25:48',
@@ -72,7 +72,7 @@ class ConfigurationsTableSeeder extends Seeder
             5 =>
             array (
                 'id' => 6,
-                'key' => 'separador_decimal',
+                'key' => 'app.separador_decimal',
                 'value' => '.',
                 'descripcion' => 'Símbolo para separar los decimales en las cantidades',
                 'created_at' => '1983-02-28 21:01:09',
@@ -82,7 +82,7 @@ class ConfigurationsTableSeeder extends Seeder
             6 =>
             array (
                 'id' => 7,
-                'key' => 'mail_pruebas',
+                'key' => 'app.mail_pruebas',
                 'value' => 'altamiranoesdras@gmail.com',
                 'descripcion' => 'Email al que se envían los correos cuando el entorno de la aplicación esta en modo debug o local',
                 'created_at' => '2005-06-14 13:13:09',
@@ -92,7 +92,7 @@ class ConfigurationsTableSeeder extends Seeder
             7 =>
             array (
                 'id' => 8,
-                'key' => 'telefono_negocio',
+                'key' => 'app.telefono_negocio',
                 'value' => '12345678',
                 'descripcion' => '12345678',
                 'created_at' => '2021-07-16 09:30:10',
@@ -102,7 +102,7 @@ class ConfigurationsTableSeeder extends Seeder
             8 =>
             array (
                 'id' => 9,
-                'key' => 'direccion_negocio',
+                'key' => 'app.direccion_negocio',
                 'value' => 'Dirección Empresa',
                 'descripcion' => 'Dirección Empresa',
                 'created_at' => '2021-07-16 09:30:10',
@@ -112,7 +112,7 @@ class ConfigurationsTableSeeder extends Seeder
             9 =>
             array (
                 'id' => 10,
-                'key' => 'correo_negocio',
+                'key' => 'app.correo_negocio',
                 'value' => 'cooreo@empresa.com',
                 'descripcion' => 'cooreo@empresa.com',
                 'created_at' => '2021-07-16 09:30:10',

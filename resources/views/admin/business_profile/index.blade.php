@@ -43,33 +43,33 @@
                                     <div class="card-body">
                                         <ul class="nav nav-tabs ">
                                             <li class="nav-item  ">
-                                                <a class="nav-link active" id="home-tab" data-bs-toggle="pill" href="#home" aria-expanded="true">Basicas</a>
+                                                <a class="nav-link active" data-bs-toggle="pill" href="#basico" aria-expanded="true">Basicas</a>
                                             </li>
                                             <li class="nav-item ">
-                                                <a class="nav-link" id="profile-tab" data-bs-toggle="pill" href="#profile" aria-expanded="false">SEO</a>
-                                            </li>
-                                            <li class="nav-item ">
-                                                <a class="nav-link" id="profile-tab" data-bs-toggle="pill" href="#correo" aria-expanded="false">
-                                                    Vista previa de correo
+                                                <a class="nav-link"  data-bs-toggle="pill" href="#correo" aria-expanded="false">
+                                                    Buzón Salida Correo
                                                 </a>
                                             </li>
+{{--                                            <li class="nav-item ">--}}
+{{--                                                <a class="nav-link"  data-bs-toggle="pill" href="#seo" aria-expanded="false">--}}
+{{--                                                    SEO--}}
+{{--                                                </a>--}}
+{{--                                            </li>--}}
                                         </ul>
                                         <div class="tab-content">
-                                            <div role="tabpanel" class="tab-pane active" id="home" aria-labelledby="home-tab" aria-expanded="true">
+                                            <div role="tabpanel" class="tab-pane active" id="basico" aria-labelledby="pestana_basico" aria-expanded="true">
                                                 <div class="row">
                                                     @include('admin.business_profile.basic')
                                                 </div>
-
-                                            </div>
-                                            <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab" aria-expanded="false">
-                                                @include('admin.business_profile.seo')
                                             </div>
 
                                             <div class="tab-pane" id="correo" role="tabpanel" aria-labelledby="profile-tab" aria-expanded="false">
-                                                <div class="ratio ratio-16x9">
-                                                    <iframe id="documento" src="{{route('dev.pruebas.correo.vista.previa')}}"  allowfullscreen></iframe>
-                                                </div>
+                                                @include('admin.business_profile.correo')
                                             </div>
+
+{{--                                            <div class="tab-pane" id="seo" role="tabpanel" aria-labelledby="profile-tab" aria-expanded="false">--}}
+{{--                                                @include('admin.business_profile.seo')--}}
+{{--                                            </div>--}}
                                         </div>
                                     </div>
 

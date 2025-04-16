@@ -774,7 +774,7 @@ function getNombreNegocio(){
 }
 
 function getPbx(){
-    return config('app.tel_negocio');
+    return config('app.telefono_negocio');
 }
 
 function getCorreoNegocio(){

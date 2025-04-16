@@ -2,32 +2,37 @@
 
 
 <div class="col-sm-4 mb-1">
-    {!! Form::label('nombre_negocio', 'Nombre Empresa:') !!}
-    {!! Form::text('name', config('app.name'), ['class' => 'form-control']) !!}
+    {!! Form::label('app.nombre_negocio', 'Nombre Empresa:') !!}
+    {!! Form::text('app.name', config('app.name'), ['class' => 'form-control']) !!}
 </div>
 <div class="col-sm-4 mb-1">
-    {!! Form::label('telefono_negocio', 'Teléfono Empresa:') !!}
-    {!! Form::text('telefono_negocio', config('app.telefono_negocio'), ['class' => 'form-control']) !!}
+    {!! Form::label('app.telefono_negocio', 'Teléfono Empresa:') !!}
+    {!! Form::text('app.telefono_negocio', config('app.telefono_negocio'), ['class' => 'form-control']) !!}
 </div>
 <div class="col-sm-4 mb-1">
-    {!! Form::label('whatsapp_negocio', 'Whatsapp Empresa:') !!}
-    {!! Form::text('whatsapp_negocio', config('app.whatsapp_negocio'), ['class' => 'form-control']) !!}
+    {!! Form::label('app.whatsapp_negocio', 'Whatsapp Empresa:') !!}
+    {!! Form::text('app.whatsapp_negocio', config('app.whatsapp_negocio'), ['class' => 'form-control']) !!}
 </div>
 <div class="col-sm-4 mb-1">
-    {!! Form::label('direccion_negocio', 'Dirección Empresa:') !!}
-    {!! Form::text('direccion_negocio', config('app.direccion_negocio'), ['class' => 'form-control']) !!}
+    {!! Form::label('app.direccion_negocio', 'Dirección Empresa:') !!}
+    {!! Form::text('app.direccion_negocio', config('app.direccion_negocio'), ['class' => 'form-control']) !!}
 </div>
 <div class="col-sm-4 mb-1">
-    {!! Form::label('correo_negocio', 'Correo Empresa:') !!}
-    {!! Form::text('correo_negocio', config('app.correo_negocio'), ['class' => 'form-control']) !!}
+    {!! Form::label('app.correo_negocio', 'Correo Empresa:') !!}
+    {!! Form::text('app.correo_negocio', config('app.correo_negocio'), ['class' => 'form-control']) !!}
 </div>
 
 <div class="col-sm-4 mb-1">
-    {!! Form::label('horario_negocio', 'Horario:') !!}
-    {!! Form::text('horario_negocio', config('app.horario_negocio'), ['class' => 'form-control','placeholder' => '9:00am - 6:00pm']) !!}
+    {!! Form::label('app.horario_negocio', 'Horario:') !!}
+    {!! Form::text('app.horario_negocio', config('app.horario_negocio'), ['class' => 'form-control','placeholder' => '9:00am - 6:00pm']) !!}
 </div>
 
+<div class="col-sm-4 mb-1">
+    {!! Form::label('app.monto_maximo_facturar', 'Monto Maximo Facturar:') !!}
+    {!! Form::text('app.monto_maximo_facturar', config('app.monto_maximo_facturar'), ['class' => 'form-control','placeholder' => '']) !!}
+</div>
 
+<div class="col-sm-12" style="padding: 0px; margin: 0px"></div>
 <div class="col-sm-6 mb-1">
     {!! Form::label('name', 'Logo:') !!}
     <input type="file" name="logo" class="form-control" id="logo">
@@ -49,54 +54,33 @@
 </div>
 
 
-
-<div class="col-sm-12 mb-1 " >
-    {!! Form::label('name', 'Texto Correo:') !!}
-    <div id="snow-container">
-        <div class="quill-toolbar">
-        <span class="ql-formats">
-            <select class="ql-header">
-                <option value="1">Titulo</option>
-                <option value="2">Subtitulo</option>
-                <option selected>Normal</option>
-            </select>
-        </span>
-            <span class="ql-formats">
-            <button class="ql-bold"></button>
-            <button class="ql-italic"></button>
-            <button class="ql-underline"></button>
-        </span>
-            <span class="ql-formats">
-            <button class="ql-list" value="ordered"></button>
-            <button class="ql-list" value="bullet"></button>
-        </span>
-            <span class="ql-formats">
-            <button class="ql-link"></button>
-            <button class="ql-image"></button>
-            <button class="ql-video"></button>
-        </span>
-            <span class="ql-formats">
-            <button class="ql-formula"></button>
-            <button class="ql-code-block"></button>
-        </span>
-            <span class="ql-formats">
-            <button class="ql-clean"></button>
-        </span>
-        </div>
-        <div class="editor" style="min-height: 10rem">
-            {!! config('app.texto_correo') !!}
-        </div>
-    </div>
-
-    <input type="hidden" name="texto_correo" class="editor_data" value="">
-</div>
-
-
 <input type="hidden" name="clear_logo" id="clear_logo" value="0">
 <input type="hidden" name="clear_icono" id="clear_icono" value="0">
 <input type="hidden" name="clear_fondo_login" id="clear_fondo_login" value="0">
-<input type="hidden" name="clear_promo_factura" id="clear_promo_factura" value="0">
 
+<div class="col-sm-12 mb-1">
+    <div class="card shadow-none bg-transparent border-success">
+      <div class="card-header border-bottom py-1 text-success">
+        API Whatsapp
+      </div>
+      <div class="card-body ">
+
+          <div class="row mt-2">
+
+              <div class="col-sm-4 mb-1">
+                  {!! Form::label('api_cloud_whatsapp.access_token', 'Access Token:') !!}
+                  {!! Form::text('api_cloud_whatsapp.access_token', config('api_cloud_whatsapp.access_token'), ['class' => 'form-control','placeholder' => '']) !!}
+              </div>
+              <div class="col-sm-4 mb-1">
+
+                  {!! Form::label('api_cloud_whatsapp.from_phone_number_id', 'From Phone Number Id:') !!}
+                  {!! Form::text('api_cloud_whatsapp.from_phone_number_id', config('api_cloud_whatsapp.from_phone_number_id'), ['class' => 'form-control','placeholder' => '']) !!}
+              </div>
+          </div>
+
+      </div>
+    </div>
+</div>
 @push('scripts')
     <script>
         $(function () {
