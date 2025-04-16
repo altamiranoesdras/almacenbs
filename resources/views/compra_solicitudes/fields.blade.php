@@ -60,7 +60,8 @@
                                     @keydown.enter.prevent="siguienteCampo('agregar')"
                                 >
                                 <button type="button" ref="agregar" class="btn btn-outline-success waves-effect"
-                                        @click.prevent="save" :disabled="loading" data-toggle="tooltip" title="Doble enter para agregar">
+                                        @click.prevent="save" :disabled="loading" data-toggle="tooltip"
+                                        title="Doble enter para agregar">
                                     <span v-show="loading">
                                         <i class="fa fa-spinner fa-spin"></i>
                                     </span>
@@ -76,34 +77,39 @@
                     </div>
 
 
-
-                    <div class="table-responsive">
+                    <div class="table-responsive mb-3">
                         <table width="100%" class="table table-bordered table-sm" id="tablaDetalle"
                                style="margin-bottom: 2px">
-                            <thead>
-                            <tr class="table-info text-sm" align="center" style="font-weight: bold">
-                                <td width="30%">CANTIDAD</td>
-                                <td width="20%">RENGLÓN</td>
-                                <td width="20%">CÓDIGO DE INSUMO</td>
+                            <thead class="small table-light">
+                            <tr class="text-sm" align="center" style="font-weight: bold">
+                                <td width="5%">CANTIDAD</td>
+                                <td width="5%">RENGLÓN</td>
+                                <td width="5%">CÓDIGO DE INSUMO</td>
                                 <td width="20%">NOMBRE</td>
                                 <td width="20%">DESCRIPCIÓN</td>
-                                <td width="20%">NOMBRE DE LA PRESENTACIÓN</td>
-                                <td width="20%">CANTIDAD Y UNIDAD DE MEDIDA</td>
-                                <td width="20%">COD. PRESENTACIÓN</td>
-                                <td width="20%">MONTO ESTIMADO</td>
-                                <td width="20%">-</td>
+                                <td width="5%">NOMBRE DE LA PRESENTACIÓN</td>
+                                <td width="5%">CANTIDAD Y UNIDAD DE MEDIDA</td>
+                                <td width="5%">COD. PRESENTACIÓN</td>
+                                <td width="5%">MONTO ESTIMADO</td>
+                                <td width="5%">SubTotal</td>
+                                <td width="5%">-</td>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr v-if="detalles.length==0">
-                                <td colspan="6"><span
-                                        class="help-block text-center">No se ha agregado ningún artículo</span></td>
+                            <tbody class="small">
+                            <tr v-if="detalles.length==0" class="text-center">
+                                <td colspan="20"><span
+                                        class="help-block ">No se ha agregado ningún artículo</span></td>
                             </tr>
-                            <tr v-for="detalle in detalles" class="text-sm">
-                                <td v-text="detalle.item.nombre"></td>
-                                <td v-text="detalle.item.unimed ? detalle.item.unimed.nombre : 'Sin unidad'"></td>
-                                <td v-text="dvs + nfp(detalle.precio_compra)"></td>
+                            <tr v-for="detalle in detalles" class="">
                                 <td v-text="nf(detalle.cantidad)"></td>
+                                <td v-text="detalle.item.renglon ? detalle.item.renglon.numero : 'Sin renglon'"></td>
+                                <td v-text="detalle.item.codigo_insumo"></td>
+                                <td v-text="detalle.item.nombre"></td>
+                                <td v-text="detalle.item.descripcion"></td>
+                                <td v-text="detalle.item.presentacion ? detalle.item.presentacion.nombre : 'Sin unidad'"></td>
+                                <td v-text="detalle.item.unimed ? detalle.item.unimed.nombre : 'Sin unidad'"></td>
+                                <td v-text="detalle.item.codigo_presentacion"></td>
+                                <td v-text="dvs + nfp(detalle.precio_compra)"></td>
                                 <td v-text="dvs + nfp(detalle.sub_total)"></td>
                                 <td width="10px">
 
@@ -112,30 +118,162 @@
                                         {{--                    <i class="fa fa-edit"></i>--}}
                                         {{--                    </button>--}}
                                         <button type="button"
-                                                class='btn btn-danger btn-sm waves-effect waves-float waves-light'
-                                                @click="deleteItem(detalle)" :disabled="(idEliminando===detalle.id)">
-                                        <span v-show="(idEliminando===detalle.id)">
-                                            <i class="fa fa-sync-alt fa-spin"></i>
-                                        </span>
+                                                class='btn btn-icon btn-flat-danger rounded-circle'
+                                                @click="deleteItem(detalle)" :disabled="detalle.eliminando">
+                                            <span class="spinner-border spinner-border-sm" role="status"
+                                                  aria-hidden="true"
+                                                v-show="idEliminando===detalle.id">
+                                            </span>
+
                                             <span v-show="!(idEliminando===detalle.id)">
-                                            <i class="fa fa-trash-alt"></i>
-                                        </span>
+                                                <i class="fa fa-trash-alt"></i>
+                                            </span>
                                         </button>
+
                                     </div>
                                 </td>
                             </tr>
                             </tbody>
                             <tfoot>
                             <tr>
-                                <td colspan="6">
-                                    <b>Total</b>
-                                    <b class="pull-right" v-text="dvs + nfp(total)"></b>
+                                <td colspan="10">
+                                    <b class="float-end">Total monto</b>
+                                </td>
+                                <td>
+                                    <b class="float-end" v-text="dvs + nfp(total)"></b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="10" >
+                                    <b class="float-end">
+                                        Total insumos
+                                    </b>
+
+                                </td>
+                                <td>
+                                    <b class="float-end" v-text="nf(totalitems)"></b>
                                 </td>
                             </tr>
                             </tfoot>
 
                         </table>
                     </div>
+
+                    <div class="row">
+                        <div class="col-12 mb-1">
+                            JUSTIFICACIÓN DE LA COMPRA
+                            <textarea
+                                name="justificacion"
+                                id="justificacion"
+                                class="form-control"
+                                rows="2"
+                                placeholder="Justificación de la compra"
+                            >{{$compraSolicitud->justificacion ?? ''}}</textarea>
+                        </div>
+
+                        <div class="col-6 mb-1">
+                            SUBPRODUCTO
+                            <table class="table table-sm">
+                                <tbody >
+                                <tr>
+                                    <td>
+                                        <input type="text" name="subproducto[]" id="subproducto[]" class="form-control"
+                                               value="{{$compraSolicitud->subproducto[0] ?? ''}}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="text" name="subproducto[]" id="subproducto[]" class="form-control"
+                                               value="{{$compraSolicitud->subproducto[1] ?? ''}}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="text" name="subproducto[]" id="subproducto[]" class="form-control"
+                                               value="{{$compraSolicitud->subproducto[2] ?? ''}}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="text" name="subproducto[]" id="subproducto[]" class="form-control"
+                                               value="{{$compraSolicitud->subproducto[3] ?? ''}}">
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="col-6 mb-1">
+                            PARTIDAS PRESUPUESTARIAS
+                            <table class="table table-sm">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <input type="text" name="partidas[]" id="partidas[]" class="form-control"
+                                               value="{{$compraSolicitud->partidas[0] ?? ''}}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="text" name="partidas[]" id="partidas[]" class="form-control"
+                                               value="{{$compraSolicitud->partidas[1] ?? ''}}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="text" name="partidas[]" id="partidas[]" class="form-control"
+                                               value="{{$compraSolicitud->partidas[2] ?? ''}}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="text" name="partidas[]" id="partidas[]" class="form-control"
+                                               value="{{$compraSolicitud->artidas[3] ?? ''}}">
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                    <div class="row mb1">
+
+                        <div class="col-sm-3">
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-outline-danger round" data-toggle="modal"
+                                    data-target="#modalAnular">
+                                <i class="fa fa-ban"></i> Anular
+                            </button>
+                        </div>
+
+
+                        <div class="col-sm-3 text-center">
+
+                            <a href="{!! route('compra.solicitudes.pdf',$compraSolicitud->id ?? 0) !!}"
+                               class="btn btn-outline-primary round" target="_blank">
+                                <i class="fa fa-print"></i> Imprimir
+                            </a>
+
+                        </div>
+
+                        <div class="col-sm-3 text-center">
+
+                            <button type="submit" class="btn btn-outline-success round">
+                                <i class="fa fa-save"></i> Guardar
+                            </button>
+                        </div>
+
+
+                        <div class="col-sm-3">
+
+                            <button type="submit" name="procesar" value="1" class="btn btn-outline-success round float-end">
+                                <i class="fa fa-shopping-cart"></i> Generar Compra
+                            </button>
+
+                        </div>
+                    </div>
+
 
                 </div>
             </div>
@@ -144,105 +282,7 @@
     </div>
     <!--Artículos-->
 
-    <!--Resumen-->
-    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
 
-        <div class="card card-info card-outline">
-            <div class="card-header with-border py-2">
-                <h3 class="card-title">
-                    <strong>
-                        Resumen
-                        {{--<small> iniciada: {{fechaHoraLtn($tempVenta->created_at)}}</small>--}}
-                    </strong>
-                </h3>
-            </div>
-            <!-- /.card-header -->
-
-            <div class="card-content ">
-                <div class="card-body">
-
-                    <div class="row">
-                        <div class="form-group col-sm-12">
-
-                            <select-proveedor v-model="proveedor" label="Proveedor"></select-proveedor>
-                        </div>
-
-                        <!-- Campo fecha_requiere -->
-                        <div class="form-group col-sm-12">
-                            <label for="fecha_requiere">Fecha requiere</label>
-                            <input
-                                type="date"
-                                name="fecha_requiere"
-                                id="fecha_requiere"
-                                class="form-control"
-                                value="{{$compraSolicitud->fecha_requiere ? $compraSolicitud->fecha_requiere->format('Y-m-d') : ''}}"
-                            >
-                        </div>
-
-
-                        <div class="form-group col-sm-12 text-right">
-                            No. Productos: <span v-text="totalitems"></span>
-                        </div>
-                        <div class="form-group col-sm-12 text-right">
-                            Total: {{dvs()}} <span v-text="nfp(total)"></span>
-                        </div>
-                        <div class="form-group col-sm-12">
-                            <textarea
-                                name="observaciones"
-                                id="observaciones"
-                                class="form-control"
-                                rows="2"
-                                placeholder="Observaciones"
-                            >{{$compraSolicitud->observaciones ?? ''}}</textarea>
-
-                        </div>
-                    </div>
-
-
-                </div>
-                <div class="card-footer bg-white border-top">
-                    <div class="row">
-
-                        <div class="col-sm-6">
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-outline-danger btn-block" data-toggle="modal"
-                                    data-target="#modalAnular">
-                                <i class="fa fa-ban"></i> Anular
-                            </button>
-                        </div>
-                        <div class="col-sm-6">
-
-                            <button type="submit" class="btn btn-outline-success btn-block">
-                                <i class="fa fa-save"></i> Guardar
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="row mt-2">
-
-                        <div class="col-sm-6">
-
-                            <a href="{!! route('compra.solicitudes.pdf',$compraSolicitud->id ?? 0) !!}"
-                               class="btn btn-outline-primary mr-2 btn-block" target="_blank">
-                                <i class="fa fa-print"></i> Imprimir
-                            </a>
-
-                        </div>
-                        <div class="col-sm-6">
-
-                            <button type="submit" name="procesar" value="1" class="btn btn-outline-success btn-block">
-                                <i class="fa fa-shopping-cart"></i> Generar Compra
-                            </button>
-
-                        </div>
-                    </div>
-                    <!-- Submit Field -->
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <!--/Resumen-->
 
 </div>
 @push('scripts')

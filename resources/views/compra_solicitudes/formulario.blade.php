@@ -13,7 +13,7 @@
 
 @section('content')
     @php
-        $titulo = $compraSolicitud->esTemporal() ? 'Crear solicitud de compra' : 'Editar solicitud de compra';
+        $titulo = $compraSolicitud->esTemporal() ? 'NUEVA REQUISICIÓN DE COMPRA' : 'EDITAR REQUISICIÓN DE COMPRA';
         $subtitulo = $compraSolicitud->esTemporal() ? '' : ' (#'.$compraSolicitud->codigo.')';
     @endphp
 

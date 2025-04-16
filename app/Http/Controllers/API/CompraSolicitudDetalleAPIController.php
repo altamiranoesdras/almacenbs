@@ -20,7 +20,7 @@ class CompraSolicitudDetalleAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $query = CompraSolicitudDetalle::query();
+        $query = CompraSolicitudDetalle::with('item');
 
         if ($request->get('skip')) {
             $query->skip($request->get('skip'));
@@ -31,7 +31,7 @@ class CompraSolicitudDetalleAPIController extends AppBaseController
 
         $compraSolicitudDetalles = $query->get();
 
-        return $this->sendResponse($compraSolicitudDetalles->toArray(), 'Compra Solicitud Detalles ');
+        return $this->sendResponse($compraSolicitudDetalles->toArray(), 'Detalles ');
     }
 
     /**
@@ -40,12 +40,17 @@ class CompraSolicitudDetalleAPIController extends AppBaseController
      */
     public function store(CreateCompraSolicitudDetalleAPIRequest $request): JsonResponse
     {
+
+        $request->merge([
+            'precio_venta' => $request->get('precio_venta') ?? 0,
+        ]);
+
         $input = $request->all();
 
         /** @var CompraSolicitudDetalle $compraSolicitudDetalle */
         $compraSolicitudDetalle = CompraSolicitudDetalle::create($input);
 
-        return $this->sendResponse($compraSolicitudDetalle->toArray(), 'Compra Solicitud Detalle guardado');
+        return $this->sendResponse($compraSolicitudDetalle->toArray(), 'Detalle agregado');
     }
 
     /**
@@ -58,10 +63,10 @@ class CompraSolicitudDetalleAPIController extends AppBaseController
         $compraSolicitudDetalle = CompraSolicitudDetalle::find($id);
 
         if (empty($compraSolicitudDetalle)) {
-            return $this->sendError('Compra Solicitud Detalle no encontrado');
+            return $this->sendError('Detalle no encontrado');
         }
 
-        return $this->sendResponse($compraSolicitudDetalle->toArray(), 'Compra Solicitud Detalle ');
+        return $this->sendResponse($compraSolicitudDetalle->toArray(), 'Detalle ');
     }
 
     /**
@@ -74,13 +79,13 @@ class CompraSolicitudDetalleAPIController extends AppBaseController
         $compraSolicitudDetalle = CompraSolicitudDetalle::find($id);
 
         if (empty($compraSolicitudDetalle)) {
-            return $this->sendError('Compra Solicitud Detalle no encontrado');
+            return $this->sendError('Detalle no encontrado');
         }
 
         $compraSolicitudDetalle->fill($request->all());
         $compraSolicitudDetalle->save();
 
-        return $this->sendResponse($compraSolicitudDetalle->toArray(), 'CompraSolicitudDetalle actualizado');
+        return $this->sendResponse($compraSolicitudDetalle->toArray(), 'Detalle actualizado');
     }
 
     /**
@@ -95,11 +100,11 @@ class CompraSolicitudDetalleAPIController extends AppBaseController
         $compraSolicitudDetalle = CompraSolicitudDetalle::find($id);
 
         if (empty($compraSolicitudDetalle)) {
-            return $this->sendError('Compra Solicitud Detalle no encontrado');
+            return $this->sendError('Detalle no encontrado');
         }
 
         $compraSolicitudDetalle->delete();
 
-        return $this->sendSuccess('Compra Solicitud Detalle eliminado');
+        return $this->sendSuccess('Detalle eliminado');
     }
 }
