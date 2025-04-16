@@ -44,68 +44,40 @@
 
 
 <table  style="width: 100%; margin-bottom: 2mm;  " border="{{$borde}}; " >
-    <tr style="color: {{$color}}">
-        <td
-            style="width: 75mm;
-                    height: 10mm;
-                vertical-align: middle;
-                text-align: center;">
-            Nombre del Producto
-        </td>
-        <td
-            style="width: 26mm;
-                    height: 10mm;
-                vertical-align: middle;
-                text-align: center">
-            Unidad de Medida
-        </td>
-        <th
-            style="width: 29mm;
-                    height: 10mm;
-                vertical-align: middle;
-                text-align: center;
-                font-weight: normal">
-            Solicitada
-        </th>
-        <th style="width: 34mm;
-                height: 10mm;
-                vertical-align: middle;
-                text-align: center;
-                font-weight: normal" >
-            DESPACHADA
-        </th>
-        <th style="width: 27mm;
-                height: 10mm;
-                vertical-align: middle;
-                text-align: center;
-                font-weight: normal" >
-            Kardex
-        </th>
+    <thead class="small table-light">
+    <tr class="text-sm" align="center" style="font-weight: bold">
+        <td width="5%">CANTIDAD</td>
+        <td width="5%">RENGLÓN</td>
+        <td width="5%">CÓDIGO DE INSUMO</td>
+        <td width="20%">NOMBRE</td>
+        <td width="20%">DESCRIPCIÓN</td>
+        <td width="5%">NOMBRE DE LA PRESENTACIÓN</td>
+        <td width="5%">CANTIDAD Y UNIDAD DE MEDIDA</td>
+        <td width="5%">COD. PRESENTACIÓN</td>
+        <td width="5%">MONTO ESTIMADO</td>
+        <td width="5%">SubTotal</td>
     </tr>
+    </thead>
+    <tbody>
 
     @foreach ($compraSolicitud->detalles as $detalle)
         @php
-            $longitudTexto = strlen($detalle->item->texto_requisicion);
-            $longitudMaxima = 64;
+            $i++;
+            $borde=0;
+            $color ="black";
         @endphp
-        <tr style="font-size: 12px; height: 6.5mm;line-height: {{$longitudTexto > $longitudMaxima ? '6.4mm' : 'auto'}}">
-            <td style="width: 75mm;
-                    vertical-align: middle;">
-                {{ $detalle->item->texto_requisicion }}
-            </td>
-            <td style="vertical-align: top;">
-                {{--                    {{$detalle->item->presentacion->nombre ?? ''}} ---}}
-                {{ $detalle->item->unimed->nombre ?? '' }}
-            </td>
-            <td style="vertical-align: top;text-align: center">
-                {{ nf($detalle->cantidad_solicitada,0) }}
-            </td>
-            <td style="vertical-align: top;text-align: center">
-                {{ nf($detalle->cantidad_despachada,0) }}
-            </td>
-            <td style="vertical-align: top;text-align: center">
+        <tr style="font-size: 12px; height: 6.5mm">
+            <td style="text-align: center; border: {{$borde}}px solid {{$color}}">{{$detalle->cantidad}}</td>
+            <td style="text-align: center; border: {{$borde}}px solid {{$color}}">{{$detalle->item->renglon->numero}}</td>
+            <td style="text-align: center; border: {{$borde}}px solid {{$color}}">{{$detalle->item->codigo_insumo}}</td>
+            <td style="text-align: left; border: {{$borde}}px solid {{$color}}">{{$detalle->item->nombre}}</td>
+            <td style="text-align: left; border: {{$borde}}px solid {{$color}}">{{$detalle->item->descripcion}}</td>
+            <td style="text-align: center; border: {{$borde}}px solid {{$color}}">{{$detalle->item->presentacion->nombre}}</td>
+            <td style="text-align: center; border: {{$borde}}px solid {{$color}}">{{$detalle->item->unimed->nombre}}</td>
+            <td style="text-align: center; border: {{$borde}}px solid {{$color}}">{{$detalle->item->codigo_presentacion}}</td>
+            <td style="text-align: right; border: {{$borde}}px solid {{$color}}">{{number_format($detalle->precio_compra,2)}}</td>
+            <td style="text-align: right; border: {{$borde}}px solid {{$color}}">{{number_format($detalle->sub_total,2)}}</td>
 
-            </td>
         </tr>
         @php
             $totalLineas = 20;
@@ -113,23 +85,20 @@
         @endphp
     @endforeach
 
+    </tbody>
+
     @for ($i = 1; $i <= $final ; $i++)
         <tr style="font-size: 12px; height: 6.5mm">
-            <td style="">
-
-            </td>
-            <td style="">
-
-            </td>
-            <td style="text-align: center">
-
-            </td>
-            <td style="text-align: center">
-
-            </td>
-            <td style="text-align: center">
-
-            </td>
+            <td style="text-align: center; border: {{$borde}}px solid {{$color}}"></td>
+            <td style="text-align: center; border: {{$borde}}px solid {{$color}}"></td>
+            <td style="text-align: center; border: {{$borde}}px solid {{$color}}"></td>
+            <td style="text-align: center; border: {{$borde}}px solid {{$color}}"></td>
+            <td style="text-align: center; border: {{$borde}}px solid {{$color}}"></td>
+            <td style="text-align: center; border: {{$borde}}px solid {{$color}}"></td>
+            <td style="text-align: center; border: {{$borde}}px solid {{$color}}"></td>
+            <td style="text-align: center; border: {{$borde}}px solid {{$color}}"></td>
+            <td style="text-align: center; border: {{$borde}}px solid {{$color}}"></td>
+            <td style="text-align: center; border: {{$borde}}px solid {{$color}}"></td>
         </tr>
     @endfor
 </table>

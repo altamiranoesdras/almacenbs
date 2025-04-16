@@ -75,7 +75,7 @@ class DatabaseSeeder extends Seeder
 
         if(app()->environment()=='local'){
 
-            $this->call(ComprasSeeder::class);
+//            $this->call(ComprasSeeder::class);
 //            $this->call(SolicitudesTableSeeder::class);
 //            $this->call(ConsumosTableSeeder::class);
 //            $this->call(Compra1hTableSeeder::class);
