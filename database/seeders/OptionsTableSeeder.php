@@ -70,8 +70,8 @@ class OptionsTableSeeder extends Seeder
                 'recursos' => 1,
                 'dev' => 0,
                 'created_at' => '2017-04-10 03:53:18',
-                'updated_at' => '2025-04-15 09:12:46',
-                'deleted_at' => NULL,
+                'updated_at' => '2025-04-16 17:56:02',
+                'deleted_at' => '2025-04-16 17:56:02',
             ),
             3 =>
             array (
@@ -138,8 +138,8 @@ class OptionsTableSeeder extends Seeder
                 'recursos' => 1,
                 'dev' => 0,
                 'created_at' => '2018-07-30 23:17:58',
-                'updated_at' => '2025-04-16 15:33:11',
-                'deleted_at' => NULL,
+                'updated_at' => '2025-04-16 17:56:08',
+                'deleted_at' => '2025-04-16 17:56:08',
             ),
             7 =>
             array (
@@ -410,8 +410,8 @@ class OptionsTableSeeder extends Seeder
                 'recursos' => 1,
                 'dev' => 0,
                 'created_at' => '2018-01-30 21:17:33',
-                'updated_at' => '2025-04-16 15:33:11',
-                'deleted_at' => NULL,
+                'updated_at' => '2025-04-16 17:56:33',
+                'deleted_at' => '2025-04-16 17:56:33',
             ),
             23 =>
             array (
@@ -597,8 +597,8 @@ class OptionsTableSeeder extends Seeder
                 'recursos' => 1,
                 'dev' => 0,
                 'created_at' => '2022-08-29 16:56:26',
-                'updated_at' => '2025-04-16 15:33:11',
-                'deleted_at' => NULL,
+                'updated_at' => '2025-04-21 12:29:34',
+                'deleted_at' => '2025-04-21 12:29:34',
             ),
             34 =>
             array (
@@ -716,8 +716,8 @@ class OptionsTableSeeder extends Seeder
                 'recursos' => 1,
                 'dev' => 0,
                 'created_at' => '2022-12-08 08:47:18',
-                'updated_at' => '2025-04-16 15:33:11',
-                'deleted_at' => NULL,
+                'updated_at' => '2025-04-16 17:55:57',
+                'deleted_at' => '2025-04-16 17:55:57',
             ),
             41 =>
             array (
@@ -767,8 +767,8 @@ class OptionsTableSeeder extends Seeder
                 'recursos' => 1,
                 'dev' => 0,
                 'created_at' => '2022-12-27 11:23:53',
-                'updated_at' => '2025-04-16 15:33:11',
-                'deleted_at' => NULL,
+                'updated_at' => '2025-04-16 17:56:13',
+                'deleted_at' => '2025-04-16 17:56:13',
             ),
             44 =>
             array (
@@ -978,7 +978,7 @@ class OptionsTableSeeder extends Seeder
             array (
                 'id' => 57,
                 'option_id' => 55,
-                'nombre' => 'Buscar Solicitudes',
+                'nombre' => 'Buscar Solicitudes de compra',
                 'ruta' => 'compraSolicitudes.index',
                 'descripcion' => 'x',
                 'icono_l' => 'fa-search',
@@ -988,7 +988,7 @@ class OptionsTableSeeder extends Seeder
                 'recursos' => 0,
                 'dev' => 0,
                 'created_at' => '2025-04-15 09:37:37',
-                'updated_at' => '2025-04-16 15:34:19',
+                'updated_at' => '2025-04-21 12:30:01',
                 'deleted_at' => NULL,
             ),
         ));
