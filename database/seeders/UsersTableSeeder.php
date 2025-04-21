@@ -87,7 +87,10 @@ class UsersTableSeeder extends Seeder
         User::factory(1)->create([
             "username" => "tecnico",
             "name" => "Juan Pérez",
-            "password" => bcrypt("123456")
+            "password" => bcrypt("123456"),
+            'unidad_id' => 1,
+            'bodega_id' => 1,
+            'puesto_id' => 1,
         ])->each(function (User $user){
 
             $user->syncRoles(Role::JEFE_ALMACEN);

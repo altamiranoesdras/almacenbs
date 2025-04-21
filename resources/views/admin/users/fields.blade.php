@@ -24,7 +24,7 @@
             Form::select(
                 'unidad_id',
                 select(\App\Models\RrhhUnidad::class)
-                , null
+                , $user->unidad_id ?? []
                 , ['id'=>'unidads','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
             )
         !!}
@@ -37,7 +37,7 @@
             Form::select(
                 'puesto_id',
                 select(\App\Models\RrhhPuesto::class)
-                , null
+                , $user->puesto_id ?? []
                 , ['id'=>'puestos','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
             )
         !!}
@@ -50,7 +50,7 @@
             Form::select(
                 'bodega_id',
                 select(\App\Models\Bodega::class)
-                , null
+                , $user->bodega_id ?? []
                 , ['id'=>'bodegas','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
             )
         !!}

@@ -47,7 +47,7 @@ class UserDataTable extends DataTable
     {
         $query = $model->newQuery()
             ->select($model->getTable().'.*')
-            ->with(['roles','media']);
+            ->with(['roles','media','unidad','puesto','bodega']);
 
         //si el usuario no puede ver a todos los usuarios
         if (auth()->user()->cannot('ver todos los usuarios')){
@@ -135,6 +135,9 @@ class UserDataTable extends DataTable
             Column::make('id'),
             Column::make('username'),
             Column::make('email'),
+            Column::make('puesto_id')->data('puesto.nombre')->name('puesto.nombre')->title('Puesto'),
+            Column::make('unidad_id')->data('unidad.nombre')->name('unidad.nombre')->title('Unidad'),
+            Column::make('bodega_id')->data('bodega.nombre')->name('bodega.nombre')->title('Bodega'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
