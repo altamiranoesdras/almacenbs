@@ -18,7 +18,7 @@
     </div>
 
     <!-- Unidad Field -->
-    <div class="form-group col-sm-6">
+    <div class="col-sm-6 mb-1">
         {!! Form::label('unidad_id','Unidad:') !!}
         {!!
             Form::select(
@@ -31,7 +31,7 @@
     </div>
 
     <!-- Puesto Field -->
-    <div class="form-group col-sm-6">
+    <div class="col-sm-6 mb-1">
         {!! Form::label('puesto_id','Puesto:') !!}
         {!!
             Form::select(
@@ -44,7 +44,7 @@
     </div>
 
     <!-- bodega Field -->
-    <div class="form-group col-sm-6">
+    <div class="col-sm-6 mb-1">
         {!! Form::label('bodega_id','Bodega:') !!}
         {!!
             Form::select(
