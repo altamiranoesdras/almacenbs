@@ -193,7 +193,7 @@ class User extends Authenticatable implements  HasMedia
         'password' => 'required|min:6',
         'email_verified_at' => 'nullable',
         'unidad_id' => 'required',
-        'puesto_id' => 'required',
+        'puesto_id' => 'nullable',
         'bodega_id' => 'required',
         'provider' => 'nullable|string|max:255',
         'provider_uid' => 'nullable|string|max:255',
