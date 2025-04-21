@@ -17,6 +17,45 @@
         {!! Form::email('email', null, ['class' => 'form-control']) !!}
     </div>
 
+    <!-- Unidad Field -->
+    <div class="form-group col-sm-6">
+        {!! Form::label('unidad_id','Unidad:') !!}
+        {!!
+            Form::select(
+                'unidad_id',
+                select(\App\Models\RrhhUnidad::class)
+                , null
+                , ['id'=>'unidads','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
+            )
+        !!}
+    </div>
+
+    <!-- Puesto Field -->
+    <div class="form-group col-sm-6">
+        {!! Form::label('puesto_id','Puesto:') !!}
+        {!!
+            Form::select(
+                'puesto_id',
+                select(\App\Models\RrhhPuesto::class)
+                , null
+                , ['id'=>'puestos','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
+            )
+        !!}
+    </div>
+
+    <!-- bodega Field -->
+    <div class="form-group col-sm-6">
+        {!! Form::label('bodega_id','Bodega:') !!}
+        {!!
+            Form::select(
+                'bodega_id',
+                select(\App\Models\Bodega::class)
+                , null
+                , ['id'=>'bodegas','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
+            )
+        !!}
+    </div>
+
 
     <!-- Password Field -->
     <div class="col-sm-6 mb-1">

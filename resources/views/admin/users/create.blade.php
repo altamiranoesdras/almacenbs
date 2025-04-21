@@ -3,6 +3,7 @@
 @section('titulo_pagina', 'Crear Usuario')
 
 @include('layouts.plugins.jstree')
+@include('layouts.plugins.select2')
 
 @section('content')
 
