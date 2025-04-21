@@ -2,109 +2,155 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Requisición {{$compraSolicitud->codigo}}</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <title>REQUISICIÓN DE COMPRA</title>
+    <style>
+        body {
+            font-family: DejaVu Sans, sans-serif;
+            font-size: 11px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td, th {
+            border: 1px solid #000;
+            padding: 4px;
+            vertical-align: middle;
+            text-align: center;
+        }
+        .no-border td {
+            border: none;
+            padding: 2px;
+        }
+        .header {
+            text-align: center;
+            font-weight: bold;
+        }
+        .section-title {
+            font-weight: bold;
+            background-color: #f0f0f0;
+        }
+        .left {
+            text-align: left;
+        }
+        .underline {
+            border-bottom: 1px solid black;
+        }
+    </style>
 </head>
+<body>
 
-@php
-    $i=0;
-    $borde=1;
-    $color ="black";
-    $final = 0;
-@endphp
-
-<body style="width: 100%;">
-
-
-<table  style="width: 100%; margin-bottom: 2mm" border="{{$borde}} " >
-    <tr style="height: 8mm; !important;">
-        <td style="width: 33mm; text-align: left; vertical-align: middle; color: {{$color}}">Lugar y Fecha:</td>
-        <td style="width: 160mm; text-align: left; vertical-align: middle;">{{ fechaLtnMesEnTexto($compraSolicitud->fecha_requiere ?? hoyDb()) }}</td>
-    </tr>
-</table>
-<table  style="width: 100%; margin-bottom: 4mm" border="{{$borde}} " >
-    <tr style="height: 8mm; !important;">
-        <td style="width: 46mm; text-align: left; vertical-align: middle; color: {{$color}}">Unidad Solicitante:</td>
-        <td style="width: 148mm; text-align: left; vertical-align: middle;"> {{$compraSolicitud->unidad->nombre ?? ''}}</td>
-    </tr>
-</table>
-<table  style="width: 100%; margin-bottom: 1mm" border="{{$borde}} " >
-    <tr style="height: 8mm; !important;">
-        <td style="width: 57mm; text-align: left; vertical-align: middle; color: {{$color}}">Nombre del Solicitante:</td>
-        <td style="width: 139mm; text-align: left; vertical-align: middle;">{{ $compraSolicitud->usuarioSolicita->name }}</td>
-    </tr>
-</table>
-<table  style="width: 100%; margin-bottom: 9mm" border="{{$borde}} " >
-    <tr style="height: 8mm; !important;">
-        <td style="width: 17mm; text-align: left; vertical-align: middle; color: {{$color}}" >Cargo:</td>
-        <td style="width: 174mm; text-align: left; vertical-align: middle;"><b>{{ $compraSolicitud->usuarioSolicita->puesto->nombre ?? "Sin puesto" }}</b></td>
+<!-- Encabezado institucional -->
+<table class="no-border">
+    <tr>
+        <td style="width: 30%;">
+            <img src="{{ public_path('images/logo_sbs.png') }}" width="100" alt="Logo">
+        </td>
+        <td style="width: 70%; text-align: center;">
+            <div style="font-weight: bold;">REQUISICIÓN DE COMPRA</div>
+            <div>FONDO ROTATIVO INTERNO</div>
+        </td>
     </tr>
 </table>
 
-
-<table  style="width: 100%; margin-bottom: 2mm;  " border="{{$borde}}; " >
-    <thead class="small table-light">
-    <tr class="text-sm" align="center" style="font-weight: bold">
-        <td width="5%">CANTIDAD</td>
-        <td width="5%">RENGLÓN</td>
-        <td width="5%">CÓDIGO DE INSUMO</td>
-        <td width="20%">NOMBRE</td>
-        <td width="20%">DESCRIPCIÓN</td>
-        <td width="5%">NOMBRE DE LA PRESENTACIÓN</td>
-        <td width="5%">CANTIDAD Y UNIDAD DE MEDIDA</td>
-        <td width="5%">COD. PRESENTACIÓN</td>
-        <td width="5%">MONTO ESTIMADO</td>
-        <td width="5%">SubTotal</td>
+<!-- Datos generales -->
+<table>
+    <tr>
+        <td style="width: 25%;">CÓDIGO CENTRO DE COSTO</td>
+        <td style="width: 25%;">FECHA</td>
+        <td style="width: 25%;">NIT</td>
+        <td style="width: 25%;">CORRELATIVO</td>
     </tr>
-    </thead>
-    <tbody>
+    <tr>
+        <td class="left">{{$compraSolicitud->usuarioSolicita->unidad->codigo}}</td>
+        <td class="left">{{ fechaLtnMesEnTexto($compraSolicitud->fecha_requiere ?? hoyDb()) }}</td>
+        <td class="left">337788-1</td>
+        <td class="left">&nbsp;</td>
+    </tr>
+</table>
+
+<!-- Unidad solicitante -->
+<table>
+    <tr>
+        <td class="left" colspan="4">UNIDAD SOLICITANTE: {{ $compraSolicitud->unidad->nombre ?? '' }}</td>
+    </tr>
+</table>
+
+<!-- Detalle de insumos -->
+<table>
+    <tr class="section-title">
+        <td>CANTIDAD</td>
+        <td>RENGLÓN</td>
+        <td>CÓDIGO DE INSUMO</td>
+        <td>NOMBRE</td>
+        <td>DESCRIPCIÓN<br>(COLOR, TALLA, MATERIAL, ETC.)</td>
+        <td>NOMBRE DE LA PRESENTACIÓN</td>
+        <td>CANTIDAD Y UNIDAD DE MEDIDA</td>
+        <td>COD. PRESENTACIÓN</td>
+    </tr>
 
     @foreach ($compraSolicitud->detalles as $detalle)
-        @php
-            $i++;
-            $borde=0;
-            $color ="black";
-        @endphp
-        <tr style="font-size: 12px; height: 6.5mm">
-            <td style="text-align: center; border: {{$borde}}px solid {{$color}}">{{$detalle->cantidad}}</td>
-            <td style="text-align: center; border: {{$borde}}px solid {{$color}}">{{$detalle->item->renglon->numero}}</td>
-            <td style="text-align: center; border: {{$borde}}px solid {{$color}}">{{$detalle->item->codigo_insumo}}</td>
-            <td style="text-align: left; border: {{$borde}}px solid {{$color}}">{{$detalle->item->nombre}}</td>
-            <td style="text-align: left; border: {{$borde}}px solid {{$color}}">{{$detalle->item->descripcion}}</td>
-            <td style="text-align: center; border: {{$borde}}px solid {{$color}}">{{$detalle->item->presentacion->nombre}}</td>
-            <td style="text-align: center; border: {{$borde}}px solid {{$color}}">{{$detalle->item->unimed->nombre}}</td>
-            <td style="text-align: center; border: {{$borde}}px solid {{$color}}">{{$detalle->item->codigo_presentacion}}</td>
-            <td style="text-align: right; border: {{$borde}}px solid {{$color}}">{{number_format($detalle->precio_compra,2)}}</td>
-            <td style="text-align: right; border: {{$borde}}px solid {{$color}}">{{number_format($detalle->sub_total,2)}}</td>
-
+        <tr>
+            <td>{{ $detalle->cantidad }}</td>
+            <td>{{ $detalle->item->renglon->numero ?? '' }}</td>
+            <td>{{ $detalle->item->codigo_insumo ?? '' }}</td>
+            <td class="left">{{ $detalle->item->nombre ?? '' }}</td>
+            <td class="left">{{ $detalle->item->descripcion ?? '' }}</td>
+            <td>{{ $detalle->item->presentacion->nombre ?? '' }}</td>
+            <td>{{ $detalle->item->unimed->nombre ?? '' }}</td>
+            <td>{{ $detalle->item->codigo_presentacion ?? '' }}</td>
         </tr>
-        @php
-            $totalLineas = 20;
-            $final = $totalLineas - $loop->iteration;
-        @endphp
     @endforeach
 
-    </tbody>
-
-    @for ($i = 1; $i <= $final ; $i++)
-        <tr style="font-size: 12px; height: 6.5mm">
-            <td style="text-align: center; border: {{$borde}}px solid {{$color}}"></td>
-            <td style="text-align: center; border: {{$borde}}px solid {{$color}}"></td>
-            <td style="text-align: center; border: {{$borde}}px solid {{$color}}"></td>
-            <td style="text-align: center; border: {{$borde}}px solid {{$color}}"></td>
-            <td style="text-align: center; border: {{$borde}}px solid {{$color}}"></td>
-            <td style="text-align: center; border: {{$borde}}px solid {{$color}}"></td>
-            <td style="text-align: center; border: {{$borde}}px solid {{$color}}"></td>
-            <td style="text-align: center; border: {{$borde}}px solid {{$color}}"></td>
-            <td style="text-align: center; border: {{$borde}}px solid {{$color}}"></td>
-            <td style="text-align: center; border: {{$borde}}px solid {{$color}}"></td>
+    @for ($i = count($compraSolicitud->detalles); $i < 5; $i++)
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
         </tr>
     @endfor
+
+    <tr>
+        <td colspan="8" class="left">. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . Última Línea . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</td>
+    </tr>
 </table>
 
+<!-- Justificación -->
+<table>
+    <tr>
+        <td class="left">JUSTIFICACIÓN DE LA COMPRA</td>
+    </tr>
+    <tr style="height: 60px;">
+        <td class="left">
+            {{$compraSolicitud->observaciones ?? ''}}
+        </td>
+    </tr>
+</table>
+
+<!-- Subproducto y partidas -->
+<table>
+    <tr class="section-title">
+        <td style="width: 50%;">SUBPRODUCTO</td>
+        <td style="width: 50%;">PARTIDAS PRESUPUESTARIAS</td>
+    </tr>
+    <tr>
+        <td style="height: 20px;"></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="height: 20px;"></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="height: 20px;"></td>
+        <td></td>
+    </tr>
+</table>
 
 </body>
-
 </html>

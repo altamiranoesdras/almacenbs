@@ -11,6 +11,7 @@
         "barryvdh/laravel-dompdf": "^3.1",
         "barryvdh/laravel-snappy": "^1.0",
         "darkaonline/l5-swagger": "^8.6",
+        "doctrine/dbal": "^3.0",
         "guzzlehttp/guzzle": "^7.2",
         "infyomlabs/adminlte-templates": "^6.0",
         "infyomlabs/laravel-generator": "^6.0",
@@ -24,8 +25,7 @@
         "spatie/laravel-medialibrary": "^10.15",
         "spatie/laravel-permission": "^6.16",
         "tightenco/ziggy": "^2.5",
-        "yajra/laravel-datatables": "^10.1",
-        "doctrine/dbal": "^3.0"
+        "yajra/laravel-datatables": "^10.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.15",

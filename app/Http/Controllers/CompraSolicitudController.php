@@ -9,8 +9,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Models\CompraSolicitud;
 use App\Models\CompraSolicitudDetalle;
 use App\Models\CompraSolicitudEstado;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 
 class CompraSolicitudController extends AppBaseController
@@ -271,26 +270,18 @@ class CompraSolicitudController extends AppBaseController
     }
 
 
+
     public function pdf(CompraSolicitud $compraSolicitud)
     {
-        $pdf = App::make('snappy.pdf.wrapper');
+        $pdf = Pdf::loadView('compra_solicitudes.pdf', compact('compraSolicitud'));
 
-        $view = view('compra_solicitudes.pdf', compact('compraSolicitud'))->render();
+        // Configurar opciones de tamaño de página y orientación
+        // Tamaño carta y orientación vertical
+        $pdf->setPaper('letter', 'portrait');
 
-
-        $pdf->loadHTML($view)
-            ->setOption('page-width', '220')
-            ->setOption('page-height', '280')
-            ->setOrientation('portrait')
-            // ->setOption('footer-html',utf8_decode($footer))
-            ->setOption('margin-top', 12)
-            ->setOption('margin-bottom',10)
-            ->setOption('margin-left',14)
-            ->setOption('margin-right',10);
-        // ->stream('report.pdf');
-        return $pdf->inline('Requision '.$compraSolicitud->id. '_'. time().'.pdf');
-
+        return $pdf->stream('Requision_'.$compraSolicitud->id.'_'.time().'.pdf');
     }
+
 
     public function anular(CompraSolicitud $compraSolicitud)
     {
