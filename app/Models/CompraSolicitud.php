@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\TieneCodigo;
 use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\SoftDeletes;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -63,6 +64,8 @@ use Illuminate\Database\Eloquent\Model;
 class CompraSolicitud extends Model
 {
 
+    use TieneCodigo;
+
     use SoftDeletes;
     use HasFactory;
 
@@ -100,12 +103,12 @@ class CompraSolicitud extends Model
         'codigo' => 'nullable|string|max:10',
         'fecha_requiere' => 'nullable',
         'observaciones' => 'nullable|string|max:65535',
-        'estado_id' => 'required',
-        'usuario_solicita' => 'required',
+        'estado_id' => 'nullable',
+        'usuario_solicita' => 'nullable',
         'usuario_aprueba' => 'nullable',
         'usuario_administra' => 'nullable',
-        'subproductos' => 'nullable|string|max:255',
-        'partidas' => 'nullable|string|max:255',
+        'subproductos' => 'nullable',
+        'partidas' => 'nullable',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'

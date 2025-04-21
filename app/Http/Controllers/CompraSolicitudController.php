@@ -273,6 +273,7 @@ class CompraSolicitudController extends AppBaseController
 
     public function pdf(CompraSolicitud $compraSolicitud)
     {
+
         $pdf = Pdf::loadView('compra_solicitudes.pdf', compact('compraSolicitud'));
 
         // Configurar opciones de tamaño de página y orientación

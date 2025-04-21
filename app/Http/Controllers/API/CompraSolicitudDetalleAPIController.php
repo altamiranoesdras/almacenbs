@@ -29,6 +29,10 @@ class CompraSolicitudDetalleAPIController extends AppBaseController
             $query->limit($request->get('limit'));
         }
 
+        if ($request->get('solicitud_id')) {
+            $query->where('solicitud_id', $request->get('solicitud_id'));
+        }
+
         $compraSolicitudDetalles = $query->get();
 
         return $this->sendResponse($compraSolicitudDetalles->toArray(), 'Detalles ');
