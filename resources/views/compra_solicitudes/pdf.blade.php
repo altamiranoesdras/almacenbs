@@ -12,6 +12,7 @@
     $i=0;
     $borde=1;
     $color ="black";
+    $final = 0;
 @endphp
 
 <body style="width: 100%;">
