@@ -203,6 +203,9 @@ class User extends Authenticatable implements  HasMedia
         'deleted_at' => 'nullable'
     ];
 
+    public static $messages = [
+
+    ];
 
 
 

@@ -88,8 +88,8 @@ class CompraSolicitud extends Model
         'codigo' => 'string',
         'fecha_requiere' => 'date',
         'observaciones' => 'string',
-        'subproductos' => 'string',
-        'partidas' => 'string'
+//        'subproductos' => 'string',
+//        'partidas' => 'string'
     ];
 
     public static $rules = [
