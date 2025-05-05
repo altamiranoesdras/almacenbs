@@ -24,6 +24,46 @@ class CompraSolicitudDataTable extends DataTable
                 $id = $compraSolicitud->id;
                 return view('compra_solicitudes.datatables_actions',compact('compraSolicitud','id'));
             })
+            ->editColumn('bodega.nombre',function (CompraSolicitud $compraSolicitud){
+
+                return $compraSolicitud->bodega->nombre ?? 'Principal';
+
+            })
+            ->editColumn('proveedor.nombre',function (CompraSolicitud $compraSolicitud){
+
+                return $compraSolicitud->proveedor->nombre ?? 'Sin Proveedor';
+
+            })
+            ->editColumn('estado.nombre',function (CompraSolicitud $compraSolicitud){
+
+                return $compraSolicitud->estado->nombre ?? 'Sin Estado';
+
+            })
+            ->editColumn('usuarioSolicita.name',function (CompraSolicitud $compraSolicitud){
+
+                return $compraSolicitud->usuarioSolicita->name ?? 'Sin Usuario';
+
+            })
+            ->editColumn('usuarioAprueba.name',function (CompraSolicitud $compraSolicitud){
+
+                return $compraSolicitud->usuarioAprueba->name ?? 'Sin Usuario';
+
+            })
+            ->editColumn('usuarioAdministra.name',function (CompraSolicitud $compraSolicitud){
+
+                return $compraSolicitud->usuarioAdministra->name ?? 'Sin Usuario';
+
+            })
+            ->editColumn('unidad.nombre',function (CompraSolicitud $compraSolicitud){
+
+                return $compraSolicitud->unidad->nombre ?? 'Sin Unidad';
+
+            })
+            ->editColumn('created_at',function (CompraSolicitud $compraSolicitud){
+
+                return $compraSolicitud->created_at->format('d/m/Y') ?? 'Sin Fecha';
+
+            })
             ->editColumn('id',function (CompraSolicitud $compraSolicitud){
 
                 return $compraSolicitud->id;
@@ -40,7 +80,14 @@ class CompraSolicitudDataTable extends DataTable
      */
     public function query(CompraSolicitud $model)
     {
-        return $model->newQuery()->select($model->getTable().'.*');
+        return $model->newQuery()->select($model->getTable().'.*')->with(
+            'unidad',
+            'proveedor',
+            'estado',
+            'usuarioSolicita',
+            'usuarioAprueba',
+            'usuarioAdministra'
+        );
     }
 
     /**
@@ -111,16 +158,39 @@ class CompraSolicitudDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('bodega_id'),
-            Column::make('proveedor_id'),
-            Column::make('correlativo'),
+            Column::make('unidad')
+                ->data('unidad.nombre')
+                ->name('unidad.nombre'),
+
+//            Column::make('proveedor_id')
+//                ->data('proveedor.nombre')
+//                ->name('proveedor.nombre')
+//                ->title('Proveedor'),
+
             Column::make('codigo'),
-            Column::make('fecha_requiere'),
+            Column::make('fecha_requiere')
+                ->data('created_at')
+                ->name('created_at')
+                ->title('Fecha Requiere'),
+
+
             Column::make('observaciones'),
-            Column::make('estado_id'),
-            Column::make('usuario_solicita'),
-            Column::make('usuario_aprueba'),
-            Column::make('usuario_administra'),
+            Column::make('estado')
+                ->data('estado.nombre')
+                ->name('estado.nombre')
+                ->title('Estado'),
+            Column::make('usuario_solicita')
+                ->data('usuarioSolicita.name')
+                ->name('usuarioSolicita.name')
+                ->title('Usuario Solicita'),
+            Column::make('usuario_aprueba')
+                ->data('usuarioAprueba.name')
+                ->name('usuarioAprueba.name')
+                ->title('Usuario Aprueba'),
+            Column::make('usuario_administra')
+                ->data('usuarioAdministra.name')
+                ->name('usuarioAdministra.name')
+                ->title('Usuario Administra'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
