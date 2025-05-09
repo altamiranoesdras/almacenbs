@@ -1,16 +1,16 @@
-{{--@can('Ver Compra Solicituds')--}}
+@can('Ver Solicitud de Compra')
     <a href="{{ route('compraSolicitudes.show', $id) }}" data-toggle="tooltip" title="Ver" class='btn btn-icon btn-flat-secondary rounded-circle'>
         <i class="fa fa-eye"></i>
     </a>
-{{--@endcan--}}
+@endcan
 
-{{--@can('Editar Compra Solicituds')--}}
+@can('Editar Solicitud de Compra')
     <a href="{{ route('compraSolicitudes.edit', $id) }}" data-toggle="tooltip" title="Editar" class='btn btn-icon btn-flat-info rounded-circle'>
         <i class="fa fa-edit"></i>
     </a>
-{{--@endcan--}}
+@endcan
 
-{{--@can('Eliminar Compra Solicituds')--}}
+@can('Eliminar Solicitud de Compra')
     <a href="#" onclick="deleteItemDt(this)" data-id="{{ $id }}" data-toggle="tooltip" title="Eliminar" class='btn btn-icon btn-flat-danger rounded-circle'>
         <i class="fa fa-trash-alt"></i>
     </a>
@@ -20,5 +20,5 @@
         @method('DELETE')
         @csrf
     </form>
-{{--@endcan--}}
+@endcan
 

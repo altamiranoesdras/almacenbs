@@ -135,6 +135,15 @@ class PermissionSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'Editar Activos']);
         Permission::firstOrCreate(['name' => 'Eliminar Activos']);
 
+        Permission::firstOrCreate(['name' => 'Ver Solicitud de Compra']);
+        Permission::firstOrCreate(['name' => 'Crear Solicitud de Compra']);
+        Permission::firstOrCreate(['name' => 'Editar Solicitud de Compra']);
+        Permission::firstOrCreate(['name' => 'Eliminar Solicitud de Compra']);
+        Permission::firstOrCreate(['name' => 'Aprobar Solicitud de Compra']);
+        Permission::firstOrCreate(['name' => 'Anular Solicitud de Compra']);
+        Permission::firstOrCreate(['name' => 'Autorizar Solicitud de Compra']);
+
+
 
     }
 }

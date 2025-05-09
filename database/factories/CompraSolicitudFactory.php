@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\CompraSolicitud;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 use App\Models\Bodega;
@@ -27,25 +28,33 @@ class CompraSolicitudFactory extends Factory
     public function definition()
     {
 
-        $user = User::first();
-        if (!$user) {
-            $user = User::factory()->create();
-        }
+        $user = User::all()->random();
+
+        $fechaCrea = Carbon::now()->subDays(rand(0,30));
+
 
         return [
-            'bodega_id' => $this->faker->word,
-            'proveedor_id' => $this->faker->word,
-            'correlativo' => $this->faker->word,
-            'codigo' => $this->faker->text($this->faker->numberBetween(5, 10)),
-            'fecha_requiere' => $this->faker->date('Y-m-d'),
-            'observaciones' => $this->faker->text($this->faker->numberBetween(5, 65535)),
-            'estado_id' => $this->faker->word,
-            'usuario_solicita' => $this->faker->word,
-            'usuario_aprueba' => $this->faker->word,
-            'usuario_administra' => $this->faker->word,
+            'bodega_id' => $user->bodega_id,
+            'proveedor_id' => Proveedor::all()->random()->id,
+            'fecha_requiere' => $fechaCrea->copy()->addDays(rand(0,3)),
+            'observaciones' => $this->faker->text,
+            'estado_id' => CompraSolicitudEstado::all()->random()->id,
+            'usuario_solicita' => $user->id,
+            'usuario_aprueba' => User::whereNotIn('id',[$user->id])->get()->random()->id,
+            'usuario_administra' => User::whereNotIn('id',[$user->id])->get()->random()->id,
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s'),
-            'deleted_at' => $this->faker->date('Y-m-d H:i:s')
         ];
     }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (CompraSolicitud $compra){
+
+            $compra->establecerCodigo();
+            $compra->save();
+        });
+    }
+
+
 }

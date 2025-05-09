@@ -69,7 +69,7 @@ class CompraSolicitudController extends AppBaseController
         /** @var CompraSolicitud $compraSolicitud */
         $compraSolicitud = CompraSolicitud::create($input);
 
-        Flash::success('Compra Solicitud saved successfully.');
+        flash()->success('Compra Solicitud saved successfully.');
 
         return redirect(route('compraSolicitudes.index'));
     }
@@ -87,7 +87,7 @@ class CompraSolicitudController extends AppBaseController
         $compraSolicitud = CompraSolicitud::find($id);
 
         if (empty($compraSolicitud)) {
-            Flash::error('Compra Solicitud not found');
+            flash()->error('Compra Solicitud not found');
 
             return redirect(route('compraSolicitudes.index'));
         }
@@ -108,7 +108,7 @@ class CompraSolicitudController extends AppBaseController
         $compraSolicitud = CompraSolicitud::find($id);
 
         if (empty($compraSolicitud)) {
-            Flash::error('Compra Solicitud not found');
+            flash()->error('Compra Solicitud not found');
 
             return redirect(route('compraSolicitudes.index'));
         }
@@ -130,7 +130,7 @@ class CompraSolicitudController extends AppBaseController
         $compraSolicitud = CompraSolicitud::find($id);
 
         if (empty($compraSolicitud)) {
-            Flash::error('Compra Solicitud not found');
+            flash()->error('Compra Solicitud not found');
 
             return redirect(route('compraSolicitudes.index'));
         }
@@ -191,14 +191,14 @@ class CompraSolicitudController extends AppBaseController
         $compraSolicitud = CompraSolicitud::find($id);
 
         if (empty($compraSolicitud)) {
-            Flash::error('Compra Solicitud not found');
+            flash()->error('Compra Solicitud not found');
 
             return redirect(route('compraSolicitudes.index'));
         }
 
         $compraSolicitud->delete();
 
-        Flash::success('Compra Solicitud deleted successfully.');
+        flash()->success('Compra Solicitud deleted successfully.');
 
         return redirect(route('compraSolicitudes.index'));
     }
@@ -219,6 +219,9 @@ class CompraSolicitudController extends AppBaseController
                 'unidad_id' => auth()->user()->unidad_id,
             ]);
         }
+
+        $compraSolicitud->establecerCodigo();
+
         return $compraSolicitud;
 
     }

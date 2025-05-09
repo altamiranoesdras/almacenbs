@@ -24,21 +24,19 @@ class CompraSolicitudDetalleFactory extends Factory
      */
     public function definition()
     {
-        
-        $compraSolicitude = CompraSolicitude::first();
-        if (!$compraSolicitude) {
-            $compraSolicitude = CompraSolicitude::factory()->create();
-        }
+
+        $precioVenta = $this->faker->numberBetween(500, 3000);
+        $precioCompra = $precioVenta / 1.20;
+
 
         return [
             'solicitud_id' => $this->faker->word,
-            'item_id' => $this->faker->word,
-            'cantidad' => $this->faker->word,
-            'precio_venta' => $this->faker->numberBetween(0, 9223372036854775807),
-            'precio_compra' => $this->faker->numberBetween(0, 9223372036854775807),
+            'item_id' => Item::all()->random()->id,
+            'cantidad' => $this->faker->numberBetween(1,150),
+            'precio_venta' => $precioVenta,
+            'precio_compra' => $precioCompra,
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s'),
-            'deleted_at' => $this->faker->date('Y-m-d H:i:s')
         ];
     }
 }
