@@ -69,6 +69,11 @@ class CompraSolicitudDataTable extends DataTable
                 return $compraSolicitud->id;
 
             })
+            ->editColumn('justificacion',function (CompraSolicitud $compraSolicitud){
+
+                return str($compraSolicitud->justificacion)->limit(50);
+
+            })
             ->rawColumns(['action']);
     }
 
@@ -158,6 +163,13 @@ class CompraSolicitudDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            Column::make('id')
+                ->data('id')
+                ->name('id')
+                ->title('ID')
+                ->width(50)
+                ->addClass('text-center'),
+
             Column::make('unidad')
                 ->data('unidad.nombre')
                 ->name('unidad.nombre'),
@@ -174,7 +186,11 @@ class CompraSolicitudDataTable extends DataTable
                 ->title('Fecha Requiere'),
 
 
-            Column::make('observaciones'),
+            Column::make('justificacion')
+                ->data('justificacion')
+                ->name('justificacion')
+                ->title('Justificación'),
+
             Column::make('estado')
                 ->data('estado.nombre')
                 ->name('estado.nombre')

@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $correlativo
  * @property string|null $codigo
  * @property \Illuminate\Support\Carbon|null $fecha_requiere
- * @property string|null $observaciones
+ * @property string|null $justificacion
  * @property int $estado_id
  * @property int $usuario_solicita
  * @property int|null $usuario_aprueba
@@ -78,7 +78,7 @@ class CompraSolicitud extends Model
         'correlativo',
         'codigo',
         'fecha_requiere',
-        'observaciones',
+        'justificacion',
         'estado_id',
         'usuario_solicita',
         'usuario_aprueba',
@@ -90,7 +90,7 @@ class CompraSolicitud extends Model
     protected $casts = [
         'codigo' => 'string',
         'fecha_requiere' => 'date',
-        'observaciones' => 'string',
+        'justificacion' => 'string',
 //        'subproductos' => 'string',
 //        'partidas' => 'string'
     ];
@@ -102,7 +102,7 @@ class CompraSolicitud extends Model
         'correlativo' => 'nullable',
         'codigo' => 'nullable|string|max:10',
         'fecha_requiere' => 'nullable',
-        'observaciones' => 'nullable|string|max:65535',
+        'justificacion' => 'nullable|string|max:65535',
         'estado_id' => 'nullable',
         'usuario_solicita' => 'nullable',
         'usuario_aprueba' => 'nullable',

@@ -127,7 +127,7 @@
     </tr>
     <tr style="height: 60px;">
         <td class="left">
-            {{$compraSolicitud->observaciones ?? ''}}
+            {{$compraSolicitud->justificacion ?? ''}}
         </td>
     </tr>
 </table>
@@ -139,16 +139,36 @@
         <td style="width: 50%;">PARTIDAS PRESUPUESTARIAS</td>
     </tr>
     <tr>
-        <td style="height: 20px;"></td>
-        <td></td>
+        <td style="height: 20px;">
+            {{explode('|',$compraSolicitud->subproductos)[0]}}
+        </td>
+        <td style="height: 20px;">
+            {{explode('|',$compraSolicitud->partidas)[0]}}
+        </td>
     </tr>
     <tr>
-        <td style="height: 20px;"></td>
-        <td></td>
+        <td style="height: 20px;">
+            {{explode('|',$compraSolicitud->subproductos)[1]}}
+        </td>
+        <td style="height: 20px;">
+            {{explode('|',$compraSolicitud->partidas)[1]}}
+        </td>
     </tr>
     <tr>
-        <td style="height: 20px;"></td>
-        <td></td>
+        <td style="height: 20px;">
+            {{explode('|',$compraSolicitud->subproductos)[2]}}
+        </td>
+        <td style="height: 20px;">
+            {{explode('|',$compraSolicitud->partidas)[2]}}
+        </td>
+    </tr>
+    <tr>
+        <td style="height: 20px;">
+            {{explode('|',$compraSolicitud->subproductos)[3]}}
+        </td>
+        <td style="height: 20px;">
+            {{explode('|',$compraSolicitud->partidas)[3]}}
+        </td>
     </tr>
 </table>
 

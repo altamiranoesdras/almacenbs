@@ -30,8 +30,8 @@
 
 <!-- Observaciones Field -->
 <div class="col-sm-12">
-    {!! Form::label('observaciones', 'Observaciones:') !!}
-    <p>{{ $compraSolicitud->observaciones }}</p>
+    {!! Form::label('justificacion', 'Observaciones:') !!}
+    <p>{{ $compraSolicitud->justificacion }}</p>
 </div>
 
 <!-- Estado Id Field -->

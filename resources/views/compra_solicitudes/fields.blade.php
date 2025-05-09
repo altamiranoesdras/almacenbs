@@ -178,25 +178,25 @@
                                 <tr>
                                     <td>
                                         <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"
-                                               value="{{$compraSolicitud->subproductos[0] ?? ''}}">
+                                               value="{{explode('|',$compraSolicitud->subproductos)[0] ?? ''}}">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"
-                                               value="{{$compraSolicitud->subproductos[1] ?? ''}}">
+                                               value="{{explode('|',$compraSolicitud->subproductos)[1] ?? ''}}">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"
-                                               value="{{$compraSolicitud->subproductos[2] ?? ''}}">
+                                               value="{{explode('|',$compraSolicitud->subproductos)[2] ?? ''}}">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"
-                                               value="{{$compraSolicitud->subproductos[3] ?? ''}}">
+                                               value="{{explode('|',$compraSolicitud->subproductos)[3] ?? ''}}">
                                     </td>
                                 </tr>
                                 </tbody>
@@ -210,25 +210,25 @@
                                 <tr>
                                     <td>
                                         <input type="text" name="partidas[]" id="partidas[]" class="form-control"
-                                               value="{{$compraSolicitud->partidas[0] ?? ''}}">
+                                               value="{{explode('|',$compraSolicitud->partidas)[0] ?? ''}}">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <input type="text" name="partidas[]" id="partidas[]" class="form-control"
-                                               value="{{$compraSolicitud->partidas[1] ?? ''}}">
+                                               value="{{explode('|',$compraSolicitud->partidas)[1] ?? ''}}">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <input type="text" name="partidas[]" id="partidas[]" class="form-control"
-                                               value="{{$compraSolicitud->partidas[2] ?? ''}}">
+                                               value="{{explode('|',$compraSolicitud->partidas)[2] ?? ''}}">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <input type="text" name="partidas[]" id="partidas[]" class="form-control"
-                                               value="{{$compraSolicitud->artidas[3] ?? ''}}">
+                                               value="{{explode('|',$compraSolicitud->partidas)[3] ?? ''}}">
                                     </td>
                                 </tr>
                                 </tbody>

@@ -135,11 +135,18 @@ class CompraSolicitudController extends AppBaseController
             return redirect(route('compraSolicitudes.index'));
         }
 
-        $request->merge([
-            'estado_id' => CompraSolicitudEstado::INGRESADA,
-            'partidas' => implode(',', $request->partidas ?? []),
-            'subproductos' => implode(',', $request->subproductos ?? []),
-        ]);
+
+        if($request->has('partidas')){
+            $request->merge([
+                'partidas' => implode('|', $request->partidas),
+            ]);
+        }
+
+        if($request->has('subproductos')){
+            $request->merge([
+                'subproductos' => implode('|', $request->subproductos),
+            ]);
+        }
 
 
         $compraSolicitud->fill($request->all());
@@ -173,7 +180,7 @@ class CompraSolicitudController extends AppBaseController
 
         flash('Listo!')->success();
 
-        return redirect(route('compraSolicitudes.index'));
+        return redirect(route('compraSolicitudes.edit', $compraSolicitud->id));
     }
 
     /**

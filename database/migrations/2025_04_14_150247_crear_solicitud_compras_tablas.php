@@ -26,7 +26,7 @@ return new class extends Migration
             $table->integer('correlativo')->nullable();
             $table->string('codigo', 10)->nullable();
             $table->date('fecha_requiere')->nullable();
-            $table->text('observaciones')->nullable();
+            $table->text('justificacion')->nullable();
             $table->foreignId('estado_id')->index();
             $table->unsignedBigInteger('usuario_solicita')->index();
             $table->unsignedBigInteger('usuario_aprueba')->nullable()->index();

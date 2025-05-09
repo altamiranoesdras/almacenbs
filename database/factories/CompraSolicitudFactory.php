@@ -34,10 +34,11 @@ class CompraSolicitudFactory extends Factory
 
 
         return [
+            'unidad_id' => $user->unidad_id,
             'bodega_id' => $user->bodega_id,
             'proveedor_id' => Proveedor::all()->random()->id,
             'fecha_requiere' => $fechaCrea->copy()->addDays(rand(0,3)),
-            'observaciones' => $this->faker->text,
+            'justificacion' => $this->faker->text,
             'estado_id' => CompraSolicitudEstado::all()->random()->id,
             'usuario_solicita' => $user->id,
             'usuario_aprueba' => User::whereNotIn('id',[$user->id])->get()->random()->id,
