@@ -213,6 +213,10 @@ class Configuration extends Model implements HasMedia
             ->format(Manipulations::FORMAT_WEBP)
             ->performOnCollections('logo');
 
+        $this->addMediaConversion('png')
+            ->format(Manipulations::FORMAT_PNG)
+            ->performOnCollections('logo');
+
         $this->addMediaConversion('webp')
             ->format(Manipulations::FORMAT_WEBP)
             ->performOnCollections('promo_factura');

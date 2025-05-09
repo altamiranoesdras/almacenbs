@@ -44,7 +44,7 @@
 <table class="no-border">
     <tr>
         <td style="width: 30%;">
-            <img src="{{ public_path('images/logo_sbs.png') }}" width="100" alt="Logo">
+            <img src="{{ getLogo('png',true) }}" width="100" alt="Logo">
         </td>
         <td style="width: 70%; text-align: center;">
             <div style="font-weight: bold;">REQUISICIÓN DE COMPRA</div>
@@ -65,7 +65,7 @@
         <td class="left">{{$compraSolicitud->usuarioSolicita->unidad->codigo}}</td>
         <td class="left">{{ fechaLtnMesEnTexto($compraSolicitud->fecha_requiere ?? hoyDb()) }}</td>
         <td class="left">337788-1</td>
-        <td class="left">&nbsp;</td>
+        <td class="left">{{$compraSolicitud->codigo}}</td>
     </tr>
 </table>
 

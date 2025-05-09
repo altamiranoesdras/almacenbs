@@ -48,14 +48,5 @@ class CompraSolicitudFactory extends Factory
         ];
     }
 
-    public function configure()
-    {
-        return $this->afterCreating(function (CompraSolicitud $compra){
-
-            $compra->establecerCodigo();
-            $compra->save();
-        });
-    }
-
 
 }

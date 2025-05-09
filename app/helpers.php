@@ -226,7 +226,7 @@ function optionsParentAuthUser($user = null){
 
 }
 
-function getLogo($conversion='webp'){
+function getLogo($conversion='webp',$rutaAbsoluta=false){
 
     /**
      * @var Configuration $config
@@ -235,8 +235,13 @@ function getLogo($conversion='webp'){
 
     $media = $config->getMediaLogo();
 
+    if ($rutaAbsoluta){
+        return $media ? $media->getPath($conversion) : asset('img/default.svg');
+    }
+
     return $media ? $media->getUrl($conversion) : asset('img/default.svg');
 }
+
 
 function getFondoLogin($conversion=''){
 
