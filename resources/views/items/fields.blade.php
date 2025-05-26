@@ -153,7 +153,7 @@
 
 
                             <!-- inventariable Field -->
-                            <div class="form-group col-xs-6 col-sm-3">
+                            <div class="form-group col-6 col-sm-3">
                                 {!! Form::label('inventariable', 'Inventariable:') !!}
                                 <div style="width: 100%">
                                     <input type="hidden" name="inventariable" value="0">
@@ -170,7 +170,7 @@
                             </div>
 
                             <!-- Perecedero Field -->
-                            <div class="form-group col-xs-6 col-sm-3">
+                            <div class="form-group col-6 col-sm-3">
                                 {!! Form::label('perecedero', 'Perecedero:') !!}
                                 <div style="width: 100%">
                                     <input type="hidden" name="perecedero" value="0">

@@ -32,7 +32,7 @@
                 <div class="row mt-2">
 
                     <!-- Activos -->
-                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+                    <div class="col-12 col-sm-8 col-md-8 col-lg-8">
                         <div class="card card-warning card-outline">
                             <div class="card-header with-border py-2">
                                 <h3 class="card-title">
@@ -61,25 +61,25 @@
 
                                 <div class="row pt-1">
 
-                                    <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                    <div class="form-group col-12 col-sm-4 col-md-4 col-lg-4">
                                         <label>Estado del Bien:</label>
                                         <multiselect v-model="editedItem.estado_del_bien" :options="estadoBienList" label="nombre" placeholder="Estado del Bien ..." >
                                         </multiselect>
                                     </div>
 
-                                    <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                    <div class="form-group col-12 col-sm-4 col-md-4 col-lg-4">
                                         <label>Observaciones:</label>
                                         <textarea class="form-control" v-model="editedItem.observaciones" placeholder="Observacion"></textarea>
                                     </div>
 
-                                    <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                    <div class="form-group col-12 col-sm-4 col-md-4 col-lg-4">
                                         <select-activo-solicitud-tipo v-model="editedItem.solicitud_tipo_id" label="Solicitud Tipo" :mostrar-titulo="true" :required="false" ></select-activo-solicitud-tipo>
                                     </div>
 
                                 </div>
 
                                 <div class="row float-right">
-                                    <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                    <div class="form-group col-12 col-sm-4 col-md-4 col-lg-4">
                                         <button type="button" ref="agregar" class="btn btn-success" @click.prevent="save" :disabled="loading" >
                                             <span v-show="loading" >
                                                 <i class="fa fa-spinner fa-spin"></i>
@@ -99,7 +99,7 @@
                     <!-- /. Articulos -->
 
                     <!-- Resumen -->
-                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
                         <div class="card card-warning card-outline">
                             <div class="card-header py-2">
                                 <h3 class="card-title">

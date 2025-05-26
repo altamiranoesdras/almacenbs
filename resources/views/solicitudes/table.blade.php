@@ -1,29 +1,10 @@
-@section('css')
+@push('estilos_dt')
     @include('layouts.datatables_css')
-@endsection
+@endpush
 
-<div class="table-responsive">
-    {!! $dataTable->table(['width' => '100%']) !!}
-</div>
+{!! $dataTable->table(['width' => '100%', 'class' => 'table table-striped ']) !!}
 
-@section('scripts')
+@push('scripts')
     @include('layouts.datatables_js')
     {!! $dataTable->scripts() !!}
-    <script>
-        $(function () {
-
-            var dt = window.LaravelDataTables["dataTableBuilder"];
-
-            //Cuando dibuja la tabla
-            dt.on( 'draw.dt', function () {
-                $(this).addClass('table-sm table-striped table-bordered table-hover');
-                $(this).find('tbody').addClass('text-sm');
-                $(this).find('thead').addClass('text-sm');
-
-                $('[data-toggle="tooltip"]').tooltip();
-            });
-
-
-        })
-    </script>
-@endsection
+@endpush

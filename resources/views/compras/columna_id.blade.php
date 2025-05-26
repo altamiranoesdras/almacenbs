@@ -10,10 +10,10 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-sm">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-sm">
                         @include('compras.show_fields',['compra'=>$compra])
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                         @include('compras.tabla_detalles',['compra'=>$compra])
                     </div>
                 </div>

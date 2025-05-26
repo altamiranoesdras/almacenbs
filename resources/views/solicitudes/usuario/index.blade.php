@@ -4,66 +4,52 @@
 
 
 @section('content')
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col">
-                    <h1 class="m-0 text-dark">Mis requisiciones</h1>
-                </div><!-- /.col -->
-                <div class="col">
-                    <ol class="breadcrumb float-right">
-                        <li class="breadcrumb-item">
-                            <a class="btn btn-outline-success round"
-                                href="{!! route('solicitudes.create') !!}">
-                                <i class="fa fa-plus"></i>
-                                <span class="d-none d-sm-inline">Agregar Nueva</span>
-                            </a>
-                        </li>
-                    </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
+    <x-content-header titulo="Mis requisiciones">
+        <a class="btn btn-outline-success round"
+           href="{!! route('solicitudes.create') !!}">
+            <i class="fa fa-plus"></i>
+            <span class="d-none d-sm-inline">Agregar Nueva</span>
+        </a>
+    </x-content-header>
+
 
     <!-- Main content -->
     <div class="content-body">
-        <div class="container-fluid">
 
+        <div class="row">
+            <div class="col-lg-12">
 
-            <div class="row">
-                <div class="col-lg-12">
-
-                    <div class="card card-outline card-success">
-                        <div class="card-header">
-                            <h3 class="card-title">Filtros</h3>
-
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                </button>
-                            </div>
-                            <!-- /.card-tools -->
+                <div class="card border-success">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">Filtros</h5>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li>
+                                    <a data-action="collapse"><i data-feather="chevron-down"></i></a>
+                                </li>
+                            </ul>
                         </div>
-                        <!-- /.card-header -->
+                    </div>
+                    <div class="card-content collapse show">
                         <div class="card-body">
                             @include('solicitudes.usuario.filtros')
                         </div>
-                        <!-- /.card-body -->
                     </div>
-
-                    <div class="card">
-                        <div class="card-body">
-                           @include('solicitudes.table')
-                        </div>
-                    </div>
-                    <!-- /.card -->
                 </div>
-                <!-- /.col-md-6 -->
+
+                <!-- /.card -->
             </div>
-            <!-- /.row -->
+            <!-- /.col-md-6 -->
         </div>
-        <!-- /.container-fluid -->
+        <!-- /.row -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    @include('admin.users.table')
+                </div>
+            </div>
+        </div>
     </div>
     <!-- /.content -->
 @endsection

@@ -20,56 +20,56 @@ class CompraSolicitudDataTable extends DataTable
 
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', function(CompraSolicitud $compraSolicitud){
+            ->addColumn('action', function (CompraSolicitud $compraSolicitud) {
                 $id = $compraSolicitud->id;
-                return view('compra_solicitudes.datatables_actions',compact('compraSolicitud','id'));
+                return view('compra_solicitudes.datatables_actions', compact('compraSolicitud', 'id'));
             })
-            ->editColumn('bodega.nombre',function (CompraSolicitud $compraSolicitud){
+            ->editColumn('bodega.nombre', function (CompraSolicitud $compraSolicitud) {
 
                 return $compraSolicitud->bodega->nombre ?? 'Principal';
 
             })
-            ->editColumn('proveedor.nombre',function (CompraSolicitud $compraSolicitud){
+            ->editColumn('proveedor.nombre', function (CompraSolicitud $compraSolicitud) {
 
                 return $compraSolicitud->proveedor->nombre ?? 'Sin Proveedor';
 
             })
-            ->editColumn('estado.nombre',function (CompraSolicitud $compraSolicitud){
+            ->editColumn('estado.nombre', function (CompraSolicitud $compraSolicitud) {
 
                 return $compraSolicitud->estado->nombre ?? 'Sin Estado';
 
             })
-            ->editColumn('usuarioSolicita.name',function (CompraSolicitud $compraSolicitud){
+            ->editColumn('usuarioSolicita.name', function (CompraSolicitud $compraSolicitud) {
 
                 return $compraSolicitud->usuarioSolicita->name ?? 'Sin Usuario';
 
             })
-            ->editColumn('usuarioAprueba.name',function (CompraSolicitud $compraSolicitud){
+            ->editColumn('usuarioAprueba.name', function (CompraSolicitud $compraSolicitud) {
 
                 return $compraSolicitud->usuarioAprueba->name ?? 'Sin Usuario';
 
             })
-            ->editColumn('usuarioAdministra.name',function (CompraSolicitud $compraSolicitud){
+            ->editColumn('usuarioAdministra.name', function (CompraSolicitud $compraSolicitud) {
 
                 return $compraSolicitud->usuarioAdministra->name ?? 'Sin Usuario';
 
             })
-            ->editColumn('unidad.nombre',function (CompraSolicitud $compraSolicitud){
+            ->editColumn('unidad.nombre', function (CompraSolicitud $compraSolicitud) {
 
                 return $compraSolicitud->unidad->nombre ?? 'Sin Unidad';
 
             })
-            ->editColumn('created_at',function (CompraSolicitud $compraSolicitud){
+            ->editColumn('created_at', function (CompraSolicitud $compraSolicitud) {
 
                 return $compraSolicitud->created_at->format('d/m/Y') ?? 'Sin Fecha';
 
             })
-            ->editColumn('id',function (CompraSolicitud $compraSolicitud){
+            ->editColumn('id', function (CompraSolicitud $compraSolicitud) {
 
                 return $compraSolicitud->id;
 
             })
-            ->editColumn('justificacion',function (CompraSolicitud $compraSolicitud){
+            ->editColumn('justificacion', function (CompraSolicitud $compraSolicitud) {
 
                 return str($compraSolicitud->justificacion)->limit(50);
 
@@ -85,14 +85,17 @@ class CompraSolicitudDataTable extends DataTable
      */
     public function query(CompraSolicitud $model)
     {
-        return $model->newQuery()->select($model->getTable().'.*')->with(
-            'unidad',
-            'proveedor',
-            'estado',
-            'usuarioSolicita',
-            'usuarioAprueba',
-            'usuarioAdministra'
-        );
+        return $model->newQuery()
+            ->select($model->getTable() . '.*')
+            ->noTemporal()
+            ->with(
+                'unidad',
+                'proveedor',
+                'estado',
+                'usuarioSolicita',
+                'usuarioAprueba',
+                'usuarioAdministra'
+            );
     }
 
     /**
@@ -103,17 +106,17 @@ class CompraSolicitudDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                ->columns($this->getColumns())
-                ->minifiedAjax()
-                ->ajax([
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            ->ajax([
                 'data' => "function(data) { formatDataDataTables($('#formFiltersDatatables').serializeArray(), data);   }"
-                ])
-                ->info(true)
-                ->language(['url' => asset('js/SpanishDataTables.json')])
-                ->responsive(true)
-                ->stateSave(false)
-                ->orderBy(1,'desc')
-                ->dom('
+            ])
+            ->info(true)
+            ->language(['url' => asset('js/SpanishDataTables.json')])
+            ->responsive(true)
+            ->stateSave(false)
+            ->orderBy(1, 'desc')
+            ->dom('
                     <"card-header border-bottom p-1"
                     <"head-label">
                     <"dt-action-buttons text-start" B>
@@ -128,31 +131,31 @@ class CompraSolicitudDataTable extends DataTable
                     <"col-sm-12 col-md-6" p>
                     o>
                 ')
-                ->buttons(
+            ->buttons(
 
-                    Button::make('reset')
-                        ->addClass('btn btn-outline-secondary')
-                        ->text('<i class="fa fa-undo"></i> <span class="d-none d-sm-inline">Reiniciar</span>'),
+                Button::make('reset')
+                    ->addClass('btn btn-outline-secondary')
+                    ->text('<i class="fa fa-undo"></i> <span class="d-none d-sm-inline">Reiniciar</span>'),
 
-                    Button::make('export')
-                        ->extend('collection')
-                        ->addClass('dt-button buttons-collection btn btn-outline-secondary dropdown-toggle me-2')
-                        ->text('<i class="fa fa-download"></i> <span class="d-none d-sm-inline">Exportar</span>')
-                        ->buttons([
-                            Button::make('print')
-                                ->addClass('dropdown-item')
-                                ->text('<i class="fa fa-print"></i> <span class="d-none d-sm-inline"> Imprimir</span>'),
-                            Button::make('csv')
-                                ->addClass('dropdown-item')
-                                ->text('<i class="fa fa-file-csv"></i> <span class="d-none d-sm-inline"> Csv</span>'),
-                            Button::make('pdf')
-                                ->addClass('dropdown-item')
-                                ->text('<i class="fa fa-file-pdf"></i> <span class="d-none d-sm-inline"> Pdf</span>'),
-                            Button::make('excel')
-                                ->addClass('dropdown-item')
-                                ->text('<i class="fa fa-file-excel"></i> <span class="d-none d-sm-inline"> Excel</span>'),
-                        ]),
-                );
+                Button::make('export')
+                    ->extend('collection')
+                    ->addClass('dt-button buttons-collection btn btn-outline-secondary dropdown-toggle me-2')
+                    ->text('<i class="fa fa-download"></i> <span class="d-none d-sm-inline">Exportar</span>')
+                    ->buttons([
+                        Button::make('print')
+                            ->addClass('dropdown-item')
+                            ->text('<i class="fa fa-print"></i> <span class="d-none d-sm-inline"> Imprimir</span>'),
+                        Button::make('csv')
+                            ->addClass('dropdown-item')
+                            ->text('<i class="fa fa-file-csv"></i> <span class="d-none d-sm-inline"> Csv</span>'),
+                        Button::make('pdf')
+                            ->addClass('dropdown-item')
+                            ->text('<i class="fa fa-file-pdf"></i> <span class="d-none d-sm-inline"> Pdf</span>'),
+                        Button::make('excel')
+                            ->addClass('dropdown-item')
+                            ->text('<i class="fa fa-file-excel"></i> <span class="d-none d-sm-inline"> Excel</span>'),
+                    ]),
+            );
     }
 
     /**

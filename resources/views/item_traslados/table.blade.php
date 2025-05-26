@@ -1,12 +1,10 @@
-@section('css')
+@push('estilos_dt')
     @include('layouts.datatables_css')
-@endsection
+@endpush
 
-<div class="table-responsive">
-    {!! $dataTable->table(['width' => '100%']) !!}
-</div>
+{!! $dataTable->table(['width' => '100%', 'class' => 'table table-striped ']) !!}
 
-@section('scripts')
+@push('scripts')
     @include('layouts.datatables_js')
     {!! $dataTable->scripts() !!}
     <script>
@@ -20,4 +18,4 @@
 
         })
     </script>
-@endsection
+@endpush

@@ -15,10 +15,10 @@
 
                 <div class="modal-body text-uppercase">
                     <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-sm" style="font-size: 14px">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-sm" style="font-size: 14px">
                             @include('solicitudes.show_fields',['solicitude'=>$solicitud])
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                             @include('solicitudes.despachar.tabla_detalles',['solicitude'=>$solicitud])
                         </div>
                     </div>

@@ -31,7 +31,7 @@
             <div class="row mt-2">
 
                 <!-- Articulos -->
-                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 ">
+                <div class="col-12 col-sm-8 col-md-8 col-lg-8 ">
                     <div class="card card-info card-outline">
                         <div class="card-header with-border py-2">
                             <h3 class="card-title">
@@ -60,7 +60,7 @@
 
                             <div class="row pt-3">
 
-                                <div class="form-group  col-xs-12 col-sm-12">
+                                <div class="form-group  col-12 col-sm-12">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" data-toggle="tooltip" title="Cantidad">Cant</span>
@@ -134,7 +134,7 @@
                 <!-- /. Articulos -->
 
                 <!-- Resumen -->
-                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                <div class="col-12 col-sm-4 col-md-4 col-lg-4">
                     <div class="card card-info card-outline">
                         <div class="card-header py-2">
                             <h3 class="card-title">

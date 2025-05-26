@@ -45,15 +45,15 @@
                             <div class="tab-content" id="custom-tabs-four-tabContent">
                                 <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="tab-compra">
                                     <div class="row">
-                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                                             @include('compras.show_fields')
                                         </div>
 
-                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                                             @include('compras.tabla_detalles',['detalles'=>$compra->detalles])
                                         </div>
 
-                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-right">
 
                                             <a href="{!! route('compras.index') !!}" class="btn btn-default">Regresar</a>
 
@@ -62,15 +62,15 @@
                                 </div>
                                 <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
                                     @if($compra->tiene1h())
-                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                                             @include('compras.tabla_detalles_1h')
                                         </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                                             <label for="">Observaciones:</label>
                                             {{$compra->compra1h->observaciones}}
 
                                         </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                                             <a href="{{route('compra.h1.pdf',$compra->id)}}" class="btn btn-primary">
                                                 <i class="fa fa-print"></i>
                                                 Imprimir

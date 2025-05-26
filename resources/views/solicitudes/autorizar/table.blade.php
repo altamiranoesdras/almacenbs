@@ -1,39 +1,43 @@
-{!! $dataTable->table(['width' => '100%', 'class' => 'table table-striped table-bordered']) !!}
+@push('estilos_dt')
+    @include('layouts.datatables_css')
+@endpush
 
-@section('scripts')
+{!! $dataTable->table(['width' => '100%', 'class' => 'table table-striped ']) !!}
 
+@push('scripts')
+    @include('layouts.datatables_js')
     {!! $dataTable->scripts() !!}
 
     <script>
-        $(function () {
+            $(function () {
 
-            var dt = window.LaravelDataTables["dataTableBuilder"];
+                var dt = window.LaravelDataTables["dataTableBuilder"];
 
-            //Cuando dibuja la tabla
-            dt.on( 'draw.dt', function () {
-                $(this).addClass('table-sm table-striped table-bordered table-hover');
-                $(this).find('tbody').addClass('text-sm');
-                $(this).find('thead').addClass('text-sm');
+                //Cuando dibuja la tabla
+                dt.on( 'draw.dt', function () {
+                    $(this).addClass('table-sm table-striped table-bordered table-hover');
+                    $(this).find('tbody').addClass('text-sm');
+                    $(this).find('thead').addClass('text-sm');
 
-                $('[data-toggle="tooltip"]').tooltip();
-            });
+                    $('[data-toggle="tooltip"]').tooltip();
+                });
 
-            window.Echo.channel('solicitudes').listen('EventoCambioEstadoSolicitud',(res) => {
-                logI('Nueva requisición',res);
+                window.Echo.channel('solicitudes').listen('EventoCambioEstadoSolicitud',(res) => {
+                    logI('Nueva requisición',res);
 
-                if (res.solicitud){
-                    if (res.solicitud.estado_id == @json(\App\Models\SolicitudEstado::SOLICITADA)){
+                    if (res.solicitud){
+                        if (res.solicitud.estado_id == @json(\App\Models\SolicitudEstado::SOLICITADA)){
 
-                        logI('redibuja tabla');
+                            logI('redibuja tabla');
 
-                        dt.draw();
-                        new Notification("Nueva requisición para autorizar!");
+                            dt.draw();
+                            new Notification("Nueva requisición para autorizar!");
+                        }
                     }
-                }
 
 
-            });
+                });
 
-        })
-    </script>
-@endsection
+            })
+        </script>
+@endpush

@@ -50,11 +50,11 @@
                                 <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel"
                                      aria-labelledby="tab-compra">
                                     <div class="row">
-                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                                             @include('activo_solicituds.show_fields')
                                         </div>
 
-                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                                             @include('activo_solicituds.tabla_detalles',['detalles'=>$activoSolicitud->detalles])
                                         </div>
 

@@ -9,7 +9,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                             <!-- Nombre Field -->
                             <div class="col-sm-12 mb-1">
                                 {!! Form::label('nombre', 'Nombre:') !!}

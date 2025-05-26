@@ -12,7 +12,7 @@
 
             <div class="modal-body text-uppercase">
                 <div class="row">
-                    <div class="col-xs-12">
+                    <div class="col-12">
 
                         <div class="card card-primary card-outline card-outline-tabs">
                             <div class="card-header p-0 border-bottom-0">
@@ -34,11 +34,11 @@
                                     <div class="tab-pane fade show active" id="custom-tab-info{{$solicitud->id}}" role="tabpanel" aria-labelledby="custom-tab-info{{$solicitud->id}}-tab">
                                         <div class="row">
 
-                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-sm" style="font-size: 14px">
+                                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-sm" style="font-size: 14px">
                                                 @include('solicitudes.show_fields',['solicitude'=>$solicitud])
                                             </div>
 
-                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                                                 @include('solicitudes.tabla_detalles',['solicitude'=>$solicitud])
                                             </div>
                                         </div>
