@@ -36,9 +36,15 @@ class UsersTableSeeder extends Seeder
             $user->syncRoles([Role::DEVELOPER]);
             $user->options()->sync(Option::pluck('id')->toArray());
             $user->shortcuts()->sync([
+                Option::MIS_REQUISICIONES,
+                Option::NUEVA_COMPRA,
+                Option::BUSCAR_COMPRAS,
+                Option::BUSCAR_ARTÍCULO,
+                Option::NUEVO_ARTICULO,
+                Option::PROVEEDORES,
+                Option::DESPACHAR_REQUISICION,
                 Option::USUARIOS,
                 Option::ROLES,
-                Option::PERMISOS,
                 Option::CONFIGURACIONES,
             ]);
         });
@@ -54,9 +60,15 @@ class UsersTableSeeder extends Seeder
             $user->syncRoles(Role::SUPERADMIN);
             $user->options()->sync(Option::pluck('id')->toArray());
             $user->shortcuts()->sync([
+                Option::MIS_REQUISICIONES,
+                Option::NUEVA_COMPRA,
+                Option::BUSCAR_COMPRAS,
+                Option::BUSCAR_ARTÍCULO,
+                Option::NUEVO_ARTICULO,
+                Option::PROVEEDORES,
+                Option::DESPACHAR_REQUISICION,
                 Option::USUARIOS,
                 Option::ROLES,
-                Option::PERMISOS,
                 Option::CONFIGURACIONES,
             ]);
         });
@@ -72,9 +84,15 @@ class UsersTableSeeder extends Seeder
             $user->syncRoles(Role::ADMIN);
             $user->options()->sync(Option::pluck('id')->toArray());
             $user->shortcuts()->sync([
+                Option::MIS_REQUISICIONES,
+                Option::NUEVA_COMPRA,
+                Option::BUSCAR_COMPRAS,
+                Option::BUSCAR_ARTÍCULO,
+                Option::NUEVO_ARTICULO,
+                Option::PROVEEDORES,
+                Option::DESPACHAR_REQUISICION,
                 Option::USUARIOS,
                 Option::ROLES,
-                Option::PERMISOS,
                 Option::CONFIGURACIONES,
             ]);
 
