@@ -21,9 +21,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="card-body">
-                       @include('solicitudes.autorizar.table')
-                    </div>
+                    @include('solicitudes.autorizar.table')
                 </div>
                 <!-- /.card -->
             </div>

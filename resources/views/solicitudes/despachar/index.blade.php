@@ -4,39 +4,30 @@
 
 
 @section('content')
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <h1 class="m-0 text-dark">Despachar Requisiciones</h1>
-                </div><!-- /.col -->
 
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
+    <x-content-header titulo="Despachar Requisiciones">
+        <a class="btn btn-outline-success round"
+           href="{!! route('solicitudes.usuario') !!}">
+            <i class="fa fa-arrow-left"></i>
+            <span class="d-none d-sm-inline">Volver</span>
+        </a>
+    </x-content-header>
+
 
     <!-- Main content -->
     <div class="content-body">
-        <div class="container-fluid">
 
-            @include('layouts.errores')
+        @include('layouts.errores')
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                           @include('solicitudes.despachar.table')
-                        </div>
-                    </div>
-                    <!-- /.card -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    @include('solicitudes.despachar.table')
                 </div>
-                <!-- /.col-md-6 -->
+                <!-- /.card -->
             </div>
-            <!-- /.row -->
+            <!-- /.col-md-6 -->
         </div>
-        <!-- /.container-fluid -->
     </div>
     <!-- /.content -->
 @endsection

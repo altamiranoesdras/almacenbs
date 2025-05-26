@@ -1,7 +1,11 @@
-{!! $dataTable->table(['width' => '100%', 'class' => 'table table-striped table-bordered']) !!}
+@push('estilos_dt')
+    @include('layouts.datatables_css')
+@endpush
 
-@section('scripts')
+{!! $dataTable->table(['width' => '100%', 'class' => 'table table-striped ']) !!}
 
+@push('scripts')
+    @include('layouts.datatables_js')
     {!! $dataTable->scripts() !!}
 
    <script>
@@ -32,4 +36,4 @@
 
         })
     </script>
-@endsection
+@endpush
