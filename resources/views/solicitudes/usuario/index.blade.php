@@ -29,7 +29,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="card-content collapse show">
+                    <div class="card-content collapse hide">
                         <div class="card-body">
                             @include('solicitudes.usuario.filtros')
                         </div>

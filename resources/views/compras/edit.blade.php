@@ -44,7 +44,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="card-content collapse show">
+                    <div class="card-content collapse hide">
                         <div class="card-body">
                             <form action="{{route('compras.actualizar.procesada',$compra->id)}}" method="post" >
                                 @csrf
@@ -147,7 +147,7 @@
                         </div>
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-content collapse show">
+                    <div class="card-content collapse hide">
                         <div class="card-body">
                             @if(!$compra->estaRecibida())
                                 <h4 class="text-center text-info">
