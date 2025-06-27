@@ -49,7 +49,7 @@
             Para desarrolladores
         </label>
         <div class="form-check form-switch form-check-primary">
-            <input type="checkbox" class="form-check-input" name="dev" id="dev" {{ $option->dev ? ' checked' : '' }} />
+            <input type="checkbox" class="form-check-input" name="dev" id="dev" {{ ($option->dev ?? false) ? ' checked' : '' }} />
             <label class="form-check-label" for="dev">
                 <span class="switch-icon-left"><i data-feather="check"></i></span>
                 <span class="switch-icon-right"><i data-feather="x"></i></span>
@@ -65,7 +65,7 @@
             De recursos
         </label>
         <div class="form-check form-switch form-check-primary">
-            <input type="checkbox" class="form-check-input" name="recursos" id="recursos" {{ $option->recursos ? ' checked' : '' }} />
+            <input type="checkbox" class="form-check-input" name="recursos" id="recursos" {{ ($option->recursos ?? false) ? ' checked' : '' }} />
             <label class="form-check-label" for="recursos">
                 <span class="switch-icon-left"><i data-feather="check"></i></span>
                 <span class="switch-icon-right"><i data-feather="x"></i></span>
