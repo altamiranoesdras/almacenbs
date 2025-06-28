@@ -6,6 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $compra->id }}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <style>
+        #tabla-detalles > tbody > tr > td {
+            font-size: 12px;
+        }
+    </style>
 </head>
 
 <body style="width: 100%; margin-right: 0px">
@@ -27,14 +33,14 @@
             </td>
             <td style="width:18%; font-size: 10px; padding-top: 0">
 
-                    <b>
-                        <div style="padding: 0;margin-top: 5px;text-wrap: none; width: 100%;">
-                            Serie: {{ $compra->serie }}
-                        </div>
-                        <div style="padding: 0;margin: 0; width: 100%;">
-                            No. &nbsp;{{ $compra->numero }}
-                        </div>
-                    </b>
+                <b>
+                    <div style="padding: 0;margin-top: 5px;text-wrap: none; width: 100%;">
+                        Serie: {{ $compra->serie }}
+                    </div>
+                    <div style="padding: 0;margin: 0; width: 100%;">
+                        No. &nbsp;{{ $compra->numero }}
+                    </div>
+                </b>
             </td>
         </tr>
         <tr style="">
@@ -56,7 +62,7 @@
                 Orden de C.
             </td>
 
-            <td style="width:18%; padding-left: 2cm" >
+            <td style="width:18%; padding-left: 2.5cm" >
                 {{ $compra->orden_compra ?? "" }}
             </td>
         </tr>
@@ -64,7 +70,7 @@
 </div>
 
 <div>
-    <table class="" style="width: 100%" border="0">
+    <table class="" style="width: 100%" border="0" id="tabla-detalles">
         <thead>
         <tr style="text-align: center; font-size: 12px" class="">
             <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px;color: white">
@@ -94,128 +100,101 @@
         </tr>
         </thead>
         <tbody>
-            @foreach($compra->compra1h->detalles as $i => $det)
-                <tr style="">
-                    <td style="border-color: black;
+        @foreach($compra->compra1h->detalles as $i => $det)
+            <tr style="">
+                <td style="border-color: black;
                         width: 7.85%;
                         text-align: center;
-                        padding-right: 7px;
-                        font-size: small" class="py-0">
+                        padding-right: 7px;" class="py-0">
 
-                        {{nf($det->cantidad,0)}}
-                    </td>
-                    <td  class="py-0 text-left"
-                         style="border-color: black;
+                    {{nf($det->cantidad,0)}}
+                </td>
+                <td  class="py-0 text-left"
+                     style="border-color: black;
                          width: 32.63%;
                          text-align: left;
-                         padding-left: 0px;
-                         font-size: small">
+                         padding-left: 0px;">
 
-                         {{mb_strtoupper($det->text)}}
-                    </td>
-                    <td class="" style="border-color: black;
+                    {{mb_strtoupper($det->text)}}
+                </td>
+                <td class="" style="border-color: black;
                         width: 10.53%;
                         text-align: center;
-                        padding-left: 5px;
-                        font-size: small" >
+                        padding-left: 5px;" >
 
-                        {{$det->item->renglon->numero}}
-                    </td>
-                    <td class="py-0" style="border-color: black;
+                    {{$det->item->renglon->numero}}
+                </td>
+                <td class="py-0" style="border-color: black;
                         width: 8.95%;
                         text-align: center;
-                            padding: 5px;
-                            font-size: small" >
-                        {!! $det->folio_almacen ?? $compra->folio_almacen ?? '' !!}
-                    </td>
-                    <td class="py-0" style="border-color: black;
+                            padding: 5px;" >
+                    {!! $det->folio_almacen ?? $compra->folio_almacen ?? '' !!}
+                </td>
+                <td class="py-0" style="border-color: black;
                         width: 10.53%;
                         text-align: right;
-                        padding-right: 8px;
-                        font-size: small" >
-                        {{dvs().nfp($det->precio)}}
-                    </td>
-                    <td class="py-0" style="border-color: black;
+                        padding-right: 8px;" >
+                    {{dvs().nfp($det->precio)}}
+                </td>
+                <td class="py-0" style="border-color: black;
                         width: 11.58%;
                         text-align: right;
-                        padding-right: 8px;
-                        font-size: small" >
-                        {{dvs().nfp($det->sub_total,2)}}
-                    </td>
-                    <td class="py-0" style="border-color: black;
+                        padding-right: 8px;" >
+                    {{dvs().nfp($det->sub_total,2)}}
+                </td>
+                <td class="py-0" style="border-color: black;
                         width: 9.47%;
                         padding-right: 8px;
-                        text-align: right;
-                        font-size: small"
-                    >
-                        {!! $det->folio_inventario ?? $compra->folio_inventario ?? '' !!}
+                        text-align: right;"
+                >
+                    {!! $det->folio_inventario ?? $compra->folio_inventario ?? '' !!}
 
-{{--                        @if($det->item->esGrupo300() || $det->item->esGrupo200())--}}
-{{--                            {!! $compra->folio_inventario ?? ''!!}--}}
-{{--                        @else--}}
-{{--                            0--}}
-{{--                        @endif--}}
+                    {{--                        @if($det->item->esGrupo300() || $det->item->esGrupo200())--}}
+                    {{--                            {!! $compra->folio_inventario ?? ''!!}--}}
+                    {{--                        @else--}}
+                    {{--                            0--}}
+                    {{--                        @endif--}}
 
-                    </td>
-                    <td class="py-0" style="border-color: black;
+                </td>
+                <td class="py-0" style="border-color: black;
                         text-align: center;
-                        padding: 5px;
-                        font-size: small" >
+                        padding: 5px;" >
 
-                    </td>
-                </tr>
-            @endforeach
-
-            @foreach($compra->compra1h->detalles as $i => $det)
-            @endforeach
-            @php
-                $total = 0;
-
-                foreach ($compra->compra1h->detalles as $i => $det) {
-                    $total = $total + $det->sub_total;
-                }
-
-                $currency = new stdClass();
-
-                $currency->plural = 'QUETZALES';
-                $currency->singular = 'QUETZAL';
-                $currency->centPlural = 'CENTAVOS';
-                $currency->centSingular = 'CENTAVO';
-
-                $totalTexto = numALetrasConmoneda($total, $currency);
-
-            @endphp
-
-            <tr >
-                <td colspan="20" style="border-color: black; text-align: center; padding: 5px; font-size: small" class="py-0">
-                    &nbsp;
                 </td>
             </tr>
-            <tr >
-                <td colspan="20" style="border-color: black; text-align: center; padding: 5px; font-size: small" class="py-0">
-                    &nbsp;
-                </td>
-            </tr>
-            <tr >
-                <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
-                    &nbsp;
-                </td>
-                <td class="py-0 text-left" style="border-color: black;  text-align: center; padding: 2px; font-size: small" >
-                    {{$totalTexto}}
-                </td>
+        @endforeach
 
-                <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
-                    &nbsp;
-                </td>
 
-                <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
-                    &nbsp;
-                </td>
+        <tr >
+            <td colspan="20" style="border-color: black; text-align: center; padding: 5px; font-size: small" class="py-0">
+                &nbsp;
+            </td>
+        </tr>
+        <tr >
+            <td colspan="20" style="border-color: black; text-align: center; padding: 5px; font-size: small" class="py-0">
+                &nbsp;
+            </td>
+        </tr>
+        <tr >
+            <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
+                &nbsp;
+            </td>
+            <td class="py-0 text-left" style="border-color: black;  text-align: center; padding: 2px; font-size: small" >
+                {{$compra->compra1h->total_letras}}
+            </td>
 
-                <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
-                    &nbsp;
-                </td>
-                <td style="border-color: black;
+            <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
+                &nbsp;
+            </td>
+
+            <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
+                &nbsp;
+            </td>
+
+            <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
+                &nbsp;
+            </td>
+            <td style="border-color: black;
                     vertical-align: middle;
                     text-align: right;
                     font-size: 12px;
@@ -223,20 +202,20 @@
                     padding-bottom: 0;
                     ">
 
-                    <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 2px;"></div>
+                <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 2px;"></div>
 
-                    {{dvs().nfp($total,2)}}
-                    <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 2px;"></div>
-                    <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 0;"></div>
-                </td>
-                <td class="py-0" style="border-color: black;  text-align: center; padding: 5px; font-size: small" >
+                {{dvs().nfp($compra->compra1h->total,2)}}
+                <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 2px;"></div>
+                <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 0;"></div>
+            </td>
+            <td class="py-0" style="border-color: black;  text-align: center; padding: 5px; font-size: small" >
 
-                </td>
+            </td>
 
-                <td style="border-color: black;  text-align: center; padding: 5px; font-size: small" class="py-0">
+            <td style="border-color: black;  text-align: center; padding: 5px; font-size: small" class="py-0">
 
-                </td>
-            </tr>
+            </td>
+        </tr>
         </tbody>
     </table>
 

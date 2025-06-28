@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use stdClass;
 
 /**
  * Class Compra1h
@@ -51,8 +52,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1h whereUsuarioProcesa($value)
  * @method static \Illuminate\Database\Query\Builder|Compra1h withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Compra1h withoutTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Compra1h whereFolio($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra1h whereFolio($value)
+ * @property-read mixed $sub_total
+ * @property-read mixed $total
+ * @property-read mixed $total_letras
  */
 class Compra1h extends Model
 {
@@ -151,5 +155,41 @@ class Compra1h extends Model
     public function detalles()
     {
         return $this->hasMany(\App\Models\Compra1hDetalle::class, '1h_id');
+    }
+
+    public function getSubTotalAttribute()
+    {
+
+        $monto = $this->detalles->sum(function (Compra1hDetalle $det){
+            return $det->cantidad*$det->precio;
+        });
+
+        $decimales = $monto - floor($monto);
+        $decimalesRedondeados = round($decimales, config('app.cantidad_decimales_precio', 2));
+
+        if ($decimalesRedondeados == 0.99) {
+            return (float) ceil($monto);
+        }
+
+        return $monto;
+    }
+
+    public function getTotalAttribute()
+    {
+        return $this->sub_total - ($this->descuento ?? 0);
+    }
+
+    public function getTotalLetrasAttribute()
+    {
+        $currency = new stdClass();
+
+        $currency->plural = 'QUETZALES';
+        $currency->singular = 'QUETZAL';
+        $currency->centPlural = 'CENTAVOS';
+        $currency->centSingular = 'CENTAVO';
+
+        $totalTexto = numALetrasConmoneda($this->total, $currency);
+
+        return $totalTexto;
     }
 }

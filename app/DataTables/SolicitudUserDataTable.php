@@ -86,7 +86,16 @@ class SolicitudUserDataTable extends DataTable
 
         return $model->newQuery()
             ->select('solicitudes.*')
-            ->with(['detalles.item','usuarioAutoriza','usuarioAprueba','usuarioDespacha','estado','bitacoras'])
+            ->with([
+                'detalles.item' => function ($query) {
+                    $query->withoutAppends();
+                },
+                'usuarioAutoriza',
+                'usuarioAprueba',
+                'usuarioDespacha',
+                'estado',
+                'bitacoras'
+            ])
             ->delUsuarioCrea();
     }
 

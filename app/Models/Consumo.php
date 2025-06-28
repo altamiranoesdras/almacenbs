@@ -52,9 +52,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Consumo whereUsuarioCrea($value)
  * @method static \Illuminate\Database\Query\Builder|Consumo withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Consumo withoutTrashed()
- * @property-read int|null $detalles_count
- * @method static Builder|Consumo whereFechaProcesa($value)
  * @mixin Model
+ * @property-read int|null $detalles_count
  */
 class Consumo extends Model
 {
@@ -239,5 +238,10 @@ class Consumo extends Model
         foreach ($this->detalles as $detalle){
             $detalle->anular();
         }
+    }
+
+    public function estaProcesado()
+    {
+        return $this->estado_id==ConsumoEstado::PROCESADO;
     }
 }

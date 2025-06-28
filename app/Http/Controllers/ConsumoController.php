@@ -126,6 +126,12 @@ class ConsumoController extends AppBaseController
         /** @var Consumo $consumo */
         $consumo = Consumo::find($id);
 
+        if ($consumo->estaProcesado()){
+            Flash::error('No se puede editar un consumo procesado.');
+
+            return redirect(route('consumos.usuario'));
+        }
+
         if (empty($consumo)) {
             Flash::error('Consumo no encontrado');
 
@@ -275,6 +281,12 @@ class ConsumoController extends AppBaseController
     }
 
     public function cancelar(Consumo $consumo){
+
+        if($consumo->estaProcesado()){
+            flash()->error('No se puede cancelar un consumo procesado.');
+
+            return redirect(route('consumos.usuario'));
+        }
 
         $consumo->detalles()->delete();
         $consumo->delete();
