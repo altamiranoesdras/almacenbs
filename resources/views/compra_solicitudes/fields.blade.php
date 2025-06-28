@@ -250,7 +250,7 @@
 
                         <div class="col-sm-3 text-center">
 
-                            <a href="{!! route('compra.solicitudes.pdf',$compraSolicitud->id ?? 0) !!}"
+                            <a href="{!! route('compra.requisiciones.pdf',$compraSolicitud->id ?? 0) !!}"
                                class="btn btn-outline-primary round" target="_blank">
                                 <i class="fa fa-print"></i> Imprimir
                             </a>

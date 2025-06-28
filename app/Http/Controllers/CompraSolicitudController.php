@@ -40,7 +40,7 @@ class CompraSolicitudController extends AppBaseController
             $errores= [];
             $errores[] = 'No se puede crear una solicitud de compra si el usuario no tiene unidad asignada.';
 
-            return redirect(route('compraSolicitudes.index'))
+            return redirect(route('compra.requisiciones.index'))
                 ->withErrors($errores);
         }
 
@@ -71,7 +71,7 @@ class CompraSolicitudController extends AppBaseController
 
         flash()->success('Compra Solicitud saved successfully.');
 
-        return redirect(route('compraSolicitudes.index'));
+        return redirect(route('compra.requisiciones.index'));
     }
 
     /**
@@ -89,7 +89,7 @@ class CompraSolicitudController extends AppBaseController
         if (empty($compraSolicitud)) {
             flash()->error('Compra Solicitud not found');
 
-            return redirect(route('compraSolicitudes.index'));
+            return redirect(route('compra.requisiciones.index'));
         }
 
         return view('compra_solicitudes.show')->with('compraSolicitud', $compraSolicitud);
@@ -110,7 +110,7 @@ class CompraSolicitudController extends AppBaseController
         if (empty($compraSolicitud)) {
             flash()->error('Compra Solicitud not found');
 
-            return redirect(route('compraSolicitudes.index'));
+            return redirect(route('compra.requisiciones.index'));
         }
 
         return view('compra_solicitudes.formulario')->with('compraSolicitud', $compraSolicitud);
@@ -132,7 +132,7 @@ class CompraSolicitudController extends AppBaseController
         if (empty($compraSolicitud)) {
             flash()->error('Compra Solicitud not found');
 
-            return redirect(route('compraSolicitudes.index'));
+            return redirect(route('compra.requisiciones.index'));
         }
 
 
@@ -151,6 +151,7 @@ class CompraSolicitudController extends AppBaseController
 
         $compraSolicitud->fill($request->all());
         $compraSolicitud->establecerCodigo();
+        $compraSolicitud->estado_id = CompraSolicitudEstado::INGRESADA;
         $compraSolicitud->save();
 
         if ($request->procesar){
@@ -168,7 +169,7 @@ class CompraSolicitudController extends AppBaseController
 
                 flash($msj)->error();
 
-                return redirect(route('compra.solicitudes.edit',$compraSolicitud->id));
+                return redirect(route('compra.requisiciones.edit',$compraSolicitud->id));
             }
 
             DB::commit();
@@ -180,7 +181,7 @@ class CompraSolicitudController extends AppBaseController
 
         flash('Listo!')->success();
 
-        return redirect(route('compraSolicitudes.edit', $compraSolicitud->id));
+        return redirect(route('compra.requisiciones.edit', $compraSolicitud->id));
     }
 
     /**
@@ -200,14 +201,14 @@ class CompraSolicitudController extends AppBaseController
         if (empty($compraSolicitud)) {
             flash()->error('Compra Solicitud not found');
 
-            return redirect(route('compraSolicitudes.index'));
+            return redirect(route('compra.requisiciones.index'));
         }
 
         $compraSolicitud->delete();
 
         flash()->success('Compra Solicitud deleted successfully.');
 
-        return redirect(route('compraSolicitudes.index'));
+        return redirect(route('compra.requisiciones.index'));
     }
 
 
@@ -301,7 +302,7 @@ class CompraSolicitudController extends AppBaseController
 
         flash('Solicitud de compra anulada correctamente.')->success();
 
-        return redirect(route('compraSolicitudes.index'));
+        return redirect(route('compra.requisiciones.index'));
 
     }
 }

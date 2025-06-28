@@ -234,6 +234,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('solicitudes/cancelar/{solicitud}', [SolicitudController::class,'cancelar'])->name('solicitudes.cancelar');
     Route::post('solicitudes/anular/{solicitud}', [SolicitudController::class,'anular'])->name('solicitudes.anular');
 
+    Route::get('nueva/solicitud/almacen', [SolicitudController::class,'create'])->name('nueva.solicitud.almacen');
     Route::resource('solicitudes', SolicitudController::class);
 
 

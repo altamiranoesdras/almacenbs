@@ -194,8 +194,14 @@ class Option extends Model
 
 
         if ($this->recursos && $tieneIndex){
-            $ruta = str_replace("index","*",$this->ruta);
-            return request()->routeIs($ruta)  ? 'active' : '';
+            $rutaCreate = str_replace("index","create",$this->ruta);
+            $rutaEdit = str_replace("index","edit",$this->ruta);
+            $rutasRecursos = [$this->ruta,$rutaCreate,$rutaEdit];
+
+            $rutaActual = request()->route()->getName();
+
+            return in_array($rutaActual,$rutasRecursos) ? 'active' : '';
+
         }else{
             return request()->routeIs($this->ruta)  ? 'active' : '';
         }
