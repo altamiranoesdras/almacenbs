@@ -3,65 +3,55 @@
 @include('layouts.plugins.select2')
 @include('layouts.plugins.bootstrap_fileinput')
 
-@section('titulo_pagina')
-	Crear Insumo
-@endsection
+@section('titulo_pagina','Nuevo Insumo')
+
 
 @section('content')
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col">
-                    <h1 class="m-0 text-dark">
-                        Crear Insumo
-                    </h1>
-                </div><!-- /.col -->
-                <div class="col ">
-                    <a class="btn btn-outline-info float-right"
-                       href="{{route('items.index')}}">
-                        <i class="fa fa-arrow-left"></i>
-                        <span class="d-none d-sm-inline">Regresar</span>
-                    </a>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
+
+    <x-content-header titulo="Nuevo Insumo">
+        <a class="btn btn-outline-success round"
+           href="{!! route('items.index') !!}">
+            <i class="fa fa-arrow-left"></i>
+            <span class="d-none d-sm-inline">Volver</span>
+        </a>
+    </x-content-header>
 
     <!-- Main content -->
     <div class="content-body">
-        <div class="container-fluid">
+
 
             @include('adminlte-templates::common.errors')
 
             <div class="row">
                 <div class="col-lg-12">
+                    {!! Form::open(['route' => 'items.store','class' => 'esperar',"enctype"=>"multipart/form-data","autocomplete"=>"off"]) !!}
+
                     <div class="card">
                         <div class="card-body">
-                            {!! Form::open(['route' => 'items.store','class' => 'esperar',"enctype"=>"multipart/form-data","autocomplete"=>"off"]) !!}
-                                <div class="row">
+                            <div class="row">
+                                @include('items.fields')
+                            </div>
+                        </div>
+                        <div class="card-footer text-end">
 
-                                    @include('items.fields')
-                                    <!-- Submit Field -->
-                                    <div class="col-sm-12 mb-1 text-right">
-                                        <a href="{!! route('items.index') !!}" class="btn btn-outline-secondary mr-3">Cancelar</a>
-                                        <button type="submit" class="btn btn-outline-success round">
-                                            <i class="fa fa-save"></i>
-                                            Guardar
-                                        </button>
-                                    </div>
-                                </div>
-                            {!! Form::close() !!}
+                            <a href="{{ route('items.index') }}" class="btn btn-outline-secondary round me-1">
+                                <i class="fa fa-ban"></i>
+                                Cancelar
+                            </a>
+
+                            <button type="submit" class="btn btn-success round ">
+                                <i class="fa fa-save"></i>
+                                Guardar
+                            </button>
                         </div>
                     </div>
-                    <!-- /.card -->
+                    {!! Form::close() !!}
+
                 </div>
                 <!-- /.col-md-6 -->
             </div>
             <!-- /.row -->
-        </div>
-        <!-- /.container-fluid -->
+
     </div>
     <!-- /.content -->
 

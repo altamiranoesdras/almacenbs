@@ -28,24 +28,26 @@
     </div>
 
     <div class="content-body">
+        
 
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">Filtros</h4>
-                <div class="heading-elements">
-                    <ul class="list-inline mb-0">
-                        <li>
-                            <a data-action="collapse"><i data-feather="chevron-down"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="card-content collapse hide">
-                <div class="card-body">
-                    @include('items.filtros')
-                </div>
+        <div class="card border-info">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="card-title mb-0">Filtros</h5>
+            <div class="heading-elements">
+                <ul class="list-inline mb-0">
+                    <li>
+                        <a data-action="collapse"><i data-feather="chevron-down"></i></a>
+                    </li>
+                </ul>
             </div>
         </div>
+        <div class="card-content collapse hide">
+            <div class="card-body">
+                @include('items.filtros')
+            </div>
+        </div>
+        </div>
+
 
         <div class="row">
             <div class="col-12">

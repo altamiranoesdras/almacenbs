@@ -179,6 +179,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('items/import', [ItemController::class,'importar'])->name('items.importar');
     Route::post('items/import', [ItemController::class,'importarStore'])->name('items.importar.store');
 
+    Route::get('items/nuevo', [ItemController::class,'create'])->name('items.nuevo');
     Route::resource('items', ItemController::class);
 
 
