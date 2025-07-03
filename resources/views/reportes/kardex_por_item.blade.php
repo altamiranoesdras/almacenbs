@@ -170,7 +170,9 @@
                                                                     {{ $det->ingreso ? $det->codigo : '' }}</td>
                                                                 <td class="text-uppercase ">
                                                                     @if ($det->salida)
-                                                                        {!! Form::text("codigos_salidas[$det->id]", $det->codigo, ['class' => 'form-control form-control-sm']) !!}
+                                                                        {{-- {!! Form::text("codigos_salidas[$det->id]", $det->codigo, ['class' => 'form-control form-control-sm']) !!} --}}
+                                                                        <span> {{ $det->codigo }} </span>
+                                                                        
                                                                     @endif
                                                                 </td>
                                                                 <td class="text-uppercase">{{ $det->responsable }}</td>
@@ -179,20 +181,26 @@
                                                                 {{--                                                            <td>{{$det->ingreso ? nfp($det->precio) : ''}}</td> --}}
                                                                 <td>
                                                                     @if ($det->ingreso)
-                                                                        {!! Form::text("precios_movimiento[$det->id]", $det->precio, ['class' => 'form-control form-control-sm']) !!}
+                                                                        {{-- {!! Form::text("precios_movimiento[$det->id]", $det->precio, ['class' => 'form-control form-control-sm']) !!} --}}
+                                                                        <span>{{ $det->precio }}</span>
+                                                                        
                                                                     @endif
                                                                 </td>
-                                                                <td>{{ $det->ingreso ? nfp($det->precio * $det->ingreso, 2) : '' }}
+                                                                <td>
+                                                                    {{ $det->ingreso ? nfp($det->precio * $det->ingreso, 2) : '' }}
                                                                 </td>
 
                                                                 <td>{{ $det->salida }}</td>
                                                                 {{--                                                            <td>{{$det->salida ? nfp($det->precio) : $det->salida}}</td> --}}
                                                                 <td>
                                                                     @if ($det->salida)
-                                                                        {!! Form::text("precios_movimiento[$det->id]", $det->precio, ['class' => 'form-control form-control-sm']) !!}
+                                                                        {{-- {!! Form::text("precios_movimiento[$det->id]", $det->precio, ['class' => 'form-control form-control-sm']) !!} --}}
+                                                                        <span>{{ $det->precio }}</span>
+                                                                        
                                                                     @endif
                                                                 </td>
-                                                                <td>{{ $det->salida ? nfp($det->precio * $det->salida, 2) : '' }}
+                                                                <td>
+                                                                    {{ $det->salida ? nfp($det->precio * $det->salida, 2) : '' }}
                                                                 </td>
 
                                                                 @php
@@ -209,13 +217,14 @@
                                                                 @endphp
 
                                                                 <td class="text-bold">
-                                                                    {!! Form::text("saldos[$det->id]", $det->saldo ?? $saldoStock, ['class' => 'form-control form-control-sm']) !!}
+                                                                    {{-- {!! Form::text("saldos[$det->id]", $det->saldo ?? $saldoStock, ['class' => 'form-control form-control-sm']) !!} --}}
+                                                                    <span>{{ $det->saldo ?? $saldoStock }}</span>
+                                                                    
                                                                 </td>
 
                                                                 <td>
-                                                                    {!! Form::text("precios_existencia[$det->id]", $det->precio_existencia ?? $det->precio, [
-                                                                        'class' => 'form-control form-control-sm',
-                                                                    ]) !!}
+                                                                    {{-- {!! Form::text("precios_existencia[$det->id]", $det->precio_existencia ?? $det->precio, ['class' => 'form-control form-control-sm',]) !!} --}}
+                                                                    <span>{{ $det->precio_existencia ?? $det->precio }}</span>
                                                                 </td>
                                                                 <td>
                                                                     {{--                                                                {{nfp($det->precio * $saldo,2)}} --}}
