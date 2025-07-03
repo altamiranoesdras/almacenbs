@@ -95,105 +95,107 @@
     </div>
 
 
+
     <div class="col-sm-12 mb-1"  >
-        <div class="card card-outline card-success">
-            <div class="card-header">
-                <h3 class="card-title">Información adicional</h3>
-
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
+        <div class="card border-info">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">
+                    Información adicional
+                </h5>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        <li>
+                            <a data-action="collapse"><i data-feather="chevron-up"></i></a>
+                        </li>
+                    </ul>
                 </div>
-                <!-- /.card-tools -->
             </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-6 mb-1">
-                        <!-- Descripcion Field -->
-                        <div class="col-sm-12 mb-1 col-lg-12">
-                            {!! Form::label('descripcion', 'Descripción / Características:') !!}
-                            {!! Form::textarea('descripcion', null, ['id' => 'editor','class' => '']) !!}
+            <div class="card-content collapse show">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-6 mb-1">
+                            <!-- Descripcion Field -->
+                            <div class="col-sm-12 mb-1 col-lg-12">
+                                {!! Form::label('descripcion', 'Descripción / Características:') !!}
+                                {!! Form::textarea('descripcion', null, ['id' => 'editor','class' => '']) !!}
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-sm-6 mb-1">
-                        <div class="row">
+                        <div class="col-sm-6 mb-1">
+                            <div class="row">
 
-                            <!-- Icategoria Id Field -->
-                            <div class="col-sm-12 mb-1">
-                                {!! Form::label('icatecoria_id','Categorías: ') !!}
-                                <a class="success" data-toggle="modal" href="#modal-form-icategorias" tabindex="1000">Nueva</a>
-                                {!!
-                                    Form::select(
-                                        'categorias[]',
-                                        select(\App\Models\ItemCategoria::class,'nombre','id',null)
-                                        , $categoriasItem ?? null
-                                        , ['id'=>'icatecorias','class' => 'form-control ','multiple','style'=>'width: 100%']
-                                    )
-                                !!}
-                            </div>
+                                <!-- Icategoria Id Field -->
+                                <div class="col-sm-12 mb-1">
+                                    {!! Form::label('icatecoria_id','Categorías: ') !!}
+                                    <a class="success" data-toggle="modal" href="#modal-form-icategorias" tabindex="1000">Nueva</a>
+                                    {!!
+                                        Form::select(
+                                            'categorias[]',
+                                            select(\App\Models\ItemCategoria::class,'nombre','id',null)
+                                            , $categoriasItem ?? null
+                                            , ['id'=>'icatecorias','class' => 'form-control ','multiple','style'=>'width: 100%']
+                                        )
+                                    !!}
+                                </div>
 
-                            <!-- Marca Id Field -->
-                            <div class="col-sm-6 mb-1">
-                                <select-marca v-model="marca" label="Marca"></select-marca>
-                            </div>
+                                <!-- Marca Id Field -->
+                                <div class="col-sm-6 mb-1">
+                                    <select-marca v-model="marca" label="Marca"></select-marca>
+                                </div>
 
-                            <!-- Modelo Id Field -->
-                            <div class="col-sm-6 mb-1">
-                                <select-item-modelo v-model="modelo" label="Modelo"></select-item-modelo>
-                            </div>
+                                <!-- Modelo Id Field -->
+                                <div class="col-sm-6 mb-1">
+                                    <select-item-modelo v-model="modelo" label="Modelo"></select-item-modelo>
+                                </div>
 
-                            <!-- Ubicacion Field -->
-                            <div class="col-sm-12 mb-1">
-                                {!! Form::label('ubicacion', 'Ubicacion:') !!}
-                                {!! Form::text('ubicacion', null, ['class' => 'form-control']) !!}
-                            </div>
+                                <!-- Ubicacion Field -->
+                                <div class="col-sm-12 mb-1">
+                                    {!! Form::label('ubicacion', 'Ubicacion:') !!}
+                                    {!! Form::text('ubicacion', null, ['class' => 'form-control']) !!}
+                                </div>
 
-
-                            <!-- inventariable Field -->
-                            <div class="form-group col-6 col-sm-3">
-                                {!! Form::label('inventariable', 'Inventariable:') !!}
-                                <div style="width: 100%">
+                                <div class="col-3 mb-1">
                                     <input type="hidden" name="inventariable" value="0">
-                                    <input type="checkbox"
-                                           data-toggle="toggle"
-                                           data-size="normal"
-                                           data-on="Si"
-                                           data-off="No"
-                                           data-style="ios"
-                                           name="inventariable"
-                                           value="1"
-                                        {{ ($item->inventariable ?? true ) ? 'checked' : '' }}>
+                                    <div class="d-flex flex-column">
+                                        <label class="form-check-label mb-50" for="inventariable">
+                                            Inventariable
+                                        </label>
+                                        <div class="form-check form-switch form-check-primary">
+                                            <input type="checkbox" class="form-check-input" value="1" name="inventariable" id="inventariable" {{ ($item->inventariable ?? false) ? ' checked' : '' }} />
+                                            <label class="form-check-label" for="inventariable">
+                                                <span class="switch-icon-left"><i data-feather="check"></i></span>
+                                                <span class="switch-icon-right"><i data-feather="x"></i></span>
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <!-- Perecedero Field -->
-                            <div class="form-group col-6 col-sm-3">
-                                {!! Form::label('perecedero', 'Perecedero:') !!}
-                                <div style="width: 100%">
+
+
+                                <div class="col-3 mb-1">
                                     <input type="hidden" name="perecedero" value="0">
-                                    <input type="checkbox"
-                                           data-toggle="toggle"
-                                           data-size="normal"
-                                           data-on="Si"
-                                           data-off="No"
-                                           data-style="ios"
-                                           name="perecedero"
-                                           value="1"
-                                        {{ ($item->perecedero ?? true ) ? 'checked' : '' }}>
+                                    <div class="d-flex flex-column">
+                                        <label class="form-check-label mb-50" for="perecedero">
+                                            Perecedero
+                                        </label>
+                                        <div class="form-check form-switch form-check-primary">
+                                            <input type="checkbox" class="form-check-input" value="1" name="perecedero" id="perecedero" {{ ($item->perecedero ?? false) ? ' checked' : '' }} />
+                                            <label class="form-check-label" for="perecedero">
+                                                <span class="switch-icon-left"><i data-feather="check"></i></span>
+                                                <span class="switch-icon-right"><i data-feather="x"></i></span>
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
 
+
+
+                            </div>
 
                         </div>
 
                     </div>
-
                 </div>
             </div>
-            <!-- /.card-body -->
         </div>
     </div>
 
