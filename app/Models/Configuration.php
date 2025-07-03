@@ -105,7 +105,7 @@ class Configuration extends Model implements HasMedia
      */
     public function getMediaIcono()
     {
-        return $this->getMedia('icono')->first();
+        return $this->getMedia('icono')->first() ?? null;
     }
 
     public function registerMediaConversions(Media $media = null): void
