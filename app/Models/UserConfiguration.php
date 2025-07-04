@@ -18,20 +18,20 @@ class UserConfiguration extends Model
         'user_id',
         'key',
         'value',
-        'description'
+        'descripcion'
     ];
 
     protected $casts = [
         'key' => 'string',
         'value' => 'string',
-        'description' => 'string'
+        'descripcion' => 'string'
     ];
 
     public static $rules = [
         'user_id' => 'required',
         'key' => 'required|string|max:255',
         'value' => 'required|string|max:255',
-        'description' => 'nullable|string|max:65535',
+        'descripcion' => 'nullable|string|max:65535',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'
