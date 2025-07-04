@@ -20,7 +20,7 @@ class ModeLayout extends Component
             $this->theme->user_id = auth()->user()->id;
             $this->theme->key = 'app.mode-layout';
             $this->theme->value = 'light-layout'; // Default value
-            $this->theme->descripcion = 'Cambio de modo de la aplicación dark o light';
+            $this->theme->description = 'Cambio de modo de la aplicación dark o light';
             $this->theme->save();
         }
 
