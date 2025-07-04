@@ -1,5 +1,16 @@
 <!DOCTYPE html>
-<html class="loading" lang="en" data-layout="dark-layout" data-textdirection="ltr">
+
+@php
+
+    if(!session('mode-layout')){
+        $mode_layout = App\Models\UserConfiguration::where('user_id', auth()->user()->id)->where('key', 'app.mode-layout')->get()->first()->value ?? 'light-layout';
+    }else{
+        $mode_layout = session('mode-layout');
+    }
+
+@endphp
+
+<html class="loading {{ $mode_layout }}" lang="es" data-layout="{{ $mode_layout }}" data-textdirection="ltr">
 <!-- BEGIN: Head-->
 
 <head>
