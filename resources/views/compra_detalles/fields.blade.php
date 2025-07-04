@@ -34,7 +34,7 @@
     {!! Form::text('fecha_vence', null, ['class' => 'form-control','id'=>'fecha_vence']) !!}
 </div>
 
-@push('page_scripts')
+@push('scripts')
     <script type="text/javascript">
         $('#fecha_vence').datetimepicker({
             format: 'YYYY-MM-DD HH:mm:ss',

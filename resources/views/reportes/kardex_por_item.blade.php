@@ -172,7 +172,7 @@
                                                                     @if ($det->salida)
                                                                         {{-- {!! Form::text("codigos_salidas[$det->id]", $det->codigo, ['class' => 'form-control form-control-sm']) !!} --}}
                                                                         <span> {{ $det->codigo }} </span>
-                                                                        
+
                                                                     @endif
                                                                 </td>
                                                                 <td class="text-uppercase">{{ $det->responsable }}</td>
@@ -183,7 +183,7 @@
                                                                     @if ($det->ingreso)
                                                                         {{-- {!! Form::text("precios_movimiento[$det->id]", $det->precio, ['class' => 'form-control form-control-sm']) !!} --}}
                                                                         <span>{{ $det->precio }}</span>
-                                                                        
+
                                                                     @endif
                                                                 </td>
                                                                 <td>
@@ -196,7 +196,7 @@
                                                                     @if ($det->salida)
                                                                         {{-- {!! Form::text("precios_movimiento[$det->id]", $det->precio, ['class' => 'form-control form-control-sm']) !!} --}}
                                                                         <span>{{ $det->precio }}</span>
-                                                                        
+
                                                                     @endif
                                                                 </td>
                                                                 <td>
@@ -219,7 +219,7 @@
                                                                 <td class="text-bold">
                                                                     {{-- {!! Form::text("saldos[$det->id]", $det->saldo ?? $saldoStock, ['class' => 'form-control form-control-sm']) !!} --}}
                                                                     <span>{{ $det->saldo ?? $saldoStock }}</span>
-                                                                    
+
                                                                 </td>
 
                                                                 <td>
@@ -355,7 +355,7 @@
     </div>
     <!-- /.content -->
 @endsection
-@push('page_scripts')
+@push('scripts')
     <!--    Scripts fields clientes
     ------------------------------------------------->
     <script>
@@ -403,10 +403,10 @@
 
             //        var manana=new Date(hoy.getTime() + 24*60*60*1000);
 
-            $("#fecha").datetimepicker({
-                format: 'DD/MM/YYYY',
-                defaultDate: hoy
-            });
+            // $("#fecha").datetimepicker({
+            //     format: 'DD/MM/YYYY',
+            //     defaultDate: hoy
+            // });
 
             $('.dataTable').DataTable({
                 dom: 'Brtip',

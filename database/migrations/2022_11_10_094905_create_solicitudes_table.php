@@ -39,6 +39,7 @@ class CreateSolicitudesTable extends Migration
             $table->unsignedBigInteger('estado_id')->index('fk_solicitudes_solicitud_estados1_idx');
             $table->timestamps();
             $table->softDeletes();
+            $table->comment('Tabla que almacena las requisiciones de almacén');
         });
     }
 

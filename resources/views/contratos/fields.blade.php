@@ -28,7 +28,7 @@
     {!! Form::text('inicio', null, ['class' => 'form-control','id'=>'inicio']) !!}
 </div>
 
-@push('page_scripts')
+@push('scripts')
     <script type="text/javascript">
         $('#inicio').datetimepicker({
             format: 'YYYY-MM-DD HH:mm:ss',
@@ -44,7 +44,7 @@
     {!! Form::text('fin', null, ['class' => 'form-control','id'=>'fin']) !!}
 </div>
 
-@push('page_scripts')
+@push('scripts')
     <script type="text/javascript">
         $('#fin').datetimepicker({
             format: 'YYYY-MM-DD HH:mm:ss',

@@ -43,6 +43,8 @@ return new class extends Migration
             $table->foreign('usuario_solicita')->references('id')->on('users');
             $table->foreign('usuario_aprueba')->references('id')->on('users');
             $table->foreign('usuario_administra')->references('id')->on('users');
+
+            $table->comment('Tabla que almacena las requisiciones de compras');
         });
 
         Schema::create('compra_solicitud_detalles', function (Blueprint $table) {

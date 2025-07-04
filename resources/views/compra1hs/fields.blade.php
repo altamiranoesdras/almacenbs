@@ -40,7 +40,7 @@
     {!! Form::text('fecha_procesa', null, ['class' => 'form-control','id'=>'fecha_procesa']) !!}
 </div>
 
-@push('page_scripts')
+@push('scripts')
     <script type="text/javascript">
         $('#fecha_procesa').datetimepicker({
             format: 'YYYY-MM-DD HH:mm:ss',
