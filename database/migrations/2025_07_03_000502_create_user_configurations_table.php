@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->index('fk_user_configurations_users1_idx');
             $table->string('key')->unique('key_unique');
             $table->string('value');
-            $table->text('description')->nullable();
+            $table->text('descripcion')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
