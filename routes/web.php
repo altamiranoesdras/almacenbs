@@ -259,6 +259,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::patch('reportes/kardex/ajax/{folio}', [ReportesAlmacenController::class,'actualizaKardexAjax'])->name('reportes.kardex.actualizar.ajax');
     Route::patch('reportes/kardex/{folio}', [ReportesAlmacenController::class,'actualizaKardex'])->name('reportes.kardex.actualizar');
     Route::get('reportes/kardex', [ReportesAlmacenController::class,'kardex'])->name('reportes.kardex');
+    Route::get('reportes/kardex-show', [ReportesAlmacenController::class,'kardexShow'])->name('reportes.kardex.show');
     Route::get('reportes/kardex/nuevo/folio/{kardex}', [ReportesAlmacenController::class,'nuevoFolio'])->name('reportes.kardex.nuevo.folio');
 
     Route::get('reportes/stock', [ReportesAlmacenController::class,'stock'])->name('reportes.stock');

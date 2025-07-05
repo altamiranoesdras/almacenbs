@@ -13,7 +13,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
-                    <h1 class="m-0 text-dark">Kardex por artículo</h1>
+                    <h1 class="m-0 text-dark">Kardex por artículo Editable</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -23,14 +23,14 @@
     <!-- Main content -->
     <div class="content-body">
         <div class="container-fluid">
-            @include('adminlte-templates::common.errors')
+            @include('adminlte-templates::common.errors') 
 
 
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            {!! Form::open(['route' => 'reportes.kardex', 'method' => 'get']) !!}
+                            {!! Form::open(['route' => 'reportes.kardex.show', 'method' => 'get']) !!}
                             <div class="row">
 
 
@@ -170,8 +170,8 @@
                                                                     {{ $det->ingreso ? $det->codigo : '' }}</td>
                                                                 <td class="text-uppercase ">
                                                                     @if ($det->salida)
-                                                                        {!! Form::text("codigos_salidas[$det->id]", $det->codigo, ['class' => 'form-control form-control-sm']) !!}
-                                                                        {{-- <span> {{ $det->codigo }} </span> --}}
+                                                                        
+                                                                        <span> {{ $det->codigo }} </span>
 
                                                                     @endif
                                                                 </td>
@@ -181,8 +181,8 @@
                                                                 {{--                                                            <td>{{$det->ingreso ? nfp($det->precio) : ''}}</td> --}}
                                                                 <td>
                                                                     @if ($det->ingreso)
-                                                                        {!! Form::text("precios_movimiento[$det->id]", $det->precio, ['class' => 'form-control form-control-sm']) !!}
-                                                                        {{-- <span>{{ $det->precio }}</span> --}}
+                                                                        {{-- {!! Form::text("precios_movimiento[$det->id]", $det->precio, ['class' => 'form-control form-control-sm']) !!} --}}
+                                                                        <span>{{ $det->precio }}</span>
 
                                                                     @endif
                                                                 </td>
@@ -194,8 +194,8 @@
                                                                 {{--                                                            <td>{{$det->salida ? nfp($det->precio) : $det->salida}}</td> --}}
                                                                 <td>
                                                                     @if ($det->salida)
-                                                                        {!! Form::text("precios_movimiento[$det->id]", $det->precio, ['class' => 'form-control form-control-sm']) !!}
-                                                                        {{-- <span>{{ $det->precio }}</span> --}}
+                                                                        {{-- {!! Form::text("precios_movimiento[$det->id]", $det->precio, ['class' => 'form-control form-control-sm']) !!} --}}
+                                                                        <span>{{ $det->precio }}</span>
 
                                                                     @endif
                                                                 </td>
@@ -217,14 +217,14 @@
                                                                 @endphp
 
                                                                 <td class="text-bold">
-                                                                    {!! Form::text("saldos[$det->id]", $det->saldo ?? $saldoStock, ['class' => 'form-control form-control-sm']) !!}
-                                                                    {{-- <span>{{ $det->saldo ?? $saldoStock }}</span> --}}
+                                                                    {{-- {!! Form::text("saldos[$det->id]", $det->saldo ?? $saldoStock, ['class' => 'form-control form-control-sm']) !!} --}}
+                                                                    <span>{{ $det->saldo ?? $saldoStock }}</span>
 
                                                                 </td>
 
                                                                 <td>
-                                                                    {!! Form::text("precios_existencia[$det->id]", $det->precio_existencia ?? $det->precio, ['class' => 'form-control form-control-sm',]) !!}
-                                                                    {{-- <span>{{ $det->precio_existencia ?? $det->precio }}</span> --}}
+                                                                    {{-- {!! Form::text("precios_existencia[$det->id]", $det->precio_existencia ?? $det->precio, ['class' => 'form-control form-control-sm',]) !!} --}}
+                                                                    <span>{{ $det->precio_existencia ?? $det->precio }}</span>
                                                                 </td>
                                                                 <td>
                                                                     {{--                                                                {{nfp($det->precio * $saldo,2)}} --}}
@@ -324,11 +324,7 @@
                                                 <div class="col-sm-12 text-right mt-3">
 
                                                     <input type="hidden" name="item_id" value="{{ $item->id }}">
-                                                    <button type="submit" class="btn btn-success mr-3">
-                                                        <i class="fa fa-save"></i>
-                                                        Actualizar
-                                                    </button>
-
+                                                    
                                                     <button type="button" class="btn btn-primary"
                                                         @click.prevente="imprimirFolio({{ $folio }})">
                                                         <i class="fa fa-print"></i>
