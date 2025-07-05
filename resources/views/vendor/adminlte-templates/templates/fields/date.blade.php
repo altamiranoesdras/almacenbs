@@ -8,7 +8,7 @@
     @{!! Form::text('{{ $fieldName }}', null, ['class' => 'form-control','id'=>'{{ $fieldName }}']) !!}
 </div>
 
-@@push('page_scripts')
+@@push('scripts')
     <script type="text/javascript">
         $('#{{ $fieldName }}').datepicker()
     </script>
