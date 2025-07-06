@@ -23,7 +23,7 @@ class UserConfigurationsTableSeeder extends Seeder
                 'user_id' => 1,
                 'key' => 'app.mode-layout',
                 'value' => 'light-layout',
-                'description' => 'Cambio de modo de la aplicación dark o light',
+                'descripcion' => 'Cambio de modo de la aplicación dark o light',
                 'created_at' => '2025-07-02 23:19:47',
                 'updated_at' => '2025-07-02 23:19:47',
                 'deleted_at' => NULL,
