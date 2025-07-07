@@ -61,6 +61,42 @@ class ReportesAlmacenController extends AppBaseController
         return view('reportes.kardex_por_item',compact('kardex','item','buscar','saldo'));
     }
 
+    public function kardexShow(Request $request)
+    {
+
+        $item_id = $request->item_id ?? null;
+        $item = null;
+        $kardex = null;
+        $buscar = $request->buscar ?? null;
+        $saldo = 0;
+
+
+        if ($buscar){
+
+            $item = Item::find($item_id);
+
+            /**
+             * @var Collection $kardex
+             */
+            $kardex = Kardex::with(['model','item' => function($queryItem){
+                    $queryItem->with(['unimed','stocks','marca','presentacion']);
+                }])
+                ->where('cantidad','>',0)
+                ->delItem($item_id)
+                ->orderBy('created_at','asc')
+                ->get();
+
+
+            $kardex = $kardex->sortBy('fecha_ordena_timestamp')->groupBy('folio');
+
+//            return $kardex;
+
+
+        }
+
+        return view('reportes.kardex_por_item_show',compact('kardex','item','buscar','saldo'));
+    }
+
     public function actualizaKardex($folio,Request $request)
     {
 
