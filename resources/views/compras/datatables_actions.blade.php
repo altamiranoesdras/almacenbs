@@ -1,10 +1,16 @@
 
-
-    <span data-toggle="tooltip" title="Ver detalles">
+        <button  type="button"
+            data-toggle="tooltip" title="Ver detalles"
+            class="btn btn-icon btn-flat-info rounded-circle"
+            data-bs-toggle="modal"
+            data-bs-target="#modal-detalles-{{ $compra->id }}">
+            <i class="fa fa-eye"></i>
+        </button>
+    {{-- <span data-toggle="tooltip" title="Ver detalles">
         <a href="#modal-detalles-{{$compra->id}}" data-keyboard="true" data-toggle="modal" class='btn btn-icon btn-flat-info rounded-circle' >
             <i class="fa fa-eye"></i>
         </a>
-    </span>
+    </span> --}}
 
 {{--    <a href="{{ route('compras.show', $compra->id) }}" class='btn btn-icon btn-flat-info rounded-circle' data-toggle="tooltip" title="Ver Detalles">--}}
 {{--        <i class="fa fa-eye"></i>--}}
@@ -30,9 +36,20 @@
 
     @can('Anular ingreso de compra')
         @if($compra->estado_id != \App\Models\CompraEstado::ANULADA && $compra->estado_id == \App\Models\CompraEstado::RECIBIDA )
-            <a href="#" onclick="deleteItemDt(this)" data-id="{{$compra->id}}" data-toggle="tooltip" title="Anular Ingreso" class='btn btn-icon btn-flat-danger rounded-circle'>
+
+
+            <button  type="button"
+                data-toggle="tooltip" title="Anular Ingreso"
+                class="btn btn-icon btn-flat-danger rounded-circle"
+                data-bs-toggle="modal"
+                onclick="deleteItemDt(this)" 
+                data-id="{{$compra->id}}"
+            >
                 <i class="fa fa-undo-alt"></i>
-            </a>
+            </button>
+            {{-- <a href="#" onclick="deleteItemDt(this)" data-id="{{$compra->id}}" data-toggle="tooltip" title="Anular Ingreso" class='btn btn-icon btn-flat-danger rounded-circle'>
+                <i class="fa fa-undo-alt"></i>
+            </a> --}}
 
 
             <form action="{{ route('compras.anular', $compra->id)}}" method="POST" id="delete-form{{$compra->id}}">
@@ -44,11 +61,19 @@
             {{--<a href="#modal-delete-{{$compra->id}}" data-toggle="modal" class='btn btn-icon btn-flat-danger rounded-circle'>--}}
                 {{--<i class="far fa-trash-alt" data-toggle="tooltip" title="Eliminar Solicitud de Compra"></i>--}}
             {{--</a>--}}
-            <span data-toggle="tooltip" title="Cancelar Solicitud de Compra">
-            <a href="#modal-delete-{{$compra->id}}" data-toggle="modal" class='btn btn-warning btn-xs'>
+            
+            <button  type="button"
+                data-toggle="tooltip" title="Cancelar Solicitud de Compra"
+                class="btn btn-warning btn-xs"
+                data-bs-toggle="modal"
+                data-bs-target="#modal-delete-{{ $compra->id }}">
                 <i class="fas fa-ban" ></i>
-            </a>
-            </span>
+            </button>
+            {{-- <span data-toggle="tooltip" title="Cancelar Solicitud de Compra">
+                <a href="#modal-delete-{{$compra->id}}" data-toggle="modal" class='btn btn-warning btn-xs'>
+                    <i class="fas fa-ban" ></i>
+                </a>
+            </span> --}}
         @endif
     @endcan
 
