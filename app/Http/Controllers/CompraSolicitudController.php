@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
+use App\Models\Proveedor;
+use App\Models\CompraEstado;
+use Illuminate\Http\Request;
+use App\Models\CompraSolicitud;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
+use App\Models\CompraSolicitudEstado;
+use App\Models\CompraSolicitudDetalle;
+use App\Http\Controllers\AppBaseController;
 use App\DataTables\CompraSolicitudDataTable;
 use App\Http\Requests\CreateCompraSolicitudRequest;
 use App\Http\Requests\UpdateCompraSolicitudRequest;
-use App\Http\Controllers\AppBaseController;
-use App\Models\CompraSolicitud;
-use App\Models\CompraSolicitudDetalle;
-use App\Models\CompraSolicitudEstado;
-use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Facades\DB;
+use App\DataTables\Scopes\ScopeCompraSolicitudDataTable;
 
 class CompraSolicitudController extends AppBaseController
 {
@@ -21,8 +26,47 @@ class CompraSolicitudController extends AppBaseController
      * @param CompraSolicitudDataTable $compraSolicitudDataTable
      * @return Response
      */
-    public function index(CompraSolicitudDataTable $compraSolicitudDataTable)
+    public function index(CompraSolicitudDataTable $compraSolicitudDataTable, Request $request)
     {
+
+        $scope = new ScopeCompraSolicitudDataTable();
+
+        //si es la primera carga de la pagina es decir no se ha hecho ningun filtro
+        if ( count($request->all()) == 0 ) {
+            $scope->del =  iniMesDb();
+            $scope->al =  hoyDb();
+        }
+
+        $compraSolicitudDataTable->addScope($scope);
+
+        // $subtitulo='';
+
+        // if ($request->proveedor_id){
+        //     $proveedor = Proveedor::find($request->proveedor_id);
+        //     $subtitulo .=  "<br> Cliente: ".$proveedor->nombre;
+        // }
+
+        // if ($request->item_id){
+        //     $item = Item::find($request->item_id);
+        //     $marca_nombre = $item->marca->nombre ?? null;
+        //     $subtitulo .=  "<br> Artículo: ".$item->nombre.' / '.$marca_nombre;
+        // }
+
+
+        // if ($request->estado_id){
+        //     $sts = CompraEstado::find($request->estado_id);
+        //     $subtitulo .=  "<br> Estado: ".$sts->nombre;
+        // }
+
+        // if ($scope->del && $scope->al){
+        //     $subtitulo .=  "<br> Del: ".fecha($scope->del).' - Al: '.fecha($scope->al);
+        // }
+
+        // $compraSolicitudDataTable->setTitulo('Reporte de Compras');
+        // $compraSolicitudDataTable->setSubtitulo($subtitulo);
+
+
+
         return $compraSolicitudDataTable->render('compra_solicitudes.index');
     }
 
