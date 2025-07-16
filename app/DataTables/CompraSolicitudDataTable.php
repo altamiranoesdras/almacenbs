@@ -3,8 +3,9 @@
 namespace App\DataTables;
 
 use App\Models\CompraSolicitud;
-use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Button;
+use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Services\DataTable;
 
 class CompraSolicitudDataTable extends DataTable
@@ -15,11 +16,12 @@ class CompraSolicitudDataTable extends DataTable
      * @param mixed $query Results from query() method.
      * @return \Yajra\DataTables\DataTableAbstract
      */
-    public function dataTable($query)
+    public function dataTable($query) 
     {
 
-        return datatables()
-            ->eloquent($query)
+        $dataTable = new EloquentDataTable($query);
+
+        return $dataTable
             ->addColumn('action', function (CompraSolicitud $compraSolicitud) {
                 $id = $compraSolicitud->id;
                 return view('compra_solicitudes.datatables_actions', compact('compraSolicitud', 'id'));
@@ -105,7 +107,7 @@ class CompraSolicitudDataTable extends DataTable
      */
     public function html()
     {
-        return $this->builder()
+        return $this->builder() 
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->ajax([
