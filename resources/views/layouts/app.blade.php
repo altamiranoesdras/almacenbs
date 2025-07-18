@@ -118,7 +118,26 @@
 
     <script src="{{ url (mix('/js/app.js')) }}" type="text/javascript"></script>
 
+    <script>
 
+        //cada vez que se haga una peticion ajax, se mostrara un mensaje de carga
+        $(document).ajaxStart(function () {
+            Swal.fire({
+                title: 'Procesando...',
+                text: 'Por favor espere',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+        });
+
+        //cada vez que se complete una peticion ajax, se cerrara el mensaje de carga
+        $(document).ajaxStop(function () {
+            Swal.close();
+        });
+    </script>
     @stack('scripts')
 
 </body>
