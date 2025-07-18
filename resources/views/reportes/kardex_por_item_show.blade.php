@@ -23,7 +23,7 @@
     <!-- Main content -->
     <div class="content-body">
         <div class="container-fluid">
-            @include('adminlte-templates::common.errors') 
+            @include('adminlte-templates::common.errors')
 
 
             <div class="row">
@@ -170,7 +170,7 @@
                                                                     {{ $det->ingreso ? $det->codigo : '' }}</td>
                                                                 <td class="text-uppercase ">
                                                                     @if ($det->salida)
-                                                                        
+
                                                                         <span> {{ $det->codigo }} </span>
 
                                                                     @endif
@@ -256,7 +256,7 @@
                                                                 <td colspan="20">
                                                                     <!-- Button trigger modal -->
                                                                     <button type="button" class="btn btn-sm btn-info"
-                                                                        data-toggle="modal" data-target="#exampleModal">
+                                                                        data-bs-toggle="modal" data-target="#exampleModal">
                                                                         <i class="fa fa-arrow-down"></i>
                                                                         Pasar ultimo movimiento a nuevo folio
                                                                     </button>
@@ -324,7 +324,7 @@
                                                 <div class="col-sm-12 text-right mt-3">
 
                                                     <input type="hidden" name="item_id" value="{{ $item->id }}">
-                                                    
+
                                                     <button type="button" class="btn btn-primary"
                                                         @click.prevente="imprimirFolio({{ $folio }})">
                                                         <i class="fa fa-print"></i>

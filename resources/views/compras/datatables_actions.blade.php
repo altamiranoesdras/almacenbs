@@ -6,27 +6,14 @@
             data-bs-target="#modal-detalles-{{ $compra->id }}">
             <i class="fa fa-eye"></i>
         </button>
-    {{-- <span data-toggle="tooltip" title="Ver detalles">
-        <a href="#modal-detalles-{{$compra->id}}" data-keyboard="true" data-toggle="modal" class='btn btn-icon btn-flat-info rounded-circle' >
-            <i class="fa fa-eye"></i>
-        </a>
-    </span> --}}
 
-{{--    <a href="{{ route('compras.show', $compra->id) }}" class='btn btn-icon btn-flat-info rounded-circle' data-toggle="tooltip" title="Ver Detalles">--}}
-{{--        <i class="fa fa-eye"></i>--}}
-{{--    </a>--}}
 
     @if($compra->puedeEditar())
-    <a href="{{ route('compras.edit', $compra->id) }}" class='btn btn-icon btn-flat-primary rounded-circle' data-toggle="tooltip" title="Editar">
-        <i class="fa fa-edit"></i>
-    </a>
+        <a href="{{ route('compras.edit', $compra->id) }}" class='btn btn-icon btn-flat-primary rounded-circle' data-toggle="tooltip" title="Editar">
+            <i class="fa fa-edit"></i>
+        </a>
     @endif
 
-
-
-{{--     <a href="{{route('compra.pdf',$compra->id)}}" target="_blank" class='btn btn-icon btn-flat-secondary rounded-circle' data-toggle="tooltip" title="Imprimir Orden de Compra">--}}
-{{--         <i class="fas fa-print"></i>--}}
-{{--     </a>--}}
 
     @if($compra->tiene1h())
      <a href="{{route('compra.h1.pdf',$compra->id)}}" target="_blank" class='btn btn-icon btn-flat-primary rounded-circle' data-toggle="tooltip" title="Imprimir 1H">
@@ -35,45 +22,34 @@
     @endif
 
     @can('Anular ingreso de compra')
-        @if($compra->estado_id != \App\Models\CompraEstado::ANULADA && $compra->estado_id == \App\Models\CompraEstado::RECIBIDA )
+        @if($compra->puedeAnular())
 
 
             <button  type="button"
                 data-toggle="tooltip" title="Anular Ingreso"
                 class="btn btn-icon btn-flat-danger rounded-circle"
                 data-bs-toggle="modal"
-                onclick="deleteItemDt(this)" 
+                onclick="deleteItemDt(this)"
                 data-id="{{$compra->id}}"
             >
                 <i class="fa fa-undo-alt"></i>
             </button>
-            {{-- <a href="#" onclick="deleteItemDt(this)" data-id="{{$compra->id}}" data-toggle="tooltip" title="Anular Ingreso" class='btn btn-icon btn-flat-danger rounded-circle'>
-                <i class="fa fa-undo-alt"></i>
-            </a> --}}
-
 
             <form action="{{ route('compras.anular', $compra->id)}}" method="POST" id="delete-form{{$compra->id}}">
                 @method('POST')
                 @csrf
             </form>
         @endif
-        @if($compra->estado_id == \App\Models\CompraEstado::CREADA )
-            {{--<a href="#modal-delete-{{$compra->id}}" data-toggle="modal" class='btn btn-icon btn-flat-danger rounded-circle'>--}}
-                {{--<i class="far fa-trash-alt" data-toggle="tooltip" title="Eliminar Solicitud de Compra"></i>--}}
-            {{--</a>--}}
-            
+        @if($compra->puedeCancelar() )
+
+
             <button  type="button"
                 data-toggle="tooltip" title="Cancelar Solicitud de Compra"
-                class="btn btn-warning btn-xs"
+                class="btn btn-icon btn-flat-warning rounded-circle"
                 data-bs-toggle="modal"
                 data-bs-target="#modal-delete-{{ $compra->id }}">
                 <i class="fas fa-ban" ></i>
             </button>
-            {{-- <span data-toggle="tooltip" title="Cancelar Solicitud de Compra">
-                <a href="#modal-delete-{{$compra->id}}" data-toggle="modal" class='btn btn-warning btn-xs'>
-                    <i class="fas fa-ban" ></i>
-                </a>
-            </span> --}}
         @endif
     @endcan
 

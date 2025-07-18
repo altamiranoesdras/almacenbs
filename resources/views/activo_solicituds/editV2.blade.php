@@ -80,11 +80,11 @@
 
 {{--                                            @can('cancelar solicitud de compra')--}}
 {{--                                                @if($compra->estado_id == \App\Models\CompraEstado::CREADA )--}}
-{{--                                                    --}}{{--<a href="#modal-delete-{{$compra->id}}" data-toggle="modal" class='btn btn-icon btn-flat-danger rounded-circle'>--}}
+{{--                                                    --}}{{--<a href="#modal-delete-{{$compra->id}}" data-bs-toggle="modal" class='btn btn-icon btn-flat-danger rounded-circle'>--}}
 {{--                                                    --}}{{--<i class="far fa-trash-alt" data-toggle="tooltip" title="Eliminar Solicitud de Compra"></i>--}}
 {{--                                                    --}}{{--</a>--}}
 {{--                                                    <span data-toggle="tooltip" title="Cancelar Solicitud de Compra">--}}
-{{--                                                        <a href="#modal-delete-{{$compra->id}}" data-toggle="modal" class='btn btn-outline-warning'>--}}
+{{--                                                        <a href="#modal-delete-{{$compra->id}}" data-bs-toggle="modal" class='btn btn-outline-warning'>--}}
 {{--                                                            Cancelar Solicitud de Compra <i class="fas fa-ban"></i>--}}
 {{--                                                        </a>--}}
 {{--                                                    </span>--}}

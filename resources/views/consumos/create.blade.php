@@ -161,7 +161,7 @@
 
 
 
-                                    <button type="button" class="btn btn-outline-danger mr-2" data-toggle="modal" data-target="#modalCancelarRequisicion">
+                                    <button type="button" class="btn btn-outline-danger mr-2" data-bs-toggle="modal" data-target="#modalCancelarRequisicion">
                                         <i class="fa fa-ban"></i>
                                         Cancelar
                                     </button>

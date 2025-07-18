@@ -126,7 +126,7 @@
                                 <!-- Icategoria Id Field -->
                                 <div class="col-sm-12 mb-1">
                                     {!! Form::label('icatecoria_id','Categorías: ') !!}
-                                    <a class="success" data-toggle="modal" href="#modal-form-icategorias" tabindex="1000">Nueva</a>
+                                    <a class="success" data-bs-toggle="modal" href="#modal-form-icategorias" tabindex="1000">Nueva</a>
                                     {!!
                                         Form::select(
                                             'categorias[]',

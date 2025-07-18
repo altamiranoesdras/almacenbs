@@ -36,6 +36,7 @@ class ComprasSeeder extends Seeder
                     ]);
 
                 $compra->procesarKardex();
+                $compra->procesaIngreso();
             });
 
 

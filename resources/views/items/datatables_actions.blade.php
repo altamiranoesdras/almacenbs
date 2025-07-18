@@ -18,7 +18,7 @@
 
 @can('Eliminar Artículos')
 <span data-toggle="tooltip" title="Eliminar">
-    <a href="#modal-delete-{{$item->id}}" data-toggle="modal" data-keyboard="true" class='btn btn-icon btn-flat-danger rounded-circle'>
+    <a href="#modal-delete-{{$item->id}}" data-bs-toggle="modal" data-keyboard="true" class='btn btn-icon btn-flat-danger rounded-circle'>
         <i class="fa fa-trash-alt"></i>
     </a>
 </span>

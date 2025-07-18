@@ -241,7 +241,7 @@
 
                         <div class="col-sm-3">
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-outline-danger round" data-toggle="modal"
+                            <button type="button" class="btn btn-outline-danger round" data-bs-toggle="modal"
                                     data-target="#modalAnular">
                                 <i class="fa fa-ban"></i> Anular
                             </button>

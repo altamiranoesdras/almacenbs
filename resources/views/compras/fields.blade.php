@@ -124,7 +124,7 @@
         <div class="row">
 
             <div class="d-grid col-sm-5 mb-1">
-                <a class="btn btn-outline-danger btn-block" data-toggle="modal" href="#modal-cancel-compra">
+                <a class="btn btn-outline-danger btn-block" data-bs-toggle="modal" href="#modal-cancel-compra">
                     <span data-toggle="tooltip" title="Cancelar compra">
                         <i class="fa fa-ban"></i>
                         Cancelar

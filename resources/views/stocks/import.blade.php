@@ -88,7 +88,7 @@
 
 
                                         <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-outline-success ml-3" data-toggle="modal"
+                                        <button type="button" class="btn btn-outline-success ml-3" data-bs-toggle="modal"
                                                 data-target="#modelId">
                                             <i class="fa fa-file-import"></i>
                                             Importar

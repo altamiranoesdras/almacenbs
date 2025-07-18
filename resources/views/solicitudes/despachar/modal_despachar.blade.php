@@ -33,7 +33,7 @@
                             <!-- Button trigger modal -->
                             <span data-toggle="tooltip" title="Regresar para correción">
 
-                                <button type="button" class="btn btn-outline-warning"  data-toggle="modal"
+                                <button type="button" class="btn btn-outline-warning"  data-bs-toggle="modal"
                                         data-target="#modalRegresar{{$solicitud->id}}">
                                     <i class="fa fa-arrow-left"></i> Regresar
                                 </button>

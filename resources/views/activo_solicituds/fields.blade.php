@@ -41,7 +41,7 @@
                 </button>
             </div>
             <div class="col-sm-4 mb-1">
-                <a class="btn btn-outline-danger pull-right btn-block" data-toggle="modal" href="#modal-cancel-compra">
+                <a class="btn btn-outline-danger pull-right btn-block" data-bs-toggle="modal" href="#modal-cancel-compra">
                     <span data-toggle="tooltip" title="Cancelar compra">Cancelar</span>
                 </a>
             </div>

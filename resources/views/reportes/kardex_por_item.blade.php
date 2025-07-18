@@ -256,7 +256,7 @@
                                                                 <td colspan="20">
                                                                     <!-- Button trigger modal -->
                                                                     <button type="button" class="btn btn-sm btn-info"
-                                                                        data-toggle="modal" data-target="#exampleModal">
+                                                                        data-bs-toggle="modal" data-target="#exampleModal">
                                                                         <i class="fa fa-arrow-down"></i>
                                                                         Pasar ultimo movimiento a nuevo folio
                                                                     </button>

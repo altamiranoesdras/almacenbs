@@ -44,7 +44,7 @@
                         <a href="{{ route('log-viewer::logs.download', [$log->date]) }}" class="btn btn-sm btn-success">
                             <i class="fa fa-download"></i> @lang('Download')
                         </a>
-                        <a href="#delete-log-modal" class="btn btn-sm btn-danger" data-toggle="modal">
+                        <a href="#delete-log-modal" class="btn btn-sm btn-danger" data-bs-toggle="modal">
                             <i class="fa fa-trash-o"></i> @lang('Delete')
                         </a>
                     </div>

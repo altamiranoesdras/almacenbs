@@ -1,6 +1,6 @@
 
 <span data-toggle="tooltip" title="Ver" >
-    <button class='btn btn-icon btn-flat-secondary rounded-circle' data-toggle="modal" data-target="#modalShowitemTraslados{{$id}}">
+    <button class='btn btn-icon btn-flat-secondary rounded-circle' data-bs-toggle="modal" data-target="#modalShowitemTraslados{{$id}}">
         <i class="fa fa-eye"></i>
     </button>
 </span>
