@@ -1,44 +1,63 @@
 <?php
+
 namespace Database\Seeders;
 
 use App\Models\Compra;
+use App\Models\Compra1h;
 use App\Models\CompraDetalle;
 use App\Models\Kardex;
 use App\Models\Stock;
 use App\Models\StockTransaccion;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 
 class ComprasSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         deshabilitaLlavesForaneas();
 
-        Compra::truncate();
+        // Limpiar tablas
         CompraDetalle::truncate();
-        Stock::truncate();
         StockTransaccion::truncate();
+        Stock::truncate();
         Kardex::truncate();
+        Compra1h::truncate();
+        Compra::truncate();
 
-        Compra::factory()->count(20)
-            ->create()
-            ->each(function (Compra $compra){
-                CompraDetalle::factory()
-                    ->count(rand(5,10))
-                    ->create([
-                        'compra_id' => $compra->id
-                    ]);
+        DB::transaction(function () {
 
-                $compra->procesarKardex();
-                $compra->procesaIngreso();
-            });
+            $compras = Compra::factory()
+                ->count(2)
+                ->state(new Sequence(
+                    [
+                        'created_at' => now()->startOfMonth()->subDays(rand(1, 7)),
+                        'fecha_documento' => now()->startOfMonth()->subDays(rand(1, 7)),
+                        'fecha_ingreso' => now()->startOfMonth()->subDays(rand(1, 7)),
+                    ],
+                    [
+                        'created_at' => now()->startOfMonth()->addDays(rand(1,7)),
+                        'fecha_documento' => now()->startOfMonth()->addDays(rand(1, 7)),
+                        'fecha_ingreso' => now()->startOfMonth()->addDays(rand(1, 7)),
+                    ],
+                ))
+                ->has(
+                    CompraDetalle::factory()
+                        ->state(new Sequence(
+                            ['cantidad' => 25, 'precio' => 6],
+                            ['cantidad' => 50, 'precio' => 7]
+                        ))
+                        ->count(1),
+                    'detalles'
+                )
+                ->afterCreating(function (Compra $compra) {
+                    // Procesar ingreso y generar 1h para cada compra
+                    $compra->procesaIngreso();
+                    $compra->genera1h($compra->correlativo + 10);
+                })
+                ->create();
 
-
+        });
     }
 }

@@ -434,6 +434,9 @@ class CompraController extends AppBaseController
         return $pdf->inline('CompraH1-'.$compra->id. '_'. time().'.pdf');
     }
 
+    /**
+     * @throws \Throwable
+     */
     public function generar1h($id)
     {
 
@@ -442,76 +445,10 @@ class CompraController extends AppBaseController
          */
         $compra = Compra::find($id);
 
-//        return $compra->detalles;
-
         try {
             DB::beginTransaction();
 
-            /**
-             * @var Compra1h $compra1h
-             */
-            $compra1h = Compra1h::create([
-                'folio' => request()->folio,
-                'compra_id' => $compra->id,
-                'envio_fiscal_id' => 1,
-                'codigo' => $this->getCodigo1h(),
-                'correlativo' => $this->getCorrelativo1h(),
-                'del' => 0,
-                'al' => 0,
-                'fecha_procesa' => Carbon::now(),
-                'usuario_procesa' => auth()->user()->id,
-                'observaciones' => null
-            ]);
-
-            if ($compra->detalles->count() > 0) {
-
-                /**
-                 * @var CompraDetalle $detalle
-                 */
-                foreach ($compra->detalles as $detalle) {
-
-//                    return $detalle->item->tipo;
-
-                    if ($detalle->item->tipo_id == ItemTipo::ACTIVO_FIJO) {
-
-                        for ($i = 0; $i < $detalle->cantidad; $i++) {
-
-                            /**
-                             * @var Compra1hDetalle $compra1hDetalle
-                             */
-                            $compra1hDetalle = Compra1hDetalle::create([
-                                '1h_id' => $compra1h->id,
-                                'item_id' => $detalle->item_id,
-                                'precio' => $detalle->precio,
-                                'cantidad' => 1,
-                                'folio_almacen' => $detalle->folio_almacen,
-                                'folio_inventario' => $detalle->folio_inventario,
-                            ]);
-
-                        }
-
-                    }else{
-
-                        /**
-                         * @var Compra1hDetalle $compra1hDetalle
-                         */
-                        $compra1hDetalle = Compra1hDetalle::create([
-                            '1h_id' => $compra1h->id,
-                            'item_id' => $detalle->item_id,
-                            'precio' => $detalle->precio,
-                            'cantidad' => $detalle->cantidad,
-                            'folio_almacen' => $detalle->folio_almacen ,
-                            'folio_inventario' => $detalle->folio_inventario,
-                        ]);
-
-                    }
-
-
-                }
-
-            }
-
-            $compra->procesarKardex();
+           $compra->genera1h(request()->folio);
 
 
         } catch (\Exception $exception) {
@@ -532,22 +469,6 @@ class CompraController extends AppBaseController
 
     }
 
-    public function getCodigo1h($cantidadCeros = 1)
-    {
-        return prefijoCeros($this->getCorrelativo1h(),$cantidadCeros)."-".Carbon::now()->year;
-    }
-
-    public function getCorrelativo1h()
-    {
-
-        $correlativo = Compra1h::withTrashed()->whereRaw('year(created_at) ='.Carbon::now()->year)->max('correlativo');
-
-
-        if ($correlativo)
-            return $correlativo+1;
-
-        return 1;
-    }
 
 
     public function actualizar1h(Compra $compra, Request $request)
