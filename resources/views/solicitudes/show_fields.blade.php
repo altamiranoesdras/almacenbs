@@ -47,7 +47,7 @@
 
     <div class="col-sm-6 text-right">
         <label for="estado">Estado:</label>
-        <span class="badge badge-pill badge-{{$solicitude->estado->color}}">
+        <span class="badge badge-light-{{$solicitude->estado->color}}">
             {!! $solicitude->estado->nombre !!}
         </span>
         <br>
