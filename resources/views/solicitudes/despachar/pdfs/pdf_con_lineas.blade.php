@@ -73,7 +73,7 @@
     @endforeach
 
     @php
-        $lineasRestantes = 20 - count($solicitud->detalles);
+        $lineasRestantes = 15 - count($solicitud->detalles);
     @endphp
     @for ($i = 0; $i < $lineasRestantes; $i++)
         <tr>
@@ -106,19 +106,31 @@
 
 <br>
 
-<table style="width: 100%; border-collapse: collapse; text-align: center;" border="1">
-    <tr>
+<table style="width: 100%; border-collapse: collapse; text-align: center;">
+    <tr style="border: 1px solid black">
         <td colspan="3" style="text-align: center; font-weight: bold; padding: 4px; background-color: {{ $color_tema }}; font-size: {{ $size_texto_general }};">Nombres Firmas y Sellos</td>
     </tr>
-    <tr style="height: 50px;">
-        <td style="vertical-align: bottom; font-size: {{ $size_texto_general }};">{{ $solicitud->usuarioSolicita->name }}</td>
-        <td style="vertical-align: bottom; font-size: {{ $size_texto_general }};">{{ $solicitud->autorizado_por ?? '' }}</td>
-        <td style="vertical-align: bottom; font-size: {{ $size_texto_general }};">{{ $solicitud->recibido_por ?? '' }}</td>
+    <tr style="height: 150px;">
+        <td style="width: 33%; text-align: left; ">
+            <div style="display: inline-block; width: 90%; height: 150px; border: 1px solid black;"></div>
+        </td>
+        <td style="width: 33%; text-align: center;" >
+            <div style="display: inline-block; width: 90%; height: 150px; border: 1px solid black;"></div>
+        </td>
+        <td style="width: 33%; text-align: right;" >
+            <div style="display: inline-block; width: 90%; height: 150px; border: 1px solid black;"></div>
+        </td>
     </tr>
-    <tr style="background-color: {{ $color_tema }}; font-weight: bold;">
-        <td style="font-size: {{ $size_texto_general }};">Solicitado por:</td>
-        <td style="font-size: {{ $size_texto_general }};">Autorizado por:</td>
-        <td style="font-size: {{ $size_texto_general }};">Recibido por:</td>
+    <tr style="font-weight: bold;">
+        <td style="width: 33%; text-align: left; ">
+            <div style=" background-color: {{ $color_tema }}; display: inline-block; text-align: center; width: 90%; border: 1px solid black; font-size: {{ $size_texto_general }};">Solicitado por</div>
+        </td>
+        <td style="width: 33%; text-align: center;" >
+            <div style=" background-color: {{ $color_tema }}; display: inline-block; text-align: center; width: 90%; border: 1px solid black; font-size: {{ $size_texto_general }};">Autorizado por</div>
+        </td>
+        <td style="width: 33%; text-align: right;" >
+            <div style=" background-color: {{ $color_tema }}; display: inline-block; text-align: center; width: 90%; border: 1px solid black; font-size: {{ $size_texto_general }};">Recibido por</div>
+        </td>
     </tr>
 </table>
 
