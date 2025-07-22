@@ -85,7 +85,10 @@
                                 <div class="col-sm-3 mb-1 pl-3">
                                     {!! Form::label('boton','&nbsp;') !!}
                                     <div>
-                                        <button type="submit" id="boton" class="btn btn-info">Filtrar</button>
+                                        <button type="submit" id="boton" class="btn btn-info">
+                                            <i class="fa fa-sync"></i>
+                                            Filtrar
+                                        </button>
                                     </div>
                                 </div>
                             </div>
