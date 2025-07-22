@@ -430,8 +430,8 @@ class SolicitudController extends AppBaseController
             ->setOption('page-height', 216)
             ->setOrientation('landscape')
             ->setOption('footer-html',utf8_decode($footer))
-            ->setOption('margin-top', 39)
-            ->setOption('margin-bottom',45)
+            ->setOption('margin-top', 8)
+            ->setOption('margin-bottom',10)
             ->setOption('margin-left',10)
             ->setOption('margin-right',15);
 
