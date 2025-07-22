@@ -39,12 +39,12 @@
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
                                 <li>
-                                    <a data-action="collapse"><i data-feather="chevron-down"></i></a>
+                                    <a data-action="collapse"><i data-feather="chevron-up"></i></a>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    <div class="card-content collapse hide">
+                    <div class="card-content collapse show">
                         <div class="card-body">
                             <form action="{{route('compras.actualizar.procesada',$compra->id)}}" method="post" >
                                 @csrf
