@@ -25,6 +25,7 @@
                 <div class="dropdown">
                     <a class="btn btn-primary float-right"
                        href="{{ url()->previous() }}">
+                        <i class="fa fa-arrow-left"></i>
                         Regresar
                     </a>
                 </div>
@@ -121,7 +122,8 @@
                                                     <span v-show="loading" >
                                                         <i class="fa fa-spinner fa-spin"></i>
                                                     </span>
-                                                    <span v-show="!loading" class="glyphicon glyphicon-plus"></span>
+                                                    <span v-show="!loading" class="glyphicon"></span>
+                                                    <i class="fa fa-plus"></i>
                                                     Agregar
                                                 </button>
                                             </span>

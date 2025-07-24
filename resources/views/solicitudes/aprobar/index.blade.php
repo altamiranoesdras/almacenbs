@@ -6,7 +6,7 @@
 @section('content')
 
     <x-content-header titulo="Aprobar requisiciones">
-        <a class="btn btn-outline-success round"
+        <a class="btn btn-outline-secondary round"
            href="{!! route('solicitudes.usuario') !!}">
             <i class="fa fa-arrow-left"></i>
             <span class="d-none d-sm-inline">Volver</span>

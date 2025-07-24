@@ -95,7 +95,7 @@
                                                     <span v-show="loading" >
                                                         <i class="fa fa-spinner fa-spin"></i>
                                                     </span>
-                                                    <span v-show="!loading" class="glyphicon glyphicon-plus"></span>
+                                                    <i v-show="!loading" class="fa fa-plus"></i>
                                                     Agregar
                                                 </button>
                                             </span>
