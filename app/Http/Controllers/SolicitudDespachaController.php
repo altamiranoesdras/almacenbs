@@ -82,7 +82,7 @@ class SolicitudDespachaController extends Controller
 
         flash($msj)->success()->important();
 
-        return redirect(route('solicitudes.despachar'));
+        return redirect(route('solicitudes.despachoPdf',$solicitud->id));
     }
 
 

@@ -415,6 +415,10 @@ class SolicitudController extends AppBaseController
 
     public function despachoPdf(Solicitud $solicitud){
 
+        $solicitud->load([
+            'detalles.item',
+        ]);
+
         $pdf = App::make('snappy.pdf.wrapper');
 
         $view = view('solicitudes.despachar.pdfs.pdf_con_lineas', compact('solicitud'))->render();

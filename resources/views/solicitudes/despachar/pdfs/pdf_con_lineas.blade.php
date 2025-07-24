@@ -18,6 +18,9 @@
 <h5 style="text-align: center; margin-bottom: 35px; color: #0073e6;">
     de la Presidencia de la República
 </h5>
+
+<img src="{{ asset('img/Logo_CGC_FT.png') }}" alt="Logo" style="width: 100px; position: absolute; right: 10px; top: 10px">
+
 <h4 style="text-align: center; margin-bottom: 5px; font-weight: bold">
     REQUISICIÓN A ALMACÉN
 </h4>
@@ -64,11 +67,11 @@
     <tbody>
     @foreach ($solicitud->detalles as $detalle)
         <tr>
-            <td style="font-size: {{ $size_texto_general }}; padding: 4px; border-right: 1px solid black; border-left: 1px solid black">{{ nf($detalle->cantidad_solicitada, 0) }}</td>
+            <td style="font-size: {{ $size_texto_general }}; padding: 4px; border-right: 1px solid black; border-left: 1px solid black">{{ nf($detalle->cantidad_despachada, 0) }}</td>
             <td style="font-size: {{ $size_texto_general }}; padding: 4px; border-right: 1px solid black;">{{ $detalle->item->unimed->nombre ?? '' }}</td>
             <td style="font-size: {{ $size_texto_general }}; padding: 4px; text-align: left; border-right: 1px solid black;">{{ $detalle->item->texto_requisicion }}</td>
-            <td style="font-size: {{ $size_texto_general }}; padding: 4px; border-right: 1px solid black;">{{ nf($detalle->precio_unitario ?? 0, 2) }}</td>
-            <td style="font-size: {{ $size_texto_general }}; padding: 4px; border-right: 1px solid black;">{{ nf(($detalle->precio_unitario ?? 0) * $detalle->cantidad_solicitada, 2) }}</td>
+            <td style="font-size: {{ $size_texto_general }}; padding: 4px; border-right: 1px solid black;">{{ nf($detalle->precio ?? 0, 2) }}</td>
+            <td style="font-size: {{ $size_texto_general }}; padding: 4px; border-right: 1px solid black;">{{ nf(($detalle->precio ?? 0) * $detalle->cantidad_despachada, 2) }}</td>
         </tr>
     @endforeach
 
@@ -89,7 +92,7 @@
     <tr style="border: 1px solid black;">
         <td colspan="4" style="font-size: {{ $size_texto_general }}; text-align: right; font-weight: bold; padding: 4px; border-right: 1px solid black; background-color: {{ $color_tema }}">TOTAL Q.</td>
         <td style="font-weight: bold; padding: 4px; font-size: {{ $size_texto_general }};">
-            {{ nf($solicitud->detalles->sum(fn($d) => ($d->precio_unitario ?? 0) * $d->cantidad_solicitada), 2) }}
+            {{ nf($solicitud->detalles->sum(fn($d) => ($d->precio ?? 0) * $d->cantidad_despachada), 2) }}
         </td>
     </tr>
     </tfoot>

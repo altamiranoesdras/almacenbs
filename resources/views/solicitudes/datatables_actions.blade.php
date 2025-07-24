@@ -1,6 +1,6 @@
 @can('Ver Requisición')
     <button  type="button"
-             class="btn btn-secondary btn-xs"
+             class="btn btn-icon btn-flat-secondary rounded-circle"
              data-bs-toggle="modal"
              data-bs-target="#modal-detalles-{{ $id }}"
              title="Ver detalles">
@@ -10,7 +10,7 @@
 
 @if($solicitud->puedeImprimir())
 
-    <a href="{{ route('solicitudes.despachoPdf', $id) }}"  class='btn btn-primary btn-xs' data-toggle="tooltip" title="Imprimir" target="_blank">
+    <a href="{{ route('solicitudes.despachoPdf', $id) }}"  class='btn btn-icon btn-flat-primary rounded-circle' data-toggle="tooltip" title="Imprimir" target="_blank">
         <i class="fa fa-file-pdf"></i>
     </a>
 @endif
@@ -27,7 +27,7 @@
 
 
     @can('Anular Requisición')
-        <a href="#" onclick="deleteItemDt(this)" data-id="{{$solicitud->id}}" data-toggle="tooltip" title="Anular" class='btn btn-outline-danger btn-xs'>
+        <a href="#" onclick="deleteItemDt(this)" data-id="{{$solicitud->id}}" data-toggle="tooltip" title="Anular" class='btn btn-icon btn-flat-danger rounded-circle'>
             <i class="fa fa-undo-alt"></i>
         </a>
 
