@@ -26,26 +26,20 @@
     <table class="table table-borderless table-sm" style="width: 100%" >
         <tr style="">
             <td style="width:70%; vertical-align: middle; padding-left: 3.5cm">
-                Secretaría Ejecutiva de la ICMSJ
+                 SECRETARIA DE BIENESTAR SOCIAL DE LA PRESIDENCIA DE LA REPUBLICA
             </td>
             <td style="width:10%; vertical-align: middle; text-align: left;color: white">
                 Número
             </td>
-            <td style="width:18%; font-size: 10px; padding-top: 0">
-
+            <td style="width:18%; font-size: 16px; padding-top: 0; padding-left: 1rem">
                 <b>
-                    <div style="padding: 0;margin-top: 5px;text-wrap: none; width: 100%;">
-                        Serie: {{ $compra->serie }}
-                    </div>
-                    <div style="padding: 0;margin: 0; width: 100%;">
-                        No. &nbsp;{{ $compra->numero }}
-                    </div>
+                    {{ $compra->compra1h->folio ?? "" }}
                 </b>
             </td>
         </tr>
         <tr style="">
             <td style="width:70%; padding-left: 3.5cm">
-                Secretaría Ejecutiva de la ICMSJ
+{{--                 SECRETARIA DE BIENESTAR SOCIAL DE LA PRESIDENCIA DE LA REPUBLICA--}}
             </td>
             <td style="width:10%;color: white">
                 Fecha:
@@ -149,12 +143,6 @@
                 >
                     {!! $det->folio_inventario ?? $compra->folio_inventario ?? '' !!}
 
-                    {{--                        @if($det->item->esGrupo300() || $det->item->esGrupo200())--}}
-                    {{--                            {!! $compra->folio_inventario ?? ''!!}--}}
-                    {{--                        @else--}}
-                    {{--                            0--}}
-                    {{--                        @endif--}}
-
                 </td>
                 <td class="py-0" style="border-color: black;
                         text-align: center;
@@ -179,20 +167,21 @@
             <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
                 &nbsp;
             </td>
-            <td class="py-0 text-left" style="border-color: black;  text-align: center; padding: 2px; font-size: small" >
-                {{$compra->compra1h->total_letras}}
+            <td class="py-0 text-left " style="border-color: black;  text-align: center; padding: 2px; font-size: small" >
+{{--                {{$compra->compra1h->total_letras}}--}}
+                TOTAL--------------------------------------------------
             </td>
 
             <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
-                &nbsp;
+                --------------
             </td>
 
             <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
-                &nbsp;
+                --------------
             </td>
 
             <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
-                &nbsp;
+                --------------
             </td>
             <td style="border-color: black;
                     vertical-align: middle;
@@ -207,6 +196,38 @@
                 {{dvs().nfp($compra->compra1h->total,2)}}
                 <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 2px;"></div>
                 <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 0;"></div>
+            </td>
+            <td class="py-0" style="border-color: black;  text-align: center; padding: 5px; font-size: small" >
+
+            </td>
+
+            <td style="border-color: black;  text-align: center; padding: 5px; font-size: small" class="py-0">
+
+            </td>
+        </tr>
+        <tr >
+            <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
+                &nbsp;
+            </td>
+            <td class="py-0 text-left " style="border-color: black;  text-align: center; padding: 2px; font-size: small" >
+                Factura <br>
+                Serie: {{ $compra->serie ?? '' }}<br>
+                Número de DTE: {{ $compra->numero }}
+            </td>
+
+            <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
+                &nbsp;
+            </td>
+
+            <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
+                &nbsp;
+            </td>
+
+            <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
+                &nbsp;
+            </td>
+            <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
+                &nbsp;
             </td>
             <td class="py-0" style="border-color: black;  text-align: center; padding: 5px; font-size: small" >
 

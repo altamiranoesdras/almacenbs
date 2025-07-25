@@ -29,7 +29,7 @@ class ComprasSeeder extends Seeder
         DB::transaction(function () {
 
             $compras = Compra::factory()
-                ->count(2)
+                ->count(25)
                 ->state(new Sequence(
                     [
                         'created_at' => now()->startOfMonth()->subDays(rand(1, 7)),
@@ -48,13 +48,13 @@ class ComprasSeeder extends Seeder
                             ['cantidad' => 25, 'precio' => 6],
                             ['cantidad' => 50, 'precio' => 7]
                         ))
-                        ->count(1),
+                        ->count(rand(3,8)),
                     'detalles'
                 )
                 ->afterCreating(function (Compra $compra) {
                     // Procesar ingreso y generar 1h para cada compra
                     $compra->procesaIngreso();
-                    $compra->genera1h($compra->correlativo + 10);
+                    $compra->genera1h($compra->correlativo + 10000);
                 })
                 ->create();
 

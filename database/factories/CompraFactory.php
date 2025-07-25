@@ -47,6 +47,7 @@ class CompraFactory extends Factory
             'proveedor_id' => Proveedor::all()->random()->id,
             'fecha_documento' => $fechaDocumento,
             'fecha_ingreso' => $fechaIngreso,
+            'orden_compra' => $this->faker->randomNumber(6),
             'serie' => $this->faker->randomElement(['A','B','C']),
             'numero' => $this->faker->randomNumber(6),
             'usuario_crea' => User::all()->random()->id,
