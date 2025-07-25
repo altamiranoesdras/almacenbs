@@ -69,7 +69,8 @@ class SolicitudDataTable extends DataTable
 
                 $color = $solicitud->estado->color;
 
-                return "<span class='badge badge-$color'>{$solicitud->estado->nombre}</span>";
+                return "<span class='badge bg-$color'>{$solicitud->estado->nombre}</span>";
+
 
             })
             ->rawColumns(['action','codigo','estado.nombre']);
