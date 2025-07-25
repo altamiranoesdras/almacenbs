@@ -1,70 +1,65 @@
 <div class="row">
     <div class="col-sm-6">
 
-        <!-- Id Field -->
-        {!! Form::label('id', 'Id:') !!}
-        {!! $solicitude->id !!}<br>
+        <div class="mb-2">
+            <label for="id">Id:</label>
+            <div><strong>{{ $solicitude->id }}</strong></div>
+        </div>
 
+        <div class="mb-2">
+            <label for="codigo">Código:</label>
+            <div><strong>{{ $solicitude->codigo }}</strong></div>
+        </div>
 
-        <!-- Numero Field -->
-        {!! Form::label('numero', 'Código:') !!}
-        {!! $solicitude->codigo !!}<br>
+        <div class="mb-2">
+            <label for="departamento">Departamento solicita:</label>
+            <div><strong>{{ $solicitude->unidad->nombre ?? '' }}</strong></div>
+        </div>
 
+        <div class="mb-2">
+            <label for="fecha_solicita">Fecha solicita:</label>
+            <div><strong>{{ fechaLtn($solicitude->fecha_solicita) }}</strong></div>
+        </div>
 
-        <!-- Observaciones Field -->
-        {!! Form::label('justificacion', 'Justificacion:') !!}
-        {!! $solicitude->justificacion !!}<br>
+    </div>
 
+    <div class="col-sm-6 text-end">
 
-        <!-- User Id Field -->
-        {!! Form::label('user_id', 'Departamento solicita:') !!}
-        {!! $solicitude->unidad->nombre ?? '' !!}<br>
+        <div class="mb-2">
+            <label for="estado">Estado:</label><br>
+            <span class="badge bg-{{ $solicitude->estado->color }}">
+                {{ $solicitude->estado->nombre }}
+            </span>
+        </div>
 
-
-        <!-- User Id Field -->
-        {!! Form::label('user_id', 'Solicitante:') !!}
-        {!! $solicitude->usuarioSolicita->name ?? '' !!}<br>
-
-
-        <!-- Created At Field -->
-        {!! Form::label('created_at', 'Fecha solicita:') !!}
-        {!! fechaLtn($solicitude->fecha_solicita) !!}<br>
-
+        <div class="mb-2">
+            <label for="solicitante">Solicitante:</label>
+            <div><strong>{{ $solicitude->usuarioSolicita->name ?? '' }}</strong></div>
+        </div>
 
         @if ($solicitude->estaDespachada())
+            <div class="mb-2">
+                <label for="usuario_despacha">Usuario que despacha:</label>
+                <div><strong>{{ $solicitude->usuarioDespacha->name ?? '' }}</strong></div>
+            </div>
 
-            <!-- User Despacha Field -->
-            {!! Form::label('user_despacha', 'User Despacha:') !!}
-            {!! $solicitude->usuarioDespacha->name  ??  ''!!}<br>
-
-            <!-- Fecha Despacha Field -->
-            {!! Form::label('fecha_despacha', 'Despachada El:') !!}
-            {!! fechaLtn($solicitude->fecha_despacha) !!}<br>
-
+            <div class="mb-2">
+                <label for="fecha_despacha">Despachada el:</label>
+                <div><strong>{{ fechaLtn($solicitude->fecha_despacha) }}</strong></div>
+            </div>
         @endif
+
+        @if (!empty($solicitude->motivo_retorna))
+            <div class="mb-2">
+                <label for="motivo_retorna">Motivo de retorno:</label>
+                <div><strong>{{ $solicitude->motivo_retorna }}</strong></div>
+            </div>
+        @endif
+
     </div>
 
-
-    <div class="col-sm-6 text-right">
-        <label for="estado">Estado:</label>
-        <span class="badge badge-light-{{$solicitude->estado->color}}">
-            {!! $solicitude->estado->nombre !!}
-        </span>
-        <br>
-        {{$solicitude->motivo_retorna}}
+    <div class="col-12 mt-3">
+        <label for="justificacion">Justificación:</label>
+        <div><strong>{{ $solicitude->justificacion }}</strong></div>
     </div>
 </div>
-
-
-
-
-<!-- Updated At Field -->
-{{--{!! Form::label('updated_at', 'Actualizado el:') !!}--}}
-{{--{!! $solicitude->updated_at !!}<br>--}}
-
-
-<!-- Deleted At Field -->
-{{--{!! Form::label('deleted_at', 'Borrado el:') !!}--}}
-{{--{!! $solicitude->deleted_at !!}<br>--}}
-
-

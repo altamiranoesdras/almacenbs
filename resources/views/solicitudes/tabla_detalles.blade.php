@@ -1,30 +1,29 @@
-<table class="table table-bordered table-hover table-xtra-condensed">
-    <thead>
+<table class="table table-bordered table-hover table-sm">
+    <thead class="table-light">
     <tr>
         <th>Producto</th>
         <th>Cantidad Solicitada</th>
         <th>Cantidad Aprobada</th>
-        <th>Cantidad despachada</th>
+        <th>Cantidad Despachada</th>
     </tr>
     </thead>
     <tbody>
-
     @foreach($solicitud->detalles as $det)
         <tr>
-            <td>{{$det->item->text}}</td>
-            <td>{{$det->cantidad_solicitada}}</td>
-            <td> {{$solicitud->muestraCantidadAprobar() ? $det->cantidad_aprobada : "Pendiente"}}</td>
-            <td> {{$solicitud->muestraCantidadDespachar() ? $det->cantidad_despachada : "Pendiente"}}</td>
+            <td>{{ $det->item->text }}</td>
+            <td>{{ $det->cantidad_solicitada }}</td>
+            <td>{{ $solicitud->muestraCantidadAprobar() ? $det->cantidad_aprobada : 'Pendiente' }}</td>
+            <td>{{ $solicitud->muestraCantidadDespachar() ? $det->cantidad_despachada : 'Pendiente' }}</td>
         </tr>
     @endforeach
-
     </tbody>
     <tfoot>
     <tr>
-        <th colspan="5"><span class="pull-right">
-                TOTAL Artículos
-                {{nf($solicitud->detalles->sum('cantidad_solicitada'))}}
-            </span>
+        <th colspan="4">
+                <span class="float-end">
+                    TOTAL Artículos:
+                    {{ nf($solicitud->detalles->sum('cantidad_solicitada')) }}
+                </span>
         </th>
     </tr>
     </tfoot>
