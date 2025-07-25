@@ -33,6 +33,8 @@ class DatabaseSeeder extends Seeder
 
         DB::table('media')->truncate();
 
+
+        $this->call(RrhhUnidadTiposSeeder::class);
         $this->call(RrhhUnidadesTableSeeder::class);
         $this->call(OptionsTableSeeder::class);
         $this->call(PermissionSeeder::class);

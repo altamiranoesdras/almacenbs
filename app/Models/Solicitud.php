@@ -283,8 +283,7 @@ class Solicitud extends Model
 
     public function scopeDelUsuarioCrea($q,$user=null)
     {
-        $user = $user ?? auth()->user() ?? auth('api')->user();
-
+        $user = $user ?? usuarioAutenticado();
 
         $q->where('usuario_crea',$user->id);
     }
@@ -451,7 +450,7 @@ class Solicitud extends Model
     {
 
 
-        if ($this->estado_id == SolicitudEstado::DESPACHADA){
+        if ($this->estaDespachada()){
 
             /**
              * @var SolicitudDetalle $detalle
@@ -509,6 +508,47 @@ class Solicitud extends Model
         }
 
         return null;
+    }
+
+    public function aprobar($fecha=null): void
+    {
+        $this->estado_id = SolicitudEstado::APROBADA;
+        $this->fecha_aprueba = $fecha ?? Carbon::now();
+        $this->usuario_aprueba = usuarioAutenticado()->id;
+        $this->save();
+
+        $this->addBitacora("SISTEMA","REQUISICIÓN APROBADA","");
+
+    }
+
+    public function autorizar($fecha=null): void
+    {
+        $this->estado_id = SolicitudEstado::AUTORIZADA;
+        $this->fecha_autoriza =  $fecha ?? Carbon::now();
+        $this->usuario_autoriza = usuarioAutenticado()->id;
+        $this->save();
+
+        $this->addBitacora("SISTEMA","REQUISICIÓN AUTORIZADA","");
+    }
+
+    public function solicitar($fecha=null): void
+    {
+        $this->estado_id = SolicitudEstado::SOLICITADA;
+        $this->fecha_solicita =  $fecha ?? Carbon::now();
+        $this->usuario_solicita = usuarioAutenticado()->id;
+        $this->save();
+
+        $this->addBitacora("SISTEMA","REQUISICIÓN SOLICITADA","");
+    }
+
+    public function despachar($fecha=null): void
+    {
+        $this->estado_id = SolicitudEstado::DESPACHADA;
+        $this->fecha_despacha =  $fecha ?? Carbon::now();
+        $this->usuario_despacha = usuarioAutenticado()->id;
+        $this->save();
+
+        $this->addBitacora("SISTEMA","REQUISICIÓN DESPACHADA","");
     }
 
 }

@@ -69,5 +69,42 @@ class SolicitudFactory extends Factory
         ];
     }
 
+    public function configure()
+    {
+        return $this->afterCreating(function (Solicitud $solicitud) {
+
+            $fechaSolicita = Carbon::now()->subDays(rand(0,3));
+            $fechaAutoriza = $fechaSolicita->copy()->addHours(rand(2,5));
+            $fechaAprueba = $fechaAutoriza->copy()->addHours(rand(2,5));
+            $fechaDespacha = $fechaAprueba->copy()->addHours(rand(5,10));
+
+            $solicitud->fecha_solicita = $fechaSolicita;
+
+            if ($solicitud->estaAprobada()) {
+                $solicitud->aprobar($fechaAprueba);
+            }
+
+            if ($solicitud->estaAutoizada()) {
+                $solicitud->aprobar($fechaAprueba);
+                $solicitud->autorizar($fechaAutoriza);
+            }
+
+            if ($solicitud->estaDespachada()) {
+                $solicitud->aprobar($fechaAprueba);
+                $solicitud->autorizar($fechaAutoriza);
+                $solicitud->despachar($fechaDespacha);
+            }
+
+            if ($solicitud->estaAnulada()) {
+                $solicitud->aprobar($fechaAprueba);
+                $solicitud->autorizar($fechaAutoriza);
+                $solicitud->despachar($fechaDespacha);
+                $solicitud->anular();
+            }
+
+            $solicitud->save();
+        });
+    }
+
 
 }

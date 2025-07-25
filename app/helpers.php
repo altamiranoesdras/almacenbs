@@ -909,3 +909,47 @@ if (!function_exists('configuracion')) {
         return app(ConfiguracionService::class);
     }
 }
+
+
+/**
+ * Devuelve el usuario autenticado, si no existe devuelve el usuario principal, si no existe devuelve un usuario invitado
+ * @return User
+ */
+function usuarioAutenticado(): User
+{
+    // Usuario principal
+    $userPrincipal = User::find(User::PRINCIPAL) ?? null;
+
+    // Si está en consola, devolvemos el usuario principal directamente
+    if (app()->runningInConsole()) {
+        return $userPrincipal ?? new User([
+            'id' => 0,
+            'name' => 'Invitado',
+            'email' => 'invitado@' . config('app.url'),
+            'is_admin' => false,
+            'is_super_admin' => false,
+        ]);
+    }
+
+    // Entorno web o api
+    $userWeb = auth('web')->user();
+
+    // Intentar obtener el usuario api solo si el guard está definido
+    $userApi = null;
+    if (array_key_exists('api', config('auth.guards', []))) {
+        try {
+            $userApi = auth('api')->user();
+        } catch (\Throwable $e) {
+            // Ignorar error si el guard no está activo
+        }
+    }
+
+    return $userWeb ?? $userApi ?? $userPrincipal ?? new User([
+        'id' => 0,
+        'name' => 'Invitado',
+        'email' => 'invitado@' . config('app.url'),
+        'is_admin' => false,
+        'is_super_admin' => false,
+    ]);
+}
+

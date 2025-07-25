@@ -4,8 +4,10 @@ namespace Database\Seeders;
 
 use App\Models\Solicitud;
 use App\Models\SolicitudDetalle;
+use App\Models\SolicitudEstado;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -20,6 +22,7 @@ class SolicitudesTableSeeder extends Seeder
     public function run()
     {
 
+        deshabilitaLlavesForaneas();
 
 
         DB::table('solicitudes')->truncate();
@@ -28,63 +31,38 @@ class SolicitudesTableSeeder extends Seeder
 
         Solicitud::factory()
             ->count(20)
-            ->afterCreating(function (Solicitud $solicitud){
-
-                SolicitudDetalle::factory()->count(rand(5,10))->create([
-                    'solicitud_id' => $solicitud->id
-                ]);
-
-                $solicitud->codigo = $this->getCodigo();
-                $solicitud->correlativo = $this->getCorrelativo();
-                $solicitud->save();
-
-
-                $fechaSolicita = Carbon::now()->subDays(rand(0,3));
-                $fechaAutoriza = $fechaSolicita->copy()->addHours(rand(2,5));
-                $fechaAprueba = $fechaAutoriza->copy()->addHours(rand(2,5));
-                $fechaDespacha = $fechaAprueba->copy()->addHours(rand(5,10));
-
-                $solicitud->fecha_solicita = $fechaSolicita;
-
-                if ($solicitud->estaAutoizada()){
-                    $solicitud->fecha_autoriza = $fechaAutoriza;
-                    $solicitud->usuario_autoriza = User::all()->random()->id;
+            ->state(new Sequence(
+                [
+                    'estado_id' => SolicitudEstado::SOLICITADA,
+                ],
+                [
+                    'estado_id' => SolicitudEstado::APROBADA,
+                ],
+                [
+                    'estado_id' => SolicitudEstado::DESPACHADA,
+                ]
+                ,[
+                    'estado_id' => SolicitudEstado::ANULADA,
+                ]
+            ))
+            ->state(new Sequence(
+                function ($sequence) {
+                    $index = $sequence->index;
+                    return [
+                        'codigo' => "REQ-" . prefijoCeros($index + 1, 4) . "-" . Carbon::now()->year,
+                        'correlativo' => $index + 1,
+                    ];
                 }
-
-                if ($solicitud->estaAprobada()){
-
-                    $solicitud->fecha_autoriza = $fechaAutoriza;
-                    $solicitud->usuario_autoriza = User::all()->random()->id;
-
-                    $solicitud->fecha_aprueba = $fechaAprueba;
-                    $solicitud->usuario_aprueba = User::all()->random()->id;
-                }
-
-                if ($solicitud->estaDespachada()){
-
-                    $solicitud->fecha_autoriza = $fechaAutoriza;
-                    $solicitud->usuario_autoriza = User::all()->random()->id;
-
-                    $solicitud->fecha_aprueba = $fechaAprueba;
-                    $solicitud->usuario_aprueba = User::all()->random()->id;
-
-
-                    $solicitud->fecha_despacha = $fechaDespacha;
-                    $solicitud->usuario_despacha = User::all()->random()->id;
-
-
-                    $solicitud->egreso();
-                }
-
-                if ($solicitud->estaAnulada()){
-                    $solicitud->fecha_autoriza = $fechaAutoriza;
-                    $solicitud->fecha_aprueba = $fechaAprueba;
-                    $solicitud->fecha_despacha = $fechaDespacha;
-                    $solicitud->anular();
-                }
-
-                $solicitud->save();
-            })
+            ))
+            ->has(
+                SolicitudDetalle::factory()
+                    ->count(rand(5,10))
+                    ->state(new Sequence(
+                        ['cantidad_solicitada' => 10,'cantidad_aprobada' => 10, 'cantidad_despachada' => 10, 'precio' => 100],
+                        ['cantidad_solicitada' => 20,'cantidad_aprobada' => 20, 'cantidad_despachada' => 20, 'precio' => 150],
+                    )),
+                'detalles'
+            )
             ->create();
 
 
@@ -93,22 +71,5 @@ class SolicitudesTableSeeder extends Seeder
 
 
 
-
-    public function getCodigo($cantidadCeros = 3)
-    {
-        return "REQ-".prefijoCeros($this->getCorrelativo(),$cantidadCeros)."-".Carbon::now()->year;
-    }
-
-    public function getCorrelativo()
-    {
-
-        $correlativo = Solicitud::withTrashed()->whereRaw('year(created_at) ='.Carbon::now()->year)->max('correlativo');
-
-
-        if ($correlativo)
-            return $correlativo+1;
-
-        return 1;
-    }
 
 }
