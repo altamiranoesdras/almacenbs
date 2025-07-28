@@ -14,7 +14,7 @@ class AddField2ToKardexTable extends Migration
     public function up()
     {
         Schema::table('kardexs', function (Blueprint $table) {
-            $table->string('folio_siguiente')->after('impreso');
+            $table->string('folio_siguiente')->nullable()->after('impreso');
         });
     }
 

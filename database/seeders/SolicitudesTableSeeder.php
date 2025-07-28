@@ -25,8 +25,7 @@ class SolicitudesTableSeeder extends Seeder
         deshabilitaLlavesForaneas();
 
 
-        DB::table('solicitudes')->truncate();
-        DB::table('solicitud_detalles')->truncate();
+
 
 
         Solicitud::factory()

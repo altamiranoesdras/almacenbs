@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string $folio_siguiente
  * @property integer $usuario_id
  * @property int $id
+ * @property string|null $concepto
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -336,6 +337,26 @@ class Kardex extends Model
 
 
         return $folioItem;
+    }
+
+
+    public function getConceptoAttribute()
+    {
+        if ($this->model instanceof CompraDetalle){
+            //Ingreso 1H 109498 librería e Imprenta Vivian, S.A.
+            return 'Ingreso 1H'.$this->model->compra->compra1h->folio.' '.$this->model->compra->proveedor->nombre;
+        }
+
+        if ($this->model instanceof Stock){
+            return "Stock inicial de ".$this->model->bodega->nombre;
+        }
+
+        if ($this->model instanceof SolicitudDetalle){
+            return $this->model->solicitud->unidad->nombre;
+        }
+
+        return $this->responsable;
+
     }
 
 

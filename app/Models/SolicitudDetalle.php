@@ -205,7 +205,7 @@ class SolicitudDetalle extends Model
                 break;
         }
 
-        $this->precio = $primerStock->precio_compra;
+//        $this->precio = $primerStock->precio_compra;
         $this->save();
 
 

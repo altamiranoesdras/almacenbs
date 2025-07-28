@@ -548,6 +548,11 @@ class Solicitud extends Model
         $this->usuario_despacha = usuarioAutenticado()->id;
         $this->save();
 
+
+        $this->egreso();
+        $this->ingreso();
+
+
         $this->addBitacora("SISTEMA","REQUISICIÓN DESPACHADA","");
     }
 
