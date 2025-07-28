@@ -46,11 +46,11 @@
         <td style="width: 100%; padding: 0;">
             <div style="display: table; width: 100%; border-collapse: collapse;">
                 <div style="display: table-cell; width: 30%; vertical-align: middle;">
-                    <img src="{{ asset('img/Logo_Secretaria_BS.png') }}" alt="Logo" style="width: 100%;">
+                    <img src="{{ asset('img/logos/Logo_Secretaria_BS.png') }}" alt="Logo" style="width: 100%;">
                 </div>
                 <div style="display: table-cell; width: 70%; text-align: center; vertical-align: middle;">
-                    <div style="font-weight: bold;">REQUISICIÓN DE COMPRA</div>
-                    <div>PEDIDO</div>
+                    <h2 style="font-weight: bold;">REQUISICIÓN DE COMPRA</h2>
+                    <h3>PEDIDO</h3>
                 </div>
             </div>
         </td>
@@ -75,22 +75,22 @@
     </tr>
     <tr style="height: 40px;">
         <td style="width: 25%; text-align: center; ">
-            <div style="display: inline-block; width: 80%; border: 1px solid black; padding: 10px">{{$compraSolicitud->usuarioSolicita->unidad->codigo}}</div>
+            <div style="display: inline-block; width: 80%; border: 1px solid black; padding: 10px; font-weight: bold; font-size: 12px">{{$compraSolicitud->usuarioSolicita->unidad->codigo}}</div>
         </td>
         <td style="width: 25%; text-align: center;" >
-            <div style="display: inline-block; width: 80%; border: 1px solid black; padding: 10px">{{fechaLtnMesEnTexto($compraSolicitud->fecha_requiere ?? hoyDb())}}</div>
+            <div style="display: inline-block; width: 80%; border: 1px solid black; padding: 10px; font-weight: bold; font-size: 12px">{{fechaLtnMesEnTexto($compraSolicitud->fecha_requiere ?? hoyDb())}}</div>
         </td>
         <td style="width: 25%; text-align: center;" >
-            <div style="display: inline-block; width: 80%; border: 1px solid black; padding: 10px">(nit prueba)</div>
+            <div style="display: inline-block; width: 80%; border: 1px solid black; padding: 10px; font-weight: bold; font-size: 12px">337788-1</div>
         </td>
         <td style="width: 25%; text-align: center;" >
-            <div style="display: inline-block; width: 80%; border: 1px solid black; padding: 10px">{{$compraSolicitud->codigo}}</div>
+            <div style="display: inline-block; width: 80%; border: 1px solid black; padding: 10px; font-weight: bold; font-size: 12px">{{$compraSolicitud->codigo}}</div>
         </td>
     </tr>
 </table>
 
 <!-- Unidad solicitante -->
-<table style="margin-top: 20px; width: 100%">
+<table style="margin-top: 15px; width: 100%">
     <tr>
         <td class="left" colspan="4" style="border: none">UNIDAD SOLICITANTE:</td>
     </tr>
@@ -119,11 +119,11 @@
             <td>{{ $detalle->item->renglon->numero ?? '' }}</td>
             <td>{{ $detalle->item->unimed->nombre ?? '' }}</td>
             <td>{{ $detalle->cantidad }}</td>
-            <td class="left">{{ $detalle->item->descripcion ?? '' }}</td>
+            <td class="left">{{ $detalle->item->descripcion === '<p>&nbsp;</p>' || !$detalle->item->descripcion ? 'Sin Descripción' : $detalle->item->descripcion }}</td>
         </tr>
     @endforeach
 
-    @for ($i = count($compraSolicitud->detalles); $i < 5; $i++)
+    @for ($i = count($compraSolicitud->detalles); $i < 15; $i++)
         <tr>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
@@ -140,18 +140,18 @@
 </table>
 
 <!-- Justificación -->
-<table style="margin-top: 20px; width: 100%">
+<table style="margin-top: 15px; width: 100%">
     <tr>
         <td class="left" colspan="4" style="border: none">JUSTIFICACIÓN DE LA COMPRA:</td>
     </tr>
     <tr>
-        <td class="left" colspan="4" style="text-align: center; height: 50px; width: 100%">
+        <td class="left" colspan="4" style="height: 50px; width: 100%">
             {{$compraSolicitud->justificacion ?? ''}}
         </td>
     </tr>
 </table>
 
-<table style="margin-top: 20px; width: 100%; border: 1px solid black; border-collapse: collapse;">
+<table style="margin-top: 15px; width: 100%; border: 1px solid black; border-collapse: collapse;">
     <tr>
         <td style="width: 50%; border: none; text-align: center; padding: 50px;">
             <div style="border-bottom: 1px solid black; display: inline-block; width: 80%;"></div>
@@ -163,7 +163,7 @@
 </table>
 
 <!-- Subproducto y partidas -->
-<table style="margin-top: 20px; width: 100%; border: 1px solid black; border-collapse: collapse; ">
+<table style="margin-top: 15px; width: 100%; border: 1px solid black; border-collapse: collapse; ">
     <tr class="section-title">
         <td style="width: 50%; border: none; text-align: center;" colspan="2">
             EXCLUSIVO DEPARTAMENTO DE PRESUPUESTOS
@@ -175,7 +175,7 @@
             <table style="width: 75%; border-collapse: collapse; margin: 15px auto;">
                 <tr>
                     <td style="border: none; font-weight: bold; text-align: start;">
-                        SUB PRODUCTOS
+                        SUB PRODUCTOS:
                     </td>
                 </tr>
                 @foreach(explode('|', $compraSolicitud->subproductos) as $producto)
@@ -190,7 +190,7 @@
             <table style="width: 75%; border-collapse: collapse; margin: 15px auto;">
                 <tr>
                     <td style="border: none; font-weight: bold; text-align: start">
-                        PARTIDAS PRESUPUESTARIAS
+                        PARTIDAS PRESUPUESTARIAS:
                     </td>
                 </tr>
                 @foreach(explode('|', $compraSolicitud->partidas) as $partida)
