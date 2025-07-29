@@ -206,16 +206,13 @@ class ReportesAlmacenController extends AppBaseController
                 }
 
                 $impreso = $impresos[$kardex->id] ?? 0;
-
-
-
                 $kardex->impreso = $impreso;
-                $kardex->precio_existencia = $preciosExistencia[$kardex->id];
-                $kardex->precio_movimiento = $preciosMovimientos[$kardex->id];
-                $kardex->saldo = $saldos[$kardex->id];
-                $kardex->codigo_insumo = $request->codigo_insumo;
-                $kardex->del = $request->del;
-                $kardex->al = $request->al;
+//                $kardex->precio_existencia = $preciosExistencia[$kardex->id];
+//                $kardex->precio_movimiento = $preciosMovimientos[$kardex->id];
+//                $kardex->saldo = $saldos[$kardex->id];
+//                $kardex->codigo_insumo = $request->codigo_insumo;
+//                $kardex->del = $request->del;
+//                $kardex->al = $request->al;
                 $kardex->folio_siguiente = $request->folio_siguiente;
                 $kardex->save();
 

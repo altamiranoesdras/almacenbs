@@ -421,8 +421,7 @@ class SolicitudController extends AppBaseController
 
         $pdf = App::make('snappy.pdf.wrapper');
 
-        $view = view('solicitudes.despachar.pdfs.pdf_con_lineas', compact('solicitud'))->render();
-        // $footer = view('compras.pdf_footer')->render();
+        $view = view(config('impresos.requisiciones.solicitud.vista_pdf'), compact('solicitud'))->render();
 
         $footer = view('solicitudes.despachar.pdf_footer',compact('solicitud'))->render();
 
