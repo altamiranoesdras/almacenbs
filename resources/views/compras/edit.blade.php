@@ -147,7 +147,7 @@
                         </div>
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-content collapse hide">
+                    <div class="card-content collapse show">
                         <div class="card-body">
                             @if(!$compra->estaRecibida())
                                 <h4 class="text-center text-info">
