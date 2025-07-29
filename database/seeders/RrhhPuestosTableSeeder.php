@@ -17,9 +17,15 @@ class RrhhPuestosTableSeeder extends Seeder
     public function run()
     {
 
+        deshabilitaLlavesForaneas();
 
-        DB::table('rrhh_puestos')->delete();
+        RrhhPuesto::truncate();
 
-        RrhhPuesto::factory()->count(10)->create();
+        RrhhPuesto::factory()->create(['nombre' => 'JEFE DEPARTAMENTO ALMACÉN']);
+        RrhhPuesto::factory()->create(['nombre' => 'ENCARGADA DE BODEGA']);
+        RrhhPuesto::factory()->create(['nombre' => 'AUXILIAR DE BODEGA']);
+        RrhhPuesto::factory()->create(['nombre' => 'ANALISTA ALMACÉN']);
+        RrhhPuesto::factory()->create(['nombre' => 'RECEPCIONISTA']);
+
     }
 }
