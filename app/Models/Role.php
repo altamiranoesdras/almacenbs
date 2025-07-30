@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
-
 /**
  * Class Role
  *
@@ -48,6 +46,14 @@ class Role extends \Spatie\Permission\Models\Role
     const JEFE_ALMACEN =     5;
     const JEFE_INVENTARIOS = 6;
     const ASISTENTE_CAJ =    7;
+
+    const SOLICITANTE_REQUISICION_COMPRAS = 8;
+    const APROBADOR_REQUISICION_COMPRAS = 9;
+    const ADMINISTRADOR_REQUISICION_COMPRAS = 10;
+    const SOLICITANTE_REQUISICION_ALMACEN = 11;
+    const APROBADOR_REQUISICION_ALMACEN = 12;
+    const ADMINISTRADOR_REQUISICION_ALMACEN = 13;
+
     const ROLES_ADMINS = [1,2,3];
 
     protected $dates = ['deleted_at'];

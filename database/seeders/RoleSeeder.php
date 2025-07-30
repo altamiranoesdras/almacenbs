@@ -4,10 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Option;
 use App\Models\Permission;
-use App\Models\Renglon;
 use App\Models\Role;
 use Illuminate\Database\Seeder;
-
 
 
 class
@@ -37,6 +35,10 @@ RoleSeeder extends Seeder
             'Crear Requisición',
             'Editar Requisición',
         ]);
+
+        $rolGeneral = Role::firstOrCreate(["name" => "Jefe Almacén"]);
+        $rolGeneral = Role::firstOrCreate(["name" => "Jefe Inventarios"]);
+        $rolGeneral = Role::firstOrCreate(["name" => "Asistente Caja"]);
 
         $rol = Role::firstOrCreate(["name" => "Solicitante Requisición Compras"]);
         $rol = Role::firstOrCreate(["name" => "Aprobador Requisición Compras"]);
