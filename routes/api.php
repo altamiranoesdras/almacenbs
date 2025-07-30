@@ -209,6 +209,10 @@ Route::group(['as'=>'api.'], function () {
 
         Route::resource('compra_solicitud_detalles', App\Http\Controllers\API\CompraSolicitudDetalleAPIController::class)
             ->except(['create', 'edit']);
+
+
+        Route::resource('rrhh_unidad_tipos', App\Http\Controllers\API\RrhhUnidadTipoAPIController::class)
+            ->except(['create', 'edit']);
     });
 
 

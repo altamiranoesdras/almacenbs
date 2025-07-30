@@ -33,6 +33,8 @@ class DatabaseSeeder extends Seeder
 
         DB::table('media')->truncate();
 
+
+        $this->call(RrhhUnidadTiposSeeder::class);
         $this->call(RrhhUnidadesTableSeeder::class);
         $this->call(OptionsTableSeeder::class);
         $this->call(PermissionSeeder::class);
@@ -80,9 +82,9 @@ class DatabaseSeeder extends Seeder
 
             $this->call(ComprasSeeder::class);
             $this->call(SolicitudesTableSeeder::class);
-            $this->call(ConsumosTableSeeder::class);
-            $this->call(Compra1hTableSeeder::class);
-//            $this->call(ActivosTableSeeder::class);
+//            $this->call(ConsumosTableSeeder::class);
+//            $this->call(Compra1hTableSeeder::class);
+////            $this->call(ActivosTableSeeder::class);
 
         }
 

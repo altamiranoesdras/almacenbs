@@ -50,6 +50,12 @@ class RrhhPuesto extends Model
 
     protected $dates = ['deleted_at'];
 
+    public const JEFE_DEPARTAMENTO_ALMACEN = 1;
+    public const ENCARGADA_DE_BODEGA = 2;
+    public const AUXILIAR_DE_BODEGA = 3;
+    public const ANALISTA_ALMACEN = 4;
+    public const RECEPCIONISTA = 5;
+
 
 
     public $fillable = [

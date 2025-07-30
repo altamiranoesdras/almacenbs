@@ -11,163 +11,102 @@
 <body style="width: 100%;">
 
 
+@php
+    $encabezdos = 0;
+    $fechaFinEncabezdos = 0;
+    $borde = 0;
+    $saldo = 0;
+    $totalIngreso=0;
+    $totalEgreso=0;
+
+@endphp
+
+@foreach($folios as  $folio => $datalles )
+
     @php
-        $encabezdos = 0;
-        $fechaFinEncabezdos = 0;
-        $borde = 0;
-        $saldo = 0;
-        $totalIngreso=0;
-        $totalEgreso=0;
+        $primerDetalle = $datalles->first();
+
+        $anchoFecha = 24;
+        $anchoConcepto = 91;
+        $anchoEntradaCantidad = 26;
+        $anchoSalidaCantidad = 26;
+        $anchoPrecioUnitario = 26;
+        $anchoSaldoCantidad = 29;
+        $anchoEntradasValor = 26;
+        $anchoSalidasValor = 25;
+        $anchoSaldoValor = 25;
+
+        $totalAnchos = $anchoFecha + $anchoConcepto + $anchoEntradaCantidad + $anchoSalidaCantidad +
+            $anchoPrecioUnitario + $anchoSaldoCantidad + $anchoEntradasValor + $anchoSalidasValor + $anchoSaldoValor;
+
+        $imprimeEncabezado = $primerDetalle->impreso ? '1' : '0';
 
     @endphp
 
-    @foreach($folios as  $folio => $datalles )
-
-        @php
-            $primerDetalle = $datalles->first();
-            $anchos = [
-               "margen_izq" => 15,
-               "fecha" => 14,
-               "1h" => 15.5,
-               "requi" => 17,
-               "solicita" => 39,
-               "cant_ing" => 15.5,
-               "precio_ing" => 15.5,
-               "total_ing" => 21.5,
-               "cant_sal" => 15.5,
-               "precio_sal" => 17,
-               "total_sal" => 24,
-               "cant_ext" => 16,
-               "precio_ext" => 17.5,
-               "total_ext" => 22,
-               "margen_der" => 14,
-            ];
-
-            $totalAnchos = array_sum(array_values($anchos));
-
-            $anchoNombreProducto = $anchos['requi']+$anchos['solicita'];
-            $anchoNombreProductoValor = $anchos['cant_ing']+$anchos['precio_ing']+$anchos['total_ing']+$anchos['cant_sal']+$anchos['precio_sal'];
-
-            $prueba = $anchos['margen_izq']+$anchos['margen_der']+$anchos['fecha']+$anchos['1h']+$anchoNombreProducto+$anchoNombreProductoValor+$anchos['total_sal']+$anchos['cant_ext']+$anchos['precio_ext']+$anchos['total_ext'];
 
 
-        @endphp
+    <table style="margin-bottom: 1cm; width: 100%;color: {{$imprimeEncabezado ? 'black' : 'white'}}" border="0">
+        <tr style="font-size: 12px; text-align: left;">
+            <td >
+                Articulo: <span class="text-uppercase">{!! $primerDetalle->item->texto_kardex  !!}</span>
+            </td>
+            <td style="text-align: right;">
+                UNIDAD DE MEDIDA: {{ $primerDetalle->item->unimed->nombre ?? '' }}
+            </td>
+        </tr>
+        <tr style="font-size: 12px; text-align: left;">
+            <td colspan="2">
+                COORDINACION: OFICINAS CENTRALES, CENTROS Y PROGRAMAS DE LA S.B.S.
+            </td>
+        </tr>
+    </table>
 
 
 
+    <table style="width: 100%;" border="{{$imprimeEncabezado}}">
 
 
+        <tr class="text-center" style="font-size: 12px; text-align: center; color: {{$imprimeEncabezado ? 'black' : 'white'}}">
+            <th rowspan="2" style="width: {{$anchoFecha}}mm">FECHA DE INGRESO Y EGRESO</th>
+            <th rowspan="2" style="width: {{$anchoConcepto}}mm">CONCEPTO</th>
+            <th colspan="3" class="text-center">UNIDADES FÍSICAS</th>
+            <th colspan="5" class="text-center">VALOR Q.</th>
+        </tr>
+        <tr class="text-center" style="font-size: 11px; text-align: center; color: {{$imprimeEncabezado ? 'black' : 'white'}}">
+            <th style="width: {{$anchoEntradaCantidad}}mm">ENTRADA</th>
+            <th style="width: {{$anchoSalidaCantidad}}mm">SALIDA</th>
+            <th style="width: {{$anchoSaldoCantidad}}mm">EXISTENCIA</th>
+            <th style="width: {{$anchoPrecioUnitario}}mm">PRECIO UNITARIO</th>
+            <th style="width: {{$anchoEntradasValor}}mm">ENTRADAS</th>
+            <th style="width: {{$anchoSalidasValor}}mm">SALIDAS</th>
+            <th style="width: {{$anchoSaldoValor}}mm">EXISTENCIAS</th>
+        </tr>
 
-        <table  style="width: 100%;" border="{{$borde}}" >
+        @foreach($datalles as  $il => $det )
 
-            <tr style="font-size: 12px; text-align: center;">
+            @php
+                $saldo += $det->ingreso -= $det->salida;
+                $totalIngreso += $det->precio * $det->ingreso;
+                $totalEgreso += $det->precio * $det->salida;
+            @endphp
 
-                <td style="width: {{$anchos['fecha']}}mm; vertical-align: middle; color: {{$encabezdos ? 'black' : 'white'}}">
+            <tr style="font-size: 11px;  text-align: center; color: {{$det->impreso ? '' : 'white'}};">
 
-                </td>
-                <td style="width: {{$anchos['1h']}}mm; text-align: center; vertical-align: middle; color: {{$imprimeEncabezado ? 'black' : 'white'}}">
-                    {{$primerDetalle->codigo_insumo}}
-                </td>
-                <td style="width: {{$anchoNombreProducto}}mm; text-align: center; vertical-align: middle; color: {{$encabezdos ? 'black' : 'white'}}" colspan="2" >
-                    Nombre del producto
-                </td>
-                <td style="width: {{$anchoNombreProductoValor}}mm; text-align: center; vertical-align: middle; color: {{$imprimeEncabezado ? 'black' : 'white'}}" colspan="5">
-                    {!! $primerDetalle->item->texto_kardex  !!}
-                </td>
-                <td style="width: {{$anchos['total_sal']}}mm; text-align: center; vertical-align: middle; color: {{$encabezdos ? 'black' : 'white'}}">
-                    Periodo del
-                </td>
-                <td style="width: {{$anchos['cant_ext']}}mm; text-align: center; vertical-align: middle; color: {{$imprimeEncabezado ? 'black' : 'white'}}">
-                    {{fechaLtn($primerDetalle->del)}}
-                </td>
-                <td style="width: {{$anchos['precio_ext']}}mm; text-align: center; vertical-align: middle; color: {{$encabezdos ? 'black' : 'white'}}">
-                    al
-                </td>
-                <td style="width: {{$anchos['total_ext']}}mm; text-align: center; vertical-align: middle; color: {{$fechaFinImprimeEncabezado ? 'black' : 'white'}}">
-                    {{fechaLtn($primerDetalle->al)}}
-                </td>
+                <td style="padding-bottom: 5mm">{{ $det->fecha_ordena }}</td>
+                <td style="padding-bottom: 5mm" class="text-left">{{ $det->concepto }}</td>
+                <td style="padding-bottom: 5mm">{{ $det->ingreso }}</td>
+                <td style="padding-bottom: 5mm">{{ $det->salida }}</td>
+                <td style="padding-bottom: 5mm">{{ $saldo }}</td>
+                <td style="padding-bottom: 5mm" class="text-bold">{{ $det->precio }}</td>
+                <td style="padding-bottom: 5mm">{{ $det->ingreso ? nfp($det->precio * $det->ingreso, 2) : '' }}</td>
+                <td style="padding-bottom: 5mm">{{ $det->salida ? nfp($det->precio * $det->salida, 2) : '' }}</td>
+                <td style="padding-bottom: 5mm">{{ nfp($saldo * $det->precio, 2) }}</td>
 
             </tr>
 
-            <tr>
-                <td colspan="20" style="color: {{$encabezdos ? 'black' : 'white'}}">
-                    espacio
-                </td>
-            </tr>
-
-            <tr class="text-center" style="font-size: 12px; text-align: center; color: {{$encabezdos ? 'black' : 'white'}}">
-                <th rowspan="2" style="width: {{$anchos['fecha']}}mm">Fecha</th>
-                <th colspan="2" >DOCUMENTO NO.</th>
-                <th rowspan="2" style="width: {{$anchos['solicita']}}mm">Nombre Solicitante</th>
-                <th colspan="3" >Entradas</th>
-                <th colspan="3" >Salidas</th>
-                <th colspan="3" >Existencias</th>
-            </tr>
-            <tr class="text-center" style="font-size: 12px; text-align: center; color: {{$encabezdos ? 'black' : 'white'}}">
-                <th style="width: {{$anchos['1h']}}mm; font-size: 10px;">FORMA 1H</th>
-                <th style="width: {{$anchos['requi']}}mm; font-size: 10px;">REQUISICIÓN</th>
-                <th style="width: {{$anchos['cant_ing']}}mm">CANTIDAD</th>
-                <th style="width: {{$anchos['precio_ing']}}mm">P.U.</th>
-                <th style="width: {{$anchos['total_ing']}}mm">VALOR TOTAL</th>
-                <th style="width: {{$anchos['cant_sal']}}mm">CANTIDAD</th>
-                <th style="width: {{$anchos['precio_sal']}}mm">P.U.</th>
-                <th style="width: {{$anchos['total_sal']}}mm">VALOR TOTAL</th>
-                <th style="width: {{$anchos['cant_ext']}}mm">CANTIDAD</th>
-                <th style="width: {{$anchos['precio_ext']}}mm">P.U.</th>
-                <th style="width: {{$anchos['total_ext']}}mm">VALOR TOTAL</th>
-            </tr>
-
-            @foreach($datalles as  $il => $det )
-
-                <!--            height: {{$il==0 ? 'auto' : '15mm'}};
-                ------------------------------------------------------------------------>
-
-                <tr style="font-size: 10px;  text-align: center; color: {{$det->impreso ? '' : 'white'}}">
-
-                    <td >{{$det->fecha_ordena}}</td>
-                    <td class="text-uppercase">{{$det->ingreso ? $det->codigo : ''}}</td>
-                    <td class="text-uppercase">{{$det->salida ? $det->codigo : ''}}</td>
-                    <td class="text-uppercase" style="width: {{$anchos['solicita']}}mm !important;font-size: 11px; text-align: left;">
-                        {{$det->responsable}}
-                    </td>
-
-                    <td >{{$det->ingreso}}</td>
-                    <td >{{$det->ingreso ? nfp($det->precio,2) : ''}}</td>
-                    <td >{{$det->ingreso ? nfp($det->precio * $det->ingreso,2) : ''}}</td>
-
-                    <td >{{$det->salida}}</td>
-                    <td >{{$det->salida ? nfp($det->precio,2) : $det->salida}}</td>
-                    <td >{{$det->salida ? nfp($det->precio * $det->salida,2) : ''}}</td>
-
-                    @php
-                        $saldo+=$det->ingreso-=$det->salida;
-                        $totalIngreso += ($det->precio * $det->ingreso);
-                        $totalEgreso += ($det->precio * $det->salida);
-                        $saldoStock = $det->saldo_stock==0 ? $saldo : $det->saldo_stock;
-                        $subTotalStock = ($det->saldo ?? $saldoStock) * ($det->precio_existencia ?? $det->precio);
-                    @endphp
-                    <td  class="{{$loop->last ? 'text-bold' :'000-xxx'}}">
-                        {{$det->saldo ?? $saldoStock}}
-                    </td>
-                    <td >{{nfp(($det->precio_existencia ?? $det->precio),2)}}</td>
-                    <td >
-{{--                        @php--}}
-{{--//                            $total = $totalIngreso > 0 ? $totalIngreso-$totalEgreso : $totalEgreso;--}}
-{{--                            $total = $saldo * ($det->precio_existencia ?? $det->precio);--}}
-{{--                        @endphp--}}
-{{--                        {{nfp($total,2)}}--}}
-                        {{nfp($subTotalStock,2)}}
-
-                    </td>
-                </tr>
-
-                <tr style="height: {{$folio > 300 ? '5mm' : '7mm'}}">
-                    <td colspan="50">
-                    </td>
-                </tr>
-            @endforeach
-        </table>
-    @endforeach
+        @endforeach
+    </table>
+@endforeach
 
 </body>
 

@@ -34,7 +34,7 @@ trait HasBitacora
             'seccion' => $setion,
             'titulo' => $titulo,
             'comentario' => $comentario,
-            'usuario_id' => auth()->user()->id ?? auth('api')->user()->id ?? $user ?? null
+            'usuario_id' => $user ?? usuarioAutenticado()->id,
         ]);
 
         $model = $this->getModel();

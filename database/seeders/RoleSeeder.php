@@ -22,31 +22,55 @@ RoleSeeder extends Seeder
     {
         Role::firstOrCreate(["name" => "Developer"]);
         Role::firstOrCreate(["name" => "Superadmin"]);
-        $role= Role::firstOrCreate(["name" => "Admin"]);
-        $role->syncPermissions(Permission::pluck('name')->toArray());
+        $rol= Role::firstOrCreate(["name" => "Admin"]);
+        $rol->syncPermissions(Permission::pluck('name')->toArray());
 
-        $roleGeneral = Role::firstOrCreate(["name" => "General"]);
+        $rolGeneral = Role::firstOrCreate(["name" => "General"]);
 
-        $roleGeneral->options()->sync([
+        $rolGeneral->options()->sync([
             Option::MIS_REQUISICIONES,
             Option::NUEVA_REQUISICION,
         ]);
 
-        $roleGeneral->syncPermissions([
+        $rolGeneral->syncPermissions([
             'Ver Requisición',
             'Crear Requisición',
             'Editar Requisición',
         ]);
 
-        $role = Role::firstOrCreate(["name" => "Solicitante Requisición Compras"]);
-        $role = Role::firstOrCreate(["name" => "Solicitante Requisición Almacén"]);
+        $rol = Role::firstOrCreate(["name" => "Solicitante Requisición Compras"]);
+        $rol = Role::firstOrCreate(["name" => "Aprobador Requisición Compras"]);
+        $rol = Role::firstOrCreate(["name" => "Administrador Requisición Compras"]);
 
-        $role = Role::firstOrCreate(["name" => "Aprobador Requisición Compras"]);
-        $role = Role::firstOrCreate(["name" => "Aprobador Requisición Almacén"]);
+        $rol = Role::firstOrCreate(["name" => "Solicitante Requisición Almacén"]);
+        $rol->options()->sync([
+            Option::MIS_REQUISICIONES,
+            Option::NUEVA_REQUISICION,
+        ]);
 
-        $role = Role::firstOrCreate(["name" => "Administrador Requisición Compras"]);
-        $role = Role::firstOrCreate(["name" => "Administrador Requisición Almacén"]);
+        $rol = Role::firstOrCreate(["name" => "Aprobador Requisición Almacén"]);
 
+        $rol->options()->sync([
+            Option::MIS_REQUISICIONES,
+            Option::NUEVA_REQUISICION,
+            Option::APROBAR_REQISICION,
+        ]);
+
+        $rol = Role::firstOrCreate(["name" => "Administrador Requisición Almacén"]);
+
+        $rol->options()->sync([
+            Option::MIS_REQUISICIONES,
+            Option::NUEVA_REQUISICION,
+            Option::APROBAR_REQISICION,
+            Option::BUSCAR_REQUISICION,
+        ]);
+
+
+        //iterar todos los roles para asignar todos los permisos
+        $roles = Role::all();
+        foreach ($roles as $role) {
+            $rol->syncPermissions(Permission::all()->pluck('name')->toArray());
+        }
 
 
 

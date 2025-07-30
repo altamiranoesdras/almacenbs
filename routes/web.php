@@ -208,6 +208,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::resource('solicitudEstados', SolicitudEstadoController::class);
 
 
+    Route::resource('rrhhUnidadTipos', App\Http\Controllers\RrhhUnidadTipoController::class);
+
     Route::resource('rrhhUnidades', RrhhUnidadController::class);
 
     Route::resource('colaboradores', ColaboradorController::class);

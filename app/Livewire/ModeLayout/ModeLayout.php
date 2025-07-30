@@ -13,18 +13,18 @@ class ModeLayout extends Component
     public function mount()
     {
 
-        $this->theme = UserConfiguration::where('user_id', auth()->user()->id)->where('key', 'app.mode-layout')->get()->first();
-
-        if(!$this->theme) {
-            $this->theme = new UserConfiguration();
-            $this->theme->user_id = auth()->user()->id;
-            $this->theme->key = 'app.mode-layout';
-            $this->theme->value = 'light-layout'; // Default value
-            $this->theme->descripcion = 'Cambio de modo de la aplicación dark o light';
-            $this->theme->save();
-        }
-
-        session(['mode-layout' => $this->theme->value]);
+//        $this->theme = UserConfiguration::where('user_id', auth()->user()->id)->where('key', 'app.mode-layout')->get()->first();
+//
+//        if(!$this->theme) {
+////            $this->theme = new UserConfiguration();
+////            $this->theme->user_id = auth()->user()->id;
+////            $this->theme->key = 'app.mode-layout';
+////            $this->theme->value = 'light-layout'; // Default value
+////            $this->theme->descripcion = 'Cambio de modo de la aplicación dark o light';
+////            $this->theme->save();
+//        }
+//
+//        session(['mode-layout' => $this->theme->value]);
     }
 
     public function changeMode()
@@ -37,7 +37,7 @@ class ModeLayout extends Component
 
         $this->theme->save();
         session(['mode-layout' => $this->theme->value]);
-    }   
+    }
 
     public function render()
     {

@@ -80,13 +80,13 @@
                         @endphp
                         @if ($kardex->count() > 0)
 
+                            @foreach ($kardex as $folio => $datalles)
                             <div class="card ">
                                 <div class="card-body">
                                     <h3 class="text-info">
                                         {{ $item->text }}
                                     </h3>
 
-                                    @foreach ($kardex as $folio => $datalles)
                                         @php
                                             $codigo_insumo = $datalles->first()->codigo_insumo;
                                             $del = $datalles->first()->del;
@@ -101,64 +101,61 @@
                                             @csrf
                                             @method('PATCH')
 
-                                            <div class="row  mp-1">
+                                            <div class="row ">
                                                 <div class="col-sm-6">
 
-                                                    <div class="row">
+{{--                                                    <div class="row">--}}
 
-                                                        <div class="col-sm-4">
-                                                            {!! Form::label('codigo_insumo', 'Código:') !!}
-                                                            {!! Form::text('codigo_insumo', $codigo_insumo, ['class' => 'form-control']) !!}
-                                                        </div>
+{{--                                                        <div class="col-sm-4">--}}
+{{--                                                            {!! Form::label('codigo_insumo', 'Código:') !!}--}}
+{{--                                                            {!! Form::text('codigo_insumo', $codigo_insumo, ['class' => 'form-control']) !!}--}}
+{{--                                                        </div>--}}
 
-                                                        <div class="col-sm-4">
-                                                            {!! Form::label('del', 'Del:') !!}
-                                                            {!! Form::date('del', $del, ['class' => 'form-control']) !!}
-                                                        </div>
+{{--                                                        <div class="col-sm-4">--}}
+{{--                                                            {!! Form::label('del', 'Del:') !!}--}}
+{{--                                                            {!! Form::date('del', $del, ['class' => 'form-control']) !!}--}}
+{{--                                                        </div>--}}
 
-                                                        <div class="col-sm-4">
-                                                            {!! Form::label('al', 'Al:') !!}
-                                                            {!! Form::date('al', $al, ['class' => 'form-control']) !!}
-                                                        </div>
-                                                    </div>
+{{--                                                        <div class="col-sm-4">--}}
+{{--                                                            {!! Form::label('al', 'Al:') !!}--}}
+{{--                                                            {!! Form::date('al', $al, ['class' => 'form-control']) !!}--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
                                                 </div>
-                                                <div class="col-sm-6 pt-3 pb-0 text-right">
+                                                <div class="col-sm-6 text-end">
 
-                                                    <h3 class="mt-3">
+                                                    <h3 class="">
                                                         Folio: <span class="text-danger">{{ $folio }}</span>
                                                     </h3>
                                                 </div>
                                             </div>
 
+
+
                                             <div class="table-responsive mt-1">
                                                 <table
                                                     class="table table-bordered table-hover table-striped table-xtra-condensed ">
                                                     <thead>
-                                                        <tr class="text-center">
-                                                            <th rowspan="2">Fecha</th>
-                                                            <th colspan="2">DOCUMENTO NO.</th>
-                                                            <th rowspan="2">Nombre Solicitante</th>
-                                                            <th colspan="3">Entradas</th>
-                                                            <th colspan="3">Salidas</th>
-                                                            <th colspan="3">Existencias</th>
-                                                        </tr>
-                                                        <tr class="text-center">
-                                                            <th>Forma 1H</th>
-                                                            <th>Requisición</th>
-                                                            <th>Cantidad</th>
-                                                            <th>P.U.</th>
-                                                            <th>Valor Total</th>
-                                                            <th>Cantidad</th>
-                                                            <th>P.U.</th>
-                                                            <th>Valor Total</th>
-                                                            <th>Cantidad</th>
-                                                            <th>P.U.</th>
-                                                            <th>Valor Total</th>
-                                                            <th>
-                                                                <i class="fa fa-print"></i>
-                                                            </th>
-                                                        </tr>
+                                                    <tr>
+                                                        <th rowspan="2">FECHA DE<br>INGRESO Y<br>EGRESO</th>
+                                                        <th rowspan="2">CONCEPTO</th>
+                                                        <th colspan="3" class="text-center">UNIDADES FÍSICAS</th>
+                                                        <th colspan="5" class="text-center">VALOR Q.</th>
+                                                    </tr>
+                                                    <tr class="text-center">
+                                                        <th>ENTRADA</th>
+                                                        <th>SALIDA</th>
+                                                        <th>PRECIO UNITARIO</th>
+                                                        <th>EXISTENCIA</th>
+                                                        <th>ENTRADAS</th>
+                                                        <th>SALIDAS</th>
+                                                        <th>EXISTENCIAS</th>
+                                                        <th>
+                                                            <i class="fa fa-print"></i>
+                                                        </th>
+                                                    </tr>
                                                     </thead>
+
                                                     <tbody id="sortable{{ $folio }}" class="connectedSortable"
                                                         data-folio="{{ $folio }}">
 
@@ -166,79 +163,33 @@
                                                         @foreach ($datalles as $det)
                                                             <tr class="text-sm text-right" id="{{ $det->id }}">
                                                                 <td>{{ $det->fecha_ordena }}</td>
-                                                                <td class="text-uppercase">
-                                                                    {{ $det->ingreso ? $det->codigo : '' }}</td>
-                                                                <td class="text-uppercase ">
-                                                                    @if ($det->salida)
-                                                                        {!! Form::text("codigos_salidas[$det->id]", $det->codigo, ['class' => 'form-control form-control-sm']) !!}
-                                                                        {{-- <span> {{ $det->codigo }} </span> --}}
-
-                                                                    @endif
-                                                                </td>
-                                                                <td class="text-uppercase">{{ $det->responsable }}</td>
-
+                                                                <td class="text-uppercase">{{ $det->concepto }}</td>
                                                                 <td>{{ $det->ingreso }}</td>
-                                                                {{--                                                            <td>{{$det->ingreso ? nfp($det->precio) : ''}}</td> --}}
-                                                                <td>
-                                                                    @if ($det->ingreso)
-                                                                        {!! Form::text("precios_movimiento[$det->id]", $det->precio, ['class' => 'form-control form-control-sm']) !!}
-                                                                        {{-- <span>{{ $det->precio }}</span> --}}
-
-                                                                    @endif
-                                                                </td>
-                                                                <td>
-                                                                    {{ $det->ingreso ? nfp($det->precio * $det->ingreso, 2) : '' }}
-                                                                </td>
 
                                                                 <td>{{ $det->salida }}</td>
-                                                                {{--                                                            <td>{{$det->salida ? nfp($det->precio) : $det->salida}}</td> --}}
-                                                                <td>
-                                                                    @if ($det->salida)
-                                                                        {!! Form::text("precios_movimiento[$det->id]", $det->precio, ['class' => 'form-control form-control-sm']) !!}
-                                                                        {{-- <span>{{ $det->precio }}</span> --}}
-
-                                                                    @endif
-                                                                </td>
-                                                                <td>
-                                                                    {{ $det->salida ? nfp($det->precio * $det->salida, 2) : '' }}
-                                                                </td>
 
                                                                 @php
                                                                     $saldo += $det->ingreso -= $det->salida;
                                                                     $totalIngreso += $det->precio * $det->ingreso;
                                                                     $totalEgreso += $det->precio * $det->salida;
-                                                                    $saldoStock =
-                                                                        $det->saldo_stock == 0
-                                                                            ? $saldo
-                                                                            : $det->saldo_stock;
-                                                                    $subTotalStock =
-                                                                        ($det->saldo ?? $saldoStock) *
-                                                                        ($det->precio_existencia ?? $det->precio);
                                                                 @endphp
 
                                                                 <td class="text-bold">
-                                                                    {!! Form::text("saldos[$det->id]", $det->saldo ?? $saldoStock, ['class' => 'form-control form-control-sm']) !!}
-                                                                    {{-- <span>{{ $det->saldo ?? $saldoStock }}</span> --}}
-
-                                                                </td>
-
-                                                                <td>
-                                                                    {!! Form::text("precios_existencia[$det->id]", $det->precio_existencia ?? $det->precio, ['class' => 'form-control form-control-sm',]) !!}
-                                                                    {{-- <span>{{ $det->precio_existencia ?? $det->precio }}</span> --}}
+                                                                    <span>{{ $det->precio }}</span>
                                                                 </td>
                                                                 <td>
-                                                                    {{--                                                                {{nfp($det->precio * $saldo,2)}} --}}
-                                                                    {{--                                                                <br> --}}
-                                                                    {{--                                                                IN: {{$totalIngreso}} --}}
-                                                                    {{--                                                                <br> --}}
-                                                                    {{--                                                                EG: {{$totalEgreso}} --}}
-                                                                    {{--                                                                <br> --}}
-                                                                    {{--                                                                @php --}}
-                                                                    {{-- //                                                                $total = $totalIngreso > 0 ? $totalIngreso-$totalEgreso : $totalEgreso; --}}
-                                                                    {{--                                                                $total = $saldo * ($det->precio_existencia ?? $det->precio); --}}
-                                                                    {{--                                                                @endphp --}}
-                                                                    {{--                                                                {{nfp($total,2)}} --}}
-                                                                    {{ nfp($subTotalStock) }}
+                                                                    <span>{{ $saldo }}</span>
+                                                                </td>
+                                                                <td>
+                                                                    {{ $det->ingreso ? nfp($det->precio * $det->ingreso, 2) : '' }}
+                                                                </td>
+                                                                <td>
+                                                                    {{ $det->salida ? nfp($det->precio * $det->salida, 2) : '' }}
+                                                                </td>
+                                                                <td>
+                                                                     <span>
+                                                                         {{ nfp($saldo * $det->precio, 2) }}
+                                                                     </span>
                                                                 </td>
                                                                 <td>
                                                                     <input type="hidden"
@@ -312,16 +263,13 @@
 
                                             <div class="row">
 
-                                                <div class="col-sm-10">
-
-                                                </div>
-                                                <div class="col-sm-2 pt-3 pb-0 text-right">
+                                                <div class="col-sm-4 pt-3 pb-0">
 
                                                     {!! Form::label('folio_siguiente', 'SALDOS PASAN A TARJETA:') !!}
                                                     {!! Form::text('folio_siguiente', $folioSigiente, ['class' => 'form-control']) !!}
                                                 </div>
 
-                                                <div class="col-sm-12 text-right mt-3">
+                                                <div class="col-sm-8 text-end mt-3">
 
                                                     <input type="hidden" name="item_id" value="{{ $item->id }}">
                                                     <button type="submit" class="btn btn-success mr-3">
@@ -337,9 +285,10 @@
                                                 </div>
                                             </div>
                                         </form>
-                                    @endforeach
                                 </div>
                             </div>
+                            @endforeach
+
                         @else
                             <div class="alert alert-danger">
                                 <button type="button" class="close" data-dismiss="alert"

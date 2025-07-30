@@ -420,5 +420,86 @@ class Compra extends Model
 
     }
 
+    public function genera1h($folio): void
+    {
+        $folio = $folio ?? request()->folio ?? null;
+
+        /**
+         * @var Compra1h $compra1h
+         */
+        $compra1h = Compra1h::create([
+            'folio' => $folio,
+            'compra_id' => $this->id,
+            'envio_fiscal_id' => 1,
+            'codigo' => $this->getCodigo1h(),
+            'correlativo' => $this->getCorrelativo1h(),
+            'del' => 0,
+            'al' => 0,
+            'fecha_procesa' => Carbon::now(),
+            'usuario_procesa' => auth()->user()->id ?? User::PRINCIPAL,
+            'observaciones' => null
+        ]);
+
+        if ($this->detalles->count() > 0) {
+
+
+            foreach ($this->detalles as $detalle) {
+
+
+                if ($detalle->item->tipo_id == ItemTipo::ACTIVO_FIJO) {
+
+                    for ($i = 0; $i < $detalle->cantidad; $i++) {
+
+                        $compra1hDetalle = Compra1hDetalle::create([
+                            '1h_id' => $compra1h->id,
+                            'item_id' => $detalle->item_id,
+                            'precio' => $detalle->precio,
+                            'cantidad' => 1,
+                            'folio_almacen' => $detalle->folio_almacen,
+                            'folio_inventario' => $detalle->folio_inventario,
+                        ]);
+
+                    }
+
+                }else{
+
+                    $compra1hDetalle = Compra1hDetalle::create([
+                        '1h_id' => $compra1h->id,
+                        'item_id' => $detalle->item_id,
+                        'precio' => $detalle->precio,
+                        'cantidad' => $detalle->cantidad,
+                        'folio_almacen' => $detalle->folio_almacen ,
+                        'folio_inventario' => $detalle->folio_inventario,
+                    ]);
+
+                }
+
+
+            }
+
+        }
+
+        $this->procesarKardex();
+
+    }
+
+
+    public function getCodigo1h($cantidadCeros = 1)
+    {
+        return prefijoCeros($this->getCorrelativo1h(),$cantidadCeros)."-".Carbon::now()->year;
+    }
+
+    public function getCorrelativo1h()
+    {
+
+        $correlativo = Compra1h::withTrashed()->whereRaw('year(created_at) ='.Carbon::now()->year)->max('correlativo');
+
+
+        if ($correlativo)
+            return $correlativo+1;
+
+        return 1;
+    }
+
 
 }
