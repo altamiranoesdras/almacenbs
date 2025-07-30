@@ -2,21 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Item;
-use App\Models\Proveedor;
-use App\Models\CompraEstado;
-use Illuminate\Http\Request;
-use App\Models\CompraSolicitud;
-use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\DB;
-use App\Models\CompraSolicitudEstado;
-use App\Models\CompraSolicitudDetalle;
-use App\Http\Controllers\AppBaseController;
+use App\DataTables\CompraSolicitud\MisCompraSolicitudesDataTable;
 use App\DataTables\CompraSolicitudDataTable;
+use App\DataTables\Scopes\ScopeCompraSolicitudDataTable;
 use App\Http\Requests\CreateCompraSolicitudRequest;
 use App\Http\Requests\UpdateCompraSolicitudRequest;
-use App\DataTables\Scopes\ScopeCompraSolicitudDataTable;
+use App\Models\CompraSolicitud;
+use App\Models\CompraSolicitudDetalle;
+use App\Models\CompraSolicitudEstado;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 
 class CompraSolicitudController extends AppBaseController
 {
@@ -355,6 +351,11 @@ class CompraSolicitudController extends AppBaseController
         flash('Solicitud de compra anulada correctamente.')->success();
 
         return redirect(route('compra.requisiciones.index'));
+
+    }
+
+    public function misSolicitudesDeCompra(MisCompraSolicitudesDataTable $dataTable)
+    {
 
     }
 }
