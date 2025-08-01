@@ -62,9 +62,10 @@ class SolicitudUserDataTable extends DataTable
             })
             ->editColumn('estado.nombre',function (Solicitud $solicitud){
 
+
                 $color = $solicitud->estado->color;
 
-                return "<span class='badge badge-$color'>{$solicitud->estado->nombre}</span>";
+                return "<span class='badge bg-$color'>{$solicitud->estado->nombre}</span>";
 
             })
             ->editColumn('fecha_despacha',function (Solicitud $solicitud){

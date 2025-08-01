@@ -65,6 +65,11 @@ class SolicitudDespachaDataTable extends DataTable
                     return fechaHoraLtn($solicitud->fecha_despacha);
                 }
             })
+            ->editColumn('bodega.nombre',function (Solicitud $solicitud){
+
+                return $solicitud->bodega->nombre ?? '';
+
+            })
             ->rawColumns(['action','codigo']);
     }
 
