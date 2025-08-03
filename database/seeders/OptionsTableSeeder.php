@@ -78,7 +78,7 @@ class OptionsTableSeeder extends Seeder
                 'id' => 4,
                 'option_id' => 2,
                 'nombre' => 'Mis Requisiciones de Compras',
-                'ruta' => 'compra.requisiciones.user',
+                'ruta' => 'compra.requisiciones.mis.requisiciones',
                 'descripcion' => NULL,
                 'icono_l' => 'fa-shopping-cart',
                 'icono_r' => NULL,

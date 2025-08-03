@@ -15,8 +15,9 @@ class ScopeCompraSolicitudDataTable implements DataTableScope
     public $codigo;
     public $del;
     public $al;
+    public $usuario_solicita;
 
-    public function __construct()
+    public function __construct($usuario_solicita = null)
     {
 
         $this->items = request()->items ?? null;
@@ -25,6 +26,7 @@ class ScopeCompraSolicitudDataTable implements DataTableScope
         $this->codigo = request()->codigo ?? null;
         $this->del = request()->del ?? null;
         $this->al = request()->al ?? null;
+        $this->usuario_solicita = $usuario_solicita ?? null;
 
     }
 
@@ -76,7 +78,11 @@ class ScopeCompraSolicitudDataTable implements DataTableScope
                 }
             });
         }
-        
+
+        if($this->usuario_solicita){
+            $query->where('usuario_solicita', $this->usuario_solicita);
+        }
+
         return $query;
     }
 }

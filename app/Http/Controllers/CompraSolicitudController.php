@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateCompraSolicitudRequest;
 use App\Models\CompraSolicitud;
 use App\Models\CompraSolicitudDetalle;
 use App\Models\CompraSolicitudEstado;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
@@ -356,6 +357,16 @@ class CompraSolicitudController extends AppBaseController
 
     public function misSolicitudesDeCompra(MisCompraSolicitudesDataTable $dataTable)
     {
+        /**
+         * @var User $usuarioActual
+         */
+        $usuarioActual = auth()->user();
+
+        $scope = new ScopeCompraSolicitudDataTable($usuarioActual->id);
+
+        $dataTable->addScope($scope);
+
+        return $dataTable->render('compra_solicitudes.mis_solicitudes.index');
 
     }
 }

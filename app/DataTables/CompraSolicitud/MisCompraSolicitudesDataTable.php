@@ -25,7 +25,7 @@ class MisCompraSolicitudesDataTable extends DataTable
         return $dataTable
             ->addColumn('action', function (CompraSolicitud $compraSolicitud) {
                 $id = $compraSolicitud->id;
-                return view('compra_solicitudes.datatables_actions', compact('compraSolicitud', 'id'));
+                return view('compra_solicitudes.mis_solicitudes.datatables_actions', compact('compraSolicitud', 'id'));
             })
             ->editColumn('bodega.nombre', function (CompraSolicitud $compraSolicitud) {
 
