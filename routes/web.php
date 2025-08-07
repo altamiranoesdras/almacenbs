@@ -362,3 +362,5 @@ Route::group(['prefix' => ''], function () {
 });
 
 Route::get('/test', [TestController::class, 'test'])->name('test');
+
+Route::post('/firmar-documento', [TestController::class, 'firmarDocumento'])->name('firmar.documento');
