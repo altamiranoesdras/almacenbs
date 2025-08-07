@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\SoftDeletes;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $nombre
@@ -38,13 +38,16 @@ class CompraSolicitudEstado extends Model
 
 
     const TEMPORAL =    1;
-
     const INGRESADA =   2;
-    const PROCESADA =   3;
-
-    const RESERVADA =   4;
-
-    const ANULADA =     5;
+    const SOLICITADA =  3;
+    const AUTORIZADA =  4;
+    const APROBADA =    5;
+    const DESPACHADA =  6;
+    const ANULADA =     7;
+    const CANCELADA =   8;
+    const RETORNO_SOLICITADA  =   9;
+    const RETORNO_AUTORIZADA =   10;
+    const RETORNO_APROBADA =   11;
 
     public $fillable = [
         'nombre'

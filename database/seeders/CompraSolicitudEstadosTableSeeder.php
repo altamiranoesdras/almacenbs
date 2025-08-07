@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CompraSolicitudEstado;
 use Illuminate\Database\Seeder;
 
 class CompraSolicitudEstadosTableSeeder extends Seeder
@@ -14,53 +15,55 @@ class CompraSolicitudEstadosTableSeeder extends Seeder
      */
     public function run()
     {
+//        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+//
+//        CompraSolicitudEstado::truncate();
 
+        CompraSolicitudEstado::firstOrCreate(
+            ['id' => 1],
+            ['nombre' => 'Temporal']
+        );
+        CompraSolicitudEstado::firstOrCreate(
+            ['id' => 2],
+            ['nombre' => 'Ingresada']
+        );
+        CompraSolicitudEstado::firstOrCreate(
+            ['id' => 3],
+            ['nombre' => 'Solicitada']
+        );
+        CompraSolicitudEstado::firstOrCreate(
+            ['id' => 4],
+            ['nombre' => 'Autorizada']
+        );
+        CompraSolicitudEstado::firstOrCreate(
+            ['id' => 5],
+            ['nombre' => 'Aprobada']
+        );
+        CompraSolicitudEstado::firstOrCreate(
+            ['id' => 6],
+            ['nombre' => 'Despachada']
+        );
+        CompraSolicitudEstado::firstOrCreate(
+            ['id' => 7],
+            ['nombre' => 'Anulada']
+        );
+        CompraSolicitudEstado::firstOrCreate(
+            ['id' => 8],
+            ['nombre' => 'Cancelada']
+        );
+        CompraSolicitudEstado::firstOrCreate(
+            ['id' => 9],
+            ['nombre' => 'Retorno Solicitada']
+        );
+        CompraSolicitudEstado::firstOrCreate(
+            ['id' => 10],
+            ['nombre' => 'Retorno Autorizada']
+        );
+        CompraSolicitudEstado::firstOrCreate(
+            ['id' => 11],
+            ['nombre' => 'Retorno Aprobada']
+        );
 
-        \DB::table('compra_solicitud_estados')->delete();
-
-        \DB::table('compra_solicitud_estados')->insert(array (
-            0 =>
-            array (
-                'id' => 1,
-                'nombre' => 'TEMPORAL',
-                'created_at' => '2025-04-15 10:09:52',
-                'updated_at' => '2025-04-15 10:09:52',
-                'deleted_at' => NULL,
-            ),
-            1 =>
-            array (
-                'id' => 2,
-                'nombre' => 'TEMPORAL',
-                'created_at' => '2025-04-15 10:09:58',
-                'updated_at' => '2025-04-15 10:09:58',
-                'deleted_at' => NULL,
-            ),
-            2 =>
-            array (
-                'id' => 3,
-                'nombre' => 'PROCESADA',
-                'created_at' => '2025-04-15 10:10:05',
-                'updated_at' => '2025-04-15 10:10:05',
-                'deleted_at' => NULL,
-            ),
-            3 =>
-            array (
-                'id' => 4,
-                'nombre' => 'RESERVADA',
-                'created_at' => '2025-04-15 10:10:12',
-                'updated_at' => '2025-04-15 10:10:12',
-                'deleted_at' => NULL,
-            ),
-            4 =>
-            array (
-                'id' => 5,
-                'nombre' => 'ANULADA',
-                'created_at' => '2025-04-15 10:10:12',
-                'updated_at' => '2025-04-15 10:10:12',
-                'deleted_at' => NULL,
-            ),
-        ));
-
-
+//        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }
