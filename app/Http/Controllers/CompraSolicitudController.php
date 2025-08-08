@@ -165,7 +165,7 @@ class CompraSolicitudController extends AppBaseController
      *
      * @return Response
      */
-    public function update($id, UpdateCompraSolicitudRequest $request)
+    public function update($id, UpdateCompraSolicitudRequest $request): \Illuminate\Http\RedirectResponse
     {
         /** @var CompraSolicitud $compraSolicitud */
         $compraSolicitud = CompraSolicitud::find($id);
@@ -175,7 +175,6 @@ class CompraSolicitudController extends AppBaseController
 
             return redirect(route('compra.requisiciones.index'));
         }
-
 
         if($request->has('partidas')){
             $request->merge([
@@ -189,13 +188,17 @@ class CompraSolicitudController extends AppBaseController
         }
         $compraSolicitud->fill($request->all());
         $compraSolicitud->establecerCodigo();
-        $compraSolicitud->estado_id = CompraSolicitudEstado::INGRESADA;
-        $compraSolicitud->save();
 
         if($request->solicitar) {
             $compraSolicitud->estado_id = CompraSolicitudEstado::SOLICITADA;
+            $compraSolicitud->fecha_solicita = fechaHoraActual();
+            $compraSolicitud->save();
+            return redirect(route('compra.requisiciones.index'));
+        } else {
+            $compraSolicitud->estado_id = CompraSolicitudEstado::INGRESADA;
         }
 
+        $compraSolicitud->save();
 
         flash('Listo!')->success();
 
