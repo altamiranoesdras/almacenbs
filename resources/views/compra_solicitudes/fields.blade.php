@@ -264,14 +264,14 @@
                             </button>
                         </div>
 
-
-                        <div class="col-sm-3">
-
-                            <button type="submit" name="procesar" value="1" class="btn btn-outline-success round float-end">
-                                <i class="fa fa-shopping-cart"></i> Generar Compra
-                            </button>
-
-                        </div>
+                        @if($compraSolicitud->estado_id !== \App\Models\CompraSolicitudEstado::TEMPORAL)
+                            <div class="col-sm-3">
+                                <button type="button"  class="btn btn-outline-primary round" @click="procesar()">
+                                    <i class="fa fa-paper-plane"></i>
+                                    Solicitar
+                                </button>
+                            </div>
+                        @endif
                     </div>
 
 
@@ -285,6 +285,25 @@
 
 
 </div>
+<div class="modal fade modal-info" id="modal-confirma-procesar">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Solicitar requisición de compra!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Seguro que desea continuar?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
+                <button type="submit" class="btn btn-primary" name="solicitar" value="1">
+                    SI
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 @push('scripts')
     <!--    Scripts solicitudes de compra
     ------------------------------------------------->
@@ -334,6 +353,13 @@
             },
             methods: {
 
+                procesar: function () {
+                    if(this.totalitems>=1){
+                        $('#modal-confirma-procesar').modal('show');
+                    }else {
+                        iziTe('No hay ningún artículo en esta requisición')
+                    }
+                },
 
                 nfp: function (numero) {
                     let decimales = parseInt(@json(config('app.cantidad_decimales_precio')));

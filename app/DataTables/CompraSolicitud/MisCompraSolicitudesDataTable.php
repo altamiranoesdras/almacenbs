@@ -37,9 +37,11 @@ class MisCompraSolicitudesDataTable extends DataTable
                 return $compraSolicitud->proveedor->nombre ?? 'Sin Proveedor';
 
             })
-            ->editColumn('estado.nombre', function (CompraSolicitud $compraSolicitud) {
+            ->editColumn('estado.nombre',function (CompraSolicitud $solicitud){
 
-                return $compraSolicitud->estado->nombre ?? 'Sin Estado';
+                $color = $solicitud->estado->color;
+
+                return "<span class='badge badge-light-$color'>{$solicitud->estado->nombre}</span>";
 
             })
             ->editColumn('usuarioSolicita.name', function (CompraSolicitud $compraSolicitud) {
@@ -77,7 +79,7 @@ class MisCompraSolicitudesDataTable extends DataTable
                 return str($compraSolicitud->justificacion)->limit(50);
 
             })
-            ->rawColumns(['action']);
+            ->rawColumns(['action', 'estado.nombre']);
     }
 
     /**

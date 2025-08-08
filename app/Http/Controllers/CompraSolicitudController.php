@@ -13,7 +13,6 @@ use App\Models\CompraSolicitudEstado;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\DB;
 
 class CompraSolicitudController extends AppBaseController
 {
@@ -183,43 +182,20 @@ class CompraSolicitudController extends AppBaseController
                 'partidas' => implode('|', $request->partidas),
             ]);
         }
-
         if($request->has('subproductos')){
             $request->merge([
                 'subproductos' => implode('|', $request->subproductos),
             ]);
         }
-
-
         $compraSolicitud->fill($request->all());
         $compraSolicitud->establecerCodigo();
         $compraSolicitud->estado_id = CompraSolicitudEstado::INGRESADA;
         $compraSolicitud->save();
 
-        if ($request->procesar){
-
-
-            try {
-                DB::beginTransaction();
-
-                $this->generarCompra($compraSolicitud);
-
-            } catch (Exception $exception) {
-                DB::rollBack();
-
-                $msj = manejarException($exception);
-
-                flash($msj)->error();
-
-                return redirect(route('compra.requisiciones.edit',$compraSolicitud->id));
-            }
-
-            DB::commit();
-
-            flash('Cotización procesada correctamente.')->success();
-
-            return redirect(route('compras.create'));
+        if($request->solicitar) {
+            $compraSolicitud->estado_id = CompraSolicitudEstado::SOLICITADA;
         }
+
 
         flash('Listo!')->success();
 
