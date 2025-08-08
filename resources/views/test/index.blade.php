@@ -19,6 +19,19 @@
             <input class="form-control" type="file" name="rubrica" id="rubrica" required accept=".png,.jpg,.jpeg">
         </div>
 
+        <div class="pb-3 form-group" >
+
+            <label for="firma_inicio_x">Inicio Horizontal en mm:</label>
+            <input class="form-control" type="number" name="firma_inicio_x" id="firma_inicio_x" required placeholder="Inicio Horizontal en mm" value="250">
+            <label for="firma_inicio_y">Inicio Vertical en mm:</label>
+            <input class="form-control" type="number" name="firma_inicio_y" id="firma_inicio_y" required placeholder="Inicio vertical en mm" value="0">
+            <label for="firma_ancho">Ancho en mm:</label>
+            <input class="form-control" type="number" name="firma_ancho" id="firma_ancho" required placeholder="Ancho en mm" value="300">
+            <label for="firma_alto">Alto en mm:</label>
+            <input class="form-control" type="number" name="firma_alto" id="firma_alto" required placeholder="Alto en mm" value="75">
+
+        </div>
+
         <div>
             <label for="lugar">Lugar:</label>
             <input class="form-control" type="text" name="lugar" id="lugar" value="Guatemala, Guatemala" required>

@@ -28,6 +28,13 @@ class FirmaElectronica
         $archivo = $data['documento'] ?? null; // Default document for signature
         $this->nombre_archivo = $archivo->getClientOriginalName(); // Get the original name of the file
 
+        $inicio_x = $data['firma_inicio_x'] ?? 250; // Default starting X coordinate for signature in mm
+        $inicio_y = $data['firma_inicio_y'] ?? 0; // Default starting Y coordinate for signature in mm
+        $ancho = $data['firma_ancho'] ?? 300; // Default width for signature in mm
+        $alto = $data['firma_alto'] ?? 75; // Default height for signature in mm
+
+        $coordenadas = $inicio_x . ' ' . $inicio_y . ' ' . ($inicio_x + $ancho) . ' ' . ($inicio_y + $alto);
+
         // dd($archivo); // Debugging: dump the file data
 
         // Validate the data data
@@ -48,7 +55,7 @@ class FirmaElectronica
 
             // coordenadas[][paginas] y coordenadas[][coordenadas]
             ['name' => 'solicitud_firma[coordenadas][][paginas]',      'contents' => '1'],
-            ['name' => 'solicitud_firma[coordenadas][][coordenadas]',  'contents' => '0 0 420 100'],
+            ['name' => 'solicitud_firma[coordenadas][][coordenadas]',  'contents' => $coordenadas],
 
             ['name' => 'solicitud_firma[font_size]',          'contents' => '-2'],
             ['name' => 'solicitud_firma[show_dn]',            'contents' => 'false'],
