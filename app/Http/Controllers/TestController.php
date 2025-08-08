@@ -28,7 +28,7 @@ class TestController extends AppBaseController
 
         $response = $firmaElectronica->firmarDocumento($request);
 
-        dd($response);
+        return $response;
     }
 
 }

@@ -24,7 +24,13 @@ class FirmaElectronica
         $lugar = $data['lugar'] ?? 'Guatemala, Guatemala'; // Default place for signature data
         $tipo_solicitud = $data['tipo_solicitud'] ?? 'PDF'; // Default type of data for signature
         $apariencia_firma = $data['apariencia_firma'] ?? 'GRAPHIC_AND_DESCRIPTION'; // Default appearance for signature
-        $rubrica = base64_encode(file_get_contents($data['rubrica'])) ?? ''; // Default signature appearance
+
+        if($data['rubrica_user']) {
+            // media library es la url y hay que convertir a base64
+            $rubrica = base64_encode(file_get_contents($data['rubrica_user'])) ?? '';
+        } else {
+            $rubrica = base64_encode(file_get_contents($data['rubrica'])) ?? ''; // Default signature appearance
+        }
         $archivo = $data['documento'] ?? null; // Default document for signature
         $this->nombre_archivo = $archivo->getClientOriginalName(); // Get the original name of the file
 

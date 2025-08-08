@@ -16,7 +16,16 @@
 
         <div>
             <label for="rubrica">Rúbrica:</label>
-            <input class="form-control" type="file" name="rubrica" id="rubrica" required accept=".png,.jpg,.jpeg">
+
+            @if(auth()->user()->rubrica)
+                <div class="p-1 rounded border">
+                    <img class="border mx-auto" height="150" width="auto"  src="{{auth()->user()->rubrica}}" alt="" id="upload_link_rubrica">
+                </div>
+                <input type="hidden" name="rubrica_user" id="rubrica" value="{{auth()->user()->rubrica}}">
+            @else
+                <input class="form-control" type="file" name="rubrica" id="rubrica" required accept=".png,.jpg,.jpeg">
+            @endif
+
         </div>
 
         <div class="pb-3 form-group" >
@@ -51,8 +60,6 @@
             <label for="concepto">Concepto:</label>
             <input class="form-control" type="text" name="concepto" id="concepto" value="test" required>
         </div>
-
-
 
         <div>
             <button type="submit" class="btn btn-primary">Firmar Documento</button>
