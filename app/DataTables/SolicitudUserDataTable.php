@@ -2,9 +2,8 @@
 
 namespace App\DataTables;
 
-use App\Models\Solicitud;
 use App\extensiones\DataTable;
-use Yajra\DataTables\EloquentDataTable;
+use App\Models\Solicitud;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 
@@ -64,7 +63,7 @@ class SolicitudUserDataTable extends DataTable
 
                 $color = $solicitud->estado->color;
 
-                return "<span class='badge badge-$color'>{$solicitud->estado->nombre}</span>";
+                return "<span class='badge badge-light-$color'>{$solicitud->estado->nombre}</span>";
 
             })
             ->editColumn('fecha_despacha',function (Solicitud $solicitud){
