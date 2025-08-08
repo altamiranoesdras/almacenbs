@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class RrhhUnidad
@@ -126,5 +127,26 @@ class RrhhUnidad extends Model
     public function usuarios()
     {
         return $this->hasMany(User::class, 'unidad_id');
+    }
+
+    public function children(): HasMany
+    {
+        return $this->hasMany(RrhhUnidad::class,'unidad_padre_id','id')
+            ->with('children');
+    }
+
+    public function scopePadres($query)
+    {
+        return $query->whereNull('rrhh_unidades.unidad_padre_id');
+    }
+
+    public function isChildren(): bool
+    {
+        return !is_null($this->option_id);
+    }
+
+    public function hasChildren(): bool
+    {
+        return $this->children->count()>0;
     }
 }

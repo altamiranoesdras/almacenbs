@@ -15,17 +15,15 @@
 
 
     <div class="content-body">
-        <div class="container-fluid">
-            <div class="card card-primary">
-                <div class="card-body">
-                    <ul class="list-group sortable" >
-                        @include('rrhh_unidads.partials.list_admin')
-                    </ul>
-                </div>
+        <div class="card card-primary">
+            <div class="card-body">
+                <ul class="list-group sortable">
+                    @include('rrhh_unidads.partials.listado_unidades')
+                </ul>
             </div>
-            <div class="text-center">
+        </div>
+        <div class="text-center">
 
-            </div>
         </div>
     </div>
 @endsection
@@ -34,29 +32,29 @@
 
 @push("scripts")
     <script>
-        $(function(){
+        $(function () {
 
 
-            $( ".sortable" ).sortable({
-                update: function( event, ui ) {
+            $(".sortable").sortable({
+                update: function (event, ui) {
 
-                    var  opciones=[];
-                    $(this).find('li').each(function (index,elemet) {
+                    var opciones = [];
+                    $(this).find('li').each(function (index, elemet) {
                         opciones.push($(this).attr('id'));
                     });
 
                     var url = "{{route("dev.option.order.store")}}";
-                    var params= { params: {opciones: opciones} };
+                    var params = {params: {opciones: opciones}};
 
-                    axios.get(url,params).then(response => {
+                    axios.get(url, params).then(response => {
                         alertSucces(response.data.message);
                     })
                         .catch(error => {
-                            if(error.response){
-                                console.log('respuesta ajax: ',error.response.data);
+                            if (error.response) {
+                                console.log('respuesta ajax: ', error.response.data);
 
-                                alertWarning("Ooops...",error.response.data.message,null)
-                            }else {
+                                alertWarning("Ooops...", error.response.data.message, null)
+                            } else {
                                 console.log(error);
                             }
                         });
