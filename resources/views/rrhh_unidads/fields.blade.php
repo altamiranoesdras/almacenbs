@@ -25,7 +25,7 @@
     {!! Form::label('Jefe','Jefe:') !!}
     {!!
         Form::select(
-            'puesto_id',
+            'jefe_id',
             select(\App\Models\User::class, 'name')
             , $user->puesto_id ?? []
             , ['id'=>'jefe_id','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']

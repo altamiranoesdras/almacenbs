@@ -63,12 +63,14 @@ class RrhhUnidad extends Model
 
     protected $dates = ['deleted_at'];
 
-
-
     public $fillable = [
         'nombre',
+        'codigo',
+        'unidad_tipo_id',
+        'unidad_padre_id',
         'jefe_id',
-        'activa'
+        'activa',
+        'solicita',
     ];
 
     /**
@@ -90,7 +92,9 @@ class RrhhUnidad extends Model
      */
     public static $rules = [
         'nombre' => 'required|string|max:255',
-        'jefe_id' => 'nullable',
+        'jefe_id' => 'required|integer|exists:users,id',
+        'codigo' => 'required|string|max:255|unique:rrhh_unidades,codigo',
+        'unidad_tipo_id' => 'required|integer|exists:rrhh_unidad_tipos,id',
         'activa' => 'nullable|string',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
