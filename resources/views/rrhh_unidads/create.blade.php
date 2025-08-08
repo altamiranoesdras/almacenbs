@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('titulo_pagina',__('New Unidad / Dependencia'))
-
+@include('layouts.plugins.select2')
 @section('content')
 
     <!-- Content Header (Page header) -->

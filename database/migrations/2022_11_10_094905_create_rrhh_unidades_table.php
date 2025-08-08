@@ -20,6 +20,7 @@ class CreateRrhhUnidadesTable extends Migration
                 $table->string('nombre')->unique();
                 $table->unsignedTinyInteger('nivel')->nullable();
                 $table->timestamps();
+                $table->softDeletes();
             });
         }
 

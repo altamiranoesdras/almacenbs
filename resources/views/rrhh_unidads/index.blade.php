@@ -5,37 +5,22 @@
 @section('content')
 
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Unidades / Dependencias</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-right">
-                        <li class="breadcrumb-item">
-                            <a class="btn btn-outline-success round"
-                                href="{!! route('rrhhUnidades.create') !!}">
-                                <i class="fa fa-plus"></i>
-                                <span class="d-none d-sm-inline">Nueva</span>
-                            </a>
-                        </li>
-                    </ol>
-                </div>
-            </div>
-        </div><!-- /.container-fluid -->
-    </section>
+    <x-content-header titulo="Unidades / Dependencias">
+        <a class="btn btn-outline-success round"
+           href="{!! route('rrhhUnidades.create') !!}">
+            <i class="fa fa-plus"></i>
+            <span class="d-none d-sm-inline">Nueva Unidad</span>
+        </a>
+    </x-content-header>
+
 
     <div class="content-body">
         <div class="container-fluid">
-            <div class="clearfix"></div>
-
-
-
-            <div class="clearfix"></div>
             <div class="card card-primary">
                 <div class="card-body">
-                        @include('rrhh_unidads.table')
+                    <ul class="list-group sortable" >
+                        @include('rrhh_unidads.partials.list_admin')
+                    </ul>
                 </div>
             </div>
             <div class="text-center">
@@ -45,3 +30,39 @@
     </div>
 @endsection
 
+@include('layouts.plugins.jquery-ui')
+
+@push("scripts")
+    <script>
+        $(function(){
+
+
+            $( ".sortable" ).sortable({
+                update: function( event, ui ) {
+
+                    var  opciones=[];
+                    $(this).find('li').each(function (index,elemet) {
+                        opciones.push($(this).attr('id'));
+                    });
+
+                    var url = "{{route("dev.option.order.store")}}";
+                    var params= { params: {opciones: opciones} };
+
+                    axios.get(url,params).then(response => {
+                        alertSucces(response.data.message);
+                    })
+                        .catch(error => {
+                            if(error.response){
+                                console.log('respuesta ajax: ',error.response.data);
+
+                                alertWarning("Ooops...",error.response.data.message,null)
+                            }else {
+                                console.log(error);
+                            }
+                        });
+
+                }
+            }).disableSelection();
+        });
+    </script>
+@endpush
