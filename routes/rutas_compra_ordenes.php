@@ -3,14 +3,16 @@
 
 use App\Http\Controllers\CompraSolicitudController;
 use App\Http\Controllers\CompraSolicitudEstadoController;
+use App\Http\Controllers\RequisicionCompra\MisRequisicionesCompraController;
 
 
 //grupo de rutas con prefix compra/solicitudes
 Route::prefix('compra/requisiciones')->name('compra.requisiciones.')->group(function () {
 
+    Route::get('/mis/requisiciones', [MisRequisicionesCompraController::class, 'index'])->name('mis.requisiciones');
+
     Route::get('/nueva', [CompraSolicitudController::class, 'create'])->name('nueva');
     Route::get('/', [CompraSolicitudController::class, 'index'])->name('index');
-    Route::get('/mis/requisiciones', [CompraSolicitudController::class, 'misSolicitudesDeCompra'])->name('mis.requisiciones');
     Route::get('/create', [CompraSolicitudController::class, 'create'])->name('create');
     Route::post('/', [CompraSolicitudController::class, 'store'])->name('store');
     Route::get('/{compraSolicitud}', [CompraSolicitudController::class, 'show'])->name('show');

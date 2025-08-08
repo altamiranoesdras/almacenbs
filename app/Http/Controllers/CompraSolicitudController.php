@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\CompraSolicitud\MisCompraSolicitudesDataTable;
 use App\DataTables\CompraSolicitudDataTable;
 use App\DataTables\Scopes\ScopeCompraSolicitudDataTable;
 use App\Http\Requests\CreateCompraSolicitudRequest;
@@ -10,7 +9,6 @@ use App\Http\Requests\UpdateCompraSolicitudRequest;
 use App\Models\CompraSolicitud;
 use App\Models\CompraSolicitudDetalle;
 use App\Models\CompraSolicitudEstado;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
@@ -331,21 +329,6 @@ class CompraSolicitudController extends AppBaseController
         flash('Solicitud de compra anulada correctamente.')->success();
 
         return redirect(route('compra.requisiciones.index'));
-
-    }
-
-    public function misSolicitudesDeCompra(MisCompraSolicitudesDataTable $dataTable)
-    {
-        /**
-         * @var User $usuarioActual
-         */
-        $usuarioActual = auth()->user();
-
-        $scope = new ScopeCompraSolicitudDataTable($usuarioActual->id);
-
-        $dataTable->addScope($scope);
-
-        return $dataTable->render('compra_solicitudes.mis_solicitudes.index');
 
     }
 }
