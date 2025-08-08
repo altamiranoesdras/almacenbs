@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\CompraSolicitudController;
 use App\Http\Controllers\CompraSolicitudEstadoController;
+use App\Http\Controllers\RequisicionCompra\AprobarRequisicionesCompraController;
 use App\Http\Controllers\RequisicionCompra\MisRequisicionesCompraController;
 
 
@@ -10,6 +11,7 @@ use App\Http\Controllers\RequisicionCompra\MisRequisicionesCompraController;
 Route::prefix('compra/requisiciones')->name('compra.requisiciones.')->group(function () {
 
     Route::get('/mis/requisiciones', [MisRequisicionesCompraController::class, 'index'])->name('mis.requisiciones');
+    Route::get('/aprobar', [AprobarRequisicionesCompraController::class, 'index'])->name('aprobar');
 
     Route::get('/nueva', [CompraSolicitudController::class, 'create'])->name('nueva');
     Route::get('/', [CompraSolicitudController::class, 'index'])->name('index');
@@ -24,9 +26,6 @@ Route::prefix('compra/requisiciones')->name('compra.requisiciones.')->group(func
     Route::get('pdf/vista/{compraSolicitud}', [CompraSolicitudController::class,'pdfVista'])->name('pdf.vista');
     Route::get('pdf/{compraSolicitud}', [CompraSolicitudController::class,'pdf'])->name('pdf');
 
-
-
 });
-
 
 Route::resource('compraSolicitudEstados', CompraSolicitudEstadoController::class);

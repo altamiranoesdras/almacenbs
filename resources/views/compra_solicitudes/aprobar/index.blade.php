@@ -11,7 +11,7 @@
                 <div class="col-12">
                     <h2 class="content-header-title float-start mb-0">
                         <h1>
-                            Requisiciones de Compra
+                            Aprobar Requisiciones de Compra
                         </h1>
                     </h2>
                 </div>
