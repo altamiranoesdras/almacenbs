@@ -52,14 +52,18 @@ class RrhhUnidadController extends AppBaseController
      */
     public function store(CreateRrhhUnidadRequest $request)
     {
-        $input = $request->all();
+        $request->merge([
+            'solicita' => $request->has('solicita') ? 1 : 0,
+            'activa' => $request->has('activa') ? 1 : 0,
+        ]);
 
+        $input = $request->all();
         /** @var RrhhUnidad $rrhhUnidad */
         $rrhhUnidad = RrhhUnidad::create($input);
 
         Flash::success('Rrhh Unidad guardado exitosamente.');
 
-        return redirect(route('rrhhUnidads.index'));
+        return redirect(route('rrhhUnidades.index'));
     }
 
     /**
