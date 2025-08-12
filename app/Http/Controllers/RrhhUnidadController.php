@@ -40,7 +40,7 @@ class RrhhUnidadController extends AppBaseController
     {
         $parent = $unidad ?? null;
 
-        return view('rrhh_unidades.create', compact('parent'));
+        return view('rrhh_unidads.create', compact('parent'));
     }
 
     /**
