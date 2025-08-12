@@ -202,7 +202,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     Route::resource('rrhhUnidadTipos', App\Http\Controllers\RrhhUnidadTipoController::class);
 
-    Route::get('rrhhUnidades/jajajajjaja/{unidad?}', [RrhhUnidadController::class,'create'])->name('rrhhUnidades.create');
+    Route::get('rrhhUnidad/create/{unidad?}', [RrhhUnidadController::class,'create'])->name('rrhhUnidad.create');
     Route::resource('rrhhUnidades', RrhhUnidadController::class);
 
     Route::resource('colaboradores', ColaboradorController::class);
