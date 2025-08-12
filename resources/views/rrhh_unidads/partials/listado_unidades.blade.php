@@ -4,7 +4,7 @@
 {{--            <i class="fa {{$unidad->icono_l}}"></i>--}}
             {{$unidad->nombre}}
 
-            @include('admin.options.datatables_actions',['id' => $unidad->id])
+            @include('rrhh_unidads.datatables_actions',['id' => $unidad->id])
 
         @if($unidad->hasChildren())
             <ul class="list-group sortable">
