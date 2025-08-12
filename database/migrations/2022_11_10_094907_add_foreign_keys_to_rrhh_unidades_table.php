@@ -14,7 +14,11 @@ class AddForeignKeysToRrhhUnidadesTable extends Migration
     public function up()
     {
         Schema::table('rrhh_unidades', function (Blueprint $table) {
-            $table->foreign('jefe_id', 'fk_rrhh_unidades_rrhh_colaboradores1')->references('id')->on('rrhh_colaboradores')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('jefe_id', 'fk_rrhh_unidades_rrhh_users')
+                ->references('id')
+                ->on('users')
+                ->onUpdate('NO ACTION')
+                ->onDelete('NO ACTION');
         });
     }
 
@@ -26,7 +30,7 @@ class AddForeignKeysToRrhhUnidadesTable extends Migration
     public function down()
     {
         Schema::table('rrhh_unidades', function (Blueprint $table) {
-            $table->dropForeign('fk_rrhh_unidades_rrhh_colaboradores1');
+            $table->dropForeign('fk_rrhh_unidades_rrhh_users');
         });
     }
 }

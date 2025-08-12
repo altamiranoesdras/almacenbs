@@ -39,7 +39,9 @@ class CreateRrhhUnidadesTable extends Migration
                 ->constrained('rrhh_unidades')
                 ->onDelete('cascade');
 
-            $table->unsignedBigInteger('jefe_id')->nullable()->index('fk_rrhh_unidades_rrhh_colaboradores1_idx');
+            $table->unsignedBigInteger('jefe_id')
+                ->nullable()
+                ->index('fk_rrhh_unidades_rrhh_colaboradores1_idx');
             $table->enum('activa', ['si', 'no'])->default('si');
             $table->enum('solicita', ['si', 'no'])->default('si');
 
