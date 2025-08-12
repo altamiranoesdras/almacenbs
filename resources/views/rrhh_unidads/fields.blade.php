@@ -13,7 +13,7 @@
     {!! Form::label('Tipo','Tipo:') !!}
     {!!
         Form::select(
-            'unidad_id',
+            'unidad_tipo_id',
             select(\App\Models\RrhhUnidadTipo::class)
             , $user->unidad_id ?? []
             , ['id'=>'tipo_id','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
