@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\RrhhUnidadDataTable;
-use App\Http\Requests;
 use App\Http\Requests\CreateRrhhUnidadRequest;
 use App\Http\Requests\UpdateRrhhUnidadRequest;
 use App\Models\RrhhUnidad;
 use Flash;
-use App\Http\Controllers\AppBaseController;
 use Response;
 
 class RrhhUnidadController extends AppBaseController
