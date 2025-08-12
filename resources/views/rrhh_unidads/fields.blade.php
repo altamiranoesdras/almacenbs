@@ -15,7 +15,7 @@
         Form::select(
             'unidad_tipo_id',
             select(\App\Models\RrhhUnidadTipo::class)
-            , $user->unidad_id ?? []
+            , $rrhhUnidad->unidad_tipo_id ?? []
             , ['id'=>'tipo_id','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
         )
     !!}
@@ -27,7 +27,7 @@
         Form::select(
             'jefe_id',
             select(\App\Models\User::jefes(), 'name')
-            , $user->puesto_id ?? []
+            , $rrhhUnidad->jefe_id ?? []
             , ['id'=>'jefe_id','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
         )
     !!}
@@ -39,7 +39,7 @@
             Activa
         </label>
         <div class="form-check form-switch form-check-primary">
-            <input type="checkbox" class="form-check-input" name="activa" id="activa" {{ ($unidad->activa ?? false) ? ' checked' : '' }} />
+            <input type="checkbox" class="form-check-input" name="activa" id="activa" {{ ($rrhhUnidad->activa == 'si') ? ' checked' : '' }} />
             <label class="form-check-label" for="dev">
                 <span class="switch-icon-left"><i data-feather="check"></i></span>
                 <span class="switch-icon-right"><i data-feather="x"></i></span>
@@ -54,7 +54,7 @@
             Solicita
         </label>
         <div class="form-check form-switch form-check-primary">
-            <input type="checkbox" class="form-check-input" name="solicita" id="solicita" {{ ($unidad->solicita ?? false) ? ' checked' : '' }} />
+            <input type="checkbox" class="form-check-input" name="solicita" id="solicita" {{ ($rrhhUnidad->solicita == 'si') ? ' checked' : '' }} />
             <label class="form-check-label" for="dev">
                 <span class="switch-icon-left"><i data-feather="check"></i></span>
                 <span class="switch-icon-right"><i data-feather="x"></i></span>
