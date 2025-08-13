@@ -128,6 +128,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::patch('profile/{user}', [ProfileController::class,'update'])->name('profile.update');
     Route::patch('profile/{user}/update/password', [ProfileController::class,'updatePassword'])->name('profile.update.password');
     Route::post('profile/{user}/edit/avatar', [ProfileController::class,'editAvatar'])->name('profile.edit.avatar');
+    Route::post('profile/{user}/edit/rubrica', [UserController::class,'guardarRubrica'])->name('profile.edit.rubrica');
     Route::get('profile/{user}/remove/avatar', [ProfileController::class,'removeAvatar'])->name('profile.remove.avatar');
 
 
@@ -355,3 +356,5 @@ Route::group(['prefix' => ''], function () {
 });
 
 Route::get('/test', [TestController::class, 'test'])->name('test');
+
+Route::post('/firmar-documento', [TestController::class, 'firmarDocumento'])->name('firmar.documento');

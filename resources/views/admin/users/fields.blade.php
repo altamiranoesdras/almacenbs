@@ -69,6 +69,11 @@
         <input type="file" name="avatar" class="form-control" >
     </div>
 
+    <div class="col-sm-6 mb-1">
+        {!! Form::label('rubrica', 'Rubrica:') !!}
+        <input type="file" name="rubrica" class="form-control" accept=".png,.jpg,.jpeg" required>
+    </div>
+
 
     <div class="col-sm-12 mb-1">
         <div class="table-responsive">

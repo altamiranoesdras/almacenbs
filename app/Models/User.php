@@ -387,6 +387,12 @@ class User extends Authenticatable implements  HasMedia
         return $media ? $media->getUrl() : asset('img/avatar5.png');
     }
 
+    public function getRubricaAttribute()
+    {
+        $media = $this->getMedia('rubricas')->last();
+        return $media ? $media->getUrl() : null;
+    }
+
     public function getMiniaturaAttribute()
     {
         $media = $this->getMedia('avatars')->last();

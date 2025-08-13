@@ -21624,6 +21624,21 @@ namespace App\Console\Commands {
             /**
      * 
      *
+     */        class GeneradorCrudInfyomComando {
+            }
+            /**
+     * 
+     *
+     */        class GeneraPhpDocs {
+            }
+            /**
+     * 
+     *
+     */        class GenerarDocblockDto {
+            }
+            /**
+     * 
+     *
      */        class ImportPersonalCommand {
             }
             /**
@@ -21635,6 +21650,11 @@ namespace App\Console\Commands {
      * 
      *
      */        class InsumosImportCommand {
+            }
+            /**
+     * 
+     *
+     */        class LeerProveedoresCSV {
             }
             /**
      * 
