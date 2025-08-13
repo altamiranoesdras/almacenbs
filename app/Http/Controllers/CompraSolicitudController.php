@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateCompraSolicitudRequest;
 use App\Models\CompraSolicitud;
 use App\Models\CompraSolicitudDetalle;
 use App\Models\CompraSolicitudEstado;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
@@ -189,9 +190,9 @@ class CompraSolicitudController extends AppBaseController
 
         if($request->solicitar) {
             $compraSolicitud->estado_id = CompraSolicitudEstado::SOLICITADA;
-            $compraSolicitud->fecha_solicita = fechaHoraActual();
+            $compraSolicitud->fecha_solicita = Carbon::now();
             $compraSolicitud->save();
-            return redirect(route('compra.requisiciones.index'));
+            return redirect(route('compra.requisiciones.mis.requisiciones'));
         } else {
             $compraSolicitud->estado_id = CompraSolicitudEstado::INGRESADA;
         }
