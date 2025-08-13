@@ -37,7 +37,7 @@ class TestController extends AppBaseController
             ->setTipoSolicitud("PDF") // Opcional: tipo de documento (PDF, XML, TXT)
             ->setConcepto("test") // Opcional: concepto de la firma
             ->setDocumento($request->file('documento')) // documento a firmar (UploadedFile)
-            ->firmar();
+            ->firmarDocumento();
 
 
     }
