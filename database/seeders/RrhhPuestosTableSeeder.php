@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\RrhhPuesto;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class RrhhPuestosTableSeeder extends Seeder
 {
@@ -26,6 +25,7 @@ class RrhhPuestosTableSeeder extends Seeder
         RrhhPuesto::factory()->create(['nombre' => 'AUXILIAR DE BODEGA']);
         RrhhPuesto::factory()->create(['nombre' => 'ANALISTA ALMACÉN']);
         RrhhPuesto::factory()->create(['nombre' => 'RECEPCIONISTA']);
+        RrhhPuesto::factory()->create(['nombre' => 'JEFE UNIDAD']);
 
     }
 }

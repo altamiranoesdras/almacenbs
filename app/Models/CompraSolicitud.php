@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use App\Traits\TieneCodigo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\SoftDeletes;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  *
@@ -78,6 +78,8 @@ class CompraSolicitud extends Model
         'correlativo',
         'codigo',
         'fecha_requiere',
+        'fecha_solicita',
+        'fecha_aprueba',
         'justificacion',
         'estado_id',
         'usuario_solicita',

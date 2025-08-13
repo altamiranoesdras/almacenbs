@@ -15,17 +15,29 @@ class ScopeCompraSolicitudDataTable implements DataTableScope
     public $codigo;
     public $del;
     public $al;
+    public $usuario_solicita;
+    public $unidad_id;
 
-    public function __construct()
-    {
+    public function __construct(
+        $usuario_solicita = null,
+        $estados = null,
+        $proveedores = null,
+        $items = null,
+        $codigo = null,
+        $del = null,
+        $al = null,
+        $unidad_id = null
+    ) {
+        $req = request();
 
-        $this->items = request()->items ?? null;
-        $this->estados = request()->estados ?? null;
-        $this->proveedores = request()->proveedores ?? null;
-        $this->codigo = request()->codigo ?? null;
-        $this->del = request()->del ?? null;
-        $this->al = request()->al ?? null;
-
+        $this->items            = $items            ?? $req->input('items')            ?? null;
+        $this->estados          = $estados          ?? $req->input('estados')          ?? null;
+        $this->proveedores      = $proveedores      ?? $req->input('proveedores')      ?? null;
+        $this->codigo           = $codigo           ?? $req->input('codigo')           ?? null;
+        $this->del              = $del              ?? $req->input('del')              ?? null;
+        $this->al               = $al               ?? $req->input('al')               ?? null;
+        $this->usuario_solicita = $usuario_solicita ?? $req->input('usuario_solicita') ?? null;
+        $this->unidad_id        = $unidad_id        ?? $req->input('unidad_id')        ?? null;
     }
 
 
@@ -76,7 +88,11 @@ class ScopeCompraSolicitudDataTable implements DataTableScope
                 }
             });
         }
-        
+
+        if($this->usuario_solicita){
+            $query->where('usuario_solicita', $this->usuario_solicita);
+        }
+
         return $query;
     }
 }

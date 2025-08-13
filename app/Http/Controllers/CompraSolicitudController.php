@@ -2,20 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Item;
-use App\Models\Proveedor;
-use App\Models\CompraEstado;
-use Illuminate\Http\Request;
-use App\Models\CompraSolicitud;
-use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Facades\DB;
-use App\Models\CompraSolicitudEstado;
-use App\Models\CompraSolicitudDetalle;
-use App\Http\Controllers\AppBaseController;
 use App\DataTables\CompraSolicitudDataTable;
+use App\DataTables\Scopes\ScopeCompraSolicitudDataTable;
 use App\Http\Requests\CreateCompraSolicitudRequest;
 use App\Http\Requests\UpdateCompraSolicitudRequest;
-use App\DataTables\Scopes\ScopeCompraSolicitudDataTable;
+use App\Models\CompraSolicitud;
+use App\Models\CompraSolicitudDetalle;
+use App\Models\CompraSolicitudEstado;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class CompraSolicitudController extends AppBaseController
 {
@@ -168,7 +163,7 @@ class CompraSolicitudController extends AppBaseController
      *
      * @return Response
      */
-    public function update($id, UpdateCompraSolicitudRequest $request)
+    public function update($id, UpdateCompraSolicitudRequest $request): \Illuminate\Http\RedirectResponse
     {
         /** @var CompraSolicitud $compraSolicitud */
         $compraSolicitud = CompraSolicitud::find($id);
@@ -179,49 +174,29 @@ class CompraSolicitudController extends AppBaseController
             return redirect(route('compra.requisiciones.index'));
         }
 
-
         if($request->has('partidas')){
             $request->merge([
                 'partidas' => implode('|', $request->partidas),
             ]);
         }
-
         if($request->has('subproductos')){
             $request->merge([
                 'subproductos' => implode('|', $request->subproductos),
             ]);
         }
-
-
         $compraSolicitud->fill($request->all());
         $compraSolicitud->establecerCodigo();
-        $compraSolicitud->estado_id = CompraSolicitudEstado::INGRESADA;
-        $compraSolicitud->save();
 
-        if ($request->procesar){
-
-
-            try {
-                DB::beginTransaction();
-
-                $this->generarCompra($compraSolicitud);
-
-            } catch (Exception $exception) {
-                DB::rollBack();
-
-                $msj = manejarException($exception);
-
-                flash($msj)->error();
-
-                return redirect(route('compra.requisiciones.edit',$compraSolicitud->id));
-            }
-
-            DB::commit();
-
-            flash('Cotización procesada correctamente.')->success();
-
-            return redirect(route('compras.create'));
+        if($request->solicitar) {
+            $compraSolicitud->estado_id = CompraSolicitudEstado::SOLICITADA;
+            $compraSolicitud->fecha_solicita = fechaHoraActual();
+            $compraSolicitud->save();
+            return redirect(route('compra.requisiciones.index'));
+        } else {
+            $compraSolicitud->estado_id = CompraSolicitudEstado::INGRESADA;
         }
+
+        $compraSolicitud->save();
 
         flash('Listo!')->success();
 
@@ -329,13 +304,20 @@ class CompraSolicitudController extends AppBaseController
     public function pdf(CompraSolicitud $compraSolicitud)
     {
 
-        $pdf = Pdf::loadView('compra_solicitudes.pdf', compact('compraSolicitud'));
+        $pdf = App::make('snappy.pdf.wrapper');
 
-        // Configurar opciones de tamaño de página y orientación
-        // Tamaño carta y orientación vertical
-        $pdf->setPaper('letter', 'portrait');
+        $view = view('compra_solicitudes.pdfs.compra_pdf', compact('compraSolicitud'))->render();
 
-        return $pdf->stream('Requision_'.$compraSolicitud->id.'_'.time().'.pdf');
+        $pdf->loadHTML($view)
+            ->setOption('page-width', 279)
+            ->setOption('page-height', 216)
+            ->setOrientation('landscape')
+            ->setOption('margin-top', 8)
+            ->setOption('margin-bottom',10)
+            ->setOption('margin-left',10)
+            ->setOption('margin-right',15);
+
+        return $pdf->inline('Despacho '.$compraSolicitud->id. '_'. time().'.pdf');
     }
 
 

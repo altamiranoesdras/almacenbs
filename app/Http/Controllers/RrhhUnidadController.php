@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\RrhhUnidadDataTable;
-use App\Http\Requests;
 use App\Http\Requests\CreateRrhhUnidadRequest;
 use App\Http\Requests\UpdateRrhhUnidadRequest;
 use App\Models\RrhhUnidad;
 use Flash;
-use App\Http\Controllers\AppBaseController;
 use Response;
 
 class RrhhUnidadController extends AppBaseController
@@ -38,9 +36,11 @@ class RrhhUnidadController extends AppBaseController
      *
      * @return Response
      */
-    public function create()
+    public function create(RrhhUnidad $unidad)
     {
-        return view('rrhh_unidads.create');
+        $parent = $unidad ?? null;
+
+        return view('rrhh_unidads.create', compact('parent'));
     }
 
     /**
@@ -52,14 +52,18 @@ class RrhhUnidadController extends AppBaseController
      */
     public function store(CreateRrhhUnidadRequest $request)
     {
-        $input = $request->all();
+        $request->merge([
+            'solicita' => $request->has('solicita') ? 'si' : 'no',
+            'activa' => $request->has('activa') ? 'si' : 'no',
+        ]);
 
+        $input = $request->all();
         /** @var RrhhUnidad $rrhhUnidad */
         $rrhhUnidad = RrhhUnidad::create($input);
 
         Flash::success('Rrhh Unidad guardado exitosamente.');
 
-        return redirect(route('rrhhUnidads.index'));
+        return redirect(route('rrhhUnidades.index'));
     }
 
     /**
@@ -114,13 +118,18 @@ class RrhhUnidadController extends AppBaseController
      */
     public function update($id, UpdateRrhhUnidadRequest $request)
     {
+        $request->merge([
+            'solicita' => $request->has('solicita') ? 'si' : 'no',
+            'activa' => $request->has('activa') ? 'si' : 'no',
+        ]);
+
         /** @var RrhhUnidad $rrhhUnidad */
         $rrhhUnidad = RrhhUnidad::find($id);
 
         if (empty($rrhhUnidad)) {
             Flash::error('Rrhh Unidad no encontrado');
 
-            return redirect(route('rrhhUnidads.index'));
+            return redirect(route('rrhhUnidades.index'));
         }
 
         $rrhhUnidad->fill($request->all());
@@ -128,7 +137,7 @@ class RrhhUnidadController extends AppBaseController
 
         Flash::success('Rrhh Unidad actualizado con éxito.');
 
-        return redirect(route('rrhhUnidads.index'));
+        return redirect(route('rrhhUnidades.index'));
     }
 
     /**
@@ -148,13 +157,13 @@ class RrhhUnidadController extends AppBaseController
         if (empty($rrhhUnidad)) {
             Flash::error('Rrhh Unidad no encontrado');
 
-            return redirect(route('rrhhUnidads.index'));
+            return redirect(route('rrhhUnidades.index'));
         }
 
         $rrhhUnidad->delete();
 
         Flash::success('Rrhh Unidad deleted successfully.');
 
-        return redirect(route('rrhhUnidads.index'));
+        return redirect(route('rrhhUnidades.index'));
     }
 }

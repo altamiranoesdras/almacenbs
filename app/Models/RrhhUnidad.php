@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class RrhhUnidad
@@ -62,12 +63,14 @@ class RrhhUnidad extends Model
 
     protected $dates = ['deleted_at'];
 
-
-
     public $fillable = [
         'nombre',
+        'codigo',
+        'unidad_tipo_id',
+        'unidad_padre_id',
         'jefe_id',
-        'activa'
+        'activa',
+        'solicita',
     ];
 
     /**
@@ -89,7 +92,9 @@ class RrhhUnidad extends Model
      */
     public static $rules = [
         'nombre' => 'required|string|max:255',
-        'jefe_id' => 'nullable',
+        'jefe_id' => 'required|integer|exists:users,id',
+        'codigo' => 'required|string|max:255|unique:rrhh_unidades,codigo',
+        'unidad_tipo_id' => 'required|integer|exists:rrhh_unidad_tipos,id',
         'activa' => 'nullable|string',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
@@ -126,5 +131,26 @@ class RrhhUnidad extends Model
     public function usuarios()
     {
         return $this->hasMany(User::class, 'unidad_id');
+    }
+
+    public function children(): HasMany
+    {
+        return $this->hasMany(RrhhUnidad::class,'unidad_padre_id','id')
+            ->with('children');
+    }
+
+    public function scopePadres($query)
+    {
+        return $query->whereNull('rrhh_unidades.unidad_padre_id');
+    }
+
+    public function isChildren(): bool
+    {
+        return !is_null($this->option_id);
+    }
+
+    public function hasChildren(): bool
+    {
+        return $this->children->count()>0;
     }
 }

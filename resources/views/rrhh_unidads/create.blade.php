@@ -1,28 +1,18 @@
 @extends('layouts.app')
 
-@section('titulo_pagina',__('New Unidad / Dependencia'))
-
+@section('titulo_pagina',__('Nueva Unidad / Dependencia'))
+@include('layouts.plugins.select2')
 @section('content')
 
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>{{__('New Unidad / Dependencia')}}</h1>
-                </div>
-                <div class="col ">
-                    <a class="btn btn-outline-info float-right"
-                       href="{{route('rrhhUnidades.index')}}">
-                        <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span class="d-none d-sm-inline">{{__('List')}}</span>
-                    </a>
-                </div>
-            </div>
-        </div><!-- /.container-fluid -->
-    </section>
+    <x-content-header titulo="Nueva Unidad / Dependencia">
+        <a class="btn btn-outline-info float-right"
+           href="{{route('rrhhUnidades.index')}}">
+            <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span class="d-none d-sm-inline">{{__('List')}}</span>
+        </a>
+    </x-content-header>
 
     <div class="content-body">
-        <div class="container-fluid">
 
             @include('layouts.partials.request_errors')
 
@@ -33,7 +23,6 @@
 
                             @include('rrhh_unidads.fields')
 
-                            <!-- Submit Field -->
                             <div class="col-sm-12 mb-1 text-right">
                                 <a href="{!! route('rrhhUnidades.index') !!}" class="btn btn-outline-secondary round me-1">
                                     Cancelar
@@ -46,7 +35,6 @@
                         </div>
                     {!! Form::close() !!}
                 </div>
-            </div>
         </div>
     </div>
 

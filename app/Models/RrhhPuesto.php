@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class RrhhPuesto
@@ -55,6 +55,7 @@ class RrhhPuesto extends Model
     public const AUXILIAR_DE_BODEGA = 3;
     public const ANALISTA_ALMACEN = 4;
     public const RECEPCIONISTA = 5;
+    public const JEFE_UNIDAD = 6;
 
 
 

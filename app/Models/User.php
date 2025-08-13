@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
@@ -472,6 +472,13 @@ class User extends Authenticatable implements  HasMedia
             'email' => $this->email,
             'password' => $this->password,
         ];
+    }
+
+    public function scopeJefes()
+    {
+        return $this->where('puesto_id', RrhhPuesto::JEFE_UNIDAD);
+//            ->orWhere('puesto_id', RrhhPuesto::JEFE_DEPARTAMENTO_ALMACEN);
+
     }
 
 }

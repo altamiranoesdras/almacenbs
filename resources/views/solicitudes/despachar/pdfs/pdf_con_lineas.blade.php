@@ -19,7 +19,7 @@
     de la Presidencia de la República
 </h5>
 
-<img src="{{ asset('img/Logo_CGC_FT.png') }}" alt="Logo" style="width: 100px; position: absolute; right: 10px; top: 10px">
+<img src="{{ asset('img/logos/Logo_CGC_FT.png') }}" alt="Logo" style="width: 100px; position: absolute; right: 10px; top: 10px">
 
 <h4 style="text-align: center; margin-bottom: 5px; font-weight: bold">
     REQUISICIÓN A ALMACÉN

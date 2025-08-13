@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Models\RrhhUnidad;
+use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRrhhUnidadRequest extends FormRequest
 {
@@ -25,7 +25,9 @@ class UpdateRrhhUnidadRequest extends FormRequest
     public function rules()
     {
         $rules = RrhhUnidad::$rules;
-        
+
+        unset($rules['codigo']);
+
         return $rules;
     }
 }
