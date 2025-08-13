@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\FirmaElectronica\FirmaElectronica;
 use Illuminate\Http\Request;
 
 
@@ -10,7 +11,7 @@ class TestController extends AppBaseController
 
     function __construct()
     {
-        
+
     }
 
     public function test()
@@ -26,9 +27,12 @@ class TestController extends AppBaseController
 
         // $data = $request->all(); // Get all data from the request
 
-        $response = $firmaElectronica->firmarDocumento($request);
+        return (new \App\FirmaElectronica\FirmaElectronica())
+            ->responseInline()
+            ->toDisk('public')
+            ->inDirectory('firmas')
+            ->firmarDocumento($request->all());
 
-        return $response;
     }
 
 }
