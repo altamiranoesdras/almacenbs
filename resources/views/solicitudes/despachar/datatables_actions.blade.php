@@ -1,6 +1,6 @@
 @can('Ver Requisición')
     <button  type="button"
-             class='btn btn-icon rounded-circle btn-flat-primary'
+             class='btn btn-icon rounded-circle btn-outline-primary'
              data-bs-toggle="modal"
              data-bs-target="#modal-detalles-{{ $id }}"
              title="Ver detalles"
@@ -14,7 +14,7 @@
     @can('Editar Requisición')
         <a
             href="{{ route('solicitudes.edit', $solicitud->id) }}"
-            class='btn btn-icon btn-flat-info rounded-circle'
+            class='btn btn-icon btn-outline-info rounded-circle'
             data-toggle="tooltip"
             title="Editar"
         >
@@ -30,7 +30,7 @@
             data-id="{{$solicitud->id}}"
             data-toggle="tooltip"
             title="Anular"
-            class='btn btn-icon rounded-circle btn-flat-danger'
+            class='btn btn-icon rounded-circle btn-outline-danger'
         >
             <i class="fa fa-undo-alt"></i>
         </a>

@@ -1,6 +1,6 @@
 @can('Ver Requisición')
     <button  type="button"
-             class="btn btn-icon btn-flat-secondary rounded-circle"
+             class="btn btn-icon btn-outline-secondary rounded-circle"
              data-bs-toggle="modal"
              data-bs-target="#modal-detalles-{{ $id }}"
              title="Ver detalles">
@@ -10,14 +10,14 @@
 
 @if($solicitud->puedeImprimir())
 
-    <a href="{{ route('solicitudes.despachoPdf', $id) }}"  class='btn btn-icon btn-flat-primary rounded-circle' data-toggle="tooltip" title="Imprimir" target="_blank">
+    <a href="{{ route('solicitudes.despachoPdf', $id) }}"  class='btn btn-icon btn-outline-primary rounded-circle' data-toggle="tooltip" title="Imprimir" target="_blank">
         <i class="fa fa-file-pdf"></i>
     </a>
 @endif
 
 @if($solicitud->puedeEditar())
     @can('Editar Requisición')
-        <a href="{{ route('solicitudes.edit', $solicitud->id) }}" class='btn btn-icon btn-flat-info rounded-circle' data-toggle="tooltip" title="Editar">
+        <a href="{{ route('solicitudes.edit', $solicitud->id) }}" class='btn btn-icon btn-outline-info rounded-circle' data-toggle="tooltip" title="Editar">
             <i class="fa fa-edit"></i>
         </a>
     @endcan
@@ -27,7 +27,7 @@
 
 
     @can('Anular Requisición')
-        <a href="#" onclick="deleteItemDt(this)" data-id="{{$solicitud->id}}" data-toggle="tooltip" title="Anular" class='btn btn-icon btn-flat-danger rounded-circle'>
+        <a href="#" onclick="deleteItemDt(this)" data-id="{{$solicitud->id}}" data-toggle="tooltip" title="Anular" class='btn btn-icon btn-outline-danger rounded-circle'>
             <i class="fa fa-undo-alt"></i>
         </a>
 

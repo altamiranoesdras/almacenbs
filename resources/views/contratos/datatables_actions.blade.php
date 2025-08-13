@@ -1,17 +1,17 @@
 @can('Ver Contratos')
-<a href="{{ route('contratos.show', $id) }}" data-toggle="tooltip" title="Ver" class='btn btn-icon btn-flat-secondary rounded-circle'>
+<a href="{{ route('contratos.show', $id) }}" data-toggle="tooltip" title="Ver" class='btn btn-icon btn-outline-secondary rounded-circle'>
     <i class="fa fa-eye"></i>
 </a>
 @endcan
 
 @can('Editar Contratos')
-<a href="{{ route('contratos.edit', $id) }}" data-toggle="tooltip" title="Editar" class='btn btn-icon btn-flat-info rounded-circle'>
+<a href="{{ route('contratos.edit', $id) }}" data-toggle="tooltip" title="Editar" class='btn btn-icon btn-outline-info rounded-circle'>
     <i class="fa fa-edit"></i>
 </a>
 @endcan
 
 @can('Eliminar Contratos')
-<a href="#" onclick="deleteItemDt(this)" data-id="{{$id}}" data-toggle="tooltip" title="Eliminar" class='btn btn-icon btn-flat-danger rounded-circle'>
+<a href="#" onclick="deleteItemDt(this)" data-id="{{$id}}" data-toggle="tooltip" title="Eliminar" class='btn btn-icon btn-outline-danger rounded-circle'>
     <i class="fa fa-trash-alt"></i>
 </a>
 
