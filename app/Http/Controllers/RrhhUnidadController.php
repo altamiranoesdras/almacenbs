@@ -157,13 +157,13 @@ class RrhhUnidadController extends AppBaseController
         if (empty($rrhhUnidad)) {
             Flash::error('Rrhh Unidad no encontrado');
 
-            return redirect(route('rrhhUnidads.index'));
+            return redirect(route('rrhhUnidades.index'));
         }
 
         $rrhhUnidad->delete();
 
         Flash::success('Rrhh Unidad deleted successfully.');
 
-        return redirect(route('rrhhUnidads.index'));
+        return redirect(route('rrhhUnidades.index'));
     }
 }
