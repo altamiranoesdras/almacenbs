@@ -166,10 +166,20 @@
                                         <div class="col-12 mb-1">
                                             {!! Form::label('rubrica', __('Rubrica')) !!}
 
-                                            <div class="p-1 rounded border">
-                                                <img class="border mx-auto" height="150" width="auto"  src="{{auth()->user()->rubrica}}" alt="" id="upload_link_rubrica">
-                                                <input id="upload_rubrica" type="file" style="display: none" accept=".png, .jpg, .jpeg" />
-                                            </div>
+                                            @if(auth()->user()->rubrica != null)
+                                                <div class="p-1 rounded border">
+                                                    <img class="border mx-auto" height="150" width="auto"  src="{{auth()->user()->rubrica}}" alt="" id="upload_link_rubrica">
+                                                    <input id="upload_rubrica" type="file" style="display: none" accept=".png, .jpg, .jpeg" />
+                                                </div>
+                                            @else
+                                                <div class="p-1 rounded border">
+                                                    <button id="upload_link_rubrica" class="btn btn-primary">
+                                                        Subir Rubrica
+                                                        <i class="fa fa-upload"></i>
+                                                    </button>
+                                                    <input id="upload_rubrica" type="file" style="display: none" accept=".png, .jpg, .jpeg" />
+                                                </div>
+                                            @endif
 
                                         </div>
 
