@@ -33,16 +33,13 @@
         <div class="row">
             <div class="col-12">
                 <div class="card shadow-sm">
-                    <div class="card-header border-bottom">
-                        <h4 class="card-title mb-0">Datos para la firma</h4>
-                    </div>
 
                     <div class="card-body pt-1">
                         <form method="POST" action="{{ route('firmar.documento') }}" enctype="multipart/form-data" class="esperar row g-3">
                             @csrf
 
                             {{-- Documento --}}
-                            <div class="col-12">
+                            <div class="col-6">
                                 <label for="documento" class="form-label">Documento a firmar <span class="text-danger">*</span></label>
                                 <input class="form-control @error('documento') is-invalid @enderror"
                                        type="file" name="documento" id="documento" required accept=".pdf">
@@ -53,7 +50,7 @@
                             </div>
 
                             {{-- Rúbrica --}}
-                            <div class="col-12 col-md-6">
+                            <div class="col-6 ">
                                 <label class="form-label">Rúbrica</label>
                                 <br>
 
@@ -72,21 +69,55 @@
                                     @enderror
                                     <small class="text-muted d-block mt-50">Formatos permitidos: PNG, JPG, JPEG.</small>
                                 @endif
+                                <div class="col-12">
+
+
+
+                                    {{-- Lugar y tipo --}}
+                                    <div class="col-12 ">
+                                        <label for="lugar" class="form-label">Lugar <span class="text-danger">*</span></label>
+                                        <input class="form-control @error('lugar') is-invalid @enderror"
+                                               type="text" name="lugar" id="lugar" value="Guatemala, Guatemala" required>
+                                        @error('lugar')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Tipo de solicitud --}}
+                                    <div class="col-12 ">
+                                        <label for="tipo_solicitud" class="form-label">Tipo de solicitud</label>
+                                        <select class="form-select" name="tipo_solicitud" id="tipo_solicitud">
+                                            <option value="PDF" selected>PDF</option>
+                                            <option value="XML">XML</option>
+                                        </select>
+                                    </div>
+
+                                    {{-- Concepto --}}
+                                    <div class="col-12">
+                                        <label for="concepto" class="form-label">Concepto <span class="text-danger">*</span></label>
+                                        <input class="form-control @error('concepto') is-invalid @enderror"
+                                               type="text" name="concepto" id="concepto" value="test" required>
+                                        @error('concepto')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
 
                             {{-- Coordenadas y tamaño (mm) --}}
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 ">
                                 <label class="form-label mb-1">Posición y tamaño de la firma (mm)</label>
 
                                 <div class="row g-2">
-                                    <div class="col-6">
+
+                                    <div class="col-2">
                                         <label for="firma_inicio_x" class="form-label">Inicio horizontal (X)</label>
                                         <div class="input-group">
                                             <input class="form-control" type="number" name="firma_inicio_x" id="firma_inicio_x" required value="250" placeholder="X">
                                             <span class="input-group-text">mm</span>
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-2">
                                         <label for="firma_inicio_y" class="form-label">Inicio vertical (Y)</label>
                                         <div class="input-group">
                                             <input class="form-control" type="number" name="firma_inicio_y" id="firma_inicio_y" required value="15" placeholder="Y">
@@ -94,57 +125,30 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-6">
+                                    <div class="col-2">
                                         <label for="firma_ancho" class="form-label">Ancho</label>
                                         <div class="input-group">
                                             <input class="form-control" type="number" name="firma_ancho" id="firma_ancho" required value="250" placeholder="Ancho">
                                             <span class="input-group-text">mm</span>
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-2">
                                         <label for="firma_alto" class="form-label">Alto</label>
                                         <div class="input-group">
                                             <input class="form-control" type="number" name="firma_alto" id="firma_alto" required value="65" placeholder="Alto">
                                             <span class="input-group-text">mm</span>
                                         </div>
                                     </div>
+
+                                    <div class="col-2">
+                                        <label for="pagina" class="form-label">Página (opcional)</label>
+                                        <input class="form-control" type="number" name="pagina" id="pagina" min="1" placeholder="1">
+                                        <small class="text-muted">Si se omite, se usará la página 1.</small>
+                                    </div>
                                 </div>
 
-                                {{-- Página (opcional) --}}
-                                <div class="mt-1">
-                                    <label for="pagina" class="form-label">Página (opcional)</label>
-                                    <input class="form-control" type="number" name="pagina" id="pagina" min="1" placeholder="1">
-                                    <small class="text-muted">Si se omite, se usará la página 1.</small>
-                                </div>
                             </div>
 
-                            {{-- Lugar y tipo --}}
-                            <div class="col-12 col-md-6">
-                                <label for="lugar" class="form-label">Lugar <span class="text-danger">*</span></label>
-                                <input class="form-control @error('lugar') is-invalid @enderror"
-                                       type="text" name="lugar" id="lugar" value="Guatemala, Guatemala" required>
-                                @error('lugar')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="col-12 col-md-6">
-                                <label for="tipo_solicitud" class="form-label">Tipo de solicitud</label>
-                                <select class="form-select" name="tipo_solicitud" id="tipo_solicitud">
-                                    <option value="PDF" selected>PDF</option>
-                                    <option value="XML">XML</option>
-                                </select>
-                            </div>
-
-                            {{-- Concepto --}}
-                            <div class="col-12">
-                                <label for="concepto" class="form-label">Concepto <span class="text-danger">*</span></label>
-                                <input class="form-control @error('concepto') is-invalid @enderror"
-                                       type="text" name="concepto" id="concepto" value="test" required>
-                                @error('concepto')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
 
                             {{-- Acciones --}}
                             <div class="col-12 d-flex justify-content-end gap-1">
