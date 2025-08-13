@@ -33,7 +33,8 @@
                     <div class="card card-primary">
                         <div class="card-body">
                             <ul class="list-group sortable" >
-                                @include('admin.options.partials.list_admin')
+{{--                                @include('admin.options.partials.list_admin')--}}
+                                @include('rrhh_unidads.partials.listado_unidades')
                             </ul>
                         </div>
                     </div>

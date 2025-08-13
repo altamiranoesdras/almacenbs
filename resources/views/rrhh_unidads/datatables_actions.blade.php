@@ -1,6 +1,6 @@
 @can('Ver Rrhh Unidads')
 <a href="{{ route('rrhhUnidad.create', $id ) }}" data-toggle="tooltip" title="Ver" class='btn btn-icon btn-flat-secondary rounded-circle'>
-    <i class="fa fa-eye"></i>
+    <i class="fa fa-plus"></i>
 </a>
 @endcan
 

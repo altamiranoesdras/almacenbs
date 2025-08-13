@@ -1,4 +1,13 @@
-<!-- Nombre Field -->
+<div class="col-sm-6 mb-1">
+
+    {!! Form::label('nombre', 'Opción Superior:') !!}
+    <div class="form-group">
+        {{$parent->nombre ?? "Ninguna"}}
+        <input type="hidden" name="unidad_padre_id" value="{{$parent->id ?? ""}}">
+
+    </div>
+</div>
+
 <div class="col-sm-6 mb-1">
     {!! Form::label('codigo', 'Codigo:') !!}
     {!! Form::text('codigo', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255,'maxlength' => 255]) !!}
@@ -8,6 +17,7 @@
     {!! Form::label('nombre', 'Nombre:') !!}
     {!! Form::text('nombre', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255,'maxlength' => 255]) !!}
 </div>
+
 
 <div class="col-sm-6 mb-1">
     {!! Form::label('Tipo','Tipo:') !!}

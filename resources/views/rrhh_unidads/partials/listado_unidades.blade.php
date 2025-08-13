@@ -8,7 +8,7 @@
 
         @if($unidad->hasChildren())
             <ul class="list-group sortable">
-                @include('admin.options.partials.list_admin',['opciones' => $unidad->children])
+                @include('rrhh_unidads.partials.listado_unidades', ['unidades' => $unidad->children])
             </ul>
         @endif
     </li>
