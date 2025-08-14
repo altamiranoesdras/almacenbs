@@ -25,8 +25,8 @@ class TestController extends AppBaseController
             ->respuestaEnLinea() // o ->respuestaRuta() si solo quieres la ruta
             ->setDisco('public') // opcional: dónde guardar
             ->setDirectorio('firmas') // opcional: carpeta de guardado
-            ->setCorreo('altamiranoesdras@gmail.com') // correo de la firma electrónica
-            ->setClaveFirma('pMNhB2McvtiHZqL') // contraseña de la firma
+            ->setCorreo(auth()->user()->email) // correo de la firma electrónica
+            ->setClaveFirma($request->password) // contraseña de la firma
             ->setRubricaUsuario(auth()->user()->rubrica) // archivo de la rúbrica del usuario (ruta)
             ->setInicioX($request->firma_inicio_x)// Opcional: posición horizontal de la firma
             ->setInicioY($request->firma_inicio_y) // Opcional: posición vertical de la firma

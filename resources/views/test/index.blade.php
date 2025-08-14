@@ -138,6 +138,11 @@
                                             <input class="form-control" type="number" name="pagina" id="pagina" min="1" placeholder="1">
                                             <small class="text-muted">Por defecto: 1</small>
                                         </div>
+                                        {{-- Contrasena de firma --}}
+                                        <div class="col-md-4">
+                                            <label for="pagina" class="form-label">Contraseña Firma</label>
+                                            <input class="form-control" type="password" name="password" id="password" placeholder="******" required>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
