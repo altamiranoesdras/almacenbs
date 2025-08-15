@@ -53,13 +53,15 @@
                 </div>
             </li>
 
-            @livewire('mode-layout.mode-layout')
+            {{-- @livewire('mode-layout.mode-layout') --}}
 
-            {{-- <li class="nav-item d-none d-lg-block">
+            {{-- fetch('{{ route('change.layout') }}', { method: 'POST', headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}' }}) --}}
+
+            <li class="nav-item d-none d-lg-block" onclick="fetch('{{ route('change.layout') }}', { method: 'POST', headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}' }, body: JSON.stringify({}) })">
                 <a class="nav-link nav-link-style">
-                    <i class="ficon" data-feather="sun"></i>
+                    <i class="ficon" data-feather="{{ ($theme->value ?? false) == 'light-layout' ? 'moon' : 'sun'}}"></i>
                 </a>
-            </li> --}}
+            </li>
 
             <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon" data-feather="search"></i></a>
                 <div class="search-input">
