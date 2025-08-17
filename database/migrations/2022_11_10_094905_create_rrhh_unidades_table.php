@@ -29,6 +29,11 @@ class CreateRrhhUnidadesTable extends Migration
             $table->string('codigo')->unique('rrhh_unidades_codigo_UNIQUE');
             $table->string('nombre');
 
+            $table->foreignId('centro_id')
+                ->constrained('costo_centros')
+                ->onDelete('cascade')
+                ->index('fk_rrhh_unidades_costo_centros1_idx');
+
             $table->foreignId('unidad_tipo_id')
                 ->default(1) // Asumiendo que el tipo por defecto es el de nivel 1
                 ->constrained('rrhh_unidad_tipos')
