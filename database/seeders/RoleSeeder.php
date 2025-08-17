@@ -40,9 +40,6 @@ RoleSeeder extends Seeder
         $rolGeneral = Role::firstOrCreate(["name" => "Jefe Inventarios"]);
         $rolGeneral = Role::firstOrCreate(["name" => "Asistente Caja"]);
 
-        $rol = Role::firstOrCreate(["name" => "Solicitante Requisición Compras"]);
-        $rol = Role::firstOrCreate(["name" => "Aprobador Requisición Compras"]);
-        $rol = Role::firstOrCreate(["name" => "Administrador Requisición Compras"]);
 
         $rol = Role::firstOrCreate(["name" => "Solicitante Requisición Almacén"]);
         $rol->options()->sync([
@@ -68,11 +65,31 @@ RoleSeeder extends Seeder
         ]);
 
 
+
+
+
+        Role::firstOrCreate(["name" => "Requirente Compras"]);//Solo crea la solicitud
+        Role::firstOrCreate(["name" => "Solicitante Compras"]);//Consolidad solicitudes y crea requisición
+        Role::firstOrCreate(["name" => "Aprobador Compras"]);//Aprueba la requisición
+        Role::firstOrCreate(["name" => "Autorizador Compras"]);//Autoriza la requisición
+
+
+        Role::firstOrCreate(["name" => "Analista Presupuesto"]);//Analiza el presupuesto
+        Role::firstOrCreate(["name" => "Supervisor Presupuesto"]);//Supervisa el presupuesto
+        Role::firstOrCreate(["name" => "Analista Compras"]);//Analiza las compras
+        Role::firstOrCreate(["name" => "Supervisor Compras"]);//Supervisa las compras
+        Role::firstOrCreate(["name" => "Administrador Compras"]);//Administra las compras
+
+
+
+
         //iterar todos los roles para asignar todos los permisos
         $roles = Role::all();
         foreach ($roles as $role) {
             $rol->syncPermissions(Permission::all()->pluck('name')->toArray());
         }
+
+
 
 
 
