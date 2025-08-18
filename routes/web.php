@@ -334,6 +334,9 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     include 'rutas_compra_ordenes.php';
 
+    Route::resource('costo-centros', App\Http\Controllers\CostoCentroController::class);
+
+
 });
 
 

@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('compra_estado_has_bandeja', function (Blueprint $table) {
-            $table->unsignedBigInteger('estado_id')->index('fk_compra_requicicion_estados_has_compra_bandejas_compra_re_idx');
-            $table->unsignedBigInteger('bandeja_id')->index('fk_compra_requicicion_estados_has_compra_bandejas_compra_ba_idx');
+            $table->unsignedBigInteger('estado_id')->index('fk_compra_requisicion_estados_has_compra_bandejas_compra_re_idx');
+            $table->unsignedBigInteger('bandeja_id')->index('fk_compra_requisicion_estados_has_compra_bandejas_compra_ba_idx');
 
             $table->primary(['estado_id', 'bandeja_id']);
         });

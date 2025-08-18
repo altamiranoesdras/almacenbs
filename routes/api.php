@@ -206,13 +206,49 @@ Route::group(['as'=>'api.'], function () {
 
         Route::resource('item_modelos', App\Http\Controllers\API\ItemModeloAPIController::class);
 
-
-        Route::resource('compra_solicitud_detalles', App\Http\Controllers\API\CompraSolicitudDetalleAPIController::class)
-            ->except(['create', 'edit']);
-
-
         Route::resource('rrhh_unidad_tipos', App\Http\Controllers\API\RrhhUnidadTipoAPIController::class)
             ->except(['create', 'edit']);
+
+
+        Route::resource('compra-requisicion-estados', App\Http\Controllers\API\CompraRequicicionEstadoAPIController::class)
+            ->except(['create', 'edit']);
+
+        Route::resource('compra-requisicion-tipo-adquisicions', App\Http\Controllers\API\CompraRequicicionTipoAdquisicionAPIController::class)
+            ->except(['create', 'edit']);
+
+        Route::resource('compra-requisicion-tipo-concursos', App\Http\Controllers\API\CompraRequisicionTipoConcursoAPIController::class)
+            ->except(['create', 'edit']);
+
+        Route::resource('compra-requisicions', App\Http\Controllers\API\CompraRequisicionAPIController::class)
+            ->except(['create', 'edit']);
+
+        Route::resource('compra-ordens', App\Http\Controllers\API\CompraOrdenAPIController::class)
+            ->except(['create', 'edit']);
+
+        Route::resource('compra-orden-detalles', App\Http\Controllers\API\CompraOrdenDetalleAPIController::class)
+            ->except(['create', 'edit']);
+
+        Route::resource('compra-solicitud-estados', App\Http\Controllers\API\CompraSolicitudEstadoAPIController::class)
+            ->except(['create', 'edit']);
+
+        Route::resource('costo-centros', App\Http\Controllers\API\CostoCentroAPIController::class)
+            ->except(['create', 'edit']);
+
+        Route::resource('rrhh-unidads', App\Http\Controllers\API\RrhhUnidadAPIController::class)
+            ->except(['create', 'edit']);
+
+        Route::resource('compra-solicituds', App\Http\Controllers\API\CompraSolicitudAPIController::class)
+            ->except(['create', 'edit']);
+
+        Route::resource('compra-solicitud-detalles', App\Http\Controllers\API\CompraSolicitudDetalleAPIController::class)
+            ->except(['create', 'edit']);
+
+        Route::resource('compra-requisicion-detalles', App\Http\Controllers\API\CompraRequisicionDetalleAPIController::class)
+            ->except(['create', 'edit']);
+
+        Route::resource('compra-bandejas', App\Http\Controllers\API\CompraBandejaAPIController::class)
+            ->except(['create', 'edit']);
+
     });
 
 

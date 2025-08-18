@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('compra_requicicion_estados', function (Blueprint $table) {
+        Schema::create('compra_requisicion_estados', function (Blueprint $table) {
             $table->comment('Solicitud Requisición Estados
 
 	NPG
@@ -64,6 +64,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('compra_requicicion_estados');
+        Schema::dropIfExists('compra_requisicion_estados');
     }
 };

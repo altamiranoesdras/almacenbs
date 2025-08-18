@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('compra_requisiciones', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('tipo_concurso_id')->index('fk_compra_requisiciones_compra_requisicion_tipo_concursos1_idx');
-            $table->unsignedBigInteger('ipo_adquisicion_id')->index('fk_compra_requisiciones_compra_requicicion_adquisicion_tipo_idx');
+            $table->unsignedBigInteger('ipo_adquisicion_id')->index('fk_compra_requisiciones_compra_requisicion_adquisicion_tipo_idx');
             $table->integer('correlativo')->nullable();
             $table->string('codigo', 20)->comment('ID interno de gestión, p.ej. G-2025-001');
             $table->string('codigo_consolidacion', 45)->nullable()->comment('Código de lote interno, p.ej. L-2025-001');

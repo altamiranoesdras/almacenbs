@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('compra_requicicion_tipo_adquisiciones', function (Blueprint $table) {
+        Schema::create('compra_requisicion_tipo_adquisiciones', function (Blueprint $table) {
             $table->comment('NOG
 
 1. Cotización.
@@ -54,6 +54,6 @@ NPG
      */
     public function down(): void
     {
-        Schema::dropIfExists('compra_requicicion_tipo_adquisiciones');
+        Schema::dropIfExists('compra_requisicion_tipo_adquisiciones');
     }
 };
