@@ -9,27 +9,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class ActivoSolicitudEstado
  *
- * @package App\Models
- * @version August 31, 2022, 10:52 pm CST
- * @property \Illuminate\Database\Eloquent\Collection $activoSolicitudes
- * @property string $nombre
  * @property int $id
+ * @property string $nombre
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @method static \Database\Factories\ActivoSolicitudEstadoFactory factory(...$parameters)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ActivoSolicitud> $activoSolicitudes
+ * @property-read int|null $activo_solicitudes_count
+ * @method static \Database\Factories\ActivoSolicitudEstadoFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitudEstado newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitudEstado newQuery()
- * @method static \Illuminate\Database\Query\Builder|ActivoSolicitudEstado onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitudEstado onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitudEstado query()
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitudEstado whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitudEstado whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitudEstado whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitudEstado whereNombre($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitudEstado whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|ActivoSolicitudEstado withTrashed()
- * @method static \Illuminate\Database\Query\Builder|ActivoSolicitudEstado withoutTrashed()
- * @property-read int|null $activo_solicitudes_count
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitudEstado withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitudEstado withoutTrashed()
  * @mixin \Eloquent
  */
 class ActivoSolicitudEstado extends Model

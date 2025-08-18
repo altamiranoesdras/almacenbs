@@ -10,25 +10,20 @@ use Illuminate\Support\Facades\Mail;
 /**
  * Class Bitacora
  *
- * @package App\Models
- * @version March 17, 2022, 10:16 am CST
- * @property \App\Models\User usuario
- * @property \Illuminate\Database\Eloquent\Collection usuariosNotificar
- * @property string model_type
- * @property integer model_id
- * @property string seccion
- * @property string titulo
- * @property string comentario
- * @property integer notificado
- * @property integer usuario_id
  * @property int $id
+ * @property string $model_type
+ * @property int $model_id
+ * @property string|null $seccion
+ * @property string $titulo
+ * @property string $comentario
+ * @property int $usuario_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
  * @property-read mixed $fecha_crea
  * @property-read Model|\Eloquent $model
  * @property-read \App\Models\User|null $usuario
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $usuariosNotificar
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $usuariosNotificar
  * @property-read int|null $usuarios_notificar_count
  * @method static \Illuminate\Database\Eloquent\Builder|Bitacora newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Bitacora newQuery()
@@ -43,12 +38,6 @@ use Illuminate\Support\Facades\Mail;
  * @method static \Illuminate\Database\Eloquent\Builder|Bitacora whereTitulo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Bitacora whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Bitacora whereUsuarioId($value)
- * @property string $model_type
- * @property int $model_id
- * @property string|null $seccion
- * @property string $titulo
- * @property string $comentario
- * @property int $usuario_id
  * @mixin \Eloquent
  */
 class Bitacora extends Model

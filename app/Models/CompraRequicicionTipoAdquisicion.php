@@ -6,6 +6,18 @@ use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\SoftDeletes;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * 
+ *
+ * @method static \Database\Factories\CompraRequicicionTipoAdquisicionFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionTipoAdquisicion newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionTipoAdquisicion newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionTipoAdquisicion onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionTipoAdquisicion query()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionTipoAdquisicion withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionTipoAdquisicion withoutTrashed()
+ * @mixin \Eloquent
+ */
 class CompraRequicicionTipoAdquisicion extends Model
 {
 

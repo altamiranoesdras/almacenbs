@@ -12,74 +12,72 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class Kardex
  *
- * @package App\Models
- * @version July 27, 2022, 12:24 pm CST
- * @property \App\Models\Item $item
- * @property \App\Models\User $usuario
- * @property integer $item_id
- * @property integer $model_id
- * @property integer $folio
- * @property string $codigo_insumo
- * @property string $del
- * @property string $al
- * @property string $model_type
- * @property number $cantidad
- * @property number $saldo
- * @property string $tipo
- * @property string $codigo
- * @property string $fecha_ordena
- * @property string $fecha_ordena_timestamp
- * @property string $responsable
- * @property string $observacion
- * @property boolean $impreso
- * @property string $folio_siguiente
- * @property integer $usuario_id
  * @property int $id
- * @property string|null $concepto
+ * @property int $item_id
+ * @property int $model_id
+ * @property string $model_type
+ * @property int|null $folio
+ * @property string|null $al
+ * @property string|null $del
+ * @property string|null $codigo_insumo
+ * @property string $cantidad
+ * @property string|null $saldo
+ * @property string|null $precio_existencia Precio unitario del las existencias
+ * @property string|null $precio_movimiento Precio unitario del ingreso o egreso
+ * @property string $tipo
+ * @property string|null $codigo
+ * @property string|null $responsable
+ * @property string|null $observacion
+ * @property bool|null $impreso
+ * @property string|null $folio_siguiente
+ * @property int $usuario_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Bitacora> $bitacoras
+ * @property-read int|null $bitacoras_count
+ * @property-read mixed $concepto
+ * @property-read mixed $fecha_ordena
+ * @property-read mixed $fecha_ordena_timestamp
  * @property-read mixed $ingreso
+ * @property-read mixed $precio
+ * @property-read mixed $saldo_stock
  * @property-read mixed $salida
+ * @property-read mixed $sub_total
+ * @property-read mixed $sub_total_saldo
+ * @property-read \App\Models\Item $item
  * @property-read Model|\Eloquent $model
+ * @property-read \App\Models\User $usuario
  * @method static Builder|Kardex delItem($item)
  * @method static Builder|Kardex inventariable()
  * @method static Builder|Kardex newModelQuery()
  * @method static Builder|Kardex newQuery()
- * @method static \Illuminate\Database\Query\Builder|Kardex onlyTrashed()
+ * @method static Builder|Kardex onlyTrashed()
  * @method static Builder|Kardex query()
+ * @method static Builder|Kardex whereAl($value)
  * @method static Builder|Kardex whereCantidad($value)
  * @method static Builder|Kardex whereCodigo($value)
+ * @method static Builder|Kardex whereCodigoInsumo($value)
  * @method static Builder|Kardex whereCreatedAt($value)
+ * @method static Builder|Kardex whereDel($value)
  * @method static Builder|Kardex whereDeletedAt($value)
  * @method static Builder|Kardex whereFolio($value)
+ * @method static Builder|Kardex whereFolioSiguiente($value)
  * @method static Builder|Kardex whereId($value)
  * @method static Builder|Kardex whereImpreso($value)
  * @method static Builder|Kardex whereItemId($value)
  * @method static Builder|Kardex whereModelId($value)
  * @method static Builder|Kardex whereModelType($value)
  * @method static Builder|Kardex whereObservacion($value)
+ * @method static Builder|Kardex wherePrecioExistencia($value)
+ * @method static Builder|Kardex wherePrecioMovimiento($value)
  * @method static Builder|Kardex whereResponsable($value)
+ * @method static Builder|Kardex whereSaldo($value)
  * @method static Builder|Kardex whereTipo($value)
  * @method static Builder|Kardex whereUpdatedAt($value)
  * @method static Builder|Kardex whereUsuarioId($value)
- * @method static \Illuminate\Database\Query\Builder|Kardex withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Kardex withoutTrashed()
- * @property-read mixed $precio
- * @method static Builder|Kardex whereAl($value)
- * @method static Builder|Kardex whereCodigoInsumo($value)
- * @method static Builder|Kardex whereDel($value)
- * @property string|null $precio_existencia Precio unitario del las existencias
- * @property string|null $precio_movimiento Precio unitario del ingreso o egreso
- * @property-read mixed $sub_total
- * @method static Builder|Kardex whereFolioSiguiente($value)
- * @method static Builder|Kardex wherePrecioExistencia($value)
- * @method static Builder|Kardex wherePrecioMovimiento($value)
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Bitacora> $bitacoras
- * @property-read int|null $bitacoras_count
- * @property-read mixed $saldo_stock
- * @property-read mixed $sub_total_saldo
- * @method static Builder|Kardex whereSaldo($value)
+ * @method static Builder|Kardex withTrashed()
+ * @method static Builder|Kardex withoutTrashed()
  * @mixin \Eloquent
  */
 class Kardex extends Model

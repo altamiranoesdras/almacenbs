@@ -11,47 +11,44 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class SolicitudDetalle
  *
- * @package App\Models
- * @version July 27, 2022, 12:25 pm CST
- * @property Item $item
- * @property Solicitud $solicitud
- * @property integer $solicitud_id
- * @property integer $item_id
- * @property number $cantidad_solicitada
- * @property number $cantidad_aprobada
- * @property number $cantidad_despachada
- * @property number $precio
  * @property int $id
+ * @property int $solicitud_id
+ * @property int $item_id
+ * @property string $cantidad_solicitada
+ * @property string $cantidad_aprobada
+ * @property string $cantidad_despachada
+ * @property string|null $precio
+ * @property string|null $fecha_vence
  * @property string|null $observaciones
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Item $item
  * @property-read \App\Models\Kardex|null $kardex
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\StockTransaccion[] $transaccionesStock
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Kardex[] $kardexes
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Kardex> $kardexs
+ * @property-read int|null $kardexs_count
+ * @property-read \App\Models\Solicitud $solicitud
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\StockTransaccion> $transaccionesStock
  * @property-read int|null $transacciones_stock_count
- * @method static \Database\Factories\SolicitudDetalleFactory factory(...$parameters)
+ * @method static \Database\Factories\SolicitudDetalleFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle newQuery()
- * @method static \Illuminate\Database\Query\Builder|SolicitudDetalle onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle query()
  * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereCantidadAprobada($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereCantidadDespachada($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereCantidadSolicitada($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereFechaVence($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereItemId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereObservaciones($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle wherePrecio($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereSolicitudId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|SolicitudDetalle withTrashed()
- * @method static \Illuminate\Database\Query\Builder|SolicitudDetalle withoutTrashed()
- * @property string|null $fecha_vence
- * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereFechaVence($value)
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Kardex> $kardexs
- * @property-read int|null $kardexs_count
+ * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle withoutTrashed()
  * @mixin \Eloquent
  */
 class SolicitudDetalle extends Model

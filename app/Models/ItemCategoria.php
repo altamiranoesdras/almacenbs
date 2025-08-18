@@ -9,22 +9,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class ItemCategoria
  *
- * @package App\Models
- * @version July 27, 2022, 12:21 pm CST
- * @property \Illuminate\Database\Eloquent\Collection $items
- * @property \Illuminate\Database\Eloquent\Collection $item1s
- * @property string $nombre
- * @property string $descripcion
  * @property int $id
+ * @property string $nombre
+ * @property string|null $descripcion
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Item> $item1s
  * @property-read int|null $item1s_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Item> $items
  * @property-read int|null $items_count
- * @method static \Database\Factories\ItemCategoriaFactory factory(...$parameters)
+ * @method static \Database\Factories\ItemCategoriaFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|ItemCategoria newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ItemCategoria newQuery()
- * @method static \Illuminate\Database\Query\Builder|ItemCategoria onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ItemCategoria onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|ItemCategoria query()
  * @method static \Illuminate\Database\Eloquent\Builder|ItemCategoria whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ItemCategoria whereDeletedAt($value)
@@ -32,8 +30,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|ItemCategoria whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ItemCategoria whereNombre($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ItemCategoria whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|ItemCategoria withTrashed()
- * @method static \Illuminate\Database\Query\Builder|ItemCategoria withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ItemCategoria withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ItemCategoria withoutTrashed()
  * @mixin \Eloquent
  */
 class ItemCategoria extends Model

@@ -6,6 +6,39 @@ use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\SoftDeletes;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * 
+ *
+ * @property int $id
+ * @property int $solicitud_id
+ * @property int $item_id
+ * @property int $cantidad
+ * @property string $precio_estimado
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraRequisicionDetalle> $compraRequisicionDetalles
+ * @property-read int|null $compra_requisicion_detalles_count
+ * @property-read mixed $sub_total
+ * @property-read \App\Models\Item $item
+ * @property-read \App\Models\CompraSolicitud $solicitud
+ * @method static \Database\Factories\CompraSolicitudDetalleFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle query()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle whereCantidad($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle whereItemId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle wherePrecioEstimado($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle whereSolicitudId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle withoutTrashed()
+ * @mixin \Eloquent
+ */
 class CompraSolicitudDetalle extends Model
 {
 

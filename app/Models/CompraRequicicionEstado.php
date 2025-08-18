@@ -6,6 +6,20 @@ use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\SoftDeletes;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * 
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraBandeja> $compraBandejas
+ * @property-read int|null $compra_bandejas_count
+ * @method static \Database\Factories\CompraRequicicionEstadoFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado query()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado withoutTrashed()
+ * @mixin \Eloquent
+ */
 class CompraRequicicionEstado extends Model
 {
 

@@ -9,19 +9,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class StockTransaccion
  *
- * @package App\Models
- * @version July 27, 2022, 12:26 pm CST
- * @property \App\Models\Stock $stock
- * @property string $model_type
- * @property integer $model_id
- * @property integer $stock_id
- * @property string $tipo
- * @property number $cantidad
- * @property number $precio_costo
  * @property int $id
+ * @property string $model_type
+ * @property int $model_id
+ * @property int $stock_id
+ * @property string $tipo
+ * @property string $cantidad
+ * @property string $precio_costo
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Database\Factories\StockTransaccionFactory factory(...$parameters)
+ * @property-read \App\Models\Stock $stock
+ * @method static \Database\Factories\StockTransaccionFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|StockTransaccion newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|StockTransaccion newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|StockTransaccion query()

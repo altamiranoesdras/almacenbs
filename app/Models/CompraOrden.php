@@ -6,6 +6,40 @@ use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\SoftDeletes;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * 
+ *
+ * @property int $id
+ * @property int $gestion_id
+ * @property int $proveedor_id
+ * @property string $numero
+ * @property \Illuminate\Support\Carbon $fecha
+ * @property string $estado
+ * @property string|null $observaciones
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraOrdenDetalle> $compraOrdenDetalles
+ * @property-read int|null $compra_orden_detalles_count
+ * @method static \Database\Factories\CompraOrdenFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrden newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrden newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrden onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrden query()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrden whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrden whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrden whereEstado($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrden whereFecha($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrden whereGestionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrden whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrden whereNumero($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrden whereObservaciones($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrden whereProveedorId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrden whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrden withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrden withoutTrashed()
+ * @mixin \Eloquent
+ */
 class CompraOrden extends Model
 {
 

@@ -6,6 +6,34 @@ use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\SoftDeletes;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * 
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property string $key
+ * @property string $value
+ * @property string|null $descripcion
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|UserConfiguration newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserConfiguration newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserConfiguration onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserConfiguration query()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserConfiguration whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserConfiguration whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserConfiguration whereDescripcion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserConfiguration whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserConfiguration whereKey($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserConfiguration whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserConfiguration whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserConfiguration whereValue($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserConfiguration withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserConfiguration withoutTrashed()
+ * @mixin \Eloquent
+ */
 class UserConfiguration extends Model
 {
 

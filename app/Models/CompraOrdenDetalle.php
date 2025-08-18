@@ -6,6 +6,37 @@ use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\SoftDeletes;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * 
+ *
+ * @property int $id
+ * @property int $orden_id
+ * @property int $item_id
+ * @property string $cantidad
+ * @property string $precio
+ * @property string|null $observacion
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Item $item
+ * @method static \Database\Factories\CompraOrdenDetalleFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrdenDetalle newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrdenDetalle newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrdenDetalle onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrdenDetalle query()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrdenDetalle whereCantidad($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrdenDetalle whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrdenDetalle whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrdenDetalle whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrdenDetalle whereItemId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrdenDetalle whereObservacion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrdenDetalle whereOrdenId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrdenDetalle wherePrecio($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrdenDetalle whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrdenDetalle withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraOrdenDetalle withoutTrashed()
+ * @mixin \Eloquent
+ */
 class CompraOrdenDetalle extends Model
 {
 

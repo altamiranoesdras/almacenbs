@@ -10,32 +10,32 @@ use stdClass;
 /**
  * Class Compra1h
  *
- * @package App\Models
- * @version July 27, 2022, 12:27 pm CST
- * @property \App\Models\Compra $compra
- * @property \App\Models\User $usuarioProcesa
- * @property \App\Models\EnvioFiscal $envioFiscal
- * @property \Illuminate\Database\Eloquent\Collection $compra1hDetalles
- * @property string $folio
- * @property integer $compra_id
- * @property integer $envio_fiscal_id
- * @property string $codigo
- * @property integer $correlativo
- * @property integer $del
- * @property integer $al
- * @property string|\Carbon\Carbon $fecha_procesa
- * @property integer $usuario_procesa
- * @property string $observaciones
  * @property int $id
+ * @property string|null $folio
+ * @property int $compra_id
+ * @property int $envio_fiscal_id
+ * @property string|null $codigo
+ * @property int|null $correlativo
+ * @property int|null $del
+ * @property int|null $al
+ * @property \Illuminate\Support\Carbon|null $fecha_procesa
+ * @property int $usuario_procesa
+ * @property string|null $observaciones
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Compra1hDetalle[] $detalles
+ * @property-read \App\Models\Compra $compra
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Compra1hDetalle> $detalles
  * @property-read int|null $detalles_count
- * @method static \Database\Factories\Compra1hFactory factory(...$parameters)
+ * @property-read \App\Models\EnvioFiscal $envioFiscal
+ * @property-read mixed $sub_total
+ * @property-read mixed $total
+ * @property-read mixed $total_letras
+ * @property-read \App\Models\User $usuarioProcesa
+ * @method static \Database\Factories\Compra1hFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1h newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1h newQuery()
- * @method static \Illuminate\Database\Query\Builder|Compra1h onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra1h onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1h query()
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1h whereAl($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1h whereCodigo($value)
@@ -46,17 +46,14 @@ use stdClass;
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1h whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1h whereEnvioFiscalId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1h whereFechaProcesa($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra1h whereFolio($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1h whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1h whereObservaciones($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1h whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1h whereUsuarioProcesa($value)
- * @method static \Illuminate\Database\Query\Builder|Compra1h withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Compra1h withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra1h withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra1h withoutTrashed()
  * @mixin \Eloquent
- * @method static \Illuminate\Database\Eloquent\Builder|Compra1h whereFolio($value)
- * @property-read mixed $sub_total
- * @property-read mixed $total
- * @property-read mixed $total_letras
  */
 class Compra1h extends Model
 {

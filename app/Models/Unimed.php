@@ -9,23 +9,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class Unimed
  *
- * @package App\Models
- * @version July 27, 2022, 12:21 pm CST
- * @property \App\Models\Magnitude $magnitude
- * @property \Illuminate\Database\Eloquent\Collection $items
- * @property integer $magnitud_id
+ * @property int $id
+ * @property int $magnitud_id
  * @property string $simbolo
  * @property string $nombre
- * @property int $id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Item> $items
  * @property-read int|null $items_count
  * @property-read \App\Models\Magnitud $magnitud
- * @method static \Database\Factories\UnimedFactory factory(...$parameters)
+ * @method static \Database\Factories\UnimedFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Unimed newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Unimed newQuery()
- * @method static \Illuminate\Database\Query\Builder|Unimed onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Unimed onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Unimed query()
  * @method static \Illuminate\Database\Eloquent\Builder|Unimed whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Unimed whereDeletedAt($value)
@@ -34,8 +31,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|Unimed whereNombre($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Unimed whereSimbolo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Unimed whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|Unimed withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Unimed withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Unimed withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Unimed withoutTrashed()
  * @mixin \Eloquent
  */
 class Unimed extends Model

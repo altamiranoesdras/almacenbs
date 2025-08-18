@@ -10,32 +10,30 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class CompraDetalle
  *
- * @package App\Models
- * @version July 27, 2022, 12:22 pm CST
- * @property Compra $compra
- * @property Item $item
- * @property integer $compra_id
- * @property integer $item_id
- * @property number $cantidad
- * @property number $precio
- * @property number $descuento
- * @property string $fecha_vence
  * @property int $id
+ * @property int $compra_id
+ * @property int $item_id
+ * @property string $cantidad
+ * @property string $precio
+ * @property string $descuento
+ * @property \Illuminate\Support\Carbon|null $fecha_vence
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Compra $compra
  * @property-read mixed $codigo
  * @property-read mixed $responsable
  * @property-read mixed $sub_total
+ * @property-read \App\Models\Item $item
  * @property-read \App\Models\Kardex|null $kardex
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Stock[] $stocks
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Stock> $stocks
  * @property-read int|null $stocks_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\StockTransaccion[] $transaccionesStock
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\StockTransaccion> $transaccionesStock
  * @property-read int|null $transacciones_stock_count
- * @method static \Database\Factories\CompraDetalleFactory factory(...$parameters)
+ * @method static \Database\Factories\CompraDetalleFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle newQuery()
- * @method static \Illuminate\Database\Query\Builder|CompraDetalle onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle query()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle whereCantidad($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle whereCompraId($value)
@@ -47,8 +45,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle whereItemId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle wherePrecio($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|CompraDetalle withTrashed()
- * @method static \Illuminate\Database\Query\Builder|CompraDetalle withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle withoutTrashed()
  * @mixin \Eloquent
  */
 class CompraDetalle extends Model

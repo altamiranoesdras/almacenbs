@@ -9,21 +9,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class UserDespachaUser
  *
- * @package App\Models
- * @version July 27, 2022, 12:26 pm CST
- * @property \App\Models\User $userSol
- * @property \App\Models\User $userDes
- * @property integer $user_des
  * @property int $user_sol
- * @method static \Database\Factories\UserDespachaUserFactory factory(...$parameters)
+ * @property int $user_des
+ * @property-read \App\Models\User $userDes
+ * @property-read \App\Models\User $userSol
+ * @method static \Database\Factories\UserDespachaUserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|UserDespachaUser newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|UserDespachaUser newQuery()
- * @method static \Illuminate\Database\Query\Builder|UserDespachaUser onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserDespachaUser onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|UserDespachaUser query()
  * @method static \Illuminate\Database\Eloquent\Builder|UserDespachaUser whereUserDes($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserDespachaUser whereUserSol($value)
- * @method static \Illuminate\Database\Query\Builder|UserDespachaUser withTrashed()
- * @method static \Illuminate\Database\Query\Builder|UserDespachaUser withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserDespachaUser withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserDespachaUser withoutTrashed()
  * @mixin \Eloquent
  */
 class UserDespachaUser extends Model

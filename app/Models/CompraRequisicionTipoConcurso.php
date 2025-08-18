@@ -6,6 +6,30 @@ use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\SoftDeletes;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * 
+ *
+ * @property int $id
+ * @property string $nombre
+ * @property string|null $descripcion
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @method static \Database\Factories\CompraRequisicionTipoConcursoFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoConcurso newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoConcurso newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoConcurso onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoConcurso query()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoConcurso whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoConcurso whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoConcurso whereDescripcion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoConcurso whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoConcurso whereNombre($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoConcurso whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoConcurso withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoConcurso withoutTrashed()
+ * @mixin \Eloquent
+ */
 class CompraRequisicionTipoConcurso extends Model
 {
 

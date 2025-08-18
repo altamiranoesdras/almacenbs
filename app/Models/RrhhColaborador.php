@@ -9,36 +9,38 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class RrhhColaborador
  *
- * @package App\Models
- * @version November 12, 2022, 10:35 am CST
- * @property \App\Models\RrhhPuesto $puesto
- * @property \App\Models\User $user
- * @property \App\Models\RrhhUnidad $unidad
- * @property \Illuminate\Database\Eloquent\Collection $activoSolicitudes
- * @property \Illuminate\Database\Eloquent\Collection $activoSolicitude1s
- * @property \Illuminate\Database\Eloquent\Collection $activoTarjetas
- * @property \Illuminate\Database\Eloquent\Collection $rrhhContratos
- * @property \Illuminate\Database\Eloquent\Collection $rrhhUnidade2s
+ * @property int $id
  * @property string $nombres
  * @property string $apellidos
- * @property string $dpi
- * @property string $correo
- * @property string $telefono
- * @property string $direccion
- * @property string $nit
- * @property integer $puesto_id
- * @property integer $unidad_id
- * @property integer $user_id
- * @property int $id
+ * @property string|null $dpi
+ * @property string|null $correo
+ * @property string|null $telefono
+ * @property string|null $direccion
+ * @property string|null $nit
+ * @property int|null $puesto_id
+ * @property int $unidad_id
+ * @property int|null $user_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ActivoSolicitud> $activoSolicitude1s
+ * @property-read int|null $activo_solicitude1s_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ActivoSolicitud> $activoSolicitudes
+ * @property-read int|null $activo_solicitudes_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ActivoTarjeta> $activoTarjetas
  * @property-read int|null $activo_tarjetas_count
  * @property-read mixed $nombre_completo
  * @property-read mixed $text
+ * @property-read \App\Models\RrhhPuesto|null $puesto
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RrhhContrato> $rrhhContratos
+ * @property-read int|null $rrhh_contratos_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RrhhUnidad> $rrhhUnidade2s
+ * @property-read int|null $rrhh_unidade2s_count
+ * @property-read \App\Models\RrhhUnidad $unidad
+ * @property-read \App\Models\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador newQuery()
- * @method static \Illuminate\Database\Query\Builder|RrhhColaborador onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador query()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador whereApellidos($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador whereCorreo($value)
@@ -54,12 +56,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador whereUnidadId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador whereUserId($value)
- * @method static \Illuminate\Database\Query\Builder|RrhhColaborador withTrashed()
- * @method static \Illuminate\Database\Query\Builder|RrhhColaborador withoutTrashed()
- * @property-read int|null $activo_solicitude1s_count
- * @property-read int|null $activo_solicitudes_count
- * @property-read int|null $rrhh_unidade2s_count
- * @property-read int|null $rrhh_contratos_count
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhColaborador withoutTrashed()
  * @mixin Model
  */
 class RrhhColaborador extends Model

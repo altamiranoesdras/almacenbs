@@ -9,36 +9,34 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class ActivoSolicitud
  *
- * @package App\Models
- * @version November 12, 2022, 10:29 am CST
- * @property \App\Models\RrhhUnidad $unidadOrigen
- * @property \App\Models\User $usuarioAutoriza
- * @property \App\Models\ActivoSolicitudEstado $estado
- * @property \App\Models\RrhhColaborador $colaboradorDestino
- * @property \App\Models\RrhhUnidad $unidadDestino
- * @property \App\Models\User $usuarioInventario
- * @property \App\Models\RrhhColaborador $colaboradorOrigen
- * @property \Illuminate\Database\Eloquent\Collection $detalles
- * @property integer $colaborador_origen
- * @property integer $unidad_origen
- * @property integer $colaborador_destino
- * @property integer $unidad_destino
- * @property string $codigo
- * @property integer $correlativo
- * @property integer $usuario_autoriza
- * @property integer $usuario_inventario
- * @property string $observaciones
- * @property integer $estado_id
  * @property int $id
+ * @property int|null $colaborador_origen
+ * @property int|null $unidad_origen
+ * @property int|null $colaborador_destino
+ * @property int|null $unidad_destino
+ * @property string|null $codigo
+ * @property int|null $correlativo
+ * @property int|null $usuario_autoriza
+ * @property int|null $usuario_inventario
+ * @property string|null $observaciones
+ * @property int $estado_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\RrhhColaborador|null $colaboradorDestino
+ * @property-read \App\Models\RrhhColaborador|null $colaboradorOrigen
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ActivoSolicitudDetalle> $detalles
  * @property-read int|null $detalles_count
+ * @property-read \App\Models\ActivoSolicitudEstado $estado
+ * @property-read \App\Models\RrhhUnidad|null $unidadDestino
+ * @property-read \App\Models\RrhhUnidad|null $unidadOrigen
+ * @property-read \App\Models\User|null $usuarioAutoriza
+ * @property-read \App\Models\User|null $usuarioInventario
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud delUsuarioCrea($user = null)
- * @method static \Database\Factories\ActivoSolicitudFactory factory(...$parameters)
+ * @method static \Database\Factories\ActivoSolicitudFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud newQuery()
- * @method static \Illuminate\Database\Query\Builder|ActivoSolicitud onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud query()
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud temporal()
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud whereCodigo($value)
@@ -55,8 +53,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud whereUsuarioAutoriza($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud whereUsuarioInventario($value)
- * @method static \Illuminate\Database\Query\Builder|ActivoSolicitud withTrashed()
- * @method static \Illuminate\Database\Query\Builder|ActivoSolicitud withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitud withoutTrashed()
  * @mixin \Eloquent
  */
 class ActivoSolicitud extends Model

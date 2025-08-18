@@ -9,31 +9,30 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class ActivoTarjeta
  *
- * @package App\Models
- * @version August 31, 2022, 10:51 pm CST
- * @property \App\Models\User $responsable
- * @property \Illuminate\Database\Eloquent\Collection $solicitudes
- * @property \Illuminate\Database\Eloquent\Collection $detalles
- * @property integer $colaborador_id
- * @property string $codigo
- * @property string $codigo_interno
- * @property integer $correlativo
- * @property boolean $impreso
  * @property int $id
+ * @property int|null $colaborador_id
+ * @property string|null $codigo
+ * @property string|null $codigo_interno
+ * @property int|null $correlativo
+ * @property int|null $impreso
  * @property int $usuario_crea
  * @property int $estado_id
  * @property string|null $observaciones
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ActivoTarjetaDetalle> $detalles
  * @property-read int|null $detalles_count
+ * @property-read \App\Models\Colaborador|null $responsable
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ActivoSolicitud> $solicitudes
+ * @property-read int|null $solicitudes_count
  * @property-read \App\Models\User $usuarioCrea
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta delUsuarioCrea($user = null)
- * @method static \Database\Factories\ActivoTarjetaFactory factory(...$parameters)
+ * @method static \Database\Factories\ActivoTarjetaFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta noTemporal()
- * @method static \Illuminate\Database\Query\Builder|ActivoTarjeta onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta query()
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta temporal()
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta whereCodigo($value)
@@ -48,9 +47,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta whereObservaciones($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta whereUsuarioCrea($value)
- * @method static \Illuminate\Database\Query\Builder|ActivoTarjeta withTrashed()
- * @method static \Illuminate\Database\Query\Builder|ActivoTarjeta withoutTrashed()
- * @property-read int|null $solicitudes_count
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjeta withoutTrashed()
  * @mixin \Eloquent
  */
 class ActivoTarjeta extends Model

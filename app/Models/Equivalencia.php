@@ -9,21 +9,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class Equivalencia
  *
- * @package App\Models
- * @version July 27, 2022, 12:23 pm CST
- * @property \App\Models\Item $itemOrigen
- * @property \App\Models\Item $itemDestino
- * @property integer $item_origen
- * @property integer $item_destino
- * @property number $cantidad
  * @property int $id
+ * @property int $item_origen
+ * @property int $item_destino
+ * @property string $cantidad
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @method static \Database\Factories\EquivalenciaFactory factory(...$parameters)
+ * @property-read \App\Models\Item $itemDestino
+ * @property-read \App\Models\Item $itemOrigen
+ * @method static \Database\Factories\EquivalenciaFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Equivalencia newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Equivalencia newQuery()
- * @method static \Illuminate\Database\Query\Builder|Equivalencia onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Equivalencia onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Equivalencia query()
  * @method static \Illuminate\Database\Eloquent\Builder|Equivalencia whereCantidad($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Equivalencia whereCreatedAt($value)
@@ -32,8 +30,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|Equivalencia whereItemDestino($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Equivalencia whereItemOrigen($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Equivalencia whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|Equivalencia withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Equivalencia withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Equivalencia withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Equivalencia withoutTrashed()
  * @mixin \Eloquent
  */
 class Equivalencia extends Model

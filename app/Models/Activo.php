@@ -12,56 +12,54 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 /**
  * Class Activo
  *
- * @package App\Models
- * @version November 11, 2022, 11:13 am CST
- * @property \App\Models\Renglone $renglon
- * @property \App\Models\ActivoEstado $estado
- * @property \App\Models\Compra1hDetalle $detalle1h
- * @property \App\Models\ActivoTipo $tipo
- * @property \Illuminate\Database\Eloquent\Collection $items
- * @property \Illuminate\Database\Eloquent\Collection $solicitudDetalles
- * @property \Illuminate\Database\Eloquent\Collection $tarjetaDetalles
- * @property string $nombre
+ * @property int $id
+ * @property string|null $nombre
  * @property string $descripcion
  * @property string $codigo_inventario
- * @property string $folio
- * @property number $valor_actual
- * @property number $valor_adquisicion
- * @property number $valor_contabilizado
- * @property string $fecha_registro
- * @property integer $tipo_id
- * @property integer $estado_id
- * @property integer $renglon_id
- * @property integer $detalle_1h_id
- * @property integer $entidad
- * @property integer $unidad_ejecutadora
- * @property integer $tipo_inventario
- * @property string $codigo_sicoin
- * @property integer $codigo_donacion
- * @property string $nit
- * @property string $numero_documento
- * @property string $fecha_aprobado
- * @property string $fecha_contabilizacion
- * @property string $cur
- * @property string $contabilizado
- * @property integer $diferencia_act_adq
- * @property integer $diferencia_act_cont
- * @property integer $diferencia_adq_cont
- * @property int $id
+ * @property string|null $folio
+ * @property string|null $valor_actual
+ * @property string|null $valor_adquisicion
+ * @property string|null $valor_contabilizado
+ * @property \Illuminate\Support\Carbon|null $fecha_registro
+ * @property int $tipo_id
+ * @property int $estado_id
+ * @property int|null $renglon_id
+ * @property int|null $detalle_1h_id
+ * @property int|null $entidad
+ * @property int|null $unidad_ejecutadora
+ * @property int|null $tipo_inventario
+ * @property string|null $codigo_sicoin
+ * @property int|null $codigo_donacion
+ * @property string|null $nit
+ * @property string|null $numero_documento
+ * @property \Illuminate\Support\Carbon|null $fecha_aprobado
+ * @property \Illuminate\Support\Carbon|null $fecha_contabilizacion
+ * @property string|null $cur
+ * @property string|null $contabilizado
+ * @property int|null $diferencia_act_adq
+ * @property int|null $diferencia_act_cont
+ * @property int|null $diferencia_adq_cont
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Compra1hDetalle|null $detalle1h
+ * @property-read \App\Models\ActivoEstado $estado
  * @property-read mixed $img
  * @property-read mixed $thumb
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Item> $items
  * @property-read int|null $items_count
- * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\App\Models\Media[] $media
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, Media> $media
  * @property-read int|null $media_count
+ * @property-read \App\Models\Renglon|null $renglon
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ActivoSolicitudDetalle> $solicitudDetalles
  * @property-read int|null $solicitud_detalles_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ActivoTarjetaDetalle> $tarjetaDetalles
  * @property-read int|null $tarjeta_detalles_count
- * @method static \Database\Factories\ActivoFactory factory(...$parameters)
+ * @property-read \App\Models\ActivoTipo $tipo
+ * @method static \Database\Factories\ActivoFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Activo newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Activo newQuery()
- * @method static \Illuminate\Database\Query\Builder|Activo onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Activo query()
  * @method static \Illuminate\Database\Eloquent\Builder|Activo whereCodigoDonacion($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Activo whereCodigoInventario($value)
@@ -93,8 +91,8 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @method static \Illuminate\Database\Eloquent\Builder|Activo whereValorActual($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Activo whereValorAdquisicion($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Activo whereValorContabilizado($value)
- * @method static \Illuminate\Database\Query\Builder|Activo withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Activo withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Activo withoutTrashed()
  * @mixin \Eloquent
  */
 class Activo extends Model implements HasMedia

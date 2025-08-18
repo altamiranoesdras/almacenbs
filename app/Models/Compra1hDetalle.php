@@ -9,28 +9,26 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class Compra1hDetalle
  *
- * @package App\Models
- * @version July 27, 2022, 12:27 pm CST
- * @property \App\Models\Compra1h $1h
- * @property \App\Models\Item $item
- * @property integer $1h_id
- * @property integer $item_id
- * @property number $precio
- * @property number $cantidad
- * @property integer $folio_almacen
- * @property integer $folio_inventario
- * @property string $codigo_inventario
- * @property string $texto_extra
  * @property int $id
+ * @property int $1h_id
+ * @property int $item_id
+ * @property string $precio
+ * @property string $cantidad
+ * @property int|null $folio_almacen
+ * @property int|null $folio_inventario
+ * @property string|null $codigo_inventario
+ * @property string|null $texto_extra
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\Compra1h $compra1h
  * @property-read mixed $sub_total
- * @method static \Database\Factories\Compra1hDetalleFactory factory(...$parameters)
+ * @property-read mixed $text
+ * @property-read \App\Models\Item $item
+ * @method static \Database\Factories\Compra1hDetalleFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle newQuery()
- * @method static \Illuminate\Database\Query\Builder|Compra1hDetalle onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle query()
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle where1hId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle whereCantidad($value)
@@ -42,11 +40,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle whereItemId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle wherePrecio($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|Compra1hDetalle withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Compra1hDetalle withoutTrashed()
- * @property-read mixed $text
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle whereTextoExtra($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra1hDetalle withoutTrashed()
  * @mixin \Eloquent
  */
 class Compra1hDetalle extends Model

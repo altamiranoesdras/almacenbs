@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $id
  * @property string $codigo
  * @property string $nombre
+ * @property int|null $centro_id
  * @property int $unidad_tipo_id
  * @property int|null $unidad_padre_id
  * @property int|null $jefe_id
@@ -21,6 +22,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, RrhhUnidad> $children
+ * @property-read int|null $children_count
  * @property-read \App\Models\User|null $jefe
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RrhhPuesto> $puestos
  * @property-read int|null $puestos_count
@@ -32,8 +35,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad padres()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad query()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereActiva($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereCentroId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereCodigo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereDeletedAt($value)

@@ -9,21 +9,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class StockInicial
  *
- * @package App\Models
- * @version July 27, 2022, 12:23 pm CST
- * @property \App\Models\Item $item
- * @property \App\Models\User $user
- * @property integer $item_id
- * @property number $cantidad
- * @property integer $user_id
  * @property int $id
+ * @property int $item_id
+ * @property string $cantidad
+ * @property int $user_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @method static \Database\Factories\StockInicialFactory factory(...$parameters)
+ * @property-read \App\Models\Item $item
+ * @property-read \App\Models\User $user
+ * @method static \Database\Factories\StockInicialFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|StockInicial newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|StockInicial newQuery()
- * @method static \Illuminate\Database\Query\Builder|StockInicial onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|StockInicial onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|StockInicial query()
  * @method static \Illuminate\Database\Eloquent\Builder|StockInicial whereCantidad($value)
  * @method static \Illuminate\Database\Eloquent\Builder|StockInicial whereCreatedAt($value)
@@ -32,8 +30,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|StockInicial whereItemId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|StockInicial whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|StockInicial whereUserId($value)
- * @method static \Illuminate\Database\Query\Builder|StockInicial withTrashed()
- * @method static \Illuminate\Database\Query\Builder|StockInicial withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|StockInicial withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|StockInicial withoutTrashed()
  * @mixin \Eloquent
  */
 class StockInicial extends Model

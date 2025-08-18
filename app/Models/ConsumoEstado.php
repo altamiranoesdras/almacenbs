@@ -9,27 +9,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class ConsumoEstado
  *
- * @package App\Models
- * @version December 27, 2022, 11:03 am CST
- * @property \Illuminate\Database\Eloquent\Collection $consumos
- * @property string $nombre
  * @property int $id
+ * @property string $nombre
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Consumo> $consumos
  * @property-read int|null $consumos_count
- * @method static \Database\Factories\ConsumoEstadoFactory factory(...$parameters)
+ * @method static \Database\Factories\ConsumoEstadoFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|ConsumoEstado newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ConsumoEstado newQuery()
- * @method static \Illuminate\Database\Query\Builder|ConsumoEstado onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ConsumoEstado onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|ConsumoEstado query()
  * @method static \Illuminate\Database\Eloquent\Builder|ConsumoEstado whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ConsumoEstado whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ConsumoEstado whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ConsumoEstado whereNombre($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ConsumoEstado whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|ConsumoEstado withTrashed()
- * @method static \Illuminate\Database\Query\Builder|ConsumoEstado withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ConsumoEstado withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ConsumoEstado withoutTrashed()
  * @mixin Model
  */
 class ConsumoEstado extends Model

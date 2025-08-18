@@ -6,6 +6,56 @@ use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\SoftDeletes;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * 
+ *
+ * @property int $id
+ * @property int|null $bodega_id
+ * @property int|null $unidad_id
+ * @property int|null $correlativo
+ * @property string|null $codigo
+ * @property \Illuminate\Support\Carbon|null $fecha_solicita
+ * @property string|null $justificacion
+ * @property int $estado_id
+ * @property int $usuario_solicita
+ * @property int|null $usuario_verifica
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Bodega|null $bodega
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraRequisicion> $compraRequisiciones
+ * @property-read int|null $compra_requisiciones_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraSolicitudDetalle> $detalles
+ * @property-read int|null $detalles_count
+ * @property-read \App\Models\CompraSolicitudEstado $estado
+ * @property-read mixed $sub_total
+ * @property-read mixed $total
+ * @property-read \App\Models\RrhhUnidad|null $unidad
+ * @property-read \App\Models\User $usuarioSolicita
+ * @property-read \App\Models\User|null $usuarioVerifica
+ * @method static \Database\Factories\CompraSolicitudFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud noTemporal()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud query()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereBodegaId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereCodigo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereCorrelativo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereEstadoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereFechaSolicita($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereJustificacion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereUnidadId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereUsuarioSolicita($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereUsuarioVerifica($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud withoutTrashed()
+ * @mixin \Eloquent
+ */
 class CompraSolicitud extends Model
 {
 
