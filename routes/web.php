@@ -357,6 +357,9 @@ Route::group(['prefix' => ''], function () {
 });
 
 Route::get('/test', [TestController::class, 'test'])->name('test');
+Route::get('/test-reverb', [TestController::class, 'reverb'])->name('reverb');
+Route::post('/test-reverb', [TestController::class, 'testEvent'])->name('test.reverb');
+
 
 Route::post('/firmar-documento', [TestController::class, 'firmarDocumento'])->name('firmar.documento');
 Route::post('change-layout', [LayoutController::class, 'changeLayout'])->name('change.layout');
