@@ -9,26 +9,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class Proveedor
  *
- * @package App\Models
- * @version July 27, 2022, 12:20 pm CST
- * @property \Illuminate\Database\Eloquent\Collection $compras
- * @property string $nit
- * @property string $nombre
- * @property string $razon_social
- * @property string $correo
- * @property string $telefono_movil
- * @property string $telefono_oficina
- * @property string $direccion
- * @property string $observaciones
  * @property int $id
+ * @property string|null $nit
+ * @property string $nombre
+ * @property string|null $razon_social
+ * @property string|null $correo
+ * @property string|null $telefono_movil
+ * @property string|null $telefono_oficina
+ * @property string|null $direccion
+ * @property string|null $observaciones
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Compra> $compras
  * @property-read int|null $compras_count
- * @method static \Database\Factories\ProveedorFactory factory(...$parameters)
+ * @method static \Database\Factories\ProveedorFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Proveedor newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Proveedor newQuery()
- * @method static \Illuminate\Database\Query\Builder|Proveedor onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Proveedor onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Proveedor query()
  * @method static \Illuminate\Database\Eloquent\Builder|Proveedor whereCorreo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Proveedor whereCreatedAt($value)
@@ -42,8 +40,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|Proveedor whereTelefonoMovil($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Proveedor whereTelefonoOficina($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Proveedor whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|Proveedor withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Proveedor withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Proveedor withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Proveedor withoutTrashed()
  * @mixin \Eloquent
  */
 class Proveedor extends Model

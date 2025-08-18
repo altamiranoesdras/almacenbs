@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $id
  * @property string $codigo
  * @property string $nombre
+ * @property int|null $centro_id
  * @property int $unidad_tipo_id
  * @property int|null $unidad_padre_id
  * @property int|null $jefe_id
@@ -21,6 +23,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, RrhhUnidad> $children
+ * @property-read int|null $children_count
  * @property-read \App\Models\User|null $jefe
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RrhhPuesto> $puestos
  * @property-read int|null $puestos_count
@@ -32,8 +36,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad padres()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad query()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereActiva($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereCentroId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereCodigo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereDeletedAt($value)
@@ -92,7 +98,7 @@ class RrhhUnidad extends Model
      */
     public static $rules = [
         'nombre' => 'required|string|max:255',
-        'jefe_id' => 'required|integer|exists:users,id',
+        'jefe_id' => 'integer|exists:users,id',
         'codigo' => 'required|string|max:255|unique:rrhh_unidades,codigo',
         'unidad_tipo_id' => 'required|integer|exists:rrhh_unidad_tipos,id',
         'activa' => 'nullable|string',
@@ -102,7 +108,7 @@ class RrhhUnidad extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      **/
     public function jefe()
     {
@@ -152,5 +158,11 @@ class RrhhUnidad extends Model
     public function hasChildren(): bool
     {
         return $this->children->count()>0;
+    }
+
+    public function tipo(): BelongsTo
+    {
+        return $this->belongsTo(RrhhUnidadTipo::class, 'unidad_tipo_id');
+
     }
 }

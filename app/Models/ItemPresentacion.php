@@ -9,20 +9,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class ItemPresentacion
  *
- * @package App\Models
- * @version December 8, 2022, 10:59 am CST
- * @property \Illuminate\Database\Eloquent\Collection $items
- * @property string $codigo
- * @property string $nombre
  * @property int $id
+ * @property string|null $codigo
+ * @property string $nombre
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Item> $items
  * @property-read int|null $items_count
- * @method static \Database\Factories\ItemPresentacionFactory factory(...$parameters)
+ * @method static \Database\Factories\ItemPresentacionFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|ItemPresentacion newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ItemPresentacion newQuery()
- * @method static \Illuminate\Database\Query\Builder|ItemPresentacion onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ItemPresentacion onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|ItemPresentacion query()
  * @method static \Illuminate\Database\Eloquent\Builder|ItemPresentacion whereCodigo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ItemPresentacion whereCreatedAt($value)
@@ -30,8 +28,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|ItemPresentacion whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ItemPresentacion whereNombre($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ItemPresentacion whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|ItemPresentacion withTrashed()
- * @method static \Illuminate\Database\Query\Builder|ItemPresentacion withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ItemPresentacion withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ItemPresentacion withoutTrashed()
  * @mixin Model
  */
 class ItemPresentacion extends Model

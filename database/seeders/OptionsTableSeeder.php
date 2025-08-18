@@ -43,7 +43,7 @@ class OptionsTableSeeder extends Seeder
             array (
                 'id' => 2,
                 'option_id' => NULL,
-                'nombre' => 'Requisición Compra',
+                'nombre' => 'Solicitudes de Compra',
                 'ruta' => 'x',
                 'descripcion' => 'x',
                 'icono_l' => 'fa-clipboard-list',
@@ -60,8 +60,8 @@ class OptionsTableSeeder extends Seeder
             array (
                 'id' => 3,
                 'option_id' => 2,
-                'nombre' => 'Nueva Requisición de Compra',
-                'ruta' => 'compra.requisiciones.nueva',
+                'nombre' => 'Nueva Solicitud de Compra',
+                'ruta' => 'compra.solicitudes.nueva',
                 'descripcion' => 'x',
                 'icono_l' => 'fa-file-signature',
                 'icono_r' => NULL,
@@ -77,8 +77,8 @@ class OptionsTableSeeder extends Seeder
             array (
                 'id' => 4,
                 'option_id' => 2,
-                'nombre' => 'Mis Requisiciones de Compras',
-                'ruta' => 'compra.requisiciones.mis.requisiciones',
+                'nombre' => 'Mis Solicitudes de Compras',
+                'ruta' => 'compra.solicitudes.usuario',
                 'descripcion' => NULL,
                 'icono_l' => 'fa-shopping-cart',
                 'icono_r' => NULL,
@@ -94,8 +94,8 @@ class OptionsTableSeeder extends Seeder
             array (
                 'id' => 5,
                 'option_id' => 2,
-                'nombre' => 'Buscar Requisición de compra',
-                'ruta' => 'compra.requisiciones.index',
+                'nombre' => 'Buscar Solicitud de compra',
+                'ruta' => 'compra.solicitudes.index',
                 'descripcion' => 'x',
                 'icono_l' => 'fa-search',
                 'icono_r' => NULL,
@@ -111,8 +111,8 @@ class OptionsTableSeeder extends Seeder
             array (
                 'id' => 6,
                 'option_id' => 2,
-                'nombre' => 'Aprobar Requisición Compra',
-                'ruta' => 'compra.requisiciones.aprobar',
+                'nombre' => 'Aprobar Solicitud Compra',
+                'ruta' => 'compra.solicitudes.aprobar',
                 'descripcion' => NULL,
                 'icono_l' => 'fa-check',
                 'icono_r' => NULL,

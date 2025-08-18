@@ -13,81 +13,93 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 /**
  * Class Item
  *
- * @package App\Models
- * @version July 27, 2022, 12:22 pm CST
- * @property \App\Models\ItemCategoria $categoria
- * @property \App\Models\Renglon $renglon
- * @property \App\Models\Marca $marca
- * @property \App\Models\Unimed $unimed
- * @property \App\Models\ItemTipo $tipo
- * @property \Illuminate\Database\Eloquent\Collection $compra1hDetalles
- * @property \Illuminate\Database\Eloquent\Collection $compraDetalles
- * @property \Illuminate\Database\Eloquent\Collection $equivalencias
- * @property \Illuminate\Database\Eloquent\Collection $equivalencia1s
- * @property \Illuminate\Database\Eloquent\Collection $itemCategoria2s
- * @property \Illuminate\Database\Eloquent\Collection $itemsTraslados
- * @property \Illuminate\Database\Eloquent\Collection $itemsTraslado3s
- * @property \Illuminate\Database\Eloquent\Collection $kardexes
- * @property \Illuminate\Database\Eloquent\Collection $solicitudDetalles
- * @property \Illuminate\Database\Eloquent\Collection $stockIniciales
- * @property \Illuminate\Database\Eloquent\Collection $stocks
- * @property string $codigo
- * @property string $nombre
- * @property string $descripcion
- * @property integer $tipo_id
- * @property integer $renglon_id
- * @property integer $marca_id
- * @property integer $unimed_id
- * @property integer $categoria_id
- * @property number $precio_venta
- * @property number $precio_compra
- * @property number $precio_promedio
- * @property number $stock_minimo
- * @property number $stock_maximo
- * @property number $stock_total
- * @property string $stock_reservado
- * @property string $ubicacion
- * @property boolean $perecedero
- * @property boolean $inventariable
  * @property int $id
+ * @property string|null $codigo
  * @property string|null $codigo_insumo
+ * @property string|null $codigo_presentacion
+ * @property string $nombre
+ * @property string|null $descripcion
+ * @property int $tipo_id
+ * @property int $renglon_id
+ * @property int|null $marca_id
+ * @property int|null $modelo_id
+ * @property int|null $unimed_id
  * @property int|null $presentacion_id
+ * @property int|null $categoria_id
+ * @property string|null $precio_venta
+ * @property string $precio_compra
+ * @property string $precio_promedio
+ * @property string|null $stock_minimo
+ * @property string|null $stock_maximo
+ * @property string|null $ubicacion
+ * @property int|null $inventariable
+ * @property bool|null $perecedero
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ItemCategoria[] $categorias
+ * @property-read \App\Models\ItemCategoria|null $categoria
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ItemCategoria> $categorias
  * @property-read int|null $categorias_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Compra1hDetalle> $compra1hDetalles
  * @property-read int|null $compra1h_detalles_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraDetalle> $compraDetalles
  * @property-read int|null $compra_detalles_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Equivalencia> $equivalencia1s
  * @property-read int|null $equivalencia1s_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Equivalencia> $equivalencias
  * @property-read int|null $equivalencias_count
  * @property-read mixed $img
+ * @property-read mixed $stock_bodega
+ * @property-read void $stock_reservado
+ * @property-read mixed $stock_total
  * @property-read mixed $text
+ * @property-read mixed $texto_kardex
+ * @property-read mixed $texto_libro_almacen
+ * @property-read mixed $texto_principal
+ * @property-read mixed $texto_requisicion
  * @property-read mixed $thumb
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ItemTraslado> $itemsTraslado3s
+ * @property-read int|null $items_traslado3s_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ItemTraslado> $itemsTraslados
+ * @property-read int|null $items_traslados_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Kardex> $kardexes
  * @property-read int|null $kardexes_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Kardex[] $kardexs
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Kardex> $kardexs
  * @property-read int|null $kardexs_count
- * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\App\Models\Media[] $media
+ * @property-read \App\Models\Marca|null $marca
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, Media> $media
  * @property-read int|null $media_count
+ * @property-read \App\Models\ItemPresentacion|null $presentacion
+ * @property-read \App\Models\Renglon $renglon
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\SolicitudDetalle> $solicitudDetalles
  * @property-read int|null $solicitud_detalles_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\StockInicial> $stockIniciales
+ * @property-read int|null $stock_iniciales_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Stock> $stocks
  * @property-read int|null $stocks_count
+ * @property-read \App\Models\ItemTipo $tipo
+ * @property-read \App\Models\Unimed|null $unimed
+ * @method static \Illuminate\Database\Eloquent\Builder|Item conDetSolicitudesAprobadas()
+ * @method static \Illuminate\Database\Eloquent\Builder|Item conIngresos()
  * @method static \Illuminate\Database\Eloquent\Builder|Item deCategoria($categoria)
  * @method static \Illuminate\Database\Eloquent\Builder|Item deMarca($marca)
- * @method static \Database\Factories\ItemFactory factory(...$parameters)
+ * @method static \Database\Factories\ItemFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Item newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Item newQuery()
- * @method static \Illuminate\Database\Query\Builder|Item onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Item onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Item query()
  * @method static \Illuminate\Database\Eloquent\Builder|Item tipoActivo()
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereCategoriaId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereCodigo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereCodigoInsumo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereCodigoPresentacion($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereDescripcion($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereInventariable($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereMarcaId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereModeloId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereNombre($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Item wherePerecedero($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Item wherePrecioCompra($value)
@@ -101,24 +113,9 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereUbicacion($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereUnimedId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|Item withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Item withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Item withoutAppends()
- * @method static \Illuminate\Database\Query\Builder|Item withoutTrashed()
- * @property-read int|null $items_traslado3s_count
- * @property-read int|null $items_traslados_count
- * @property-read int|null $stock_iniciales_count
- * @property string|null $codigo_presentacion
- * @property-read \App\Models\ItemPresentacion|null $presentacion
- * @method static \Illuminate\Database\Eloquent\Builder|Item conIngresos()
- * @method static \Illuminate\Database\Eloquent\Builder|Item conDetSolicitudesAprobadas()
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereCodigoPresentacion($value)
- * @property-read mixed $stock_bodega
- * @property int|null $modelo_id
- * @property-read mixed $texto_libro_almacen
- * @property-read mixed $texto_principal
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereModeloId($value)
- * @property-read mixed $texto_kardex
- * @property-read mixed $texto_requisicion
+ * @method static \Illuminate\Database\Eloquent\Builder|Item withoutTrashed()
  * @mixin \Eloquent
  */
 class Item extends Model implements HasMedia

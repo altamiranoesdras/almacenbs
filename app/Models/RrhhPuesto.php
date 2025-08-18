@@ -9,21 +9,19 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class RrhhPuesto
  *
- * @package App\Models
- * @version August 4, 2022, 9:33 am CST
- * @property \Illuminate\Database\Eloquent\Collection $users
- * @property string $nombre
- * @property string $atribuciones
- * @property string $activo
  * @property int $id
+ * @property string $nombre
+ * @property string|null $atribuciones
+ * @property string|null $activo
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
  * @property-read int|null $users_count
- * @method static \Database\Factories\RrhhPuestoFactory factory(...$parameters)
+ * @method static \Database\Factories\RrhhPuestoFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhPuesto newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhPuesto newQuery()
- * @method static \Illuminate\Database\Query\Builder|RrhhPuesto onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhPuesto onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhPuesto query()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhPuesto whereActivo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhPuesto whereAtribuciones($value)
@@ -32,8 +30,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhPuesto whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhPuesto whereNombre($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhPuesto whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|RrhhPuesto withTrashed()
- * @method static \Illuminate\Database\Query\Builder|RrhhPuesto withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhPuesto withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhPuesto withoutTrashed()
  * @mixin \Eloquent
  */
 class RrhhPuesto extends Model

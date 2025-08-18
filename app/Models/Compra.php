@@ -10,55 +10,62 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class Compra
  *
- * @package App\Models
- * @version July 27, 2022, 12:21 pm CST
- * @property \App\Models\User $usuarioCrea
- * @property \App\Models\Proveedor $proveedor
- * @property \App\Models\CompraTipo $tipo
- * @property \App\Models\User $usuarioRecibe
- * @property \App\Models\CompraEstado $estado
- * @property \Illuminate\Database\Eloquent\Collection $compra1hs
- * @property \Illuminate\Database\Eloquent\Collection $detalles
- * @property integer $tipo_id
- * @property integer $proveedor_id
- * @property string $codigo
- * @property integer $correlativo
- * @property Carbon $fecha_documento
- * @property Carbon $fecha_ingreso
- * @property string $serie
- * @property string $numero
- * @property integer $estado_id
- * @property integer $usuario_crea
- * @property integer $usuario_recibe
- * @property string $observaciones
- * @property string $orden_compra
  * @property int $id
+ * @property int|null $tipo_id
+ * @property int|null $proveedor_id
+ * @property string|null $codigo
+ * @property int|null $correlativo
+ * @property \Illuminate\Support\Carbon|null $fecha_documento Fecha del documento de  la Factura
+ * @property \Illuminate\Support\Carbon|null $fecha_ingreso Fecha de ingreso al sistema
+ * @property string|null $serie
+ * @property string|null $numero
+ * @property int $estado_id
+ * @property int $usuario_crea
+ * @property int|null $usuario_recibe
+ * @property string|null $orden_compra
+ * @property string $descuento
+ * @property string|null $folio_almacen
+ * @property string|null $folio_inventario
+ * @property string|null $observaciones
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\Compra1h|null $compra1h
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Compra1h> $compra1hs
  * @property-read int|null $compra1hs_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraDetalle> $detalles
  * @property-read int|null $detalles_count
+ * @property-read \App\Models\CompraEstado $estado
+ * @property-read mixed $anio
+ * @property-read mixed $mes
  * @property-read mixed $sub_total
  * @property-read mixed $total
  * @property-read mixed $total_venta
+ * @property-read \App\Models\Proveedor|null $proveedor
+ * @property-read \App\Models\CompraTipo|null $tipo
+ * @property-read \App\Models\User $usuarioCrea
+ * @property-read \App\Models\User|null $usuarioRecibe
  * @method static \Illuminate\Database\Eloquent\Builder|Compra delItem($item)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra delUser($user = null)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra delUsuarioCrea($user = null)
- * @method static \Database\Factories\CompraFactory factory(...$parameters)
+ * @method static \Database\Factories\CompraFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Compra newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Compra newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra noAnuladas()
  * @method static \Illuminate\Database\Eloquent\Builder|Compra noTemporal()
- * @method static \Illuminate\Database\Query\Builder|Compra onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Compra query()
  * @method static \Illuminate\Database\Eloquent\Builder|Compra temporal()
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereCodigo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereCorrelativo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereDescuento($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereEstadoId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereFechaDocumento($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereFechaIngreso($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereFolioAlmacen($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereFolioInventario($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereNumero($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereObservaciones($value)
@@ -69,18 +76,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereUsuarioCrea($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereUsuarioRecibe($value)
- * @method static \Illuminate\Database\Query\Builder|Compra withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Compra withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra withoutTrashed()
  * @mixin \Eloquent
- * @property string|null $folio_almacen
- * @property-read mixed $anio
- * @property-read mixed $mes
- * @method static \Illuminate\Database\Eloquent\Builder|Compra whereFolioAlmacen($value)
- * @property string|null $folio_inventario
- * @method static \Illuminate\Database\Eloquent\Builder|Compra whereFolioInventario($value)
- * @property string $descuento
- * @method static \Illuminate\Database\Eloquent\Builder|Compra whereDescuento($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Compra noAnuladas()
  */
 class Compra extends Model
 {

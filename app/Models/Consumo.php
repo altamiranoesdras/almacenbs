@@ -11,32 +11,30 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class Consumo
  *
- * @package App\Models
- * @version December 27, 2022, 11:27 am CST
- * @property \App\Models\User $usuarioCrea
- * @property \App\Models\Bodega $bodega
- * @property \App\Models\RrhhUnidad $unidad
- * @property \App\Models\ConsumoEstado $estado
- * @property \Illuminate\Database\Eloquent\Collection $detalles
- * @property integer $correlativo
- * @property string $codigo
- * @property integer $estado_id
- * @property integer $unidad_id
- * @property integer $bodega_id
- * @property integer $usuario_crea
  * @property int $id
+ * @property int|null $correlativo
+ * @property string|null $codigo
  * @property string|null $observaciones
  * @property string|null $fecha_procesa
+ * @property int $estado_id
+ * @property int|null $unidad_id
+ * @property int|null $bodega_id
+ * @property int $usuario_crea
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read int|null $consumo_detalles_count
+ * @property-read \App\Models\Bodega|null $bodega
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ConsumoDetalle> $detalles
+ * @property-read int|null $detalles_count
+ * @property-read \App\Models\ConsumoEstado $estado
+ * @property-read \App\Models\RrhhUnidad|null $unidad
+ * @property-read \App\Models\User $usuarioCrea
  * @method static Builder|Consumo delUsuarioCrea($user = null)
- * @method static \Database\Factories\ConsumoFactory factory(...$parameters)
+ * @method static \Database\Factories\ConsumoFactory factory($count = null, $state = [])
  * @method static Builder|Consumo newModelQuery()
  * @method static Builder|Consumo newQuery()
  * @method static Builder|Consumo noTemporal()
- * @method static \Illuminate\Database\Query\Builder|Consumo onlyTrashed()
+ * @method static Builder|Consumo onlyTrashed()
  * @method static Builder|Consumo query()
  * @method static Builder|Consumo temporal()
  * @method static Builder|Consumo whereBodegaId($value)
@@ -45,15 +43,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Consumo whereCreatedAt($value)
  * @method static Builder|Consumo whereDeletedAt($value)
  * @method static Builder|Consumo whereEstadoId($value)
+ * @method static Builder|Consumo whereFechaProcesa($value)
  * @method static Builder|Consumo whereId($value)
  * @method static Builder|Consumo whereObservaciones($value)
  * @method static Builder|Consumo whereUnidadId($value)
  * @method static Builder|Consumo whereUpdatedAt($value)
  * @method static Builder|Consumo whereUsuarioCrea($value)
- * @method static \Illuminate\Database\Query\Builder|Consumo withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Consumo withoutTrashed()
+ * @method static Builder|Consumo withTrashed()
+ * @method static Builder|Consumo withoutTrashed()
  * @mixin Model
- * @property-read int|null $detalles_count
  */
 class Consumo extends Model
 {

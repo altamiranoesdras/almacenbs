@@ -13,53 +13,57 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class Solicitud
  *
- * @package App\Models
- * @version July 27, 2022, 12:25 pm CST
- * @property User $usuarioDespacha
- * @property User $usuarioSolicita
- * @property SolicitudEstado $estado
- * @property User $usuarioCrea
- * @property User $usuarioAutoriza
- * @property User $usuarioAprueba
- * @property RrhhUnidad $unidad
- * @property Collection $detalles
- * @property string $codigo
- * @property integer $correlativo
- * @property string $justificacion
- * @property integer $unidad_id
- * @property integer $usuario_crea
- * @property integer $usuario_solicita
- * @property integer $usuario_autoriza
- * @property integer $usuario_aprueba
- * @property integer $usuario_despacha
- * @property string $firma_requiere
- * @property string $firma_autoriza
- * @property string $firma_aprueba
- * @property string $firma_almacen
- * @property string|Carbon $fecha_solicita
- * @property string|Carbon $fecha_autoriza
- * @property string|Carbon $fecha_aprueba
- * @property string|Carbon $fecha_almacen_firma
- * @property string|Carbon $fecha_informa
- * @property string|Carbon $fecha_despacha
- * @property integer $estado_id
  * @property int $id
+ * @property string|null $codigo
+ * @property int|null $correlativo
+ * @property string|null $justificacion
  * @property string|null $observaciones
+ * @property int|null $unidad_id
+ * @property int|null $bodega_id
+ * @property int $usuario_crea
+ * @property int|null $usuario_solicita
+ * @property int|null $usuario_autoriza
+ * @property int|null $usuario_aprueba
+ * @property int|null $usuario_despacha
+ * @property string|null $firma_requiere
+ * @property string|null $firma_autoriza
+ * @property string|null $firma_aprueba
+ * @property string|null $firma_almacen
+ * @property \Illuminate\Support\Carbon|null $fecha_solicita
+ * @property \Illuminate\Support\Carbon|null $fecha_autoriza
+ * @property \Illuminate\Support\Carbon|null $fecha_aprueba
+ * @property \Illuminate\Support\Carbon|null $fecha_almacen_firma
+ * @property \Illuminate\Support\Carbon|null $fecha_informa
+ * @property \Illuminate\Support\Carbon|null $fecha_despacha
+ * @property int $estado_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read Collection<int, \App\Models\Bitacora> $bitacoras
+ * @property-read int|null $bitacoras_count
+ * @property-read \App\Models\Bodega|null $bodega
+ * @property-read Collection<int, \App\Models\SolicitudDetalle> $detalles
  * @property-read int|null $detalles_count
+ * @property-read \App\Models\SolicitudEstado $estado
+ * @property-read mixed $motivo_retorna
+ * @property-read \App\Models\RrhhUnidad|null $unidad
+ * @property-read \App\Models\User|null $usuarioAprueba
+ * @property-read \App\Models\User|null $usuarioAutoriza
+ * @property-read \App\Models\User $usuarioCrea
+ * @property-read \App\Models\User|null $usuarioDespacha
+ * @property-read \App\Models\User|null $usuarioSolicita
  * @method static Builder|Solicitud aprobadas()
  * @method static Builder|Solicitud autorizadas()
  * @method static Builder|Solicitud deUnidad($unidad = null)
  * @method static Builder|Solicitud delUsuarioCrea($user = null)
- * @method static \Database\Factories\SolicitudFactory factory(...$parameters)
+ * @method static \Database\Factories\SolicitudFactory factory($count = null, $state = [])
  * @method static Builder|Solicitud newModelQuery()
  * @method static Builder|Solicitud newQuery()
- * @method static \Illuminate\Database\Query\Builder|Solicitud onlyTrashed()
+ * @method static Builder|Solicitud onlyTrashed()
  * @method static Builder|Solicitud query()
  * @method static Builder|Solicitud solicitadas()
  * @method static Builder|Solicitud temporal()
+ * @method static Builder|Solicitud whereBodegaId($value)
  * @method static Builder|Solicitud whereCodigo($value)
  * @method static Builder|Solicitud whereCorrelativo($value)
  * @method static Builder|Solicitud whereCreatedAt($value)
@@ -85,14 +89,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Solicitud whereUsuarioCrea($value)
  * @method static Builder|Solicitud whereUsuarioDespacha($value)
  * @method static Builder|Solicitud whereUsuarioSolicita($value)
- * @method static \Illuminate\Database\Query\Builder|Solicitud withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Solicitud withoutTrashed()
- * @property int|null $bodega_id
- * @property-read \App\Models\Bodega|null $bodega
- * @method static Builder|Solicitud whereBodegaId($value)
- * @property-read Collection<int, \App\Models\Bitacora> $bitacoras
- * @property-read int|null $bitacoras_count
- * @property-read mixed $motivo_retorna
+ * @method static Builder|Solicitud withTrashed()
+ * @method static Builder|Solicitud withoutTrashed()
  * @mixin \Eloquent
  */
 class Solicitud extends Model

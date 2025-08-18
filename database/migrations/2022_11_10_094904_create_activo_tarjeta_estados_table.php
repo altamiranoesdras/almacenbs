@@ -14,7 +14,7 @@ class CreateActivoTarjetaEstadosTable extends Migration
     public function up()
     {
         Schema::create('activo_tarjeta_estados', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('nombre')->unique('activo_tarjeta_estados_nombre_UNIQUE');
             $table->timestamps();
             $table->softDeletes();

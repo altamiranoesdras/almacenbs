@@ -9,31 +9,29 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class ActivoTarjetaDetalle
  *
- * @package App\Models
- * @version September 4, 2022, 7:56 pm CST
- * @property \App\Models\RrhhUnidad $unidad
- * @property \App\Models\Activo $activo
- * @property \App\Models\ActivoTarjeta $tarjeta
- * @property \Illuminate\Database\Eloquent\Collection $activoSolicitudDetalles
- * @property integer $tarjeta_id
- * @property integer $activo_id
- * @property string $tipo
- * @property integer $cantidad
- * @property number $valor
- * @property string $fecha_asigna
- * @property integer $unidad_id
- * @property boolean $impreso
  * @property int $id
+ * @property int $tarjeta_id
+ * @property int $activo_id
+ * @property string $tipo
+ * @property int $cantidad
+ * @property string|null $valor
+ * @property \Illuminate\Support\Carbon $fecha_asigna
+ * @property int|null $unidad_id
+ * @property int|null $impreso
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Activo $activo
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ActivoSolicitudDetalle> $activoSolicitudDetalles
  * @property-read int|null $activo_solicitud_detalles_count
  * @property-read mixed $valor_alza
  * @property-read mixed $valor_baja
- * @method static \Database\Factories\ActivoTarjetaDetalleFactory factory(...$parameters)
+ * @property-read \App\Models\ActivoTarjeta $tarjeta
+ * @property-read \App\Models\RrhhUnidad|null $unidad
+ * @method static \Database\Factories\ActivoTarjetaDetalleFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaDetalle newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaDetalle newQuery()
- * @method static \Illuminate\Database\Query\Builder|ActivoTarjetaDetalle onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaDetalle onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaDetalle query()
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaDetalle whereActivoId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaDetalle whereCantidad($value)
@@ -47,8 +45,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaDetalle whereUnidadId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaDetalle whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaDetalle whereValor($value)
- * @method static \Illuminate\Database\Query\Builder|ActivoTarjetaDetalle withTrashed()
- * @method static \Illuminate\Database\Query\Builder|ActivoTarjetaDetalle withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaDetalle withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoTarjetaDetalle withoutTrashed()
  * @mixin \Eloquent
  */
 class ActivoTarjetaDetalle extends Model

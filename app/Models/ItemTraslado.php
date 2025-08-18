@@ -10,32 +10,30 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class ItemTraslado
  *
- * @package App\Models
- * @version July 27, 2022, 12:24 pm CST
- * @property \App\Models\User $user
- * @property \App\Models\ItemTrasladoEstado $estado
- * @property \App\Models\Item $itemDestino
- * @property \App\Models\Item $itemOrigen
- * @property string $codigo
- * @property integer $correlativo
- * @property integer $item_origen
- * @property number $cantidad_origen
- * @property integer $item_destino
- * @property number $cantidad_destino
- * @property string $observaciones
- * @property integer $user_id
- * @property integer $estado_id
  * @property int $id
+ * @property string $codigo
+ * @property int $correlativo
+ * @property int $item_origen
+ * @property string|null $cantidad_origen
+ * @property int $item_destino
+ * @property string|null $cantidad_destino
+ * @property string|null $observaciones
+ * @property int $user_id
+ * @property int $estado_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\ItemTrasladoEstado $estado
+ * @property-read \App\Models\Item $itemDestino
+ * @property-read \App\Models\Item $itemOrigen
  * @property-read \App\Models\Kardex|null $kardex
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\StockTransaccion[] $transaccionesStock
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\StockTransaccion> $transaccionesStock
  * @property-read int|null $transacciones_stock_count
- * @method static \Database\Factories\ItemTrasladoFactory factory(...$parameters)
+ * @property-read \App\Models\User $user
+ * @method static \Database\Factories\ItemTrasladoFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|ItemTraslado newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ItemTraslado newQuery()
- * @method static \Illuminate\Database\Query\Builder|ItemTraslado onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ItemTraslado onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|ItemTraslado query()
  * @method static \Illuminate\Database\Eloquent\Builder|ItemTraslado whereCantidadDestino($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ItemTraslado whereCantidadOrigen($value)
@@ -50,8 +48,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|ItemTraslado whereObservaciones($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ItemTraslado whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ItemTraslado whereUserId($value)
- * @method static \Illuminate\Database\Query\Builder|ItemTraslado withTrashed()
- * @method static \Illuminate\Database\Query\Builder|ItemTraslado withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ItemTraslado withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ItemTraslado withoutTrashed()
  * @mixin \Eloquent
  */
 class ItemTraslado extends Model

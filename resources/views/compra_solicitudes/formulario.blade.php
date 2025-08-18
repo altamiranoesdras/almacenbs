@@ -19,7 +19,7 @@
 
     <x-content-header titulo="{{$titulo.$subtitulo}}">
         <a class="btn btn-outline-info float-right"
-           href="{{route('compra.requisiciones.index')}}">
+           href="{{route('compra.solicitudes.index')}}">
             <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span
                 class="d-none d-sm-inline">Listado</span>
         </a>
@@ -31,7 +31,7 @@
         @include('layouts.partials.request_errors')
 
 
-        <form action="{{route('compra.requisiciones.update',$compraSolicitud->id)}}" class="esperar" method="post">
+        <form action="{{route('compra.solicitudes.update',$compraSolicitud->id)}}" class="esperar" method="post">
             @method('PATCH')
             @CSRF
 
@@ -43,7 +43,7 @@
         <div class="modal fade" id="modalAnular" tabindex="-1" role="dialog"
              aria-labelledby="modelTitleId" aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <form action="{{ route('compra.requisiciones.anular',$compraSolicitud->id ?? 0) }}" method="post">
+                <form action="{{ route('compra.solicitudes.anular',$compraSolicitud->id ?? 0) }}" method="post">
                     @CSRF
                     <div class="modal-content">
                         <div class="modal-header">

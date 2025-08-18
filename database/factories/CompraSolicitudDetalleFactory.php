@@ -5,8 +5,8 @@ namespace Database\Factories;
 use App\Models\CompraSolicitudDetalle;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+use App\Models\CompraSolicitud;
 use App\Models\Item;
-use App\Models\CompraSolicitude;
 
 class CompraSolicitudDetalleFactory extends Factory
 {
@@ -25,16 +25,11 @@ class CompraSolicitudDetalleFactory extends Factory
     public function definition()
     {
 
-        $precioVenta = $this->faker->numberBetween(500, 3000);
-        $precioCompra = $precioVenta / 1.20;
-
-
         return [
-            'solicitud_id' => $this->faker->word,
+            'solicitud_id' => CompraSolicitud::all()->random()->id,
             'item_id' => Item::all()->random()->id,
             'cantidad' => $this->faker->numberBetween(1,150),
-            'precio_venta' => $precioVenta,
-            'precio_compra' => $precioCompra,
+            'precio_estimado' => $this->faker->numberBetween(500, 3000),
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s'),
         ];

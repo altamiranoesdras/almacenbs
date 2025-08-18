@@ -9,29 +9,27 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class ActivoSolicitudTipo
  *
- * @package App\Models
- * @version August 31, 2022, 10:52 pm CST
- * @property \Illuminate\Database\Eloquent\Collection $activoSolicitudDetalles
- * @property \Illuminate\Database\Eloquent\Collection $activoSolicitudes
- * @property string $nombre
  * @property int $id
+ * @property string $nombre
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ActivoSolicitudDetalle> $activoSolicitudDetalles
  * @property-read int|null $activo_solicitud_detalles_count
- * @method static \Database\Factories\ActivoSolicitudTipoFactory factory(...$parameters)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ActivoSolicitud> $activoSolicitudes
+ * @property-read int|null $activo_solicitudes_count
+ * @method static \Database\Factories\ActivoSolicitudTipoFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitudTipo newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitudTipo newQuery()
- * @method static \Illuminate\Database\Query\Builder|ActivoSolicitudTipo onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitudTipo onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitudTipo query()
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitudTipo whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitudTipo whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitudTipo whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitudTipo whereNombre($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitudTipo whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|ActivoSolicitudTipo withTrashed()
- * @method static \Illuminate\Database\Query\Builder|ActivoSolicitudTipo withoutTrashed()
- * @property-read int|null $activo_solicitudes_count
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitudTipo withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ActivoSolicitudTipo withoutTrashed()
  * @mixin \Eloquent
  */
 class ActivoSolicitudTipo extends Model

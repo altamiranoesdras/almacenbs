@@ -9,27 +9,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class CompraEstado
  *
- * @package App\Models
- * @version July 27, 2022, 12:20 pm CST
- * @property \Illuminate\Database\Eloquent\Collection $compras
- * @property string $nombre
  * @property int $id
+ * @property string $nombre
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Compra> $compras
  * @property-read int|null $compras_count
- * @method static \Database\Factories\CompraEstadoFactory factory(...$parameters)
+ * @method static \Database\Factories\CompraEstadoFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|CompraEstado newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraEstado newQuery()
- * @method static \Illuminate\Database\Query\Builder|CompraEstado onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraEstado onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraEstado query()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraEstado whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraEstado whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraEstado whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraEstado whereNombre($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraEstado whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|CompraEstado withTrashed()
- * @method static \Illuminate\Database\Query\Builder|CompraEstado withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraEstado withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraEstado withoutTrashed()
  * @mixin \Eloquent
  */
 class CompraEstado extends Model
