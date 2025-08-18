@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -107,7 +108,7 @@ class RrhhUnidad extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      **/
     public function jefe()
     {
@@ -157,5 +158,11 @@ class RrhhUnidad extends Model
     public function hasChildren(): bool
     {
         return $this->children->count()>0;
+    }
+
+    public function tipo(): BelongsTo
+    {
+        return $this->belongsTo(RrhhUnidadTipo::class, 'unidad_tipo_id');
+
     }
 }
