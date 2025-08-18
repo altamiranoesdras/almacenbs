@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $solicitud_id
@@ -46,6 +46,10 @@ class CompraSolicitudDetalle extends Model
     use HasFactory;
 
     public $table = 'compra_solicitud_detalles';
+
+    protected $appends = [
+        'sub_total'
+    ];
 
     public $fillable = [
         'solicitud_id',

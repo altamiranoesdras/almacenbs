@@ -97,7 +97,7 @@ class RrhhUnidad extends Model
      */
     public static $rules = [
         'nombre' => 'required|string|max:255',
-        'jefe_id' => 'required|integer|exists:users,id',
+        'jefe_id' => 'integer|exists:users,id',
         'codigo' => 'required|string|max:255|unique:rrhh_unidades,codigo',
         'unidad_tipo_id' => 'required|integer|exists:rrhh_unidad_tipos,id',
         'activa' => 'nullable|string',
