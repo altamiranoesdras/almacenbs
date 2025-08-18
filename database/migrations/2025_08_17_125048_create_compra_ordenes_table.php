@@ -12,13 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('compra_ordenes', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->unsignedBigInteger('gestion_id')->index('fk_compra_ordenes_compra_solicitud_gestiones1_idx');
             $table->unsignedBigInteger('proveedor_id')->index('fk_compra_ordenes_proveedores1_idx');
             $table->string('numero', 50);
             $table->dateTime('fecha');
             $table->enum('estado', ['emitida', 'recibida', 'pagada'])->default('emitida');
             $table->text('observaciones')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

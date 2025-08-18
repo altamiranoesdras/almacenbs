@@ -14,7 +14,7 @@ class CreateItemsTrasladosTable extends Migration
     public function up()
     {
         Schema::create('items_traslados', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('codigo');
             $table->integer('correlativo');
             $table->unsignedBigInteger('item_origen')->index('fk_items_traslados_items1_idx');

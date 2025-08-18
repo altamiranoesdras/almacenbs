@@ -18,7 +18,7 @@ return new class extends Migration
 
 
 		Creada / Consolidacion solicitudes
-		
+
 		Evaluando proveedores (proceso competitivo)
 		Cuadro Comparativo Generado
 
@@ -30,13 +30,13 @@ return new class extends Migration
 		Orden compra generada
 
 		Finalizada
-		
+
 		Cancelada
 
 	NOG
 
 		Creada / Consolidacion solicitudes
-		
+
 		Evaluando proveedores (proceso competitivo)
 		Cuadro Comparativo Generado
 
@@ -47,13 +47,15 @@ return new class extends Migration
 		Orden compra generada
 
 		Finalizada
-		
+
 		Cancelada
 
 ');
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('nombre');
             $table->enum('tipo_proceso', ['NOG', 'NPG'])->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

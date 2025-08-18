@@ -30,7 +30,7 @@ return new class extends Migration
 14. Negociaciones entre entidades del sector público contemplado en el Artículo 2 de la LEY.
 15. Adquisición Directa por Ausencia de Ofertas.
 16. Subasta Pública.
-17. Otros tipos de concursos que se presenten por razón de reformas a la LEY, 
+17. Otros tipos de concursos que se presenten por razón de reformas a la LEY,
 
 NPG
 
@@ -41,9 +41,11 @@ NPG
 22. Casos de excepción contemplados en la LEY.
 23. Adquisiciones que se realicen cuando superen el monto de la compra directa, según lo establecido en el Artículo 54 de la LEY y 25 del REGLAMENTO.
 24. Otros tipos de adquisición directa que se presenten por razón de reformas a la LEY, que se originen de otras leyes vigentes o en cumplimiento de una resolución judicial de un tribunal de justicia.');
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('nombre');
             $table->enum('tipo_proceso', ['NOG', 'NPG']);
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

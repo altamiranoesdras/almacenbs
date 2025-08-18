@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('compra_requisicion_tipo_concursos', function (Blueprint $table) {
             $table->comment('ejecución directa
 proceso competitivo');
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('nombre');
             $table->text('descripcion')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

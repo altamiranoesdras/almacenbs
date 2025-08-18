@@ -12,12 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('compra_orden_detalles', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->unsignedBigInteger('orden_id')->index('fk_compra_orden_detalles_compra_ordenes1_idx');
             $table->unsignedBigInteger('item_id')->index('fk_compra_orden_detalles_items1_idx');
             $table->decimal('cantidad', 14);
             $table->decimal('precio', 14);
             $table->string('observacion')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

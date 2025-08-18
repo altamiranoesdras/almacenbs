@@ -13,12 +13,17 @@ return new class extends Migration
     {
         Schema::create('compra_solicitudes', function (Blueprint $table) {
             $table->comment('Tabla que almacena las requisiciones de compras');
-            $table->bigIncrements('id');
+            $table->id();
+
+            $table->unsignedBigInteger('bodega_id')->nullable()->index();
+//            $table->unsignedBigInteger('proveedor_id')->nullable()->index();
             $table->unsignedBigInteger('unidad_id')->nullable()->index();
             $table->integer('correlativo')->nullable();
             $table->string('codigo', 10)->nullable();
             $table->date('fecha_solicita')->nullable();
             $table->text('justificacion')->nullable();
+
+
             $table->unsignedBigInteger('estado_id')->index();
             $table->unsignedBigInteger('usuario_solicita')->index();
             $table->unsignedBigInteger('usuario_verifica')->nullable()->index('compra_solicitudes_usuario_administra_index');

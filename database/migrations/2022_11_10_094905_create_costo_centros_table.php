@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('costo_centros', function (Blueprint $table) {
             $table->comment('Despacho superior
-Subsecretaría de preservación familiar, fortalecimiento y apoyo comunitario
-Subsecretaría de reinserción y resocialización de adolescentes en conflicto con la ley penal
-Subsecretaría de protección y acogimiento a la niñez y adolescencia
+                    Subsecretaría de preservación familiar, fortalecimiento y apoyo comunitario
+                    Subsecretaría de reinserción y resocialización de adolescentes en conflicto con la ley penal
+                    Subsecretaría de protección y acogimiento a la niñez y adolescencia
 
-');
+                    ');
             $table->id();
 
             $table->foreignId('padre_id')

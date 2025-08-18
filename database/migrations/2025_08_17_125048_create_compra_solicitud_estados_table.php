@@ -16,9 +16,9 @@ return new class extends Migration
 	Temporal
 	Ingresada
 	Solicitada
-	Asignda a Requisición 
+	Asignda a Requisición
 	Cancelada');
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('nombre', 50);
             $table->timestamps();
             $table->softDeletes();

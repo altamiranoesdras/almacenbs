@@ -30,6 +30,7 @@ class CreateRrhhUnidadesTable extends Migration
             $table->string('nombre');
 
             $table->foreignId('centro_id')
+                ->nullable()
                 ->constrained('costo_centros')
                 ->onDelete('cascade')
                 ->index('fk_rrhh_unidades_costo_centros1_idx');

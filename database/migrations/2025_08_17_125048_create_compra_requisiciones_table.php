@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('compra_requisiciones', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->unsignedBigInteger('tipo_concurso_id')->index('fk_compra_requisiciones_compra_requisicion_tipo_concursos1_idx');
             $table->unsignedBigInteger('ipo_adquisicion_id')->index('fk_compra_requisiciones_compra_requicicion_adquisicion_tipo_idx');
             $table->integer('correlativo')->nullable();
@@ -27,6 +27,8 @@ return new class extends Migration
             $table->string('partidas', 45)->nullable();
             $table->text('observaciones')->nullable();
             $table->text('justificacion')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

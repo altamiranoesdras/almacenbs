@@ -12,10 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('compra_bandejas', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->unsignedBigInteger('rol_id')->index('fk_compra_bandejas_roles1_idx');
             $table->string('nombre');
             $table->text('descripcion')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

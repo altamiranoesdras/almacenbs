@@ -36,13 +36,12 @@ class CompraSolicitudFactory extends Factory
         return [
             'unidad_id' => $user->unidad_id,
             'bodega_id' => $user->bodega_id,
-            'proveedor_id' => Proveedor::all()->random()->id,
-            'fecha_requiere' => $fechaCrea->copy()->addDays(rand(0,3)),
+//            'proveedor_id' => Proveedor::all()->random()->id,
+            'fecha_solicita' => $fechaCrea->copy()->addDays(rand(0,3)),
             'justificacion' => $this->faker->text,
             'estado_id' => CompraSolicitudEstado::all()->random()->id,
             'usuario_solicita' => $user->id,
-            'usuario_aprueba' => User::whereNotIn('id',[$user->id])->get()->random()->id,
-            'usuario_administra' => User::whereNotIn('id',[$user->id])->get()->random()->id,
+            'usuario_verifica' => User::whereNotIn('id',[$user->id])->get()->random()->id,
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s'),
         ];
