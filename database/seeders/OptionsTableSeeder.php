@@ -43,7 +43,7 @@ class OptionsTableSeeder extends Seeder
             array (
                 'id' => 2,
                 'option_id' => NULL,
-                'nombre' => 'Requisición Compra',
+                'nombre' => 'Solicitudes de Compra',
                 'ruta' => 'x',
                 'descripcion' => 'x',
                 'icono_l' => 'fa-clipboard-list',
@@ -60,7 +60,7 @@ class OptionsTableSeeder extends Seeder
             array (
                 'id' => 3,
                 'option_id' => 2,
-                'nombre' => 'Nueva Requisición de Compra',
+                'nombre' => 'Nueva Solicitud de Compra',
                 'ruta' => 'compra.solicitudes.nueva',
                 'descripcion' => 'x',
                 'icono_l' => 'fa-file-signature',
@@ -77,7 +77,7 @@ class OptionsTableSeeder extends Seeder
             array (
                 'id' => 4,
                 'option_id' => 2,
-                'nombre' => 'Mis Requisiciones de Compras',
+                'nombre' => 'Mis Solicitudes de Compras',
                 'ruta' => 'compra.solicitudes.usuario',
                 'descripcion' => NULL,
                 'icono_l' => 'fa-shopping-cart',
@@ -94,7 +94,7 @@ class OptionsTableSeeder extends Seeder
             array (
                 'id' => 5,
                 'option_id' => 2,
-                'nombre' => 'Buscar Requisición de compra',
+                'nombre' => 'Buscar Solicitud de compra',
                 'ruta' => 'compra.solicitudes.index',
                 'descripcion' => 'x',
                 'icono_l' => 'fa-search',
@@ -111,7 +111,7 @@ class OptionsTableSeeder extends Seeder
             array (
                 'id' => 6,
                 'option_id' => 2,
-                'nombre' => 'Aprobar Requisición Compra',
+                'nombre' => 'Aprobar Solicitud Compra',
                 'ruta' => 'compra.solicitudes.aprobar',
                 'descripcion' => NULL,
                 'icono_l' => 'fa-check',
