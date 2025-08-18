@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\RequisicionCompra;
+namespace App\Http\Controllers\SolicitudesCompra;
 
 use App\DataTables\RequisicionCompra\AprobarRequisicionCompraDataTable;
 use App\DataTables\Scopes\ScopeCompraSolicitudDataTable;
@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CompraSolicitudEstado;
 use App\Models\User;
 
-class AprobarRequisicionesCompraController extends Controller
+class CompraSolicitudAprobarController extends Controller
 {
     public function index(AprobarRequisicionCompraDataTable $dataTable)
     {

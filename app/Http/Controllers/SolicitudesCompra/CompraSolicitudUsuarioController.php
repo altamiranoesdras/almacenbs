@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\RequisicionCompra;
+namespace App\Http\Controllers\SolicitudesCompra;
 
 use App\DataTables\RequisicionCompra\MisRequisicionCompraDataTable;
 use App\DataTables\Scopes\ScopeCompraSolicitudDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 
-class MisRequisicionesCompraController extends Controller
+class CompraSolicitudUsuarioController extends Controller
 {
     public function index(MisRequisicionCompraDataTable $dataTable)
     {

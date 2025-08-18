@@ -21,7 +21,7 @@
             <div class="mb-1 breadcrumb-right">
                 <div class="dropdown">
                     <a class="btn btn-outline-success float-end round"
-                       href="{{ route('compra.requisiciones.create') }}">
+                       href="{{ route('compra.solicitudes.create') }}">
                         <i class="fa fa-plus"></i>
                         Agregar
                     </a>

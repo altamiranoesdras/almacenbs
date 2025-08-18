@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\TieneCodigo;
 use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\SoftDeletes;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int|null $bodega_id
@@ -59,6 +60,7 @@ use Illuminate\Database\Eloquent\Model;
 class CompraSolicitud extends Model
 {
 
+    use TieneCodigo;
     use SoftDeletes;
     use HasFactory;
 

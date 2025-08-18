@@ -4,8 +4,8 @@
 use App\Http\Controllers\CompraRequisicionController;
 use App\Http\Controllers\CompraSolicitudController;
 use App\Http\Controllers\CompraSolicitudEstadoController;
-use App\Http\Controllers\RequisicionCompra\AprobarRequisicionesCompraController;
-use App\Http\Controllers\RequisicionCompra\MisRequisicionesCompraController;
+use App\Http\Controllers\SolicitudesCompra\CompraSolicitudAprobarController;
+use App\Http\Controllers\SolicitudesCompra\CompraSolicitudUsuarioController;
 
 
 
@@ -48,8 +48,8 @@ Route::prefix('compra')->name('compra.')->group(function () {
 //grupo de rutas con prefix compra/solicitudes
 Route::prefix('compra/solicitudes')->name('compra.solicitudes.')->group(function () {
 
-    Route::get('/mis/solicitudes', [MisRequisicionesCompraController::class, 'index'])->name('mis.solicitudes');
-    Route::get('/aprobar', [AprobarRequisicionesCompraController::class, 'index'])->name('aprobar');
+    Route::get('/mis/solicitudes', [CompraSolicitudUsuarioController::class, 'index'])->name('usuario');
+    Route::get('/aprobar', [CompraSolicitudAprobarController::class, 'index'])->name('aprobar');
 
     Route::get('/nueva', [CompraSolicitudController::class, 'create'])->name('nueva');
     Route::get('/', [CompraSolicitudController::class, 'index'])->name('index');
