@@ -97,7 +97,7 @@
                                 <div class="list-item d-flex align-items-start">
                                     <div class="me-1">
                                         <div class="avatar">
-                                            <img src="{{$notificacion->data['imagen']}}" alt="avatar" width="32" height="32">
+                                            {{-- <img src="{{$notificacion->data['imagen']}}" alt="avatar" width="32" height="32"> --}}
                                         </div>
                                     </div>
                                     <div class="list-item-body flex-grow-1">
