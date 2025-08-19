@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\DataTables\RequisicionCompra;
+namespace App\DataTables\SolicitudesCompra;
 
 use App\Models\CompraSolicitud;
 use Yajra\DataTables\EloquentDataTable;
@@ -9,7 +9,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class MisRequisicionCompraDataTable extends DataTable
+class SolicitudCompraUsuarioDataTable extends DataTable
 {
     /**
      * Build DataTable class.

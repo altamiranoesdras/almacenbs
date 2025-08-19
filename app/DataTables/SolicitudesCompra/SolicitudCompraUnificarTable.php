@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\DataTables\RequisicionCompra;
+namespace App\DataTables\SolicitudesCompra;
 
 use App\Models\CompraSolicitud;
 use Yajra\DataTables\EloquentDataTable;
@@ -9,7 +9,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class AprobarRequisicionCompraDataTable extends DataTable
+class SolicitudCompraUnificarTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -49,14 +49,9 @@ class AprobarRequisicionCompraDataTable extends DataTable
                 return $compraSolicitud->usuarioSolicita->name ?? 'Sin Usuario';
 
             })
-            ->editColumn('usuarioAprueba.name', function (CompraSolicitud $compraSolicitud) {
+            ->editColumn('usuarioVerifica.name', function (CompraSolicitud $compraSolicitud) {
 
-                return $compraSolicitud->usuarioAprueba->name ?? 'Sin Usuario';
-
-            })
-            ->editColumn('usuarioAdministra.name', function (CompraSolicitud $compraSolicitud) {
-
-                return $compraSolicitud->usuarioAdministra->name ?? 'Sin Usuario';
+                return $compraSolicitud->usuarioVerifica->name ?? 'Sin Usuario';
 
             })
             ->editColumn('unidad.nombre', function (CompraSolicitud $compraSolicitud) {
@@ -95,11 +90,9 @@ class AprobarRequisicionCompraDataTable extends DataTable
             ->noTemporal()
             ->with(
                 'unidad',
-                'proveedor',
                 'estado',
                 'usuarioSolicita',
-                'usuarioAprueba',
-                'usuarioAdministra'
+                'usuarioVerifica',
             );
     }
 
@@ -211,15 +204,10 @@ class AprobarRequisicionCompraDataTable extends DataTable
                 ->name('usuarioSolicita.name')
                 ->title('Usuario Solicita'),
 
-            Column::make('usuario_aprueba')
-                ->data('usuarioAprueba.name')
-                ->name('usuarioAprueba.name')
-                ->title('Usuario Aprueba'),
-
-            Column::make('usuario_administra')
-                ->data('usuarioAdministra.name')
-                ->name('usuarioAdministra.name')
-                ->title('Usuario Administra'),
+            Column::make('usuario_verifica')
+                ->data('usuarioVerifica.name')
+                ->name('usuarioVerifica.name')
+                ->title('Usuario Verifica'),
 
             Column::computed('action')
                 ->exportable(false)
