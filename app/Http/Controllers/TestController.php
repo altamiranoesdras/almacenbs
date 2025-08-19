@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\FirmaElectronica\FirmaElectronica;
+use App\Events\TestEvent;
 use Illuminate\Http\Request;
+use App\FirmaElectronica\FirmaElectronica;
 
 
 class TestController extends AppBaseController
@@ -38,6 +39,16 @@ class TestController extends AppBaseController
             ->setDocumento($request->file('documento')) // documento a firmar (UploadedFile)
             ->firmarDocumento();
 
+    }
+
+    public function reverb(){
+        return view('reverb.index');
+    }
+
+    public function testEvent()
+    {
+        event(new TestEvent('Hello, this is a test message!'));
+        return 'Event has been dispatched!';
     }
 
 }

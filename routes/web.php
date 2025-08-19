@@ -58,6 +58,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserDespachaUserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LayoutController;
 
 Auth::routes(['verify' => true]);
 
@@ -359,5 +360,9 @@ Route::group(['prefix' => ''], function () {
 });
 
 Route::get('/test', [TestController::class, 'test'])->name('test');
+Route::get('/test-reverb', [TestController::class, 'reverb'])->name('reverb');
+Route::post('/test-reverb', [TestController::class, 'testEvent'])->name('test.reverb');
+
 
 Route::post('/firmar-documento', [TestController::class, 'firmarDocumento'])->name('firmar.documento');
+Route::post('change-layout', [LayoutController::class, 'changeLayout'])->name('change.layout');

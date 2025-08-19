@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
 @php
-
     if(!session('mode-layout')){
         $mode_layout = App\Models\UserConfiguration::where('user_id', auth()->user()->id)->where('key', 'app.mode-layout')->get()->first()->value ?? 'light-layout';
+        session(['mode-layout' => $mode_layout]);
     }else{
         $mode_layout = session('mode-layout');
     }
