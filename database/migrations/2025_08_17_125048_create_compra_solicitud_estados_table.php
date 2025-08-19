@@ -16,7 +16,7 @@ return new class extends Migration
 	Temporal
 	Ingresada
 	Solicitada
-	Asignda a Requisición
+	Asignada a Requisición
 	Cancelada');
             $table->id();
             $table->string('nombre', 50);
