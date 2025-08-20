@@ -23,8 +23,8 @@ class ConfigurationsTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'key' => 'app.name',
-                'value' => 'Bienestar Social',
-                'descripcion' => 'Bienestar Social',
+                'value' => 'Secretaría de Bienestar Social de la Presidencia de la República',
+                'descripcion' => 'Secretaría de Bienestar Social de la Presidencia de la República',
                 'created_at' => '2004-07-23 07:21:12',
                 'updated_at' => '2021-07-16 09:30:10',
                 'deleted_at' => NULL,

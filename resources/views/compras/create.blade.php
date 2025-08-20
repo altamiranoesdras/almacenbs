@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('titulo_pagina', 'Ingreso de compra')
+@section('titulo_pagina', 'Nuevo Ingreso de almacén')
 
 @include('layouts.plugins.select2')
 @include('layouts.xtra_condensed_css')
@@ -14,7 +14,7 @@
             <div class="row breadcrumbs-top">
                 <div class="col-12">
                     <h2 class="content-header-title float-start mb-0">
-                        Ingreso de compra
+                        Nuevo Ingreso de almacén
                     </h2>
                 </div>
             </div>
