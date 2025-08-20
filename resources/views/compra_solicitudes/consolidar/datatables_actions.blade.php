@@ -1,8 +1,19 @@
 @can('Ver Solicitud de Compra')
+{{--    <button--}}
+{{--        data-toggle="tooltip"--}}
+{{--        title="Ver"--}}
+{{--        class='btn btn-icon btn-outline-info rounded-circle'>--}}
+{{--        <i class="fa fa-eye"></i>--}}
+{{--    </button>--}}
+
     <button
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#modal-detalles-{{ $compraSolicitud->id }}"
         data-toggle="tooltip"
-        title="Ver"
-        class='btn btn-icon btn-outline-info rounded-circle'>
+        title="Ver detalles"
+        class='btn btn-icon btn-outline-info rounded-circle'
+    >
         <i class="fa fa-eye"></i>
     </button>
 

@@ -4,6 +4,7 @@
 namespace App\DataTables\SolicitudesCompra;
 
 use App\Models\CompraSolicitud;
+use App\Models\Solicitud;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
@@ -51,7 +52,10 @@ class SolicitudCompraUnificarTable extends DataTable
                 return $compraSolicitud->usuarioSolicita->name ?? 'Sin Usuario';
 
             })
-            ->rawColumns(['action', 'checkbox', 'estado.nombre']);
+            ->editColumn('codigo',function (CompraSolicitud $solicitud){
+                return view('compra_solicitudes.consolidar.modal_show_solicitud',compact('solicitud'))->render();
+            })
+            ->rawColumns(['action', 'checkbox', 'estado.nombre', 'codigo']);
     }
 
     /**
@@ -154,19 +158,12 @@ class SolicitudCompraUnificarTable extends DataTable
                 ->width('20%')
                 ->addClass('text-center'),
 
-//            Column::make('id')
-//                ->data('id')
-//                ->name('id')
-//                ->title('ID')
-//                ->width(50)
-//                ->addClass('text-center'),
+            Column::make('codigo'),
 
             Column::make('unidad')
                 ->data('unidad.nombre')
                 ->name('unidad.nombre')
                 ->title('Unidad'),
-
-            Column::make('codigo'),
 
             Column::make('fecha_solicita')
                 ->data('fecha_solicita')
