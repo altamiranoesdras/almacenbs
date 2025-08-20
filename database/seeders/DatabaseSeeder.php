@@ -76,6 +76,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(CompraSolicitudEstadosTableSeeder::class);
         $this->call(CompraSolicitudsTableSeeder::class);
+        $this->call(MediaTableSeeder::class);
+
 
 
         if(app()->environment()=='local'){
