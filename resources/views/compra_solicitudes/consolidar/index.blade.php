@@ -117,7 +117,7 @@
 
         <div class="row">
             <div class="col-12">
-                <div class="card">
+                <div class="card" id="consolidarSolicitudes">
                     @include('compra_solicitudes.table')
                 </div>
             </div>
@@ -129,6 +129,41 @@
 
 @push('scripts')
     <script>
+
+        function recibirIdDeCheckbox(checkbox) {
+            const id = checkbox.value;
+            if (checkbox.checked) {
+                consolidarSolicitudesVue.solicitudesAConsolidarIds.push(id);
+            } else {
+                consolidarSolicitudesVue.solicitudesAConsolidarIds = consolidarSolicitudesVue
+                    .solicitudesAConsolidarIds
+                    .filter(item => item !== id);
+            }
+        }
+
+        const consolidarSolicitudesVue = new Vue({
+            name: 'consolidarSolicitudes',
+            el: '#consolidarSolicitudes',
+            created() {
+                $('#btnConsolidar').attr('disabled', 'disabled');
+            },
+            data: {
+                solicitudesAConsolidarIds : [],
+            },
+            methods: {
+
+            },
+            watch: {
+                solicitudesAConsolidarIds: function (val) {
+                    if (val.length > 0) {
+                        $('#btnConsolidar').removeAttr('disabled');
+                    } else {
+                        $('#btnConsolidar').attr('disabled', 'disabled');
+                    }
+                }
+            },
+
+        });
         $(function () {
             $('#formFiltersDatatables').submit(function(e){
                 e.preventDefault();

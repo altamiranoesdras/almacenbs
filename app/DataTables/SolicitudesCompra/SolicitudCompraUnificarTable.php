@@ -109,12 +109,10 @@ class SolicitudCompraUnificarTable extends DataTable
 
                 Button::make()
                     ->text('<i class="fa fa-check"></i> Consolidar')
-                    ->addClass('btn btn-outline-success')
+                    ->addClass('btn btn-outline-success btnConsolidar')
+                    ->attr(['id' => 'btnConsolidar'])
                     ->action('function(e, dt, node, config) {
-                        // Aquí tu JS
-                        console.log("Consolidar ejecutado");
-                        // o puedes llamar a otra función
-                        // consolidarSeleccionados();
+                        // Implementar Aca la funcionalidad
                     }'),
                 Button::make('reset')
                     ->addClass('btn btn-outline-secondary')
