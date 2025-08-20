@@ -336,9 +336,7 @@ class UserController extends AppBaseController
 
     public function guardarRubrica(User $user,Request $request)
     {
-
         if ($request->rubrica){
-
             $user->clearMediaCollection('rubricas');
             $user->addMediaFromRequest('rubrica')->toMediaCollection('rubricas');
         }

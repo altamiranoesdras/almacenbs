@@ -217,6 +217,8 @@
                 tipo: @json($compra->tipo ?? CompraTipo::find(old('tipo_id')) ?? CompraTipo::find(CompraTipo::FACTURA)),
                 descuento: @json($compra->descuento ?? old('descuento') ?? 0),
 
+                orden: '',
+
             },
             methods: {
 
@@ -318,12 +320,17 @@
                 },
 
                 procesar: function () {
-                    if(this.totalitems>=1){
+                    if(this.totalitems>=1 && this.orden.length >= 5) {
                         $('#modal-confirma-procesar').modal('show');
-                    }else {
-                        iziTe('No hay ningún artículo en este ingreso')
+                    }
+
+                    if(this.orden.length == 0) {
+                        iziTs('El número de orden es requerido');
+                    }else if(this.orden.length < 5) {
+                        iziTs('El número de orden debe tener al menos 5 caracteres');
                     }
                 },
+
                 siguienteCampo: function (campo){
 
                     if (campo=='agregar'){
@@ -357,8 +364,6 @@
                         t-=descuento;
                     }
 
-
-
                     return t;
                 },
 
@@ -377,7 +382,8 @@
                     }
 
                     return false;
-                }
+                },
+                
             },
             watch:{
                 itemSelect (item) {
