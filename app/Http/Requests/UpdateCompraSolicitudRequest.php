@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\CompraSolicitud;
+use Arr;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateCompraSolicitudRequest extends FormRequest
@@ -25,7 +26,9 @@ class UpdateCompraSolicitudRequest extends FormRequest
     public function rules()
     {
         $rules = CompraSolicitud::$rules;
-        
+
+        $rules = Arr::except($rules, ['estado_id', 'usuario_solicita']);
+
         return $rules;
     }
 
