@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('user_configurations', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedBigInteger('user_id')->index('fk_user_configurations_users1_idx');
-            $table->string('key')->unique('key_unique');
+            $table->string('key');
             $table->string('value');
             $table->text('descripcion')->nullable();
             $table->timestamps();

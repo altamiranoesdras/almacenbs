@@ -77,7 +77,7 @@
 
                                         <a href="{!! route('compras.index') !!}" class="btn round btn-outline-secondary mr-2">Regresar</a>
 
-                                        @can('Anular ingreso de compra')
+                                        @can('Anular Ingreso de almacen')
                                             @if($compra->puedeAnular() )
                                                 <a href="#" onclick="deleteItemDt(this)" data-id="{{$compra->id}}"
                                                    data-toggle="tooltip" title="Anular Ingreso"
@@ -152,7 +152,7 @@
                             @if(!$compra->estaRecibida())
                                 <h4 class="text-center text-info">
                                     El estado de la compra debe ser
-                                    <span class="badge badge-info">
+                                    <span class="badge badge-dark">
                                             {{\App\Models\CompraEstado::find(\App\Models\CompraEstado::RECIBIDA)->nombre}}
                                         </span>
                                     para poder generar 1H

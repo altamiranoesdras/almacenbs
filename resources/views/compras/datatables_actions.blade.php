@@ -21,7 +21,7 @@
      </a>
     @endif
 
-    @can('Anular ingreso de compra')
+    @can('Anular Ingreso de almacen')
         @if($compra->puedeAnular())
 
 

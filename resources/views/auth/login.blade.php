@@ -14,10 +14,10 @@
                     <div class="auth-inner row m-0">
                         <!-- Brand logo-->
                         <a class="brand-logo" href="{{route('index')}}">
-                            <img src="{{getLogo()}}" class="img-fluid" style="max-height: 24px" alt="logo" srcset=""/>
-                            <h2 class="brand-text text-primary ms-1">
+                            <img src="{{getLogo()}}" class="img-fluid" style="max-height: 100px" alt="logo" srcset=""/>
+                            <h4 class="brand-text text-primary ms-1">
                                 {{config('app.name')}}
-                            </h2>
+                            </h4>
                         </a>
                         <!-- /Brand logo-->
 

@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
-@section('titulo_pagina', 'Listado de compras')
+@section('titulo_pagina', 'Buscar Ingresos a Almacén')
 
 @include('layouts.plugins.select2')
 
 @section('content')
 
-    <x-content-header titulo="Listado de compras">
+    <x-content-header titulo="Buscar Ingresos a Almacén">
         <a class="btn btn-success float-right"
            href="{{ route('compras.create') }}">
             <i class="fa fa-plus"></i>
-            Nueva compra
+            Nueva Ingreso de Almacén
         </a>
     </x-content-header>
 

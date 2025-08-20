@@ -21744,6 +21744,11 @@ namespace App\Console\Commands {
             /**
      * 
      *
+     */        class NoticiaPruebaCommand {
+            }
+            /**
+     * 
+     *
      */        class ObtenerCodigoRequisicionPorCodigoKardex {
             }
             /**
