@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CompraSolicitudEstado;
 use App\Models\User;
 
-class CompraSolicitudAprobarController extends Controller
+class CompraSolicitudConsolidarController extends Controller
 {
     public function index(SolicitudCompraUnificarTable $dataTable)
     {

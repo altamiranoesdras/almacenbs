@@ -41,13 +41,13 @@
                         <form id="formFiltersDatatables">
                             <div class="row">
                                 <div class="col-sm-4 mb-1">
-                                    {!! Form::label('proveedor_id','Unidad: ') !!}
+                                    {!! Form::label('$unidad_id','Unidad: ') !!}
                                     {!!
                                         Form::select(
-                                            'proveedores',
+                                            'unidad_id',
                                             select(\App\Models\RrhhUnidad::class,'nombre','id',null)
                                             , $unidad_id ?? null
-                                            , ['id'=>'proveedores','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
+                                            , ['id'=>'unidades','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
                                         )
                                     !!}
                                 </div>

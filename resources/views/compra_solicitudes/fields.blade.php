@@ -244,7 +244,7 @@
             <div class="card-footer">
                 <div class="row mb1">
 
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-outline-danger round" data-bs-toggle="modal"
                                 data-target="#modalAnular">
@@ -253,23 +253,23 @@
                     </div>
 
 
-                    <div class="col-sm-3 text-center">
+{{--                    <div class="col-sm-3 text-center">--}}
 
-                        <a href="{!! route('compra.solicitudes.pdf',$compraSolicitud->id ?? 0) !!}"
-                           class="btn btn-outline-primary round" target="_blank">
-                            <i class="fa fa-print"></i> Imprimir
-                        </a>
+{{--                        <a href="{!! route('compra.solicitudes.pdf',$compraSolicitud->id ?? 0) !!}"--}}
+{{--                           class="btn btn-outline-primary round" target="_blank">--}}
+{{--                            <i class="fa fa-print"></i> Imprimir--}}
+{{--                        </a>--}}
 
-                    </div>
+{{--                    </div>--}}
 
-                    <div class="col-sm-3 text-center">
+                    <div class="col-sm-4 text-center">
 
                         <button type="submit" class="btn btn-outline-success round">
                             <i class="fa fa-save"></i> Guardar
                         </button>
                     </div>
 
-                    <div class="col-sm-3 text-end">
+                    <div class="col-sm-4 text-end">
                         <button type="button"  class="btn btn-outline-primary round" @click="procesar()">
                             <i class="fa fa-paper-plane"></i>
                             Solicitar
