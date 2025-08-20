@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -769,11 +770,20 @@ class Item extends Model implements HasMedia
 
     public function scopeEnSolicitudCompraActiva($query): Builder
     {
-        return $query->whereHas('solicitudDetalles', function ($q) {
+        return $query->whereHas('compraSolicitudDetalles', function ($q) {
             $q->whereHas('solicitud', function ($q) {
-                $q->where('estado_id', '!=', SolicitudEstado::ANULADA);
+                $q->whereNotIn('estado_id', [
+                    CompraSolicitudEstado::CANCELADA,
+                    CompraSolicitudEstado::ASIGNADA_A_REQUISICION,
+                ]);
             });
         });
+
+    }
+
+    public function compraSolicitudDetalles(): HasMany
+    {
+        return $this->hasMany(CompraSolicitudDetalle::class,'item_id');
 
     }
 }

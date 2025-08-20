@@ -67,7 +67,7 @@
                                     {!!
                                         Form::select(
                                             'items',
-                                            select(\App\Models\Item::conIngresos(),'text','id',null)
+                                            select(\App\Models\Item::enSolicitudCompraActiva(),'text','id',null)
                                             , null
                                             , ['id'=>'items','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
                                         )
