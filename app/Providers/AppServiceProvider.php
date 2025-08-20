@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Configuration;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,5 +30,16 @@ class AppServiceProvider extends ServiceProvider
             }
 
         }
+
+
+        if (app()->runningInConsole()) {
+            $platform = DB::connection()->getDoctrineSchemaManager()->getDatabasePlatform();
+
+            $platform->registerDoctrineTypeMapping('enum', 'string');
+            $platform->registerDoctrineTypeMapping('set', 'string');      // opcional
+            $platform->registerDoctrineTypeMapping('bit', 'boolean');     // opcional
+            // $platform->registerDoctrineTypeMapping('json', 'text');    // opcional según tu versión
+        }
+
     }
 }

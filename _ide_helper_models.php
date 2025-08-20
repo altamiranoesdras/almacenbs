@@ -1723,6 +1723,7 @@ namespace App\Models{
  * @property string $folio_siguiente
  * @property integer $usuario_id
  * @property int $id
+ * @property string|null $concepto
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -2226,41 +2227,60 @@ namespace App\Models{
 /**
  * Class RrhhUnidad
  *
- * @package App\Models
- * @version August 8, 2022, 12:14 am CST
- * @property \App\Models\User $jefe
- * @property \Illuminate\Database\Eloquent\Collection $puestos
- * @property \Illuminate\Database\Eloquent\Collection $solicitudes
- * @property \Illuminate\Database\Eloquent\Collection $usuarios
- * @property string $nombre
- * @property integer $jefe_id
- * @property string $activa
  * @property int $id
+ * @property string $codigo
+ * @property string $nombre
+ * @property int $unidad_tipo_id
+ * @property int|null $unidad_padre_id
+ * @property int|null $jefe_id
+ * @property string $activa
+ * @property string $solicita
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\User|null $jefe
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RrhhPuesto> $puestos
  * @property-read int|null $puestos_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Solicitud> $solicitudes
  * @property-read int|null $solicitudes_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $usuarios
  * @property-read int|null $usuarios_count
- * @method static \Database\Factories\RrhhUnidadFactory factory(...$parameters)
+ * @method static \Database\Factories\RrhhUnidadFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad newQuery()
- * @method static \Illuminate\Database\Query\Builder|RrhhUnidad onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad query()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereActiva($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereCodigo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereJefeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereNombre($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereSolicita($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereUnidadPadreId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereUnidadTipoId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|RrhhUnidad withTrashed()
- * @method static \Illuminate\Database\Query\Builder|RrhhUnidad withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad withoutTrashed()
  * @mixin \Eloquent
- * @property string $codigo
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereCodigo($value)
  */
 	class RrhhUnidad extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @method static \Database\Factories\RrhhUnidadTipoFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidadTipo newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidadTipo newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidadTipo onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidadTipo query()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidadTipo withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidadTipo withoutTrashed()
+ */
+	class RrhhUnidadTipo extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -2708,6 +2728,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User withoutPermission($permissions)
  * @method static \Illuminate\Database\Eloquent\Builder|User withoutRole($roles, $guard = null)
  * @mixin \Eloquent
+ * @property-read mixed $rubrica
  */
 	class User extends \Eloquent implements \Spatie\MediaLibrary\HasMedia {}
 }

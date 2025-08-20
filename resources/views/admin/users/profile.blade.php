@@ -65,8 +65,7 @@
 
 
                                         <!-- Modal -->
-                                        <div class="modal fade" id="modal-edit-avatar" tabindex="-1" role="dialog"
-                                             aria-labelledby="modelTitleId" aria-hidden="true">
+                                        <div class="modal fade" id="modal-edit-avatar" tabindex="-1" role="dialog"aria-labelledby="modelTitleId" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header" >
@@ -75,9 +74,6 @@
                                                         </h4>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
-
-
-
                                                     <div class="modal-body">
                                                         <div class="container-fluid">
                                                             <div class="img-container">
@@ -85,13 +81,40 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
-
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-outline-success " id="set_new_profile_pictur">
                                                             {{__('Set new profile picture')}}
                                                         </button>
                                                         <div class="spinner-border text-success" role="status" id="uploadaAvatarSpinner" style="display: none">
+                                                            <span class="sr-only">Loading...</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Modal Rubrica-->
+                                        <div class="modal fade" id="modal-edit-rubrica" tabindex="-1" role="dialog"aria-labelledby="modelTitleId" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header" >
+                                                        <h4 class="modal-title" id="myModalLabel1">
+                                                            Editar tu Rubrica
+                                                        </h4>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="container-fluid">
+                                                            <div class="img-container">
+                                                                <img id="imgNewRubrica" src="{{auth()->user()->rubrica}}" alt="Picture" class="img-fluid">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-outline-success " id="set_new_rubrica_picture">
+                                                            Establecer Rubrica
+                                                        </button>
+                                                        <div class="spinner-border text-success" role="status" id="uploadaRubricaSpinner" style="display: none">
                                                             <span class="sr-only">Loading...</span>
                                                         </div>
                                                     </div>
@@ -140,6 +163,26 @@
                                             {!! Form::text('email', null, ['class' => 'form-control', 'readonly' => auth()->user()->cannot('Editar correo electrónico')]) !!}
                                         </div>
 
+                                        <div class="col-12 mb-1">
+                                            {!! Form::label('rubrica', __('Rubrica')) !!}
+
+                                            @if(auth()->user()->rubrica != null)
+                                                <div class="p-1 rounded border">
+                                                    <img class="border mx-auto" height="150" width="auto"  src="{{auth()->user()->rubrica}}" alt="" id="upload_link_rubrica">
+                                                    <input id="upload_rubrica" type="file" style="display: none" accept=".png, .jpg, .jpeg" />
+                                                </div>
+                                            @else
+                                                <div class="p-1 rounded border">
+                                                    <button id="upload_link_rubrica" class="btn btn-primary">
+                                                        Subir Rubrica
+                                                        <i class="fa fa-upload"></i>
+                                                    </button>
+                                                    <input id="upload_rubrica" type="file" style="display: none" accept=".png, .jpg, .jpeg" />
+                                                </div>
+                                            @endif
+
+                                        </div>
+
                                     </div>
 
                                 </div><!-- /.card-body -->
@@ -183,6 +226,13 @@
                 $("#upload:hidden").trigger('click');
             });
 
+            //para abrir el imput tipo file
+            $("#upload_link_rubrica").on('click', function(e){
+                e.preventDefault();
+                $("#upload_rubrica:hidden").trigger('click');
+
+            });
+
 
             //después de seleccionar el archivo (carga la imagen en el modal y lo abre)
             $("#upload").change(function () {
@@ -200,11 +250,24 @@
 
             });
 
+            $("#upload_rubrica").change(function () {
+
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#imgNewRubrica').attr('src', e.target.result);
+                        $("#modal-edit-rubrica").modal('show');
+                    }
+
+                    reader.readAsDataURL(this.files[0]);
+                }
+
+            });
+
             var cropBoxData;
             var canvasData;
             var cropper;
-
-
 
             //Cuando el modal se abre (inicializa el plugin para recortar la imagen)
             $('#modal-edit-avatar').on('shown.bs.modal', function () {
@@ -224,6 +287,22 @@
                 cropper.destroy();
             });
 
+            $('#modal-edit-rubrica').on('shown.bs.modal', function () {
+
+                var image = document.getElementById('imgNewRubrica');
+
+                cropper = new Cropper(image, {
+                    autoCropArea: 1,
+                    ready: function () {
+                        //Should set crop box data first here
+                        cropper.setCropBoxData(cropBoxData).setCanvasData(canvasData);
+                    }
+                });
+            }).on('hidden.bs.modal', function () {
+                cropBoxData = cropper.getCropBoxData();
+                canvasData = cropper.getCanvasData();
+                cropper.destroy();
+            });
 
             $("#set_new_profile_pictur").click(function (e) {
 
@@ -256,6 +335,46 @@
                         log(response);
 
                         $("#modal-edit-avatar").modal('hide');
+                        location.reload();
+                    })
+                    .catch(error => {
+                        log(error.response);
+                    });
+
+
+                });
+            })
+
+            $("#set_new_rubrica_picture").click(function (e) {
+
+                e.preventDefault();
+
+                $("#uploadaRubricaSpinner").show();
+
+                cropper.getCroppedCanvas().toBlob(function (blob) {
+
+                    const formData = new FormData();
+                    const extension = blob.type.split('/')[1];
+                    const imageFile = new File([blob], `${Date.now()}.${extension}`, {
+                        type: blob.type,
+                    });
+
+                    formData.append('rubrica', imageFile);
+                    console.log(blob,formData);
+
+                    const header = {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    };
+
+                    const url = '{{route('profile.edit.rubrica',auth()->user()->id)}}';
+
+                    axios.post(url,formData,header)
+                    .then(response => {
+                        log(response);
+
+                        $("#modal-edit-rubrica").modal('hide');
                         location.reload();
                     })
                     .catch(error => {

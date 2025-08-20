@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('titulo_pagina', 'Compra Solicituds')
+@section('titulo_pagina', 'Mis Solicitudes de Compra')
 @include('layouts.plugins.select2')
 
 @section('content')
@@ -11,7 +11,7 @@
                 <div class="col-12">
                     <h2 class="content-header-title float-start mb-0">
                         <h1>
-                            Requisiciones de Compra
+                            Mis Solicitudes de Compra
                         </h1>
                     </h2>
                 </div>
@@ -21,7 +21,7 @@
             <div class="mb-1 breadcrumb-right">
                 <div class="dropdown">
                     <a class="btn btn-outline-success float-end round"
-                       href="{{ route('compra.requisiciones.create') }}">
+                       href="{{ route('compra.solicitudes.create') }}">
                         <i class="fa fa-plus"></i>
                         Agregar
                     </a>

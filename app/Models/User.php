@@ -16,88 +16,81 @@ use Spatie\Permission\Traits\HasRoles;
 /**
  * Class User
  *
- * @package App\Models
- * @version August 6, 2022, 10:40 am CST
- * @property \App\Models\Bodega $bodega
- * @property \App\Models\RrhhPuesto $puesto
- * @property \App\Models\RrhhUnidad $unidad
- * @property \Illuminate\Database\Eloquent\Collection $compra1hs
- * @property \Illuminate\Database\Eloquent\Collection $compras
- * @property \Illuminate\Database\Eloquent\Collection $compra1s
- * @property \Illuminate\Database\Eloquent\Collection $itemsTraslados
- * @property \Illuminate\Database\Eloquent\Collection $kardexs
- * @property \Illuminate\Database\Eloquent\Collection $options
- * @property \Illuminate\Database\Eloquent\Collection $rrhhUnidade2s
- * @property \Illuminate\Database\Eloquent\Collection $solicitudes
- * @property \Illuminate\Database\Eloquent\Collection $solicitude3s
- * @property \Illuminate\Database\Eloquent\Collection $solicitude4s
- * @property \Illuminate\Database\Eloquent\Collection $solicitude5s
- * @property \Illuminate\Database\Eloquent\Collection $solicitude6s
- * @property \Illuminate\Database\Eloquent\Collection $stockIniciales
- * @property \App\Models\UserDespachaUser $userDespachaUser
- * @property \Illuminate\Database\Eloquent\Collection $userDespachaUser7s
- * @property \Illuminate\Database\Eloquent\Collection $option8s
- * @property string $username
- * @property string $name
- * @property string $nit
- * @property string $email
- * @property string|\Carbon\Carbon $email_verified_at
- * @property string $password
- * @property integer $unidad_id
- * @property integer $puesto_id
- * @property string $provider
- * @property string $provider_uid
- * @property string $remember_token
  * @property int $id
+ * @property string|null $username
+ * @property string $name
  * @property int|null $dpi
+ * @property string|null $nit
+ * @property string|null $email
+ * @property \Illuminate\Support\Carbon|null $email_verified_at
+ * @property string|null $password
+ * @property int|null $bodega_id
+ * @property int|null $unidad_id
+ * @property int|null $puesto_id
+ * @property string|null $provider
+ * @property string|null $provider_uid
+ * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Client[] $clients
- * @property-read int|null $clients_count
+ * @property-read \App\Models\Bodega|null $bodega
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Compra1h> $compra1hs
  * @property-read int|null $compra1hs_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Compra> $compras
  * @property-read int|null $compras_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Compra[] $comprasRecibe
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Compra> $comprasRecibe
  * @property-read int|null $compras_recibe_count
  * @property-read mixed $img
- * @property-read mixed $thumb
+ * @property-read mixed $miniatura
+ * @property-read mixed $rubrica
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ItemTraslado> $itemsTraslados
+ * @property-read int|null $items_traslados_count
  * @property-read \App\Models\RrhhUnidad|null $jefeUnidad
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Kardex> $kardexs
  * @property-read int|null $kardexs_count
- * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\App\Models\Media[] $media
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, Media> $media
  * @property-read int|null $media_count
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Option> $options
  * @property-read int|null $options_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Permission[] $permissions
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Permission> $permissions
  * @property-read int|null $permissions_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Role[] $roles
+ * @property-read \App\Models\RrhhPuesto|null $puesto
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Role> $roles
  * @property-read int|null $roles_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Option[] $shortcuts
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Option> $shortcuts
  * @property-read int|null $shortcuts_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Solicitud> $solicitudes
  * @property-read int|null $solicitudes_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Solicitud[] $solicitudesAprueba
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Solicitud> $solicitudesAprueba
  * @property-read int|null $solicitudes_aprueba_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Solicitud[] $solicitudesAutoriza
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Solicitud> $solicitudesAutoriza
  * @property-read int|null $solicitudes_autoriza_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Solicitud[] $solicitudesCrea
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Solicitud> $solicitudesCrea
  * @property-read int|null $solicitudes_crea_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Solicitud[] $solicitudesDespacha
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Solicitud> $solicitudesDespacha
  * @property-read int|null $solicitudes_despacha_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Token[] $tokens
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\StockInicial> $stockIniciales
+ * @property-read int|null $stock_iniciales_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
- * @property-read \Illuminate\Database\Eloquent\Collection|User[] $usersDespacha
+ * @property-read \App\Models\RrhhUnidad|null $unidad
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $usersDespacha
  * @property-read int|null $users_despacha_count
- * @property-read \Illuminate\Database\Eloquent\Collection|User[] $usersSolicita
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $usersSolicita
  * @property-read int|null $users_solicita_count
  * @method static \Illuminate\Database\Eloquent\Builder|User admins()
- * @method static \Database\Factories\UserFactory factory(...$parameters)
+ * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|User jefes()
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User noClientes()
- * @method static \Illuminate\Database\Query\Builder|User onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|User permission($permissions)
+ * @method static \Illuminate\Database\Eloquent\Builder|User onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|User permission($permissions, $without = false)
  * @method static \Illuminate\Database\Eloquent\Builder|User query()
- * @method static \Illuminate\Database\Eloquent\Builder|User role($roles, $guard = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|User role($roles, $guard = null, $without = false)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereBodegaId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereDpi($value)
@@ -114,15 +107,10 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUnidadId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUsername($value)
- * @method static \Illuminate\Database\Query\Builder|User withTrashed()
- * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
- * @property-read int|null $items_traslados_count
- * @property-read int|null $stock_iniciales_count
- * @property int|null $bodega_id
- * @method static \Illuminate\Database\Eloquent\Builder|User whereBodegaId($value)
- * @property-read mixed $miniatura
+ * @method static \Illuminate\Database\Eloquent\Builder|User withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|User withoutPermission($permissions)
  * @method static \Illuminate\Database\Eloquent\Builder|User withoutRole($roles, $guard = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|User withoutTrashed()
  * @mixin \Eloquent
  */
 class User extends Authenticatable implements  HasMedia
@@ -385,6 +373,12 @@ class User extends Authenticatable implements  HasMedia
     {
         $media = $this->getMedia('avatars')->last();
         return $media ? $media->getUrl() : asset('img/avatar5.png');
+    }
+
+    public function getRubricaAttribute()
+    {
+        $media = $this->getMedia('rubricas')->last();
+        return $media ? $media->getUrl() : null;
     }
 
     public function getMiniaturaAttribute()

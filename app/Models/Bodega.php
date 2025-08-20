@@ -2,30 +2,28 @@
 
 namespace App\Models;
 
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class Bodega
  *
- * @package App\Models
- * @version December 19, 2022, 11:01 pm CST
- * @property \Illuminate\Database\Eloquent\Collection $stocks
- * @property \Illuminate\Database\Eloquent\Collection $users
- * @property string $nombre
- * @property string $direccion
- * @property string $telefono
  * @property int $id
+ * @property string $nombre
+ * @property string|null $direccion
+ * @property string|null $telefono
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Stock> $stocks
  * @property-read int|null $stocks_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
  * @property-read int|null $users_count
- * @method static \Database\Factories\BodegaFactory factory(...$parameters)
+ * @method static \Database\Factories\BodegaFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Bodega newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Bodega newQuery()
- * @method static \Illuminate\Database\Query\Builder|Bodega onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Bodega onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Bodega query()
  * @method static \Illuminate\Database\Eloquent\Builder|Bodega whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Bodega whereDeletedAt($value)
@@ -34,8 +32,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|Bodega whereNombre($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Bodega whereTelefono($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Bodega whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|Bodega withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Bodega withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Bodega withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Bodega withoutTrashed()
  * @mixin Model
  */
 class Bodega extends Model

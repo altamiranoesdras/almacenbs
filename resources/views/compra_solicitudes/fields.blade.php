@@ -11,9 +11,7 @@
                     </small>
                 </h3>
             </div>
-            <!-- /.card-header -->
-            <div class="card-content" style="">
-                <div class="card-body">
+            <div class="card-body">
 
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
@@ -36,7 +34,7 @@
                                     min="0" step="any"
                                     class="form-control"
                                     ref="cantidad"
-                                    @keydown.enter.prevent="siguienteCampo('precio_compra')"
+                                    @keydown.enter.prevent="siguienteCampo('precio_estimado')"
                                 >
                             </div>
                         </div>
@@ -51,10 +49,10 @@
 
 
                                 <input
-                                    v-model="editedItem.precio_compra"
+                                    v-model="editedItem.precio_estimado"
                                     type="number"
                                     min="0" step="any"
-                                    ref="precio_compra"
+                                    ref="precio_estimado"
                                     class="form-control"
                                     placeholder="Monto Estimado"
                                     @keydown.enter.prevent="siguienteCampo('agregar')"
@@ -109,7 +107,7 @@
                                 <td v-text="detalle.item.presentacion ? detalle.item.presentacion.nombre : 'Sin unidad'"></td>
                                 <td v-text="detalle.item.unimed ? detalle.item.unimed.nombre : 'Sin unidad'"></td>
                                 <td v-text="detalle.item.codigo_presentacion"></td>
-                                <td v-text="dvs + nfp(detalle.precio_compra)"></td>
+                                <td v-text="dvs + nfp(detalle.precio_estimado)"></td>
                                 <td v-text="dvs + nfp(detalle.sub_total)"></td>
                                 <td width="10px">
 
@@ -171,112 +169,116 @@
                             >{{$compraSolicitud->justificacion ?? ''}}</textarea>
                         </div>
 
-                        <div class="col-6 mb-1">
-                            subproductos
-                            <table class="table table-sm">
-                                <tbody >
-                                <tr>
-                                    <td>
-                                        <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"
-                                               value="{{explode('|',$compraSolicitud->subproductos)[0] ?? ''}}">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"
-                                               value="{{explode('|',$compraSolicitud->subproductos)[1] ?? ''}}">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"
-                                               value="{{explode('|',$compraSolicitud->subproductos)[2] ?? ''}}">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"
-                                               value="{{explode('|',$compraSolicitud->subproductos)[3] ?? ''}}">
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+{{--                        <div class="col-6 mb-1">--}}
+{{--                            subproductos--}}
+{{--                            <table class="table table-sm">--}}
+{{--                                <tbody >--}}
+{{--                                <tr>--}}
+{{--                                    <td>--}}
+{{--                                        <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"--}}
+{{--                                               value="{{explode('|',$compraSolicitud->subproductos)[0] ?? ''}}">--}}
+{{--                                    </td>--}}
+{{--                                </tr>--}}
+{{--                                <tr>--}}
+{{--                                    <td>--}}
+{{--                                        <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"--}}
+{{--                                               value="{{explode('|',$compraSolicitud->subproductos)[1] ?? ''}}">--}}
+{{--                                    </td>--}}
+{{--                                </tr>--}}
+{{--                                <tr>--}}
+{{--                                    <td>--}}
+{{--                                        <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"--}}
+{{--                                               value="{{explode('|',$compraSolicitud->subproductos)[2] ?? ''}}">--}}
+{{--                                    </td>--}}
+{{--                                </tr>--}}
+{{--                                <tr>--}}
+{{--                                    <td>--}}
+{{--                                        <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"--}}
+{{--                                               value="{{explode('|',$compraSolicitud->subproductos)[3] ?? ''}}">--}}
+{{--                                    </td>--}}
+{{--                                </tr>--}}
+{{--                                </tbody>--}}
+{{--                            </table>--}}
 
-                        </div>
-                        <div class="col-6 mb-1">
-                            PARTIDAS PRESUPUESTARIAS
-                            <table class="table table-sm">
-                                <tbody>
-                                <tr>
-                                    <td>
-                                        <input type="text" name="partidas[]" id="partidas[]" class="form-control"
-                                               value="{{explode('|',$compraSolicitud->partidas)[0] ?? ''}}">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="text" name="partidas[]" id="partidas[]" class="form-control"
-                                               value="{{explode('|',$compraSolicitud->partidas)[1] ?? ''}}">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="text" name="partidas[]" id="partidas[]" class="form-control"
-                                               value="{{explode('|',$compraSolicitud->partidas)[2] ?? ''}}">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="text" name="partidas[]" id="partidas[]" class="form-control"
-                                               value="{{explode('|',$compraSolicitud->partidas)[3] ?? ''}}">
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+{{--                        </div>--}}
+{{--                        <div class="col-6 mb-1">--}}
+{{--                            PARTIDAS PRESUPUESTARIAS--}}
+{{--                            <table class="table table-sm">--}}
+{{--                                <tbody>--}}
+{{--                                <tr>--}}
+{{--                                    <td>--}}
+{{--                                        <input type="text" name="partidas[]" id="partidas[]" class="form-control"--}}
+{{--                                               value="{{explode('|',$compraSolicitud->partidas)[0] ?? ''}}">--}}
+{{--                                    </td>--}}
+{{--                                </tr>--}}
+{{--                                <tr>--}}
+{{--                                    <td>--}}
+{{--                                        <input type="text" name="partidas[]" id="partidas[]" class="form-control"--}}
+{{--                                               value="{{explode('|',$compraSolicitud->partidas)[1] ?? ''}}">--}}
+{{--                                    </td>--}}
+{{--                                </tr>--}}
+{{--                                <tr>--}}
+{{--                                    <td>--}}
+{{--                                        <input type="text" name="partidas[]" id="partidas[]" class="form-control"--}}
+{{--                                               value="{{explode('|',$compraSolicitud->partidas)[2] ?? ''}}">--}}
+{{--                                    </td>--}}
+{{--                                </tr>--}}
+{{--                                <tr>--}}
+{{--                                    <td>--}}
+{{--                                        <input type="text" name="partidas[]" id="partidas[]" class="form-control"--}}
+{{--                                               value="{{explode('|',$compraSolicitud->partidas)[3] ?? ''}}">--}}
+{{--                                    </td>--}}
+{{--                                </tr>--}}
+{{--                                </tbody>--}}
+{{--                            </table>--}}
 
-                        </div>
+{{--                        </div>--}}
                     </div>
 
-                    <div class="row mb1">
 
-                        <div class="col-sm-3">
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-outline-danger round" data-bs-toggle="modal"
-                                    data-target="#modalAnular">
-                                <i class="fa fa-ban"></i> Anular
-                            </button>
-                        </div>
-
-
-                        <div class="col-sm-3 text-center">
-
-                            <a href="{!! route('compra.requisiciones.pdf',$compraSolicitud->id ?? 0) !!}"
-                               class="btn btn-outline-primary round" target="_blank">
-                                <i class="fa fa-print"></i> Imprimir
-                            </a>
-
-                        </div>
-
-                        <div class="col-sm-3 text-center">
-
-                            <button type="submit" class="btn btn-outline-success round">
-                                <i class="fa fa-save"></i> Guardar
-                            </button>
-                        </div>
-
-                        @if($compraSolicitud->estado_id !== \App\Models\CompraSolicitudEstado::TEMPORAL)
-                            <div class="col-sm-3">
-                                <button type="button"  class="btn btn-outline-primary round" @click="procesar()">
-                                    <i class="fa fa-paper-plane"></i>
-                                    Solicitar
-                                </button>
-                            </div>
-                        @endif
-                    </div>
 
 
                 </div>
+
+            {{--Card footer--}}
+            <div class="card-footer">
+                <div class="row mb1">
+
+                    <div class="col-sm-3">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-outline-danger round" data-bs-toggle="modal"
+                                data-target="#modalAnular">
+                            <i class="fa fa-ban"></i> Anular
+                        </button>
+                    </div>
+
+
+                    <div class="col-sm-3 text-center">
+
+                        <a href="{!! route('compra.solicitudes.pdf',$compraSolicitud->id ?? 0) !!}"
+                           class="btn btn-outline-primary round" target="_blank">
+                            <i class="fa fa-print"></i> Imprimir
+                        </a>
+
+                    </div>
+
+                    <div class="col-sm-3 text-center">
+
+                        <button type="submit" class="btn btn-outline-success round">
+                            <i class="fa fa-save"></i> Guardar
+                        </button>
+                    </div>
+
+                    <div class="col-sm-3 text-end">
+                        <button type="button"  class="btn btn-outline-primary round" @click="procesar()">
+                            <i class="fa fa-paper-plane"></i>
+                            Solicitar
+                        </button>
+                    </div>
+                </div>
             </div>
+
+
 
         </div>
     </div>
@@ -332,7 +334,7 @@
                     item_id: null,
                     cantidad: 1,
                     precio_venta: 0,
-                    precio_compra: 0,
+                    precio_estimado: 0,
                     solicitud_id: @json($compraSolicitud->id ?? null),
                 },
                 defaultItem: {
@@ -340,7 +342,7 @@
                     item_id: null,
                     cantidad: 1,
                     precio_venta: 0,
-                    precio_compra: 0,
+                    precio_estimado: 0,
                     solicitud_id: @json($compraSolicitud->id ?? null),
                 },
 
@@ -482,7 +484,7 @@
                     var t = 0;
 
                     $.each(this.detalles, function (i, det) {
-                        t += det.cantidad * det.precio_compra;
+                        t += det.cantidad * det.precio_estimado;
                     });
 
                     return t;
@@ -504,7 +506,7 @@
 
 
                         this.editedItem.precio_venta = item.precio_venta;
-                        this.editedItem.precio_compra = item.precio_compra;
+                        this.editedItem.precio_estimado = item.precio_estimado;
                         this.editedItem.item_id = item.id;
                         $(this.$refs.cantidad).focus().select();
 

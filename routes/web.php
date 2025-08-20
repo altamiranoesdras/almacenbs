@@ -58,6 +58,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserDespachaUserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LayoutController;
 
 Auth::routes(['verify' => true]);
 
@@ -128,6 +129,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::patch('profile/{user}', [ProfileController::class,'update'])->name('profile.update');
     Route::patch('profile/{user}/update/password', [ProfileController::class,'updatePassword'])->name('profile.update.password');
     Route::post('profile/{user}/edit/avatar', [ProfileController::class,'editAvatar'])->name('profile.edit.avatar');
+    Route::post('profile/{user}/edit/rubrica', [UserController::class,'guardarRubrica'])->name('profile.edit.rubrica');
     Route::get('profile/{user}/remove/avatar', [ProfileController::class,'removeAvatar'])->name('profile.remove.avatar');
 
 
@@ -333,6 +335,9 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     include 'rutas_compra_ordenes.php';
 
+    Route::resource('costo-centros', App\Http\Controllers\CostoCentroController::class);
+
+
 });
 
 
@@ -355,3 +360,9 @@ Route::group(['prefix' => ''], function () {
 });
 
 Route::get('/test', [TestController::class, 'test'])->name('test');
+Route::get('/test-reverb', [TestController::class, 'reverb'])->name('reverb');
+Route::post('/test-reverb', [TestController::class, 'testEvent'])->name('test.reverb');
+
+
+Route::post('/firmar-documento', [TestController::class, 'firmarDocumento'])->name('firmar.documento');
+Route::post('change-layout', [LayoutController::class, 'changeLayout'])->name('change.layout');

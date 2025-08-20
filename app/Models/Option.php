@@ -23,20 +23,20 @@ use Illuminate\Support\Facades\Auth;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|Option[] $children
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Option> $children
  * @property-read int|null $children_count
  * @property-read mixed $active
  * @property-read mixed $ruta_evaluada
  * @property-read mixed $text
  * @property-read mixed $visible_to_user
  * @property-read Option|null $parent
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Role[] $roles
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Role> $roles
  * @property-read int|null $roles_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
  * @property-read int|null $users_count
  * @method static \Illuminate\Database\Eloquent\Builder|Option newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Option newQuery()
- * @method static \Illuminate\Database\Query\Builder|Option onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Option onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Option padres()
  * @method static \Illuminate\Database\Eloquent\Builder|Option padresDe($chidres)
  * @method static \Illuminate\Database\Eloquent\Builder|Option query()
@@ -54,8 +54,8 @@ use Illuminate\Support\Facades\Auth;
  * @method static \Illuminate\Database\Eloquent\Builder|Option whereRecursos($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Option whereRuta($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Option whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|Option withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Option withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Option withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Option withoutTrashed()
  * @mixin \Eloquent
  */
 class Option extends Model

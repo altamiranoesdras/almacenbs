@@ -10,36 +10,38 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class Stock
  *
- * @package App\Models
- * @version July 27, 2022, 12:25 pm CST
- * @property \App\Models\Item $item
- * @property \Illuminate\Database\Eloquent\Collection $stocksTransacciones
- * @property integer $item_id
- * @property string $lote
- * @property string|\Carbon\Carbon $fecha_ing
- * @property string $fecha_vence
- * @property number $precio_compra
- * @property number $cantidad
- * @property number $sub_total
- * @property number $cantidad_inicial
- * @property boolean $orden_salida
  * @property int $id
+ * @property int $item_id
+ * @property int|null $bodega_id
+ * @property string|null $lote
+ * @property \Illuminate\Support\Carbon $fecha_ing
+ * @property \Illuminate\Support\Carbon|null $fecha_vence
+ * @property string $precio_compra
+ * @property string $cantidad
+ * @property string $cantidad_inicial
+ * @property bool $orden_salida
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Bodega|null $bodega
  * @property-read mixed $codigo
  * @property-read mixed $responsable
+ * @property-read mixed $sub_total
+ * @property-read \App\Models\Item $item
  * @property-read \App\Models\Kardex|null $kardex
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\StockTransaccion[] $transaccion
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\StockTransaccion> $transaccion
  * @property-read int|null $transaccion_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock conIngresos()
  * @method static \Illuminate\Database\Eloquent\Builder|Stock conStock()
- * @method static \Database\Factories\StockFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock deBodega($bodega = null)
+ * @method static \Database\Factories\StockFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Stock newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Stock newQuery()
- * @method static \Illuminate\Database\Query\Builder|Stock onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Stock quedanMeses($meses)
  * @method static \Illuminate\Database\Eloquent\Builder|Stock query()
  * @method static \Illuminate\Database\Eloquent\Builder|Stock vencidos()
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock whereBodegaId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereCantidad($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereCantidadInicial($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereCreatedAt($value)
@@ -52,13 +54,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereOrdenSalida($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Stock wherePrecioCompra($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|Stock withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Stock withoutTrashed()
- * @property int|null $bodega_id
- * @method static \Illuminate\Database\Eloquent\Builder|Stock conIngresos()
- * @method static \Illuminate\Database\Eloquent\Builder|Stock whereBodegaId($value)
- * @property-read \App\Models\Bodega|null $bodega
- * @method static \Illuminate\Database\Eloquent\Builder|Stock deBodega($bodega = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock withoutTrashed()
  * @mixin \Eloquent
  */
 class Stock extends Model

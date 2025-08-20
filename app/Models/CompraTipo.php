@@ -9,27 +9,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class CompraTipo
  *
- * @package App\Models
- * @version July 27, 2022, 12:20 pm CST
- * @property \Illuminate\Database\Eloquent\Collection $compras
- * @property string $nombre
  * @property int $id
+ * @property string $nombre
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Compra> $compras
  * @property-read int|null $compras_count
- * @method static \Database\Factories\CompraTipoFactory factory(...$parameters)
+ * @method static \Database\Factories\CompraTipoFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|CompraTipo newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraTipo newQuery()
- * @method static \Illuminate\Database\Query\Builder|CompraTipo onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraTipo onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraTipo query()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraTipo whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraTipo whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraTipo whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraTipo whereNombre($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraTipo whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|CompraTipo withTrashed()
- * @method static \Illuminate\Database\Query\Builder|CompraTipo withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraTipo withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraTipo withoutTrashed()
  * @mixin \Eloquent
  */
 class CompraTipo extends Model

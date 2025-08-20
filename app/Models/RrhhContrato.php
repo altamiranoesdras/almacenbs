@@ -9,25 +9,23 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class RrhhContrato
  *
- * @package App\Models
- * @version December 8, 2022, 11:13 am CST
- * @property \App\Models\RrhhColaborador $colaborador
- * @property \App\Models\RrhhUnidad $unidad
- * @property \App\Models\RrhhPuesto $puesto
- * @property integer $colaborador_id
- * @property integer $unidad_id
- * @property integer $puesto_id
- * @property string $numero
- * @property string $inicio
- * @property string $fin
  * @property int $id
+ * @property int $colaborador_id
+ * @property int $unidad_id
+ * @property int|null $puesto_id
+ * @property string $numero
+ * @property \Illuminate\Support\Carbon $inicio
+ * @property \Illuminate\Support\Carbon|null $fin
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @method static \Database\Factories\RrhhContratoFactory factory(...$parameters)
+ * @property-read \App\Models\RrhhColaborador $colaborador
+ * @property-read \App\Models\RrhhPuesto|null $puesto
+ * @property-read \App\Models\RrhhUnidad $unidad
+ * @method static \Database\Factories\RrhhContratoFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhContrato newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhContrato newQuery()
- * @method static \Illuminate\Database\Query\Builder|RrhhContrato onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhContrato onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhContrato query()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhContrato whereColaboradorId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhContrato whereCreatedAt($value)
@@ -39,8 +37,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhContrato wherePuestoId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhContrato whereUnidadId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhContrato whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|RrhhContrato withTrashed()
- * @method static \Illuminate\Database\Query\Builder|RrhhContrato withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhContrato withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhContrato withoutTrashed()
  * @mixin Model
  */
 class RrhhContrato extends Model

@@ -16,7 +16,7 @@ class CompraSolicitudDataTable extends DataTable
      * @param mixed $query Results from query() method.
      * @return \Yajra\DataTables\DataTableAbstract
      */
-    public function dataTable($query) 
+    public function dataTable($query)
     {
 
         $dataTable = new EloquentDataTable($query);
@@ -31,11 +31,11 @@ class CompraSolicitudDataTable extends DataTable
                 return $compraSolicitud->bodega->nombre ?? 'Principal';
 
             })
-            ->editColumn('proveedor.nombre', function (CompraSolicitud $compraSolicitud) {
-
-                return $compraSolicitud->proveedor->nombre ?? 'Sin Proveedor';
-
-            })
+//            ->editColumn('proveedor.nombre', function (CompraSolicitud $compraSolicitud) {
+//
+//                return $compraSolicitud->proveedor->nombre ?? 'Sin Proveedor';
+//
+//            })
             ->editColumn('estado.nombre', function (CompraSolicitud $compraSolicitud) {
 
                 return $compraSolicitud->estado->nombre ?? 'Sin Estado';
@@ -46,16 +46,16 @@ class CompraSolicitudDataTable extends DataTable
                 return $compraSolicitud->usuarioSolicita->name ?? 'Sin Usuario';
 
             })
-            ->editColumn('usuarioAprueba.name', function (CompraSolicitud $compraSolicitud) {
+            ->editColumn('usuarioVerifica.name', function (CompraSolicitud $compraSolicitud) {
 
                 return $compraSolicitud->usuarioAprueba->name ?? 'Sin Usuario';
 
             })
-            ->editColumn('usuarioAdministra.name', function (CompraSolicitud $compraSolicitud) {
-
-                return $compraSolicitud->usuarioAdministra->name ?? 'Sin Usuario';
-
-            })
+//            ->editColumn('usuarioAdministra.name', function (CompraSolicitud $compraSolicitud) {
+//
+//                return $compraSolicitud->usuarioAdministra->name ?? 'Sin Usuario';
+//
+//            })
             ->editColumn('unidad.nombre', function (CompraSolicitud $compraSolicitud) {
 
                 return $compraSolicitud->unidad->nombre ?? 'Sin Unidad';
@@ -92,11 +92,11 @@ class CompraSolicitudDataTable extends DataTable
             ->noTemporal()
             ->with(
                 'unidad',
-                'proveedor',
+//                'proveedor',
                 'estado',
                 'usuarioSolicita',
-                'usuarioAprueba',
-                'usuarioAdministra'
+                'usuarioVerifica',
+//                'usuarioAdministra'
             );
     }
 
@@ -107,7 +107,7 @@ class CompraSolicitudDataTable extends DataTable
      */
     public function html()
     {
-        return $this->builder() 
+        return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->ajax([
@@ -208,15 +208,10 @@ class CompraSolicitudDataTable extends DataTable
                 ->name('usuarioSolicita.name')
                 ->title('Usuario Solicita'),
 
-            Column::make('usuario_aprueba')
-                ->data('usuarioAprueba.name')
-                ->name('usuarioAprueba.name')
-                ->title('Usuario Aprueba'),
-
-            Column::make('usuario_administra')
-                ->data('usuarioAdministra.name')
-                ->name('usuarioAdministra.name')
-                ->title('Usuario Administra'),
+            Column::make('usuario_verifica')
+                ->data('usuarioVerifica.name')
+                ->name('usuarioVerifica.name')
+                ->title('Usuario Verifica'),
 
             Column::computed('action')
                 ->exportable(false)

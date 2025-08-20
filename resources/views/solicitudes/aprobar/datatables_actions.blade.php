@@ -5,7 +5,7 @@
         data-bs-target="#modal-detalles-{{ $solicitud->id }}"
         data-toggle="tooltip"
         title="Ver detalles"
-        class='btn btn-icon btn-flat-info rounded-circle'
+        class='btn btn-icon btn-outline-info rounded-circle'
     >
         <i class="fa fa-eye"></i>
     </button>
@@ -17,7 +17,7 @@
         data-toggle="tooltip"
         title="Imprimir"
         target="_blank"
-        class='btn btn-icon rounded-circle btn-flat-primary'
+        class='btn btn-icon rounded-circle btn-outline-primary'
     >
         <i class="fa fa-file-pdf"></i>
     </a>
@@ -30,7 +30,7 @@
             data-id="{{$solicitud->id}}"
             data-toggle="tooltip"
             title="Anular"
-            class='btn btn-icon btn-flat-secondary rounded-circle btn-flat-danger'
+            class='btn btn-icon btn-outline-secondary rounded-circle btn-outline-danger'
         >
             <i class="fa fa-undo-alt"></i>
         </a>

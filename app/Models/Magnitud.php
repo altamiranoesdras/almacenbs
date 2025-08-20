@@ -9,27 +9,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class Magnitud
  *
- * @package App\Models
- * @version July 27, 2022, 12:21 pm CST
- * @property \Illuminate\Database\Eloquent\Collection $unimeds
- * @property string $nombre
  * @property int $id
+ * @property string $nombre
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Unimed> $unimeds
  * @property-read int|null $unimeds_count
- * @method static \Database\Factories\MagnitudFactory factory(...$parameters)
+ * @method static \Database\Factories\MagnitudFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Magnitud newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Magnitud newQuery()
- * @method static \Illuminate\Database\Query\Builder|Magnitud onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Magnitud onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Magnitud query()
  * @method static \Illuminate\Database\Eloquent\Builder|Magnitud whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Magnitud whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Magnitud whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Magnitud whereNombre($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Magnitud whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|Magnitud withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Magnitud withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Magnitud withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Magnitud withoutTrashed()
  * @mixin \Eloquent
  */
 class Magnitud extends Model

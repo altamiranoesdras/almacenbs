@@ -14,7 +14,7 @@ class CreateKardexsTable extends Migration
     public function up()
     {
         Schema::create('kardexs', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->unsignedBigInteger('item_id')->index('fk_kardexs_items1_idx');
             $table->integer('model_id');
             $table->string('model_type');

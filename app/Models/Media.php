@@ -25,9 +25,14 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media as BaseMedia;
  * @property int|null $order_column
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read mixed $extension
+ * @property-read mixed $human_readable_size
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $model
- * @method static \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|static[] all($columns = ['*'])
- * @method static \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|static[] get($columns = ['*'])
+ * @property-read mixed $original_url
+ * @property-read mixed $preview_url
+ * @property-read mixed $type
+ * @method static \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, static> all($columns = ['*'])
+ * @method static \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, static> get($columns = ['*'])
  * @method static \Illuminate\Database\Eloquent\Builder|Media newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Media newQuery()
  * @method static Builder|Media ordered()
@@ -50,11 +55,6 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media as BaseMedia;
  * @method static \Illuminate\Database\Eloquent\Builder|Media whereSize($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Media whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Media whereUuid($value)
- * @property-read mixed $extension
- * @property-read mixed $human_readable_size
- * @property-read mixed $original_url
- * @property-read mixed $preview_url
- * @property-read mixed $type
  * @mixin \Eloquent
  */
 class Media extends BaseMedia

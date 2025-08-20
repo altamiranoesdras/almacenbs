@@ -9,27 +9,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class ItemTrasladoEstado
  *
- * @package App\Models
- * @version July 27, 2022, 12:23 pm CST
- * @property \Illuminate\Database\Eloquent\Collection $itemsTraslados
- * @property string $nombre
  * @property int $id
+ * @property string $nombre
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @method static \Database\Factories\ItemTrasladoEstadoFactory factory(...$parameters)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ItemTraslado> $itemsTraslados
+ * @property-read int|null $items_traslados_count
+ * @method static \Database\Factories\ItemTrasladoEstadoFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|ItemTrasladoEstado newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ItemTrasladoEstado newQuery()
- * @method static \Illuminate\Database\Query\Builder|ItemTrasladoEstado onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ItemTrasladoEstado onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|ItemTrasladoEstado query()
  * @method static \Illuminate\Database\Eloquent\Builder|ItemTrasladoEstado whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ItemTrasladoEstado whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ItemTrasladoEstado whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ItemTrasladoEstado whereNombre($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ItemTrasladoEstado whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|ItemTrasladoEstado withTrashed()
- * @method static \Illuminate\Database\Query\Builder|ItemTrasladoEstado withoutTrashed()
- * @property-read int|null $items_traslados_count
+ * @method static \Illuminate\Database\Eloquent\Builder|ItemTrasladoEstado withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ItemTrasladoEstado withoutTrashed()
  * @mixin \Eloquent
  */
 class ItemTrasladoEstado extends Model

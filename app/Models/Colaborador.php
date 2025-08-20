@@ -9,40 +9,39 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class Colaborador
  *
- * @package App\Models
- * @version November 10, 2022, 2:41 pm CST
- * @property \App\Models\RrhhPuesto $puesto
- * @property \App\Models\User $user
- * @property \App\Models\RrhhUnidad $unidad
- * @property \Illuminate\Database\Eloquent\Collection $solicitudOrigen
- * @property \Illuminate\Database\Eloquent\Collection $solicitudDestino
- * @property \Illuminate\Database\Eloquent\Collection $activoTarjetas
- * @property \Illuminate\Database\Eloquent\Collection $contratos
- * @property \Illuminate\Database\Eloquent\Collection $jefe
+ * @property int $id
  * @property string $nombres
  * @property string $apellidos
- * @property string $dpi
- * @property string $correo
- * @property string $telefono
- * @property string $direccion
- * @property string $nit
- * @property integer $puesto_id
- * @property integer $unidad_id
- * @property integer $user_id
- * @property int $id
+ * @property string|null $dpi
+ * @property string|null $correo
+ * @property string|null $telefono
+ * @property string|null $direccion
+ * @property string|null $nit
+ * @property int|null $puesto_id
+ * @property int $unidad_id
+ * @property int|null $user_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ActivoTarjeta> $activoTarjetas
  * @property-read int|null $activo_tarjetas_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RrhhContrato> $contratos
+ * @property-read int|null $contratos_count
  * @property-read mixed $nombre_completo
  * @property-read mixed $text
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RrhhUnidad> $jefe
  * @property-read int|null $jefe_count
+ * @property-read \App\Models\RrhhPuesto|null $puesto
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ActivoSolicitud> $solicitudDestino
  * @property-read int|null $solicitud_destino_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ActivoSolicitud> $solicitudOrigen
  * @property-read int|null $solicitud_origen_count
- * @method static \Database\Factories\ColaboradorFactory factory(...$parameters)
+ * @property-read \App\Models\RrhhUnidad $unidad
+ * @property-read \App\Models\User|null $user
+ * @method static \Database\Factories\ColaboradorFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Colaborador newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Colaborador newQuery()
- * @method static \Illuminate\Database\Query\Builder|Colaborador onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Colaborador onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Colaborador query()
  * @method static \Illuminate\Database\Eloquent\Builder|Colaborador whereApellidos($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Colaborador whereCorreo($value)
@@ -58,9 +57,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|Colaborador whereUnidadId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Colaborador whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Colaborador whereUserId($value)
- * @method static \Illuminate\Database\Query\Builder|Colaborador withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Colaborador withoutTrashed()
- * @property-read int|null $contratos_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Colaborador withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Colaborador withoutTrashed()
  * @mixin \Eloquent
  */
 class Colaborador extends Model

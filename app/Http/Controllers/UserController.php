@@ -73,6 +73,9 @@ class UserController extends AppBaseController
                 $user->addMediaFromRequest('avatar')->toMediaCollection('avatars');
             }
 
+            if ($request->hasFile('rubrica')){
+                $user->addMediaFromRequest('rubrica')->toMediaCollection('rubricas');
+            }
 
             $roles = Role::whereIn('id',$request->roles ?? [])->get();
             $permissions = Permission::whereIn('id',$request->permisos ?? [])->get();
@@ -84,6 +87,7 @@ class UserController extends AppBaseController
             $user->options()->sync($opciones);
 
             $this->guardarAvatar($user,$request);
+            $this->guardarRubrica($user,$request);
 
         } catch (Exception $exception) {
             DB::rollBack();
@@ -198,6 +202,10 @@ class UserController extends AppBaseController
                 $user->addMediaFromRequest('avatar')->toMediaCollection('avatars');
             }
 
+            if ($request->hasFile('rubrica')){
+                $user->addMediaFromRequest('rubrica')->toMediaCollection('rubricas');
+            }
+
             $roles = Role::whereIn('id',$request->roles ?? [])->get();
             $permissions = Permission::whereIn('id',$request->permisos ?? [])->get();
 
@@ -208,6 +216,7 @@ class UserController extends AppBaseController
             $user->options()->sync($opciones);
 
             $this->guardarAvatar($user,$request);
+            $this->guardarRubrica($user,$request);
 
         } catch (Exception $exception) {
             DB::rollBack();
@@ -316,11 +325,24 @@ class UserController extends AppBaseController
 
     public function guardarAvatar(User $user,Request $request)
     {
+
         if ($request->avatar){
 
             $user->clearMediaCollection('avatars');
             $user->addMediaFromRequest('avatar')->toMediaCollection('avatars');
         }
+
+    }
+
+    public function guardarRubrica(User $user,Request $request)
+    {
+
+        if ($request->rubrica){
+
+            $user->clearMediaCollection('rubricas');
+            $user->addMediaFromRequest('rubrica')->toMediaCollection('rubricas');
+        }
+
     }
 
 }

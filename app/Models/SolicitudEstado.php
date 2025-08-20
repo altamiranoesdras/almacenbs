@@ -10,19 +10,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class SolicitudEstado
  *
- * @package App\Models
- * @version July 27, 2022, 12:24 pm CST
- * @property \Illuminate\Database\Eloquent\Collection $solicitudes
- * @property string $color
- * @property string $nombre
  * @property int $id
+ * @property string $nombre
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @method static \Database\Factories\SolicitudEstadoFactory factory(...$parameters)
+ * @property-read mixed $color
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Solicitud> $solicitudes
+ * @property-read int|null $solicitudes_count
+ * @method static \Database\Factories\SolicitudEstadoFactory factory($count = null, $state = [])
  * @method static Builder|SolicitudEstado newModelQuery()
  * @method static Builder|SolicitudEstado newQuery()
- * @method static \Illuminate\Database\Query\Builder|SolicitudEstado onlyTrashed()
+ * @method static Builder|SolicitudEstado onlyTrashed()
  * @method static Builder|SolicitudEstado principales()
  * @method static Builder|SolicitudEstado query()
  * @method static Builder|SolicitudEstado whereCreatedAt($value)
@@ -30,9 +29,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|SolicitudEstado whereId($value)
  * @method static Builder|SolicitudEstado whereNombre($value)
  * @method static Builder|SolicitudEstado whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|SolicitudEstado withTrashed()
- * @method static \Illuminate\Database\Query\Builder|SolicitudEstado withoutTrashed()
- * @property-read int|null $solicitudes_count
+ * @method static Builder|SolicitudEstado withTrashed()
+ * @method static Builder|SolicitudEstado withoutTrashed()
  * @mixin \Eloquent
  */
 class SolicitudEstado extends Model
