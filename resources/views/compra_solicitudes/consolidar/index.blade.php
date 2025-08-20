@@ -11,7 +11,7 @@
                 <div class="col-12">
                     <h2 class="content-header-title float-start mb-0">
                         <h1>
-                            Aprobar Requisiciones de Compra
+                            Consolidar Solicitudes de Compra
                         </h1>
                     </h2>
                 </div>
@@ -41,12 +41,12 @@
                         <form id="formFiltersDatatables">
                             <div class="row">
                                 <div class="col-sm-4 mb-1">
-                                    {!! Form::label('proveedor_id','Proveedor: ') !!}
+                                    {!! Form::label('proveedor_id','Unidad: ') !!}
                                     {!!
                                         Form::select(
                                             'proveedores',
-                                            select(\App\Models\Proveedor::class,'nombre','id',null)
-                                            , $proveedor_id ?? null
+                                            select(\App\Models\RrhhUnidad::class,'nombre','id',null)
+                                            , $unidad_id ?? null
                                             , ['id'=>'proveedores','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
                                         )
                                     !!}

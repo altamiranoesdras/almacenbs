@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\CompraSolicitudEstado;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class CompraSolicitudEstadosTableSeeder extends Seeder
 {
@@ -15,9 +16,9 @@ class CompraSolicitudEstadosTableSeeder extends Seeder
      */
     public function run()
     {
-//        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-//
-//        CompraSolicitudEstado::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
+        CompraSolicitudEstado::truncate();
 
         CompraSolicitudEstado::firstOrCreate(
             ['id' => 1],
@@ -33,37 +34,13 @@ class CompraSolicitudEstadosTableSeeder extends Seeder
         );
         CompraSolicitudEstado::firstOrCreate(
             ['id' => 4],
-            ['nombre' => 'Autorizada']
+            ['nombre' => 'Asignada a Requisición']
         );
         CompraSolicitudEstado::firstOrCreate(
             ['id' => 5],
-            ['nombre' => 'Aprobada']
-        );
-        CompraSolicitudEstado::firstOrCreate(
-            ['id' => 6],
-            ['nombre' => 'Despachada']
-        );
-        CompraSolicitudEstado::firstOrCreate(
-            ['id' => 7],
-            ['nombre' => 'Anulada']
-        );
-        CompraSolicitudEstado::firstOrCreate(
-            ['id' => 8],
             ['nombre' => 'Cancelada']
         );
-        CompraSolicitudEstado::firstOrCreate(
-            ['id' => 9],
-            ['nombre' => 'Retorno Solicitada']
-        );
-        CompraSolicitudEstado::firstOrCreate(
-            ['id' => 10],
-            ['nombre' => 'Retorno Autorizada']
-        );
-        CompraSolicitudEstado::firstOrCreate(
-            ['id' => 11],
-            ['nombre' => 'Retorno Aprobada']
-        );
 
-//        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

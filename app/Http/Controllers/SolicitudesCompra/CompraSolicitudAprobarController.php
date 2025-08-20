@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\SolicitudesCompra;
 
-use App\DataTables\SolicitudesCompra\SolicitudCompraUnificarTable;
 use App\DataTables\Scopes\ScopeCompraSolicitudDataTable;
+use App\DataTables\SolicitudesCompra\SolicitudCompraUnificarTable;
 use App\Http\Controllers\Controller;
 use App\Models\CompraSolicitudEstado;
 use App\Models\User;
@@ -24,7 +24,7 @@ class CompraSolicitudAprobarController extends Controller
 
         $dataTable->addScope($scope);
 
-        return $dataTable->render('compra_solicitudes.aprobar.index');
+        return $dataTable->render('compra_solicitudes.consolidar.index');
 
     }
 }

@@ -111,8 +111,8 @@ class OptionsTableSeeder extends Seeder
             array (
                 'id' => 6,
                 'option_id' => 2,
-                'nombre' => 'Aprobar Solicitud Compra',
-                'ruta' => 'compra.solicitudes.aprobar',
+                'nombre' => 'Consolidar Solicitudes',
+                'ruta' => 'compra.solicitudes.consolidar',
                 'descripcion' => NULL,
                 'icono_l' => 'fa-check',
                 'icono_r' => NULL,

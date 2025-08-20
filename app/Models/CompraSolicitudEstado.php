@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $nombre
@@ -41,14 +41,8 @@ class CompraSolicitudEstado extends Model
     const TEMPORAL =    1;
     const INGRESADA =   2;
     const SOLICITADA =  3;
-    const AUTORIZADA =  4;
-    const APROBADA =    5;
-    const DESPACHADA =  6;
-    const ANULADA =     7;
-    const CANCELADA =   8;
-    const RETORNO_SOLICITADA  =   9;
-    const RETORNO_AUTORIZADA =   10;
-    const RETORNO_APROBADA =   11;
+    const ASIGNADA_A_REQUISICION =  4;
+    const CANCELADA =    5;
 
     public $fillable = [
         'nombre'
@@ -84,13 +78,11 @@ class CompraSolicitudEstado extends Model
         switch ($this->id){
             case self::SOLICITADA:
                 return "info";
-            case self::APROBADA:
+            case self::INGRESADA:
                 return "primary";
-            case self::DESPACHADA:
-                return "success";
-            case self::RETORNO_APROBADA:
-            case self::RETORNO_AUTORIZADA:
-            case self::RETORNO_SOLICITADA:
+            case self::CANCELADA:
+                return "danger";
+            case self::TEMPORAL:
                 return "warning";
             default:
                 return "secondary";

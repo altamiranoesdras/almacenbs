@@ -8,8 +8,6 @@ use App\Http\Controllers\SolicitudesCompra\CompraSolicitudAprobarController;
 use App\Http\Controllers\SolicitudesCompra\CompraSolicitudUsuarioController;
 
 
-
-
 Route::prefix('compra')->name('compra.')->group(function () {
 
     Route::resource('bandejas', App\Http\Controllers\CompraBandejaController::class);
@@ -49,7 +47,7 @@ Route::prefix('compra')->name('compra.')->group(function () {
 Route::prefix('compra/solicitudes')->name('compra.solicitudes.')->group(function () {
 
     Route::get('/mis/solicitudes', [CompraSolicitudUsuarioController::class, 'index'])->name('usuario');
-    Route::get('/aprobar', [CompraSolicitudAprobarController::class, 'index'])->name('aprobar');
+    Route::get('/consolidar', [CompraSolicitudAprobarController::class, 'index'])->name('consolidar');
 
     Route::get('/nueva', [CompraSolicitudController::class, 'create'])->name('nueva');
     Route::get('/', [CompraSolicitudController::class, 'index'])->name('index');
