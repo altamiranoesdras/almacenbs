@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\API;
 
-use App\Models\CompraRequisicion;
+use App\Models\CompraRequisicion\CompraRequisicion;
 use InfyOm\Generator\Request\APIRequest;
 
 class UpdateCompraRequisicionAPIRequest extends APIRequest
@@ -25,7 +25,7 @@ class UpdateCompraRequisicionAPIRequest extends APIRequest
     public function rules()
     {
         $rules = CompraRequisicion::$rules;
-        
+
         return $rules;
     }
 }

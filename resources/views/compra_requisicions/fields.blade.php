@@ -22,28 +22,28 @@
 <!-- Codigo Field -->
 <div class="col-sm-6 mb-1">
     {!! Form::label('codigo', 'Codigo:') !!}
-    {!! Form::text('codigo', null, ['class' => 'form-control', 'required', 'maxlength' => 20, 'maxlength' => 20, 'maxlength' => 20]) !!}
+    {!! Form::text('codigo', null, ['class' => 'form-control', 'required', 'maxlength' => 20, 'maxlength' => 20]) !!}
 </div>
 
 
 <!-- Codigo Consolidacion Field -->
 <div class="col-sm-6 mb-1">
     {!! Form::label('codigo_consolidacion', 'Codigo Consolidacion:') !!}
-    {!! Form::text('codigo_consolidacion', null, ['class' => 'form-control', 'maxlength' => 45, 'maxlength' => 45, 'maxlength' => 45]) !!}
+    {!! Form::text('codigo_consolidacion', null, ['class' => 'form-control', 'maxlength' => 45, 'maxlength' => 45]) !!}
 </div>
 
 
 <!-- Npg Field -->
 <div class="col-sm-6 mb-1">
     {!! Form::label('npg', 'Npg:') !!}
-    {!! Form::text('npg', null, ['class' => 'form-control', 'maxlength' => 45, 'maxlength' => 45, 'maxlength' => 45]) !!}
+    {!! Form::text('npg', null, ['class' => 'form-control', 'maxlength' => 45, 'maxlength' => 45]) !!}
 </div>
 
 
 <!-- Nog Field -->
 <div class="col-sm-6 mb-1">
     {!! Form::label('nog', 'Nog:') !!}
-    {!! Form::text('nog', null, ['class' => 'form-control', 'maxlength' => 45, 'maxlength' => 45, 'maxlength' => 45]) !!}
+    {!! Form::text('nog', null, ['class' => 'form-control', 'maxlength' => 45, 'maxlength' => 45]) !!}
 </div>
 
 
@@ -57,7 +57,7 @@
 <!-- Numero Adjudicacion Field -->
 <div class="col-sm-6 mb-1">
     {!! Form::label('numero_adjudicacion', 'Numero Adjudicacion:') !!}
-    {!! Form::text('numero_adjudicacion', null, ['class' => 'form-control', 'maxlength' => 45, 'maxlength' => 45, 'maxlength' => 45]) !!}
+    {!! Form::text('numero_adjudicacion', null, ['class' => 'form-control', 'maxlength' => 45, 'maxlength' => 45]) !!}
 </div>
 
 
@@ -71,26 +71,26 @@
 <!-- Subproductos Field -->
 <div class="col-sm-6 mb-1">
     {!! Form::label('subproductos', 'Subproductos:') !!}
-    {!! Form::text('subproductos', null, ['class' => 'form-control', 'maxlength' => 45, 'maxlength' => 45, 'maxlength' => 45]) !!}
+    {!! Form::text('subproductos', null, ['class' => 'form-control', 'maxlength' => 45, 'maxlength' => 45]) !!}
 </div>
 
 
 <!-- Partidas Field -->
 <div class="col-sm-6 mb-1">
     {!! Form::label('partidas', 'Partidas:') !!}
-    {!! Form::text('partidas', null, ['class' => 'form-control', 'maxlength' => 45, 'maxlength' => 45, 'maxlength' => 45]) !!}
+    {!! Form::text('partidas', null, ['class' => 'form-control', 'maxlength' => 45, 'maxlength' => 45]) !!}
 </div>
 
 
 <!-- Observaciones Field -->
 <div class="col-sm-12 mb-1 col-lg-12">
     {!! Form::label('observaciones', 'Observaciones:') !!}
-    {!! Form::textarea('observaciones', null, ['class' => 'form-control', 'maxlength' => 65535, 'maxlength' => 65535, 'maxlength' => 65535]) !!}
+    {!! Form::textarea('observaciones', null, ['class' => 'form-control', 'maxlength' => 65535, 'maxlength' => 65535]) !!}
 </div>
 
 
 <!-- Justificacion Field -->
 <div class="col-sm-12 mb-1 col-lg-12">
     {!! Form::label('justificacion', 'Justificacion:') !!}
-    {!! Form::textarea('justificacion', null, ['class' => 'form-control', 'maxlength' => 65535, 'maxlength' => 65535, 'maxlength' => 65535]) !!}
+    {!! Form::textarea('justificacion', null, ['class' => 'form-control', 'maxlength' => 65535, 'maxlength' => 65535]) !!}
 </div>

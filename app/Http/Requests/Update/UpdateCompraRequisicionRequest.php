@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Update;
 
-use App\Models\CompraRequisicion;
+use App\Models\CompraRequisicion\CompraRequisicion;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateCompraRequisicionRequest extends FormRequest
+class UpdateCompraRequisicionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,9 @@ class CreateCompraRequisicionRequest extends FormRequest
      */
     public function rules()
     {
-        return CompraRequisicion::$rules;
+        $rules = CompraRequisicion::$rules;
+
+        return $rules;
     }
 
     public function messages()

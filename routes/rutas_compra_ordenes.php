@@ -1,7 +1,7 @@
 <?php
 
 
-use App\Http\Controllers\CompraRequisicionController;
+use App\Http\Controllers\CompraRequisicion\CompraRequisicionController;
 use App\Http\Controllers\CompraSolicitudController;
 use App\Http\Controllers\CompraSolicitudEstadoController;
 use App\Http\Controllers\SolicitudesCompra\CompraSolicitudConsolidarController;
