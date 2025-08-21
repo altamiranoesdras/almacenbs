@@ -47,7 +47,7 @@ class CompraRequisicionEstadoController extends AppBaseController
 
         flash()->success('Compra Requisicion Estado guardado.');
 
-        return redirect(route('compraRequisicionEstados.index'));
+        return redirect(route('compra.requisiciones.estados.index'));
     }
 
     /**
@@ -61,7 +61,7 @@ class CompraRequisicionEstadoController extends AppBaseController
         if (empty($compraRequisicionEstado)) {
             flash()->error('Compra Requisicion Estado no encontrado');
 
-            return redirect(route('compraRequisicionEstados.index'));
+            return redirect(route('compra.requisiciones.estados.index'));
         }
 
         return view('compra_requisicion_estados.show')->with('compraRequisicionEstado', $compraRequisicionEstado);
@@ -78,7 +78,7 @@ class CompraRequisicionEstadoController extends AppBaseController
         if (empty($compraRequisicionEstado)) {
             flash()->error('Compra Requisicion Estado no encontrado');
 
-            return redirect(route('compraRequisicionEstados.index'));
+            return redirect(route('compra.requisiciones.estados.index'));
         }
 
         return view('compra_requisicion_estados.edit')->with('compraRequisicionEstado', $compraRequisicionEstado);
@@ -95,7 +95,7 @@ class CompraRequisicionEstadoController extends AppBaseController
         if (empty($compraRequisicionEstado)) {
             flash()->error('Compra Requisicion Estado no encontrado');
 
-            return redirect(route('compraRequisicionEstados.index'));
+            return redirect(route('compra.requisiciones.estados.index'));
         }
 
         $compraRequisicionEstado->fill($request->all());
@@ -103,7 +103,7 @@ class CompraRequisicionEstadoController extends AppBaseController
 
         flash()->success('Compra Requisicion Estado actualizado.');
 
-        return redirect(route('compraRequisicionEstados.index'));
+        return redirect(route('compra.requisiciones.estados.index'));
     }
 
     /**
@@ -119,13 +119,13 @@ class CompraRequisicionEstadoController extends AppBaseController
         if (empty($compraRequisicionEstado)) {
             flash()->error('Compra Requisicion Estado no encontrado');
 
-            return redirect(route('compraRequisicionEstados.index'));
+            return redirect(route('compra.requisiciones.estados.index'));
         }
 
         $compraRequisicionEstado->delete();
 
         flash()->success('Compra Requisicion Estado eliminado.');
 
-        return redirect(route('compraRequisicionEstados.index'));
+        return redirect(route('compra.requisiciones.estados.index'));
     }
 }

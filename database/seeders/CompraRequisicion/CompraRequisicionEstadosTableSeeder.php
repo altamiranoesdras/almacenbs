@@ -4,7 +4,6 @@ namespace Database\Seeders\CompraRequisicion;
 
 use App\Models\CompraRequisicion\CompraRequisicionEstado;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class CompraRequisicionEstadosTableSeeder extends Seeder
 {
@@ -15,55 +14,36 @@ class CompraRequisicionEstadosTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        deshabilitaLlavesForaneas();
 
         CompraRequisicionEstado::truncate();
 
-        CompraRequisicionEstado::create([
-            'nombre' => 'Creada / Consolidación solicitudes',
-            'tipo_proceso' => 'NPG',
-        ]);
+        $estados = [
+            ['nombre' => 'Creada / Consolidación solicitudes', 'tipo_proceso' => 'NPG'],
+            ['nombre' => 'Evaluando proveedores (proceso competitivo)', 'tipo_proceso' => 'NPG'],
+            ['nombre' => 'Cuadro Comparativo Generado', 'tipo_proceso' => 'NPG'],
+            ['nombre' => 'Acta negociación generada (firmas electrónicas)', 'tipo_proceso' => 'NPG'],
+            ['nombre' => 'Acta Negociación Autorizada', 'tipo_proceso' => 'NPG'],
+            ['nombre' => 'Adjudicada', 'tipo_proceso' => 'NPG'],
+            ['nombre' => 'Orden compra generada', 'tipo_proceso' => 'NPG'],
+            ['nombre' => 'Finalizada', 'tipo_proceso' => 'NPG'],
+            ['nombre' => 'Cancelada', 'tipo_proceso' => 'NPG'],
 
-        CompraRequisicionEstado::create([
-            'nombre' => 'Evaluando proveedores (proceso competitivo)',
-            'tipo_proceso' => 'NPG',
-        ]);
+            ['nombre' => 'Creada / Consolidación solicitudes', 'tipo_proceso' => 'NOG'],
+            ['nombre' => 'Evaluando proveedores (proceso competitivo)', 'tipo_proceso' => 'NOG'],
+            ['nombre' => 'Cuadro Comparativo Generado', 'tipo_proceso' => 'NOG'],
+            ['nombre' => 'Acta negociación generada (firmas electrónicas)', 'tipo_proceso' => 'NOG'],
+            ['nombre' => 'Acta Negociación Autorizada', 'tipo_proceso' => 'NOG'],
+            ['nombre' => 'Adjudicada', 'tipo_proceso' => 'NOG'],
+            ['nombre' => 'Orden compra generada', 'tipo_proceso' => 'NOG'],
+            ['nombre' => 'Finalizada', 'tipo_proceso' => 'NOG'],
+            ['nombre' => 'Cancelada', 'tipo_proceso' => 'NOG'],
+        ];
 
-        CompraRequisicionEstado::create([
-            'nombre' => 'Cuadro Comparativo Generado',
-            'tipo_proceso' => 'NPG',
-        ]);
+        foreach ($estados as $estado) {
+            CompraRequisicionEstado::create($estado);
+        }
 
-        CompraRequisicionEstado::create([
-            'nombre' => 'Acta negociación generada (firmas electronicas)',
-            'tipo_proceso' => 'NPG',
-        ]);
-
-        CompraRequisicionEstado::create([
-            'nombre' => 'Acta Negociación Autorizada',
-            'tipo_proceso' => 'NPG',
-        ]);
-
-        CompraRequisicionEstado::create([
-            'nombre' => 'Adjudicada',
-            'tipo_proceso' => 'NPG',
-        ]);
-
-        CompraRequisicionEstado::create([
-            'nombre' => 'Orden compra generada',
-            'tipo_proceso' => 'NPG',
-        ]);
-
-        CompraRequisicionEstado::create([
-            'nombre' => 'Finalizada',
-            'tipo_proceso' => 'NPG',
-        ]);
-
-        CompraRequisicionEstado::create([
-            'nombre' => 'Cancelada',
-            'tipo_proceso' => 'NPG',
-        ]);
-
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        habilitaLlavesForaneas();
     }
 }
