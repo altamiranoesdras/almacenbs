@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\SoftDeletes;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $nombre
@@ -37,6 +37,9 @@ class CompraRequisicionTipoConcurso extends Model
     use HasFactory;
 
     public $table = 'compra_requisicion_tipo_concursos';
+
+    const EJECUCION_DIRECTA = 1;
+    const PROCESO_COMPETITIVO = 2;
 
     public $fillable = [
         'nombre',
