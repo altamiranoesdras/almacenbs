@@ -2,8 +2,10 @@
 
 namespace App\Models\CompraRequisicion;
 
+use App\Models\CompraSolicitud;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CompraRequisicion extends Model
@@ -101,4 +103,16 @@ class CompraRequisicion extends Model
 //    {
 //        return $this->belongsToMany(\App\Models\CompraSolicitude::class, 'compra_solicitud_has_requisicion');
 //    }
+
+    public function compraSolicitudes(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            CompraSolicitud::class,
+            'compra_solicitud_has_requisicion',
+            'requisicion_id',
+            'solicitud_id'
+        );
+
+    }
+
 }

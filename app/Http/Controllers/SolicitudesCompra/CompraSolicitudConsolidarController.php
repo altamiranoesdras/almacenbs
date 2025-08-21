@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SolicitudesCompra;
 use App\DataTables\Scopes\ScopeCompraSolicitudDataTable;
 use App\DataTables\SolicitudesCompra\SolicitudCompraUnificarTable;
 use App\Http\Controllers\Controller;
+use App\Models\CompraRequisicion\CompraRequisicion;
 use App\Models\CompraSolicitudEstado;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -43,8 +44,15 @@ class CompraSolicitudConsolidarController extends Controller
 
         $solicitudIds = $request->input('solicitudes_ids');
 
-        dd($solicitudIds);
+        /**
+         * @var CompraRequisicion $requisicion
+         */
+        $requisicion = CompraRequisicion::create([
 
+        ]);
+
+        $requisicion->compraSolicitudes()
+            ->sync($solicitudIds);
 
         return redirect()->route('compra.solicitudes.consolidar');
 
