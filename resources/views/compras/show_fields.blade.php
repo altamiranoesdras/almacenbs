@@ -35,9 +35,9 @@
 
         <!-- Estado Id Field -->
         {!! Form::label('estado', 'Estado:') !!}
-        <span class="badge badge-info">
+        <b>
         {!! $compra->estado->nombre !!}
-        </span>
+        </b>
         <br>
 
         <!-- CompraEstado Id Field -->

@@ -15,7 +15,7 @@ class LayoutController extends Controller
            $theme = new UserConfiguration();
            $theme->user_id = auth()->user()->id;
            $theme->key = 'app.mode-layout';
-           $theme->value = 'light-layout'; // Default value
+           $theme->value = 'dark-layout'; // Default value
            $theme->descripcion = 'Cambio de modo de la aplicación dark o light';
            $theme->save();
        }else{

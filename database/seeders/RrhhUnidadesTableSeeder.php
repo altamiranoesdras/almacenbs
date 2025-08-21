@@ -15,12 +15,12 @@ class RrhhUnidadesTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('rrhh_unidades')->delete();
-        
+
         \DB::table('rrhh_unidades')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'codigo' => '100000',
@@ -35,7 +35,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'codigo' => '101000',
@@ -50,7 +50,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'codigo' => '101001',
@@ -65,7 +65,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 4,
                 'codigo' => '102000',
@@ -80,7 +80,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 5,
                 'codigo' => '102100',
@@ -95,7 +95,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 6,
                 'codigo' => '102101',
@@ -110,7 +110,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 7,
                 'codigo' => '102200',
@@ -125,7 +125,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 8,
                 'codigo' => '102201',
@@ -140,7 +140,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 9,
                 'codigo' => '102300',
@@ -155,7 +155,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 10,
                 'codigo' => '102301',
@@ -170,7 +170,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 11,
                 'codigo' => '102400',
@@ -185,7 +185,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 12,
                 'codigo' => '102401',
@@ -200,7 +200,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 13,
                 'codigo' => '102500',
@@ -215,7 +215,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 14,
                 'codigo' => '102501',
@@ -230,7 +230,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 15,
                 'codigo' => '103000',
@@ -245,7 +245,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 16,
                 'codigo' => '103100',
@@ -260,7 +260,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 17,
                 'codigo' => '103101',
@@ -275,7 +275,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 18,
                 'codigo' => '103110',
@@ -290,7 +290,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            18 => 
+            18 =>
             array (
                 'id' => 19,
                 'codigo' => '103111',
@@ -305,7 +305,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            19 => 
+            19 =>
             array (
                 'id' => 20,
                 'codigo' => '103120',
@@ -320,7 +320,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            20 => 
+            20 =>
             array (
                 'id' => 21,
                 'codigo' => '103121',
@@ -335,7 +335,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            21 => 
+            21 =>
             array (
                 'id' => 22,
                 'codigo' => '103130',
@@ -350,7 +350,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            22 => 
+            22 =>
             array (
                 'id' => 23,
                 'codigo' => '103131',
@@ -365,7 +365,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            23 => 
+            23 =>
             array (
                 'id' => 24,
                 'codigo' => '103200',
@@ -380,7 +380,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            24 => 
+            24 =>
             array (
                 'id' => 25,
                 'codigo' => '103201',
@@ -395,7 +395,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            25 => 
+            25 =>
             array (
                 'id' => 26,
                 'codigo' => '103210',
@@ -410,7 +410,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            26 => 
+            26 =>
             array (
                 'id' => 27,
                 'codigo' => '103211',
@@ -425,7 +425,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            27 => 
+            27 =>
             array (
                 'id' => 28,
                 'codigo' => '103220',
@@ -440,7 +440,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            28 => 
+            28 =>
             array (
                 'id' => 29,
                 'codigo' => '103221',
@@ -455,7 +455,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            29 => 
+            29 =>
             array (
                 'id' => 30,
                 'codigo' => '103230',
@@ -470,7 +470,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            30 => 
+            30 =>
             array (
                 'id' => 31,
                 'codigo' => '103231',
@@ -485,7 +485,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            31 => 
+            31 =>
             array (
                 'id' => 32,
                 'codigo' => '103240',
@@ -500,7 +500,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            32 => 
+            32 =>
             array (
                 'id' => 33,
                 'codigo' => '103241',
@@ -515,7 +515,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            33 => 
+            33 =>
             array (
                 'id' => 34,
                 'codigo' => '103300',
@@ -530,7 +530,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            34 => 
+            34 =>
             array (
                 'id' => 35,
                 'codigo' => '103301',
@@ -545,7 +545,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            35 => 
+            35 =>
             array (
                 'id' => 36,
                 'codigo' => '103310',
@@ -560,7 +560,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            36 => 
+            36 =>
             array (
                 'id' => 37,
                 'codigo' => '103311',
@@ -575,7 +575,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            37 => 
+            37 =>
             array (
                 'id' => 38,
                 'codigo' => '103320',
@@ -590,7 +590,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            38 => 
+            38 =>
             array (
                 'id' => 39,
                 'codigo' => '103321',
@@ -605,7 +605,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            39 => 
+            39 =>
             array (
                 'id' => 40,
                 'codigo' => '103330',
@@ -620,7 +620,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            40 => 
+            40 =>
             array (
                 'id' => 41,
                 'codigo' => '103331',
@@ -635,7 +635,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            41 => 
+            41 =>
             array (
                 'id' => 42,
                 'codigo' => '103340',
@@ -650,7 +650,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            42 => 
+            42 =>
             array (
                 'id' => 43,
                 'codigo' => '103341',
@@ -665,7 +665,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            43 => 
+            43 =>
             array (
                 'id' => 44,
                 'codigo' => '104000',
@@ -680,7 +680,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            44 => 
+            44 =>
             array (
                 'id' => 45,
                 'codigo' => '104100',
@@ -695,7 +695,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            45 => 
+            45 =>
             array (
                 'id' => 46,
                 'codigo' => '104101',
@@ -710,7 +710,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            46 => 
+            46 =>
             array (
                 'id' => 47,
                 'codigo' => '104110',
@@ -725,7 +725,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            47 => 
+            47 =>
             array (
                 'id' => 48,
                 'codigo' => '104111',
@@ -740,7 +740,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            48 => 
+            48 =>
             array (
                 'id' => 49,
                 'codigo' => '104120',
@@ -755,7 +755,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            49 => 
+            49 =>
             array (
                 'id' => 50,
                 'codigo' => '104121',
@@ -770,7 +770,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            50 => 
+            50 =>
             array (
                 'id' => 51,
                 'codigo' => '105000',
@@ -785,7 +785,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            51 => 
+            51 =>
             array (
                 'id' => 52,
                 'codigo' => '105100',
@@ -800,7 +800,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            52 => 
+            52 =>
             array (
                 'id' => 53,
                 'codigo' => '105101',
@@ -815,7 +815,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            53 => 
+            53 =>
             array (
                 'id' => 54,
                 'codigo' => '110000',
@@ -830,7 +830,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            54 => 
+            54 =>
             array (
                 'id' => 55,
                 'codigo' => '111000',
@@ -845,7 +845,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            55 => 
+            55 =>
             array (
                 'id' => 56,
                 'codigo' => '111001',
@@ -860,7 +860,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            56 => 
+            56 =>
             array (
                 'id' => 57,
                 'codigo' => '111100',
@@ -875,7 +875,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            57 => 
+            57 =>
             array (
                 'id' => 58,
                 'codigo' => '111101',
@@ -890,7 +890,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            58 => 
+            58 =>
             array (
                 'id' => 59,
                 'codigo' => '111110',
@@ -905,7 +905,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            59 => 
+            59 =>
             array (
                 'id' => 60,
                 'codigo' => '111111',
@@ -920,7 +920,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            60 => 
+            60 =>
             array (
                 'id' => 61,
                 'codigo' => '111112',
@@ -935,7 +935,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            61 => 
+            61 =>
             array (
                 'id' => 62,
                 'codigo' => '111113',
@@ -950,7 +950,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            62 => 
+            62 =>
             array (
                 'id' => 63,
                 'codigo' => '111114',
@@ -965,7 +965,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            63 => 
+            63 =>
             array (
                 'id' => 64,
                 'codigo' => '111115',
@@ -980,7 +980,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            64 => 
+            64 =>
             array (
                 'id' => 65,
                 'codigo' => '111120',
@@ -995,7 +995,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            65 => 
+            65 =>
             array (
                 'id' => 66,
                 'codigo' => '111121',
@@ -1010,7 +1010,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            66 => 
+            66 =>
             array (
                 'id' => 67,
                 'codigo' => '111200',
@@ -1025,7 +1025,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            67 => 
+            67 =>
             array (
                 'id' => 68,
                 'codigo' => '111201',
@@ -1040,7 +1040,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            68 => 
+            68 =>
             array (
                 'id' => 69,
                 'codigo' => '111210',
@@ -1055,7 +1055,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            69 => 
+            69 =>
             array (
                 'id' => 70,
                 'codigo' => '111211',
@@ -1070,7 +1070,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            70 => 
+            70 =>
             array (
                 'id' => 71,
                 'codigo' => '111212',
@@ -1085,7 +1085,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            71 => 
+            71 =>
             array (
                 'id' => 72,
                 'codigo' => '111213',
@@ -1100,7 +1100,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            72 => 
+            72 =>
             array (
                 'id' => 73,
                 'codigo' => '111214',
@@ -1115,7 +1115,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            73 => 
+            73 =>
             array (
                 'id' => 74,
                 'codigo' => '111215',
@@ -1130,7 +1130,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            74 => 
+            74 =>
             array (
                 'id' => 75,
                 'codigo' => '111216',
@@ -1145,7 +1145,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            75 => 
+            75 =>
             array (
                 'id' => 76,
                 'codigo' => '111217',
@@ -1160,7 +1160,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            76 => 
+            76 =>
             array (
                 'id' => 77,
                 'codigo' => '111218',
@@ -1175,7 +1175,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            77 => 
+            77 =>
             array (
                 'id' => 78,
                 'codigo' => '111219',
@@ -1190,7 +1190,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            78 => 
+            78 =>
             array (
                 'id' => 79,
                 'codigo' => '1112110',
@@ -1205,7 +1205,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            79 => 
+            79 =>
             array (
                 'id' => 80,
                 'codigo' => '1112111',
@@ -1220,7 +1220,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            80 => 
+            80 =>
             array (
                 'id' => 81,
                 'codigo' => '1112112',
@@ -1235,7 +1235,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            81 => 
+            81 =>
             array (
                 'id' => 82,
                 'codigo' => '1112113',
@@ -1250,7 +1250,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            82 => 
+            82 =>
             array (
                 'id' => 83,
                 'codigo' => '1112114',
@@ -1265,7 +1265,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            83 => 
+            83 =>
             array (
                 'id' => 84,
                 'codigo' => '1112115',
@@ -1280,7 +1280,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            84 => 
+            84 =>
             array (
                 'id' => 85,
                 'codigo' => '1112116',
@@ -1295,7 +1295,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            85 => 
+            85 =>
             array (
                 'id' => 86,
                 'codigo' => '1112117',
@@ -1310,7 +1310,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            86 => 
+            86 =>
             array (
                 'id' => 87,
                 'codigo' => '1112118',
@@ -1325,7 +1325,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            87 => 
+            87 =>
             array (
                 'id' => 88,
                 'codigo' => '1112119',
@@ -1340,7 +1340,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            88 => 
+            88 =>
             array (
                 'id' => 89,
                 'codigo' => '1112120',
@@ -1355,7 +1355,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            89 => 
+            89 =>
             array (
                 'id' => 90,
                 'codigo' => '1112121',
@@ -1370,7 +1370,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            90 => 
+            90 =>
             array (
                 'id' => 91,
                 'codigo' => '1112122',
@@ -1385,7 +1385,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            91 => 
+            91 =>
             array (
                 'id' => 92,
                 'codigo' => '1112123',
@@ -1400,7 +1400,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            92 => 
+            92 =>
             array (
                 'id' => 93,
                 'codigo' => '1112124',
@@ -1415,7 +1415,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            93 => 
+            93 =>
             array (
                 'id' => 94,
                 'codigo' => '1112125',
@@ -1430,7 +1430,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            94 => 
+            94 =>
             array (
                 'id' => 95,
                 'codigo' => '1112126',
@@ -1445,7 +1445,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            95 => 
+            95 =>
             array (
                 'id' => 96,
                 'codigo' => '1112127',
@@ -1460,7 +1460,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            96 => 
+            96 =>
             array (
                 'id' => 97,
                 'codigo' => '1112128',
@@ -1475,7 +1475,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            97 => 
+            97 =>
             array (
                 'id' => 98,
                 'codigo' => '1112129',
@@ -1490,7 +1490,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            98 => 
+            98 =>
             array (
                 'id' => 99,
                 'codigo' => '1112130',
@@ -1505,7 +1505,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            99 => 
+            99 =>
             array (
                 'id' => 100,
                 'codigo' => '1112131',
@@ -1520,7 +1520,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            100 => 
+            100 =>
             array (
                 'id' => 101,
                 'codigo' => '1112132',
@@ -1535,7 +1535,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            101 => 
+            101 =>
             array (
                 'id' => 102,
                 'codigo' => '1112133',
@@ -1550,7 +1550,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            102 => 
+            102 =>
             array (
                 'id' => 103,
                 'codigo' => '1112134',
@@ -1565,7 +1565,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            103 => 
+            103 =>
             array (
                 'id' => 104,
                 'codigo' => '1112135',
@@ -1580,7 +1580,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            104 => 
+            104 =>
             array (
                 'id' => 105,
                 'codigo' => '1112136',
@@ -1595,7 +1595,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            105 => 
+            105 =>
             array (
                 'id' => 106,
                 'codigo' => '1112137',
@@ -1610,7 +1610,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            106 => 
+            106 =>
             array (
                 'id' => 107,
                 'codigo' => '1112138',
@@ -1625,7 +1625,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:49',
                 'deleted_at' => NULL,
             ),
-            107 => 
+            107 =>
             array (
                 'id' => 108,
                 'codigo' => '1112139',
@@ -1640,7 +1640,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            108 => 
+            108 =>
             array (
                 'id' => 109,
                 'codigo' => '1112140',
@@ -1655,7 +1655,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            109 => 
+            109 =>
             array (
                 'id' => 110,
                 'codigo' => '1112141',
@@ -1670,7 +1670,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            110 => 
+            110 =>
             array (
                 'id' => 111,
                 'codigo' => '1112142',
@@ -1685,7 +1685,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            111 => 
+            111 =>
             array (
                 'id' => 112,
                 'codigo' => '1112143',
@@ -1700,7 +1700,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            112 => 
+            112 =>
             array (
                 'id' => 113,
                 'codigo' => '1112144',
@@ -1715,7 +1715,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            113 => 
+            113 =>
             array (
                 'id' => 114,
                 'codigo' => '1112145',
@@ -1730,7 +1730,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            114 => 
+            114 =>
             array (
                 'id' => 115,
                 'codigo' => '111220',
@@ -1745,7 +1745,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            115 => 
+            115 =>
             array (
                 'id' => 116,
                 'codigo' => '111221',
@@ -1760,7 +1760,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            116 => 
+            116 =>
             array (
                 'id' => 117,
                 'codigo' => '111230',
@@ -1775,7 +1775,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            117 => 
+            117 =>
             array (
                 'id' => 118,
                 'codigo' => '111231',
@@ -1790,7 +1790,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            118 => 
+            118 =>
             array (
                 'id' => 119,
                 'codigo' => '120000',
@@ -1805,7 +1805,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            119 => 
+            119 =>
             array (
                 'id' => 120,
                 'codigo' => '121000',
@@ -1820,7 +1820,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            120 => 
+            120 =>
             array (
                 'id' => 121,
                 'codigo' => '121001',
@@ -1835,7 +1835,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            121 => 
+            121 =>
             array (
                 'id' => 122,
                 'codigo' => '121100',
@@ -1850,7 +1850,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            122 => 
+            122 =>
             array (
                 'id' => 123,
                 'codigo' => '121101',
@@ -1865,7 +1865,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            123 => 
+            123 =>
             array (
                 'id' => 124,
                 'codigo' => '121102',
@@ -1880,7 +1880,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            124 => 
+            124 =>
             array (
                 'id' => 125,
                 'codigo' => '121103',
@@ -1895,7 +1895,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            125 => 
+            125 =>
             array (
                 'id' => 126,
                 'codigo' => '121104',
@@ -1910,7 +1910,7 @@ class RrhhUnidadesTableSeeder extends Seeder
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            126 => 
+            126 =>
             array (
                 'id' => 127,
                 'codigo' => '121105',
@@ -1926,7 +1926,7 @@ II)',
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            127 => 
+            127 =>
             array (
                 'id' => 128,
                 'codigo' => '121106',
@@ -1941,7 +1941,7 @@ II)',
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            128 => 
+            128 =>
             array (
                 'id' => 129,
                 'codigo' => '121107',
@@ -1956,7 +1956,7 @@ II)',
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            129 => 
+            129 =>
             array (
                 'id' => 130,
                 'codigo' => '121200',
@@ -1971,7 +1971,7 @@ II)',
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            130 => 
+            130 =>
             array (
                 'id' => 131,
                 'codigo' => '121201',
@@ -1986,7 +1986,7 @@ II)',
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            131 => 
+            131 =>
             array (
                 'id' => 132,
                 'codigo' => '121202',
@@ -2001,7 +2001,7 @@ II)',
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            132 => 
+            132 =>
             array (
                 'id' => 133,
                 'codigo' => '121300',
@@ -2016,7 +2016,7 @@ II)',
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            133 => 
+            133 =>
             array (
                 'id' => 134,
                 'codigo' => '121301',
@@ -2031,7 +2031,7 @@ II)',
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            134 => 
+            134 =>
             array (
                 'id' => 135,
                 'codigo' => '121302',
@@ -2046,7 +2046,7 @@ II)',
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            135 => 
+            135 =>
             array (
                 'id' => 136,
                 'codigo' => '121400',
@@ -2061,7 +2061,7 @@ II)',
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            136 => 
+            136 =>
             array (
                 'id' => 137,
                 'codigo' => '121401',
@@ -2076,7 +2076,7 @@ II)',
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            137 => 
+            137 =>
             array (
                 'id' => 138,
                 'codigo' => '121402',
@@ -2091,7 +2091,7 @@ II)',
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            138 => 
+            138 =>
             array (
                 'id' => 139,
                 'codigo' => '130000',
@@ -2106,7 +2106,7 @@ II)',
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            139 => 
+            139 =>
             array (
                 'id' => 140,
                 'codigo' => '131000',
@@ -2121,7 +2121,7 @@ II)',
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            140 => 
+            140 =>
             array (
                 'id' => 141,
                 'codigo' => '131001',
@@ -2136,7 +2136,7 @@ II)',
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            141 => 
+            141 =>
             array (
                 'id' => 142,
                 'codigo' => '131100',
@@ -2151,7 +2151,7 @@ II)',
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            142 => 
+            142 =>
             array (
                 'id' => 143,
                 'codigo' => '131101',
@@ -2166,7 +2166,7 @@ II)',
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            143 => 
+            143 =>
             array (
                 'id' => 144,
                 'codigo' => '131110',
@@ -2181,7 +2181,7 @@ II)',
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            144 => 
+            144 =>
             array (
                 'id' => 145,
                 'codigo' => '131111',
@@ -2196,7 +2196,7 @@ II)',
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            145 => 
+            145 =>
             array (
                 'id' => 146,
                 'codigo' => '131120',
@@ -2211,7 +2211,7 @@ II)',
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            146 => 
+            146 =>
             array (
                 'id' => 147,
                 'codigo' => '131121',
@@ -2226,7 +2226,7 @@ II)',
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            147 => 
+            147 =>
             array (
                 'id' => 148,
                 'codigo' => '131130',
@@ -2241,7 +2241,7 @@ II)',
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            148 => 
+            148 =>
             array (
                 'id' => 149,
                 'codigo' => '131131',
@@ -2256,7 +2256,7 @@ II)',
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            149 => 
+            149 =>
             array (
                 'id' => 150,
                 'codigo' => '131140',
@@ -2271,7 +2271,7 @@ II)',
                 'updated_at' => '2025-08-18 17:37:50',
                 'deleted_at' => NULL,
             ),
-            150 => 
+            150 =>
             array (
                 'id' => 151,
                 'codigo' => '131141',
@@ -2288,7 +2288,7 @@ II)',
             ),
         ));
 
-        $unidades = \App\Models\rrhhUnidad::get();
+        $unidades = \App\Models\RrhhUnidad::get();
 
         foreach ($unidades as $unidad) {
             Bodega::create([

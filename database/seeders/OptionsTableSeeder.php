@@ -144,7 +144,7 @@ class OptionsTableSeeder extends Seeder
             array (
                 'id' => 8,
                 'option_id' => 7,
-                'nombre' => 'Ingreso de Compra',
+                'nombre' => 'Ingreso de almacén',
                 'ruta' => 'compras.create',
                 'descripcion' => NULL,
                 'icono_l' => 'fa-cart-arrow-down',
@@ -178,7 +178,7 @@ class OptionsTableSeeder extends Seeder
             array (
                 'id' => 10,
                 'option_id' => 7,
-                'nombre' => 'Buscar Compras',
+                'nombre' => 'Buscar Ingresos a Almacén',
                 'ruta' => 'compras.index',
                 'descripcion' => 'Ingresos de artículos a inventario',
                 'icono_l' => 'fa-search',

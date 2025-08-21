@@ -77,6 +77,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(CompraSolicitudEstadosTableSeeder::class);
         $this->call(CompraSolicitudsTableSeeder::class);
+        $this->call(MediaTableSeeder::class);
+
 
         //Seeders de Compra Requisiciones
         $this->call(CompraRequisicionEstadosTableSeeder::class);
