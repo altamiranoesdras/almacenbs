@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreateCompraRequicicionTipoAdquisicionAPIRequest;
 use App\Http\Requests\API\UpdateCompraRequicicionTipoAdquisicionAPIRequest;
 use App\Models\CompraRequicicionTipoAdquisicion;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
 
 /**
  * Class CompraRequicicionTipoAdquisicionAPIController
@@ -15,8 +15,8 @@ use App\Http\Controllers\AppBaseController;
 class CompraRequicicionTipoAdquisicionAPIController extends AppBaseController
 {
     /**
-     * Display a listing of the CompraRequicicionTipoAdquisicions.
-     * GET|HEAD /compra-requisicion-tipo-adquisicions
+     * Display a listing of the compra.requisiciones.tipo-adquisiciones.
+     * GET|HEAD /compra-requisicion-tipo-adquisiciones
      */
     public function index(Request $request): JsonResponse
     {
@@ -29,14 +29,14 @@ class CompraRequicicionTipoAdquisicionAPIController extends AppBaseController
             $query->limit($request->get('limit'));
         }
 
-        $compraRequicicionTipoAdquisicions = $query->get();
+        $compraRequicicionTipoadquisiciones = $query->get();
 
-        return $this->sendResponse($compraRequicicionTipoAdquisicions->toArray(), 'Compra Requicicion Tipo Adquisicions ');
+        return $this->sendResponse($compraRequicicionTipoadquisiciones->toArray(), 'Compra Requicicion Tipo adquisiciones ');
     }
 
     /**
      * Store a newly created CompraRequicicionTipoAdquisicion in storage.
-     * POST /compra-requisicion-tipo-adquisicions
+     * POST /compra-requisicion-tipo-adquisiciones
      */
     public function store(CreateCompraRequicicionTipoAdquisicionAPIRequest $request): JsonResponse
     {
@@ -50,7 +50,7 @@ class CompraRequicicionTipoAdquisicionAPIController extends AppBaseController
 
     /**
      * Display the specified CompraRequicicionTipoAdquisicion.
-     * GET|HEAD /compra-requisicion-tipo-adquisicions/{id}
+     * GET|HEAD /compra-requisicion-tipo-adquisiciones/{id}
      */
     public function show($id): JsonResponse
     {
@@ -66,7 +66,7 @@ class CompraRequicicionTipoAdquisicionAPIController extends AppBaseController
 
     /**
      * Update the specified CompraRequicicionTipoAdquisicion in storage.
-     * PUT/PATCH /compra-requisicion-tipo-adquisicions/{id}
+     * PUT/PATCH /compra-requisicion-tipo-adquisiciones/{id}
      */
     public function update($id, UpdateCompraRequicicionTipoAdquisicionAPIRequest $request): JsonResponse
     {
@@ -85,7 +85,7 @@ class CompraRequicicionTipoAdquisicionAPIController extends AppBaseController
 
     /**
      * Remove the specified CompraRequicicionTipoAdquisicion from storage.
-     * DELETE /compra-requisicion-tipo-adquisicions/{id}
+     * DELETE /compra-requisicion-tipo-adquisiciones/{id}
      *
      * @throws \Exception
      */

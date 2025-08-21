@@ -32,11 +32,6 @@ class SolicitudCompraUsuarioDataTable extends DataTable
                 return $compraSolicitud->bodega->nombre ?? 'Principal';
 
             })
-            ->editColumn('proveedor.nombre', function (CompraSolicitud $compraSolicitud) {
-
-                return $compraSolicitud->proveedor->nombre ?? 'Sin Proveedor';
-
-            })
             ->editColumn('estado.nombre',function (CompraSolicitud $solicitud){
 
                 $color = $solicitud->estado->color;
@@ -47,16 +42,6 @@ class SolicitudCompraUsuarioDataTable extends DataTable
             ->editColumn('usuarioSolicita.name', function (CompraSolicitud $compraSolicitud) {
 
                 return $compraSolicitud->usuarioSolicita->name ?? 'Sin Usuario';
-
-            })
-            ->editColumn('usuarioAprueba.name', function (CompraSolicitud $compraSolicitud) {
-
-                return $compraSolicitud->usuarioAprueba->name ?? 'Sin Usuario';
-
-            })
-            ->editColumn('usuarioAdministra.name', function (CompraSolicitud $compraSolicitud) {
-
-                return $compraSolicitud->usuarioAdministra->name ?? 'Sin Usuario';
 
             })
             ->editColumn('unidad.nombre', function (CompraSolicitud $compraSolicitud) {
@@ -95,11 +80,8 @@ class SolicitudCompraUsuarioDataTable extends DataTable
             ->noTemporal()
             ->with(
                 'unidad',
-                'proveedor',
                 'estado',
                 'usuarioSolicita',
-                'usuarioAprueba',
-                'usuarioAdministra'
             );
     }
 
@@ -183,23 +165,11 @@ class SolicitudCompraUsuarioDataTable extends DataTable
                 ->name('unidad.nombre')
                 ->title('Unidad'),
 
-
-//            Column::make('proveedor_id')
-//                ->data('proveedor.nombre')
-//                ->name('proveedor.nombre')
-//                ->title('Proveedor'),
-
             Column::make('codigo'),
             Column::make('fecha_requiere')
                 ->data('created_at')
                 ->name('created_at')
                 ->title('Fecha Requiere'),
-
-//
-//            Column::make('justificacion')
-//                ->data('justificacion')
-//                ->name('justificacion')
-//                ->title('Justificación'),
 
             Column::make('estado')
                 ->data('estado.nombre')
@@ -210,16 +180,6 @@ class SolicitudCompraUsuarioDataTable extends DataTable
                 ->data('usuarioSolicita.name')
                 ->name('usuarioSolicita.name')
                 ->title('Usuario Solicita'),
-
-            Column::make('usuario_aprueba')
-                ->data('usuarioAprueba.name')
-                ->name('usuarioAprueba.name')
-                ->title('Usuario Aprueba'),
-
-            Column::make('usuario_administra')
-                ->data('usuarioAdministra.name')
-                ->name('usuarioAdministra.name')
-                ->title('Usuario Administra'),
 
             Column::computed('action')
                 ->exportable(false)

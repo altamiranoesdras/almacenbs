@@ -1,14 +1,12 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\CompraRequisicion;
 
-use App\Models\CompraRequisicion;
-use Illuminate\Database\Eloquent\Factories\Factory;
-
-use App\Models\CompraRequicicionTipoAdquisicione;
-use App\Models\CompraRequisicionTipoConcurso;
+use App\Models\CompraRequisicion\CompraRequisicion;
+use App\Models\CompraRequisicion\CompraRequisicionEstado;
+use App\Models\CompraRequisicionTipoAdquisicione;
 use App\Models\Proveedore;
-use App\Models\CompraRequicicionEstado;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CompraRequisicionFactory extends Factory
 {
@@ -26,10 +24,10 @@ class CompraRequisicionFactory extends Factory
      */
     public function definition()
     {
-        
-        $compraRequicicionEstado = CompraRequicicionEstado::first();
-        if (!$compraRequicicionEstado) {
-            $compraRequicicionEstado = CompraRequicicionEstado::factory()->create();
+
+        $compraRequisicionEstado = CompraRequisicionEstado::first();
+        if (!$compraRequisicionEstado) {
+            $compraRequisicionEstado = CompraRequisicionEstado::factory()->create();
         }
 
         return [

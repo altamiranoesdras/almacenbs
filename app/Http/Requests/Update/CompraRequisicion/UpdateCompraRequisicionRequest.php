@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Update\CompraRequisicion;
 
-use App\Models\CompraRequisicion;
+use App\Models\CompraRequisicion\CompraRequisicion;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateCompraRequisicionRequest extends FormRequest
@@ -25,7 +25,7 @@ class UpdateCompraRequisicionRequest extends FormRequest
     public function rules()
     {
         $rules = CompraRequisicion::$rules;
-        
+
         return $rules;
     }
 

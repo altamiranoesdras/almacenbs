@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreateCompraRequisicionAPIRequest;
 use App\Http\Requests\API\UpdateCompraRequisicionAPIRequest;
-use App\Models\CompraRequisicion;
+use App\Models\CompraRequisicion\CompraRequisicion;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
 
 /**
  * Class CompraRequisicionAPIController

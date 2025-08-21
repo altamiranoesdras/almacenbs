@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\CompraRequisicion\CompraRequisicionEstadosTableSeeder;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
 
         if (!file_exists(storage_path('temp'))){
             mkdir(storage_path('temp'));
-        }
+            $this->call(CompraRequisicionTipoConcursosTableSeeder::class);
+    }
 
         foreach(glob(storage_path('app/public/*')) as $file){
             if(file_exists($file)){
@@ -76,6 +77,11 @@ class DatabaseSeeder extends Seeder
 
         $this->call(CompraSolicitudEstadosTableSeeder::class);
         $this->call(CompraSolicitudsTableSeeder::class);
+        $this->call(MediaTableSeeder::class);
+
+
+        //Seeders de Compra Requisiciones
+        $this->call(CompraRequisicionEstadosTableSeeder::class);
 
 
         if(app()->environment()=='local'){

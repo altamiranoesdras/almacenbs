@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('titulo_pagina', 'Editar Compra Requicicion Tipo Adquisicion' )
+@section('titulo_pagina', 'Compra Requisicion Estado')
 
 @section('content')
 
@@ -9,7 +9,7 @@
             <div class="row breadcrumbs-top">
                 <div class="col-12">
                     <h2 class="content-header-title float-start mb-0">
-                                                    Editar Compra Requicicion Tipo Adquisicion
+                                                    Compra Requisicion Estado detalle
                                             </h2>
                 </div>
             </div>
@@ -28,44 +28,19 @@
         </div>
     </div>
 
+
     <div class="content-body">
 
         <div class="row">
             <div class="col-12">
-
-                @include('layouts.partials.request_errors')
-
                 <div class="card">
-
-                    {!! Form::model($compraRequicicionTipoAdquisicion, ['route' => ['compraRequicicionTipoAdquisicions.update', $compraRequicicionTipoAdquisicion->id], 'method' => 'patch','class' => 'esperar']) !!}
-
                     <div class="card-body">
                         <div class="row">
-                            @include('compra_requisicion_tipo_adquisicions.fields')
+                            @include('compra_requisicion_estados.show_fields')
                         </div>
                     </div>
-
-                    <div class="card-footer text-end">
-
-                        <a href="{{ route('compraRequicicionTipoAdquisicions.index') }}"
-                           class="btn btn-outline-secondary round me-1">
-                            <i class="fa fa-ban"></i>
-                            Cancelar
-                        </a>
-
-                        <button type="submit" class="btn btn-success round">
-                            <i class="fa fa-save"></i>
-                            Guardar
-                        </button>
-                    </div>
-
-                    {!! Form::close() !!}
-
-
                 </div>
             </div>
         </div>
-
     </div>
-
 @endsection

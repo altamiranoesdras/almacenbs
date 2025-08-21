@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\CompraSolicitudEstadoDataTable;
 use App\Http\Requests\CreateCompraSolicitudEstadoRequest;
 use App\Http\Requests\UpdateCompraSolicitudEstadoRequest;
-use App\Http\Controllers\AppBaseController;
 use App\Models\CompraSolicitudEstado;
-use Illuminate\Http\Request;
 
 class CompraSolicitudEstadoController extends AppBaseController
 {
@@ -48,7 +46,7 @@ class CompraSolicitudEstadoController extends AppBaseController
 
         flash()->success('Compra Solicitud Estado guardado.');
 
-        return redirect(route('compraSolicitudEstados.index'));
+        return redirect(route('compra.solicitudes.estados.index'));
     }
 
     /**
@@ -62,7 +60,7 @@ class CompraSolicitudEstadoController extends AppBaseController
         if (empty($compraSolicitudEstado)) {
             flash()->error('Compra Solicitud Estado no encontrado');
 
-            return redirect(route('compraSolicitudEstados.index'));
+            return redirect(route('compra.solicitudes.estados.index'));
         }
 
         return view('compra_solicitud_estados.show')->with('compraSolicitudEstado', $compraSolicitudEstado);
@@ -79,7 +77,7 @@ class CompraSolicitudEstadoController extends AppBaseController
         if (empty($compraSolicitudEstado)) {
             flash()->error('Compra Solicitud Estado no encontrado');
 
-            return redirect(route('compraSolicitudEstados.index'));
+            return redirect(route('compra.solicitudes.estados.index'));
         }
 
         return view('compra_solicitud_estados.edit')->with('compraSolicitudEstado', $compraSolicitudEstado);
@@ -96,7 +94,7 @@ class CompraSolicitudEstadoController extends AppBaseController
         if (empty($compraSolicitudEstado)) {
             flash()->error('Compra Solicitud Estado no encontrado');
 
-            return redirect(route('compraSolicitudEstados.index'));
+            return redirect(route('compra.solicitudes.estados.index'));
         }
 
         $compraSolicitudEstado->fill($request->all());
@@ -104,7 +102,7 @@ class CompraSolicitudEstadoController extends AppBaseController
 
         flash()->success('Compra Solicitud Estado actualizado.');
 
-        return redirect(route('compraSolicitudEstados.index'));
+        return redirect(route('compra.solicitudes.estados.index'));
     }
 
     /**
@@ -120,13 +118,13 @@ class CompraSolicitudEstadoController extends AppBaseController
         if (empty($compraSolicitudEstado)) {
             flash()->error('Compra Solicitud Estado no encontrado');
 
-            return redirect(route('compraSolicitudEstados.index'));
+            return redirect(route('compra.solicitudes.estados.index'));
         }
 
         $compraSolicitudEstado->delete();
 
         flash()->success('Compra Solicitud Estado eliminado.');
 
-        return redirect(route('compraSolicitudEstados.index'));
+        return redirect(route('compra.solicitudes.estados.index'));
     }
 }

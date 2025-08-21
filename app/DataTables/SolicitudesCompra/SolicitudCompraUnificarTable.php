@@ -4,6 +4,7 @@
 namespace App\DataTables\SolicitudesCompra;
 
 use App\Models\CompraSolicitud;
+use App\Models\Solicitud;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
@@ -25,19 +26,21 @@ class SolicitudCompraUnificarTable extends DataTable
         return $dataTable
             ->addColumn('action', function (CompraSolicitud $compraSolicitud) {
                 $id = $compraSolicitud->id;
-                return view('compra_solicitudes.mis_solicitudes.datatables_actions', compact('compraSolicitud', 'id'));
+                return view('compra_solicitudes.consolidar.datatables_actions', compact('compraSolicitud', 'id'));
             })
-            ->editColumn('bodega.nombre', function (CompraSolicitud $compraSolicitud) {
+            ->addColumn('checkbox', function (CompraSolicitud $compraSolicitud) {
+                $id = $compraSolicitud->id;
+                return view('compra_solicitudes.mis_solicitudes.checkbox', compact('id'));
+            })
+            ->editColumn('unidad.nombre', function (CompraSolicitud $compraSolicitud) {
 
-                return $compraSolicitud->bodega->nombre ?? 'Principal';
+                return $compraSolicitud->unidad->nombre ?? 'Sin Unidad';
 
             })
-            ->editColumn('proveedor.nombre', function (CompraSolicitud $compraSolicitud) {
-
-                return $compraSolicitud->proveedor->nombre ?? 'Sin Proveedor';
-
+            ->editColumn('fecha_solicita', function (CompraSolicitud $compraSolicitud) {
+                return fechaLtn($compraSolicitud->fecha_solicita);
             })
-            ->editColumn('estado.nombre',function (CompraSolicitud $solicitud){
+            ->editColumn('estado.nombre', function (CompraSolicitud $solicitud) {
 
                 $color = $solicitud->estado->color;
 
@@ -49,32 +52,10 @@ class SolicitudCompraUnificarTable extends DataTable
                 return $compraSolicitud->usuarioSolicita->name ?? 'Sin Usuario';
 
             })
-            ->editColumn('usuarioVerifica.name', function (CompraSolicitud $compraSolicitud) {
-
-                return $compraSolicitud->usuarioVerifica->name ?? 'Sin Usuario';
-
+            ->editColumn('codigo',function (CompraSolicitud $solicitud){
+                return view('compra_solicitudes.consolidar.modal_show_solicitud',compact('solicitud'))->render();
             })
-            ->editColumn('unidad.nombre', function (CompraSolicitud $compraSolicitud) {
-
-                return $compraSolicitud->unidad->nombre ?? 'Sin Unidad';
-
-            })
-            ->editColumn('created_at', function (CompraSolicitud $compraSolicitud) {
-
-                return $compraSolicitud->created_at->format('d/m/Y') ?? 'Sin Fecha';
-
-            })
-            ->editColumn('id', function (CompraSolicitud $compraSolicitud) {
-
-                return $compraSolicitud->id;
-
-            })
-            ->editColumn('justificacion', function (CompraSolicitud $compraSolicitud) {
-
-                return str($compraSolicitud->justificacion)->limit(50);
-
-            })
-            ->rawColumns(['action', 'estado.nombre']);
+            ->rawColumns(['action', 'checkbox', 'estado.nombre', 'codigo']);
     }
 
     /**
@@ -92,7 +73,6 @@ class SolicitudCompraUnificarTable extends DataTable
                 'unidad',
                 'estado',
                 'usuarioSolicita',
-                'usuarioVerifica',
             );
     }
 
@@ -131,6 +111,13 @@ class SolicitudCompraUnificarTable extends DataTable
                 ')
             ->buttons(
 
+                Button::make()
+                    ->text('<i class="fa fa-check"></i> Consolidar')
+                    ->addClass('btn btn-outline-success btnConsolidar')
+                    ->attr(['id' => 'btnConsolidar'])
+                    ->action('function(e, dt, node, config) {
+                        consolidarSolicitudes();
+                    }'),
                 Button::make('reset')
                     ->addClass('btn btn-outline-secondary')
                     ->text('<i class="fa fa-undo"></i> <span class="d-none d-sm-inline">Reiniciar</span>'),
@@ -164,35 +151,23 @@ class SolicitudCompraUnificarTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('id')
-                ->data('id')
-                ->name('id')
-                ->title('ID')
-                ->width(50)
+            Column::computed('checkbox')
+                ->title('Ha Consolidar')
+                ->exportable(false)
+                ->printable(false)
+                ->width('20%')
                 ->addClass('text-center'),
+
+            Column::make('codigo'),
 
             Column::make('unidad')
                 ->data('unidad.nombre')
                 ->name('unidad.nombre')
                 ->title('Unidad'),
 
-
-//            Column::make('proveedor_id')
-//                ->data('proveedor.nombre')
-//                ->name('proveedor.nombre')
-//                ->title('Proveedor'),
-
-            Column::make('codigo'),
-            Column::make('fecha_requiere')
-                ->data('created_at')
-                ->name('created_at')
-                ->title('Fecha Requiere'),
-
-//
-//            Column::make('justificacion')
-//                ->data('justificacion')
-//                ->name('justificacion')
-//                ->title('Justificación'),
+            Column::make('fecha_solicita')
+                ->data('fecha_solicita')
+                ->title('Fecha Solicita'),
 
             Column::make('estado')
                 ->data('estado.nombre')
@@ -204,16 +179,12 @@ class SolicitudCompraUnificarTable extends DataTable
                 ->name('usuarioSolicita.name')
                 ->title('Usuario Solicita'),
 
-            Column::make('usuario_verifica')
-                ->data('usuarioVerifica.name')
-                ->name('usuarioVerifica.name')
-                ->title('Usuario Verifica'),
-
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
                 ->width('20%')
                 ->addClass('text-center')
+
         ];
     }
 

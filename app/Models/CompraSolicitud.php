@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use App\Traits\TieneCodigo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\SoftDeletes;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  *
@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\Bodega|null $bodega
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraRequisicion> $compraRequisiciones
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraRequisicion\CompraRequisicion> $compraRequisiciones
  * @property-read int|null $compra_requisiciones_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraSolicitudDetalle> $detalles
  * @property-read int|null $detalles_count
@@ -135,7 +135,7 @@ class CompraSolicitud extends Model
 
     public function compraRequisiciones(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(\App\Models\CompraRequisicion::class, 'compra_solicitud_has_requisicion');
+        return $this->belongsToMany(CompraRequisicion\CompraRequisicion::class, 'compra_solicitud_has_requisicion');
     }
 
     public function scopeNoTemporal($q)

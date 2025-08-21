@@ -1,13 +1,11 @@
 <?php
 
 
-use App\Http\Controllers\CompraRequisicionController;
+use App\Http\Controllers\CompraRequisicion\CompraRequisicionController;
 use App\Http\Controllers\CompraSolicitudController;
 use App\Http\Controllers\CompraSolicitudEstadoController;
-use App\Http\Controllers\SolicitudesCompra\CompraSolicitudAprobarController;
+use App\Http\Controllers\SolicitudesCompra\CompraSolicitudConsolidarController;
 use App\Http\Controllers\SolicitudesCompra\CompraSolicitudUsuarioController;
-
-
 
 
 Route::prefix('compra')->name('compra.')->group(function () {
@@ -18,7 +16,7 @@ Route::prefix('compra')->name('compra.')->group(function () {
     Route::prefix('requisiciones')->name('requisiciones.')->group(function () {
 
         Route::resource('estados', App\Http\Controllers\CompraRequicicionEstadoController::class);
-        Route::resource('tipo-adquisicions', App\Http\Controllers\CompraRequicicionTipoAdquisicionController::class);
+        Route::resource('tipo-adquisiciones', App\Http\Controllers\CompraRequicicionTipoAdquisicionController::class);
         Route::resource('tipo-concursos', App\Http\Controllers\CompraRequisicionTipoConcursoController::class);
 
 
@@ -48,8 +46,11 @@ Route::prefix('compra')->name('compra.')->group(function () {
 //grupo de rutas con prefix compra/solicitudes
 Route::prefix('compra/solicitudes')->name('compra.solicitudes.')->group(function () {
 
+    Route::resource('estados', CompraSolicitudEstadoController::class);
+
     Route::get('/mis/solicitudes', [CompraSolicitudUsuarioController::class, 'index'])->name('usuario');
-    Route::get('/aprobar', [CompraSolicitudAprobarController::class, 'index'])->name('aprobar');
+    Route::get('/consolidar', [CompraSolicitudConsolidarController::class, 'index'])->name('consolidar');
+    Route::post('/consolidar/store', [CompraSolicitudConsolidarController::class, 'consolidarSolicitudes'])->name('consolidar.store');
 
     Route::get('/nueva', [CompraSolicitudController::class, 'create'])->name('nueva');
     Route::get('/', [CompraSolicitudController::class, 'index'])->name('index');
@@ -63,7 +64,5 @@ Route::prefix('compra/solicitudes')->name('compra.solicitudes.')->group(function
     Route::post('anular/{compraSolicitud}', [CompraSolicitudController::class,'anular'])->name('anular');
     Route::get('pdf/vista/{compraSolicitud}', [CompraSolicitudController::class,'pdfVista'])->name('pdf.vista');
     Route::get('pdf/{compraSolicitud}', [CompraSolicitudController::class,'pdf'])->name('pdf');
-
 });
 
-Route::resource('compraSolicitudEstados', CompraSolicitudEstadoController::class);

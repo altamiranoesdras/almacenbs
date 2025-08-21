@@ -5,26 +5,25 @@ namespace App\Http\Controllers;
 use App\DataTables\CompraRequicicionTipoAdquisicionDataTable;
 use App\Http\Requests\CreateCompraRequicicionTipoAdquisicionRequest;
 use App\Http\Requests\UpdateCompraRequicicionTipoAdquisicionRequest;
-use App\Http\Controllers\AppBaseController;
 use App\Models\CompraRequicicionTipoAdquisicion;
-use Illuminate\Http\Request;
 
 class CompraRequicicionTipoAdquisicionController extends AppBaseController
 {
 
     public function __construct()
     {
-        $this->middleware('permission:Ver Compra Requicicion Tipo Adquisicions')->only('show');
-        $this->middleware('permission:Crear Compra Requicicion Tipo Adquisicions')->only(['create','store']);
-        $this->middleware('permission:Editar Compra Requicicion Tipo Adquisicions')->only(['edit','update']);
-        $this->middleware('permission:Eliminar Compra Requicicion Tipo Adquisicions')->only('destroy');
+        $this->middleware('permission:Ver Compra Requicicion Tipo adquisiciones')->only('show');
+        $this->middleware('permission:Crear Compra Requicicion Tipo adquisiciones')->only(['create','store']);
+        $this->middleware('permission:Editar Compra Requicicion Tipo adquisiciones')->only(['edit','update']);
+        $this->middleware('permission:Eliminar Compra Requicicion Tipo adquisiciones')->only('destroy');
     }
     /**
      * Display a listing of the CompraRequicicionTipoAdquisicion.
      */
     public function index(CompraRequicicionTipoAdquisicionDataTable $compraRequicicionTipoAdquisicionDataTable)
     {
-    return $compraRequicicionTipoAdquisicionDataTable->render('compra_requisicion_tipo_adquisicions.index');
+    return $compraRequicicionTipoAdquisicionDataTable->render('compra_requisicion_tipo_adquisiciones.index');
+
     }
 
 
@@ -33,7 +32,7 @@ class CompraRequicicionTipoAdquisicionController extends AppBaseController
      */
     public function create()
     {
-        return view('compra_requisicion_tipo_adquisicions.create');
+        return view('compra_requisicion_tipo_adquisiciones.create');
     }
 
     /**
@@ -48,7 +47,7 @@ class CompraRequicicionTipoAdquisicionController extends AppBaseController
 
         flash()->success('Compra Requicicion Tipo Adquisicion guardado.');
 
-        return redirect(route('compraRequicicionTipoAdquisicions.index'));
+        return redirect(route('compra.requisiciones.tipo-adquisiciones.index'));
     }
 
     /**
@@ -62,10 +61,10 @@ class CompraRequicicionTipoAdquisicionController extends AppBaseController
         if (empty($compraRequicicionTipoAdquisicion)) {
             flash()->error('Compra Requicicion Tipo Adquisicion no encontrado');
 
-            return redirect(route('compraRequicicionTipoAdquisicions.index'));
+            return redirect(route('compra.requisiciones.tipo-adquisiciones.index'));
         }
 
-        return view('compra_requisicion_tipo_adquisicions.show')->with('compraRequicicionTipoAdquisicion', $compraRequicicionTipoAdquisicion);
+        return view('compra_requisicion_tipo_adquisiciones.show')->with('compraRequicicionTipoAdquisicion', $compraRequicicionTipoAdquisicion);
     }
 
     /**
@@ -79,10 +78,10 @@ class CompraRequicicionTipoAdquisicionController extends AppBaseController
         if (empty($compraRequicicionTipoAdquisicion)) {
             flash()->error('Compra Requicicion Tipo Adquisicion no encontrado');
 
-            return redirect(route('compraRequicicionTipoAdquisicions.index'));
+            return redirect(route('compra.requisiciones.tipo-adquisiciones.index'));
         }
 
-        return view('compra_requisicion_tipo_adquisicions.edit')->with('compraRequicicionTipoAdquisicion', $compraRequicicionTipoAdquisicion);
+        return view('compra_requisicion_tipo_adquisiciones.edit')->with('compraRequicicionTipoAdquisicion', $compraRequicicionTipoAdquisicion);
     }
 
     /**
@@ -96,7 +95,7 @@ class CompraRequicicionTipoAdquisicionController extends AppBaseController
         if (empty($compraRequicicionTipoAdquisicion)) {
             flash()->error('Compra Requicicion Tipo Adquisicion no encontrado');
 
-            return redirect(route('compraRequicicionTipoAdquisicions.index'));
+            return redirect(route('compra.requisiciones.tipo-adquisiciones.index'));
         }
 
         $compraRequicicionTipoAdquisicion->fill($request->all());
@@ -104,7 +103,7 @@ class CompraRequicicionTipoAdquisicionController extends AppBaseController
 
         flash()->success('Compra Requicicion Tipo Adquisicion actualizado.');
 
-        return redirect(route('compraRequicicionTipoAdquisicions.index'));
+        return redirect(route('compra.requisiciones.tipo-adquisiciones.index'));
     }
 
     /**
@@ -120,13 +119,13 @@ class CompraRequicicionTipoAdquisicionController extends AppBaseController
         if (empty($compraRequicicionTipoAdquisicion)) {
             flash()->error('Compra Requicicion Tipo Adquisicion no encontrado');
 
-            return redirect(route('compraRequicicionTipoAdquisicions.index'));
+            return redirect(route('compra.requisiciones.tipo-adquisiciones.index'));
         }
 
         $compraRequicicionTipoAdquisicion->delete();
 
         flash()->success('Compra Requicicion Tipo Adquisicion eliminado.');
 
-        return redirect(route('compraRequicicionTipoAdquisicions.index'));
+        return redirect(route('compra.requisiciones.tipo-adquisiciones.index'));
     }
 }

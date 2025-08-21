@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\CompraBandejaDataTable;
 use App\Http\Requests\CreateCompraBandejaRequest;
 use App\Http\Requests\UpdateCompraBandejaRequest;
-use App\Http\Controllers\AppBaseController;
 use App\Models\CompraBandeja;
-use Illuminate\Http\Request;
 
 class CompraBandejaController extends AppBaseController
 {
@@ -43,12 +41,17 @@ class CompraBandejaController extends AppBaseController
     {
         $input = $request->all();
 
+
         /** @var CompraBandeja $compraBandeja */
         $compraBandeja = CompraBandeja::create($input);
 
+        $compraBandeja->estados()->sync(
+            $request->input('estados', [])
+        );
+
         flash()->success('Compra Bandeja guardado.');
 
-        return redirect(route('compraBandejas.index'));
+        return redirect(route('compra.bandejas.index'));
     }
 
     /**
@@ -62,7 +65,7 @@ class CompraBandejaController extends AppBaseController
         if (empty($compraBandeja)) {
             flash()->error('Compra Bandeja no encontrado');
 
-            return redirect(route('compraBandejas.index'));
+            return redirect(route('compra.bandejas.index'));
         }
 
         return view('compra_bandejas.show')->with('compraBandeja', $compraBandeja);
@@ -79,7 +82,7 @@ class CompraBandejaController extends AppBaseController
         if (empty($compraBandeja)) {
             flash()->error('Compra Bandeja no encontrado');
 
-            return redirect(route('compraBandejas.index'));
+            return redirect(route('compra.bandejas.index'));
         }
 
         return view('compra_bandejas.edit')->with('compraBandeja', $compraBandeja);
@@ -96,7 +99,7 @@ class CompraBandejaController extends AppBaseController
         if (empty($compraBandeja)) {
             flash()->error('Compra Bandeja no encontrado');
 
-            return redirect(route('compraBandejas.index'));
+            return redirect(route('compra.bandejas.index'));
         }
 
         $compraBandeja->fill($request->all());
@@ -104,7 +107,7 @@ class CompraBandejaController extends AppBaseController
 
         flash()->success('Compra Bandeja actualizado.');
 
-        return redirect(route('compraBandejas.index'));
+        return redirect(route('compra.bandejas.index'));
     }
 
     /**
@@ -120,13 +123,13 @@ class CompraBandejaController extends AppBaseController
         if (empty($compraBandeja)) {
             flash()->error('Compra Bandeja no encontrado');
 
-            return redirect(route('compraBandejas.index'));
+            return redirect(route('compra.bandejas.index'));
         }
 
         $compraBandeja->delete();
 
         flash()->success('Compra Bandeja eliminado.');
 
-        return redirect(route('compraBandejas.index'));
+        return redirect(route('compra.bandejas.index'));
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\API;
 
-use App\Models\CompraRequisicion;
+use App\Models\CompraRequisicion\CompraRequisicion;
 use InfyOm\Generator\Request\APIRequest;
 
 class CreateCompraRequisicionAPIRequest extends APIRequest

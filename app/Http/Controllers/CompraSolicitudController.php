@@ -104,7 +104,6 @@ class CompraSolicitudController extends AppBaseController
 
         $input = $request->all();
 
-
         /** @var CompraSolicitud $compraSolicitud */
         $compraSolicitud = CompraSolicitud::create($input);
 
@@ -189,7 +188,7 @@ class CompraSolicitudController extends AppBaseController
 
         if($request->solicitar) {
             $compraSolicitud->estado_id = CompraSolicitudEstado::SOLICITADA;
-            $compraSolicitud->fecha_solicita = fechaHoraActual();
+            $compraSolicitud->fecha_solicita = fechaActual('en');
             $compraSolicitud->save();
             return redirect(route('compra.solicitudes.index'));
         } else {

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreateCompraSolicitudEstadoAPIRequest;
 use App\Http\Requests\API\UpdateCompraSolicitudEstadoAPIRequest;
 use App\Models\CompraSolicitudEstado;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
 
 /**
  * Class CompraSolicitudEstadoAPIController
@@ -15,7 +15,7 @@ use App\Http\Controllers\AppBaseController;
 class CompraSolicitudEstadoAPIController extends AppBaseController
 {
     /**
-     * Display a listing of the CompraSolicitudEstados.
+     * Display a listing of the compra.solicitudes.estados.
      * GET|HEAD /compra-solicitud-estados
      */
     public function index(Request $request): JsonResponse

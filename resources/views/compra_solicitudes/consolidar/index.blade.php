@@ -11,7 +11,7 @@
                 <div class="col-12">
                     <h2 class="content-header-title float-start mb-0">
                         <h1>
-                            Aprobar Requisiciones de Compra
+                            Consolidar Solicitudes de Compra
                         </h1>
                     </h2>
                 </div>
@@ -41,13 +41,13 @@
                         <form id="formFiltersDatatables">
                             <div class="row">
                                 <div class="col-sm-4 mb-1">
-                                    {!! Form::label('proveedor_id','Proveedor: ') !!}
+                                    {!! Form::label('$unidad_id','Unidad: ') !!}
                                     {!!
                                         Form::select(
-                                            'proveedores',
-                                            select(\App\Models\Proveedor::class,'nombre','id',null)
-                                            , $proveedor_id ?? null
-                                            , ['id'=>'proveedores','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
+                                            'unidad_id',
+                                            select(\App\Models\RrhhUnidad::class,'nombre','id',null)
+                                            , $unidad_id ?? null
+                                            , ['id'=>'unidades','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
                                         )
                                     !!}
                                 </div>
@@ -67,7 +67,7 @@
                                     {!!
                                         Form::select(
                                             'items',
-                                            select(\App\Models\Item::conIngresos(),'text','id',null)
+                                            select(\App\Models\Item::enSolicitudCompraActiva(),'text','id',null)
                                             , null
                                             , ['id'=>'items','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
                                         )
@@ -117,8 +117,21 @@
 
         <div class="row">
             <div class="col-12">
-                <div class="card">
+                <div class="card" id="consolidarSolicitudes">
                     @include('compra_solicitudes.table')
+                    <form
+                        action="{{route('compra.solicitudes.consolidar.store')}}"
+                        id="formConsolidarSolicitudes"
+                        method="POST"
+                    >
+                        @csrf
+                        <input
+                            type="hidden"
+                            v-for="id in solicitudesAConsolidarIds"
+                            name="solicitudes_ids[]"
+                            :value="id"
+                        >
+                    </form>
                 </div>
             </div>
         </div>
@@ -129,6 +142,49 @@
 
 @push('scripts')
     <script>
+
+        function recibirIdDeCheckbox(checkbox) {
+            const id = checkbox.value;
+            if (checkbox.checked) {
+                consolidarSolicitudesVue.solicitudesAConsolidarIds.push(id);
+            } else {
+                consolidarSolicitudesVue.solicitudesAConsolidarIds = consolidarSolicitudesVue
+                    .solicitudesAConsolidarIds
+                    .filter(item => item !== id);
+            }
+        }
+
+        function consolidarSolicitudes(){
+            if( consolidarSolicitudesVue.solicitudesAConsolidarIds.length === 0) {
+                alert('Debe seleccionar al menos una solicitud para consolidar.');
+                return;
+            }
+            $('#formConsolidarSolicitudes').submit();
+        }
+
+        const consolidarSolicitudesVue = new Vue({
+            name: 'consolidarSolicitudes',
+            el: '#consolidarSolicitudes',
+            created() {
+                $('#btnConsolidar').attr('disabled', 'disabled');
+            },
+            data: {
+                solicitudesAConsolidarIds : [],
+            },
+            methods: {
+
+            },
+            watch: {
+                solicitudesAConsolidarIds: function (val) {
+                    if (val.length > 0) {
+                        $('#btnConsolidar').removeAttr('disabled');
+                    } else {
+                        $('#btnConsolidar').attr('disabled', 'disabled');
+                    }
+                }
+            },
+
+        });
         $(function () {
             $('#formFiltersDatatables').submit(function(e){
                 e.preventDefault();

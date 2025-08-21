@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -764,5 +766,24 @@ class Item extends Model implements HasMedia
                     ->where('estado_id',SolicitudEstado::APROBADA);
             });
         }]);
+    }
+
+    public function scopeEnSolicitudCompraActiva($query): Builder
+    {
+        return $query->whereHas('compraSolicitudDetalles', function ($q) {
+            $q->whereHas('solicitud', function ($q) {
+                $q->whereNotIn('estado_id', [
+                    CompraSolicitudEstado::CANCELADA,
+                    CompraSolicitudEstado::ASIGNADA_A_REQUISICION,
+                ]);
+            });
+        });
+
+    }
+
+    public function compraSolicitudDetalles(): HasMany
+    {
+        return $this->hasMany(CompraSolicitudDetalle::class,'item_id');
+
     }
 }

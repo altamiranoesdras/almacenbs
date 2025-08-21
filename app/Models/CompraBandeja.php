@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\SoftDeletes;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $rol_id
@@ -72,8 +72,12 @@ class CompraBandeja extends Model
         return $this->belongsTo(\App\Models\Role::class, 'rol_id');
     }
 
-    public function compraRequicicionEstados(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function estados(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(\App\Models\CompraRequicicionEstado::class, 'compra_estado_has_bandeja');
+        return $this->belongsToMany(\App\Models\CompraRequicicionEstado::class,
+            'compra_estado_has_bandeja',
+            'bandeja_id',
+            'estado_id'
+        );
     }
 }

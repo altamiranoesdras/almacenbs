@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\CompraRequisicion;
 
-use App\DataTables\CompraRequisicionDataTable;
-use App\Http\Requests\CreateCompraRequisicionRequest;
-use App\Http\Requests\UpdateCompraRequisicionRequest;
+use App\DataTables\CompraRequisicion\CompraRequisicionDataTable;
 use App\Http\Controllers\AppBaseController;
-use App\Models\CompraRequisicion;
-use Illuminate\Http\Request;
+use App\Http\Requests\Create\CompraRequisicion\CreateCompraRequisicionRequest;
+use App\Http\Requests\Update\CompraRequisicion\UpdateCompraRequisicionRequest;
+use App\Models\CompraRequisicion\CompraRequisicion;
 
 class CompraRequisicionController extends AppBaseController
 {

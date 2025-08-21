@@ -37,19 +37,19 @@
                 @include('layouts.partials.request_errors')
 
                 <div class="card">
-                    {!! Form::open(['route' => 'compraRequicicionTipoAdquisicions.store','class' => 'esperar']) !!}
+                    {!! Form::open(['route' => 'compra.requisiciones.tipo-adquisiciones.store','class' => 'esperar']) !!}
 
                     <div class="card-body">
 
                         <div class="row">
-                            @include('compra_requisicion_tipo_adquisicions.fields')
+                            @include('compra_requisicion_tipo_adquisiciones.fields')
                         </div>
 
                     </div>
 
                     <div class="card-footer text-end">
 
-                        <a href="{{ route('compraRequicicionTipoAdquisicions.index') }}"
+                        <a href="{{ route('compra.requisiciones.tipo-adquisiciones.index') }}"
                            class="btn btn-outline-secondary round me-1">
                             <i class="fa fa-ban"></i>
                             Cancelar

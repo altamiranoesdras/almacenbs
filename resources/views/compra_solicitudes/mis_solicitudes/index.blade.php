@@ -40,41 +40,29 @@
                     <div class="card-body p-2">
                         <form id="formFiltersDatatables">
                             <div class="row">
-                                <div class="col-sm-4 mb-1">
-                                    {!! Form::label('proveedor_id','Proveedor: ') !!}
-                                    {!!
-                                        Form::select(
-                                            'proveedores',
-                                            select(\App\Models\Proveedor::class,'nombre','id',null)
-                                            , $proveedor_id ?? null
-                                            , ['id'=>'proveedores','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
-                                        )
-                                    !!}
-                                </div>
-
-                                <div class="col-sm-2 mb-1">
+                                <div class="col-sm-3 mb-1">
                                     {!! Form::label('del', 'Del:') !!}
                                     {!! Form::date('del', iniMesDb(), ['class' => 'form-control ']) !!}
                                 </div>
 
-                                <div class="col-sm-2 mb-1">
+                                <div class="col-sm-3 mb-1">
                                     {!! Form::label('al', 'Al:') !!}
                                     {!! Form::date('al', hoyDb(), ['class' => 'form-control ']) !!}
                                 </div>
 
-                                <div class="col-sm-4 mb-1">
+                                <div class="col-sm-6 mb-1">
                                     {!! Form::label('item_id','Artículo: ') !!}
                                     {!!
                                         Form::select(
                                             'items',
-                                            select(\App\Models\Item::conIngresos(),'text','id',null)
+                                            select(\App\Models\Item::enSolicitudCompraActiva(),'text','id',null)
                                             , null
                                             , ['id'=>'items','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
                                         )
                                     !!}
                                 </div>
 
-                                <div class="col-sm-3 mb-1">
+                                <div class="col-sm-6 mb-1">
                                     {!! Form::label('estado_id','Estado: ') !!}
                                     {!!
                                         Form::select(
@@ -88,14 +76,14 @@
 
 
 
-                                <div class="col-sm-3 mb-1">
+                                <div class="col-sm-4 mb-1">
                                     {!! Form::label('codigo', 'Codigo:') !!}
                                     {!! Form::text('codigo', null, ['class' => 'form-control']) !!}
                                 </div>
 
 
 
-                                <div class="col-sm-3 mb-1 pl-3">
+                                <div class="col-sm-2 mb-1 pl-3">
                                     {!! Form::label('boton','&nbsp;') !!}
                                     <div>
                                         <button type="submit" id="boton" class="btn btn-info">Filtrar</button>

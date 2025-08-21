@@ -1,51 +1,48 @@
 <?php
 
-use App\Http\Controllers\API\ItemTipoAPIController;
-use App\Http\Controllers\API\OptionAPIController;
-use App\Http\Controllers\API\PermissionAPIController;
-use App\Http\Controllers\API\RoleAPIController;
-use App\Http\Controllers\API\RrhhPuestoAPIController;
-use App\Http\Controllers\API\UserAPIController;
-
-use App\Http\Controllers\API\CompraEstadoAPIController;
-use App\Http\Controllers\API\ProveedorAPIController;
-use App\Http\Controllers\API\CompraTipoAPIController;
+use App\Http\Controllers\API\ActivoAPIController;
+use App\Http\Controllers\API\ActivoEstadoAPIController;
+use App\Http\Controllers\API\ActivoSolicitudAPIController;
+use App\Http\Controllers\API\ActivoSolicitudDetalleAPIController;
+use App\Http\Controllers\API\ActivoSolicitudEstadoAPIController;
+use App\Http\Controllers\API\ActivoSolicitudTipoAPIController;
+use App\Http\Controllers\API\ActivoTarjetaAPIController;
+use App\Http\Controllers\API\ActivoTarjetaDetalleAPIController;
+use App\Http\Controllers\API\ActivoTipoAPIController;
+use App\Http\Controllers\API\Compra1hAPIController;
+use App\Http\Controllers\API\Compra1hDetalleAPIController;
 use App\Http\Controllers\API\CompraAPIController;
-use App\Http\Controllers\API\ItemCategoriaAPIController;
-use App\Http\Controllers\API\MarcaAPIController;
-use App\Http\Controllers\API\MagnitudAPIController;
-use App\Http\Controllers\API\UnimedAPIController;
-use App\Http\Controllers\API\RenglonAPIController;
-use App\Http\Controllers\API\ItemAPIController;
 use App\Http\Controllers\API\CompraDetalleAPIController;
+use App\Http\Controllers\API\CompraEstadoAPIController;
+use App\Http\Controllers\API\CompraTipoAPIController;
 use App\Http\Controllers\API\DenominacionAPIController;
 use App\Http\Controllers\API\DivisaAPIController;
+use App\Http\Controllers\API\EnvioFiscalAPIController;
 use App\Http\Controllers\API\EquivalenciaAPIController;
-use App\Http\Controllers\API\StockInicialAPIController;
-use App\Http\Controllers\API\ItemTrasladoEstadoAPIController;
+use App\Http\Controllers\API\ItemAPIController;
+use App\Http\Controllers\API\ItemCategoriaAPIController;
+use App\Http\Controllers\API\ItemTipoAPIController;
 use App\Http\Controllers\API\ItemTrasladoAPIController;
+use App\Http\Controllers\API\ItemTrasladoEstadoAPIController;
 use App\Http\Controllers\API\KardexAPIController;
-use App\Http\Controllers\API\SolicitudEstadoAPIController;
+use App\Http\Controllers\API\MagnitudAPIController;
+use App\Http\Controllers\API\MarcaAPIController;
+use App\Http\Controllers\API\OptionAPIController;
+use App\Http\Controllers\API\PermissionAPIController;
+use App\Http\Controllers\API\ProveedorAPIController;
+use App\Http\Controllers\API\RenglonAPIController;
+use App\Http\Controllers\API\RoleAPIController;
+use App\Http\Controllers\API\RrhhPuestoAPIController;
 use App\Http\Controllers\API\RrhhUnidadAPIController;
 use App\Http\Controllers\API\SolicitudAPIController;
 use App\Http\Controllers\API\SolicitudDetalleAPIController;
+use App\Http\Controllers\API\SolicitudEstadoAPIController;
 use App\Http\Controllers\API\StockAPIController;
+use App\Http\Controllers\API\StockInicialAPIController;
 use App\Http\Controllers\API\StockTransaccionAPIController;
+use App\Http\Controllers\API\UnimedAPIController;
+use App\Http\Controllers\API\UserAPIController;
 use App\Http\Controllers\API\UserDespachaUserAPIController;
-use App\Http\Controllers\API\EnvioFiscalAPIController;
-use App\Http\Controllers\API\Compra1hAPIController;
-use App\Http\Controllers\API\Compra1hDetalleAPIController;
-
-use App\Http\Controllers\API\ActivoEstadoAPIController;
-use App\Http\Controllers\API\ActivoTipoAPIController;
-use App\Http\Controllers\API\ActivoAPIController;
-use App\Http\Controllers\API\ActivoTarjetaAPIController;
-use App\Http\Controllers\API\ActivoTarjetaDetalleAPIController;
-use App\Http\Controllers\API\ActivoSolicitudTipoAPIController;
-use App\Http\Controllers\API\ActivoSolicitudEstadoAPIController;
-use App\Http\Controllers\API\ActivoSolicitudAPIController;
-use App\Http\Controllers\API\ActivoSolicitudDetalleAPIController;
-
 use Illuminate\Support\Facades\Route;
 
 Route::group(['as'=>'api.'], function () {
@@ -213,10 +210,9 @@ Route::group(['as'=>'api.'], function () {
             ->except(['create', 'edit']);
 //
 //
-//        Route::resource('compra-requisicion-estados', App\Http\Controllers\API\CompraRequicicionEstadoAPIController::class)
-//            ->except(['create', 'edit']);
+
 //
-//        Route::resource('compra-requisicion-tipo-adquisicions', App\Http\Controllers\API\CompraRequicicionTipoAdquisicionAPIController::class)
+//        Route::resource('compra-requisicion-tipo-adquisiciones', App\Http\Controllers\API\CompraRequicicionTipoAdquisicionAPIController::class)
 //            ->except(['create', 'edit']);
 //
 //        Route::resource('compra-requisicion-tipo-concursos', App\Http\Controllers\API\CompraRequisicionTipoConcursoAPIController::class)
@@ -230,9 +226,8 @@ Route::group(['as'=>'api.'], function () {
 //
 //        Route::resource('compra-orden-detalles', App\Http\Controllers\API\CompraOrdenDetalleAPIController::class)
 //            ->except(['create', 'edit']);
-//
-//        Route::resource('compra-solicitud-estados', App\Http\Controllers\API\CompraSolicitudEstadoAPIController::class)
-//            ->except(['create', 'edit']);
+
+
 //
 //        Route::resource('costo-centros', App\Http\Controllers\API\CostoCentroAPIController::class)
 //            ->except(['create', 'edit']);
@@ -248,6 +243,20 @@ Route::group(['as'=>'api.'], function () {
 //
 //        Route::resource('compra-bandejas', App\Http\Controllers\API\CompraBandejaAPIController::class)
 //            ->except(['create', 'edit']);
+
+        Route::group(['prefix' => 'compra', 'as' => 'compra.'], function () {
+
+            Route::group(['prefix' => 'requisiciones', 'as' => 'requisiciones.'], function () {
+
+                Route::resource('estados', App\Http\Controllers\API\CompraRequicicionEstadoAPIController::class)
+                    ->except(['create', 'edit']);
+
+            });
+
+            //            Route::resource('compra-solicitud-estados', App\Http\Controllers\API\CompraSolicitudEstadoAPIController::class)
+//                ->except(['create', 'edit']);
+        });
+
 
     });
 

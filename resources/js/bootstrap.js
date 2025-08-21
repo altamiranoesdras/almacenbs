@@ -30,25 +30,25 @@ if (token) {
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
-
-import Echo from 'laravel-echo';
-
-import Pusher from 'pusher-js';
-window.Pusher = Pusher;
-
-window.Echo = new Echo({
-    broadcaster: 'reverb',
-    key: process.env.MIX_REVERB_APP_KEY,
-    cluster: process.env.MIX_REVERB_APP_CLUSTER,
-    wsHost: process.env.MIX_REVERB_HOST,
-    wsPort: process.env.MIX_REVERB_PORT,
-    wssPort: process.env.MIX_REVERB_PORT,
-    forceTLS: (process.env.MIX_REVERB_SCHEME ?? 'https') === 'https',
-    enabledTransports: ['ws', 'wss'],
-    path: process.env.MIX_REVERB_SERVER_PATH || '/app-reverb',
-});
-
-console.log(window.Echo);
+//
+// import Echo from 'laravel-echo';
+//
+// import Pusher from 'pusher-js';
+// window.Pusher = Pusher;
+//
+// window.Echo = new Echo({
+//     broadcaster: 'reverb',
+//     key: process.env.MIX_REVERB_APP_KEY,
+//     cluster: process.env.MIX_REVERB_APP_CLUSTER,
+//     wsHost: process.env.MIX_REVERB_HOST,
+//     wsPort: process.env.MIX_REVERB_PORT,
+//     wssPort: process.env.MIX_REVERB_PORT,
+//     forceTLS: (process.env.MIX_REVERB_SCHEME ?? 'https') === 'https',
+//     enabledTransports: ['ws', 'wss'],
+//     path: process.env.MIX_REVERB_SERVER_PATH || '/app-reverb',
+// });
+//
+// console.log(window.Echo);
 
 // require('webrtc-adapter');
 // window.Cookies = require('js-cookie');

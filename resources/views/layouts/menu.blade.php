@@ -12,3 +12,10 @@
         <p>User Configurations</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('compraRequisicions.index') }}" class="nav-link {{ Request::is('compraRequisicions*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Compra Requisicions</p>
+    </a>
+</li>
