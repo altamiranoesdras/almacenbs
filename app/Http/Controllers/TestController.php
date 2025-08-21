@@ -23,7 +23,11 @@ class TestController extends AppBaseController
     public function firmarDocumento(Request $request){
     
 
-        $url_rubrica =  env('app_url'). Storage::url($request->file('rubrica')->store('rubrica', 'public')); // Guardar la rúbrica en el disco público
+        $url_rubrica =  null;
+
+        if($request->hasFile('rubrica')) {
+            $url_rubrica =  env('app_url'). Storage::url($request->file('rubrica')->store('rubrica', 'public')); // Guardar la rúbrica en el disco público
+        }
 
 
         return (new FirmaElectronica())
