@@ -123,7 +123,7 @@ class FirmaElectronica
     }
 
     /** Asigna la ruta o URL de la rúbrica del usuario. */
-    public function setRubricaUsuario(string $ruta): self { $this->rutaRubricaUsuario = $ruta; return $this; }
+    public function setRubricaUsuario(string|null $ruta): self { $this->rutaRubricaUsuario = $ruta; return $this; }
 
     /** Asigna la ruta o URL de la rúbrica genérica. */
     public function setRubrica(string $ruta): self        { $this->rutaRubrica = $ruta; return $this; }

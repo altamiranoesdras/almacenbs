@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\TestEvent;
 use Illuminate\Http\Request;
 use App\FirmaElectronica\FirmaElectronica;
-
+use Storage;
 
 class TestController extends AppBaseController
 {
@@ -21,13 +21,18 @@ class TestController extends AppBaseController
     }
 
     public function firmarDocumento(Request $request){
+    
+
+        $url_rubrica =  env('app_url'). Storage::url($request->file('rubrica')->store('rubrica', 'public')); // Guardar la rúbrica en el disco público
+
 
         return (new FirmaElectronica())
             ->respuestaEnLinea() // o ->respuestaRuta() si solo quieres la ruta
             ->setDisco('public') // opcional: dónde guardar
             ->setDirectorio('firmas') // opcional: carpeta de guardado
-            ->setCorreo(auth()->user()->email) // correo de la firma electrónica
-            ->setClaveFirma($request->password) // contraseña de la firma
+            ->setCorreo(env('EMAIL_FIRMA_ELECTRONICA')) // correo de la firma electrónica
+            ->setClaveFirma(env('PASSWORD_FIRMA_ELECTRONICA')) // contraseña de la firma
+            ->setRubrica($url_rubrica) // archivo de la rúbrica del usuario (ruta)
             ->setRubricaUsuario(auth()->user()->rubrica) // archivo de la rúbrica del usuario (ruta)
             ->setInicioX($request->firma_inicio_x)// Opcional: posición horizontal de la firma
             ->setInicioY($request->firma_inicio_y) // Opcional: posición vertical de la firma
