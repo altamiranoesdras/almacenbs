@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreateCompraRequisicionTipoConcursoAPIRequest;
 use App\Http\Requests\API\UpdateCompraRequisicionTipoConcursoAPIRequest;
 use App\Models\CompraRequisicionTipoConcurso;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
 
 /**
  * Class CompraRequisicionTipoConcursoAPIController
@@ -15,7 +15,7 @@ use App\Http\Controllers\AppBaseController;
 class CompraRequisicionTipoConcursoAPIController extends AppBaseController
 {
     /**
-     * Display a listing of the CompraRequisicionTipoConcursos.
+     * Display a listing of the compra.requisiciones.tipo-concursos.
      * GET|HEAD /compra-requisicion-tipo-concursos
      */
     public function index(Request $request): JsonResponse

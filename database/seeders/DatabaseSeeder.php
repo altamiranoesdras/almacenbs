@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
 
         if (!file_exists(storage_path('temp'))){
             mkdir(storage_path('temp'));
-        }
+            $this->call(CompraRequisicionTipoConcursosTableSeeder::class);
+    }
 
         foreach(glob(storage_path('app/public/*')) as $file){
             if(file_exists($file)){

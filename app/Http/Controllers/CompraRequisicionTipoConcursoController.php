@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\CompraRequisicionTipoConcursoDataTable;
 use App\Http\Requests\CreateCompraRequisicionTipoConcursoRequest;
 use App\Http\Requests\UpdateCompraRequisicionTipoConcursoRequest;
-use App\Http\Controllers\AppBaseController;
 use App\Models\CompraRequisicionTipoConcurso;
-use Illuminate\Http\Request;
 
 class CompraRequisicionTipoConcursoController extends AppBaseController
 {
@@ -48,7 +46,7 @@ class CompraRequisicionTipoConcursoController extends AppBaseController
 
         flash()->success('Compra Requisicion Tipo Concurso guardado.');
 
-        return redirect(route('compraRequisicionTipoConcursos.index'));
+        return redirect(route('compra.requisiciones.tipo-concursos.index'));
     }
 
     /**
@@ -62,7 +60,7 @@ class CompraRequisicionTipoConcursoController extends AppBaseController
         if (empty($compraRequisicionTipoConcurso)) {
             flash()->error('Compra Requisicion Tipo Concurso no encontrado');
 
-            return redirect(route('compraRequisicionTipoConcursos.index'));
+            return redirect(route('compra.requisiciones.tipo-concursos.index'));
         }
 
         return view('compra_requisicion_tipo_concursos.show')->with('compraRequisicionTipoConcurso', $compraRequisicionTipoConcurso);
@@ -79,7 +77,7 @@ class CompraRequisicionTipoConcursoController extends AppBaseController
         if (empty($compraRequisicionTipoConcurso)) {
             flash()->error('Compra Requisicion Tipo Concurso no encontrado');
 
-            return redirect(route('compraRequisicionTipoConcursos.index'));
+            return redirect(route('compra.requisiciones.tipo-concursos.index'));
         }
 
         return view('compra_requisicion_tipo_concursos.edit')->with('compraRequisicionTipoConcurso', $compraRequisicionTipoConcurso);
@@ -96,7 +94,7 @@ class CompraRequisicionTipoConcursoController extends AppBaseController
         if (empty($compraRequisicionTipoConcurso)) {
             flash()->error('Compra Requisicion Tipo Concurso no encontrado');
 
-            return redirect(route('compraRequisicionTipoConcursos.index'));
+            return redirect(route('compra.requisiciones.tipo-concursos.index'));
         }
 
         $compraRequisicionTipoConcurso->fill($request->all());
@@ -104,7 +102,7 @@ class CompraRequisicionTipoConcursoController extends AppBaseController
 
         flash()->success('Compra Requisicion Tipo Concurso actualizado.');
 
-        return redirect(route('compraRequisicionTipoConcursos.index'));
+        return redirect(route('compra.requisiciones.tipo-concursos.index'));
     }
 
     /**
@@ -120,13 +118,13 @@ class CompraRequisicionTipoConcursoController extends AppBaseController
         if (empty($compraRequisicionTipoConcurso)) {
             flash()->error('Compra Requisicion Tipo Concurso no encontrado');
 
-            return redirect(route('compraRequisicionTipoConcursos.index'));
+            return redirect(route('compra.requisiciones.tipo-concursos.index'));
         }
 
         $compraRequisicionTipoConcurso->delete();
 
         flash()->success('Compra Requisicion Tipo Concurso eliminado.');
 
-        return redirect(route('compraRequisicionTipoConcursos.index'));
+        return redirect(route('compra.requisiciones.tipo-concursos.index'));
     }
 }

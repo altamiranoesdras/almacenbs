@@ -37,7 +37,7 @@
 
                 <div class="card">
 
-                    {!! Form::model($compraRequisicionTipoConcurso, ['route' => ['compraRequisicionTipoConcursos.update', $compraRequisicionTipoConcurso->id], 'method' => 'patch','class' => 'esperar']) !!}
+                    {!! Form::model($compraRequisicionTipoConcurso, ['route' => ['compra.requisiciones.tipo-concursos.update', $compraRequisicionTipoConcurso->id], 'method' => 'patch','class' => 'esperar']) !!}
 
                     <div class="card-body">
                         <div class="row">
@@ -47,7 +47,7 @@
 
                     <div class="card-footer text-end">
 
-                        <a href="{{ route('compraRequisicionTipoConcursos.index') }}"
+                        <a href="{{ route('compra.requisiciones.tipo-concursos.index') }}"
                            class="btn btn-outline-secondary round me-1">
                             <i class="fa fa-ban"></i>
                             Cancelar
