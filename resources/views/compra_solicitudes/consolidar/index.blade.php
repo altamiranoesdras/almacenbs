@@ -119,6 +119,19 @@
             <div class="col-12">
                 <div class="card" id="consolidarSolicitudes">
                     @include('compra_solicitudes.table')
+                    <form
+                        action="{{route('compra.solicitudes.consolidar.store')}}"
+                        id="formConsolidarSolicitudes"
+                        method="POST"
+                    >
+                        @csrf
+                        <input
+                            type="hidden"
+                            v-for="id in solicitudesAConsolidarIds"
+                            name="solicitudes_ids[]"
+                            :value="id"
+                        >
+                    </form>
                 </div>
             </div>
         </div>
@@ -139,6 +152,14 @@
                     .solicitudesAConsolidarIds
                     .filter(item => item !== id);
             }
+        }
+
+        function consolidarSolicitudes(){
+            if( consolidarSolicitudesVue.solicitudesAConsolidarIds.length === 0) {
+                alert('Debe seleccionar al menos una solicitud para consolidar.');
+                return;
+            }
+            $('#formConsolidarSolicitudes').submit();
         }
 
         const consolidarSolicitudesVue = new Vue({

@@ -48,6 +48,7 @@ Route::prefix('compra/solicitudes')->name('compra.solicitudes.')->group(function
 
     Route::get('/mis/solicitudes', [CompraSolicitudUsuarioController::class, 'index'])->name('usuario');
     Route::get('/consolidar', [CompraSolicitudConsolidarController::class, 'index'])->name('consolidar');
+    Route::post('/consolidar/store', [CompraSolicitudConsolidarController::class, 'consolidarSolicitudes'])->name('consolidar.store');
 
     Route::get('/nueva', [CompraSolicitudController::class, 'create'])->name('nueva');
     Route::get('/', [CompraSolicitudController::class, 'index'])->name('index');

@@ -116,7 +116,7 @@ class SolicitudCompraUnificarTable extends DataTable
                     ->addClass('btn btn-outline-success btnConsolidar')
                     ->attr(['id' => 'btnConsolidar'])
                     ->action('function(e, dt, node, config) {
-                        // Implementar Aca la funcionalidad
+                        consolidarSolicitudes();
                     }'),
                 Button::make('reset')
                     ->addClass('btn btn-outline-secondary')
