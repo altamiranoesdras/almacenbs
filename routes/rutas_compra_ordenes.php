@@ -16,7 +16,7 @@ Route::prefix('compra')->name('compra.')->group(function () {
     Route::prefix('requisiciones')->name('requisiciones.')->group(function () {
 
         Route::resource('estados', App\Http\Controllers\CompraRequicicionEstadoController::class);
-        Route::resource('tipo-adquisicions', App\Http\Controllers\CompraRequicicionTipoAdquisicionController::class);
+        Route::resource('tipo-adquisiciones', App\Http\Controllers\CompraRequicicionTipoAdquisicionController::class);
         Route::resource('tipo-concursos', App\Http\Controllers\CompraRequisicionTipoConcursoController::class);
 
 

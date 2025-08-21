@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('titulo_pagina', 'Compra Requicicion Tipo Adquisicions')
+@section('titulo_pagina', 'Compra Requicicion Tipo adquisiciones')
 
 @section('content')
 
@@ -9,7 +9,7 @@
             <div class="row breadcrumbs-top">
                 <div class="col-12">
                     <h2 class="content-header-title float-start mb-0">
-                        <h1>Compra Requicicion Tipo Adquisicions</h1>
+                        <h1>Compra Requicicion Tipo adquisiciones</h1>
                     </h2>
                 </div>
             </div>
@@ -18,7 +18,7 @@
             <div class="mb-1 breadcrumb-right">
                 <div class="dropdown">
                     <a class="btn btn-outline-success float-end round"
-                       href="{{ route('compraRequicicionTipoAdquisicions.create') }}">
+                       href="{{ route('compra.requisiciones.tipo-adquisiciones.create') }}">
                         <i class="fa fa-plus"></i>
                         Agregar
                     </a>
@@ -34,7 +34,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    @include('compra_requisicion_tipo_adquisicions.table')
+                    @include('compra_requisicion_tipo_adquisiciones.table')
                 </div>
             </div>
         </div>

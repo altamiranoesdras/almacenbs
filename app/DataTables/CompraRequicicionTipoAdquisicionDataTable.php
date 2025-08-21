@@ -3,8 +3,8 @@
 namespace App\DataTables;
 
 use App\Models\CompraRequicicionTipoAdquisicion;
-use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Button;
+use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
 class CompraRequicicionTipoAdquisicionDataTable extends DataTable
@@ -22,7 +22,7 @@ class CompraRequicicionTipoAdquisicionDataTable extends DataTable
             ->eloquent($query)
             ->addColumn('action', function(CompraRequicicionTipoAdquisicion $compraRequicicionTipoAdquisicion){
                 $id = $compraRequicicionTipoAdquisicion->id;
-                return view('compra_requisicion_tipo_adquisicions.datatables_actions',compact('compraRequicicionTipoAdquisicion','id'));
+                return view('compra_requisicion_tipo_adquisiciones.datatables_actions',compact('compraRequicicionTipoAdquisicion','id'));
             })
             ->editColumn('id',function (CompraRequicicionTipoAdquisicion $compraRequicicionTipoAdquisicion){
 
@@ -128,6 +128,6 @@ class CompraRequicicionTipoAdquisicionDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'compra_requisicion_tipo_adquisicions_datatable_' . time();
+        return 'compra_requisicion_tipo_adquisiciones_datatable_' . time();
     }
 }

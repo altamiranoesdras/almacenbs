@@ -1,17 +1,16 @@
 @extends('layouts.app')
 
-@section('titulo_pagina', 'Crear Compra Requicicion Tipo Adquisicion')
+@section('titulo_pagina', 'Editar Compra Requicicion Tipo Adquisicion' )
 
 @section('content')
-
 
     <div class="content-header row">
         <div class="content-header-left col-md-9 col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
                     <h2 class="content-header-title float-start mb-0">
-                        Crear Compra Requicicion Tipo Adquisicion
-                    </h2>
+                                                    Editar Compra Requicicion Tipo Adquisicion
+                                            </h2>
                 </div>
             </div>
         </div>
@@ -37,19 +36,18 @@
                 @include('layouts.partials.request_errors')
 
                 <div class="card">
-                    {!! Form::open(['route' => 'compraRequicicionTipoAdquisicions.store','class' => 'esperar']) !!}
+
+                    {!! Form::model($compraRequicicionTipoAdquisicion, ['route' => ['compra.requisiciones.tipo-adquisiciones.update', $compraRequicicionTipoAdquisicion->id], 'method' => 'patch','class' => 'esperar']) !!}
 
                     <div class="card-body">
-
                         <div class="row">
-                            @include('compra_requisicion_tipo_adquisicions.fields')
+                            @include('compra_requisicion_tipo_adquisiciones.fields')
                         </div>
-
                     </div>
 
                     <div class="card-footer text-end">
 
-                        <a href="{{ route('compraRequicicionTipoAdquisicions.index') }}"
+                        <a href="{{ route('compra.requisiciones.tipo-adquisiciones.index') }}"
                            class="btn btn-outline-secondary round me-1">
                             <i class="fa fa-ban"></i>
                             Cancelar
@@ -62,6 +60,8 @@
                     </div>
 
                     {!! Form::close() !!}
+
+
                 </div>
             </div>
         </div>
