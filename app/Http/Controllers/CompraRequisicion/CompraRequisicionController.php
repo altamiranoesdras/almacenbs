@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\CompraRequisicion;
 
-use App\DataTables\CompraRequisicionDataTable;
+use App\DataTables\CompraRequisicion\CompraRequisicionDataTable;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\Create\CompraRequisicion\CreateCompraRequisicionRequest;
-use App\Http\Requests\Update\UpdateCompraRequisicionRequest;
+use App\Http\Requests\Update\CompraRequisicion\UpdateCompraRequisicionRequest;
 use App\Models\CompraRequisicion\CompraRequisicion;
 
 class CompraRequisicionController extends AppBaseController

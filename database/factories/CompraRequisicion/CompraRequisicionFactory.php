@@ -1,9 +1,9 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\CompraRequisicion;
 
 use App\Models\CompraRequisicion\CompraRequisicion;
-use App\Models\CompraRequisicionEstado;
+use App\Models\CompraRequisicion\CompraRequisicionEstado;
 use App\Models\CompraRequisicionTipoAdquisicione;
 use App\Models\Proveedore;
 use Illuminate\Database\Eloquent\Factories\Factory;

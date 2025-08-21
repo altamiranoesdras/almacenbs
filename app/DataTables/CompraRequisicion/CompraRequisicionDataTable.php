@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataTables;
+namespace App\DataTables\CompraRequisicion;
 
 use App\Models\CompraRequisicion\CompraRequisicion;
 use Yajra\DataTables\Html\Button;

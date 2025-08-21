@@ -1,10 +1,10 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\CompraRequisicion;
 
 use Illuminate\Database\Seeder;
 
-class CompraRequisicionsTableSeeder extends Seeder
+class CompraRequisicionEstadosTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
