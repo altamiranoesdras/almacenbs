@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\CompraRequisicion\CompraRequisicionEstadosTableSeeder;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
@@ -76,6 +76,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call(CompraSolicitudEstadosTableSeeder::class);
         $this->call(CompraSolicitudsTableSeeder::class);
+
+        //Seeders de Compra Requisiciones
+        $this->call(CompraRequisicionEstadosTableSeeder::class);
 
 
         if(app()->environment()=='local'){

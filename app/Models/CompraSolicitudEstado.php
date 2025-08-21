@@ -37,12 +37,16 @@ class CompraSolicitudEstado extends Model
 
     public $table = 'compra_solicitud_estados';
 
+    const CREADA_CONSOLIDACION_SOLICITUDES = 1;
+    const EVALUANDO_PROVEEDORES_PROCESO_COMPETITIVO = 2;
+    const CUADRO_COMPARATIVO_GENERADO = 3;
+    const ACTA_NEGOCIACION_GENERADA_FIRMAS_ELECTRONICAS = 4;
+    const ACTA_NEGOCIACION_AUTORIZADA = 5;
+    const ADJUDICADA = 6;
+    const ORDEN_COMPRA_GENERADA = 7;
+    const FINALIZADA = 8;
+    const CANCELADA = 9;
 
-    const TEMPORAL =    1;
-    const INGRESADA =   2;
-    const SOLICITADA =  3;
-    const ASIGNADA_A_REQUISICION =  4;
-    const CANCELADA =    5;
 
     public $fillable = [
         'nombre'
@@ -75,14 +79,14 @@ class CompraSolicitudEstado extends Model
     public function getColorAttribute(): string
     {
 
-        switch ($this->id){
-            case self::SOLICITADA:
+        switch ($this->id) {
+            case self::CREADA_CONSOLIDACION_SOLICITUDES:
                 return "info";
-            case self::INGRESADA:
+            case self::EVALUANDO_PROVEEDORES_PROCESO_COMPETITIVO:
                 return "primary";
             case self::CANCELADA:
                 return "danger";
-            case self::TEMPORAL:
+            case self::ACTA_NEGOCIACION_GENERADA_FIRMAS_ELECTRONICAS:
                 return "warning";
             default:
                 return "secondary";
