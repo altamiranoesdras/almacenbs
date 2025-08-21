@@ -2667,7 +2667,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
     },
     id: {
       type: String,
-      "default": 'modal_dual_list_permisos'
+      "default": 'modal_dual_list_estados'
     },
     disabled: {
       type: Boolean,
@@ -6418,9 +6418,9 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", [_c("label", {
     attrs: {
-      "for": "permisos"
+      "for": "estados"
     }
-  }, [_vm._v("Permisos")]), _vm._v(" "), _c("a", {
+  }, [_vm._v("estados")]), _vm._v(" "), _c("a", {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -6449,7 +6449,7 @@ var render = function render() {
     return _c("input", {
       attrs: {
         type: "hidden",
-        name: "permisos[]"
+        name: "estados[]"
       },
       domProps: {
         value: rol.id
@@ -6488,15 +6488,15 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.editedItem.name,
-      expression: "editedItem.name"
+      value: _vm.editedItem.nombre,
+      expression: "editedItem.nombre"
     }],
     staticClass: "form-control",
     attrs: {
       type: "text"
     },
     domProps: {
-      value: _vm.editedItem.name
+      value: _vm.editedItem.nombre
     },
     on: {
       keydown: function keydown($event) {
@@ -6506,7 +6506,7 @@ var render = function render() {
       },
       input: function input($event) {
         if ($event.target.composing) return;
-        _vm.$set(_vm.editedItem, "name", $event.target.value);
+        _vm.$set(_vm.editedItem, "nombre", $event.target.value);
       }
     }
   })])])]), _vm._v(" "), _c("div", {
@@ -6538,7 +6538,7 @@ var staticRenderFns = [function () {
     attrs: {
       id: "myModalLabel1"
     }
-  }, [_vm._v("Nuevo role")]), _vm._v(" "), _c("button", {
+  }, [_vm._v("Nuevo estado")]), _vm._v(" "), _c("button", {
     staticClass: "btn-close",
     attrs: {
       type: "button",

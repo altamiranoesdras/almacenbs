@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <label for="permisos">Permisos</label>
+        <label for="estados">estados</label>
         <a href="#" @click.prevent="newItem()" v-show="!disabled">
             Nuevo
         </a>
@@ -12,13 +12,13 @@
             @onChangeList="onChangeList"
         />
 
-        <input type="hidden" name="permisos[]" :value="rol.id" v-for="rol in destination">
+        <input type="hidden" name="estados[]" :value="rol.id" v-for="rol in destination">
 
         <div class="modal fade text-start" :id="id" tabindex="-1" aria-labelledby="myModalLabel1" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel1">Nuevo role</h4>
+                        <h4 class="modal-title" id="myModalLabel1">Nuevo estado</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form @submit.prevent="save">
@@ -29,7 +29,7 @@
                                 <!-- Nombre Field -->
                                 <div class="col-sm-12 mb-1">
                                     <label for="nombre">Nombre:</label>
-                                    <input type="text" class="form-control" @keydown.enter.prevent="save()" v-model="editedItem.name" >
+                                    <input type="text" class="form-control" @keydown.enter.prevent="save()" v-model="editedItem.nombre" >
                                 </div>
 
 
@@ -92,7 +92,7 @@ export default {
         },
         id:{
             type: String,
-            default: 'modal_dual_list_permisos'
+            default: 'modal_dual_list_estados'
         },
         disabled:{
             type: Boolean,

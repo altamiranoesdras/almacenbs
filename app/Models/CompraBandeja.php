@@ -74,6 +74,10 @@ class CompraBandeja extends Model
 
     public function estados(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(\App\Models\CompraRequicicionEstado::class, 'compra_estado_has_bandeja');
+        return $this->belongsToMany(\App\Models\CompraRequicicionEstado::class,
+            'compra_estado_has_bandeja',
+            'bandeja_id',
+            'estado_id'
+        );
     }
 }

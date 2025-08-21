@@ -41,8 +41,13 @@ class CompraBandejaController extends AppBaseController
     {
         $input = $request->all();
 
+
         /** @var CompraBandeja $compraBandeja */
         $compraBandeja = CompraBandeja::create($input);
+
+        $compraBandeja->estados()->sync(
+            $request->input('estados', [])
+        );
 
         flash()->success('Compra Bandeja guardado.');
 

@@ -1,5 +1,5 @@
 
-<div id="campos_permisos">
+<div class="row" id="campos_estados">
     <div class="col-sm-6 mb-1">
         {!! Form::label('rol_id','Rol:') !!}
         {!!
@@ -14,21 +14,21 @@
 
     <div class="col-sm-6 mb-1">
         {!! Form::label('nombre', 'Nombre:') !!}
-        {!! Form::text('nombre', null, ['class' => 'form-control', 'required', 'maxlength' => 255, 'maxlength' => 255, 'maxlength' => 255]) !!}
+        {!! Form::text('nombre', null, ['class' => 'form-control', 'required', 'maxlength' => 255]) !!}
     </div>
 
     <div class="col-sm-12 mb-1 col-lg-12">
         {!! Form::label('descripcion', 'Descripcion:') !!}
-        {!! Form::textarea('descripcion', null, ['class' => 'form-control', 'maxlength' => 65535, 'maxlength' => 65535, 'maxlength' => 65535]) !!}
+        {!! Form::textarea('descripcion', null, ['class' => 'form-control', 'rows' => 3]) !!}
     </div>
 
     <div class="col-sm-12 mb-1">
         <div class="table-responsive">
 
             <dual-listbox-compra-requisicion-estados
-                :fuente="permisos"
-                :destino="permisos_asignados"
-                label="name"
+                :fuente="estados"
+                :destino="estados_asignados"
+                label="nombre"
             >
 
             </dual-listbox-compra-requisicion-estados>
@@ -40,15 +40,15 @@
     <script>
 
         const app = new Vue({
-            el: '#campos_permisos',
-            name: '#campos_permisos',
+            el: '#campos_estados',
+            name: '#campos_estados',
             created() {
 
             },
             data: {
-                {{--permisos: @json(\App\Models\Permission::whereNotIn('id',isset($role) ? $role->permissions->pluck('id') :  [])->get()),--}}
-                permisos: [],
-                permisos_asignados: @json($role->permissions ?? []),
+                estados: @json(\App\Models\CompraRequicicionEstado::whereNotIn('id',isset($compraBandeja) ? $compraBandeja->estados->pluck('id') :  [])->get()),
+                // estados: [],
+                estados_asignados: @json($compraBandeja->estados ?? []),
             },
             methods: {}
         });
