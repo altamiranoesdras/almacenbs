@@ -3,8 +3,8 @@
 namespace App\DataTables;
 
 use App\Models\CompraBandeja;
-use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Button;
+use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
 class CompraBandejaDataTable extends DataTable
@@ -40,7 +40,9 @@ class CompraBandejaDataTable extends DataTable
      */
     public function query(CompraBandeja $model)
     {
-        return $model->newQuery()->select($model->getTable().'.*');
+        return $model->newQuery()
+            ->with('rol')
+            ->select($model->getTable().'.*');
     }
 
     /**
@@ -111,7 +113,12 @@ class CompraBandejaDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('rol_id'),
+            Column::make('rol_id')
+                ->title('Rol')
+                ->data('rol.name')
+                ->name('rol.name')
+                ->searchable(false)
+                ->orderable(false),
             Column::make('nombre'),
             Column::make('descripcion'),
             Column::computed('action')

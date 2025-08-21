@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreateCompraBandejaAPIRequest;
 use App\Http\Requests\API\UpdateCompraBandejaAPIRequest;
 use App\Models\CompraBandeja;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
 
 /**
  * Class CompraBandejaAPIController
@@ -15,7 +15,7 @@ use App\Http\Controllers\AppBaseController;
 class CompraBandejaAPIController extends AppBaseController
 {
     /**
-     * Display a listing of the CompraBandejas.
+     * Display a listing of the compra.bandejas.
      * GET|HEAD /compra-bandejas
      */
     public function index(Request $request): JsonResponse

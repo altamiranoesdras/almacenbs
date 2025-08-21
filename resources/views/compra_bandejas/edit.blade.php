@@ -37,7 +37,7 @@
 
                 <div class="card">
 
-                    {!! Form::model($compraBandeja, ['route' => ['compraBandejas.update', $compraBandeja->id], 'method' => 'patch','class' => 'esperar']) !!}
+                    {!! Form::model($compraBandeja, ['route' => ['compra.bandejas.update', $compraBandeja->id], 'method' => 'patch','class' => 'esperar']) !!}
 
                     <div class="card-body">
                         <div class="row">
@@ -47,7 +47,7 @@
 
                     <div class="card-footer text-end">
 
-                        <a href="{{ route('compraBandejas.index') }}"
+                        <a href="{{ route('compra.bandejas.index') }}"
                            class="btn btn-outline-secondary round me-1">
                             <i class="fa fa-ban"></i>
                             Cancelar

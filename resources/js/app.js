@@ -7,15 +7,32 @@
 require('./bootstrap');
 
 
-
-
 import Multiselect from 'vue-multiselect'
+import ToggleButton from 'vue-js-toggle-button';
+import DualListBoxRoles from "./components/DualListBoxRoles";
+import DualListBoxPermisos from "./components/DualListBoxPermisos";
+import {VClosePopover, VPopover, VTooltip} from 'v-tooltip';
+import SelectItems from "./components/SelectItems";
+import SelectProveedor from "./components/SelectProveedor";
+import SelectCompraTipo from "./components/SelectCompraTipo";
+import SelectMarca from "./components/SelectMarca";
+import SelectRenglon from "./components/SelectRenglon";
+import SelectUnimed from "./components/SelectUnimed";
+import SelectItemTipo from "./components/SelectItemTipo";
+import SelectUnidad from "./components/SelectUnidad";
+import SelectPuesto from "./components/SelectPuesto";
+import SelectActivo from "./components/SelectActivo";
+import SelectColaborador from "./components/SelectColaborador";
+import SelectActivoSolicitudTipo from "./components/SelectActivoSolicitudTipo";
+import SelectBodegas from "./components/SelectBodegas";
+import SelectItemPresentacion from "./components/SelectItemPresentacion";
+import SelectItemModelo from "./components/SelectItemModelo";
+import DualListBoxCompraRequisicionEstados from "./components/DualListBoxCompraRequisicionEstados";
 
 // register globally
 Vue.component('multiselect', Multiselect);
 
 
-import ToggleButton from 'vue-js-toggle-button';
 Vue.use(ToggleButton);
 
 window.number_format = require("number_format-php");
@@ -33,10 +50,8 @@ window.number_format = require("number_format-php");
  */
 require('./fn.js');
 
-import DualListBoxRoles from "./components/DualListBoxRoles";
 Vue.component('dual-listbox-roles',DualListBoxRoles)
 
-import DualListBoxPermisos from "./components/DualListBoxPermisos";
 Vue.component('dual-listbox-permisos',DualListBoxPermisos)
 
 
@@ -68,55 +83,42 @@ Vue.component(
 window.number_format = require("number_format-php");
 
 
-import { VTooltip, VPopover, VClosePopover } from 'v-tooltip';
-
 Vue.directive('tooltip', VTooltip);
 Vue.directive('close-popover', VClosePopover);
 Vue.component('v-popover', VPopover);
 
 
-
-import SelectItems from "./components/SelectItems";
 Vue.component('select-items', SelectItems);
 
-import SelectProveedor from "./components/SelectProveedor";
 Vue.component('select-proveedor', SelectProveedor);
 
-import SelectCompraTipo from "./components/SelectCompraTipo";
 Vue.component('select-compra-tipo',SelectCompraTipo)
 
-import SelectMarca from "./components/SelectMarca";
 Vue.component('select-marca',SelectMarca)
 
-import SelectRenglon from "./components/SelectRenglon";
 Vue.component('select-renglon',SelectRenglon)
 
-import SelectUnimed from "./components/SelectUnimed";
 Vue.component('select-unimed',SelectUnimed)
 
-import SelectItemTipo from "./components/SelectItemTipo";
 Vue.component('select-item-tipo',SelectItemTipo);
 
-import SelectUnidad from "./components/SelectUnidad";
 Vue.component('select-unidad',SelectUnidad)
 
-import SelectPuesto from "./components/SelectPuesto";
 Vue.component('select-puesto',SelectPuesto)
 
-import SelectActivo from "./components/SelectActivo";
 Vue.component('select-activo',SelectActivo)
 
-import SelectColaborador from "./components/SelectColaborador";
 Vue.component('select-colaborador',SelectColaborador)
 
-import SelectActivoSolicitudTipo from "./components/SelectActivoSolicitudTipo";
 Vue.component('select-activo-solicitud-tipo',SelectActivoSolicitudTipo)
 
-import SelectBodegas from "./components/SelectBodegas";
 Vue.component('select-bodega',SelectBodegas)
 
-import SelectItemPresentacion from "./components/SelectItemPresentacion";
 Vue.component('select-item-presentacion',SelectItemPresentacion)
 
-import SelectItemModelo from "./components/SelectItemModelo";
 Vue.component('select-item-modelo',SelectItemModelo);
+
+Vue.component('dual-listbox-compra-requisicion-estados',DualListBoxCompraRequisicionEstados);
+
+
+

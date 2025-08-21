@@ -210,8 +210,7 @@ Route::group(['as'=>'api.'], function () {
             ->except(['create', 'edit']);
 //
 //
-//        Route::resource('compra-requisicion-estados', App\Http\Controllers\API\CompraRequicicionEstadoAPIController::class)
-//            ->except(['create', 'edit']);
+
 //
 //        Route::resource('compra-requisicion-tipo-adquisiciones', App\Http\Controllers\API\CompraRequicicionTipoAdquisicionAPIController::class)
 //            ->except(['create', 'edit']);
@@ -227,9 +226,8 @@ Route::group(['as'=>'api.'], function () {
 //
 //        Route::resource('compra-orden-detalles', App\Http\Controllers\API\CompraOrdenDetalleAPIController::class)
 //            ->except(['create', 'edit']);
-//
-//        Route::resource('compra-solicitud-estados', App\Http\Controllers\API\CompraSolicitudEstadoAPIController::class)
-//            ->except(['create', 'edit']);
+
+
 //
 //        Route::resource('costo-centros', App\Http\Controllers\API\CostoCentroAPIController::class)
 //            ->except(['create', 'edit']);
@@ -245,6 +243,20 @@ Route::group(['as'=>'api.'], function () {
 //
 //        Route::resource('compra-bandejas', App\Http\Controllers\API\CompraBandejaAPIController::class)
 //            ->except(['create', 'edit']);
+
+        Route::group(['prefix' => 'compra', 'as' => 'compra.'], function () {
+
+            Route::group(['prefix' => 'requisiciones', 'as' => 'requisiciones.'], function () {
+
+                Route::resource('estados', App\Http\Controllers\API\CompraRequicicionEstadoAPIController::class)
+                    ->except(['create', 'edit']);
+
+            });
+
+            //            Route::resource('compra-solicitud-estados', App\Http\Controllers\API\CompraSolicitudEstadoAPIController::class)
+//                ->except(['create', 'edit']);
+        });
+
 
     });
 
