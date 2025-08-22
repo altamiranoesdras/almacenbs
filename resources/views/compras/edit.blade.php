@@ -152,7 +152,7 @@
                             @if(!$compra->estaRecibida())
                                 <h4 class="text-center text-info">
                                     El estado de la compra debe ser
-                                    <span class="badge badge-dark">
+                                    <span class="">
                                             {{\App\Models\CompraEstado::find(\App\Models\CompraEstado::RECIBIDA)->nombre}}
                                         </span>
                                     para poder generar 1H
