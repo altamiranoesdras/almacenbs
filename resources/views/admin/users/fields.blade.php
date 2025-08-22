@@ -71,7 +71,16 @@
 
     <div class="col-sm-6 mb-1">
         {!! Form::label('rubrica', 'Rubrica:') !!}
-        <input type="file" name="rubrica" class="form-control" accept=".png,.jpg,.jpeg" required>
+
+        <div>
+            @if(isset($user) && $user->rubrica != null)
+            <img src="{{ asset($user->rubrica) }}" alt="Rubrica" class="img-thumbnail" style="max-width: 200px; max-height: 200px;">
+            <input type="file" name="rubrica" class="form-control" accept=".png,.jpg,.jpeg" >
+        @else
+            <input type="file" name="rubrica" class="form-control" accept=".png,.jpg,.jpeg" >
+        @endif
+        </div>
+
     </div>
 
 

@@ -21,6 +21,8 @@ class CompraTiposTableSeeder extends Seeder
 
 
         CompraTipo::factory()->count(1)->create(['nombre' => 'FACTURA']);
+        CompraTipo::factory()->count(1)->create(['nombre' => 'FACTURA CAMBIARIA']);
+        CompraTipo::factory()->count(1)->create(['nombre' => 'ACTA']);
 
     }
 }

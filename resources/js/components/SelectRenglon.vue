@@ -24,39 +24,43 @@
         <input type="hidden" :name="name" :value="getId(item)">
 
 
-        <div class="modal fade" :id="id" tabindex="-1" role="dialog"  aria-hidden="true">
-            <div class="modal-dialog" role="document">
+        <div class="modal fade" :id="id" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="modelTitleId">
                             <span v-text="formTitle"></span>
                         </h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <!-- Botón de cierre Bootstrap 5 -->
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+
                     <form @submit.prevent="save">
                         <div class="modal-body">
-                            <div class="form-row">
-
-
-                                <!-- Nit Field -->
-                                <div class="form-group col-sm-6">
-                                    <label for="numero">Numero:</label>
-                                    <input type="text" class="form-control" @keydown.enter.prevent="save()" v-model="editedItem.numero" >
+                            <div class="row">
+                                <!-- Numero Field -->
+                                <div class="col-sm-6 mb-3">
+                                    <label for="numero" class="form-label">Número:</label>
+                                    <input type="text" class="form-control"
+                                        id="numero"
+                                        @keydown.enter.prevent="save()"
+                                        v-model="editedItem.numero">
                                 </div>
 
-                                <!-- Nombre Field -->
-                                <div class="form-group col-sm-6">
-                                    <label for="descripcion">Nombre:</label>
-                                    <input type="text" class="form-control" @keydown.enter.prevent="save()" v-model="editedItem.descripcion" >
+                                <!-- Nombre/Descripción Field -->
+                                <div class="col-sm-6 mb-3">
+                                    <label for="descripcion" class="form-label">Nombre:</label>
+                                    <input type="text" class="form-control"
+                                        id="descripcion"
+                                        @keydown.enter.prevent="save()"
+                                        v-model="editedItem.descripcion">
                                 </div>
-
-
                             </div>
                         </div>
+
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <!-- data-bs-dismiss en lugar de data-dismiss -->
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-primary">
                                 <span v-text="loading ? 'GUARDANDO...' : 'GUARDAR'"></span>
                             </button>
@@ -65,6 +69,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 </template>
 
