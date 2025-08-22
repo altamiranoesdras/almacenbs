@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\TestEvent;
 use Illuminate\Http\Request;
 use App\FirmaElectronica\FirmaElectronica;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 
 class TestController extends AppBaseController
 {
