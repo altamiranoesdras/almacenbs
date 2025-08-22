@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\CompraRequicicionEstadoDataTable;
 use App\Http\Requests\CreateCompraRequicicionEstadoRequest;
 use App\Http\Requests\UpdateCompraRequicicionEstadoRequest;
-use App\Http\Controllers\AppBaseController;
 use App\Models\CompraRequicicionEstado;
-use Illuminate\Http\Request;
 
 class CompraRequicicionEstadoController extends AppBaseController
 {
@@ -48,7 +46,7 @@ class CompraRequicicionEstadoController extends AppBaseController
 
         flash()->success('Compra Requicicion Estado guardado.');
 
-        return redirect(route('compraRequicicionEstados.index'));
+        return redirect(route('compra.requisiciones.estados.index'));
     }
 
     /**
@@ -62,10 +60,10 @@ class CompraRequicicionEstadoController extends AppBaseController
         if (empty($compraRequicicionEstado)) {
             flash()->error('Compra Requicicion Estado no encontrado');
 
-            return redirect(route('compraRequicicionEstados.index'));
+            return redirect(route('compra.requisiciones.estados.index'));
         }
 
-        return view('compra_requisicion_estados.show')->with('compraRequicicionEstado', $compraRequicicionEstado);
+        return view('compra_requisicion_estados.show')->with('compraRequisicionEstado', $compraRequicicionEstado);
     }
 
     /**
@@ -79,10 +77,10 @@ class CompraRequicicionEstadoController extends AppBaseController
         if (empty($compraRequicicionEstado)) {
             flash()->error('Compra Requicicion Estado no encontrado');
 
-            return redirect(route('compraRequicicionEstados.index'));
+            return redirect(route('compra.requisiciones.estados.index'));
         }
 
-        return view('compra_requisicion_estados.edit')->with('compraRequicicionEstado', $compraRequicicionEstado);
+        return view('compra_requisicion_estados.edit')->with('compraRequisicionEstado', $compraRequicicionEstado);
     }
 
     /**
@@ -96,7 +94,7 @@ class CompraRequicicionEstadoController extends AppBaseController
         if (empty($compraRequicicionEstado)) {
             flash()->error('Compra Requicicion Estado no encontrado');
 
-            return redirect(route('compraRequicicionEstados.index'));
+            return redirect(route('compra.requisiciones.estados.index'));
         }
 
         $compraRequicicionEstado->fill($request->all());
@@ -104,7 +102,7 @@ class CompraRequicicionEstadoController extends AppBaseController
 
         flash()->success('Compra Requicicion Estado actualizado.');
 
-        return redirect(route('compraRequicicionEstados.index'));
+        return redirect(route('compra.requisiciones.estados.index'));
     }
 
     /**
@@ -120,13 +118,13 @@ class CompraRequicicionEstadoController extends AppBaseController
         if (empty($compraRequicicionEstado)) {
             flash()->error('Compra Requicicion Estado no encontrado');
 
-            return redirect(route('compraRequicicionEstados.index'));
+            return redirect(route('compra.requisiciones.estados.index'));
         }
 
         $compraRequicicionEstado->delete();
 
         flash()->success('Compra Requicicion Estado eliminado.');
 
-        return redirect(route('compraRequicicionEstados.index'));
+        return redirect(route('compra.requisiciones.estados.index'));
     }
 }

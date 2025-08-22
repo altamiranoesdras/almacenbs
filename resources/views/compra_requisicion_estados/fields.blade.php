@@ -5,8 +5,32 @@
 </div>
 
 
-<!-- Tipo Proceso Field -->
-<div class="col-sm-6 mb-1">
-    {!! Form::label('tipo_proceso', 'Tipo Proceso:') !!}
-    {!! Form::text('tipo_proceso', null, ['class' => 'form-control']) !!}
+
+<div class="col-sm-6 mb-1" id="vueSelector">
+    {!! Form::label('nombre', 'Tipo Proceso:') !!}
+    <multiselect
+        v-model="tipoProceso"
+        :options="tipoProcesos"
+        :multiple="false"
+        placeholder="Seleccione uno..."
+    >
+    </multiselect>
+    <input
+        type="hidden"
+        name="tipo_proceso"
+        :value="tipoProceso"
+    >
 </div>
+
+
+@push('scripts')
+<script>
+    new Vue({
+        el: '#vueSelector',
+        data: {
+            tipoProceso: '{{ old('tipo_proceso', $compraRequisicionEstado->tipo_proceso ?? null) }}',
+            tipoProcesos: ['NPG', 'NOG']
+        }
+    });
+</script>
+@endpush

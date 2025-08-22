@@ -37,7 +37,7 @@
 
                 <div class="card">
 
-                    {!! Form::model($compraRequicicionEstado, ['route' => ['compraRequicicionEstados.update', $compraRequicicionEstado->id], 'method' => 'patch','class' => 'esperar']) !!}
+                    {!! Form::model($compraRequicicionEstado, ['route' => ['compra.requisiciones.estados.update', $compraRequicicionEstado->id], 'method' => 'patch','class' => 'esperar']) !!}
 
                     <div class="card-body">
                         <div class="row">
@@ -47,7 +47,7 @@
 
                     <div class="card-footer text-end">
 
-                        <a href="{{ route('compraRequicicionEstados.index') }}"
+                        <a href="{{ route('compra.requisiciones.estados.index') }}"
                            class="btn btn-outline-secondary round me-1">
                             <i class="fa fa-ban"></i>
                             Cancelar

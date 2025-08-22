@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreateCompraRequicicionEstadoAPIRequest;
 use App\Http\Requests\API\UpdateCompraRequicicionEstadoAPIRequest;
 use App\Models\CompraRequicicionEstado;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
 
 /**
  * Class CompraRequicicionEstadoAPIController
@@ -15,7 +15,7 @@ use App\Http\Controllers\AppBaseController;
 class CompraRequicicionEstadoAPIController extends AppBaseController
 {
     /**
-     * Display a listing of the CompraRequicicionEstados.
+     * Display a listing of the compra.requisiciones.estados.
      * GET|HEAD /compra-requisicion-estados
      */
     public function index(Request $request): JsonResponse

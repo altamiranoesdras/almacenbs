@@ -37,7 +37,7 @@
                 @include('layouts.partials.request_errors')
 
                 <div class="card">
-                    {!! Form::open(['route' => 'compraRequicicionEstados.store','class' => 'esperar']) !!}
+                    {!! Form::open(['route' => 'compra.requisiciones.estados.store','class' => 'esperar']) !!}
 
                     <div class="card-body">
 
@@ -49,7 +49,7 @@
 
                     <div class="card-footer text-end">
 
-                        <a href="{{ route('compraRequicicionEstados.index') }}"
+                        <a href="{{ route('compra.requisiciones.estados.index') }}"
                            class="btn btn-outline-secondary round me-1">
                             <i class="fa fa-ban"></i>
                             Cancelar
