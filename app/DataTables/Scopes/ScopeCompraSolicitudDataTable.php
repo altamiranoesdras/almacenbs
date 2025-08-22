@@ -93,6 +93,15 @@ class ScopeCompraSolicitudDataTable implements DataTableScope
             $query->where('usuario_solicita', $this->usuario_solicita);
         }
 
+
+        if($this->unidad_id){
+            if (is_array($this->unidad_id)){
+                $query->whereIn('unidad_id', $this->unidad_id);
+            }else{
+                $query->where('unidad_id', $this->unidad_id);
+            }
+        }
+
         return $query;
     }
 }
