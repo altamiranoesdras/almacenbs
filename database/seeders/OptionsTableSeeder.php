@@ -128,7 +128,7 @@ class OptionsTableSeeder extends Seeder
             array (
                 'id' => 7,
                 'option_id' => NULL,
-                'nombre' => 'Ingreso compras',
+                'nombre' => 'Ingreso de Almacén',
                 'ruta' => 'x',
                 'descripcion' => NULL,
                 'icono_l' => 'fa-shopping-cart',
