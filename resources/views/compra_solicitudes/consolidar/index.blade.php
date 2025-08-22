@@ -40,29 +40,29 @@
                     <div class="card-body p-2">
                         <form id="formFiltersDatatables">
                             <div class="row">
-                                <div class="col-sm-4 mb-1">
-                                    {!! Form::label('$unidad_id','Unidad: ') !!}
+                                <div class="form-group col-sm-6">
+                                    {!! Form::label('unidad_id','Unidad:') !!}
                                     {!!
                                         Form::select(
                                             'unidad_id',
-                                            select(\App\Models\RrhhUnidad::class,'nombre','id',null)
-                                            , $unidad_id ?? null
-                                            , ['id'=>'unidades','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
+                                            select(\App\Models\RrhhUnidad::class, 'text')
+                                            , null
+                                            , ['id'=>'unodads','class' => 'form-control','style'=>'width: 100%']
                                         )
                                     !!}
                                 </div>
 
-                                <div class="col-sm-2 mb-1">
+                                <div class="col-sm-3 mb-1">
                                     {!! Form::label('del', 'Del:') !!}
                                     {!! Form::date('del', iniMesDb(), ['class' => 'form-control ']) !!}
                                 </div>
 
-                                <div class="col-sm-2 mb-1">
+                                <div class="col-sm-3 mb-1">
                                     {!! Form::label('al', 'Al:') !!}
                                     {!! Form::date('al', hoyDb(), ['class' => 'form-control ']) !!}
                                 </div>
 
-                                <div class="col-sm-4 mb-1">
+                                <div class="col-sm-6 mb-1">
                                     {!! Form::label('item_id','Artículo: ') !!}
                                     {!!
                                         Form::select(

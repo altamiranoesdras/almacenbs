@@ -21,7 +21,6 @@ class CompraSolicitudConsolidarController extends Controller
 
         $scope = new ScopeCompraSolicitudDataTable(
             estados: CompraSolicitudEstado::SOLICITADA,
-            unidad_id: $usuarioActual->unidad_id,
         );
 
         $dataTable->addScope($scope);

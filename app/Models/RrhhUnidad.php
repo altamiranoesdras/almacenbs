@@ -165,4 +165,10 @@ class RrhhUnidad extends Model
         return $this->belongsTo(RrhhUnidadTipo::class, 'unidad_tipo_id');
 
     }
+
+    public function getTextAttribute(): string
+    {
+        return $this->codigo . ' - ' . $this->nombre . ' (' . $this->tipo->nombre . ')';
+
+    }
 }

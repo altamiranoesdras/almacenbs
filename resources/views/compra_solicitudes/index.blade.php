@@ -48,11 +48,11 @@
                                 {!! Form::date('al', hoyDb(), ['class' => 'form-control ']) !!}
                             </div>
                             <div class="form-group col-sm-6">
-                                {!! Form::label('unodad_id','Unidad:') !!}
+                                {!! Form::label('unidad_id','Unidad:') !!}
                                 {!!
                                     Form::select(
                                         'unidad_id',
-                                        select(\App\Models\RrhhUnidad::class)
+                                        select(\App\Models\RrhhUnidad::class, 'text')
                                         , null
                                         , ['id'=>'unodads','class' => 'form-control','style'=>'width: 100%']
                                     )
