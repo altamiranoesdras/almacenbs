@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FirmaElectronicaController;
 use App\Models\User;
 use App\Notifications\NoticiaPrueba;
 use Illuminate\Support\Facades\Auth;
@@ -339,6 +340,12 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     Route::resource('costo-centros', App\Http\Controllers\CostoCentroController::class);
 
+    Route::group(['prefix' => 'pruebas', 'as' => 'pruebas.',], function () {
+
+        Route::get('firma-electronica', [FirmaElectronicaController::class, 'index'])->name('firma.electronica');
+        Route::post('firmar-documento', [FirmaElectronicaController::class, 'firmarDocumento'])->name('firmar.documento');
+    });
+
 
 });
 
@@ -366,7 +373,6 @@ Route::get('/test-reverb', [TestController::class, 'reverb'])->name('reverb');
 Route::post('/test-reverb', [TestController::class, 'testEvent'])->name('test.reverb');
 
 
-Route::post('/firmar-documento', [TestController::class, 'firmarDocumento'])->name('firmar.documento');
 Route::post('change-layout', [LayoutController::class, 'changeLayout'])->name('change.layout');
 
 Route::get('enviar-correo', function () {
