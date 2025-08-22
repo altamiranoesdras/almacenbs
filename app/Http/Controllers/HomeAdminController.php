@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class HomeAdminController extends Controller
 {
@@ -49,5 +48,10 @@ class HomeAdminController extends Controller
     public function calendar()
     {
         return view('calendar');
+    }
+
+    public function paginaMantenimiento()
+    {
+        return view('pagina_mantenimiento');
     }
 }
