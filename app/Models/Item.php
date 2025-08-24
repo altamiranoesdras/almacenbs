@@ -118,6 +118,9 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @method static \Illuminate\Database\Eloquent\Builder|Item withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Item withoutAppends()
  * @method static \Illuminate\Database\Eloquent\Builder|Item withoutTrashed()
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraSolicitudDetalle> $compraSolicitudDetalles
+ * @property-read int|null $compra_solicitud_detalles_count
+ * @method static Builder|Item enSolicitudCompraActiva()
  * @mixin \Eloquent
  */
 class Item extends Model implements HasMedia

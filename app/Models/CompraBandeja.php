@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property int $rol_id
@@ -33,6 +33,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|CompraBandeja whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraBandeja withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraBandeja withoutTrashed()
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraRequicicionEstado> $estados
+ * @property-read int|null $estados_count
  * @mixin \Eloquent
  */
 class CompraBandeja extends Model

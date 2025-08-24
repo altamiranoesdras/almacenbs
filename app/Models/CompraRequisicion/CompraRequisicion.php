@@ -6,8 +6,62 @@ use App\Models\CompraSolicitud;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ *
+ *
+ * @property int $id
+ * @property int|null $tipo_concurso_id
+ * @property int|null $ipo_adquisicion_id
+ * @property int|null $correlativo
+ * @property string $codigo ID interno de gestión, p.ej. G-2025-001
+ * @property string|null $codigo_consolidacion Código de lote interno, p.ej. L-2025-001
+ * @property string|null $npg Número de Publicación (Compra Menor)
+ * @property string|null $nog Número de Operación (Licitación Abreviada)
+ * @property int|null $proveedor_adjudicado
+ * @property string|null $numero_adjudicacion
+ * @property int $estado_id
+ * @property string|null $subproductos
+ * @property string|null $partidas
+ * @property string|null $observaciones
+ * @property string|null $justificacion
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraRequisicionDetalle> $compraRequisicionDetalles
+ * @property-read int|null $compra_requisicion_detalles_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, CompraSolicitud> $compraSolicitudes
+ * @property-read int|null $compra_solicitudes_count
+ * @property-read \App\Models\CompraRequisicionTipoConcurso|null $tipoConcurso
+ * @method static \Database\Factories\CompraRequisicion\CompraRequisicionFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion query()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereCodigo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereCodigoConsolidacion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereCorrelativo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereEstadoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereIpoAdquisicionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereJustificacion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereNog($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereNpg($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereNumeroAdjudicacion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereObservaciones($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion wherePartidas($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereProveedorAdjudicado($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereSubproductos($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereTipoConcursoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion withoutTrashed()
+ * @mixin \Eloquent
+ */
 class CompraRequisicion extends Model
 {
 
@@ -69,9 +123,25 @@ class CompraRequisicion extends Model
 
     ];
 
+    protected static function booted()
+    {
+        /**
+         * Genera el código de la requisición al momento de crearla.
+         * @var CompraRequisicion $requisicion
+         *
+         */
+        static::created(function ($requisicion) {
+            $year = now()->year;
+            $numero = str_pad($requisicion->id, 3, '0', STR_PAD_LEFT);
+            $requisicion->codigo = "G-{$year}-{$numero}";
+            $requisicion->codigo_consolidacion = "L-{$year}-{$numero}";
+            $requisicion->save();
+        });
+    }
+
 //    public function ipoAdquisicion(): \Illuminate\Database\Eloquent\Relations\BelongsTo
 //    {
-//        return $this->belongsTo(\App\Models\CompraRequisicionTipoAdquisicione::class, 'ipo_adquisicion_id');
+//        return $this->belongsTo(\App\Models\CompraRequisicionTipoAdquisicion::class, 'ipo_adquisicion_id');
 //    }
 
     public function tipoConcurso(): \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -94,7 +164,7 @@ class CompraRequisicion extends Model
 //        return $this->hasMany(\App\Models\CompraOrdene::class, 'gestion_id');
 //    }
 
-    public function compraRequisicionDetalles(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function detalles(): HasMany
     {
         return $this->hasMany(\App\Models\CompraRequisicionDetalle::class, 'requisicion_id');
     }

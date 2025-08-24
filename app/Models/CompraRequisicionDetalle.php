@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\SoftDeletes;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $requisicion_id
@@ -81,7 +81,7 @@ class CompraRequisicionDetalle extends Model
 
     public function requisicion(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(\App\Models\CompraRequisicione::class, 'requisicion_id');
+        return $this->belongsTo(\App\Models\CompraRequisicion\CompraRequisicion::class, 'requisicion_id');
     }
 
     public function solicitudDetalle(): \Illuminate\Database\Eloquent\Relations\BelongsTo

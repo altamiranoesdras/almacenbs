@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class Bodega
@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|Bodega withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Bodega withoutTrashed()
  * @mixin Model
+ * @mixin \Eloquent
  */
 class Bodega extends Model
 {
