@@ -305,7 +305,7 @@ class Compra extends Model
             $detalle->ingreso();
         }
 
-        $this->estado_id = CompraEstado::RECIBIDA;
+        $this->estado_id = CompraEstado::INGRESADO;
 //        $this->fecha_ingreso = hoyDb();
         $this->save();
 
@@ -351,13 +351,13 @@ class Compra extends Model
 
     public function scopeNoAnuladas($q)
     {
-        $q->where('estado_id','!=',CompraEstado::ANULADA);
+        $q->where('estado_id','!=',CompraEstado::ANULADO);
     }
 
 
     public function anular()
     {
-        $this->estado_id = CompraEstado::ANULADA;
+        $this->estado_id = CompraEstado::ANULADO;
         $this->save();
 
 
@@ -377,17 +377,17 @@ class Compra extends Model
 
     public function estaRecibida()
     {
-        return $this->estado_id==CompraEstado::RECIBIDA;
+        return $this->estado_id==CompraEstado::INGRESADO;
     }
 
     public function puedeAnular()
     {
-        return $this->estado_id != CompraEstado::ANULADA && $this->estado_id == CompraEstado::RECIBIDA;
+        return $this->estado_id != CompraEstado::ANULADO && $this->estado_id == CompraEstado::INGRESADO;
     }
 
     public function puedeCancelar()
     {
-        return $this->estado_id == CompraEstado::CREADA;
+        return $this->estado_id == CompraEstado::PROCESADO_PENDIENTE_RECIBIR;
     }
 
     public function getAnioAttribute()
@@ -404,8 +404,8 @@ class Compra extends Model
     public function puedeEditar()
     {
         return in_array($this->estado_id,[
-            CompraEstado::CREADA,
-            CompraEstado::RECIBIDA
+            CompraEstado::PROCESADO_PENDIENTE_RECIBIR,
+            CompraEstado::INGRESADO
         ]);
     }
 

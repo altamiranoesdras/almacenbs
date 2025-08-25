@@ -51,12 +51,12 @@ class CompraDetalleFactory extends Factory
     {
         return $this->afterCreating(function (CompraDetalle $detalle){
 
-            if ($detalle->compra->estado_id==CompraEstado::RECIBIDA){
+            if ($detalle->compra->estado_id==CompraEstado::INGRESADO){
                 $detalle->ingreso();
             }
 
 
-            if ($detalle->compra->estado_id==CompraEstado::ANULADA){
+            if ($detalle->compra->estado_id==CompraEstado::ANULADO){
                 $detalle->anular();
             }
         });

@@ -589,7 +589,7 @@ class Item extends Model implements HasMedia
             /**
              * @var CompraDetalle $det
              */
-            if ($det->compra->estado_id==CompraEstado::RECIBIDA){
+            if ($det->compra->estado_id==CompraEstado::INGRESADO){
                 return $det;
             }
         });

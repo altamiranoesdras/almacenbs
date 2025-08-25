@@ -173,7 +173,7 @@ class CompararStockCalculadoStockAlmacenado extends Command
         $this->line("Entradas: ");
 
         $detalles = $insumo->compraDetalles()->whereHas('compra',function($query){
-            $query->where('estado_id',CompraEstado::RECIBIDA);
+            $query->where('estado_id',CompraEstado::INGRESADO);
         })->get();
 
         $this->table(['id','codigo','fecha','cantidad','precio'], $detalles->map(function(CompraDetalle $detalle){

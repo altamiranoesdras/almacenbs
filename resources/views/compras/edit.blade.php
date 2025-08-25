@@ -46,7 +46,7 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            <form action="{{route('compras.actualizar.procesada',$compra->id)}}" method="post" >
+                            <form action="{{route('compras.actualizar.procesada',$compra->id)}}" method="post">
                                 @csrf
                                 <div class="row">
                                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
@@ -75,7 +75,9 @@
                                     <br>
                                     <div class=" col-sm-6 text-left">
 
-                                        <a href="{!! route('compras.index') !!}" class="btn round btn-outline-secondary mr-2">Regresar</a>
+                                        <a href="{!! route('compras.index') !!}"
+                                           class="btn round btn-outline-secondary mr-2">Regresar
+                                        </a>
 
                                         @can('Anular Ingreso de almacen')
                                             @if($compra->puedeAnular() )
@@ -95,7 +97,8 @@
                                             {{--<i class="far fa-trash-alt" data-toggle="tooltip" title="Eliminar Solicitud de Compra"></i>--}}
                                             {{--</a>--}}
                                             <span data-toggle="tooltip" title="Cancelar Solicitud de Compra">
-                                                <a href="#modal-delete-{{$compra->id}}" data-bs-toggle="modal" class='btn btn-outline-warning'>
+                                                <a href="#modal-delete-{{$compra->id}}" data-bs-toggle="modal"
+                                                   class='btn btn-outline-warning'>
                                                     Cancelar Solicitud de Compra <i class="fas fa-ban"></i>
                                                 </a>
                                             </span>
@@ -105,9 +108,9 @@
                                     <div class="col-sm-6 text-right">
 
 
-
-                                        @if($compra->estado_id == \App\Models\CompraEstado::CREADA )
-                                            <a href="{!! route('compra.ingreso',$compra->id) !!}" class="btn btn-outline-success round ms-1">
+                                        @if($compra->estado_id == \App\Models\CompraEstado::PROCESADO_PENDIENTE_RECIBIR )
+                                            <a href="{!! route('compra.ingreso',$compra->id) !!}"
+                                               class="btn btn-outline-success round ms-1">
                                                 Ingresar
                                             </a>
                                         @endif
@@ -121,7 +124,6 @@
 
                                 </div>
                             </form>
-
 
 
                             <form action="{{ route('compras.anular', $compra->id)}}"
@@ -153,7 +155,7 @@
                                 <h4 class="text-center text-info">
                                     El estado de la compra debe ser
                                     <span class="">
-                                            {{\App\Models\CompraEstado::find(\App\Models\CompraEstado::RECIBIDA)->nombre}}
+                                            {{\App\Models\CompraEstado::find(\App\Models\CompraEstado::INGRESADO)->nombre}}
                                         </span>
                                     para poder generar 1H
                                 </h4>
@@ -161,7 +163,8 @@
 
                                 @if(!$compra->tiene1h())
 
-                                    <form action="{{route('compra.generar.1h',$compra->id)}}" method="post" class="esperar">
+                                    <form action="{{route('compra.generar.1h',$compra->id)}}" method="post"
+                                          class="esperar">
 
                                         @csrf
                                         <div class="row">
@@ -174,7 +177,7 @@
                                             <div class="col-sm-8 mb-1 ">
                                                 <label for="generar">&nbsp;</label>
                                                 <div>
-                                                    <button type="submit" id="generar" class="btn btn-outline-primary" >
+                                                    <button type="submit" id="generar" class="btn btn-outline-primary">
                                                         <i class="fa fa-gears"></i>
                                                         Generar 1H
                                                     </button>
@@ -206,12 +209,14 @@
 
                                             <div class="form-group col-md-12 mb-1">
                                                 <label>Observaciones:</label>
-                                                <textarea class="form-control" name="observaciones" rows="2" cols="2">{{ $compra->compra1h->observaciones }}</textarea>
+                                                <textarea class="form-control" name="observaciones" rows="2"
+                                                          cols="2">{{ $compra->compra1h->observaciones }}</textarea>
                                             </div>
 
                                             <!-- Submit Field -->
                                             <div class="col-4 col-sm-4 col-md-4 col-lg-4 ">
-                                                <a href="{!! route('compras.index') !!}" class="btn btn-outline-secondary round me-1">
+                                                <a href="{!! route('compras.index') !!}"
+                                                   class="btn btn-outline-secondary round me-1">
                                                     Regresar
                                                 </a>
                                             </div>
@@ -248,9 +253,9 @@
 
 
 @push('scripts')
-    <script >
+    <script>
 
-        $(".esperarClick").on('click', function( event ) {
+        $(".esperarClick").on('click', function (event) {
 
             Swal.fire({
                 title: 'Espera por favor...',

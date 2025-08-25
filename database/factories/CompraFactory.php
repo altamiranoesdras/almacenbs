@@ -30,13 +30,13 @@ class CompraFactory extends Factory
         // fechas entre hoy y hace x dias
         $dias = 30;
         $fechaCrea = Carbon::now()->subDays(rand(0,$dias));
-        $estado = CompraEstado::whereNotIn('id',[CompraEstado::TEMPORAL,CompraEstado::CANCELADA])->get()->random()->id;
+        $estado = CompraEstado::whereNotIn('id',[CompraEstado::TEMPORAL,CompraEstado::CANCELADO])->get()->random()->id;
 
 
         $fechaDocumento = $fechaCrea->copy()->addDays(rand(0,3));
 
         $fechaIngreso = null;
-        if($estado == CompraEstado::RECIBIDA ){
+        if($estado == CompraEstado::INGRESADO ){
             $fechaIngreso = $fechaDocumento->copy()->addDays(rand(0,3));
 
         }
