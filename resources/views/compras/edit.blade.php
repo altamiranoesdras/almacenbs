@@ -57,19 +57,19 @@
                                         @include('compras.tabla_detalles',['detalles'=>$compra->detalles])
                                     </div>
 
-                                    <div class="col-sm-6">
+                                    {{-- <div class="col-sm-6">
                                         {!! Form::label('folio_almacen', 'Folio Libro Almacen:') !!}
                                         <a href="{!! route('compras.libro.almacen.pdf')."?mes={$compra->anio}-{$compra->mes}&buscar=1" !!}" target="_blank">
                                             Ver
                                         </a>
                                         {!! Form::text('folio_almacen', $compra->folio_almacen, ['class' => 'form-control']) !!}
-                                    </div>
+                                    </div> --}}
 
 
-                                    <div class="col-sm-6">
+                                    {{-- <div class="col-sm-6">
                                         {!! Form::label('folio_inventario', 'Folio Inventario:') !!}
                                         {!! Form::text('folio_inventario', $compra->folio_inventario, ['class' => 'form-control']) !!}
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-sm-12 mb-1" style="padding: 0px; margin: 0px"></div>
                                     <br>
@@ -152,7 +152,7 @@
                             @if(!$compra->estaRecibida())
                                 <h4 class="text-center text-info">
                                     El estado de la compra debe ser
-                                    <span class="badge badge-dark">
+                                    <span class="">
                                             {{\App\Models\CompraEstado::find(\App\Models\CompraEstado::RECIBIDA)->nombre}}
                                         </span>
                                     para poder generar 1H

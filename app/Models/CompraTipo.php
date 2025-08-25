@@ -42,6 +42,8 @@ class CompraTipo extends Model
     const UPDATED_AT = 'updated_at';
 
     const FACTURA = 1;
+    const FACTURA_CAMBIARIA = 2;
+    const ACTA = 3;
 
 
     protected $dates = ['deleted_at'];

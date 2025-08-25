@@ -1,66 +1,67 @@
 <?php
 
-use App\Http\Controllers\ActivoController;
-use App\Http\Controllers\ActivoEstadoController;
-use App\Http\Controllers\ActivoSolicitudController;
-use App\Http\Controllers\ActivoSolicitudDetalleController;
-use App\Http\Controllers\ActivoSolicitudEstadoController;
-use App\Http\Controllers\ActivoSolicitudTipoController;
-use App\Http\Controllers\ActivoTarjetaController;
-use App\Http\Controllers\ActivoTarjetaDetalleController;
-use App\Http\Controllers\ActivoTipoController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\BusinessProfileController;
-use App\Http\Controllers\ColaboradorController;
-use App\Http\Controllers\Compra1hController;
-use App\Http\Controllers\CompraController;
-use App\Http\Controllers\CompraDetalleController;
-use App\Http\Controllers\CompraEstadoController;
-use App\Http\Controllers\CompraTipoController;
-use App\Http\Controllers\ConfigurationController;
-use App\Http\Controllers\ConsumoController;
-use App\Http\Controllers\ContratoController;
-use App\Http\Controllers\DenominacionController;
-use App\Http\Controllers\DivisaController;
-use App\Http\Controllers\EnvioFiscalController;
-use App\Http\Controllers\EquivalenciaController;
-use App\Http\Controllers\HomeAdminController;
-use App\Http\Controllers\ItemCategoriaController;
-use App\Http\Controllers\ItemController;
-use App\Http\Controllers\ItemTipoController;
-use App\Http\Controllers\ItemTrasladoController;
-use App\Http\Controllers\ItemTrasladoEstadoController;
-use App\Http\Controllers\LayoutController;
-use App\Http\Controllers\LibroAlamcenController;
-use App\Http\Controllers\LogController;
-use App\Http\Controllers\MagnitudController;
-use App\Http\Controllers\MarcaController;
-use App\Http\Controllers\NotificacionesController;
-use App\Http\Controllers\OptionController;
-use App\Http\Controllers\PassportClientsController;
-use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ProveedorController;
-use App\Http\Controllers\PruebaApiController;
-use App\Http\Controllers\PruebasController;
-use App\Http\Controllers\RenglonController;
-use App\Http\Controllers\ReportesAlmacenController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\RrhhPuestoController;
-use App\Http\Controllers\RrhhUnidadController;
-use App\Http\Controllers\SolicitudApruebaController;
-use App\Http\Controllers\SolicitudAutorizaController;
-use App\Http\Controllers\SolicitudController;
-use App\Http\Controllers\SolicitudDespachaController;
-use App\Http\Controllers\SolicitudEstadoController;
-use App\Http\Controllers\TestController;
-use App\Http\Controllers\UnimedController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\UserDespachaUserController;
+use App\Http\Controllers\FirmaElectronicaController;
 use App\Models\User;
 use App\Notifications\NoticiaPrueba;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LogController;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\TestController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\MarcaController;
+use App\Http\Controllers\ActivoController;
+use App\Http\Controllers\CompraController;
+use App\Http\Controllers\DivisaController;
+use App\Http\Controllers\LayoutController;
+use App\Http\Controllers\OptionController;
+use App\Http\Controllers\UnimedController;
+use App\Http\Controllers\ConsumoController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PruebasController;
+use App\Http\Controllers\RenglonController;
+use App\Http\Controllers\Compra1hController;
+use App\Http\Controllers\ContratoController;
+use App\Http\Controllers\ItemTipoController;
+use App\Http\Controllers\MagnitudController;
+use App\Http\Controllers\HomeAdminController;
+use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\PruebaApiController;
+use App\Http\Controllers\SolicitudController;
+use App\Http\Controllers\ActivoTipoController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CompraTipoController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RrhhPuestoController;
+use App\Http\Controllers\RrhhUnidadController;
+use App\Http\Controllers\ColaboradorController;
+use App\Http\Controllers\EnvioFiscalController;
+use App\Http\Controllers\ActivoEstadoController;
+use App\Http\Controllers\CompraEstadoController;
+use App\Http\Controllers\DenominacionController;
+use App\Http\Controllers\EquivalenciaController;
+use App\Http\Controllers\ItemTrasladoController;
+use App\Http\Controllers\LibroAlamcenController;
+use App\Http\Controllers\ActivoTarjetaController;
+use App\Http\Controllers\CompraDetalleController;
+use App\Http\Controllers\ConfigurationController;
+use App\Http\Controllers\ItemCategoriaController;
+use App\Http\Controllers\NotificacionesController;
+use App\Http\Controllers\ActivoSolicitudController;
+use App\Http\Controllers\BusinessProfileController;
+use App\Http\Controllers\PassportClientsController;
+use App\Http\Controllers\ReportesAlmacenController;
+use App\Http\Controllers\SolicitudEstadoController;
+use App\Http\Controllers\SolicitudApruebaController;
+use App\Http\Controllers\UserDespachaUserController;
+use App\Http\Controllers\SolicitudAutorizaController;
+use App\Http\Controllers\SolicitudDespachaController;
+use App\Http\Controllers\ItemTrasladoEstadoController;
+use App\Http\Controllers\ActivoSolicitudTipoController;
+use App\Http\Controllers\ActivoTarjetaDetalleController;
+use App\Http\Controllers\ActivoSolicitudEstadoController;
+use App\Http\Controllers\ActivoSolicitudDetalleController;
 
 Auth::routes(['verify' => true]);
 
@@ -341,6 +342,12 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     Route::resource('costo-centros', App\Http\Controllers\CostoCentroController::class);
 
+    Route::group(['prefix' => 'pruebas', 'as' => 'pruebas.',], function () {
+
+        Route::get('firma-electronica', [FirmaElectronicaController::class, 'index'])->name('firma.electronica');
+        Route::post('firmar-documento', [FirmaElectronicaController::class, 'firmarDocumento'])->name('firmar.documento');
+    });
+
 
 });
 
@@ -368,7 +375,6 @@ Route::get('/test-reverb', [TestController::class, 'reverb'])->name('reverb');
 Route::post('/test-reverb', [TestController::class, 'testEvent'])->name('test.reverb');
 
 
-Route::post('/firmar-documento', [TestController::class, 'firmarDocumento'])->name('firmar.documento');
 Route::post('change-layout', [LayoutController::class, 'changeLayout'])->name('change.layout');
 
 Route::get('enviar-correo', function () {

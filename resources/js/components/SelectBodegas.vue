@@ -24,48 +24,53 @@
         <input type="hidden" :name="name" :value="getId(item)">
 
 
-        <div class="modal fade" :id="id" tabindex="-1" role="dialog"  aria-hidden="true">
-            <div class="modal-dialog" role="document">
+        <div class="modal fade" :id="id" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="modelTitleId">
                             <span v-text="formTitle"></span>
                         </h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <!-- Botón de cierre actualizado -->
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+
                     <form @submit.prevent="save">
                         <div class="modal-body">
-                            <div class="form-row">
-
-
+                            <div class="row">
                                 <!-- Nombre Field -->
-                                <div class="form-group col-sm-6">
-                                    <label for="nombre">Nombre:</label>
-                                    <span class="text-danger">*</span>
-                                    <input type="text" class="form-control" @keydown.enter.prevent="save()" v-model="editedItem.nombre" >
+                                <div class="col-sm-6 mb-3">
+                                    <label for="nombre" class="form-label">Nombre: <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control"
+                                        id="nombre"
+                                        @keydown.enter.prevent="save()"
+                                        v-model="editedItem.nombre">
                                 </div>
 
                                 <!-- Dirección Field -->
-                                <div class="form-group col-sm-6">
-                                    <label for="nombre">Dirección:</label>
-                                    <textarea class="form-control" name="direccion"
-                                              @keydown.enter.prevent="save()" v-model="editedItem.direccion" rows="2"
-                                    ></textarea>
+                                <div class="col-sm-6 mb-3">
+                                    <label for="direccion" class="form-label">Dirección:</label>
+                                    <textarea class="form-control"
+                                            id="direccion"
+                                            rows="2"
+                                            @keydown.enter.prevent="save()"
+                                            v-model="editedItem.direccion"></textarea>
                                 </div>
 
                                 <!-- Teléfono Field -->
-                                <div class="form-group col-sm-6">
-                                    <label for="nombre">Teléfono:</label>
-                                    <input type="text" class="form-control" @keydown.enter.prevent="save()" v-model="editedItem.telefono" >
+                                <div class="col-sm-6 mb-3">
+                                    <label for="telefono" class="form-label">Teléfono:</label>
+                                    <input type="text" class="form-control"
+                                        id="telefono"
+                                        @keydown.enter.prevent="save()"
+                                        v-model="editedItem.telefono">
                                 </div>
-
-
                             </div>
                         </div>
+
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <!-- data-bs-dismiss correcto en BS5 -->
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-primary">
                                 <span v-text="loading ? 'GUARDANDO...' : 'GUARDAR'"></span>
                             </button>
@@ -74,6 +79,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 </template>
 

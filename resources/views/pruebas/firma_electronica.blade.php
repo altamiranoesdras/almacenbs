@@ -34,7 +34,7 @@
             <div class="col-12">
                 <div class="card shadow-sm">
                     <div class="card-body pt-1">
-                        <form method="POST" action="{{ route('firmar.documento') }}" enctype="multipart/form-data" class="esperar row g-3">
+                        <form method="POST" action="{{ route('pruebas.firmar.documento') }}" enctype="multipart/form-data" class="row g-3">
                             @csrf
 
                             {{-- Columna izquierda: Documento --}}
@@ -60,7 +60,10 @@
                                                  src="{{ auth()->user()->rubrica }}" alt="Rúbrica de usuario">
                                         </div>
                                         <input type="hidden" name="rubrica_user" value="{{ auth()->user()->rubrica }}">
-                                        <small class="text-muted d-block mt-50">Usando rúbrica guardada en tu perfil.</small>
+                                        <small class="text-muted d-block mt-50">
+                                            Usando rúbrica guardada en tu perfil.
+                                            <a href="{{ route('profile') }}" class="text-primary">Cambiar</a>
+                                        </small>
                                     @else
                                         <input class="form-control @error('rubrica') is-invalid @enderror"
                                                type="file" name="rubrica" id="rubrica" required accept=".png,.jpg,.jpeg">
@@ -138,11 +141,7 @@
                                             <input class="form-control" type="number" name="pagina" id="pagina" min="1" placeholder="1">
                                             <small class="text-muted">Por defecto: 1</small>
                                         </div>
-                                        {{-- Contrasena de firma --}}
-                                        <div class="col-md-4">
-                                            <label for="pagina" class="form-label">Contraseña Firma</label>
-                                            <input class="form-control" type="password" name="password" id="password" placeholder="******" required>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -150,10 +149,60 @@
 
                             {{-- Acciones --}}
                             <div class="col-12 d-flex justify-content-end gap-1">
-                                <a href="{{ route('home') }}" class="btn btn-outline-secondary">Cancelar</a>
-                                <button type="submit" class="btn btn-success">
-                                    <i class="fa fa-signature me-50"></i> Firmar documento
+                                <a href="{{ route('pruebas.firma.electronica') }}" class="btn btn-outline-secondary">Cancelar</a>
+
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal"
+                                        data-bs-target="#modelId">
+                                    <i class="fa fa-signature"></i>
+                                    Firmar documento
                                 </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="modelId" tabindex="-1" aria-labelledby="modelTitleId" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="modelTitleId">
+                                                    Confirmar firma electrónica
+                                                </h4>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    {{-- Usuario --}}
+                                                    <div class="col-12 mb-1">
+                                                        <label for="usuario_firma" class="form-label">Usuario</label>
+                                                        <input class="form-control" type="text" name="usuario_firma" id="usuario_firma"
+                                                               value="{{ auth()->user()->email }}">
+                                                    </div>
+
+                                                    {{-- Contraseña de firma --}}
+                                                    <div class="col-12 mb-1">
+                                                        <label for="password_firma" class="form-label">Contraseña Firma</label>
+                                                        <input class="form-control" type="password" name="password_firma" id="password_firma"
+                                                               placeholder="******" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <button type="submit" class="btn btn-success">
+                                                    <i class="fa fa-signature"></i>
+                                                    Firmar documento
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
                             </div>
 
                         </form>
