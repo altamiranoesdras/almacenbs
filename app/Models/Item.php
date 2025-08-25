@@ -46,6 +46,8 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property-read int|null $compra1h_detalles_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraDetalle> $compraDetalles
  * @property-read int|null $compra_detalles_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraSolicitudDetalle> $compraSolicitudDetalles
+ * @property-read int|null $compra_solicitud_detalles_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Equivalencia> $equivalencia1s
  * @property-read int|null $equivalencia1s_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Equivalencia> $equivalencias
@@ -81,46 +83,44 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property-read int|null $stocks_count
  * @property-read \App\Models\ItemTipo $tipo
  * @property-read \App\Models\Unimed|null $unimed
- * @method static \Illuminate\Database\Eloquent\Builder|Item conDetSolicitudesAprobadas()
- * @method static \Illuminate\Database\Eloquent\Builder|Item conIngresos()
- * @method static \Illuminate\Database\Eloquent\Builder|Item deCategoria($categoria)
- * @method static \Illuminate\Database\Eloquent\Builder|Item deMarca($marca)
- * @method static \Database\Factories\ItemFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|Item newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Item newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Item onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Item query()
- * @method static \Illuminate\Database\Eloquent\Builder|Item tipoActivo()
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereCategoriaId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereCodigo($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereCodigoInsumo($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereCodigoPresentacion($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereDescripcion($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereInventariable($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereMarcaId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereModeloId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereNombre($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item wherePerecedero($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item wherePrecioCompra($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item wherePrecioPromedio($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item wherePrecioVenta($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item wherePresentacionId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereRenglonId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereStockMaximo($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereStockMinimo($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereTipoId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereUbicacion($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereUnimedId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item withTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Item withoutAppends()
- * @method static \Illuminate\Database\Eloquent\Builder|Item withoutTrashed()
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraSolicitudDetalle> $compraSolicitudDetalles
- * @property-read int|null $compra_solicitud_detalles_count
+ * @method static Builder|Item conDetSolicitudesAprobadas()
+ * @method static Builder|Item conIngresos()
+ * @method static Builder|Item deCategoria($categoria)
+ * @method static Builder|Item deMarca($marca)
  * @method static Builder|Item enSolicitudCompraActiva()
+ * @method static \Database\Factories\ItemFactory factory($count = null, $state = [])
+ * @method static Builder|Item newModelQuery()
+ * @method static Builder|Item newQuery()
+ * @method static Builder|Item onlyTrashed()
+ * @method static Builder|Item query()
+ * @method static Builder|Item tipoActivo()
+ * @method static Builder|Item whereCategoriaId($value)
+ * @method static Builder|Item whereCodigo($value)
+ * @method static Builder|Item whereCodigoInsumo($value)
+ * @method static Builder|Item whereCodigoPresentacion($value)
+ * @method static Builder|Item whereCreatedAt($value)
+ * @method static Builder|Item whereDeletedAt($value)
+ * @method static Builder|Item whereDescripcion($value)
+ * @method static Builder|Item whereId($value)
+ * @method static Builder|Item whereInventariable($value)
+ * @method static Builder|Item whereMarcaId($value)
+ * @method static Builder|Item whereModeloId($value)
+ * @method static Builder|Item whereNombre($value)
+ * @method static Builder|Item wherePerecedero($value)
+ * @method static Builder|Item wherePrecioCompra($value)
+ * @method static Builder|Item wherePrecioPromedio($value)
+ * @method static Builder|Item wherePrecioVenta($value)
+ * @method static Builder|Item wherePresentacionId($value)
+ * @method static Builder|Item whereRenglonId($value)
+ * @method static Builder|Item whereStockMaximo($value)
+ * @method static Builder|Item whereStockMinimo($value)
+ * @method static Builder|Item whereTipoId($value)
+ * @method static Builder|Item whereUbicacion($value)
+ * @method static Builder|Item whereUnimedId($value)
+ * @method static Builder|Item whereUpdatedAt($value)
+ * @method static Builder|Item withTrashed()
+ * @method static Builder|Item withoutAppends()
+ * @method static Builder|Item withoutTrashed()
  * @mixin \Eloquent
  */
 class Item extends Model implements HasMedia

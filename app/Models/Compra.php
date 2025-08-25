@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property int|null $proveedor_id
  * @property string|null $codigo
  * @property int|null $correlativo
+ * @property int|null $unidad_solicita_id
  * @property \Illuminate\Support\Carbon|null $fecha_documento Fecha del documento de  la Factura
  * @property \Illuminate\Support\Carbon|null $fecha_ingreso Fecha de ingreso al sistema
  * @property string|null $serie
@@ -73,6 +74,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereProveedorId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereSerie($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereTipoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereUnidadSolicitaId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereUsuarioCrea($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereUsuarioRecibe($value)

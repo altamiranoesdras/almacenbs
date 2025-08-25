@@ -8,11 +8,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property string $nombre
- * @property string|null $tipo_proceso
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -29,7 +28,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado whereNombre($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado whereTipoProceso($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado withoutTrashed()

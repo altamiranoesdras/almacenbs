@@ -25,11 +25,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, RrhhUnidad> $children
  * @property-read int|null $children_count
+ * @property-read string $text
  * @property-read \App\Models\User|null $jefe
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RrhhPuesto> $puestos
  * @property-read int|null $puestos_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Solicitud> $solicitudes
  * @property-read int|null $solicitudes_count
+ * @property-read \App\Models\RrhhUnidadTipo $tipo
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $usuarios
  * @property-read int|null $usuarios_count
  * @method static \Database\Factories\RrhhUnidadFactory factory($count = null, $state = [])
@@ -52,8 +54,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad withoutTrashed()
- * @property-read string $text
- * @property-read \App\Models\RrhhUnidadTipo $tipo
  * @mixin \Eloquent
  */
 class RrhhUnidad extends Model

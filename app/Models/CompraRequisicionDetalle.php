@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property int $requisicion_id
@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\Item $item
+ * @property-read \App\Models\CompraRequisicion\CompraRequisicion $requisicion
  * @property-read \App\Models\CompraSolicitudDetalle $solicitudDetalle
  * @method static \Database\Factories\CompraRequisicionDetalleFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle newModelQuery()
