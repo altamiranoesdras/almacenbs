@@ -236,10 +236,10 @@ function getLogo($conversion='webp',$rutaAbsoluta=false){
     $media = $config->getMediaLogo();
 
     if ($rutaAbsoluta){
-        return $media ? $media->getPath($conversion) : asset('img/default.svg');
+        return $media ? $media->getPath($conversion) : asset('img/logo-sbs-ligth.png');
     }
 
-    return $media ? $media->getUrl($conversion) : asset('img/default.svg');
+    return $media ? $media->getUrl($conversion) : asset('img/logo-sbs-ligth.png');
 }
 
 
@@ -252,7 +252,7 @@ function getFondoLogin($conversion=''){
 
     $media = $config->getMediaFondoLogin();
 
-    return $media ? $media->getUrl($conversion) : asset('img/default.svg');
+    return $media ? $media->getUrl($conversion) : asset('img/logo-sbs-ligth.png');
 }
 
 

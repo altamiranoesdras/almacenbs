@@ -53,7 +53,7 @@ return new class extends Migration
 ');
             $table->id();
             $table->string('nombre');
-            $table->enum('tipo_proceso', ['NOG', 'NPG'])->nullable();
+//            $table->enum('tipo_proceso', ['NOG', 'NPG'])->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

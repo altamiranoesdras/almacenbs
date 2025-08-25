@@ -43,7 +43,7 @@ NPG
 24. Otros tipos de adquisición directa que se presenten por razón de reformas a la LEY, que se originen de otras leyes vigentes o en cumplimiento de una resolución judicial de un tribunal de justicia.');
             $table->id();
             $table->string('nombre');
-            $table->enum('tipo_proceso', ['NOG', 'NPG']);
+//            $table->enum('tipo_proceso', ['NOG', 'NPG'])->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

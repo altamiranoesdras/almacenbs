@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $nombre
@@ -43,15 +43,26 @@ class CompraRequisicionEstado extends Model
 
     public $table = 'compra_requisicion_estados';
 
-    const CREADA_CONSOLIDACION_SOLICITUDES = 1;
-    const EVALUANDO_PROVEEDORES_PROCESO_COMPETITIVO = 2;
-    const CUADRO_COMPARATIVO_GENERADO = 3;
-    const ACTA_NEGOCIACION_GENERADA_FIRMAS_ELECTRONICAS = 4;
-    const ACTA_NEGOCIACION_AUTORIZADA = 5;
-    const ADJUDICADA = 6;
-    const ORDEN_COMPRA_GENERADA = 7;
-    const FINALIZADA = 8;
-    const CANCELADA = 9;
+	const NPG_CREADA_CONSOLIDACION_SOLICITUDES = 1;
+	const NPG_EVALUANDO_PROVEEDORES = 2;
+	const NPG_CUADRO_COMPARATIVO_GENERADO = 3;
+	const NPG_ACTA_NEGOCIACION_GENERADA = 4;
+	const NPG_ACTA_NEGOCIACION_AUTORIZADA = 5;
+	const NPG_adjudicada = 6;
+	const NPG_ORDEN_COMPRA_GENERADA = 7;
+	const NPG_finalizada = 8;
+	const NPG_cancelada = 9;
+	const NOG_CREADA_CONSOLIDACION_SOLICITUDES = 10;
+	const NOG_EVALUANDO_PROVEEDORES = 11;
+	const NOG_CUADRO_COMPARATIVO_GENERADO = 12;
+	const NOG_ACTA_NEGOCIACION_GENERADA = 13;
+	const NOG_ACTA_NEGOCIACION_AUTORIZADA = 14;
+	const NOG_adjudicada = 15;
+	const NOG_ORDEN_COMPRA_GENERADA = 16;
+	const NOG_finalizada = 17;
+	const NOG_cancelada = 18;
+
+
 
     public $fillable = [
         'nombre',
