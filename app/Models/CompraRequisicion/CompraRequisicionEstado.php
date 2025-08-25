@@ -43,25 +43,24 @@ class CompraRequisicionEstado extends Model
 
     public $table = 'compra_requisicion_estados';
 
-	const NPG_CREADA_CONSOLIDACION_SOLICITUDES = 1;
-	const NPG_EVALUANDO_PROVEEDORES = 2;
-	const NPG_CUADRO_COMPARATIVO_GENERADO = 3;
-	const NPG_ACTA_NEGOCIACION_GENERADA = 4;
-	const NPG_ACTA_NEGOCIACION_AUTORIZADA = 5;
-	const NPG_adjudicada = 6;
-	const NPG_ORDEN_COMPRA_GENERADA = 7;
-	const NPG_finalizada = 8;
-	const NPG_cancelada = 9;
-	const NOG_CREADA_CONSOLIDACION_SOLICITUDES = 10;
-	const NOG_EVALUANDO_PROVEEDORES = 11;
-	const NOG_CUADRO_COMPARATIVO_GENERADO = 12;
-	const NOG_ACTA_NEGOCIACION_GENERADA = 13;
-	const NOG_ACTA_NEGOCIACION_AUTORIZADA = 14;
-	const NOG_adjudicada = 15;
-	const NOG_ORDEN_COMPRA_GENERADA = 16;
-	const NOG_finalizada = 17;
-	const NOG_cancelada = 18;
-
+    // Estados generales
+    const CREADA                                = 1;
+    const REQUERIDA                              = 2;
+    const APROBADA                               = 3;
+    const AUTORIZADA                             = 4;
+    const ASIGNADA_A_ANALISTA_DE_PRESUPUESTOS    = 5;
+    const ASIGNADA_A_ANALISTA_DE_COMPRAS         = 6;
+    const INICIO_DE_GESTION                      = 7;
+    const EN_PROCESO_DE_GESTION                  = 8;
+    const ENVIADA_A_PROVEEDORES                  = 9;
+    const EN_ESPERA_DE_RESPUESTA_DE_PROVEEDORES  = 10;
+    const CUADRO_COMPARATIVO_GENERADO            = 11;
+    const ACTA_NEGOCIACION_GENERADA              = 12;
+    const ACTA_NEGOCIACION_AUTORIZADA            = 13;
+    const ADJUDICADA                             = 14;
+    const ORDEN_DE_COMPRA_GENERADA               = 15;
+    const FINALIZADA                             = 16;
+    const CANCELADA                              = 17;
 
 
     public $fillable = [
@@ -88,11 +87,11 @@ class CompraRequisicionEstado extends Model
 
     public function compraBandejas(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(\App\Models\CompraBandeja::class, 'compra_estado_has_bandeja');
+        return $this->belongsToMany(\App\Models\CompraBandeja::class, 'compra_has_bandeja');
     }
 
     public function requisicion(): HasMany
     {
-        return $this->hasMany(CompraRequisicion::class, 'estado_id');
+        return $this->hasMany(CompraRequisicion::class, 'id');
     }
 }

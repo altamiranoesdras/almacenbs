@@ -50,7 +50,7 @@ class CompraSolicitudConsolidarController extends Controller
              * @var CompraRequisicion $requisicion
              */
             $requisicion = CompraRequisicion::create([
-                'estado_id' => CompraRequisicionEstado::NPG_CREADA_CONSOLIDACION_SOLICITUDES,
+                'estado_id' => CompraRequisicionEstado::CREADA,
             ]);
 
             $detallesSolicitud = collect();
