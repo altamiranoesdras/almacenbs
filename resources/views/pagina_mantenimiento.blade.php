@@ -1,40 +1,37 @@
-@extends('layouts.blank')
+@extends('layouts.app')
 
-@section('title', 'Página en construcción')
-
-@section('page-style')
-    <style>
-        .uc-wrap {
-            min-height: calc(100vh - 7rem);
-            display: grid;
-            place-items: center;
-        }
-
-        .uc-card {
-            max-width: 720px;
-            width: 100%;
-            border-radius: 0.75rem;
-        }
-
-        .uc-title {
-            font-weight: 600;
-            letter-spacing: .2px;
-        }
-
-        .uc-text {
-            color: #6e6b7b;
-        }
-
-        .dark-layout .uc-text {
-            color: #c9c9d3;
-        }
-    </style>
-@endsection
+@section('titulo_pagina', 'Pagina en construcción')
 
 @section('content')
-    <div class="content-body mt-5">
-        <div class="container-fluid">
-            <div class="container-xxl uc-wrap">
+
+    <div class="content-header row">
+        <div class="content-header-left col-md-9 col-12 mb-2">
+            <div class="row breadcrumbs-top">
+                <div class="col-12">
+                    <h2 class="content-header-title float-start mb-0">
+                        Pagina en construcción
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
+            <div class="mb-1 breadcrumb-right">
+                <div class="dropdown">
+                    <a class="btn btn-primary float-right"
+                       href="{{ route('admin.home') }}">
+                        <i class="fa fa-home"></i>
+                        Inicio
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-body">
+
+        <div class="row">
+            <div class="col-12">
                 <div class="card uc-card shadow-sm">
                     <div class="card-body p-4 p-md-5 text-center">
                         <h1 class="uc-title mb-1">Página en construcción</h1>
@@ -58,7 +55,8 @@
 
                         <div class="d-flex flex-wrap justify-content-center gap-2">
                             <a href="{{ url('/') }}" class="btn btn-primary">
-                                <i data-feather="home" class="me-50"></i> Inicio
+                                <i class="fa fa-home"></i>
+                                 Inicio
                             </a>
                         </div>
 
@@ -69,11 +67,9 @@
                 </div>
             </div>
         </div>
+
     </div>
+
 @endsection
 
-@section('page-script')
-    <script>
-        if (window.feather) window.feather.replace();
-    </script>
-@endsection
+

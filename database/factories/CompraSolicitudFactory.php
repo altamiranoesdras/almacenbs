@@ -30,7 +30,7 @@ class CompraSolicitudFactory extends Factory
 
         $user = User::all()->random();
 
-        $fechaCrea = Carbon::now()->subDays(rand(0,30));
+        $fechaCrea = Carbon::now()->startOfMonth()->addDays(rand(1, 15));
 
 
         return [
@@ -42,8 +42,8 @@ class CompraSolicitudFactory extends Factory
             'estado_id' => CompraSolicitudEstado::all()->random()->id,
             'usuario_solicita' => $user->id,
             'usuario_verifica' => User::whereNotIn('id',[$user->id])->get()->random()->id,
-            'created_at' => $this->faker->date('Y-m-d H:i:s'),
-            'updated_at' => $this->faker->date('Y-m-d H:i:s'),
+            'created_at' => $fechaCrea,
+            'updated_at' => $fechaCrea,
         ];
     }
 

@@ -86,7 +86,7 @@ class CompraSolicitudConsolidarController extends Controller
 
 
 
-        return redirect()->route('compra.solicitudes.consolidar');
+        return redirect()->route('admin.mantenimiento-pagina');
 
     }
 }

@@ -156,10 +156,28 @@
 
         function consolidarSolicitudes(){
             if( consolidarSolicitudesVue.solicitudesAConsolidarIds.length === 0) {
-                alert('Debe seleccionar al menos una solicitud para consolidar.');
+
+                alertWarning('Debe seleccionar al menos una solicitud para consolidar.',);
                 return;
             }
-            $('#formConsolidarSolicitudes').submit();
+
+            //sweet alert confirmacion
+            Swal.fire({
+                title: '¿Está seguro de consolidar las solicitudes seleccionadas?',
+                text: "Si es seguro, presione el botón de 'sí, consolidar'.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, consolidar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    esperar();
+                    $('#formConsolidarSolicitudes').submit();
+                }
+            });
+
+
         }
 
         const consolidarSolicitudesVue = new Vue({
