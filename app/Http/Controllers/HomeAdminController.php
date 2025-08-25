@@ -52,6 +52,6 @@ class HomeAdminController extends Controller
 
     public function paginaMantenimiento()
     {
-        return view('pagina_mantenimiento');
+        return view('pagina_en_construccion');
     }
 }
