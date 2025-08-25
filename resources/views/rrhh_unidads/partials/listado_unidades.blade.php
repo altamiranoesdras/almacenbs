@@ -1,15 +1,39 @@
 @foreach($unidades ?? App\Models\RrhhUnidad::padres()->get() as $unidad)
-    <li  id="{{$unidad->id}}" class="list-group-item  border-top-0 border-bottom-0 border-right-0 py-0 pt-1 {{$unidad->isChildren() ? ' ps-3' : ' border-left-0'}}">
+    @php
+        $hasChildren = $unidad->hasChildren();
+        $childrenId  = 'children-' . $unidad->id;
+    @endphp
 
-{{--            <i class="fa fa-building-columns handle mr-2" style="cursor: move"></i>--}}
+    <li id="{{ $unidad->id }}">
+        <div class="node-row" data-toggle-row="true">
+            @if($hasChildren)
+                <span class="toggle" role="button" aria-expanded="true"
+                      aria-controls="{{ $childrenId }}"
+                      data-bs-toggle="collapse"
+                      data-target="#{{ $childrenId }}">
+          <span class="plus">+</span><span class="minus">–</span>
+        </span>
+            @else
+                <span class="toggle" style="visibility:hidden;"><span>+</span></span>
+            @endif
 
-            <b>{{$unidad->codigo}}</b>
-            {{$unidad->nombre}} ({{$unidad->tipo->nombre}})
+            <span class="folder">
+        <i class="fa {{ $hasChildren ? 'fa-folder-open' : 'fa-folder' }}"></i>
+      </span>
 
-            @include('rrhh_unidads.datatables_actions',['id' => $unidad->id])
+            <div class="d-flex align-items-baseline gap-2">
+                <span class="unidad-codigo">{{ $unidad->codigo }}</span>
+                <span>{{ $unidad->nombre }}</span>
+                <span class="unidad-tipo">({{ $unidad->tipo->nombre }})</span>
+            </div>
 
-        @if($unidad->hasChildren())
-            <ul class="list-group sortable">
+            <div class="node-actions">
+                @include('rrhh_unidads.datatables_actions', ['id' => $unidad->id])
+            </div>
+        </div>
+
+        @if($hasChildren)
+            <ul class="tree tree-children collapse show list-unstyled" id="{{ $childrenId }}">
                 @include('rrhh_unidads.partials.listado_unidades', ['unidades' => $unidad->children])
             </ul>
         @endif
