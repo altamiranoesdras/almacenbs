@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\CompraRequicicionTipoAdquisicion;
+use App\Models\CompraRequisicionTipoAdquisicion;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateCompraRequicicionTipoAdquisicionRequest extends FormRequest
@@ -24,11 +24,11 @@ class CreateCompraRequicicionTipoAdquisicionRequest extends FormRequest
      */
     public function rules()
     {
-        return CompraRequicicionTipoAdquisicion::$rules;
+        return CompraRequisicionTipoAdquisicion::$rules;
     }
 
     public function messages()
     {
-        return CompraRequicicionTipoAdquisicion::$messages;
+        return CompraRequisicionTipoAdquisicion::$messages;
     }
 }

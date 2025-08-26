@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\CompraRequicicionTipoAdquisicionDataTable;
 use App\Http\Requests\CreateCompraRequicicionTipoAdquisicionRequest;
 use App\Http\Requests\UpdateCompraRequicicionTipoAdquisicionRequest;
-use App\Models\CompraRequicicionTipoAdquisicion;
+use App\Models\CompraRequisicionTipoAdquisicion;
 
 class CompraRequicicionTipoAdquisicionController extends AppBaseController
 {
@@ -18,7 +18,7 @@ class CompraRequicicionTipoAdquisicionController extends AppBaseController
         $this->middleware('permission:Eliminar Compra Requicicion Tipo adquisiciones')->only('destroy');
     }
     /**
-     * Display a listing of the CompraRequicicionTipoAdquisicion.
+     * Display a listing of the CompraRequisicionTipoAdquisicion.
      */
     public function index(CompraRequicicionTipoAdquisicionDataTable $compraRequicicionTipoAdquisicionDataTable)
     {
@@ -28,7 +28,7 @@ class CompraRequicicionTipoAdquisicionController extends AppBaseController
 
 
     /**
-     * Show the form for creating a new CompraRequicicionTipoAdquisicion.
+     * Show the form for creating a new CompraRequisicionTipoAdquisicion.
      */
     public function create()
     {
@@ -36,14 +36,14 @@ class CompraRequicicionTipoAdquisicionController extends AppBaseController
     }
 
     /**
-     * Store a newly created CompraRequicicionTipoAdquisicion in storage.
+     * Store a newly created CompraRequisicionTipoAdquisicion in storage.
      */
     public function store(CreateCompraRequicicionTipoAdquisicionRequest $request)
     {
         $input = $request->all();
 
-        /** @var CompraRequicicionTipoAdquisicion $compraRequicicionTipoAdquisicion */
-        $compraRequicicionTipoAdquisicion = CompraRequicicionTipoAdquisicion::create($input);
+        /** @var CompraRequisicionTipoAdquisicion $compraRequicicionTipoAdquisicion */
+        $compraRequicicionTipoAdquisicion = CompraRequisicionTipoAdquisicion::create($input);
 
         flash()->success('Compra Requicicion Tipo Adquisicion guardado.');
 
@@ -51,12 +51,12 @@ class CompraRequicicionTipoAdquisicionController extends AppBaseController
     }
 
     /**
-     * Display the specified CompraRequicicionTipoAdquisicion.
+     * Display the specified CompraRequisicionTipoAdquisicion.
      */
     public function show($id)
     {
-        /** @var CompraRequicicionTipoAdquisicion $compraRequicicionTipoAdquisicion */
-        $compraRequicicionTipoAdquisicion = CompraRequicicionTipoAdquisicion::find($id);
+        /** @var CompraRequisicionTipoAdquisicion $compraRequicicionTipoAdquisicion */
+        $compraRequicicionTipoAdquisicion = CompraRequisicionTipoAdquisicion::find($id);
 
         if (empty($compraRequicicionTipoAdquisicion)) {
             flash()->error('Compra Requicicion Tipo Adquisicion no encontrado');
@@ -68,12 +68,12 @@ class CompraRequicicionTipoAdquisicionController extends AppBaseController
     }
 
     /**
-     * Show the form for editing the specified CompraRequicicionTipoAdquisicion.
+     * Show the form for editing the specified CompraRequisicionTipoAdquisicion.
      */
     public function edit($id)
     {
-        /** @var CompraRequicicionTipoAdquisicion $compraRequicicionTipoAdquisicion */
-        $compraRequicicionTipoAdquisicion = CompraRequicicionTipoAdquisicion::find($id);
+        /** @var CompraRequisicionTipoAdquisicion $compraRequicicionTipoAdquisicion */
+        $compraRequicicionTipoAdquisicion = CompraRequisicionTipoAdquisicion::find($id);
 
         if (empty($compraRequicicionTipoAdquisicion)) {
             flash()->error('Compra Requicicion Tipo Adquisicion no encontrado');
@@ -85,12 +85,12 @@ class CompraRequicicionTipoAdquisicionController extends AppBaseController
     }
 
     /**
-     * Update the specified CompraRequicicionTipoAdquisicion in storage.
+     * Update the specified CompraRequisicionTipoAdquisicion in storage.
      */
     public function update($id, UpdateCompraRequicicionTipoAdquisicionRequest $request)
     {
-        /** @var CompraRequicicionTipoAdquisicion $compraRequicicionTipoAdquisicion */
-        $compraRequicicionTipoAdquisicion = CompraRequicicionTipoAdquisicion::find($id);
+        /** @var CompraRequisicionTipoAdquisicion $compraRequicicionTipoAdquisicion */
+        $compraRequicicionTipoAdquisicion = CompraRequisicionTipoAdquisicion::find($id);
 
         if (empty($compraRequicicionTipoAdquisicion)) {
             flash()->error('Compra Requicicion Tipo Adquisicion no encontrado');
@@ -107,14 +107,14 @@ class CompraRequicicionTipoAdquisicionController extends AppBaseController
     }
 
     /**
-     * Remove the specified CompraRequicicionTipoAdquisicion from storage.
+     * Remove the specified CompraRequisicionTipoAdquisicion from storage.
      *
      * @throws \Exception
      */
     public function destroy($id)
     {
-        /** @var CompraRequicicionTipoAdquisicion $compraRequicicionTipoAdquisicion */
-        $compraRequicicionTipoAdquisicion = CompraRequicicionTipoAdquisicion::find($id);
+        /** @var CompraRequisicionTipoAdquisicion $compraRequicicionTipoAdquisicion */
+        $compraRequicicionTipoAdquisicion = CompraRequisicionTipoAdquisicion::find($id);
 
         if (empty($compraRequicicionTipoAdquisicion)) {
             flash()->error('Compra Requicicion Tipo Adquisicion no encontrado');

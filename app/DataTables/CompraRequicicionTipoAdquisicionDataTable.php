@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\CompraRequicicionTipoAdquisicion;
+use App\Models\CompraRequisicionTipoAdquisicion;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
@@ -20,11 +20,11 @@ class CompraRequicicionTipoAdquisicionDataTable extends DataTable
 
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', function(CompraRequicicionTipoAdquisicion $compraRequicicionTipoAdquisicion){
+            ->addColumn('action', function(CompraRequisicionTipoAdquisicion $compraRequicicionTipoAdquisicion){
                 $id = $compraRequicicionTipoAdquisicion->id;
                 return view('compra_requisicion_tipo_adquisiciones.datatables_actions',compact('compraRequicicionTipoAdquisicion','id'));
             })
-            ->editColumn('id',function (CompraRequicicionTipoAdquisicion $compraRequicicionTipoAdquisicion){
+            ->editColumn('id',function (CompraRequisicionTipoAdquisicion $compraRequicicionTipoAdquisicion){
 
                 return $compraRequicicionTipoAdquisicion->id;
 
@@ -35,10 +35,10 @@ class CompraRequicicionTipoAdquisicionDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\CompraRequicicionTipoAdquisicion $model
+     * @param \App\Models\CompraRequisicionTipoAdquisicion $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(CompraRequicicionTipoAdquisicion $model)
+    public function query(CompraRequisicionTipoAdquisicion $model)
     {
         return $model->newQuery()->select($model->getTable().'.*');
     }

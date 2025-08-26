@@ -3,10 +3,15 @@
 namespace App\Http\Controllers\CompraRequisicion;
 
 use App\DataTables\CompraRequisicion\CompraRequisicionDataTable;
+use App\FirmaElectronica\FirmaElectronica;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\Create\CompraRequisicion\CreateCompraRequisicionRequest;
 use App\Http\Requests\Update\CompraRequisicion\UpdateCompraRequisicionRequest;
 use App\Models\CompraRequisicion\CompraRequisicion;
+use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Storage;
 
 class CompraRequisicionController extends AppBaseController
 {
@@ -127,5 +132,87 @@ class CompraRequisicionController extends AppBaseController
         flash()->success('Compra Requisicion eliminado.');
 
         return redirect(route('compraRequisicions.index'));
+    }
+
+//    public function pdf(CompraRequisicion $requisicion)
+//    {
+//
+//        $pdf = App::make('snappy.pdf.wrapper');
+//
+//        $view = view('compra_requisicions.pdfs.requisicion_pdf', compact('requisicion'))->render();
+//
+//        $pdf->loadHTML($view)
+//            ->setOption('page-width', 279)
+//            ->setOption('page-height', 216)
+//            ->setOrientation('landscape')
+//            ->setOption('margin-top', 8)
+//            ->setOption('margin-bottom',10)
+//            ->setOption('margin-left',10)
+//            ->setOption('margin-right',15);
+//
+//        return $pdf->inline('Despacho '.$requisicion->id. '_'. time().'.pdf');
+//    }
+
+
+
+    public function pdf(CompraRequisicion $requisicion, Request $request)
+    {
+        // 1) Generar el PDF con Snappy (wkhtmltopdf)
+        $pdf = App::make('snappy.pdf.wrapper');
+
+        $view = view('compra_requisicions.pdfs.requisicion_pdf', compact('requisicion'))->render();
+
+        $pdf->loadHTML($view)
+            ->setOption('page-width', 279)   // mm
+            ->setOption('page-height', 216)  // mm
+            ->setOrientation('landscape')
+            ->setOption('margin-top', 8)
+            ->setOption('margin-bottom', 10)
+            ->setOption('margin-left', 10)
+            ->setOption('margin-right', 15);
+
+        // 2) Guardar el PDF en storage/app/public/firmas/pdfs
+        $disk = 'public';
+        $folderPdf = 'requisiciones/generadas';              // carpeta para PDFs generados (previos a la firma)
+        $filename = 'Requisicion_' . $requisicion->id . '_' . time() . '.pdf';
+        $relativePdfPath = $folderPdf . '/' . $filename;
+
+        $binary = $pdf->output();
+        Storage::disk($disk)->put($relativePdfPath, $binary);
+
+        // 3) Envolver el archivo como UploadedFile para pasarlo al firmador
+        $absolutePdfPath = Storage::disk($disk)->path($relativePdfPath);
+        $uploaded = new UploadedFile(
+            $absolutePdfPath,
+            $filename,
+            'application/pdf',
+            null,
+            true // test mode (no mueve/elimina el archivo fuente)
+        );
+
+        // 4) Firmar usando tu mismo builder
+        $rutaArchivoFirmado = (new FirmaElectronica())
+            ->respuestaRuta()
+            ->setDisco($disk)                                            // dónde guardará el documento firmado
+            ->setDirectorio('requisiciones/firmadas')                           // carpeta de salida de firmados (pública)
+            ->setCorreo($request->usuario_firma)                         // credenciales del proveedor de firma
+            ->setClaveFirma($request->password_firma)
+            ->setRubricaUsuario(auth()->user()->rubrica ?? null)    // o la rúbrica del usuario
+            ->setInicioX(-30)                                        // coordenadas opcionales
+            ->setInicioY(218)
+            ->setAncho(225)
+            ->setAlto(50)
+            ->setLugar('Guatemala, Guatemala')                      // opcional
+            ->setTipoSolicitud('PDF')                               // opcional
+            ->setConcepto('Requisición de compra')             // opcional
+            ->setDocumento($uploaded)                                   // ← el PDF recién creado
+            ->firmarDocumento();
+
+        return redirect()->back()
+            ->with('success', 'PDF generado y firmado correctamente.')
+            ->with('rutaArchivoFirmado', $rutaArchivoFirmado);
+
+
+        // 4) Asociar el documento
     }
 }

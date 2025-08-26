@@ -15,6 +15,7 @@ Route::prefix('compra')->name('compra.')->group(function () {
 
     Route::prefix('requisiciones')->name('requisiciones.')->group(function () {
 
+        Route::post('pdf/{requisicion}', [CompraRequisicionController::class,'pdf'])->name('pdf');
         Route::resource('estados', App\Http\Controllers\CompraRequicicionEstadoController::class);
         Route::resource('tipo-adquisiciones', App\Http\Controllers\CompraRequicicionTipoAdquisicionController::class);
         Route::resource('tipo-concursos', App\Http\Controllers\CompraRequisicionTipoConcursoController::class);
@@ -28,6 +29,7 @@ Route::prefix('compra')->name('compra.')->group(function () {
         Route::put('requisicions/{requisicion}', [CompraRequisicionController::class, 'update'])->name('requisicions.update');
         Route::patch('requisicions/{requisicion}', [CompraRequisicionController::class, 'update']);
         Route::delete('requisicions/{requisicion}', [CompraRequisicionController::class, 'destroy'])->name('requisicions.destroy');
+
 
     });
 
@@ -63,6 +65,6 @@ Route::prefix('compra/solicitudes')->name('compra.solicitudes.')->group(function
 
     Route::post('anular/{compraSolicitud}', [CompraSolicitudController::class,'anular'])->name('anular');
     Route::get('pdf/vista/{compraSolicitud}', [CompraSolicitudController::class,'pdfVista'])->name('pdf.vista');
-    Route::get('pdf/{compraSolicitud}', [CompraSolicitudController::class,'pdf'])->name('pdf');
+//    Route::get('pdf/{compraSolicitud}', [CompraSolicitudController::class,'pdf'])->name('pdf');
 });
 
