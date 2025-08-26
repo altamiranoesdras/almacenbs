@@ -191,8 +191,8 @@ class CompraRequisicionController extends AppBaseController
         );
 
         // 4) Firmar usando tu mismo builder
-        return (new FirmaElectronica())
-            ->respuestaEnLinea()
+        $rutaArchivoFirmado = (new FirmaElectronica())
+            ->respuestaRuta()
             ->setDisco($disk)                                            // dónde guardará el documento firmado
             ->setDirectorio('requisiciones/firmadas')                           // carpeta de salida de firmados (pública)
             ->setCorreo($request->usuario_firma)                         // credenciales del proveedor de firma
@@ -207,6 +207,11 @@ class CompraRequisicionController extends AppBaseController
             ->setConcepto('Requisición de compra')             // opcional
             ->setDocumento($uploaded)                                   // ← el PDF recién creado
             ->firmarDocumento();
+
+        return redirect()->back()
+            ->with('success', 'PDF generado y firmado correctamente.')
+            ->with('rutaArchivoFirmado', $rutaArchivoFirmado);
+
 
         // 4) Asociar el documento
     }
