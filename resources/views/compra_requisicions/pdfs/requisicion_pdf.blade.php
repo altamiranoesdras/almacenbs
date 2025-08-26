@@ -154,10 +154,10 @@
 <table style="margin-top: 15px; width: 100%; border: 1px solid black; border-collapse: collapse;">
     <tr>
         <td style="width: 50%; border: none; text-align: center; padding: 50px;">
-            <div style="border-bottom: 1px solid black; display: inline-block; width: 80%;"></div>
+
         </td>
         <td style="width: 50%; border: none; text-align: center; padding: 50px;">
-            <div style="border-bottom: 1px solid black; display: inline-block; width: 80%;"></div>
+
         </td>
     </tr>
 </table>

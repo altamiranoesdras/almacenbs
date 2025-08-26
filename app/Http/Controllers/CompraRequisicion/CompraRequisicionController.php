@@ -198,10 +198,10 @@ class CompraRequisicionController extends AppBaseController
             ->setCorreo($request->usuario_firma)                         // credenciales del proveedor de firma
             ->setClaveFirma($request->password_firma)
             ->setRubricaUsuario(auth()->user()->rubrica ?? null)    // o la rúbrica del usuario
-            ->setInicioX(250)                                        // coordenadas opcionales
-            ->setInicioY(15)
-            ->setAncho(250)
-            ->setAlto(65)
+            ->setInicioX(-30)                                        // coordenadas opcionales
+            ->setInicioY(218)
+            ->setAncho(225)
+            ->setAlto(50)
             ->setLugar('Guatemala, Guatemala')                      // opcional
             ->setTipoSolicitud('PDF')                               // opcional
             ->setConcepto('Requisición de compra')             // opcional
