@@ -6,6 +6,7 @@ use App\Models\Bodega;
 use App\Models\Option;
 use App\Models\Role;
 use App\Models\RrhhPuesto;
+use App\Models\RrhhUnidad;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -42,7 +43,7 @@ class UsersTableSeeder extends Seeder
                 Option::MIS_REQUISICIONES,
                 Option::NUEVA_COMPRA,
                 Option::BUSCAR_COMPRAS,
-                Option::BUSCAR_ARTÍCULO,
+                Option::BUSCAR_ARTICULO,
                 Option::NUEVO_ARTICULO,
                 Option::PROVEEDORES,
                 Option::DESPACHAR_REQUISICION,
@@ -66,7 +67,7 @@ class UsersTableSeeder extends Seeder
                 Option::MIS_REQUISICIONES,
                 Option::NUEVA_COMPRA,
                 Option::BUSCAR_COMPRAS,
-                Option::BUSCAR_ARTÍCULO,
+                Option::BUSCAR_ARTICULO,
                 Option::NUEVO_ARTICULO,
                 Option::PROVEEDORES,
                 Option::DESPACHAR_REQUISICION,
@@ -90,7 +91,7 @@ class UsersTableSeeder extends Seeder
                 Option::MIS_REQUISICIONES,
                 Option::NUEVA_COMPRA,
                 Option::BUSCAR_COMPRAS,
-                Option::BUSCAR_ARTÍCULO,
+                Option::BUSCAR_ARTICULO,
                 Option::NUEVO_ARTICULO,
                 Option::PROVEEDORES,
                 Option::DESPACHAR_REQUISICION,
@@ -159,7 +160,7 @@ class UsersTableSeeder extends Seeder
                 'email' => $usuario['email'],
                 'password' => bcrypt('123456'),
                 'bodega_id' => Bodega::PRINCIPAL,
-                'unidad_id' => 1,
+                'unidad_id' => RrhhUnidad::all()->random()->id,
                 'puesto_id' => $usuario['puesto_id'],
             ])->each(function (User $user) {
                 $user->syncRoles(Role::find(2)); // Asigna un rol predeterminado (ajustar según tus roles)
@@ -168,7 +169,7 @@ class UsersTableSeeder extends Seeder
                     Option::MIS_REQUISICIONES,
                     Option::NUEVA_COMPRA,
                     Option::BUSCAR_COMPRAS,
-                    Option::BUSCAR_ARTÍCULO,
+                    Option::BUSCAR_ARTICULO,
                     Option::NUEVO_ARTICULO,
                     Option::PROVEEDORES,
                     Option::DESPACHAR_REQUISICION,
