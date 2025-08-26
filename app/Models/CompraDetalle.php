@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property int $id
  * @property int $compra_id
+ * @property int|null $unidad_solicita_id
  * @property int $item_id
  * @property string $cantidad
  * @property string $precio
@@ -44,6 +45,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle whereItemId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle wherePrecio($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle whereUnidadSolicitaId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle withoutTrashed()

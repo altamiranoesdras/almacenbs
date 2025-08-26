@@ -266,7 +266,7 @@ function getIcono($conversion=''){
 
     $media = $config->getMediaIcono();
 
-    return $media ? $media->getUrl($conversion) : asset('img/default.svg');
+    return $media ? $media->getUrl($conversion) : asset('img/logo_gobierno_fondo_azul.jpg');
 }
 
 function appIsDebug(){

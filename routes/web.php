@@ -63,6 +63,9 @@ use App\Http\Controllers\ActivoSolicitudTipoController;
 use App\Http\Controllers\ActivoTarjetaDetalleController;
 use App\Http\Controllers\ActivoSolicitudEstadoController;
 use App\Http\Controllers\ActivoSolicitudDetalleController;
+use \App\Http\Controllers\Compra1hOperadorController;
+use \App\Http\Controllers\Compra1hAprobadorController;
+use \App\Http\Controllers\Compra1hAutorizadorController;
 
 Auth::routes(['verify' => true]);
 
@@ -167,6 +170,21 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::post('comprar/generar/1h/{compra}',[CompraController::class,'generar1h'])->name('compra.generar.1h');
 
     Route::post('compras/actualizar/procesada/{compra}', [CompraController::class,'actualizarProcesada'])->name('compras.actualizar.procesada');
+
+    Route::group(['prefix' => 'bandejas/compras1h', 'as' => 'bandejas.compras1h.'], function () {
+
+        Route::get('operador', [Compra1hOperadorController::class,'index'])->name('operador');
+        Route::get('aprobador', [Compra1hAprobadorController::class,'index'])->name('aprobador');
+        Route::get('autorizador', [Compra1hAutorizadorController::class,'index'])->name('autorizador');
+
+        Route::post('operador/{compra}', [Compra1hOperadorController::class,'procesar'])->name('operador.procesar');
+        Route::post('aprobar/{compra}', [Compra1hAprobadorController::class,'procesar'])->name('aprobar.procesar');
+        Route::post('autorizar/{compra}', [Compra1hAutorizadorController::class,'procesar'])->name('autorizar.procesar');
+    });
+
+
+
+
     Route::resource('compras', CompraController::class);
 
 

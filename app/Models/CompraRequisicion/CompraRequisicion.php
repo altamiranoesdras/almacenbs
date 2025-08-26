@@ -10,16 +10,22 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property int|null $tipo_concurso_id
  * @property int|null $ipo_adquisicion_id
  * @property int|null $correlativo
- * @property string $codigo ID interno de gestión, p.ej. G-2025-001
+ * @property string|null $codigo ID interno de gestión, p.ej. G-2025-001
  * @property string|null $codigo_consolidacion Código de lote interno, p.ej. L-2025-001
  * @property string|null $npg Número de Publicación (Compra Menor)
  * @property string|null $nog Número de Operación (Licitación Abreviada)
+ * @property int $usuario_crea_id
+ * @property int|null $usuario_aprueba_id
+ * @property int|null $usuario_autoriza_id
+ * @property int|null $usuario_asigna_id
+ * @property int|null $usuario_analista_id
+ * @property int $unidad_id
  * @property int|null $proveedor_adjudicado
  * @property string|null $numero_adjudicacion
  * @property int $estado_id
@@ -30,10 +36,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraRequisicionDetalle> $compraRequisicionDetalles
- * @property-read int|null $compra_requisicion_detalles_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, CompraSolicitud> $compraSolicitudes
  * @property-read int|null $compra_solicitudes_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraRequisicionDetalle> $detalles
+ * @property-read int|null $detalles_count
  * @property-read \App\Models\CompraRequisicionTipoConcurso|null $tipoConcurso
  * @method static \Database\Factories\CompraRequisicion\CompraRequisicionFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion newModelQuery()
@@ -57,7 +63,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereProveedorAdjudicado($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereSubproductos($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereTipoConcursoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereUnidadId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereUsuarioAnalistaId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereUsuarioApruebaId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereUsuarioAsignaId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereUsuarioAutorizaId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereUsuarioCreaId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion withoutTrashed()
  * @mixin \Eloquent
@@ -78,6 +90,12 @@ class CompraRequisicion extends Model
         'codigo_consolidacion',
         'npg',
         'nog',
+        'usuario_crea_id',
+        'usuario_aprueba_id',
+        'usuario_autoriza_id',
+        'usuario_asigna_id',
+        'usuario_analista_id',
+        'unidad_id',
         'proveedor_adjudicado',
         'numero_adjudicacion',
         'estado_id',

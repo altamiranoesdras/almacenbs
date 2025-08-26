@@ -7,6 +7,7 @@ use App\DataTables\SolicitudesCompra\SolicitudCompraUnificarTable;
 use App\Http\Controllers\Controller;
 use App\Models\CompraRequisicion\CompraRequisicion;
 use App\Models\CompraRequisicion\CompraRequisicionEstado;
+use App\Models\CompraRequisicionDetalle;
 use App\Models\CompraSolicitud;
 use App\Models\CompraSolicitudEstado;
 use App\Models\User;
@@ -51,34 +52,36 @@ class CompraSolicitudConsolidarController extends Controller
              */
             $requisicion = CompraRequisicion::create([
                 'estado_id' => CompraRequisicionEstado::CREADA,
+                'usuario_crea_id' => auth()->id(),
+                'unidad_id' => auth()->user()->unidad_id,
             ]);
 
-            $detallesSolicitud = collect();
+            $solicitudes = CompraSolicitud::with('detalles')
+                ->whereIn('id', $solicitudIds)
+                ->get();
 
-            foreach ($solicitudIds as $id) {
-                /** @var CompraSolicitud $solicitud */
-                $solicitud = CompraSolicitud::findOrFail($id);
+            $detallesRequisicion = collect();
 
-                $solicitud->update([
-                    'estado_id' => CompraSolicitudEstado::ASIGNADA_A_REQUISICION,
-                ]);
+            foreach ($solicitudes as $solicitud) {
 
-                $solicitud->loadMissing('detalles');
+                $solicitud->estado_id = CompraSolicitudEstado::ASIGNADA_A_REQUISICION;
+                $solicitud->save();
 
-                $detallesSolicitud = $detallesSolicitud->merge($solicitud->detalles);
+                foreach ($solicitud->detalles as $detalle) {
+                    $detallesRequisicion->push( new CompraRequisicionDetalle(
+                        [
+                            'item_id' => $detalle->item_id,
+                            'cantidad' => $detalle->cantidad,
+                            'precio_estimado' => $detalle->precio_estimado,
+                            'solicitud_detalle_id' => $detalle->id,
+                        ]
+                    ));
+                }
             }
 
-            foreach ($detallesSolicitud as $detalle) {
-                $requisicion->detalles()->create([
-                    'solicitud_detalle_id' => $detalle->id,
-                    'item_id' => $detalle->item_id,
-                    'cantidad' => $detalle->cantidad,
-                    'precio_estimado' => $detalle->precio_estimado,
-                ]);
-            }
+            $requisicion->detalles()->saveMany($detallesRequisicion);
 
-            $requisicion->compraSolicitudes()
-                ->sync($solicitudIds);
+            $requisicion->compraSolicitudes()->sync($solicitudIds);
 
         } catch (\Throwable $e) {
             return redirect()->back()->withErrors(['error' => 'Error al consolidar las solicitudes: ' . $e->getMessage()]);

@@ -19,8 +19,10 @@
                 </div>
             </div>
             <div class="modal-footer">
-                @if($compra->estado_id == \App\Models\CompraEstado::CREADA)
-                    <a href="{{route('compra.ingreso', $compra->id)}}" ><div class="btn btn-outline-success round" >Ingresar</div></a>
+                @if($compra->estado_id == \App\Models\CompraEstado::PROCESADO_PENDIENTE_RECIBIR)
+                    <a href="{{route('compra.ingreso', $compra->id)}}">
+                        <div class="btn btn-outline-success round">Ingresar</div>
+                    </a>
                 @else
                     <h4><span class="badge badge-info">{{ $compra->estado->nombre}}</span></h4>
                 @endif
@@ -32,7 +34,8 @@
 
 
 <!--modal para cancelar compra-->
-<div class="modal fade" id="modal-delete-{{ $compra->id }}" tabindex="-1" role="dialog" aria-labelledby="modal-delete-label" aria-hidden="true">
+<div class="modal fade" id="modal-delete-{{ $compra->id }}" tabindex="-1" role="dialog"
+     aria-labelledby="modal-delete-label" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">

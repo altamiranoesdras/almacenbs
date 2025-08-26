@@ -51,7 +51,7 @@ class LibroAlamcenController extends Controller
                 $queryDetalles->whereHas('item');
             })
             ->whereNotNull('folio_almacen')
-            ->where('estado_id', CompraEstado::RECIBIDA)
+            ->where('estado_id', CompraEstado::INGRESADO)
             ->whereMonth('fecha_documento', '=', $mes)
             ->whereYear('fecha_documento', '=', $anio)
             ->orderBy('fecha_ingreso')

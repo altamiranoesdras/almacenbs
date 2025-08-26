@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property int $rol_id
@@ -16,8 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraRequicicionEstado> $compraRequicicionEstados
- * @property-read int|null $compra_requisicion_estados_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraRequicicionEstado> $estados
+ * @property-read int|null $estados_count
  * @property-read \App\Models\Role $rol
  * @method static \Database\Factories\CompraBandejaFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|CompraBandeja newModelQuery()
@@ -33,8 +33,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|CompraBandeja whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraBandeja withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraBandeja withoutTrashed()
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraRequicicionEstado> $estados
- * @property-read int|null $estados_count
  * @mixin \Eloquent
  */
 class CompraBandeja extends Model

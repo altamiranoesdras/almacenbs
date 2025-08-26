@@ -89,7 +89,7 @@
         <div class="row">
             <div class="col-sm-6 mb-1 ">
                 {!! Form::label('orden_compra', 'Orden Compra:') !!}
-                {!! Form::text('orden_compra', null, ['class' => 'form-control', 'required', 'v-model' => 'orden']) !!}
+                {!! Form::number('orden_compra', null, ['class' => 'form-control', 'required', 'v-model' => 'orden']) !!}
             </div>
         </div>
     </li>

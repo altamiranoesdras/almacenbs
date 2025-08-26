@@ -224,7 +224,7 @@ class CompraController extends AppBaseController
 
 
         $request->merge([
-            'estado_id' => CompraEstado::CREADA,
+            'estado_id' => CompraEstado::PROCESADO_PENDIENTE_RECIBIR,
             'codigo' => $this->getCodigo(),
             'correlativo' => $this->getCorrelativo(),
         ]);

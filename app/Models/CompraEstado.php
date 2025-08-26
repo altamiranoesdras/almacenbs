@@ -43,10 +43,21 @@ class CompraEstado extends Model
 
 
     const TEMPORAL =   1;
-    const CREADA =     2;
-    const RECIBIDA =   3;
-    const CANCELADA =  4;
-    const ANULADA =    5;
+    const PROCESADO_PENDIENTE_RECIBIR =     2;
+
+    const INGRESADO =   3;
+
+    const UNO_H_OPERADO                    = 4;
+    const UNO_H_APROBADO                   = 5;
+    const UNO_H_AUTORIZADO                 = 6;
+    const RETORNO_POR_APROBADOR            = 7;
+    const RETORNO_POR_AUTORIZADOR          = 8;
+    const CANCELADO =  9;
+
+    const ANULADO =    10;
+
+
+
 
     protected $dates = ['deleted_at'];
 

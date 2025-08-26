@@ -34,7 +34,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Bodega whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Bodega withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Bodega withoutTrashed()
- * @mixin Model
  * @mixin \Eloquent
  */
 class Bodega extends Model

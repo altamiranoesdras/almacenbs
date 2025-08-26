@@ -7,8 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
+ * 
  *
- *
+ * @property int $id
+ * @property string $nombre
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraBandeja> $compraBandejas
  * @property-read int|null $compra_bandejas_count
  * @method static \Database\Factories\CompraRequicicionEstadoFactory factory($count = null, $state = [])
@@ -16,20 +21,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado query()
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado withTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado withoutTrashed()
- * @property int $id
- * @property string $nombre
- * @property string|null $tipo_proceso
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado whereNombre($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado whereTipoProceso($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado withoutTrashed()
  * @mixin \Eloquent
  */
 class CompraRequicicionEstado extends Model
