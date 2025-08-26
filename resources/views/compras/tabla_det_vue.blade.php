@@ -7,19 +7,27 @@
             <td width="10%">Cantidad</td>
             <td width="10%">Fecha V.</td>
             <td width="10%">Subtotal</td>
-            <td width="20%">-</td>
+            <td width="10%">Unidad Solicitante</td>
+            <td width="10%">-</td>
         </tr>
         </thead>
         <tbody>
-        <tr v-if="detalles.length==0">
-            <td colspan="6"><span class="help-block text-center">No se ha agregado ningún artículo</span></td>
+        <tr v-if="detalle_editable.length==0">
+            <td colspan="7"><span class="help-block text-center">No se ha agregado ningún artículo</span></td>
         </tr>
-        <tr v-for="detalle in detalles" class="text-sm">
+        <tr v-for="detalle in detalle_editable" class="text-sm">
             <td v-text="detalle.item.text"></td>
-            <td v-text="dvs + nfp(detalle.precio)"></td>
-            <td v-text="nf(detalle.cantidad)"></td>
-            <td v-text="detalle.fecha_vence"></td>
+            <td>
+                <input type="number" class="form-control" step="any" v-model="detalle.precio">
+            </td>
+            <td>
+                <input type="number" class="form-control" step="any" v-model="detalle.cantidad">
+            </td>
+            <td >
+                <input type="date" class="form-control" v-model="detalle.fecha_vence">
+            </td>
             <td v-text="dvs + nfp(detalle.sub_total)"></td>
+            <td v-text="detalle.unidad_solicitante.codigo"></td>
             <td width="10px">
                 {{--<button type="button" class="btn btn-icon btn-flat-info rounded-circle" @click="editDet(detalle)">--}}
                     {{--<i class="fa fa-edit"></i>--}}
@@ -46,9 +54,8 @@
             <td>
 
                 <input type="number" class="form-control" step="any" v-model="descuento" name="descuento" >
-            <td>
-
-            </td>
+            <td></td>
+            <td></td>
 
         </tr>
         <tr>
@@ -60,6 +67,7 @@
             <td></td>
             <td>
                 <b class="pull-right" v-text="dvs + nfp(total)"></b>
+            <td></td>
             <td></td>
 
         </tr>

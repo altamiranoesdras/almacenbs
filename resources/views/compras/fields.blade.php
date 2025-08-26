@@ -1,6 +1,14 @@
 <ul class="list-group">
     <li class="list-group-item pb-0 pl-2 pr-2">
         <div class="col-sm-12 mb-1">
+            {!! Form::label('unidad_solicita_id', 'Unidad Solicitante:') !!}
+            <input type="text" class="form-control" placeholder="Unidad Solicitante" value="{{ auth()->user()->unidad->nombre }} - {{ auth()->user()->unidad->codigo }}" readonly>
+            <input type="hidden" name="unidad_solicita_id" value="{{ auth()->user()->unidad->id }}">
+        </div>
+    </li>
+
+    <li class="list-group-item pb-0 pl-2 pr-2">
+        <div class="col-sm-12 mb-1">
             <select-proveedor v-model="proveedor" label="Proveedor"></select-proveedor>
         </div>
     </li>
@@ -34,7 +42,7 @@
             <select-compra-tipo v-model="tipo" label="Tipo"></select-compra-tipo>
         </div>
     </li>
-    <li class="list-group-item pb-0 pl-2 pr-2" v-show="esFactura">
+    <li class="list-group-item pb-0 pl-2 pr-2" v-show="tipo.id == @json(\App\Models\CompraTipo::FACTURA)">
         <div class="col-sm-12 mb-1">
             <div class="input-group ">
                 <div class="input-group-prepend">
@@ -47,6 +55,25 @@
                 {!! Form::text('numero', null, ['class' => 'form-control','placeholder'=>'Número']) !!}
             </div>
 
+        </div>
+    </li>
+
+    <li class="list-group-item pb-0 pl-2 pr-2" v-show="tipo.id == @json(\App\Models\CompraTipo::FACTURA_CAMBIARIA)">
+        <div class="col-sm-12 mb-1">
+            <div class="input-group ">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">S</span>
+                </div>
+                {!! Form::text('serie', null, ['class' => 'form-control','placeholder'=>'Serie']) !!}
+                <div class="input-group-prepend">
+                    <span class="input-group-text">N</span>
+                </div>
+                {!! Form::text('numero', null, ['class' => 'form-control','placeholder'=>'Número']) !!}
+            </div>
+
+            <div class="form-group ">
+                {!! Form::text('recibo_de_caja', null, ['class' => 'form-control','placeholder'=>'Recibo de caja']) !!}
+            </div>
         </div>
     </li>
 

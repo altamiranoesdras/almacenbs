@@ -73,7 +73,8 @@ class CompraDetalle extends Model
         'cantidad',
         'precio',
         'descuento',
-        'fecha_vence'
+        'fecha_vence',
+        'unidad_solicita_id',
     ];
 
     /**
@@ -88,7 +89,8 @@ class CompraDetalle extends Model
         'cantidad' => 'decimal:2',
         'precio' => 'decimal:4',
         'descuento' => 'decimal:4',
-        'fecha_vence' => 'date'
+        'fecha_vence' => 'date',
+        'unidad_solicita_id' => 'integer',
     ];
 
     /**
@@ -103,6 +105,7 @@ class CompraDetalle extends Model
         'precio' => 'required|numeric',
         'descuento' => 'nullable|numeric',
         'fecha_vence' => 'nullable',
+        'unidad_solicita_id' => 'nullable|integer',
     ];
 
     /**
@@ -111,6 +114,14 @@ class CompraDetalle extends Model
     public function compra()
     {
         return $this->belongsTo(Compra::class, 'compra_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function unidadSolicitante()
+    {
+        return $this->belongsTo(\App\Models\RrhhUnidad::class, 'unidad_solicita_id');
     }
 
     /**
