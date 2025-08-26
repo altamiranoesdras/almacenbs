@@ -44,6 +44,83 @@
                             @include('compra_requisicions.show_fields')
                             @include('compra_requisicions.tabla_detalles_requisicion')
                         </div>
+                        <div class="row">
+                            <div class="col-12 mb-1">
+                                JUSTIFICACIÓN DE LA COMPRA
+                                <textarea
+                                    name="justificacion"
+                                    id="justificacion"
+                                    class="form-control"
+                                    rows="2"
+                                    placeholder="Justificación de la compra"
+                                >{{$compraSolicitud->justificacion ?? ''}}</textarea>
+                            </div>
+
+                            {{--                        <div class="col-6 mb-1">--}}
+                            {{--                            subproductos--}}
+                            {{--                            <table class="table table-sm">--}}
+                            {{--                                <tbody >--}}
+                            {{--                                <tr>--}}
+                            {{--                                    <td>--}}
+                            {{--                                        <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"--}}
+                            {{--                                               value="{{explode('|',$compraSolicitud->subproductos)[0] ?? ''}}">--}}
+                            {{--                                    </td>--}}
+                            {{--                                </tr>--}}
+                            {{--                                <tr>--}}
+                            {{--                                    <td>--}}
+                            {{--                                        <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"--}}
+                            {{--                                               value="{{explode('|',$compraSolicitud->subproductos)[1] ?? ''}}">--}}
+                            {{--                                    </td>--}}
+                            {{--                                </tr>--}}
+                            {{--                                <tr>--}}
+                            {{--                                    <td>--}}
+                            {{--                                        <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"--}}
+                            {{--                                               value="{{explode('|',$compraSolicitud->subproductos)[2] ?? ''}}">--}}
+                            {{--                                    </td>--}}
+                            {{--                                </tr>--}}
+                            {{--                                <tr>--}}
+                            {{--                                    <td>--}}
+                            {{--                                        <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"--}}
+                            {{--                                               value="{{explode('|',$compraSolicitud->subproductos)[3] ?? ''}}">--}}
+                            {{--                                    </td>--}}
+                            {{--                                </tr>--}}
+                            {{--                                </tbody>--}}
+                            {{--                            </table>--}}
+
+                            {{--                        </div>--}}
+                            {{--                        <div class="col-6 mb-1">--}}
+                            {{--                            PARTIDAS PRESUPUESTARIAS--}}
+                            {{--                            <table class="table table-sm">--}}
+                            {{--                                <tbody>--}}
+                            {{--                                <tr>--}}
+                            {{--                                    <td>--}}
+                            {{--                                        <input type="text" name="partidas[]" id="partidas[]" class="form-control"--}}
+                            {{--                                               value="{{explode('|',$compraSolicitud->partidas)[0] ?? ''}}">--}}
+                            {{--                                    </td>--}}
+                            {{--                                </tr>--}}
+                            {{--                                <tr>--}}
+                            {{--                                    <td>--}}
+                            {{--                                        <input type="text" name="partidas[]" id="partidas[]" class="form-control"--}}
+                            {{--                                               value="{{explode('|',$compraSolicitud->partidas)[1] ?? ''}}">--}}
+                            {{--                                    </td>--}}
+                            {{--                                </tr>--}}
+                            {{--                                <tr>--}}
+                            {{--                                    <td>--}}
+                            {{--                                        <input type="text" name="partidas[]" id="partidas[]" class="form-control"--}}
+                            {{--                                               value="{{explode('|',$compraSolicitud->partidas)[2] ?? ''}}">--}}
+                            {{--                                    </td>--}}
+                            {{--                                </tr>--}}
+                            {{--                                <tr>--}}
+                            {{--                                    <td>--}}
+                            {{--                                        <input type="text" name="partidas[]" id="partidas[]" class="form-control"--}}
+                            {{--                                               value="{{explode('|',$compraSolicitud->partidas)[3] ?? ''}}">--}}
+                            {{--                                    </td>--}}
+                            {{--                                </tr>--}}
+                            {{--                                </tbody>--}}
+                            {{--                            </table>--}}
+
+                            {{--                        </div>--}}
+                        </div>
                     </div>
 
 {{--                    <div class="card-footer text-end">--}}
@@ -60,84 +137,6 @@
 {{--                        </button>--}}
 {{--                    </div>--}}
 
-                    <div class="row">
-                        <div class="col-12 mb-1">
-                            JUSTIFICACIÓN DE LA COMPRA
-                            <textarea
-                                name="justificacion"
-                                id="justificacion"
-                                class="form-control"
-                                rows="2"
-                                placeholder="Justificación de la compra"
-                            >{{$compraSolicitud->justificacion ?? ''}}</textarea>
-                        </div>
-
-                        {{--                        <div class="col-6 mb-1">--}}
-                        {{--                            subproductos--}}
-                        {{--                            <table class="table table-sm">--}}
-                        {{--                                <tbody >--}}
-                        {{--                                <tr>--}}
-                        {{--                                    <td>--}}
-                        {{--                                        <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"--}}
-                        {{--                                               value="{{explode('|',$compraSolicitud->subproductos)[0] ?? ''}}">--}}
-                        {{--                                    </td>--}}
-                        {{--                                </tr>--}}
-                        {{--                                <tr>--}}
-                        {{--                                    <td>--}}
-                        {{--                                        <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"--}}
-                        {{--                                               value="{{explode('|',$compraSolicitud->subproductos)[1] ?? ''}}">--}}
-                        {{--                                    </td>--}}
-                        {{--                                </tr>--}}
-                        {{--                                <tr>--}}
-                        {{--                                    <td>--}}
-                        {{--                                        <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"--}}
-                        {{--                                               value="{{explode('|',$compraSolicitud->subproductos)[2] ?? ''}}">--}}
-                        {{--                                    </td>--}}
-                        {{--                                </tr>--}}
-                        {{--                                <tr>--}}
-                        {{--                                    <td>--}}
-                        {{--                                        <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"--}}
-                        {{--                                               value="{{explode('|',$compraSolicitud->subproductos)[3] ?? ''}}">--}}
-                        {{--                                    </td>--}}
-                        {{--                                </tr>--}}
-                        {{--                                </tbody>--}}
-                        {{--                            </table>--}}
-
-                        {{--                        </div>--}}
-                        {{--                        <div class="col-6 mb-1">--}}
-                        {{--                            PARTIDAS PRESUPUESTARIAS--}}
-                        {{--                            <table class="table table-sm">--}}
-                        {{--                                <tbody>--}}
-                        {{--                                <tr>--}}
-                        {{--                                    <td>--}}
-                        {{--                                        <input type="text" name="partidas[]" id="partidas[]" class="form-control"--}}
-                        {{--                                               value="{{explode('|',$compraSolicitud->partidas)[0] ?? ''}}">--}}
-                        {{--                                    </td>--}}
-                        {{--                                </tr>--}}
-                        {{--                                <tr>--}}
-                        {{--                                    <td>--}}
-                        {{--                                        <input type="text" name="partidas[]" id="partidas[]" class="form-control"--}}
-                        {{--                                               value="{{explode('|',$compraSolicitud->partidas)[1] ?? ''}}">--}}
-                        {{--                                    </td>--}}
-                        {{--                                </tr>--}}
-                        {{--                                <tr>--}}
-                        {{--                                    <td>--}}
-                        {{--                                        <input type="text" name="partidas[]" id="partidas[]" class="form-control"--}}
-                        {{--                                               value="{{explode('|',$compraSolicitud->partidas)[2] ?? ''}}">--}}
-                        {{--                                    </td>--}}
-                        {{--                                </tr>--}}
-                        {{--                                <tr>--}}
-                        {{--                                    <td>--}}
-                        {{--                                        <input type="text" name="partidas[]" id="partidas[]" class="form-control"--}}
-                        {{--                                               value="{{explode('|',$compraSolicitud->partidas)[3] ?? ''}}">--}}
-                        {{--                                    </td>--}}
-                        {{--                                </tr>--}}
-                        {{--                                </tbody>--}}
-                        {{--                            </table>--}}
-
-                        {{--                        </div>--}}
-                    </div>
-
                     <div class="card-footer">
                         <div class="row mb1">
 
@@ -153,7 +152,7 @@
                             <div class="col-sm-3 text-center">
 
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal"
+                                <button type="button" class="btn btn-outline-info round" data-bs-toggle="modal"
                                         data-bs-target="#modelId">
                                     Firmar
                                 </button>
@@ -184,7 +183,7 @@
                     <div class="modal fade" id="modelId" tabindex="-1" role="dialog"
                          aria-labelledby="modelTitleId" aria-hidden="true">
                         <div class="modal-dialog" role="document">
-                            <form action="{{ route('compra.requisiciones.pdf',$compraRequisicion->id ?? 0) }}" method="POST">
+                            <form action="{{ route('compra.requisiciones.pdf',$compraRequisicion->id ?? 0) }}" method="POST" class="esperar">
                                 @csrf
                                 <div class="modal-content">
                                     <div class="modal-header">

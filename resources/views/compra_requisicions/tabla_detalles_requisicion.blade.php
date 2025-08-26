@@ -9,16 +9,16 @@
     <table class="table table-bordered table-sm align-middle" id="tablaDetalle" style="margin-bottom: 2px; width:100%;">
         <thead class="small table-light">
         <tr class="text-center fw-bold">
-            <td width="5%">CANTIDAD</td>
-            <td width="5%">RENGLÓN</td>
-            <td width="10%">CÓDIGO DE INSUMO</td>
-            <td width="20%">NOMBRE</td>
-            <td width="20%">DESCRIPCIÓN</td>
-            <td width="10%">NOMBRE DE LA PRESENTACIÓN</td>
-            <td width="10%">CANTIDAD Y UNIDAD DE MEDIDA</td>
-            <td width="10%">COD. PRESENTACIÓN</td>
-            <td width="10%">MONTO ESTIMADO</td>
-            <td width="10%">SubTotal</td>
+            <td>CANTIDAD</td>
+            <td>RENGLÓN</td>
+            <td>CÓDIGO DE INSUMO</td>
+            <td>NOMBRE</td>
+            <td>DESCRIPCIÓN</td>
+            <td>NOMBRE DE LA PRESENTACIÓN</td>
+            <td>CANTIDAD Y UNIDAD DE MEDIDA</td>
+            <td>COD. PRESENTACIÓN</td>
+            <td>MONTO ESTIMADO</td>
+            <td>SubTotal</td>
         </tr>
         </thead>
 
@@ -49,7 +49,7 @@
 
         <tfoot class="small">
         <tr>
-            <td colspan="10">
+            <td colspan="9">
                 <b class="float-end">Total monto</b>
             </td>
             <td class="text-end">
@@ -57,7 +57,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="10">
+            <td colspan="9">
                 <b class="float-end">Total insumos</b>
             </td>
             <td class="text-end">
