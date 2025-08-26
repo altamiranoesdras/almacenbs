@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreateCompraRequicicionTipoAdquisicionAPIRequest;
 use App\Http\Requests\API\UpdateCompraRequicicionTipoAdquisicionAPIRequest;
-use App\Models\CompraRequicicionTipoAdquisicion;
+use App\Models\CompraRequisicionTipoAdquisicion;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -20,7 +20,7 @@ class CompraRequicicionTipoAdquisicionAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $query = CompraRequicicionTipoAdquisicion::query();
+        $query = CompraRequisicionTipoAdquisicion::query();
 
         if ($request->get('skip')) {
             $query->skip($request->get('skip'));
@@ -35,27 +35,27 @@ class CompraRequicicionTipoAdquisicionAPIController extends AppBaseController
     }
 
     /**
-     * Store a newly created CompraRequicicionTipoAdquisicion in storage.
+     * Store a newly created CompraRequisicionTipoAdquisicion in storage.
      * POST /compra-requisicion-tipo-adquisiciones
      */
     public function store(CreateCompraRequicicionTipoAdquisicionAPIRequest $request): JsonResponse
     {
         $input = $request->all();
 
-        /** @var CompraRequicicionTipoAdquisicion $compraRequicicionTipoAdquisicion */
-        $compraRequicicionTipoAdquisicion = CompraRequicicionTipoAdquisicion::create($input);
+        /** @var CompraRequisicionTipoAdquisicion $compraRequicicionTipoAdquisicion */
+        $compraRequicicionTipoAdquisicion = CompraRequisicionTipoAdquisicion::create($input);
 
         return $this->sendResponse($compraRequicicionTipoAdquisicion->toArray(), 'Compra Requicicion Tipo Adquisicion guardado');
     }
 
     /**
-     * Display the specified CompraRequicicionTipoAdquisicion.
+     * Display the specified CompraRequisicionTipoAdquisicion.
      * GET|HEAD /compra-requisicion-tipo-adquisiciones/{id}
      */
     public function show($id): JsonResponse
     {
-        /** @var CompraRequicicionTipoAdquisicion $compraRequicicionTipoAdquisicion */
-        $compraRequicicionTipoAdquisicion = CompraRequicicionTipoAdquisicion::find($id);
+        /** @var CompraRequisicionTipoAdquisicion $compraRequicicionTipoAdquisicion */
+        $compraRequicicionTipoAdquisicion = CompraRequisicionTipoAdquisicion::find($id);
 
         if (empty($compraRequicicionTipoAdquisicion)) {
             return $this->sendError('Compra Requicicion Tipo Adquisicion no encontrado');
@@ -65,13 +65,13 @@ class CompraRequicicionTipoAdquisicionAPIController extends AppBaseController
     }
 
     /**
-     * Update the specified CompraRequicicionTipoAdquisicion in storage.
+     * Update the specified CompraRequisicionTipoAdquisicion in storage.
      * PUT/PATCH /compra-requisicion-tipo-adquisiciones/{id}
      */
     public function update($id, UpdateCompraRequicicionTipoAdquisicionAPIRequest $request): JsonResponse
     {
-        /** @var CompraRequicicionTipoAdquisicion $compraRequicicionTipoAdquisicion */
-        $compraRequicicionTipoAdquisicion = CompraRequicicionTipoAdquisicion::find($id);
+        /** @var CompraRequisicionTipoAdquisicion $compraRequicicionTipoAdquisicion */
+        $compraRequicicionTipoAdquisicion = CompraRequisicionTipoAdquisicion::find($id);
 
         if (empty($compraRequicicionTipoAdquisicion)) {
             return $this->sendError('Compra Requicicion Tipo Adquisicion no encontrado');
@@ -80,19 +80,19 @@ class CompraRequicicionTipoAdquisicionAPIController extends AppBaseController
         $compraRequicicionTipoAdquisicion->fill($request->all());
         $compraRequicicionTipoAdquisicion->save();
 
-        return $this->sendResponse($compraRequicicionTipoAdquisicion->toArray(), 'CompraRequicicionTipoAdquisicion actualizado');
+        return $this->sendResponse($compraRequicicionTipoAdquisicion->toArray(), 'CompraRequisicionTipoAdquisicion actualizado');
     }
 
     /**
-     * Remove the specified CompraRequicicionTipoAdquisicion from storage.
+     * Remove the specified CompraRequisicionTipoAdquisicion from storage.
      * DELETE /compra-requisicion-tipo-adquisiciones/{id}
      *
      * @throws \Exception
      */
     public function destroy($id): JsonResponse
     {
-        /** @var CompraRequicicionTipoAdquisicion $compraRequicicionTipoAdquisicion */
-        $compraRequicicionTipoAdquisicion = CompraRequicicionTipoAdquisicion::find($id);
+        /** @var CompraRequisicionTipoAdquisicion $compraRequicicionTipoAdquisicion */
+        $compraRequicicionTipoAdquisicion = CompraRequisicionTipoAdquisicion::find($id);
 
         if (empty($compraRequicicionTipoAdquisicion)) {
             return $this->sendError('Compra Requicicion Tipo Adquisicion no encontrado');

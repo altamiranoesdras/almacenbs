@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\CompraRequicicionTipoAdquisicion;
+use App\Models\CompraRequisicionTipoAdquisicion;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 
@@ -13,7 +13,7 @@ class CompraRequicicionTipoAdquisicionFactory extends Factory
      *
      * @var string
      */
-    protected $model = CompraRequicicionTipoAdquisicion::class;
+    protected $model = CompraRequisicionTipoAdquisicion::class;
 
     /**
      * Define the model's default state.
@@ -22,7 +22,7 @@ class CompraRequicicionTipoAdquisicionFactory extends Factory
      */
     public function definition()
     {
-        
+
         return [
             'nombre' => $this->faker->text($this->faker->numberBetween(5, 255)),
             'tipo_proceso' => $this->faker->text($this->faker->numberBetween(5, 4096)),

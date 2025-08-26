@@ -40,6 +40,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read int|null $compra_solicitudes_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraRequisicionDetalle> $detalles
  * @property-read int|null $detalles_count
+ * @property-read \App\Models\CompraRequicicionEstado $estado
+ * @property-read \App\Models\Proveedor|null $proveedorAdjudicado
+ * @property-read \App\Models\CompraRequisicionTipoAdquisicion|null $tipoAdquisicion
  * @property-read \App\Models\CompraRequisicionTipoConcurso|null $tipoConcurso
  * @method static \Database\Factories\CompraRequisicion\CompraRequisicionFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion newModelQuery()
@@ -157,25 +160,25 @@ class CompraRequisicion extends Model
         });
     }
 
-//    public function ipoAdquisicion(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-//    {
-//        return $this->belongsTo(\App\Models\CompraRequisicionTipoAdquisicion::class, 'ipo_adquisicion_id');
-//    }
+    public function tipoAdquisicion(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\Models\CompraRequisicionTipoAdquisicion::class, 'ipo_adquisicion_id');
+    }
 
     public function tipoConcurso(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(\App\Models\CompraRequisicionTipoConcurso::class, 'tipo_concurso_id');
     }
 
-//    public function proveedorAdjudicado(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-//    {
-//        return $this->belongsTo(\App\Models\Proveedore::class, 'proveedor_adjudicado');
-//    }
+    public function proveedorAdjudicado(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Proveedor::class, 'proveedor_adjudicado');
+    }
 
-//    public function estado(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-//    {
-//        return $this->belongsTo(\App\Models\CompraRequisicionEstado::class, 'estado_id');
-//    }
+    public function estado(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\Models\CompraRequicicionEstado::class, 'estado_id');
+    }
 
 //    public function compraOrdenes(): \Illuminate\Database\Eloquent\Relations\HasMany
 //    {

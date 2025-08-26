@@ -1,84 +1,71 @@
-<!-- Tipo Concurso Id Field -->
-<div class="col-sm-12">
-    {!! Form::label('tipo_concurso_id', 'Tipo Concurso Id:') !!}
-    <p>{{ $compraRequisicion->tipo_concurso_id }}</p>
-</div>
+<div class="row">
+    <!-- Tipo Concurso -->
+    <div class="col-md-6">
+        <p class="mb-1 lh-1"><strong>Tipo Concurso:</strong> {{ $compraRequisicion->tipoConcurso->nombre ?? 'Pendiente' }}</p>
+    </div>
 
-<!-- Ipo Adquisicion Id Field -->
-<div class="col-sm-12">
-    {!! Form::label('ipo_adquisicion_id', 'Ipo Adquisicion Id:') !!}
-    <p>{{ $compraRequisicion->ipo_adquisicion_id }}</p>
-</div>
+    <!-- Tipo Adquisicion -->
+    <div class="col-md-6">
+        <p class="mb-1 lh-1"><strong>Tipo Adquisición:</strong> {{ $compraRequisicion->tipoAdquisicion->nombre ?? 'Pendiente' }}</p>
+    </div>
 
-<!-- Correlativo Field -->
-<div class="col-sm-12">
-    {!! Form::label('correlativo', 'Correlativo:') !!}
-    <p>{{ $compraRequisicion->correlativo }}</p>
-</div>
+    <!-- Correlativo -->
+    <div class="col-md-6">
+        <p class="mb-1 lh-1"><strong>Correlativo:</strong> {{ $compraRequisicion->correlativo }}</p>
+    </div>
 
-<!-- Codigo Field -->
-<div class="col-sm-12">
-    {!! Form::label('codigo', 'Codigo:') !!}
-    <p>{{ $compraRequisicion->codigo }}</p>
-</div>
+    <!-- Código -->
+    <div class="col-md-6">
+        <p class="mb-1 lh-1"><strong>Código:</strong> {{ $compraRequisicion->codigo }}</p>
+    </div>
 
-<!-- Codigo Consolidacion Field -->
-<div class="col-sm-12">
-    {!! Form::label('codigo_consolidacion', 'Codigo Consolidacion:') !!}
-    <p>{{ $compraRequisicion->codigo_consolidacion }}</p>
-</div>
+    <!-- Código Consolidación -->
+    <div class="col-md-6">
+        <p class="mb-1 lh-1"><strong>Código Consolidación:</strong> {{ $compraRequisicion->codigo_consolidacion }}</p>
+    </div>
 
-<!-- Npg Field -->
-<div class="col-sm-12">
-    {!! Form::label('npg', 'Npg:') !!}
-    <p>{{ $compraRequisicion->npg }}</p>
-</div>
+    <!-- NPG -->
+    <div class="col-md-6">
+        <p class="mb-1 lh-1"><strong>NPG:</strong> {{ $compraRequisicion->npg }}</p>
+    </div>
 
-<!-- Nog Field -->
-<div class="col-sm-12">
-    {!! Form::label('nog', 'Nog:') !!}
-    <p>{{ $compraRequisicion->nog }}</p>
-</div>
+    <!-- NOG -->
+    <div class="col-md-6">
+        <p class="mb-1 lh-1"><strong>NOG:</strong> {{ $compraRequisicion->nog }}</p>
+    </div>
 
-<!-- Proveedor Adjudicado Field -->
-<div class="col-sm-12">
-    {!! Form::label('proveedor_adjudicado', 'Proveedor Adjudicado:') !!}
-    <p>{{ $compraRequisicion->proveedor_adjudicado }}</p>
-</div>
+    <!-- Proveedor Adjudicado -->
+    <div class="col-md-6">
+        <p class="mb-1 lh-1"><strong>Proveedor Adjudicado:</strong> {{ $compraRequisicion->proveedorAdjudicado->nombre ?? 'Pendiente' }}</p>
+    </div>
 
-<!-- Numero Adjudicacion Field -->
-<div class="col-sm-12">
-    {!! Form::label('numero_adjudicacion', 'Numero Adjudicacion:') !!}
-    <p>{{ $compraRequisicion->numero_adjudicacion }}</p>
-</div>
+    <!-- Número Adjudicación -->
+    <div class="col-md-6">
+        <p class="mb-1 lh-1"><strong>Número Adjudicación:</strong> {{ $compraRequisicion->numero_adjudicacion }}</p>
+    </div>
 
-<!-- Estado Id Field -->
-<div class="col-sm-12">
-    {!! Form::label('estado_id', 'Estado Id:') !!}
-    <p>{{ $compraRequisicion->estado_id }}</p>
-</div>
+    <!-- Estado -->
+    <div class="col-md-6">
+        <p class="mb-1 lh-1"><strong>Estado:</strong> {{ $compraRequisicion->estado->nombre ?? 'Pendiente' }}</p>
+    </div>
 
-<!-- Subproductos Field -->
-<div class="col-sm-12">
-    {!! Form::label('subproductos', 'Subproductos:') !!}
-    <p>{{ $compraRequisicion->subproductos }}</p>
-</div>
+    <!-- Subproductos -->
+    <div class="col-md-6">
+        <p class="mb-1 lh-1"><strong>Subproductos:</strong> {{ $compraRequisicion->subproductos }}</p>
+    </div>
 
-<!-- Partidas Field -->
-<div class="col-sm-12">
-    {!! Form::label('partidas', 'Partidas:') !!}
-    <p>{{ $compraRequisicion->partidas }}</p>
-</div>
+    <!-- Partidas -->
+    <div class="col-md-6">
+        <p class="mb-1 lh-1"><strong>Partidas:</strong> {{ $compraRequisicion->partidas }}</p>
+    </div>
 
-<!-- Observaciones Field -->
-<div class="col-sm-12">
-    {!! Form::label('observaciones', 'Observaciones:') !!}
-    <p>{{ $compraRequisicion->observaciones }}</p>
-</div>
+    <!-- Observaciones -->
+    <div class="col-md-6">
+        <p class="mb-1 lh-1"><strong>Observaciones:</strong> {{ $compraRequisicion->observaciones }}</p>
+    </div>
 
-<!-- Justificacion Field -->
-<div class="col-sm-12">
-    {!! Form::label('justificacion', 'Justificacion:') !!}
-    <p>{{ $compraRequisicion->justificacion }}</p>
+    <!-- Justificación -->
+    <div class="col-md-6">
+        <p class="mb-1 lh-1"><strong>Justificación:</strong> {{ $compraRequisicion->justificacion }}</p>
+    </div>
 </div>
-
