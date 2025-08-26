@@ -30,6 +30,7 @@ class UsersTableSeeder extends Seeder
         User::factory(1)->create([
             "username" => "dev",
             "name" => "Developer",
+            'email' => 'altamiranoesdras@gmail.com',
             "password" => bcrypt("123456"),
             'bodega_id' => 1,
             'unidad_id' => 1,
