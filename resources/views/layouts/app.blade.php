@@ -59,34 +59,53 @@
     @stack('estilos')
 
     <style>
-        .dt-processing-custom {
+        /* El contenedor elegido (scrollBody o padre de la tabla) será relativo */
+        .dt-overlay-container {
+            position: relative !important;
+        }
+
+        /* Capa que SOLO cubre el área de la tabla */
+        .dt-processing-on-table {
+            position: absolute;
+            inset: 0;
+            z-index: 9999;
+            display: none;
+            pointer-events: none;            /* no bloquea escribir/clicks */
+        }
+
+        /* Fondo opacado SOLO sobre la tabla */
+        .dt-processing-on-table::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(2px);
+        }
+
+        /* Toast centrado */
+        .dt-processing-on-table .box {
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 1050;
-            display: none;                 /* alterna con JS */
-            pointer-events: none;          /* no bloquea interacción */
-        }
-
-        .dt-processing-custom .box {
             background: #fff;
-            color: #333;
-            padding: 10px 18px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            display: flex;
+            color: #1f1f1f;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 15px;
+            display: inline-flex;
             align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,.15);
-            animation: fadeIn 0.2s ease-out;
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,.18), 0 2px 8px rgba(0,0,0,.12);
+            border: 1px solid rgba(0,0,0,.06);
         }
 
-        /* animación sutil */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translate(-50%, -40%); }
-            to   { opacity: 1; transform: translate(-50%, -50%); }
+        .dt-processing-on-table .spinner-border {
+            width: 1.35rem;
+            height: 1.35rem;
         }
+
+
 
 
     </style>
@@ -162,9 +181,9 @@
             var $table  = $('#dataTableBuilder'); // usa el id real de tu tabla
 
             function ensureOverlay() {
-                // Contenedor oficial del DataTable (wrapper)
                 var $wrapper = $(dt.table().container());
                 if (!$wrapper.find('.dt-processing-custom').length) {
+                    $wrapper.css('position', 'relative'); // refuerzo
                     $wrapper.append(
                         '<div class="dt-processing-custom">'+
                         '<div class="box">'+
@@ -186,7 +205,7 @@
             });
 
             // Mostrar overlay al dibujar (redibujar) la tabla
-            $table.on('dt.draw', function () {
+            $table.on('draw.dt', function () {
                 ensureOverlay().show();
             });
 
