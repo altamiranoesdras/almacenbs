@@ -21754,6 +21754,11 @@ namespace App\Console\Commands {
             /**
      * 
      *
+     */        class ReingresarDetalleCompra {
+            }
+            /**
+     * 
+     *
      */        class VaciarStockBodega {
             }
             /**

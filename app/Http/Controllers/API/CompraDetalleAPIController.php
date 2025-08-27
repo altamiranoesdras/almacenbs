@@ -25,7 +25,7 @@ class CompraDetalleAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $query = CompraDetalle::with(['item']);
+        $query = CompraDetalle::with(['item','unidadSolicitante']);
 
         if ($request->get('skip')) {
             $query->skip($request->get('skip'));

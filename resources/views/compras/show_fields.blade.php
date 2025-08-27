@@ -11,11 +11,18 @@
         {!! $compra->proveedor->razon_social ?? '' !!}
         <br>
 
-        <!-- Serie Field -->
-        {!! Form::label('serie', 'S/N:') !!}
-        {!! $compra->serie !!}-{!! $compra->numero !!}
+        @if($compra->serie != null && $compra->numero != null)
+            <!-- Serie Field -->
+            {!! Form::label('serie', 'S/N:') !!}
+            {!! $compra->serie !!}-{!! $compra->numero !!}
+            <br>
+        @endif
 
-        <br>
+        @if($compra->recibo_de_caja != null)
+            <b>Recibo de Caja:</b>
+            {!! $compra->recibo_de_caja !!}
+            <br>
+        @endif
 
 
         <!-- Fecha ingreso Field-->

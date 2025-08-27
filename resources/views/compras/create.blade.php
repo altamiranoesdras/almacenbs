@@ -128,7 +128,6 @@
                                                 </button>
                                             </span>
                                         </div><!-- /input-group -->
-
                                     </div>
                                 </div>
 
@@ -197,6 +196,7 @@
                 editedItem: {
                     id : 0,
                     compra_id : @json($temporal->id),
+                    unidad_solicita_id: @json( auth()->user()->unidad->id )
                 },
                 defaultItem: {
                     id : 0,
@@ -249,7 +249,6 @@
                         this.editedItem = Object.assign({}, this.defaultItem);
                     }, 300)
                 },
-
                 async getItems () {
 
                     try {
@@ -259,6 +258,11 @@
                         var res = await axios.get(route('api.compra_detalles.index'),params);
 
                         this.detalles  = res.data.data;
+
+                        this.detalles.forEach(detalle => {
+                            detalle.cantidad_real = detalle.cantidad;
+                            detalle.precio_real = detalle.precio;
+                        });
 
                     }catch (e) {
                         notifyErrorApi(e);
@@ -318,7 +322,6 @@
 
 
                 },
-
                 procesar: function () {
                     if(this.totalitems>=1 && this.orden.length >= 5) {
                         $('#modal-confirma-procesar').modal('show');
@@ -330,7 +333,6 @@
                         iziTs('El número de orden debe tener al menos 5 caracteres');
                     }
                 },
-
                 siguienteCampo: function (campo){
 
                     if (campo=='agregar'){
@@ -343,9 +345,24 @@
                 abreSelectorItems () {
                     this.itemSelect = null;
                     this.$refs.multiselect.$refs.multiselect.$el.focus();
+                },
+                async edit (detalle) {
+                    this.loading = true;
+                    try {
+                        var res = await axios.patch(route('api.compra_detalles.update',detalle.id),detalle);
+                        iziTs(res.data.message);
 
-                }
+                        this.getItems()
+
+                        this.loading = false;
+
+                    }catch (e) {
+                        notifyErrorApi(e);
+                        this.loading = false;
+                    }
+                },
             },
+
             computed: {
 
                 dvs: function(){
@@ -377,19 +394,36 @@
                 },
 
                 esFactura(){
-                    if (this.tipo){
+                    if (this.tipo && @json(\App\Models\CompraTipo::FACTURA) == 1){
                         return this.tipo.id= @json(\App\Models\CompraTipo::FACTURA)
                     }
 
                     return false;
                 },
-                
+
+                esFacturaCambiaria(){
+                    if (this.tipo && @json(\App\Models\CompraTipo::FACTURA_CAMBIARIA) == 2){
+                        return this.tipo.id= @json(\App\Models\CompraTipo::FACTURA_CAMBIARIA)
+                    }
+
+                    return false;
+                },
+
+                detalle_editable() {
+                    this.detalles.forEach(async detalle => {
+                        detalle.sub_total = detalle.precio * detalle.cantidad;
+
+                        if(detalle.cantidad_real != detalle.cantidad || detalle.precio_real != detalle.precio){
+                            await this.edit(detalle)
+                        }
+                    });
+
+                    return this.detalles
+                },
             },
             watch:{
                 itemSelect (item) {
-
                     if (item){
-
                         this.editedItem.precio = item.precio_compra;
                         this.editedItem.item_id = item.id;
                         $(this.$refs.cantidad).focus().select();
@@ -398,7 +432,6 @@
                     }
                 },
             }
-
         });
     </script>
 @endpush

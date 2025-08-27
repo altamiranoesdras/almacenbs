@@ -98,8 +98,10 @@
                                 <td colspan="20"><span
                                         class="help-block ">No se ha agregado ningún artículo</span></td>
                             </tr>
-                            <tr v-for="detalle in detalles" class="">
-                                <td v-text="nf(detalle.cantidad)"></td>
+                            <tr v-for="detalle in detalle_editable" class="">
+                                <td>
+                                    <input type="number" v-model="detalle.cantidad" class="form-control form-control-sm" />
+                                </td>
                                 <td v-text="detalle.item.renglon ? detalle.item.renglon.numero : 'Sin renglon'"></td>
                                 <td v-text="detalle.item.codigo_insumo"></td>
                                 <td v-text="detalle.item.nombre"></td>
@@ -107,7 +109,9 @@
                                 <td v-text="detalle.item.presentacion ? detalle.item.presentacion.nombre : 'Sin unidad'"></td>
                                 <td v-text="detalle.item.unimed ? detalle.item.unimed.nombre : 'Sin unidad'"></td>
                                 <td v-text="detalle.item.codigo_presentacion"></td>
-                                <td v-text="dvs + nfp(detalle.precio_estimado)"></td>
+                                <td>
+                                    <input type="number" v-model="detalle.precio_estimado" class="form-control form-control-sm" />
+                                </td>
                                 <td v-text="dvs + nfp(detalle.sub_total)"></td>
                                 <td width="10px">
 
@@ -392,22 +396,19 @@
                 },
 
                 async getItems() {
-
                     try {
-
                         let params = {params: {solicitud_id: this.compraSolicitud.id}}
-
                         var res = await axios.get(route('api.compra_solicitud_detalles.index'), params);
-
                         this.detalles = res.data.data;
 
+                        this.detalles.forEach(detalle => {
+                           detalle.cantidad_real = detalle.cantidad;
+                           detalle.precio_real = detalle.precio_estimado;
+                        });
                     } catch (e) {
                         notifyErrorApi(e);
                     }
-
                     this.loading = false;
-
-
                 },
                 async save() {
 
@@ -475,6 +476,22 @@
                         $(this.$refs[campo]).focus().select();
                     }
                 },
+
+                async edit (detalle) {
+                    this.loading = true;
+                    try {
+                        var res = await axios.patch(route('api.compra_solicitud_detalles.update',detalle.id),detalle);
+                        iziTs(res.data.message);
+
+                        this.getItems()
+
+                        this.loading = false;
+
+                    }catch (e) {
+                        notifyErrorApi(e);
+                        this.loading = false;
+                    }
+                },
             },
             computed: {
                 dvs: function () {
@@ -498,6 +515,20 @@
 
                     return t;
                 },
+
+                detalle_editable() {
+                    this.detalles.forEach(async detalle => {
+                        detalle.sub_total = detalle.precio_estimado * detalle.cantidad;
+
+                        if(detalle.cantidad_real != detalle.cantidad || detalle.precio_real != detalle.precio_estimado){
+                            await this.edit(detalle)
+                        }
+                    });
+
+                    return this.detalles
+                },
+
+
             },
             watch: {
                 itemSelect(item) {
