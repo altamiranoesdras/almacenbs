@@ -160,8 +160,15 @@
 
     <script>
         $(function () {
-            var dt     = window.LaravelDataTables["dataTableBuilder"];
-            var $table = $('#dataTableBuilder');
+            var tableId = 'dataTableBuilder';
+
+            // Salir si no hay DataTables, si no existe la tabla o si Yajra no la registró
+            if (!$.fn.DataTable) return;
+            if (!document.getElementById(tableId)) return;
+            if (!window.LaravelDataTables || !window.LaravelDataTables[tableId]) return;
+
+            var dt     = window.LaravelDataTables[tableId];
+            var $table = $('#' + tableId);
 
             function ensureOverlay() {
                 var $wrapper    = $(dt.table().container());

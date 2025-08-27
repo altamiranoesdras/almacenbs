@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read mixed $sub_total
  * @property-read \App\Models\Item $item
  * @property-read \App\Models\CompraRequisicion\CompraRequisicion $requisicion
  * @property-read \App\Models\CompraSolicitudDetalle $solicitudDetalle
@@ -93,5 +94,11 @@ class CompraRequisicionDetalle extends Model
     public function item(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(\App\Models\Item::class, 'item_id');
+    }
+
+    public function getSubTotalAttribute()
+    {
+        return $this->cantidad * $this->precio_estimado;
+
     }
 }

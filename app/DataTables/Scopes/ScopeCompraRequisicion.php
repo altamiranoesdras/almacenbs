@@ -5,19 +5,25 @@ namespace App\DataTables\Scopes;
 use App\Models\CompraBandeja;
 use Yajra\DataTables\Contracts\DataTableScope;
 
+/**
+ * Class ScopeCompraRequisicion
+ * @package App\DataTables\Scopes
+ */
 class ScopeCompraRequisicion implements DataTableScope
 {
+    /**
+     * @var mixed|null
+     */
     public $usuario_crea;
-    public $bandeja_id;
+    /**
+     * @var CompraBandeja|null
+     */
+    public $bandeja;
 
-    public function __construct(
-        $usuario_crea = null,
-        $bandeja_id = null
-
-    ) {
+    public function __construct() {
         $req = request();
-        $this->usuario_crea            = $usuario_crea ?? $req->input('usuario_crea') ?? null;
-        $this->bandeja_id              = $bandeja_id ?? $req->input('bandeja_id') ?? null;
+        $this->usuario_crea = request()->usuario_crea ?? null;
+        $this->bandeja  = request()->bandeja ?? null;
     }
 
     /**
@@ -36,11 +42,8 @@ class ScopeCompraRequisicion implements DataTableScope
             }
         }
 
-        if($this->bandeja_id){
-            $estadosDeBandeja = CompraBandeja::find($this->bandeja_id)
-                ->estados
-                ->pluck('id')
-                ->toArray();
+        if($this->bandeja){
+            $estadosDeBandeja = $this->bandeja->estados->pluck('id')->toArray();
             $query->whereIn('estado_id', $estadosDeBandeja);
         }
 

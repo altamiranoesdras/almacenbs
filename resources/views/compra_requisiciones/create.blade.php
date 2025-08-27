@@ -42,7 +42,7 @@
                     <div class="card-body">
 
                         <div class="row">
-                            @include('compra_requisicions.fields')
+                            @include('compra_requisiciones.fields')
                         </div>
 
                     </div>

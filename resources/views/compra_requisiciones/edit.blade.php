@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <div class="content-body">
+    <div class="content-body" id="editarRequisicion">
 
         <div class="row">
             <div class="col-12">
@@ -37,12 +37,12 @@
 
                 <div class="card">
 
-                    {!! Form::model($compraRequisicion, ['url' => route('compra.requisiciones.requisicions.update', $compraRequisicion->id), 'method' => 'patch','class' => 'esperar']) !!}
+                    {!! Form::model($compraRequisicion, ['url' => route('compra.requisiciones.requisiciones.update', $compraRequisicion->id), 'method' => 'patch','class' => 'esperar']) !!}
 
                     <div class="card-body">
                         <div class="row">
-                            @include('compra_requisicions.show_fields')
-                            @include('compra_requisicions.tabla_detalles_requisicion')
+                            @include('compra_requisiciones.show_fields')
+                            @include('compra_requisiciones.tabla_detalles_requisicion')
                         </div>
                         <div class="row">
                             <div class="col-12 mb-1">
@@ -50,10 +50,11 @@
                                 <textarea
                                     name="justificacion"
                                     id="justificacion"
+                                    v-model="justificacion"
                                     class="form-control"
                                     rows="2"
                                     placeholder="Justificación de la compra"
-                                >{{$compraSolicitud->justificacion ?? ''}}</textarea>
+                                ></textarea>
                             </div>
 
                             {{--                        <div class="col-6 mb-1">--}}
@@ -125,7 +126,7 @@
 
 {{--                    <div class="card-footer text-end">--}}
 
-{{--                        <a href="{{ route('compra.requisiciones.requisicions.index') }}"--}}
+{{--                        <a href="{{ route('compra.requisiciones.requisiciones.index') }}"--}}
 {{--                           class="btn btn-outline-secondary round me-1">--}}
 {{--                            <i class="fa fa-ban"></i>--}}
 {{--                            Cancelar--}}
@@ -151,14 +152,9 @@
 
                             <div class="col-sm-3 text-center">
 
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-outline-info round" data-bs-toggle="modal"
-                                        data-bs-target="#modelId">
+                                <button type="button" class="btn btn-outline-info round" @click="firmar()">
                                     Firmar
                                 </button>
-
-                                <!-- Modal -->
-
 
                             </div>
 
@@ -180,18 +176,17 @@
 
                     {!! Form::close() !!}
 
-                    <div class="modal fade" id="modelId" tabindex="-1" role="dialog"
+                    <div class="modal fade" id="modalFirmar" tabindex="-1" role="dialog"
                          aria-labelledby="modelTitleId" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <form action="{{ route('compra.requisiciones.pdf',$compraRequisicion->id ?? 0) }}" method="POST" class="esperar">
                                 @csrf
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title" id="modelTitleId"></h4>
-                                        <button type="button" class="close" data-bs-dismiss="modal"
-                                                aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                                        <h4 class="modal-title" id="modelTitleId">
+                                            Credenciales de firma
+                                        </h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
@@ -221,6 +216,7 @@
                                         </button>
                                     </div>
                                 </div>
+
                             </form>
 
                         </div>
@@ -258,5 +254,31 @@
         var myModal = new bootstrap.Modal(document.getElementById('pdfModal'));
         myModal.show();
         @endif
+
+        new Vue({
+            el: '#editarRequisicion',
+            name: 'editarRequisicion',
+            mounted() {
+                console.log('Instancia vue montada');
+            },
+            created() {
+                console.log('Instancia vue creada');
+            },
+            data: {
+                justificacion: @json($compraRequisicion->justificacion ?? ''),
+            },
+            methods: {
+                firmar(){
+                    //valida justificación
+                    if(this.justificacion.trim() === ''){
+                        alertWarning('Debe ingresar una justificación de la compra');
+                        return;
+                    }
+
+                    var myModal = new bootstrap.Modal(document.getElementById('modalFirmar'));
+                    myModal.show();
+                }
+            }
+        });
     </script>
 @endpush

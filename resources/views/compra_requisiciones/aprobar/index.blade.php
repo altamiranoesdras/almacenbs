@@ -9,19 +9,10 @@
             <div class="row breadcrumbs-top">
                 <div class="col-12">
                     <h2 class="content-header-title float-start mb-0">
-                        <h1>Compra Requisicions</h1>
+                        <h1>
+                            {{$bandeja->nombre}}
+                        </h1>
                     </h2>
-                </div>
-            </div>
-        </div>
-        <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
-            <div class="mb-1 breadcrumb-right">
-                <div class="dropdown">
-                    <a class="btn btn-outline-success float-end round"
-                       href="{{ route('compraRequisicions.create') }}">
-                        <i class="fa fa-plus"></i>
-                        Agregar
-                    </a>
                 </div>
             </div>
         </div>
@@ -34,7 +25,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    @include('compra_requisicions.table')
+                    @include('compra_requisiciones.aprobar.table')
                 </div>
             </div>
         </div>

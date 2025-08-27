@@ -31,6 +31,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read int|null $stocks_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\StockTransaccion> $transaccionesStock
  * @property-read int|null $transacciones_stock_count
+ * @property-read \App\Models\RrhhUnidad|null $unidadSolicitante
  * @method static \Database\Factories\CompraDetalleFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle newQuery()

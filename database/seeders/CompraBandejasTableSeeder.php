@@ -3,11 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\CompraBandeja;
-use App\Models\CompraRequisicion\CompraRequisicion;
 use App\Models\CompraRequisicion\CompraRequisicionEstado;
 use App\Models\Role;
 use Illuminate\Database\Seeder;
-use mysql_xdevapi\Statement;
+
 
 class CompraBandejasTableSeeder extends Seeder
 {

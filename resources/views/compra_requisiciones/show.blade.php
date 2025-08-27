@@ -36,7 +36,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            @include('compra_requisicions.show_fields')
+                            @include('compra_requisiciones.show_fields')
                         </div>
                     </div>
                 </div>

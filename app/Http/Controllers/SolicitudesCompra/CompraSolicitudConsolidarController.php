@@ -89,7 +89,7 @@ class CompraSolicitudConsolidarController extends Controller
 
 
 
-        return redirect()->route('compra.requisiciones.requisicions.edit', $requisicion->id)
+        return redirect()->route('compra.requisiciones.requisiciones.edit', $requisicion->id)
             ->with('success', 'Solicitudes consolidadas en la requisición exitosamente.');
 
     }

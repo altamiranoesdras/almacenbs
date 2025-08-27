@@ -394,7 +394,7 @@
                 },
 
                 esFactura(){
-                    if (this.tipo && @json(\App\Models\CompraTipo::FACTURA) == 1){
+                    if (this.tipo){
                         return this.tipo.id= @json(\App\Models\CompraTipo::FACTURA)
                     }
 
@@ -402,7 +402,7 @@
                 },
 
                 esFacturaCambiaria(){
-                    if (this.tipo && @json(\App\Models\CompraTipo::FACTURA_CAMBIARIA) == 2){
+                    if (this.tipo){
                         return this.tipo.id= @json(\App\Models\CompraTipo::FACTURA_CAMBIARIA)
                     }
 

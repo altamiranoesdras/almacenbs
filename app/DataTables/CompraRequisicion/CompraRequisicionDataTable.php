@@ -22,7 +22,7 @@ class CompraRequisicionDataTable extends DataTable
             ->eloquent($query)
             ->addColumn('action', function(CompraRequisicion $compraRequisicion){
                 $id = $compraRequisicion->id;
-                return view('compra_requisicions.datatables_actions',compact('compraRequisicion','id'));
+                return view('compra_requisiciones.datatables_actions',compact('compraRequisicion','id'));
             })
             ->editColumn('id',function (CompraRequisicion $compraRequisicion){
 
@@ -140,6 +140,6 @@ class CompraRequisicionDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'compra_requisicions_datatable_' . time();
+        return 'compra_requisiciones_datatable_' . time();
     }
 }

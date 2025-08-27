@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Illuminate\Support\Carbon|null $fecha_ingreso Fecha de ingreso al sistema
  * @property string|null $serie
  * @property string|null $numero
+ * @property int|null $recibo_de_caja
  * @property int $estado_id
  * @property int $usuario_crea
  * @property int|null $usuario_recibe
@@ -44,6 +45,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read mixed $total_venta
  * @property-read \App\Models\Proveedor|null $proveedor
  * @property-read \App\Models\CompraTipo|null $tipo
+ * @property-read \App\Models\RrhhUnidad|null $unidadSolicitante
  * @property-read \App\Models\User $usuarioCrea
  * @property-read \App\Models\User|null $usuarioRecibe
  * @method static \Illuminate\Database\Eloquent\Builder|Compra delItem($item)
@@ -72,6 +74,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereObservaciones($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereOrdenCompra($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereProveedorId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereReciboDeCaja($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereSerie($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereTipoId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereUnidadSolicitaId($value)

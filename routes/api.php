@@ -218,7 +218,7 @@ Route::group(['as'=>'api.'], function () {
 //        Route::resource('compra-requisicion-tipo-concursos', App\Http\Controllers\API\CompraRequisicionTipoConcursoAPIController::class)
 //            ->except(['create', 'edit']);
 //
-//        Route::resource('compra-requisicions', App\Http\Controllers\API\CompraRequisicionAPIController::class)
+//        Route::resource('compra-requisiciones', App\Http\Controllers\API\CompraRequisicionAPIController::class)
 //            ->except(['create', 'edit']);
 //
 //        Route::resource('compra-ordens', App\Http\Controllers\API\CompraOrdenAPIController::class)

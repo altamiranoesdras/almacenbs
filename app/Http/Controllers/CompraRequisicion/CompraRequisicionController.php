@@ -30,7 +30,7 @@ class CompraRequisicionController extends AppBaseController
      */
     public function index(CompraRequisicionDataTable $compraRequisicionDataTable)
     {
-    return $compraRequisicionDataTable->render('compra_requisicions.index');
+    return $compraRequisicionDataTable->render('compra_requisiciones.index');
     }
 
 
@@ -39,7 +39,7 @@ class CompraRequisicionController extends AppBaseController
      */
     public function create()
     {
-        return view('compra_requisicions.create');
+        return view('compra_requisiciones.create');
     }
 
     /**
@@ -54,7 +54,7 @@ class CompraRequisicionController extends AppBaseController
 
         flash()->success('Compra Requisicion guardado.');
 
-        return redirect(route('compraRequisicions.index'));
+        return redirect(route('compra.requisiciones.index'));
     }
 
     /**
@@ -68,10 +68,10 @@ class CompraRequisicionController extends AppBaseController
         if (empty($compraRequisicion)) {
             flash()->error('Compra Requisicion no encontrado');
 
-            return redirect(route('compraRequisicions.index'));
+            return redirect(route('compra.requisiciones.index'));
         }
 
-        return view('compra_requisicions.show')->with('compraRequisicion', $compraRequisicion);
+        return view('compra_requisiciones.show')->with('compraRequisicion', $compraRequisicion);
     }
 
     /**
@@ -85,10 +85,10 @@ class CompraRequisicionController extends AppBaseController
         if (empty($compraRequisicion)) {
             flash()->error('Compra Requisicion no encontrado');
 
-            return redirect(route('compraRequisicions.index'));
+            return redirect(route('compra.requisiciones.index'));
         }
 
-        return view('compra_requisicions.edit')->with('compraRequisicion', $compraRequisicion);
+        return view('compra_requisiciones.edit')->with('compraRequisicion', $compraRequisicion);
     }
 
     /**
@@ -102,7 +102,7 @@ class CompraRequisicionController extends AppBaseController
         if (empty($compraRequisicion)) {
             flash()->error('Compra Requisicion no encontrado');
 
-            return redirect(route('compraRequisicions.index'));
+            return redirect(route('compra.requisiciones.index'));
         }
 
         $compraRequisicion->fill($request->all());
@@ -110,7 +110,7 @@ class CompraRequisicionController extends AppBaseController
 
         flash()->success('Compra Requisicion actualizado.');
 
-        return redirect(route('compraRequisicions.index'));
+        return redirect(route('compra.requisiciones.mis.requisiciones'));
     }
 
     /**
@@ -152,7 +152,7 @@ class CompraRequisicionController extends AppBaseController
 //
 //        $pdf = App::make('snappy.pdf.wrapper');
 //
-//        $view = view('compra_requisicions.pdfs.requisicion_pdf', compact('requisicion'))->render();
+//        $view = view('compra_requisiciones.pdfs.requisicion_pdf', compact('requisicion'))->render();
 //
 //        $pdf->loadHTML($view)
 //            ->setOption('page-width', 279)
@@ -173,7 +173,7 @@ class CompraRequisicionController extends AppBaseController
         // 1) Generar el PDF con Snappy (wkhtmltopdf)
         $pdf = App::make('snappy.pdf.wrapper');
 
-        $view = view('compra_requisicions.pdfs.requisicion_pdf', compact('requisicion'))->render();
+        $view = view('compra_requisiciones.pdfs.requisicion_pdf', compact('requisicion'))->render();
 
         $pdf->loadHTML($view)
             ->setOption('page-width', 279)   // mm
