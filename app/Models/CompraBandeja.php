@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $rol_id
@@ -62,6 +62,11 @@ class CompraBandeja extends Model
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'
     ];
+
+    const SOLICITANTE_COMPRAS = 1;
+    const APROBADOR_DE_COMPRAS = 2;
+    const AUTORIZADOR_DE_COMPRAS = 3;
+
 
     public static $messages = [
 

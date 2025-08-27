@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\CompraRequisicion\CompraRequisicionAprobarController;
 use App\Http\Controllers\CompraRequisicion\CompraRequisicionController;
 use App\Http\Controllers\CompraRequisicion\CompraRequisicionUsuarioController;
 use App\Http\Controllers\CompraSolicitudController;
@@ -22,6 +23,7 @@ Route::prefix('compra')->name('compra.')->group(function () {
         Route::resource('tipo-concursos', App\Http\Controllers\CompraRequisicionTipoConcursoController::class);
 
         Route::get('mis/requisiciones', [CompraRequisicionUsuarioController::class, 'index'])->name('mis.requisiciones');
+        Route::get('aprobar', [CompraRequisicionAprobarController::class, 'index'])->name('aprobar');
 
         Route::get('requisicions', [CompraRequisicionController::class, 'index'])->name('requisicions.index');
         Route::get('requisicions/create', [CompraRequisicionController::class, 'create'])->name('requisicions.create');
