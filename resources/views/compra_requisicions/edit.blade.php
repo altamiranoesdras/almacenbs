@@ -9,7 +9,7 @@
             <div class="row breadcrumbs-top">
                 <div class="col-12">
                     <h2 class="content-header-title float-start mb-0">
-                                                    Editar Compra Requisicion
+                                                    Editar Compra Requisición
                                             </h2>
                 </div>
             </div>
@@ -172,7 +172,7 @@
                             <div class="col-sm-3 text-end">
                                 <button type="button"  class="btn btn-outline-primary round">
                                     <i class="fa fa-paper-plane"></i>
-                                    Solicitar
+                                    Requerir
                                 </button>
                             </div>
                         </div>
