@@ -59,20 +59,35 @@
     @stack('estilos')
 
     <style>
-        .dataTables_wrapper { position: relative; }
+        .dt-processing-custom {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1050;
+            display: none;                 /* alterna con JS */
+            pointer-events: none;          /* no bloquea interacción */
+        }
 
-        .dt-processing-custom{
-            position: absolute; inset: 0; z-index: 1050;
-            display: none;                       /* lo alternamos con JS */
-            align-items: center; justify-content: center;
-            background: rgba(255,255,255,0);     /* sin oscurecer */
-            pointer-events: none;                /* NO bloquea interacción */
-        }
-        .dt-processing-custom .box{
-            background: #fff; padding: 12px 18px; border-radius: 8px;
-            box-shadow: 0 4px 16px rgba(0,0,0,.12);
+        .dt-processing-custom .box {
+            background: #fff;
+            color: #333;
+            padding: 10px 18px;
+            border-radius: 8px;
             font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,.15);
+            animation: fadeIn 0.2s ease-out;
         }
+
+        /* animación sutil */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, -40%); }
+            to   { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
 
     </style>
 
@@ -167,6 +182,11 @@
 
             // Mostrar overlay antes de cada request
             $table.on('preXhr.dt', function () {
+                ensureOverlay().show();
+            });
+
+            // Mostrar overlay al dibujar (redibujar) la tabla
+            $table.on('dt.draw', function () {
                 ensureOverlay().show();
             });
 
