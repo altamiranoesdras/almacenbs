@@ -42,7 +42,7 @@
             <select-compra-tipo v-model="tipo" label="Tipo"></select-compra-tipo>
         </div>
     </li>
-    <li class="list-group-item pb-0 pl-2 pr-2" v-show="esFactura">
+    <li class="list-group-item pb-0 pl-2 pr-2" v-show="esFactura || esFacturaCambiaria">
         <div class="col-sm-12 mb-1">
             <div class="input-group ">
                 <div class="input-group-prepend">
@@ -55,10 +55,12 @@
                 {!! Form::text('numero', null, ['class' => 'form-control','placeholder'=>'Número']) !!}
             </div>
 
-            <div class="col-12 mb-1" v-show="esFacturaCambiaria">
-                <label for="recibo_de_caja" class="sr-only">Recibo de caja</label>
-                {!! Form::text('recibo_de_caja', null, ['class' => 'form-control','placeholder'=>'Recibo de caja']) !!}
-            </div>
+
+        </div>
+
+        <div class="col-12 mb-1" v-show="esFacturaCambiaria">
+            <label for="recibo_de_caja" >Recibo de caja</label>
+            {!! Form::text('recibo_de_caja', null, ['class' => 'form-control','placeholder'=>'Recibo de caja']) !!}
         </div>
     </li>
 
