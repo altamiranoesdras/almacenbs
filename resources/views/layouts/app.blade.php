@@ -59,54 +59,37 @@
     @stack('estilos')
 
     <style>
-        /* El contenedor elegido (scrollBody o padre de la tabla) será relativo */
-        .dt-overlay-container {
+        /* Contenedor objetivo que envuelve ÚNICAMENTE la <table> */
+        .dt-overlay-target {
             position: relative !important;
+            display: block;
         }
 
-        /* Capa que SOLO cubre el área de la tabla */
+        /* Capa que cubre solo la tabla */
         .dt-processing-on-table {
             position: absolute;
             inset: 0;
             z-index: 9999;
             display: none;
-            pointer-events: none;            /* no bloquea escribir/clicks */
+            pointer-events: none; /* no bloquea teclado/clicks */
         }
-
-        /* Fondo opacado SOLO sobre la tabla */
-        .dt-processing-on-table::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: rgba(255, 255, 255, 0.65);
+        .dt-processing-on-table::before{
+            content:'';
+            position:absolute; inset:0;
+            background: rgba(255,255,255,.65);
             backdrop-filter: blur(2px);
         }
-
         /* Toast centrado */
-        .dt-processing-on-table .box {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            background: #fff;
-            color: #1f1f1f;
-            padding: 12px 20px;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 15px;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,.18), 0 2px 8px rgba(0,0,0,.12);
-            border: 1px solid rgba(0,0,0,.06);
+        .dt-processing-on-table .box{
+            position:absolute; top:50%; left:50%;
+            transform:translate(-50%,-50%);
+            background:#fff; padding:12px 20px; border-radius:10px;
+            font-weight:700; font-size:15px;
+            display:inline-flex; gap:10px; align-items:center;
+            box-shadow:0 10px 30px rgba(0,0,0,.18), 0 2px 8px rgba(0,0,0,.12);
+            border:1px solid rgba(0,0,0,.06);
         }
-
-        .dt-processing-on-table .spinner-border {
-            width: 1.35rem;
-            height: 1.35rem;
-        }
-
-
-
+        .dt-processing-on-table .spinner-border{ width:1.35rem; height:1.35rem; }
 
     </style>
 
@@ -177,43 +160,53 @@
 
     <script>
         $(function () {
-            var dt      = window.LaravelDataTables["dataTableBuilder"];
-            var $table  = $('#dataTableBuilder'); // usa el id real de tu tabla
+            var dt     = window.LaravelDataTables["dataTableBuilder"];
+            var $table = $('#dataTableBuilder');
 
             function ensureOverlay() {
-                var $wrapper = $(dt.table().container());
-                if (!$wrapper.find('.dt-processing-custom').length) {
-                    $wrapper.css('position', 'relative'); // refuerzo
-                    $wrapper.append(
-                        '<div class="dt-processing-custom">'+
-                        '<div class="box">'+
-                        '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>'+
-                        'Procesando...'+
-                        '</div>'+
+                var $wrapper    = $(dt.table().container());
+                var $scrollBody = $wrapper.find('div.dataTables_scrollBody'); // si usas scroll
+
+                // 1) Elegir contenedor que SOLO cubre la tabla
+                var $container;
+                if ($scrollBody.length) {
+                    $container = $scrollBody;
+                } else {
+                    // si la tabla es hija directa del wrapper, la envolvemos
+                    if (!$table.parent().hasClass('dt-overlay-target')) {
+                        $table.wrap('<div class="dt-overlay-target"></div>');
+                    }
+                    $container = $table.parent('.dt-overlay-target');
+                }
+
+                // 2) Eliminar overlays mal ubicados (hijos directos del wrapper)
+                $wrapper.children('>.dt-processing-on-table').remove();
+
+                // 3) Insertar overlay si no existe dentro del contenedor correcto
+                if (!$container.find('.dt-processing-on-table').length) {
+                    $container.append(
+                        '<div class="dt-processing-on-table">' +
+                        '<div class="box">' +
+                        '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>' +
+                        'Procesando...' +
+                        '</div>' +
                         '</div>'
                     );
                 }
-                return $wrapper.find('.dt-processing-custom');
+                return $container.find('.dt-processing-on-table');
             }
 
-            // Insertar overlay una vez cuando DataTables termine de inicializar
+            // Insertar overlay una vez
             $table.one('init.dt', function(){ ensureOverlay(); });
 
-            // Mostrar overlay antes de cada request
-            $table.on('preXhr.dt', function () {
-                ensureOverlay().show();
-            });
+            // Mostrar antes de request y en draws locales
+            $table.on('preXhr.dt preDraw.dt', function(){ ensureOverlay().show(); });
 
-            // Mostrar overlay al dibujar (redibujar) la tabla
-            $table.on('draw.dt', function () {
-                ensureOverlay().show();
-            });
-
-            // Ocultar al recibir datos, al dibujar, o ante error
-            $table.on('xhr.dt draw.dt error.dt', function () {
-                ensureOverlay().hide();
-            });
+            // Ocultar al terminar
+            $table.on('xhr.dt draw.dt error.dt', function(){ ensureOverlay().hide(); });
         });
+
+
 
     </script>
 
