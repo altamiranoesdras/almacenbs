@@ -15,7 +15,7 @@ class CompraRequisicionUsuarioDataTable extends DataTable
     /**
      * Build the DataTable class.
      *
-     * @param QueryBuilder $query Results from query() method.
+     * @param  QueryBuilder  $query  Results from query() method.
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
@@ -24,7 +24,13 @@ class CompraRequisicionUsuarioDataTable extends DataTable
         return $dataTable
             ->addColumn('action', function (CompraRequisicion $compraRequisicion) {
                 $id = $compraRequisicion->id;
-                return view('compra_requisicions.mis_requisiciones.datatables_actions', compact('compraRequisicion', 'id'));
+                return view('compra_requisicions.mis_requisiciones.datatables_actions',
+                    compact('compraRequisicion', 'id'));
+            })
+            ->editColumn('created_at', function (CompraRequisicion $compraRequisicion) {
+
+                return $compraRequisicion->created_at->format('d/m/Y') ?? 'Sin Fecha';
+
             })
             ->rawColumns(['action', 'estado.nombre']);
     }
@@ -34,7 +40,10 @@ class CompraRequisicionUsuarioDataTable extends DataTable
      */
     public function query(CompraRequisicion $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->with([
+            'unidad',
+            'estado'
+        ]);
     }
 
     /**
@@ -101,15 +110,31 @@ class CompraRequisicionUsuarioDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::make('unidad')
+                ->data('unidad.nombre')
+                ->name('unidad.nombre')
+                ->title('Unidad'),
+
+            Column::make('codigo_consolidacion')
+                ->data('codigo_consolidacion')
+                ->name('codigo_consolidacion')
+                ->title('Código Consolidación'),
+
+            Column::make('fecha_creacion')
+                ->data('created_at')
+                ->name('created_at')
+                ->title('Fecha Creación'),
+
+            Column::make('estado')
+                ->data('estado.nombre')
+                ->name('estado.nombre')
+                ->title('Estado'),
+
             Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+                ->exportable(false)
+                ->printable(false)
+                ->width('20%')
+                ->addClass('text-center')
         ];
     }
 
@@ -118,6 +143,6 @@ class CompraRequisicionUsuarioDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'CompraRequisicionUsuario_' . date('YmdHis');
+        return 'CompraRequisicionUsuario_'.date('YmdHis');
     }
 }

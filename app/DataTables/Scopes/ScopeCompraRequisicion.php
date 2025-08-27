@@ -26,9 +26,9 @@ class ScopeCompraRequisicion implements DataTableScope
     {
         if($this->usuario_crea){
             if(is_array($this->usuario_crea)){
-                $query->whereIn('usuario_crea', $this->usuario_crea);
+                $query->whereIn('usuario_crea_id', $this->usuario_crea);
             }else {
-                $query->where('usuario_crea', $this->usuario_crea);
+                $query->where('usuario_crea_id', $this->usuario_crea);
             }
         }
 
