@@ -58,6 +58,24 @@
 
     @stack('estilos')
 
+    <style>
+        .dataTables_wrapper { position: relative; }
+
+        .dt-processing-custom{
+            position: absolute; inset: 0; z-index: 1050;
+            display: none;                       /* lo alternamos con JS */
+            align-items: center; justify-content: center;
+            background: rgba(255,255,255,0);     /* sin oscurecer */
+            pointer-events: none;                /* NO bloquea interacción */
+        }
+        .dt-processing-custom .box{
+            background: #fff; padding: 12px 18px; border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0,0,0,.12);
+            font-weight: 600;
+        }
+
+    </style>
+
 
 </head>
 <!-- END: Head-->
@@ -118,27 +136,47 @@
 
     <script src="{{ url (mix('/js/app.js')) }}" type="text/javascript"></script>
 
-    <script>
 
-        //cada vez que se haga una peticion ajax, se mostrara un mensaje de carga
-        $(document).ajaxStart(function () {
-            Swal.fire({
-                title: 'Procesando...',
-                text: 'Por favor espere',
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                didOpen: () => {
-                    Swal.showLoading();
+
+    @stack('scripts')
+
+
+    <script>
+        $(function () {
+            var dt      = window.LaravelDataTables["dataTableBuilder"];
+            var $table  = $('#dataTableBuilder'); // usa el id real de tu tabla
+
+            function ensureOverlay() {
+                // Contenedor oficial del DataTable (wrapper)
+                var $wrapper = $(dt.table().container());
+                if (!$wrapper.find('.dt-processing-custom').length) {
+                    $wrapper.append(
+                        '<div class="dt-processing-custom">'+
+                        '<div class="box">'+
+                        '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>'+
+                        'Procesando...'+
+                        '</div>'+
+                        '</div>'
+                    );
                 }
+                return $wrapper.find('.dt-processing-custom');
+            }
+
+            // Insertar overlay una vez cuando DataTables termine de inicializar
+            $table.one('init.dt', function(){ ensureOverlay(); });
+
+            // Mostrar overlay antes de cada request
+            $table.on('preXhr.dt', function () {
+                ensureOverlay().show();
+            });
+
+            // Ocultar al recibir datos, al dibujar, o ante error
+            $table.on('xhr.dt draw.dt error.dt', function () {
+                ensureOverlay().hide();
             });
         });
 
-        //cada vez que se complete una peticion ajax, se cerrara el mensaje de carga
-        $(document).ajaxStop(function () {
-            Swal.close();
-        });
     </script>
-    @stack('scripts')
 
 </body>
 </html>
