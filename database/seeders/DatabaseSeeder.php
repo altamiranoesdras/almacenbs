@@ -82,6 +82,7 @@ class DatabaseSeeder extends Seeder
 
         //Seeders de Compra Requisiciones
         $this->call(CompraRequisicionEstadosTableSeeder::class);
+        $this->call(CompraBandejasTableSeeder::class);
 
 
         if(app()->environment()=='local'){
