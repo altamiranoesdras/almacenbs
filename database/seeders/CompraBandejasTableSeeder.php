@@ -7,6 +7,7 @@ use App\Models\CompraRequisicion\CompraRequisicion;
 use App\Models\CompraRequisicion\CompraRequisicionEstado;
 use App\Models\Role;
 use Illuminate\Database\Seeder;
+use mysql_xdevapi\Statement;
 
 class CompraBandejasTableSeeder extends Seeder
 {
@@ -20,6 +21,8 @@ class CompraBandejasTableSeeder extends Seeder
     {
 
         deshabilitaLlavesForaneas();
+
+        \DB::table('compra_estado_has_bandeja')->truncate();
 
         CompraBandeja::truncate();
 
