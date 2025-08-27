@@ -32,7 +32,10 @@ class CompraRequisicionUsuarioDataTable extends DataTable
                 return $compraRequisicion->created_at->format('d/m/Y') ?? 'Sin Fecha';
 
             })
-            ->rawColumns(['action', 'estado.nombre']);
+            ->editColumn('codigo',function (CompraRequisicion $compraRequisicion){
+                return view('compra_requisicions.mis_requisiciones.modal_show_requisicion',compact('compraRequisicion'))->render();
+            })
+            ->rawColumns(['action', 'estado.nombre', 'codigo']);
     }
 
     /**
@@ -124,6 +127,8 @@ class CompraRequisicionUsuarioDataTable extends DataTable
                 ->data('created_at')
                 ->name('created_at')
                 ->title('Fecha Creación'),
+
+            Column::make('codigo'),
 
             Column::make('estado')
                 ->data('estado.nombre')

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $nombre
@@ -91,5 +91,21 @@ class CompraRequisicionEstado extends Model
     public function requisicion(): HasMany
     {
         return $this->hasMany(CompraRequisicion::class, 'id');
+    }
+
+    public function getColorAttribute(): string
+    {
+
+        switch ($this->id){
+            case self::CREADA :
+                return "info";
+            case self::APROBADA:
+                return "primary";
+            case self::CANCELADA:
+                return "danger";
+            default:
+                return "secondary";
+        }
+
     }
 }
