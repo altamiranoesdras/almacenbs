@@ -8,10 +8,12 @@ use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\Create\CompraRequisicion\CreateCompraRequisicionRequest;
 use App\Http\Requests\Update\CompraRequisicion\UpdateCompraRequisicionRequest;
 use App\Models\CompraRequisicion\CompraRequisicion;
+use App\Models\CompraSolicitudEstado;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class CompraRequisicionController extends AppBaseController
 {
@@ -116,23 +118,34 @@ class CompraRequisicionController extends AppBaseController
      *
      * @throws \Exception
      */
+
     public function destroy($id)
     {
-        /** @var CompraRequisicion $compraRequisicion */
-        $compraRequisicion = CompraRequisicion::find($id);
+        DB::transaction(function () use ($id) {
+            /** @var CompraRequisicion $compraRequisicion */
+            $compraRequisicion = CompraRequisicion::find($id);
 
-        if (empty($compraRequisicion)) {
-            flash()->error('Compra Requisicion no encontrado');
+            if (empty($compraRequisicion)) {
+                flash()->error('Compra Requisicion no encontrado');
+                return redirect(route('compra.requisiciones.mis.requisiciones'));
+            }
 
-            return redirect(route('compraRequisicions.index'));
-        }
+            $solicitudesAsignadas = $compraRequisicion->compraSolicitudes;
 
-        $compraRequisicion->delete();
+            foreach ($solicitudesAsignadas as $index => $solicitudesAsignada) {
+                $solicitudesAsignada->estado_id = CompraSolicitudEstado::SOLICITADA;
+                $solicitudesAsignada->save();
+            }
 
-        flash()->success('Compra Requisicion eliminado.');
+            $compraRequisicion->compraSolicitudes()->detach();
+            $compraRequisicion->detalles()->delete();
+            $compraRequisicion->delete();
+        });
 
-        return redirect(route('compraRequisicions.index'));
+        flash()->success('Requisición de compra eliminada.');
+        return redirect(route('compra.requisiciones.mis.requisiciones'));
     }
+
 
 //    public function pdf(CompraRequisicion $requisicion)
 //    {

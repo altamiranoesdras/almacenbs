@@ -22,14 +22,14 @@
 @endcan
 
 @can('Eliminar Compra Requisicions')
-{{--    <a href="#" onclick="deleteItemDt(this)" data-id="{{ $id }}" data-toggle="tooltip" title="Eliminar" class='btn btn-icon btn-flat-danger rounded-circle'>--}}
-{{--        <i class="fa fa-trash-alt"></i>--}}
-{{--    </a>--}}
+    <a href="#" onclick="deleteItemDt(this)" data-id="{{ $id }}" data-toggle="tooltip" title="Eliminar" class='btn btn-icon btn-outline-danger rounded-circle'>
+        <i class="fa fa-trash-alt"></i>
+    </a>
 
 
-{{--    <form action="{{ route('compraRequisicions.destroy', $id) }}" method="POST" id="delete-form{{ $id }}">--}}
-{{--        @method('DELETE')--}}
-{{--        @csrf--}}
-{{--    </form>--}}
+    <form action="{{ route('compra.requisiciones.requisicions.destroy', $id) }}" method="POST" id="delete-form{{ $id }}">
+        @method('DELETE')
+        @csrf
+    </form>
 @endcan
 
