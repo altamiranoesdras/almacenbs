@@ -5,12 +5,13 @@ namespace App\Models\CompraRequisicion;
 use App\Models\CompraSolicitud;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int|null $tipo_concurso_id
@@ -168,6 +169,11 @@ class CompraRequisicion extends Model
     public function tipoConcurso(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(\App\Models\CompraRequisicionTipoConcurso::class, 'tipo_concurso_id');
+    }
+
+    public function unidad(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\RrhhUnidad::class, 'unidad_id');
     }
 
     public function proveedorAdjudicado(): \Illuminate\Database\Eloquent\Relations\BelongsTo
