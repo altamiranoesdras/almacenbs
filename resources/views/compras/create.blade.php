@@ -44,7 +44,7 @@
                             {!! Form::model($temporal, ['route' => ['compras.update', $temporal->id], 'method' => 'patch']) !!}
 
                                 <!-- Resumen -->
-                                <div class="card border-info">
+                                <div class="card border-secondary">
                                     <div class="card-header d-flex justify-content-between align-items-center">
                                         <h5 class="card-title mb-0">
                                             Datos generales del ingreso
@@ -52,187 +52,85 @@
                                         <div class="heading-elements">
                                             <ul class="list-inline mb-0">
                                                 <li>
-                                                    <a data-action="collapse"><i data-feather="chevron-down"></i></a>
+                                                    <a data-action="collapse"><i data-feather="chevron-up"></i></a>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="card-content collapse hide">
+                                    <div class="card-content collapse show">
                                         <div class="card-body">
 
-                                            <ul class="list-group">
-                                                <li class="list-group-item pb-0 pl-2 pr-2">
-                                                    <div class="col-sm-12 mb-1">
-                                                        <label for="unidad_solicita_id" class="sr-only">Unidad Solicitante</label>
-                                                        <input type="text" class="form-control" placeholder="Unidad Solicitante" value="{{ auth()->user()->unidad->nombre }} - {{ auth()->user()->unidad->codigo }}" readonly>
-                                                        <input type="hidden" name="unidad_solicita_id" value="{{ auth()->user()->unidad->id }}">
-                                                    </div>
-                                                </li>
+                                            <div class="row">
 
-                                                <li class="list-group-item pb-0 pl-2 pr-2">
-                                                    <div class="col-sm-12 mb-1">
-                                                        <select-proveedor v-model="proveedor" label="Proveedor"></select-proveedor>
-                                                    </div>
-                                                </li>
+                                                <div class="col-6 mb-1">
+                                                    <select-proveedor v-model="proveedor" label="Proveedor"></select-proveedor>
+                                                </div>
 
+                                                <div class="col-3 mb-1">
+                                                    <select-compra-tipo v-model="tipo" label="Tipo"></select-compra-tipo>
+                                                </div>
+                                                <div class="col-3 mb-1" v-show="esFactura || esFacturaCambiaria">
+                                                    <label for="serie" >Serie</label>
+                                                    {!! Form::text('serie', null, ['class' => 'form-control','placeholder'=>'Serie']) !!}
+                                                </div>
 
-                                                {{--    <!--            Total--}}
-                                                {{--    ------------------------------------------------------------------------>--}}
-                                                {{--    <li class="list-group-item pt-1 pb-1 text-bold ">--}}
-                                                {{--        <div class="row">--}}
-                                                {{--            <div class="col-sm-12 text-lg">--}}
-                                                {{--                Total--}}
-                                                {{--                <span class="float-right" >--}}
-                                                {{--                    {{dvs()}} <span v-text="nfp(total)"></span>--}}
-                                                {{--                </span>--}}
-                                                {{--            </div>--}}
-                                                {{--        </div>--}}
+                                                <div class="col-3" v-show="esFactura || esFacturaCambiaria">
+                                                    <label for="numero" >Número</label>
+                                                    {!! Form::text('numero', null, ['class' => 'form-control','placeholder'=>'Número']) !!}
+                                                </div>
 
-                                                {{--    </li>--}}
+                                                <div class="col-3 mb-1" v-show="esFacturaCambiaria">
+                                                    <label for="recibo_de_caja" >Recibo de caja</label>
+                                                    {!! Form::text('recibo_de_caja', null, ['class' => 'form-control','placeholder'=>'Recibo de caja']) !!}
+                                                </div>
 
+                                                {{--<div class="col-sm-7 mb-1 py-0 m-0">
+                                                    Ingreso inmediato
+                                                    <input type="hidden" name="ingreso_inmediato" :value="ingreso_inmediato ? 1 : 0">
+                                                    <span class="float-right">
+                                                         <toggle-button v-model="ingreso_inmediato"
+                                                                        :sync="true"
+                                                                        :labels="{checked: 'SI', unchecked: 'NO'}"
+                                                                        :height="25"
+                                                                        :width="50"
+                                                                        :value="false"
+                                                         />
+                                                    </span>
+                                                </div>--}}
 
-                                                {{--    <!--            Numero productos--}}
-                                                {{--    ------------------------------------------------------------------------>--}}
-                                                {{--    <li class="list-group-item pt-1 pb-1 text-bold text-md">--}}
-                                                {{--        Cant. Productos:--}}
-                                                {{--        <span class="float-right" v-text="totalitems"></span>--}}
-                                                {{--    </li>--}}
-
-
-                                                <li class="list-group-item pb-0 pl-2 pr-2">
-                                                    <div class="col-sm-12 mb-1">
-                                                        <select-compra-tipo v-model="tipo" label="Tipo"></select-compra-tipo>
-                                                    </div>
-                                                </li>
-                                                <li class="list-group-item pb-0 pl-2 pr-2" v-show="esFactura || esFacturaCambiaria">
-                                                    <div class="col-sm-12 mb-1">
-                                                        <div class="input-group ">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text">S</span>
-                                                            </div>
-                                                            {!! Form::text('serie', null, ['class' => 'form-control','placeholder'=>'Serie']) !!}
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text">N</span>
-                                                            </div>
-                                                            {!! Form::text('numero', null, ['class' => 'form-control','placeholder'=>'Número']) !!}
-                                                        </div>
-
-
-                                                    </div>
-
-                                                    <div class="col-12 mb-1" v-show="esFacturaCambiaria">
-                                                        <label for="recibo_de_caja" >Recibo de caja</label>
-                                                        {!! Form::text('recibo_de_caja', null, ['class' => 'form-control','placeholder'=>'Recibo de caja']) !!}
-                                                    </div>
-                                                </li>
+                                                <div class="col-3 mb-1 ">
+                                                    {!! Form::label('fecha_documento', 'Fecha Documento:') !!}
+                                                    {!! Form::date('fecha_documento', hoyDb(), ['class' => 'form-control']) !!}
+                                                </div>
+                                                <div class="col-3 mb-1 ">
+                                                    {!! Form::label('fecha_ingreso', 'Fecha Ingreso:') !!}
+                                                    {!! Form::date('fecha_ingreso', hoyDb(), ['class' => 'form-control']) !!}
+                                                </div>
+                                                <div class="col-3 mb-1 ">
+                                                    {!! Form::label('orden_compra', 'Orden Compra:') !!}
+                                                    {!! Form::number('orden_compra', null, ['class' => 'form-control', 'required', 'v-model' => 'orden']) !!}
+                                                </div>
 
 
 
-                                                {{-- <li class="list-group-item pb-0 pt-1  text-bold ">
-                                                    <div class="row ">
-
-                                                        <div class="col-sm-7 mb-1 py-0 m-0">
-                                                            Ingreso inmediato
-                                                            <input type="hidden" name="ingreso_inmediato" :value="ingreso_inmediato ? 1 : 0">
-                                                            <span class="float-right">
-                                                                 <toggle-button v-model="ingreso_inmediato"
-                                                                                :sync="true"
-                                                                                :labels="{checked: 'SI', unchecked: 'NO'}"
-                                                                                :height="25"
-                                                                                :width="50"
-                                                                                :value="false"
-                                                                 />
-                                                            </span>
-                                                        </div>
-
-                                                    </div>
-
-                                                </li> --}}
                                                 <input type="hidden" name="ingreso_inmediato" value="0">
+                                            </div>
 
-                                                <li class="list-group-item pb-0 ">
-                                                    <div class="row">
-                                                        <div class="col-sm-6 mb-1 ">
-                                                            {!! Form::label('fecha_documento', 'Fecha Documento:') !!}
-                                                            {!! Form::date('fecha_documento', hoyDb(), ['class' => 'form-control']) !!}
-                                                        </div>
-                                                        <div class="col-sm-6 mb-1 ">
-                                                            {!! Form::label('fecha_ingreso', 'Fecha Ingreso:') !!}
-                                                            {!! Form::date('fecha_ingreso', hoyDb(), ['class' => 'form-control']) !!}
-                                                        </div>
-                                                    </div>
-                                                </li>
-
-                                                <li class="list-group-item pb-0 ">
-                                                    <div class="row">
-                                                        <div class="col-sm-6 mb-1 ">
-                                                            {!! Form::label('orden_compra', 'Orden Compra:') !!}
-                                                            {!! Form::number('orden_compra', null, ['class' => 'form-control', 'required', 'v-model' => 'orden']) !!}
-                                                        </div>
-                                                    </div>
-                                                </li>
-
-                                                <!--            Observaciones
-                                                ------------------------------------------------------------------------>
-                                                <li class="list-group-item p-1">
+                                            <div class="row">
+                                                <div class="col mb-1">
                                                     <div class="input-group">
-                    <textarea
-                        name="observaciones"
-                        id="observaciones"
-                        @focus="$event.target.select()"
-                        class="form-control"
-                        rows="2"
-                        placeholder="Observaciones"
-                    ></textarea>
+                                                        <textarea
+                                                            name="observaciones"
+                                                            id="observaciones"
+                                                            @focus="$event.target.select()"
+                                                            class="form-control"
+                                                            rows="2"
+                                                            placeholder="Observaciones"
+                                                        ></textarea>
                                                     </div>
-                                                </li>
+                                                </div>
+                                            </div>
 
-
-                                                <li class="list-group-item pb-0 pl-2 pr-2">
-
-
-                                                </li>
-                                            </ul>
-
-                                            <!-- Modal confirm -->
-                                            <div class="modal fade modal-info" id="modal-confirma-procesar">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title">PROCESAR COMPRA!</h4>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            Seguro que desea continuar?
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
-                                                            <button type="submit" class="btn btn-primary" name="procesar" value="1"  onclick="esperar()">SI</button>
-                                                        </div>
-                                                    </div><!-- /.modal-content -->
-                                                </div><!-- /.modal-dialog -->
-                                            </div><!-- /.modal -->
-
-                                            <!-- Modal cancel -->
-                                            <div class="modal fade modal-warning" id="modal-cancel-compra">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            <h4 class="modal-title">Cancelar compra!</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            Seguro que desea cancelar la compra?
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
-                                                            <a href="{{route('compras.destroy',$temporal->id)}}" class="btn btn-danger">
-                                                                SI
-                                                            </a>
-                                                        </div>
-                                                    </div><!-- /.modal-content -->
-                                                </div><!-- /.modal-dialog -->
-                                            </div><!-- /.modal -->
 
                                         </div>
                                     </div>
@@ -240,7 +138,7 @@
                                 <!-- /. Resumen -->
 
                                 <!-- Articulos -->
-                                <div class="card border-info">
+                                <div class="card border-secondary">
                                 <div class="card-header d-flex justify-content-between align-items-center">
                                     <h5 class="card-title mb-0">
                                         Insumos / Detalles
@@ -252,12 +150,12 @@
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
                                             <li>
-                                                <a data-action="collapse"><i data-feather="chevron-down"></i></a>
+                                                <a data-action="collapse"><i data-feather="chevron-up"></i></a>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="card-content collapse hide">
+                                <div class="card-content collapse show">
                                     <div class="card-body">
                                         <div class="form-group mb-4">
                                             <select-items
@@ -438,6 +336,48 @@
                                 </div>
 
                             </div>
+
+
+                            <!-- Modal confirm -->
+                            <div class="modal fade modal-info" id="modal-confirma-procesar">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">PROCESAR COMPRA!</h4>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Seguro que desea continuar?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
+                                            <button type="submit" class="btn btn-primary" name="procesar" value="1"  onclick="esperar()">SI</button>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal -->
+
+                            <!-- Modal cancel -->
+                            <div class="modal fade modal-warning" id="modal-cancel-compra">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <h4 class="modal-title">Cancelar compra!</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            Seguro que desea cancelar la compra?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
+                                            <a href="{{route('compras.destroy',$temporal->id)}}" class="btn btn-danger">
+                                                SI
+                                            </a>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal -->
+
                         </div>
                     </div>
                 </div>
@@ -600,9 +540,9 @@
                     }
 
                     if(this.orden.length == 0) {
-                        iziTs('El número de orden es requerido');
+                        alertWarning('El número de orden es requerido');
                     }else if(this.orden.length < 5) {
-                        iziTs('El número de orden debe tener al menos 5 caracteres');
+                        alertWarning('El número de orden debe tener al menos 5 caracteres');
                     }
                 },
                 siguienteCampo: function (campo){
