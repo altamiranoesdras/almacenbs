@@ -66,7 +66,7 @@ class CompraDetalle extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $appends =['sub_total'];
+    protected $appends =['sub_total','fecha_vence_latina'];
 
     public $fillable = [
         'compra_id',
@@ -90,7 +90,7 @@ class CompraDetalle extends Model
         'cantidad' => 'decimal:2',
         'precio' => 'decimal:4',
         'descuento' => 'decimal:4',
-        'fecha_vence' => 'date',
+        'fecha_vence' => 'date:Y-m-d',
         'unidad_solicita_id' => 'integer',
     ];
 
@@ -239,5 +239,13 @@ class CompraDetalle extends Model
             $transacion->revertir();
 
         }
+    }
+
+    public function getFechaVenceLatinaAttribute()
+    {
+        if(!$this->fecha_vence) return null;
+
+        return $this->fecha_vence->format('d/m/Y');
+
     }
 }

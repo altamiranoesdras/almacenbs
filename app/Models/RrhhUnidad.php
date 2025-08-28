@@ -173,4 +173,14 @@ class RrhhUnidad extends Model
         return $this->codigo . ' - ' . $this->nombre . ' (' . $this->tipo->nombre . ')';
 
     }
+
+    public function scopeAreas($query)
+    {
+        return $query->where('unidad_tipo_id',  RrhhUnidadTipo::AREA);
+    }
+
+    public function scopeSolicitan($query)
+    {
+        return $query->where('solicita', 'si');
+    }
 }
