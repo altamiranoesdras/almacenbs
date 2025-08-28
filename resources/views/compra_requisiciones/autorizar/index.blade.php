@@ -9,7 +9,7 @@
             <div class="row breadcrumbs-top">
                 <div class="col-12">
                     <h2 class="content-header-title float-start mb-0">
-                        <h1>Mis Requisiciones de compra</h1>
+                        <h1>Autorizar Requisiciones de compra</h1>
                     </h2>
                 </div>
             </div>
@@ -34,7 +34,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    @include('compra_requisicions.autorizar.table')
+                    @include('compra_requisiciones.autorizar.table')
                 </div>
             </div>
         </div>

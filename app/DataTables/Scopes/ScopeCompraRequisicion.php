@@ -33,7 +33,7 @@ class ScopeCompraRequisicion implements DataTableScope
     ) {
         $req = request();
         $this->usuario_crea            = $usuario_crea ?? $req->input('usuario_crea') ?? null;
-        $this->bandeja  =               request()->bandeja ?? null;
+        $this->bandeja                 = $bandeja    ?? $req->input('bandeja') ? CompraBandeja::find($req->input('bandeja')) : null;
         $this->unidad_id               = $unidad_id    ?? $req->input('unidad_id') ?? null;
         $this->estado_id               = $estado_id    ?? $req->input('estado_id') ?? null;
         $this->codigo_consolidacion    = $codigo_consolidacion    ?? $req->input('codigo_consolidacion') ?? null;

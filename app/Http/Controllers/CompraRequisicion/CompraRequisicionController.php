@@ -31,12 +31,11 @@ class CompraRequisicionController extends AppBaseController
      */
     public function index(CompraRequisicionDataTable $compraRequisicionDataTable)
     {
-    return $compraRequisicionDataTable->render('compra_requisiciones.index');
         $scope = new ScopeCompraRequisicion();
 
         $compraRequisicionDataTable->addScope($scope);
 
-        return $compraRequisicionDataTable->render('compra_requisicions.index');
+        return $compraRequisicionDataTable->render('compra_requisiciones.index');
     }
 
 

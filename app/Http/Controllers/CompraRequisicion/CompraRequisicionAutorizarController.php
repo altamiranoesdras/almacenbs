@@ -12,11 +12,15 @@ class CompraRequisicionAutorizarController extends Controller
     public function index(CompraRequisicionAutorizarDataTable $dataTable)
     {
 
-        $scope = new ScopeCompraRequisicion(bandeja_id: CompraBandeja::AUTORIZADOR_DE_COMPRAS);
+        $bandeja = CompraBandeja::find(CompraBandeja::APROBADOR_DE_COMPRAS);
+
+        $scope = new ScopeCompraRequisicion();
+
+        $scope->bandeja = $bandeja;
 
         $dataTable->addScope($scope);
 
-        return $dataTable->render('compra_requisicions.aprobar.index');
+        return $dataTable->render('compra_requisiciones.autorizar.index');
 
     }
 }

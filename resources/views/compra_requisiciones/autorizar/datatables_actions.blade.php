@@ -16,7 +16,7 @@
 @endcan
 
 @can('Editar Compra Requisicions')
-    <a href="{{ route('compra.requisiciones.requisicions.edit', $id) }}" data-toggle="tooltip" title="Editar" class='btn btn-icon btn-outline-warning rounded-circle'>
+    <a href="{{ route('compra.requisiciones.requisiciones.edit', $id) }}" data-toggle="tooltip" title="Editar" class='btn btn-icon btn-outline-warning rounded-circle'>
         <i class="fa fa-edit"></i>
     </a>
 @endcan
@@ -27,7 +27,7 @@
     </a>
 
 
-    <form action="{{ route('compra.requisiciones.requisicions.destroy', $id) }}" method="POST" id="delete-form{{ $id }}">
+    <form action="{{ route('compra.requisiciones.requisiciones.destroy', $id) }}" method="POST" id="delete-form{{ $id }}">
         @method('DELETE')
         @csrf
     </form>

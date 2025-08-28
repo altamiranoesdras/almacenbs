@@ -24,7 +24,7 @@ class CompraRequisicionAutorizarDataTable extends DataTable
         return $dataTable
             ->addColumn('action', function (CompraRequisicion $compraRequisicion) {
                 $id = $compraRequisicion->id;
-                return view('compra_requisicions.autorizar.datatables_actions',
+                return view('compra_requisiciones.autorizar.datatables_actions',
                     compact('compraRequisicion', 'id'));
             })
             ->editColumn('created_at', function (CompraRequisicion $compraRequisicion) {
@@ -33,7 +33,7 @@ class CompraRequisicionAutorizarDataTable extends DataTable
 
             })
             ->editColumn('codigo',function (CompraRequisicion $compraRequisicion){
-                return view('compra_requisicions.autorizar.modal_show_requisicion',compact('compraRequisicion'))->render();
+                return view('compra_requisiciones.autorizar.modal_show_requisicion',compact('compraRequisicion'))->render();
             })
             ->rawColumns(['action', 'estado.nombre', 'codigo']);
     }
