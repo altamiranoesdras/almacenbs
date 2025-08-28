@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\CompraRequisicion\CompraRequisicionAprobarController;
+use App\Http\Controllers\CompraRequisicion\CompraRequisicionAutorizarController;
 use App\Http\Controllers\CompraRequisicion\CompraRequisicionController;
 use App\Http\Controllers\CompraRequisicion\CompraRequisicionUsuarioController;
 use App\Http\Controllers\CompraSolicitudController;
@@ -24,6 +25,7 @@ Route::prefix('compra')->name('compra.')->group(function () {
 
         Route::get('mis/requisiciones', [CompraRequisicionUsuarioController::class, 'index'])->name('mis.requisiciones');
         Route::get('aprobar', [CompraRequisicionAprobarController::class, 'index'])->name('aprobar');
+        Route::get('autorizar', [CompraRequisicionAutorizarController::class, 'index'])->name('autorizar');
 
         Route::get('requisicions', [CompraRequisicionController::class, 'index'])->name('requisicions.index');
         Route::get('requisicions/create', [CompraRequisicionController::class, 'create'])->name('requisicions.create');

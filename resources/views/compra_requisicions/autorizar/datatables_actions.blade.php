@@ -15,11 +15,11 @@
 </button>
 @endcan
 
-{{--@can('Editar Compra Requisicions')--}}
-{{--    <a href="{{ route('compra.requisiciones.requisicions.edit', $id) }}" data-toggle="tooltip" title="Editar" class='btn btn-icon btn-outline-warning rounded-circle'>--}}
-{{--        <i class="fa fa-edit"></i>--}}
-{{--    </a>--}}
-{{--@endcan--}}
+@can('Editar Compra Requisicions')
+    <a href="{{ route('compra.requisiciones.requisicions.edit', $id) }}" data-toggle="tooltip" title="Editar" class='btn btn-icon btn-outline-warning rounded-circle'>
+        <i class="fa fa-edit"></i>
+    </a>
+@endcan
 
 @can('Eliminar Compra Requisicions')
     <a href="#" onclick="deleteItemDt(this)" data-id="{{ $id }}" data-toggle="tooltip" title="Eliminar" class='btn btn-icon btn-outline-danger rounded-circle'>
