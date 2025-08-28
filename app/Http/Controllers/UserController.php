@@ -10,6 +10,7 @@ use App\Models\Option;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
+use Exception;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
@@ -56,7 +57,9 @@ class UserController extends AppBaseController
      *
      * @param CreateUserRequest $request
      *
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws Exception
+     * @throws \Throwable
      */
     public function store(CreateUserRequest $request)
     {
@@ -83,7 +86,7 @@ class UserController extends AppBaseController
             $user->syncRoles($roles);
             $user->syncPermissions($permissions);
 
-            $opciones = explode(",",$request->options);
+            $opciones = $request->options ? explode(",", $request->options) : [];
             $user->options()->sync($opciones);
 
             $this->guardarAvatar($user,$request);
@@ -92,7 +95,9 @@ class UserController extends AppBaseController
         } catch (Exception $exception) {
             DB::rollBack();
 
-            throw new Exception($exception);
+            $msg = manejarException($exception);
+            flash($msg)->error();
+            return redirect()->back()->withInput();
         }
 
         DB::commit();
@@ -150,10 +155,12 @@ class UserController extends AppBaseController
     /**
      * Update the specified User in storage.
      *
-     * @param  int              $id
+     * @param int $id
      * @param UpdateUserRequest $request
      *
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws Exception
+     * @throws \Throwable
      */
     public function update(User $user, UpdateUserRequest $request)
     {
@@ -212,7 +219,8 @@ class UserController extends AppBaseController
             $user->syncRoles($roles);
             $user->syncPermissions($permissions);
 
-            $opciones = explode(",",$request->options);
+            $opciones = $request->options ? explode(",", $request->options) : [];
+
             $user->options()->sync($opciones);
 
             $this->guardarAvatar($user,$request);
@@ -221,7 +229,10 @@ class UserController extends AppBaseController
         } catch (Exception $exception) {
             DB::rollBack();
 
-            throw new Exception($exception);
+            $msg = manejarException($exception);
+            flash($msg)->error();
+
+            return redirect()->back()->withInput();
         }
 
         DB::commit();

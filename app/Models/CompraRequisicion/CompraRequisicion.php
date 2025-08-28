@@ -45,6 +45,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read \App\Models\Proveedor|null $proveedorAdjudicado
  * @property-read \App\Models\CompraRequisicionTipoAdquisicion|null $tipoAdquisicion
  * @property-read \App\Models\CompraRequisicionTipoConcurso|null $tipoConcurso
+ * @property-read \App\Models\RrhhUnidad $unidad
  * @method static \Database\Factories\CompraRequisicion\CompraRequisicionFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion newQuery()
@@ -122,16 +123,16 @@ class CompraRequisicion extends Model
     ];
 
     public static $rules = [
-        'tipo_concurso_id' => 'required',
-        'ipo_adquisicion_id' => 'required',
+        'tipo_concurso_id' => 'nullable',
+        'ipo_adquisicion_id' => 'nullable',
         'correlativo' => 'nullable',
-        'codigo' => 'required|string|max:20',
+        'codigo' => 'nullable|string|max:20',
         'codigo_consolidacion' => 'nullable|string|max:45',
         'npg' => 'nullable|string|max:45',
         'nog' => 'nullable|string|max:45',
         'proveedor_adjudicado' => 'nullable',
         'numero_adjudicacion' => 'nullable|string|max:45',
-        'estado_id' => 'required',
+        'estado_id' => 'nullable',
         'subproductos' => 'nullable|string|max:45',
         'partidas' => 'nullable|string|max:45',
         'observaciones' => 'nullable|string|max:65535',

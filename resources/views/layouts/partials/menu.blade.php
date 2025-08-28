@@ -1,6 +1,14 @@
 @can('Ver todas las opciones del menu')
     @foreach($opciones ?? App\Models\Option::padres()->with('children')->get() as $option)
 
+
+        @if($option->id==7)
+            <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">
+                    ALMACÉN
+                </span><i data-feather="more-horizontal"></i>
+            </li>
+        @endif
+
         <li class="nav-item {{$option->active()}}">
             <a class="d-flex align-items-center" href="{{rutaOpcion($option)}}">
                 <i class="fa {{$option->icono_l}} text-{{$option->color}}"></i>
@@ -17,6 +25,14 @@
     @endforeach
 @else
     @foreach($opciones ?? optionsParentAuthUser() as $option)
+
+        @if($option->id==7)
+            <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">
+                    ALMACÉN
+                </span><i data-feather="more-horizontal"></i>
+            </li>
+        @endif
+
         <li class="nav-item {{$option->active()}}">
             <a class="d-flex align-items-center" href="{{rutaOpcion($option)}}">
                 <i class="fa {{$option->icono_l}}"></i>

@@ -16,7 +16,7 @@ class CompraRequisicionAPIController extends AppBaseController
 {
     /**
      * Display a listing of the CompraRequisicions.
-     * GET|HEAD /compra-requisicions
+     * GET|HEAD /compra-requisiciones
      */
     public function index(Request $request): JsonResponse
     {
@@ -36,7 +36,7 @@ class CompraRequisicionAPIController extends AppBaseController
 
     /**
      * Store a newly created CompraRequisicion in storage.
-     * POST /compra-requisicions
+     * POST /compra-requisiciones
      */
     public function store(CreateCompraRequisicionAPIRequest $request): JsonResponse
     {
@@ -50,7 +50,7 @@ class CompraRequisicionAPIController extends AppBaseController
 
     /**
      * Display the specified CompraRequisicion.
-     * GET|HEAD /compra-requisicions/{id}
+     * GET|HEAD /compra-requisiciones/{id}
      */
     public function show($id): JsonResponse
     {
@@ -66,7 +66,7 @@ class CompraRequisicionAPIController extends AppBaseController
 
     /**
      * Update the specified CompraRequisicion in storage.
-     * PUT/PATCH /compra-requisicions/{id}
+     * PUT/PATCH /compra-requisiciones/{id}
      */
     public function update($id, UpdateCompraRequisicionAPIRequest $request): JsonResponse
     {
@@ -85,7 +85,7 @@ class CompraRequisicionAPIController extends AppBaseController
 
     /**
      * Remove the specified CompraRequisicion from storage.
-     * DELETE /compra-requisicions/{id}
+     * DELETE /compra-requisiciones/{id}
      *
      * @throws \Exception
      */

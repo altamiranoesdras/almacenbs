@@ -31,6 +31,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read int|null $stocks_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\StockTransaccion> $transaccionesStock
  * @property-read int|null $transacciones_stock_count
+ * @property-read \App\Models\RrhhUnidad|null $unidadSolicitante
  * @method static \Database\Factories\CompraDetalleFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle newQuery()
@@ -73,7 +74,8 @@ class CompraDetalle extends Model
         'cantidad',
         'precio',
         'descuento',
-        'fecha_vence'
+        'fecha_vence',
+        'unidad_solicita_id',
     ];
 
     /**
@@ -88,7 +90,8 @@ class CompraDetalle extends Model
         'cantidad' => 'decimal:2',
         'precio' => 'decimal:4',
         'descuento' => 'decimal:4',
-        'fecha_vence' => 'date'
+        'fecha_vence' => 'date',
+        'unidad_solicita_id' => 'integer',
     ];
 
     /**
@@ -103,6 +106,7 @@ class CompraDetalle extends Model
         'precio' => 'required|numeric',
         'descuento' => 'nullable|numeric',
         'fecha_vence' => 'nullable',
+        'unidad_solicita_id' => 'nullable|integer',
     ];
 
     /**
@@ -111,6 +115,14 @@ class CompraDetalle extends Model
     public function compra()
     {
         return $this->belongsTo(Compra::class, 'compra_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function unidadSolicitante()
+    {
+        return $this->belongsTo(\App\Models\RrhhUnidad::class, 'unidad_solicita_id');
     }
 
     /**

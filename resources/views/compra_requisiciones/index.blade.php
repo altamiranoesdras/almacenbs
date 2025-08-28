@@ -98,7 +98,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    @include('compra_requisicions.table')
+                    @include('compra_requisiciones.table')
                 </div>
             </div>
         </div>

@@ -4,55 +4,87 @@
 
 @section('content')
 
-    <div class="my-4 text-center">
-        <h1>
-            <p class="text-primary"> Por favor ingresa tu dirección de Email para recibir un link para reestablecer tu contraseña</p>
-        </h1>
-    </div>
 
-    <div class="">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Reset Password') }}</div>
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <div class="auth-wrapper auth-basic px-2">
+                    <div class="auth-inner my-2">
+                        <!-- Forgot Password basic -->
+                        <div class="card mb-0">
+                            <div class="card-body">
+                                <a href="{{route('login')}}" class="brand-logo">
+                                    <img src="{{getIcono()}}" alt="logo" class="img-fluid" style="max-height: 8rem">
+                                    <h2 class="brand-text text-primary ms-1">
+                                        {{config('app.name')}}
+                                    </h2>
+                                </a>
 
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
+                                @if (session('status'))
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <div class="alert-body">
+                                            {{ session('status') }}
+                                        </div>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                @endif
 
-                        <form method="POST" action="{{ route('password.email') }}">
-                            @csrf
+                                <h4 class="card-title mb-1">¿Has olvidado tu contraseña? 🔒</h4>
+                                <p class="card-text mb-2">Ingresa tu correo electrónico y te enviaremos instrucciones para restablecer tu contraseña</p>
 
-                            <div class="form-group row">
-                                
-                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                                <form method="POST" action="{{ route('password.email') }}" class="esperar">
+                                    @csrf
 
-                                <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
-                                    @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
+                                    <div class="mb-1">
+                                        <label for="forgot-password-email" class="form-label">
+                                            Correo electrónico
+                                        </label>
+                                        <div class="col">
+                                            <input id="email"
+                                                   type="email"
+                                                   class="form-control @error('email') is-invalid @enderror"
+                                                   name="email"
+                                                   value="{{ old('email') }}"
+                                                   required
+                                                   placeholder="john@example.com"
+                                                   aria-describedby="forgot-password-email"
+                                                   tabindex="1"
+                                                   autofocus >
 
-                            <div class="form-group row mb-0">
-                                <div class="col-md-6 offset-md-4 mt-2">
-                                    <button type="submit" class="btn btn-primary w-100">
-                                        {{ __('Send Password Reset Link') }}
+                                            @error('email')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-primary w-100" tabindex="2" >
+                                        Enviar enlace de restablecimiento
                                     </button>
-                                </div>
+                                </form>
+
+                                <p class="text-center mt-2">
+                                    <a href="{{route('login')}}">
+                                        <i data-feather="chevron-left"></i>
+                                        Volver al inicio de sesión
+                                    </a>
+                                </p>
                             </div>
-                        </form>
+                        </div>
+                        <!-- /Forgot Password basic -->
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 
+
 @endsection
+

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('titulo_pagina', 'Editar Compra')
+@section('titulo_pagina', 'Editar Ingreso Almacén')
 
 @section('content')
 
@@ -9,7 +9,7 @@
             <div class="row breadcrumbs-top">
                 <div class="col-12">
                     <h2 class="content-header-title float-start mb-0">
-                        Editar Compra
+                        Editar Ingreso Almacén
                     </h2>
                 </div>
             </div>
@@ -52,90 +52,59 @@
                                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                                         @include('compras.show_fields')
                                     </div>
-
-                                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-2">
                                         @include('compras.tabla_detalles',['detalles'=>$compra->detalles])
                                     </div>
-
-                                    {{-- <div class="col-sm-6">
-                                        {!! Form::label('folio_almacen', 'Folio Libro Almacen:') !!}
-                                        <a href="{!! route('compras.libro.almacen.pdf')."?mes={$compra->anio}-{$compra->mes}&buscar=1" !!}" target="_blank">
-                                            Ver
-                                        </a>
-                                        {!! Form::text('folio_almacen', $compra->folio_almacen, ['class' => 'form-control']) !!}
-                                    </div> --}}
-
-
-                                    {{-- <div class="col-sm-6">
-                                        {!! Form::label('folio_inventario', 'Folio Inventario:') !!}
-                                        {!! Form::text('folio_inventario', $compra->folio_inventario, ['class' => 'form-control']) !!}
-                                    </div> --}}
-
-                                    <div class="col-sm-12 mb-1" style="padding: 0px; margin: 0px"></div>
-                                    <br>
-                                    <div class=" col-sm-6 text-left">
-
-                                        <a href="{!! route('compras.index') !!}"
-                                           class="btn round btn-outline-secondary mr-2">Regresar
-                                        </a>
-
-                                        @can('Anular Ingreso de almacen')
-                                            @if($compra->puedeAnular() )
-                                                <a href="#" onclick="deleteItemDt(this)" data-id="{{$compra->id}}"
-                                                   data-toggle="tooltip" title="Anular Ingreso"
-                                                   class='btn round btn-outline-danger ms-1'>
-                                                    Anular Ingreso
-                                                    <i class="fa fa-undo-alt"></i>
-                                                </a>
-
-                                            @endif
-
-                                        @endcan
-
-                                        @if($compra->puedeCancelar() )
-                                            {{--<a href="#modal-delete-{{$compra->id}}" data-bs-toggle="modal" class='btn btn-icon btn-flat-danger rounded-circle'>--}}
-                                            {{--<i class="far fa-trash-alt" data-toggle="tooltip" title="Eliminar Solicitud de Compra"></i>--}}
-                                            {{--</a>--}}
-                                            <span data-toggle="tooltip" title="Cancelar Solicitud de Compra">
-                                                <a href="#modal-delete-{{$compra->id}}" data-bs-toggle="modal"
-                                                   class='btn btn-outline-warning'>
-                                                    Cancelar Solicitud de Compra <i class="fas fa-ban"></i>
-                                                </a>
-                                            </span>
-                                        @endif
-                                    </div>
-
-                                    <div class="col-sm-6 text-right">
-
-
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-sm-4">
                                         @if($compra->estado_id == \App\Models\CompraEstado::PROCESADO_PENDIENTE_RECIBIR )
                                             <a href="{!! route('compra.ingreso',$compra->id) !!}"
                                                class="btn btn-outline-success round ms-1">
                                                 Ingresar
                                             </a>
                                         @endif
-
-                                        <button type="submit" class="btn btn-outline-success round float-end">
+                                    </div>
+                                    <div class="col-sm-4 d-flex justify-content-center">
+                                        <div type="submit" class="btn btn-outline-success round mx-auto">
                                             <i class="fa fa-save "></i>
                                             Actualizar
-                                        </button>
+                                        </div>
                                     </div>
-
-
+                                    <div class="col-sm-4">
+                                        <a href="{!! route('compras.index') !!}" class="btn round btn-outline-secondary mr-2 float-end">
+                                            Regresar
+                                        </a>
+                                    </div>
                                 </div>
                             </form>
 
-
-                            <form action="{{ route('compras.anular', $compra->id)}}"
-                                  method="POST" id="delete-form{{$compra->id}}">
-                                @method('POST')
-                                @csrf
-                            </form>
-
+                            <div class="row">
+                                <div class="col-12">
+                                    @can('Anular Ingreso de almacen')
+                                        @if($compra->puedeAnular() )
+                                            <div onclick="deleteItemDt(this)" data-id="{{$compra->id}}"
+                                                data-toggle="tooltip" title="Anular Ingreso"
+                                                class='btn round btn-outline-danger ms-1 float-end'>
+                                                Anular Ingreso
+                                                <i class="fa fa-undo-alt"></i>
+                                            </div>
+                                        @endif
+                                    @endcan
+                                    @if( $compra->puedeCancelar() )
+                                        <form action="{{ route('compras.anular', $compra->id)}}" method="POST" id="delete-form{{$compra->id}}">
+                                            @method('POST')
+                                            @csrf
+                                            <button data-toggle="tooltip" title="Cancelar Solicitud de Compra" class='btn btn-outline-danger float-end' >
+                                                Cancelar Solicitud de Compra <i class="fas fa-ban"></i>
+                                            </button>
+                                        </form>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
 
                 <div class="card">
                     <div class="card-header">
@@ -209,8 +178,9 @@
 
                                             <div class="form-group col-md-12 mb-1">
                                                 <label>Observaciones:</label>
-                                                <textarea class="form-control" name="observaciones" rows="2"
-                                                          cols="2">{{ $compra->compra1h->observaciones }}</textarea>
+                                                <textarea class="form-control" name="observaciones" rows="2" cols="2">
+                                                    {{ $compra->compra1h->observaciones }}
+                                                </textarea>
                                             </div>
 
                                             <!-- Submit Field -->

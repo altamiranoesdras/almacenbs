@@ -26,8 +26,13 @@ class ProfileController extends Controller
     public function update(User $user,Request $request)
     {
 
+        $data = $request->validate([
+            'username' => 'required|string|max:255|unique:users,username,'.$user->id,
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,'.$user->id,
+        ]);
 
-        $user->fill($request->all());
+        $user->fill($data);
         $user->save();
 
         flash(__('Updated profile!'))->success()->important();

@@ -26,6 +26,10 @@
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
 
             @include('layouts.partials.menu')
+
+            <div class="my-5 py-5">
+                <br>
+            </div>
         </ul>
     </div>
 </div>

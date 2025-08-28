@@ -76,6 +76,15 @@
     <script src="{{asset("app-assets/js/scripts/pages/auth-login.js")}}"></script>
     <!-- END: Page JS-->
 
+
+    @include('layouts.partials.flash_alert')
+    @routes
+
+
+
+
+    <script src="{{ url (mix('/js/app.js')) }}" type="text/javascript"></script>
+
     <script>
         $(window).on('load',  function(){
             if (feather) {
@@ -83,6 +92,9 @@
             }
         })
     </script>
+
+    {{-- Scripts adicionales --}}
+    @stack('scripts')
 
 </body>
 </html>

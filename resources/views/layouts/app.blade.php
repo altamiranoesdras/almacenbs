@@ -58,6 +58,41 @@
 
     @stack('estilos')
 
+    <style>
+        /* Contenedor objetivo que envuelve ÚNICAMENTE la <table> */
+        .dt-overlay-target {
+            position: relative !important;
+            display: block;
+        }
+
+        /* Capa que cubre solo la tabla */
+        .dt-processing-on-table {
+            position: absolute;
+            inset: 0;
+            z-index: 9999;
+            display: none;
+            pointer-events: none; /* no bloquea teclado/clicks */
+        }
+        .dt-processing-on-table::before{
+            content:'';
+            position:absolute; inset:0;
+            background: rgba(255,255,255,.65);
+            backdrop-filter: blur(2px);
+        }
+        /* Toast centrado */
+        .dt-processing-on-table .box{
+            position:absolute; top:50%; left:50%;
+            transform:translate(-50%,-50%);
+            background:#fff; padding:12px 20px; border-radius:10px;
+            font-weight:700; font-size:15px;
+            display:inline-flex; gap:10px; align-items:center;
+            box-shadow:0 10px 30px rgba(0,0,0,.18), 0 2px 8px rgba(0,0,0,.12);
+            border:1px solid rgba(0,0,0,.06);
+        }
+        .dt-processing-on-table .spinner-border{ width:1.35rem; height:1.35rem; }
+
+    </style>
+
 
 </head>
 <!-- END: Head-->
@@ -118,27 +153,69 @@
 
     <script src="{{ url (mix('/js/app.js')) }}" type="text/javascript"></script>
 
-    <script>
 
-        //cada vez que se haga una peticion ajax, se mostrara un mensaje de carga
-        $(document).ajaxStart(function () {
-            Swal.fire({
-                title: 'Procesando...',
-                text: 'Por favor espere',
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                didOpen: () => {
-                    Swal.showLoading();
-                }
-            });
-        });
 
-        //cada vez que se complete una peticion ajax, se cerrara el mensaje de carga
-        $(document).ajaxStop(function () {
-            Swal.close();
-        });
-    </script>
     @stack('scripts')
+
+
+    <script>
+        $(function () {
+            var tableId = 'dataTableBuilder';
+
+            // Salir si no hay DataTables, si no existe la tabla o si Yajra no la registró
+            if (!$.fn.DataTable) return;
+            if (!document.getElementById(tableId)) return;
+            if (!window.LaravelDataTables || !window.LaravelDataTables[tableId]) return;
+
+            var dt     = window.LaravelDataTables[tableId];
+            var $table = $('#' + tableId);
+
+            function ensureOverlay() {
+                var $wrapper    = $(dt.table().container());
+                var $scrollBody = $wrapper.find('div.dataTables_scrollBody'); // si usas scroll
+
+                // 1) Elegir contenedor que SOLO cubre la tabla
+                var $container;
+                if ($scrollBody.length) {
+                    $container = $scrollBody;
+                } else {
+                    // si la tabla es hija directa del wrapper, la envolvemos
+                    if (!$table.parent().hasClass('dt-overlay-target')) {
+                        $table.wrap('<div class="dt-overlay-target"></div>');
+                    }
+                    $container = $table.parent('.dt-overlay-target');
+                }
+
+                // 2) Eliminar overlays mal ubicados (hijos directos del wrapper)
+                $wrapper.children('>.dt-processing-on-table').remove();
+
+                // 3) Insertar overlay si no existe dentro del contenedor correcto
+                if (!$container.find('.dt-processing-on-table').length) {
+                    $container.append(
+                        '<div class="dt-processing-on-table">' +
+                        '<div class="box">' +
+                        '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>' +
+                        'Procesando...' +
+                        '</div>' +
+                        '</div>'
+                    );
+                }
+                return $container.find('.dt-processing-on-table');
+            }
+
+            // Insertar overlay una vez
+            $table.one('init.dt', function(){ ensureOverlay(); });
+
+            // Mostrar antes de request y en draws locales
+            $table.on('preXhr.dt preDraw.dt', function(){ ensureOverlay().show(); });
+
+            // Ocultar al terminar
+            $table.on('xhr.dt draw.dt error.dt', function(){ ensureOverlay().hide(); });
+        });
+
+
+
+    </script>
 
 </body>
 </html>

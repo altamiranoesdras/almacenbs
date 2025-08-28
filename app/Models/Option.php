@@ -78,7 +78,7 @@ class Option extends Model
     const DESPACHAR_REQUISICION =   10;
     const BUSCAR_REQUISICION =      11;
     const NUEVO_ARTICULO =          14;
-    const BUSCAR_ARTÍCULO =         15;
+    const BUSCAR_ARTICULO =         15;
     const CATEGORIAS =              16;
     const UNIDADES_DE_MEDIDA =      17;
     const MARCAS =                  18;

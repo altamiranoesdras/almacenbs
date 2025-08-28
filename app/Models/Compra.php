@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Illuminate\Support\Carbon|null $fecha_ingreso Fecha de ingreso al sistema
  * @property string|null $serie
  * @property string|null $numero
+ * @property int|null $recibo_de_caja
  * @property int $estado_id
  * @property int $usuario_crea
  * @property int|null $usuario_recibe
@@ -44,6 +45,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read mixed $total_venta
  * @property-read \App\Models\Proveedor|null $proveedor
  * @property-read \App\Models\CompraTipo|null $tipo
+ * @property-read \App\Models\RrhhUnidad|null $unidadSolicitante
  * @property-read \App\Models\User $usuarioCrea
  * @property-read \App\Models\User|null $usuarioRecibe
  * @method static \Illuminate\Database\Eloquent\Builder|Compra delItem($item)
@@ -72,6 +74,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereObservaciones($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereOrdenCompra($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereProveedorId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereReciboDeCaja($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereSerie($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereTipoId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereUnidadSolicitaId($value)
@@ -106,6 +109,7 @@ class Compra extends Model
         'fecha_ingreso',
         'serie',
         'numero',
+        'recibo_de_caja',
         'estado_id',
         'usuario_crea',
         'usuario_recibe',
@@ -114,6 +118,7 @@ class Compra extends Model
         'descuento',
         'folio_almacen',
         'folio_inventario',
+        'unidad_solicita_id',
     ];
 
     /**
@@ -131,11 +136,13 @@ class Compra extends Model
         'fecha_ingreso' => 'date',
         'serie' => 'string',
         'numero' => 'string',
+        'recibo_de_caja' => 'integer',
         'estado_id' => 'integer',
         'usuario_crea' => 'integer',
         'usuario_recibe' => 'integer',
         'observaciones' => 'string',
         'orden_compra' => 'string',
+        'unidad_solicita_id' => 'integer',
     ];
 
     /**
@@ -152,11 +159,13 @@ class Compra extends Model
         'fecha_ingreso' => 'nullable',
         'serie' => 'nullable|string|max:45',
         'numero' => 'nullable|string|max:20',
+        'recibo_de_caja' => 'nullable|integer',
         'estado_id' => 'nullable',
         'usuario_crea' => 'nullable',
         'usuario_recibe' => 'nullable',
         'observaciones' => 'nullable|string',
         'orden_compra' => 'nullable|string',
+        'unidad_solicita_id' => 'nullable|integer',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'
@@ -170,6 +179,15 @@ class Compra extends Model
     public function usuarioCrea()
     {
         return $this->belongsTo(\App\Models\User::class, 'usuario_crea');
+    }
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function unidadSolicitante()
+    {
+        return $this->belongsTo(\App\Models\RrhhUnidad::class, 'unidad_solicita_id');
     }
 
     /**

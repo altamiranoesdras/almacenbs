@@ -27,14 +27,14 @@ Route::prefix('compra')->name('compra.')->group(function () {
         Route::get('aprobar', [CompraRequisicionAprobarController::class, 'index'])->name('aprobar');
         Route::get('autorizar', [CompraRequisicionAutorizarController::class, 'index'])->name('autorizar');
 
-        Route::get('requisicions', [CompraRequisicionController::class, 'index'])->name('requisicions.index');
-        Route::get('requisicions/create', [CompraRequisicionController::class, 'create'])->name('requisicions.create');
-        Route::post('requisicions', [CompraRequisicionController::class, 'store'])->name('requisicions.store');
-        Route::get('requisicions/{requisicion}', [CompraRequisicionController::class, 'show'])->name('requisicions.show');
-        Route::get('requisicions/{requisicion}/edit', [CompraRequisicionController::class, 'edit'])->name('requisicions.edit');
-        Route::put('requisicions/{requisicion}', [CompraRequisicionController::class, 'update'])->name('requisicions.update');
-        Route::patch('requisicions/{requisicion}', [CompraRequisicionController::class, 'update']);
-        Route::delete('requisicions/{requisicion}', [CompraRequisicionController::class, 'destroy'])->name('requisicions.destroy');
+        Route::get('requisiciones', [CompraRequisicionController::class, 'index'])->name('requisiciones.index');
+        Route::get('requisiciones/create', [CompraRequisicionController::class, 'create'])->name('requisiciones.create');
+        Route::post('requisiciones', [CompraRequisicionController::class, 'store'])->name('requisiciones.store');
+        Route::get('requisiciones/{requisicion}', [CompraRequisicionController::class, 'show'])->name('requisiciones.show');
+        Route::get('requisiciones/{requisicion}/edit', [CompraRequisicionController::class, 'edit'])->name('requisiciones.edit');
+        Route::put('requisiciones/{requisicion}', [CompraRequisicionController::class, 'update'])->name('requisiciones.update');
+        Route::patch('requisiciones/{requisicion}', [CompraRequisicionController::class, 'update']);
+        Route::delete('requisiciones/{requisicion}', [CompraRequisicionController::class, 'destroy'])->name('requisiciones.destroy');
 
 
     });
