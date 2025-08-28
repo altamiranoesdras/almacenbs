@@ -5,7 +5,7 @@
 @include('layouts.plugins.select2')
 @include('layouts.xtra_condensed_css')
 @include('layouts.plugins.bootstrap_fileinput')
-@push('sidebar_class','sidebar-collapse')
+{{--@push('sidebar_class','sidebar-collapse menu-collapsed')--}}
 
 @section('content')
 
@@ -34,143 +34,366 @@
     </div>
 
     <div class="content-body" id="root">
-
-
         <div class="row">
             <div class="col-12">
                 @include('layouts.errores')
 
-                {!! Form::model($temporal, ['route' => ['compras.update', $temporal->id], 'method' => 'patch']) !!}
-                <div class="row">
+                <div class="card border-info">
+                    {!! Form::model($temporal, ['route' => ['compras.update', $temporal->id], 'method' => 'patch']) !!}
+                    <div class="card-content collapse show">
+                        <div class="card-body p-1">
 
-                    <!-- Articulos -->
-                    <div class="col-12 col-sm-8 col-md-8 col-lg-8">
-                        <div class="card card-warning card-outline">
-                            <div class="card-header with-border py-2">
-                                <h3 class="card-title">
-                                    <strong>Artículos</strong>
-                                    <small class="text-muted text-md">
-                                        (<i class="fas fa-cubes"></i>Stock)
-                                        (<i class="fas fa-archive"></i>Ubicacion)
-                                    </small>
-                                </h3>
-                                <div class="card-tools pull-right">
-                                </div>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <div class="form-group mb-4">
-                                    <select-items
-                                        api="{{route('api.items.index')}}"
-                                        tienda="1"
-                                        v-model="itemSelect"
-                                        ref="multiselect"
-                                    >
-                                    </select-items>
-                                </div>
 
-                                <div class="row mb-2">
-
-                                    <div class="form-group col-12 col-sm-4 col-md-4 col-lg-4">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" data-toggle="tooltip" title="Fecha Vence">
-                                                    Fecha Vence
-                                                </span>
-                                            </div>
-                                            <input
-                                                v-model="editedItem.fecha_vence"
-                                                type="date"
-                                                class="form-control"
-                                                @keydown.enter.prevent="siguienteCampo('cantidad')"
-                                            >
+                                <!-- Resumen -->
+                                <div class="card border-secondary">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h5 class="card-title mb-0">
+                                            Datos generales del ingreso
+                                        </h5>
+                                        <div class="heading-elements">
+                                            <ul class="list-inline mb-0">
+                                                <li>
+                                                    <a data-action="collapse"><i data-feather="chevron-up"></i></a>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
+                                    <div class="card-content collapse show">
+                                        <div class="card-body">
 
-                                    <div class="form-group col-12 col-sm-3 col-md-3 col-lg-3">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" data-toggle="tooltip" title="Cantidad">Cant</span>
+                                            <div class="row">
+
+                                                <div class="col-6 mb-1">
+                                                    <select-proveedor v-model="proveedor" label="Proveedor"></select-proveedor>
+                                                </div>
+
+                                                <div class="col-3 mb-1">
+                                                    <select-compra-tipo v-model="tipo" label="Tipo"></select-compra-tipo>
+                                                </div>
+                                                <div class="col-3 mb-1" v-show="esFactura || esFacturaCambiaria">
+                                                    <label for="serie" >Serie</label>
+                                                    {!! Form::text('serie', null, ['class' => 'form-control','placeholder'=>'Serie']) !!}
+                                                </div>
+
+                                                <div class="col-3" v-show="esFactura || esFacturaCambiaria">
+                                                    <label for="numero" >Número</label>
+                                                    {!! Form::text('numero', null, ['class' => 'form-control','placeholder'=>'Número']) !!}
+                                                </div>
+
+                                                <div class="col-3 mb-1" v-show="esFacturaCambiaria">
+                                                    <label for="recibo_de_caja" >Recibo de caja</label>
+                                                    {!! Form::text('recibo_de_caja', null, ['class' => 'form-control','placeholder'=>'Recibo de caja']) !!}
+                                                </div>
+
+                                                {{--<div class="col-sm-7 mb-1 py-0 m-0">
+                                                    Ingreso inmediato
+                                                    <input type="hidden" name="ingreso_inmediato" :value="ingreso_inmediato ? 1 : 0">
+                                                    <span class="float-right">
+                                                         <toggle-button v-model="ingreso_inmediato"
+                                                                        :sync="true"
+                                                                        :labels="{checked: 'SI', unchecked: 'NO'}"
+                                                                        :height="25"
+                                                                        :width="50"
+                                                                        :value="false"
+                                                         />
+                                                    </span>
+                                                </div>--}}
+
+                                                <div class="col-3 mb-1 ">
+                                                    {!! Form::label('fecha_documento', 'Fecha Documento:') !!}
+                                                    {!! Form::date('fecha_documento', hoyDb(), ['class' => 'form-control']) !!}
+                                                </div>
+                                                <div class="col-3 mb-1 ">
+                                                    {!! Form::label('fecha_ingreso', 'Fecha Ingreso:') !!}
+                                                    {!! Form::date('fecha_ingreso', hoyDb(), ['class' => 'form-control']) !!}
+                                                </div>
+                                                <div class="col-3 mb-1 ">
+                                                    {!! Form::label('orden_compra', 'Orden Compra:') !!}
+                                                    {!! Form::number('orden_compra', null, ['class' => 'form-control', 'required', 'v-model' => 'orden']) !!}
+                                                </div>
+
+
+
+                                                <input type="hidden" name="ingreso_inmediato" value="0">
                                             </div>
-                                            <input
-                                                v-model="editedItem.cantidad"
-                                                type="number"
-                                                min="0" step="any"
-                                                class="form-control"
-                                                ref="cantidad"
-                                                @keydown.enter.prevent="siguienteCampo('precio')"
-                                            >
+
+                                            <div class="row">
+                                                <div class="col mb-1">
+                                                    <div class="input-group">
+                                                        <textarea
+                                                            name="observaciones"
+                                                            id="observaciones"
+                                                            @focus="$event.target.select()"
+                                                            class="form-control"
+                                                            rows="2"
+                                                            placeholder="Observaciones"
+                                                        ></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
                                         </div>
                                     </div>
+                                </div>
+                                <!-- /. Resumen -->
 
-                                    <div class="form-group  col-12 col-sm-5 col-md-5 col-lg-5">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" data-toggle="tooltip" title="Precio compra">{{ dvs() }}</span>
+                                <!-- Articulos -->
+                                <div class="card border-secondary">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title mb-0">
+                                        Insumos / Detalles
+                                        <small class="text-muted text-md">
+                                            (<i class="fas fa-cubes"></i>Stock)
+                                            (<i class="fas fa-archive"></i>Ubicacion)
+                                        </small>
+                                    </h5>
+                                    <div class="heading-elements">
+                                        <ul class="list-inline mb-0">
+                                            <li>
+                                                <a data-action="collapse"><i data-feather="chevron-up"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-content collapse show">
+                                    <div class="card-body">
+
+                                        <div class="row mb-2">
+
+                                            <div class="col-8 mb-1">
+                                                <label for="item_id">Insumo</label>
+                                                <select-items
+                                                    api="{{route('api.items.index')}}"
+                                                    tienda="1"
+                                                    v-model="itemSelect"
+                                                    ref="multiselect"
+                                                >
+                                                </select-items>
                                             </div>
-                                            <input
-                                                v-model="editedItem.precio"
-                                                type="number"
-                                                min="0" step="any"
-                                                ref="precio"
-                                                class="form-control"
-                                                placeholder="Precio compra"
-                                                @keydown.enter.prevent="siguienteCampo('agregar')"
-                                            >
-                                            <span class="input-group-append">
-                                                <button type="button" ref="agregar" class="btn btn-success" @click.prevent="save" :disabled="loading" >
+
+                                            <div class="col-4 mb-1">
+                                                <label for="unidad_solicita">Unidad Solicitante</label>
+                                                <multiselect
+                                                    v-model="editedItem.unidad_solicita"
+                                                    :options="unidades"
+                                                    label="nombre"
+                                                    track-by="id">
+
+                                                </multiselect>
+                                            </div>
+
+                                            <div class="col-3 mb-1">
+                                                <label for="fecha_vence">Fecha Vence</label>
+
+                                                    <input
+                                                        v-model="editedItem.fecha_vence"
+                                                        type="date"
+                                                        class="form-control"
+                                                        @keydown.enter.prevent="siguienteCampo('cantidad')"
+                                                    >
+                                            </div>
+
+                                            <div class="col-2 mb-1">
+                                                <label for="cantidad">Cantidad</label>
+                                                    <input
+                                                        v-model="editedItem.cantidad"
+                                                        type="number"
+                                                        min="0" step="any"
+                                                        class="form-control"
+                                                        ref="cantidad"
+                                                        @keydown.enter.prevent="siguienteCampo('precio')"
+                                                    >
+                                            </div>
+
+                                            <div class="col-2 mb-1">
+                                                <label for="precio">Precio</label>
+                                                <input
+                                                    v-model="editedItem.precio"
+                                                    type="number"
+                                                    min="0" step="any"
+                                                    ref="precio"
+                                                    class="form-control"
+                                                    placeholder="Precio compra"
+                                                    @keydown.enter.prevent="siguienteCampo('agregar')"
+                                                >
+                                            </div>
+
+                                            <div class="col-2">
+                                                <label for="agregar">&nbsp;</label>
+                                                <div>
+                                                    <button type="button" ref="agregar" class="btn btn-success" @click.prevent="save" :disabled="loading" >
                                                     <span v-show="loading" >
                                                         <i class="fa fa-spinner fa-spin"></i>
                                                     </span>
-                                                    <span v-show="!loading" class="glyphicon"></span>
-                                                    <i class="fa fa-plus"></i>
-                                                    Agregar
-                                                </button>
-                                            </span>
-                                        </div><!-- /input-group -->
+                                                        <span v-show="!loading">
+                                                        <i class="fa fa-plus"></i>
+                                                    </span>
+                                                        <span v-text="labelBotonDetalle"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            {{--Boton para cancelar edicion--}}
+                                            <div class="col-2" v-show="detalleEnEdicion">
+                                                <label for="agregar">&nbsp;</label>
+                                                <div>
+                                                    <button type="button" class="btn btn-secondary" @click.prevent="editedItem = Object.assign({}, defaultItem); abreSelectorItems()" :disabled="loading || editedItem.id===0" >
+                                                        <i class="fa fa-times"></i>
+                                                        Cancelar
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                            <table  class="table table-bordered table-sm table-striped" id="tablaDetalle" style="margin-bottom: 2px">
+                                                <thead>
+                                                <tr class="text-sm">
+                                                    <td width="50%">Producto</td>
+                                                    <td width="20s%">Unidad Solicitante</td>
+                                                    <td>Precio</td>
+                                                    <td>Cantidad</td>
+                                                    <td>Fecha Vence</td>
+                                                    <td>Subtotal</td>
+                                                    <td width="10%">Acciones</td>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr v-if="detalle_editable.length==0">
+                                                    <td colspan="7"><span class="help-block text-center">No se ha agregado ningún artículo</span></td>
+                                                </tr>
+                                                <tr v-for="detalle in detalle_editable" class="text-sm">
+                                                    <td v-text="detalle.item.text"></td>
+                                                    <td v-text="detalle.unidad_solicitante.nombre"></td>
+
+                                                    <td v-text="dvs + nfp(detalle.precio)"></td>
+                                                    <td v-text="nf(detalle.cantidad)"></td>
+                                                    <td v-text="detalle.fecha_vence_latina"></td>
+                                                    <td v-text="dvs + nfp(detalle.sub_total)"></td>
+                                                    <td width="10px">
+                                                        <button type="button" class="btn btn-outline-info btn-sm" @click="editItem(detalle)">
+                                                            <i class="fa fa-edit"></i>
+                                                        </button>
+                                                        <button type="button" class='btn btn-outline-danger btn-sm' @click="deleteItem(detalle)" :disabled="(idEliminando===detalle.id)">
+                                                            <span v-show="(idEliminando===detalle.id)" >
+                                                                <i  class="fa fa-sync-alt fa-spin"></i>
+                                                            </span>
+                                                            <span v-show="!(idEliminando===detalle.id)" >
+                                                                <i class="fa fa-trash-alt"></i>
+                                                            </span>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                <tr>
+                                                    <td >
+                                                        <b>Descuento (Q)</b>
+                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>
+
+                                                        <input type="number" class="form-control" step="any" v-model="descuento" name="descuento" >
+                                                    <td></td>
+                                                    <td></td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td >
+                                                        <b>Total</b>
+                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>
+                                                        <b class="pull-right" v-text="dvs + nfp(total)"></b>
+                                                    <td></td>
+                                                    <td></td>
+
+                                                </tr>
+                                                </tfoot>
+
+                                            </table>
                                     </div>
                                 </div>
+                                </div>
+                                <!-- /. Articulos -->
 
-                                <div id="div-info-item"></div>
+                        </div>
+                        <div class="card-footer">
 
-                                @include('compras.tabla_det_vue')
+                            <div class="row">
+
+                                <div class="d-grid col-sm-5 mb-1">
+                                    <a class="btn btn-outline-danger btn-block" data-bs-toggle="modal" href="#modal-cancel-compra">
+                                                                <span data-toggle="tooltip" title="Cancelar compra">
+                                                                    <i class="fa fa-ban"></i>
+                                                                    Cancelar
+                                                                </span>
+                                    </a>
+                                </div>
+
+                                <div class="d-grid col-sm-7 mb-1">
+                                    <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+
+                                    <button type="button"  class="btn btn-outline-success btn-block" @click="procesar()">
+                                        <i class="fa fa-check"></i>
+                                        Procesar
+                                    </button>
+                                </div>
+
                             </div>
+
+
+                            <!-- Modal confirm -->
+                            <div class="modal fade modal-info" id="modal-confirma-procesar">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">PROCESAR COMPRA!</h4>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Seguro que desea continuar?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
+                                            <button type="submit" class="btn btn-primary" name="procesar" value="1"  onclick="esperar()">SI</button>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal -->
+
+                            <!-- Modal cancel -->
+                            <div class="modal fade modal-warning" id="modal-cancel-compra">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <h4 class="modal-title">Cancelar compra!</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            Seguro que desea cancelar la compra?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
+                                            <a href="{{route('compras.destroy',$temporal->id)}}" class="btn btn-danger">
+                                                SI
+                                            </a>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal -->
+
                         </div>
                     </div>
-                    <!-- /. Articulos -->
+                    {!! Form::close() !!}
 
-                    <!-- Resumen -->
-                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
-                        <div class="card card-warning card-outline">
-                            <div class="card-header py-2">
-                                <h3 class="card-title">
-                                    <strong>
-                                        Resumen
-                                        {{--<small>iniciada: {{fechaHoraLtn($temporal->created_at)}}</small>--}}
-                                    </strong>
-                                </h3>
-                                <div class="card-tools pull-right">
-                                    {{--<button class="btn btn-tool" data-widget="collapse" tabindex="1000"><i class="fa fa-minus"></i></button>--}}
-                                    {{--<button class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>--}}
-                                </div>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body" style="padding: 0px;">
-
-                                @include('compras.fields')
-
-                            </div>
-                        </div><!-- /.row -->
-                    </div>
-                    <!-- /. Resumen -->
-
-
-                    {{--                @include('ventas.edit_modal_detalle')--}}
                 </div>
-                {!! Form::close() !!}
             </div>
         </div>
-
     </div>
 
 @endsection
@@ -189,36 +412,32 @@
                 this.getItems();
             },
             data: {
+                detalles: [],
+
                 itemSelect: null,
 
-                detalles: [],
+                unidades: @json(\App\Models\RrhhUnidad::areas()->solicitan()->get()),
 
                 editedItem: {
                     id : 0,
                     compra_id : @json($temporal->id),
-                    unidad_solicita_id: @json( auth()->user()->unidad->id )
                 },
                 defaultItem: {
                     id : 0,
                     compra_id : @json($temporal->id),
+                    unidad_solicita: null,
                     item_id: '',
                     cantidad: 0,
                     fecha_vence: '',
                     precio: 0,
                 },
                 loading: false,
-
                 idEliminando: '',
                 ingreso_inmediato: false,
-
-                fecha_ingreso_plan: "{{hoyDb() ?? old('fecha_ingreso_plan')}}",
-
                 proveedor: @json($compra->proveedor ?? Proveedor::find(old('proveedor_id')) ?? null),
                 tipo: @json($compra->tipo ?? CompraTipo::find(old('tipo_id')) ?? CompraTipo::find(CompraTipo::FACTURA)),
                 descuento: @json($compra->descuento ?? old('descuento') ?? 0),
-
                 orden: '',
-
             },
             methods: {
 
@@ -237,17 +456,17 @@
 
                     return null
                 },
-                editItem (item) {
-                    $("#"+this.id).modal('show');
-                    this.editedItem = Object.assign({}, item);
 
-                },
-                close () {
-                    $("#"+this.id).modal('hide');
-                    this.loading = false;
-                    setTimeout(() => {
-                        this.editedItem = Object.assign({}, this.defaultItem);
-                    }, 300)
+                editItem (detalle) {
+                    this.editedItem = Object.assign({}, detalle);
+                    this.editedItem.unidad_solicita = detalle.unidad_solicitante;
+                    this.itemSelect = detalle.item;
+
+                    //esperar a que Vue actualice el DOM para volver asignar el precio del detalle y no del item
+                    this.$nextTick(() => {
+                        this.editedItem.precio = detalle.precio;
+                    });
+
                 },
                 async getItems () {
 
@@ -328,13 +547,12 @@
                     }
 
                     if(this.orden.length == 0) {
-                        iziTs('El número de orden es requerido');
+                        alertWarning('El número de orden es requerido');
                     }else if(this.orden.length < 5) {
-                        iziTs('El número de orden debe tener al menos 5 caracteres');
+                        alertWarning('El número de orden debe tener al menos 5 caracteres');
                     }
                 },
                 siguienteCampo: function (campo){
-
                     if (campo=='agregar'){
                         $(this.$refs[campo]).focus().select();
                     }else {
@@ -364,7 +582,12 @@
             },
 
             computed: {
-
+                detalleEnEdicion () {
+                    return this.editedItem.id !== 0;
+                },
+                labelBotonDetalle () {
+                    return this.editedItem.id === 0 ? 'Agregar ' : 'Actualizar '
+                },
                 dvs: function(){
                     return @json(dvs())
                 },

@@ -953,3 +953,21 @@ function usuarioAutenticado(): User
     ]);
 }
 
+if (!function_exists('iniciales')) {
+    function iniciales($frase)
+    {
+        // Eliminamos espacios extra
+        $frase = trim(preg_replace('/\s+/', ' ', $frase));
+
+        // Dividimos en palabras
+        $palabras = explode(' ', $frase);
+
+        // Tomamos la primera letra de cada palabra en mayúscula
+        $iniciales = '';
+        foreach ($palabras as $palabra) {
+            $iniciales .= strtoupper(mb_substr($palabra, 0, 1));
+        }
+
+        return $iniciales;
+    }
+}

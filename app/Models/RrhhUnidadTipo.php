@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $nombre
@@ -37,6 +37,13 @@ class RrhhUnidadTipo extends Model
     use HasFactory;
 
     public $table = 'rrhh_unidad_tipos';
+
+    CONST SECRETARIA = 1;
+    CONST SUBSECRETARIA = 2;
+    CONST GRUPO = 3;
+    CONST DIRECCION = 4;
+    CONST DEPARTAMENTO = 5;
+    CONST AREA = 6;
 
     public $fillable = [
         'nombre',

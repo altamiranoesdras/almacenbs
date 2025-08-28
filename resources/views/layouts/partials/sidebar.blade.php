@@ -8,7 +8,8 @@
                             <img src="{{getLogo()}}" alt="Logo">
                     </span>
                     <h2 class="brand-text">
-                        {{config('app.name')}}
+{{--                        {{ iniciales(config('app.name')) }}--}}
+                        SBS
                     </h2>
                 </a></li>
             <li class="nav-item nav-toggle">
