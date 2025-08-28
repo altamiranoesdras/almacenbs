@@ -36,12 +36,13 @@
     <div class="content-body" id="root">
         <div class="row">
             <div class="col-12">
+                @include('layouts.errores')
+
                 <div class="card border-info">
+                    {!! Form::model($temporal, ['route' => ['compras.update', $temporal->id], 'method' => 'patch']) !!}
                     <div class="card-content collapse show">
                         <div class="card-body p-1">
-                            @include('layouts.errores')
 
-                            {!! Form::model($temporal, ['route' => ['compras.update', $temporal->id], 'method' => 'patch']) !!}
 
                                 <!-- Resumen -->
                                 <div class="card border-secondary">
@@ -320,7 +321,6 @@
                                 </div>
                                 <!-- /. Articulos -->
 
-                            {!! Form::close() !!}
                         </div>
                         <div class="card-footer">
 
@@ -389,6 +389,8 @@
 
                         </div>
                     </div>
+                    {!! Form::close() !!}
+
                 </div>
             </div>
         </div>
