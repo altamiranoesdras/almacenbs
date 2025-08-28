@@ -99,7 +99,7 @@
 
 <!-- BEGIN: Body-->
 
-<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
+<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  @stack('sidebar_class')" data-open="click" data-menu="vertical-menu-modern" data-col="">
 
     @include('layouts.partials.navbar')
     @include('layouts.partials.sidebar')

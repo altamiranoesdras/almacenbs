@@ -5,7 +5,7 @@
 @include('layouts.plugins.select2')
 @include('layouts.xtra_condensed_css')
 @include('layouts.plugins.bootstrap_fileinput')
-@push('sidebar_class','sidebar-collapse')
+@push('sidebar_class','sidebar-collapse menu-collapsed')
 
 @section('content')
 
@@ -44,11 +44,11 @@
                 <div class="row">
 
                     <!-- Articulos -->
-                    <div class="col-12 col-sm-8 col-md-8 col-lg-8">
+                    <div class="col-12 ">
                         <div class="card card-warning card-outline">
                             <div class="card-header with-border py-2">
                                 <h3 class="card-title">
-                                    <strong>Artículos</strong>
+                                    <strong>Insumos / Detalles</strong>
                                     <small class="text-muted text-md">
                                         (<i class="fas fa-cubes"></i>Stock)
                                         (<i class="fas fa-archive"></i>Ubicacion)
@@ -131,33 +131,300 @@
                                     </div>
                                 </div>
 
-                                <div id="div-info-item"></div>
+                                <div class="table-responsive">
+                                    <table  class="table table-bordered table-sm table-striped" id="tablaDetalle" style="margin-bottom: 2px">
+                                        <thead>
+                                        <tr class="text-sm">
+                                            <td width="50%">Producto</td>
+                                            <td width="10%">Precio</td>
+                                            <td width="10%">Cantidad</td>
+                                            <td width="10%">Fecha V.</td>
+                                            <td width="10%">Subtotal</td>
+                                            <td width="10%">Unidad Solicitante</td>
+                                            <td width="10%">-</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-if="detalle_editable.length==0">
+                                            <td colspan="7"><span class="help-block text-center">No se ha agregado ningún artículo</span></td>
+                                        </tr>
+                                        <tr v-for="detalle in detalle_editable" class="text-sm">
+                                            <td v-text="detalle.item.text"></td>
+                                            <td>
+                                                <input type="number" class="form-control form-control-sm" step="any" v-model="detalle.precio">
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control form-control-sm" step="any" v-model="detalle.cantidad">
+                                            </td>
+                                            <td >
+                                                <input type="date" class="form-control form-control-sm" v-model="detalle.fecha_vence">
+                                            </td>
+                                            <td v-text="dvs + nfp(detalle.sub_total)"></td>
+                                            <td v-text="detalle.unidad_solicitante.codigo"></td>
+                                            <td width="10px">
+                                                {{--<button type="button" class="btn btn-icon btn-flat-info rounded-circle" @click="editDet(detalle)">--}}
+                                                {{--<i class="fa fa-edit"></i>--}}
+                                                {{--</button>--}}
+                                                <button type="button" class='btn btn-icon btn-flat-danger rounded-circle' @click="deleteItem(detalle)" :disabled="(idEliminando===detalle.id)">
+                                                    <span v-show="(idEliminando===detalle.id)" >
+                                                        <i  class="fa fa-sync-alt fa-spin"></i>
+                                                    </span>
+                                                                                    <span v-show="!(idEliminando===detalle.id)" >
+                                                        <i class="fa fa-trash-alt"></i>
+                                                    </span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <td >
+                                                <b>Descuento (Q)</b>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
 
-                                @include('compras.tabla_det_vue')
+                                                <input type="number" class="form-control" step="any" v-model="descuento" name="descuento" >
+                                            <td></td>
+                                            <td></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                <b>Total</b>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <b class="pull-right" v-text="dvs + nfp(total)"></b>
+                                            <td></td>
+                                            <td></td>
+
+                                        </tr>
+                                        </tfoot>
+
+                                    </table>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                     <!-- /. Articulos -->
 
                     <!-- Resumen -->
-                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="col-12 ">
                         <div class="card card-warning card-outline">
                             <div class="card-header py-2">
                                 <h3 class="card-title">
                                     <strong>
                                         Resumen
-                                        {{--<small>iniciada: {{fechaHoraLtn($temporal->created_at)}}</small>--}}
                                     </strong>
                                 </h3>
                                 <div class="card-tools pull-right">
-                                    {{--<button class="btn btn-tool" data-widget="collapse" tabindex="1000"><i class="fa fa-minus"></i></button>--}}
-                                    {{--<button class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>--}}
                                 </div>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body" style="padding: 0px;">
 
-                                @include('compras.fields')
+                                <ul class="list-group">
+                                    <li class="list-group-item pb-0 pl-2 pr-2">
+                                        <div class="col-sm-12 mb-1">
+                                            <label for="unidad_solicita_id" class="sr-only">Unidad Solicitante</label>
+                                            <input type="text" class="form-control" placeholder="Unidad Solicitante" value="{{ auth()->user()->unidad->nombre }} - {{ auth()->user()->unidad->codigo }}" readonly>
+                                            <input type="hidden" name="unidad_solicita_id" value="{{ auth()->user()->unidad->id }}">
+                                        </div>
+                                    </li>
+
+                                    <li class="list-group-item pb-0 pl-2 pr-2">
+                                        <div class="col-sm-12 mb-1">
+                                            <select-proveedor v-model="proveedor" label="Proveedor"></select-proveedor>
+                                        </div>
+                                    </li>
+
+
+                                    {{--    <!--            Total--}}
+                                    {{--    ------------------------------------------------------------------------>--}}
+                                    {{--    <li class="list-group-item pt-1 pb-1 text-bold ">--}}
+                                    {{--        <div class="row">--}}
+                                    {{--            <div class="col-sm-12 text-lg">--}}
+                                    {{--                Total--}}
+                                    {{--                <span class="float-right" >--}}
+                                    {{--                    {{dvs()}} <span v-text="nfp(total)"></span>--}}
+                                    {{--                </span>--}}
+                                    {{--            </div>--}}
+                                    {{--        </div>--}}
+
+                                    {{--    </li>--}}
+
+
+                                    {{--    <!--            Numero productos--}}
+                                    {{--    ------------------------------------------------------------------------>--}}
+                                    {{--    <li class="list-group-item pt-1 pb-1 text-bold text-md">--}}
+                                    {{--        Cant. Productos:--}}
+                                    {{--        <span class="float-right" v-text="totalitems"></span>--}}
+                                    {{--    </li>--}}
+
+
+                                    <li class="list-group-item pb-0 pl-2 pr-2">
+                                        <div class="col-sm-12 mb-1">
+                                            <select-compra-tipo v-model="tipo" label="Tipo"></select-compra-tipo>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item pb-0 pl-2 pr-2" v-show="esFactura || esFacturaCambiaria">
+                                        <div class="col-sm-12 mb-1">
+                                            <div class="input-group ">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">S</span>
+                                                </div>
+                                                {!! Form::text('serie', null, ['class' => 'form-control','placeholder'=>'Serie']) !!}
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">N</span>
+                                                </div>
+                                                {!! Form::text('numero', null, ['class' => 'form-control','placeholder'=>'Número']) !!}
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="col-12 mb-1" v-show="esFacturaCambiaria">
+                                            <label for="recibo_de_caja" >Recibo de caja</label>
+                                            {!! Form::text('recibo_de_caja', null, ['class' => 'form-control','placeholder'=>'Recibo de caja']) !!}
+                                        </div>
+                                    </li>
+
+
+
+                                    {{-- <li class="list-group-item pb-0 pt-1  text-bold ">
+                                        <div class="row ">
+
+                                            <div class="col-sm-7 mb-1 py-0 m-0">
+                                                Ingreso inmediato
+                                                <input type="hidden" name="ingreso_inmediato" :value="ingreso_inmediato ? 1 : 0">
+                                                <span class="float-right">
+                                                     <toggle-button v-model="ingreso_inmediato"
+                                                                    :sync="true"
+                                                                    :labels="{checked: 'SI', unchecked: 'NO'}"
+                                                                    :height="25"
+                                                                    :width="50"
+                                                                    :value="false"
+                                                     />
+                                                </span>
+                                            </div>
+
+                                        </div>
+
+                                    </li> --}}
+                                    <input type="hidden" name="ingreso_inmediato" value="0">
+
+                                    <li class="list-group-item pb-0 ">
+                                        <div class="row">
+                                            <div class="col-sm-6 mb-1 ">
+                                                {!! Form::label('fecha_documento', 'Fecha Documento:') !!}
+                                                {!! Form::date('fecha_documento', hoyDb(), ['class' => 'form-control']) !!}
+                                            </div>
+                                            <div class="col-sm-6 mb-1 ">
+                                                {!! Form::label('fecha_ingreso', 'Fecha Ingreso:') !!}
+                                                {!! Form::date('fecha_ingreso', hoyDb(), ['class' => 'form-control']) !!}
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-group-item pb-0 ">
+                                        <div class="row">
+                                            <div class="col-sm-6 mb-1 ">
+                                                {!! Form::label('orden_compra', 'Orden Compra:') !!}
+                                                {!! Form::number('orden_compra', null, ['class' => 'form-control', 'required', 'v-model' => 'orden']) !!}
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <!--            Observaciones
+                                    ------------------------------------------------------------------------>
+                                    <li class="list-group-item p-1">
+                                        <div class="input-group">
+            <textarea
+                name="observaciones"
+                id="observaciones"
+                @focus="$event.target.select()"
+                class="form-control"
+                rows="2"
+                placeholder="Observaciones"
+            ></textarea>
+                                        </div>
+                                    </li>
+
+
+                                    <li class="list-group-item pb-0 pl-2 pr-2">
+
+                                        <div class="row">
+
+                                            <div class="d-grid col-sm-5 mb-1">
+                                                <a class="btn btn-outline-danger btn-block" data-bs-toggle="modal" href="#modal-cancel-compra">
+                    <span data-toggle="tooltip" title="Cancelar compra">
+                        <i class="fa fa-ban"></i>
+                        Cancelar
+                    </span>
+                                                </a>
+                                            </div>
+
+                                            <div class="d-grid col-sm-7 mb-1">
+                                                <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+
+                                                <button type="button"  class="btn btn-outline-success btn-block" @click="procesar()">
+                                                    <i class="fa fa-check"></i>
+                                                    Procesar
+                                                </button>
+                                            </div>
+
+                                        </div>
+
+
+                                    </li>
+                                </ul>
+
+                                <!-- Modal confirm -->
+                                <div class="modal fade modal-info" id="modal-confirma-procesar">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">PROCESAR COMPRA!</h4>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Seguro que desea continuar?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
+                                                <button type="submit" class="btn btn-primary" name="procesar" value="1"  onclick="esperar()">SI</button>
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
+
+                                <!-- Modal cancel -->
+                                <div class="modal fade modal-warning" id="modal-cancel-compra">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <h4 class="modal-title">Cancelar compra!</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                Seguro que desea cancelar la compra?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
+                                                <a href="{{route('compras.destroy',$temporal->id)}}" class="btn btn-danger">
+                                                    SI
+                                                </a>
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
+
 
                             </div>
                         </div><!-- /.row -->
