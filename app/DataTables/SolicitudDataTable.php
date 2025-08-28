@@ -91,7 +91,16 @@ class SolicitudDataTable extends DataTable
     {
         return $model->newQuery()
             ->select('solicitudes.*')
-            ->with(['detalles.item','usuarioSolicita','usuarioAutoriza','usuarioAprueba','usuarioDespacha','estado']);
+            ->with([
+                'detalles.item' => function($q){
+                    $q->withoutAppends();
+                },
+                'usuarioSolicita',
+                'usuarioAutoriza',
+                'usuarioAprueba',
+                'usuarioDespacha',
+                'estado'
+            ]);
     }
 
     /**
