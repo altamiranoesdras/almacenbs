@@ -5,6 +5,7 @@ namespace App\DataTables\CompraRequisicion;
 use App\Models\CompraRequisicion\CompraRequisicion;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
+
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;

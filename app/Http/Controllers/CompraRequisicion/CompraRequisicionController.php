@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\CompraRequisicion;
 
 use App\DataTables\CompraRequisicion\CompraRequisicionDataTable;
+use App\DataTables\Scopes\ScopeCompraRequisicion;
 use App\FirmaElectronica\FirmaElectronica;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\Create\CompraRequisicion\CreateCompraRequisicionRequest;
@@ -30,7 +31,11 @@ class CompraRequisicionController extends AppBaseController
      */
     public function index(CompraRequisicionDataTable $compraRequisicionDataTable)
     {
-    return $compraRequisicionDataTable->render('compra_requisicions.index');
+        $scope = new ScopeCompraRequisicion();
+
+        $compraRequisicionDataTable->addScope($scope);
+
+        return $compraRequisicionDataTable->render('compra_requisicions.index');
     }
 
 

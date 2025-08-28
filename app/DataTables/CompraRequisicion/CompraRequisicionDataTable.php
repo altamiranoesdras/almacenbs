@@ -3,6 +3,7 @@
 namespace App\DataTables\CompraRequisicion;
 
 use App\Models\CompraRequisicion\CompraRequisicion;
+use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
@@ -18,18 +19,23 @@ class CompraRequisicionDataTable extends DataTable
     public function dataTable($query)
     {
 
-        return datatables()
-            ->eloquent($query)
-            ->addColumn('action', function(CompraRequisicion $compraRequisicion){
+        $dataTable = new EloquentDataTable($query);
+
+        return $dataTable
+            ->addColumn('action', function (CompraRequisicion $compraRequisicion) {
                 $id = $compraRequisicion->id;
-                return view('compra_requisicions.datatables_actions',compact('compraRequisicion','id'));
+                return view('compra_requisicions.autorizar.datatables_actions',
+                    compact('compraRequisicion', 'id'));
             })
-            ->editColumn('id',function (CompraRequisicion $compraRequisicion){
+            ->editColumn('created_at', function (CompraRequisicion $compraRequisicion) {
 
-                return $compraRequisicion->id;
+                return $compraRequisicion->created_at->format('d/m/Y') ?? 'Sin Fecha';
 
             })
-            ->rawColumns(['action']);
+            ->editColumn('codigo',function (CompraRequisicion $compraRequisicion){
+                return view('compra_requisicions.autorizar.modal_show_requisicion',compact('compraRequisicion'))->render();
+            })
+            ->rawColumns(['action', 'estado.nombre', 'codigo']);
     }
 
     /**
@@ -40,7 +46,10 @@ class CompraRequisicionDataTable extends DataTable
      */
     public function query(CompraRequisicion $model)
     {
-        return $model->newQuery()->select($model->getTable().'.*');
+        return $model->newQuery()->with([
+            'unidad',
+            'estado'
+        ]);
     }
 
     /**
@@ -111,20 +120,28 @@ class CompraRequisicionDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('tipo_concurso_id'),
-            Column::make('ipo_adquisicion_id'),
-            Column::make('correlativo'),
+            Column::make('unidad')
+                ->data('unidad.nombre')
+                ->name('unidad.nombre')
+                ->title('Unidad'),
+
+            Column::make('codigo_consolidacion')
+                ->data('codigo_consolidacion')
+                ->name('codigo_consolidacion')
+                ->title('Código Consolidación'),
+
+            Column::make('fecha_creacion')
+                ->data('created_at')
+                ->name('created_at')
+                ->title('Fecha Creación'),
+
             Column::make('codigo'),
-            Column::make('codigo_consolidacion'),
-            Column::make('npg'),
-            Column::make('nog'),
-            Column::make('proveedor_adjudicado'),
-            Column::make('numero_adjudicacion'),
-            Column::make('estado_id'),
-            Column::make('subproductos'),
-            Column::make('partidas'),
-            Column::make('observaciones'),
-            Column::make('justificacion'),
+
+            Column::make('estado')
+                ->data('estado.nombre')
+                ->name('estado.nombre')
+                ->title('Estado'),
+
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
