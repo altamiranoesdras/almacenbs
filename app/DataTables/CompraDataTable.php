@@ -46,6 +46,7 @@ class CompraDataTable extends DataTable
             ->editColumn('id',function (Compra $compra){
                 return view('compras.columna_id',compact('compra'));
             })
+            
             ->editColumn('fecha_documento',function (Compra $compra){
                 return fechaLtn($compra->fecha_documento);
             })

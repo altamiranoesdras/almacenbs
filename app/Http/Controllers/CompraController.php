@@ -310,11 +310,16 @@ class CompraController extends AppBaseController
 
     public function anular(Compra $compra){
 
+        $justificativa_anulacion = request()->justificativa_anulacion;
         try {
             DB::beginTransaction();
 
             $compra->anular();
 
+
+            $compraH1 = $compra->compra1h;
+            $compraH1->justificativa_anulacion = $justificativa_anulacion;
+            $compraH1->save();
 
         } catch (\Exception $exception) {
             DB::rollBack();

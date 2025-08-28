@@ -4,6 +4,7 @@
 
 @section('content')
 
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <div class="content-header row">
         <div class="content-header-left col-md-9 col-12 mb-2">
             <div class="row breadcrumbs-top">
@@ -83,12 +84,21 @@
                                 <div class="col-12">
                                     @can('Anular Ingreso de almacen')
                                         @if($compra->puedeAnular() )
-                                            <div onclick="deleteItemDt(this)" data-id="{{$compra->id}}"
+
+                                            <button  type="button"
+                                                data-toggle="tooltip" title="Anular Ingreso"
+                                                class="btn round btn-outline-danger ms-1 float-end"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#modal-anular">
+                                                Anular Ingreso <i class="fa fa-undo-alt"></i>
+                                            </button>
+
+                                            {{-- <div onclick="deleteItemDt(this)" data-id="{{$compra->id}}"
                                                 data-toggle="tooltip" title="Anular Ingreso"
                                                 class='btn round btn-outline-danger ms-1 float-end'>
                                                 Anular Ingreso
                                                 <i class="fa fa-undo-alt"></i>
-                                            </div>
+                                            </div> --}}
                                         @endif
                                     @endcan
                                     @if( $compra->puedeCancelar() )
@@ -220,6 +230,49 @@
 
 @endsection
 
+
+{{-- Modal para anular compra --}}
+<div class="modal fade" id="modal-anular" tabindex='-1'>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content " style="color: #0A0A0A">
+            <div class="modal-header">
+                <h5 class="modal-title">Detalles del ingreso</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            {{-- <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-sm">
+                        @include('compras.show_fields',['compra'=>$compra])
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        @include('compras.tabla_detalles',['compra'=>$compra])
+                    </div>
+                </div>
+            </div> --}}
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12" x-data="{ justificativa: '' }">
+                        <form action="{{ route('compras.anular', $compra->id)}}" method="POST">
+                            @method('POST')
+                            {{ Form::textarea('justificativa_anulacion', null, ['class' => 'form-control', 'placeholder' => 'Ingrese motivo de anulación', 'rows' => 4, 'x-model' => 'justificativa', 'minlength' => 25]) }}
+                            <span x-show="justificativa.length <= 25" style="color: red;">
+                                La justificación debe tener al menos 25 caracteres. / 
+                                <b>
+                                    <span x-text="justificativa.length" class="text-info"></span>
+                                </b>
+                            </span>
+                            @csrf
+                            {{-- lo habilita si justificativa_anulacion es mayor a 25 --}}
+                            <template x-if="justificativa.length > 25">
+                                <button type="submit"  class="btn btn-danger click" >Anular Ingreso</button>
+                            </template>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 
 @push('scripts')
