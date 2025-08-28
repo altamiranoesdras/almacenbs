@@ -15,6 +15,11 @@ class ScopeCompraDataTable implements DataTableScope
     public $estados;
     public $del;
     public $al;
+    public $h1;
+    public $unidad_solicitante;
+    public $between;
+    public $orden_compra;
+
 
     public function __construct()
     {
@@ -26,6 +31,9 @@ class ScopeCompraDataTable implements DataTableScope
         $this->estados = request()->estados ?? null;
         $this->between = request()->between ?? null;
         $this->codigo = request()->codigo ?? null;
+        $this->h1 = request()->h1 ?? null;
+        $this->unidad_solicitante = request()->unidad_solicitante ?? null;
+        $this->orden_compra = request()->orden_compra ?? null;
 
     }
 
@@ -79,7 +87,21 @@ class ScopeCompraDataTable implements DataTableScope
 
         }
 
+        if ($this->h1) {
+            $query->whereHas('compra1h', function ($q) {
+                $q->where('folio', 'like', "%$this->h1%");
+            });
+        }
 
+        if ($this->unidad_solicitante) {
+            $query->whereHas('unidadSolicitante', function ($q) {
+                $q->where('nombre', 'like', "%$this->unidad_solicitante%");
+            });
+        }
+
+        if ($this->orden_compra) {
+            $query->where('orden_compra', 'like', "%$this->orden_compra%");
+        }
 
         return $query;
     }

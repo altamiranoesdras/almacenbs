@@ -73,14 +73,25 @@
                                     !!}
                                 </div>
 
-
-
                                 <div class="col-sm-3 mb-1">
                                     {!! Form::label('codigo', 'Codigo:') !!}
                                     {!! Form::text('codigo', null, ['class' => 'form-control']) !!}
                                 </div>
 
+                                <div class="col-sm-3 mb-1">
+                                    {!! Form::label('h1', 'H1:') !!}
+                                    {!! Form::text('h1', null, ['class' => 'form-control']) !!}
+                                </div>
 
+                                <div class="col-sm-3 mb-1">
+                                    {!! Form::label('unidad_solicitante', 'Unidad Solicitante:') !!}
+                                    {!! Form::text('unidad_solicitante', null, ['class' => 'form-control']) !!}
+                                </div>
+
+                                <div class="col-sm-3 mb-1">
+                                    {!! Form::label('orden_compra', 'Orden de Compra:') !!}
+                                    {!! Form::text('orden_compra', null, ['class' => 'form-control']) !!}
+                                </div>
 
                                 <div class="col-sm-3 mb-1 pl-3">
                                     {!! Form::label('boton','&nbsp;') !!}
