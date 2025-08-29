@@ -12,13 +12,6 @@
         </div>
 
         <div class="col-sm-4 mb-1">
-            <label for="tipos">Estado:</label>
-            <multiselect v-model="estados_seleccionados" :options="estados" label="nombre" :multiple="true" track-by="id" placeholder="Seleccione uno..." >
-            </multiselect>
-            <input type="hidden" name="estados[]" v-for="estado in estados_seleccionados" :value="estado.id">
-        </div>
-
-        <div class="col-sm-4 mb-1">
             <label for="tipos">Usuario Solicita:</label>
             <multiselect v-model="usuarios_seleccionados" :options="usuarios" label="name" :multiple="true" track-by="id" placeholder="Seleccione uno..." >
             </multiselect>
