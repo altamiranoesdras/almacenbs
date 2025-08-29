@@ -34,12 +34,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read \App\Models\RrhhUnidadTipo $tipo
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $usuarios
  * @property-read int|null $usuarios_count
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad areas()
  * @method static \Database\Factories\RrhhUnidadFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad padres()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad query()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad solicitan()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereActiva($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereCentroId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereCodigo($value)

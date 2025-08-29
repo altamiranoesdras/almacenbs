@@ -68,9 +68,8 @@ class ComprasSeeder extends Seeder
                 ->afterCreating(function (Compra $compra) {
                     // Procesar ingreso y generar 1h para cada compra
 
-                    $aleatorio = rand(0, 1);
 
-                    if($aleatorio == 1) {
+                    if($compra->estaRecibida()) {
                         $compra->procesaIngreso();
                         $compra->genera1h($compra->correlativo + 10000);
                         //crea egreso de compra

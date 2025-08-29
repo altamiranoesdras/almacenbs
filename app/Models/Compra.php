@@ -39,6 +39,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read int|null $detalles_count
  * @property-read \App\Models\CompraEstado $estado
  * @property-read mixed $anio
+ * @property-read mixed $color_estado
  * @property-read mixed $mes
  * @property-read mixed $sub_total
  * @property-read mixed $total
@@ -517,6 +518,31 @@ class Compra extends Model
             return $correlativo+1;
 
         return 1;
+    }
+
+    public function getColorEstadoAttribute()
+    {
+        switch ($this->estado_id){
+            case CompraEstado::TEMPORAL:
+                return 'secondary';
+            case CompraEstado::PROCESADO_PENDIENTE_RECIBIR:
+                return 'info';
+            case CompraEstado::INGRESADO:
+                return 'success';
+            case CompraEstado::UNO_H_AUTORIZADO:
+            case CompraEstado::UNO_H_APROBADO:
+            case CompraEstado::UNO_H_OPERADO:
+                return 'primary';
+            case CompraEstado::RETORNO_POR_AUTORIZADOR:
+            case CompraEstado::RETORNO_POR_APROBADOR:
+                return 'warning';
+            case CompraEstado::ANULADO:
+            case CompraEstado::CANCELADO:
+                return 'danger';
+            default:
+                return 'light';
+        }
+
     }
 
 
