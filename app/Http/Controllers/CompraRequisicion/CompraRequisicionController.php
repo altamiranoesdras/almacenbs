@@ -9,6 +9,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\Create\CompraRequisicion\CreateCompraRequisicionRequest;
 use App\Http\Requests\Update\CompraRequisicion\UpdateCompraRequisicionRequest;
 use App\Models\CompraRequisicion\CompraRequisicion;
+use App\Models\CompraRequisicion\CompraRequisicionEstado;
 use App\Models\CompraSolicitudEstado;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -113,7 +114,18 @@ class CompraRequisicionController extends AppBaseController
         $compraRequisicion->fill($request->all());
         $compraRequisicion->save();
 
-        flash()->success('Compra Requisicion actualizado.');
+        if($request->solicitar){
+            if($compraRequisicion->tiene_firma_solicitante){
+
+                flash()->success('Requisición de compra solicitada.');
+                return redirect(route('compra.requisiciones.mis.requisiciones'));
+            }else{
+                flash()->error('Debe firmar la requisición para poder solicitarla.');
+                return redirect()->back();
+            }
+        }
+
+        flash()->success('Compra Requisición actualizado.');
 
         return redirect(route('compra.requisiciones.mis.requisiciones'));
     }

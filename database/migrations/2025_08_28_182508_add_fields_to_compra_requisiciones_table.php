@@ -15,9 +15,15 @@ return new class extends Migration
             $table->date('fecha_solicita')->nullable()->after('justificacion');
             $table->date('fecha_aprueba')->nullable()->after('fecha_solicita');
             $table->date('fecha_autoriza')->nullable()->after('fecha_aprueba');
-            $table->boolean('firma_solicitante')->nullable()->after('fecha_autoriza');
-            $table->boolean('firma_aprobador')->nullable()->after('firma_solicitante');
-            $table->boolean('firma_autorizador')->nullable()->after('firma_aprobador');
+            $table->unsignedBigInteger('usuario_solicita_id')->nullable()->after('fecha_aprueba');
+            $table->boolean('tiene_firma_solicitante')->nullable()->after('fecha_autoriza');
+            $table->boolean('tiene_firma_aprobador')->nullable()->after('tiene_firma_solicitante');
+            $table->boolean('tiene_firma_autorizador')->nullable()->after('tiene_firma_aprobador');
+
+            $table->foreign('usuario_solicita_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('set null');
         });
     }
 
@@ -27,12 +33,14 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('compra_requisiciones', function (Blueprint $table) {
+            $table->dropForeign(['usuario_solicita_id']);
             $table->dropColumn('fecha_solicita');
             $table->dropColumn('fecha_aprueba');
             $table->dropColumn('fecha_autoriza');
-            $table->dropColumn('firma_solicitante');
-            $table->dropColumn('firma_aprobador');
-            $table->dropColumn('firma_autorizador');
+            $table->dropColumn('usuario_solicita_id');
+            $table->dropColumn('tiene_firma_solicitante');
+            $table->dropColumn('tiene_firma_aprobador');
+            $table->dropColumn('tiene_firma_autorizador');
         });
     }
 };

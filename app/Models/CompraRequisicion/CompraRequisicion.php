@@ -96,6 +96,7 @@ class CompraRequisicion extends Model
         'npg',
         'nog',
         'usuario_crea_id',
+        'usuario_solicita_id',
         'usuario_aprueba_id',
         'usuario_autoriza_id',
         'usuario_asigna_id',
@@ -107,7 +108,13 @@ class CompraRequisicion extends Model
         'subproductos',
         'partidas',
         'observaciones',
-        'justificacion'
+        'justificacion',
+        'fecha_solicita',
+        'fecha_aprueba',
+        'fecha_autoriza',
+        'tiene_firma_solicitante',
+        'tiene_firma_aprobador',
+        'tiene_firma_autorizador'
     ];
 
     protected $casts = [
@@ -119,7 +126,13 @@ class CompraRequisicion extends Model
         'subproductos' => 'string',
         'partidas' => 'string',
         'observaciones' => 'string',
-        'justificacion' => 'string'
+        'justificacion' => 'string',
+        'fecha_solicita' => 'date',
+        'fecha_aprueba' => 'date',
+        'fecha_autoriza' => 'date',
+        'tiene_firma_solicitante' => 'boolean',
+        'tiene_firma_aprobador' => 'boolean',
+        'tiene_firma_autorizador' => 'boolean',
     ];
 
     public static $rules = [
@@ -139,7 +152,13 @@ class CompraRequisicion extends Model
         'justificacion' => 'nullable|string|max:65535',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
-        'deleted_at' => 'nullable'
+        'deleted_at' => 'nullable',
+        'fecha_solicita' => 'nullable|date',
+        'fecha_aprueba' => 'nullable|date',
+        'fecha_autoriza' => 'nullable|date',
+        'tiene_firma_solicitante' => 'nullable|boolean',
+        'tiene_firma_aprobador' => 'nullable|boolean',
+        'tiene_firma_autorizador' => 'nullable|boolean',
     ];
 
     public static $messages = [
@@ -211,6 +230,16 @@ class CompraRequisicion extends Model
             'solicitud_id'
         );
 
+    }
+
+    public function solicitar(): void
+    {
+        $this->estado_id = CompraRequisicionEstado::REQUERIDA;
+        $this->fecha_solicita = now();
+        $this->usuario_solicita = usuarioAutenticado()->id;
+        $this->save();
+
+        $this->addBitacora("SISTEMA","REQUISICIÓN DE COMPRA SOLICITADA","");
     }
 
 }

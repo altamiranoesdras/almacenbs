@@ -124,20 +124,6 @@
                         </div>
                     </div>
 
-{{--                    <div class="card-footer text-end">--}}
-
-{{--                        <a href="{{ route('compra.requisiciones.requisiciones.index') }}"--}}
-{{--                           class="btn btn-outline-secondary round me-1">--}}
-{{--                            <i class="fa fa-ban"></i>--}}
-{{--                            Cancelar--}}
-{{--                        </a>--}}
-
-{{--                        <button type="submit" class="btn btn-success round">--}}
-{{--                            <i class="fa fa-save"></i>--}}
-{{--                            Guardar--}}
-{{--                        </button>--}}
-{{--                    </div>--}}
-
                     <div class="card-footer">
                         <div class="row mb1">
 
@@ -166,12 +152,30 @@
                             </div>
 
                             <div class="col-sm-3 text-end">
-                                <button type="button"  class="btn btn-outline-primary round">
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#modal-confirma-procesar"
+                                        class="btn btn-outline-primary round">
                                     <i class="fa fa-paper-plane"></i>
-                                    Requerir
+                                    Solicitar
                                 </button>
                             </div>
                         </div>
+                        <div class="modal fade modal-info" id="modal-confirma-procesar">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Solicitar Requisición!</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Seguro que desea continuar?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
+                                        <button type="submit" class="btn btn-primary" name="solicitar" value="1">SI</button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
                     </div>
 
                     {!! Form::close() !!}

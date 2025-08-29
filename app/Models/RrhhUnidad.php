@@ -54,6 +54,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad areas()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad solicitan()
  * @mixin \Eloquent
  */
 class RrhhUnidad extends Model

@@ -6,6 +6,7 @@ use App\DataTables\CompraRequisicion\CompraRequisicionUsuarioDataTable;
 use App\DataTables\Scopes\ScopeCompraRequisicion;
 use App\Http\Controllers\Controller;
 use App\Models\CompraBandeja;
+use Illuminate\Http\Request;
 
 class CompraRequisicionUsuarioController extends Controller
 {
@@ -21,6 +22,11 @@ class CompraRequisicionUsuarioController extends Controller
         $dataTable->addScope($scope);
 
         return $dataTable->render('compra_requisiciones.mis_requisiciones.index',compact('bandeja'));
+
+    }
+
+    public function solicitar(Request $request)
+    {
 
     }
 }
