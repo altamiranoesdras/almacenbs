@@ -2,7 +2,7 @@
 
 namespace Database\Factories\CompraRequisicion;
 
-use App\Models\CompraRequisicion\CompraRequisicionEstado;
+use App\Models\CompraRequisicionEstado;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 

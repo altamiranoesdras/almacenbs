@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\CompraRequisicion\CompraRequisicion;
-use App\Models\CompraRequisicion\CompraRequisicionEstado;
+use App\Models\CompraRequisicionEstado;
 use App\Models\CompraRequisicionDetalle;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;

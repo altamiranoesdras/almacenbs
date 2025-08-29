@@ -6,7 +6,7 @@ use App\DataTables\CompraRequisicion\CompraRequisicionEstadoDataTable;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\Create\CompraRequisicion\CreateCompraRequisicionEstadoRequest;
 use App\Http\Requests\Update\CompraRequisicion\UpdateCompraRequisicionEstadoRequest;
-use App\Models\CompraRequisicion\CompraRequisicionEstado;
+use App\Models\CompraRequisicionEstado;
 
 class CompraRequisicionEstadoController extends AppBaseController
 {

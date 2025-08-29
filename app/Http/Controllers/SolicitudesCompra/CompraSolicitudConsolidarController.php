@@ -6,7 +6,7 @@ use App\DataTables\Scopes\ScopeCompraSolicitudDataTable;
 use App\DataTables\SolicitudesCompra\SolicitudCompraUnificarTable;
 use App\Http\Controllers\Controller;
 use App\Models\CompraRequisicion\CompraRequisicion;
-use App\Models\CompraRequisicion\CompraRequisicionEstado;
+use App\Models\CompraRequisicionEstado;
 use App\Models\CompraRequisicionDetalle;
 use App\Models\CompraSolicitud;
 use App\Models\CompraSolicitudEstado;

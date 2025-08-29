@@ -2,7 +2,7 @@
 
 namespace App\DataTables\CompraRequisicion;
 
-use App\Models\CompraRequisicion\CompraRequisicionEstado;
+use App\Models\CompraRequisicionEstado;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
@@ -35,7 +35,7 @@ class CompraRequisicionEstadoDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\CompraRequisicion\CompraRequisicionEstado $model
+     * @param \App\Models\CompraRequisicionEstado $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(CompraRequisicionEstado $model)

@@ -51,7 +51,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle withoutTrashed()
- * @property-read mixed $fecha_vence_latina
  * @mixin \Eloquent
  */
 class CompraDetalle extends Model

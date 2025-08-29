@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\CompraBandeja;
-use App\Models\CompraRequisicion\CompraRequisicionEstado;
+use App\Models\CompraRequisicionEstado;
 use App\Models\Role;
 use Illuminate\Database\Seeder;
 

@@ -39,6 +39,13 @@ class CompraDataTable extends DataTable
             ->editColumn('fecha_ingreso',function (Compra $compra){
                 return fechaLtn($compra->fecha_ingreso);
             })
+            ->editColumn('estado.nombre',function (Compra $compra){
+
+                $color = $compra->color_estado;
+
+                return "<span class='badge bg-{$color} fw-bold'>{$compra->estado->nombre}</span>";
+
+            })
 
             ->editColumn('total',function (Compra $compra){
                 return dvs().nfp($compra->total);
@@ -65,7 +72,7 @@ class CompraDataTable extends DataTable
                     return $dataTable->results()->count();
                 }
 
-            ]);
+            ])->rawColumns(['action','estado.nombre','id']);
     }
 
     /**
@@ -83,7 +90,8 @@ class CompraDataTable extends DataTable
             ->with([
                 'detalles' => function($q){
                     $q->with('item',function ($q){
-                        $q->withTrashed();
+                        $q->withoutAppends()
+                            ->withTrashed();
                     });
                 },
                 'tipo',

@@ -35,6 +35,14 @@ class CompraRequisicionDataTable extends DataTable
             ->editColumn('codigo',function (CompraRequisicion $compraRequisicion){
                 return view('compra_requisiciones.modal_show_requisicion',compact('compraRequisicion'))->render();
             })
+            ->editColumn('estado.nombre',function (CompraRequisicion $compraRequisicion){
+
+                $color = $compraRequisicion->estado->color;
+
+                return "<span class='badge bg-{$color} fw-bold'>{$compraRequisicion->estado->nombre}</span>";
+
+
+            })
             ->rawColumns(['action', 'estado.nombre', 'codigo']);
     }
 

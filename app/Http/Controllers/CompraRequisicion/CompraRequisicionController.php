@@ -9,7 +9,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\Create\CompraRequisicion\CreateCompraRequisicionRequest;
 use App\Http\Requests\Update\CompraRequisicion\UpdateCompraRequisicionRequest;
 use App\Models\CompraRequisicion\CompraRequisicion;
-use App\Models\CompraRequisicion\CompraRequisicionEstado;
+use App\Models\CompraRequisicionEstado;
 use App\Models\CompraSolicitudEstado;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;

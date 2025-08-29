@@ -2,7 +2,7 @@
 
 namespace Database\Factories\CompraRequisicion;
 
-use App\Models\CompraRequisicion\CompraRequisicionEstado;
+use App\Models\CompraRequisicionEstado;
 use App\Models\CompraRequisicionTipoAdquisicion;
 use App\Models\CompraRequisicionTipoConcurso;
 use App\Models\Proveedor;

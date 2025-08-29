@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Create\CompraRequisicion;
 
-use App\Models\CompraRequisicion\CompraRequisicionEstado;
+use App\Models\CompraRequisicionEstado;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateCompraRequisicionEstadoRequest extends FormRequest

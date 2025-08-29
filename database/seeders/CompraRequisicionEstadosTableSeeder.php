@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\CompraRequisicion\CompraRequisicionEstado;
+use App\Models\CompraRequisicionEstado;
 use Illuminate\Database\Seeder;
 
 class CompraRequisicionEstadosTableSeeder extends Seeder
