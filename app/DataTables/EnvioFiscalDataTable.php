@@ -3,8 +3,8 @@
 namespace App\DataTables;
 
 use App\Models\EnvioFiscal;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Services\DataTable;
 
 class EnvioFiscalDataTable extends DataTable
@@ -21,21 +21,15 @@ class EnvioFiscalDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('action', function(EnvioFiscal $envioFiscal){
+                $id = $envioFiscal->id;
+                return view('envio_fiscals.datatables_actions',compact('envioFiscal','id'));
+            })
+            ->editColumn('id',function (EnvioFiscal $envioFiscal){
 
-                 $id = $envioFiscal->id;
+                return $envioFiscal->id;
 
-                 return view('envio_fiscals.datatables_actions',compact('envioFiscal','id'))->render();
-             })
-             ->editColumn('id',function (EnvioFiscal $envioFiscal){
-
-                 return $envioFiscal->id;
-
-                 //se debe crear la vista modal_detalles
-                 //return view('envio_fiscals.modal_detalles',compact('envioFiscal'))->render();
-
-             })
-            ->rawColumns(['action','id']);
-
+            })
+            ->rawColumns(['action']);
     }
 
     /**
@@ -46,7 +40,7 @@ class EnvioFiscalDataTable extends DataTable
      */
     public function query(EnvioFiscal $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()->select($model->getTable().'.*');
     }
 
     /**
@@ -57,57 +51,56 @@ class EnvioFiscalDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-            ->columns($this->getColumns())
-            ->minifiedAjax()
-            ->ajax([
+                ->columns($this->getColumns())
+                ->minifiedAjax()
+                ->ajax([
                 'data' => "function(data) { formatDataDataTables($('#formFiltersDatatables').serializeArray(), data);   }"
-            ])
-            ->info(true)
-            ->language(['url' => asset('js/SpanishDataTables.json')])
-            ->responsive(true)
-            ->stateSave(false)
-            ->orderBy(1,'desc')
-            ->dom('
+                ])
+                ->info(true)
+                ->language(['url' => asset('js/SpanishDataTables.json')])
+                ->responsive(true)
+                ->stateSave(false)
+                ->orderBy(1,'desc')
+                ->dom('
                     <"card-header border-bottom p-1"
-                        <"head-label">
-                        <"dt-action-buttons text-start" B>
+                    <"head-label">
+                    <"dt-action-buttons text-start" B>
                     >
                     <"d-flex justify-content-between align-items-center mx-0 row"
-                        <"col-sm-12 col-md-6" l>
-                        <"col-sm-12 col-md-6" f>
+                    <"col-sm-12 col-md-6" l>
+                    <"col-sm-12 col-md-6" f>
                     >
                     t
                     <"d-flex justify-content-between mx-0 row"
-                        <"col-sm-12 col-md-6" i>
-                        <"col-sm-12 col-md-6" p>
+                    <"col-sm-12 col-md-6" i>
+                    <"col-sm-12 col-md-6" p>
                     o>
                 ')
-            ->buttons(
+                ->buttons(
 
+                    Button::make('reset')
+                        ->addClass('btn btn-outline-secondary')
+                        ->text('<i class="fa fa-undo"></i> <span class="d-none d-sm-inline">Reiniciar</span>'),
 
-                Button::make('reset')
-                    ->addClass('btn btn-outline-secondary')
-                    ->text('<i class="fa fa-undo"></i> <span class="d-none d-sm-inline">Reiniciar</span>'),
-
-                Button::make('export')
-                    ->extend('collection')
-                    ->addClass('dt-button buttons-collection btn btn-outline-secondary dropdown-toggle me-2')
-                    ->text('<i class="fa fa-download"></i> <span class="d-none d-sm-inline">Exportar</span>')
-                    ->buttons([
-                        Button::make('print')
-                            ->addClass('dropdown-item')
-                            ->text('<i class="fa fa-print"></i> <span class="d-none d-sm-inline"> Imprimir</span>'),
-                        Button::make('csv')
-                            ->addClass('dropdown-item')
-                            ->text('<i class="fa fa-file-csv"></i> <span class="d-none d-sm-inline"> Csv</span>'),
-                        Button::make('pdf')
-                            ->addClass('dropdown-item')
-                            ->text('<i class="fa fa-file-pdf"></i> <span class="d-none d-sm-inline"> Pdf</span>'),
-                        Button::make('excel')
-                            ->addClass('dropdown-item')
-                            ->text('<i class="fa fa-file-excel"></i> <span class="d-none d-sm-inline"> Excel</span>'),
-                    ]),
-            );
+                    Button::make('export')
+                        ->extend('collection')
+                        ->addClass('dt-button buttons-collection btn btn-outline-secondary dropdown-toggle me-2')
+                        ->text('<i class="fa fa-download"></i> <span class="d-none d-sm-inline">Exportar</span>')
+                        ->buttons([
+                            Button::make('print')
+                                ->addClass('dropdown-item')
+                                ->text('<i class="fa fa-print"></i> <span class="d-none d-sm-inline"> Imprimir</span>'),
+                            Button::make('csv')
+                                ->addClass('dropdown-item')
+                                ->text('<i class="fa fa-file-csv"></i> <span class="d-none d-sm-inline"> Csv</span>'),
+                            Button::make('pdf')
+                                ->addClass('dropdown-item')
+                                ->text('<i class="fa fa-file-pdf"></i> <span class="d-none d-sm-inline"> Pdf</span>'),
+                            Button::make('excel')
+                                ->addClass('dropdown-item')
+                                ->text('<i class="fa fa-file-excel"></i> <span class="d-none d-sm-inline"> Excel</span>'),
+                        ]),
+                );
     }
 
     /**
@@ -118,15 +111,16 @@ class EnvioFiscalDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            Column::make('nombre_tabla'),
+            Column::make('correlativo_del'),
+            Column::make('correlativo_al'),
+            Column::make('folio_inicial'),
+            Column::make('folio_actual'),
             Column::make('nuemero_constancia'),
             Column::make('serie_constancia'),
             Column::make('fecha'),
             Column::make('numero_cuenta'),
             Column::make('forma'),
-            Column::make('correlativo_del'),
-            Column::make('correlativo_al'),
-            Column::make('cantidad'),
-            Column::make('pendientes'),
             Column::make('serie'),
             Column::make('numero'),
             Column::make('libro'),
@@ -137,10 +131,10 @@ class EnvioFiscalDataTable extends DataTable
             Column::make('correlativo'),
             Column::make('activo'),
             Column::computed('action')
-                            ->exportable(false)
-                            ->printable(false)
-                            ->width('20%')
-                            ->addClass('text-center'),
+                ->exportable(false)
+                ->printable(false)
+                ->width('20%')
+                ->addClass('text-center')
         ];
     }
 
@@ -151,6 +145,6 @@ class EnvioFiscalDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'envio_fiscals_'  . date('YmdHis');
+        return 'envio_fiscals_datatable_' . time();
     }
 }

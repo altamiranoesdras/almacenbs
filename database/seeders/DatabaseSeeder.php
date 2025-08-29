@@ -66,7 +66,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ActivoTiposTableSeeder::class);
         $this->call(ActivoSolicitudEstadoTableSeeder::class);
         $this->call(ActivoSolicitudTiposTableSeeder::class);
-        $this->call(EnvioFiscalSeeder::class);
+        $this->call(EnvioFiscalsTableSeeder::class);
         $this->call(ConsumoEstadosTableSeeder::class);
         $this->call(ItemPresentacionesTableSeeder::class);
 

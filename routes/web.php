@@ -367,6 +367,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
         Route::post('firmar-documento', [FirmaElectronicaController::class, 'firmarDocumento'])->name('firmar.documento');
     });
 
+    Route::resource('envioFiscals', App\Http\Controllers\EnvioFiscalController::class);
+
 
 });
 

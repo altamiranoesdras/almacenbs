@@ -257,6 +257,9 @@ Route::group(['as'=>'api.'], function () {
 //                ->except(['create', 'edit']);
         });
 
+        Route::resource('envio-fiscals', EnvioFiscalAPIController::class)
+            ->except(['create', 'edit']);
+
 
     });
 

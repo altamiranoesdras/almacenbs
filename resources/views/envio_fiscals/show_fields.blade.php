@@ -1,90 +1,114 @@
-<!-- Nuemero Constancia Field -->
-{!! Form::label('nuemero_constancia', 'Nuemero Constancia:') !!}
-{!! $envioFiscal->nuemero_constancia !!}<br>
-
-
-<!-- Serie Constancia Field -->
-{!! Form::label('serie_constancia', 'Serie Constancia:') !!}
-{!! $envioFiscal->serie_constancia !!}<br>
-
-
-<!-- Fecha Field -->
-{!! Form::label('fecha', 'Fecha:') !!}
-{!! $envioFiscal->fecha !!}<br>
-
-
-<!-- Numero Cuenta Field -->
-{!! Form::label('numero_cuenta', 'Numero Cuenta:') !!}
-{!! $envioFiscal->numero_cuenta !!}<br>
-
-
-<!-- Forma Field -->
-{!! Form::label('forma', 'Forma:') !!}
-{!! $envioFiscal->forma !!}<br>
-
+<!-- Nombre Tabla Field -->
+<div class="col-sm-12">
+    {!! Form::label('nombre_tabla', 'Nombre Tabla:') !!}
+    <p>{{ $envioFiscal->nombre_tabla }}</p>
+</div>
 
 <!-- Correlativo Del Field -->
-{!! Form::label('correlativo_del', 'Correlativo Del:') !!}
-{!! $envioFiscal->correlativo_del !!}<br>
-
+<div class="col-sm-12">
+    {!! Form::label('correlativo_del', 'Correlativo Del:') !!}
+    <p>{{ $envioFiscal->correlativo_del }}</p>
+</div>
 
 <!-- Correlativo Al Field -->
-{!! Form::label('correlativo_al', 'Correlativo Al:') !!}
-{!! $envioFiscal->correlativo_al !!}<br>
+<div class="col-sm-12">
+    {!! Form::label('correlativo_al', 'Correlativo Al:') !!}
+    <p>{{ $envioFiscal->correlativo_al }}</p>
+</div>
 
+<!-- Folio Inicial Field -->
+<div class="col-sm-12">
+    {!! Form::label('folio_inicial', 'Folio Inicial:') !!}
+    <p>{{ $envioFiscal->folio_inicial }}</p>
+</div>
 
-<!-- Cantidad Field -->
-{!! Form::label('cantidad', 'Cantidad:') !!}
-{!! $envioFiscal->cantidad !!}<br>
+<!-- Folio Actual Field -->
+<div class="col-sm-12">
+    {!! Form::label('folio_actual', 'Folio Actual:') !!}
+    <p>{{ $envioFiscal->folio_actual }}</p>
+</div>
 
+<!-- Nuemero Constancia Field -->
+<div class="col-sm-12">
+    {!! Form::label('nuemero_constancia', 'Nuemero Constancia:') !!}
+    <p>{{ $envioFiscal->nuemero_constancia }}</p>
+</div>
 
-<!-- Pendientes Field -->
-{!! Form::label('pendientes', 'Pendientes:') !!}
-{!! $envioFiscal->pendientes !!}<br>
+<!-- Serie Constancia Field -->
+<div class="col-sm-12">
+    {!! Form::label('serie_constancia', 'Serie Constancia:') !!}
+    <p>{{ $envioFiscal->serie_constancia }}</p>
+</div>
 
+<!-- Fecha Field -->
+<div class="col-sm-12">
+    {!! Form::label('fecha', 'Fecha:') !!}
+    <p>{{ $envioFiscal->fecha }}</p>
+</div>
+
+<!-- Numero Cuenta Field -->
+<div class="col-sm-12">
+    {!! Form::label('numero_cuenta', 'Numero Cuenta:') !!}
+    <p>{{ $envioFiscal->numero_cuenta }}</p>
+</div>
+
+<!-- Forma Field -->
+<div class="col-sm-12">
+    {!! Form::label('forma', 'Forma:') !!}
+    <p>{{ $envioFiscal->forma }}</p>
+</div>
 
 <!-- Serie Field -->
-{!! Form::label('serie', 'Serie:') !!}
-{!! $envioFiscal->serie !!}<br>
-
+<div class="col-sm-12">
+    {!! Form::label('serie', 'Serie:') !!}
+    <p>{{ $envioFiscal->serie }}</p>
+</div>
 
 <!-- Numero Field -->
-{!! Form::label('numero', 'Numero:') !!}
-{!! $envioFiscal->numero !!}<br>
-
+<div class="col-sm-12">
+    {!! Form::label('numero', 'Numero:') !!}
+    <p>{{ $envioFiscal->numero }}</p>
+</div>
 
 <!-- Libro Field -->
-{!! Form::label('libro', 'Libro:') !!}
-{!! $envioFiscal->libro !!}<br>
-
+<div class="col-sm-12">
+    {!! Form::label('libro', 'Libro:') !!}
+    <p>{{ $envioFiscal->libro }}</p>
+</div>
 
 <!-- Folio Field -->
-{!! Form::label('folio', 'Folio:') !!}
-{!! $envioFiscal->folio !!}<br>
-
+<div class="col-sm-12">
+    {!! Form::label('folio', 'Folio:') !!}
+    <p>{{ $envioFiscal->folio }}</p>
+</div>
 
 <!-- Resolucion Field -->
-{!! Form::label('resolucion', 'Resolucion:') !!}
-{!! $envioFiscal->resolucion !!}<br>
-
+<div class="col-sm-12">
+    {!! Form::label('resolucion', 'Resolucion:') !!}
+    <p>{{ $envioFiscal->resolucion }}</p>
+</div>
 
 <!-- Numero Gestion Field -->
-{!! Form::label('numero_gestion', 'Numero Gestion:') !!}
-{!! $envioFiscal->numero_gestion !!}<br>
-
+<div class="col-sm-12">
+    {!! Form::label('numero_gestion', 'Numero Gestion:') !!}
+    <p>{{ $envioFiscal->numero_gestion }}</p>
+</div>
 
 <!-- Fecha Gestion Field -->
-{!! Form::label('fecha_gestion', 'Fecha Gestion:') !!}
-{!! $envioFiscal->fecha_gestion !!}<br>
-
+<div class="col-sm-12">
+    {!! Form::label('fecha_gestion', 'Fecha Gestion:') !!}
+    <p>{{ $envioFiscal->fecha_gestion }}</p>
+</div>
 
 <!-- Correlativo Field -->
-{!! Form::label('correlativo', 'Correlativo:') !!}
-{!! $envioFiscal->correlativo !!}<br>
-
+<div class="col-sm-12">
+    {!! Form::label('correlativo', 'Correlativo:') !!}
+    <p>{{ $envioFiscal->correlativo }}</p>
+</div>
 
 <!-- Activo Field -->
-{!! Form::label('activo', 'Activo:') !!}
-{!! $envioFiscal->activo !!}<br>
-
+<div class="col-sm-12">
+    {!! Form::label('activo', 'Activo:') !!}
+    <p>{{ $envioFiscal->activo }}</p>
+</div>
 

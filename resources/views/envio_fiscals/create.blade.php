@@ -1,53 +1,71 @@
 @extends('layouts.app')
 
-@section('titulo_pagina',__('New Envio Fiscal'))
+@section('titulo_pagina', 'Crear Envio Fiscal')
 
 @section('content')
 
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>{{__('New Envio Fiscal')}}</h1>
+
+    <div class="content-header row">
+        <div class="content-header-left col-md-9 col-12 mb-2">
+            <div class="row breadcrumbs-top">
+                <div class="col-12">
+                    <h2 class="content-header-title float-start mb-0">
+                        Crear Envio Fiscal
+                    </h2>
                 </div>
-                <div class="col ">
-                    <a class="btn btn-outline-info float-right"
-                       href="{{route('envioFiscals.index')}}">
-                        <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span class="d-none d-sm-inline">{{__('List')}}</span>
+            </div>
+        </div>
+        <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
+            <div class="mb-1 breadcrumb-right">
+                <div class="dropdown">
+                    <a class="btn btn-outline-secondary float-right"
+                       href="{{ url()->previous() }}"
+                    >
+                        <i class="fa fa-arrow-left"></i>
+                        Regresar
                     </a>
                 </div>
             </div>
-        </div><!-- /.container-fluid -->
-    </section>
+        </div>
+    </div>
 
     <div class="content-body">
-        <div class="container-fluid">
 
-            @include('layouts.partials.request_errors')
+        <div class="row">
+            <div class="col-12">
 
-            <div class="card">
-                <div class="card-body">
+                @include('layouts.partials.request_errors')
+
+                <div class="card">
                     {!! Form::open(['route' => 'envioFiscals.store','class' => 'esperar']) !!}
+
+                    <div class="card-body">
+
                         <div class="row">
-
                             @include('envio_fiscals.fields')
-
-                            <!-- Submit Field -->
-                            <div class="col-sm-12 mb-1 text-right">
-                                <a href="{!! route('envioFiscals.index') !!}" class="btn btn-outline-secondary round me-1">
-                                    Cancelar
-                                </a>
-                                &nbsp;
-                                <button type="submit" class="btn btn-outline-success round">
-                                    <i class="fa fa-floppy-o"></i> Guardar
-                                </button>
-                            </div>
                         </div>
+
+                    </div>
+
+                    <div class="card-footer text-end">
+
+                        <a href="{{ route('envioFiscals.index') }}"
+                           class="btn btn-outline-secondary round me-1">
+                            <i class="fa fa-ban"></i>
+                            Cancelar
+                        </a>
+
+                        <button type="submit" class="btn btn-success round">
+                            <i class="fa fa-save"></i>
+                            Guardar
+                        </button>
+                    </div>
+
                     {!! Form::close() !!}
                 </div>
             </div>
         </div>
+
     </div>
 
 @endsection
