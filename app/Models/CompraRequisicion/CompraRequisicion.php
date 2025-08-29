@@ -263,7 +263,10 @@ class CompraRequisicion extends Model implements HasMedia
 
     public function getLastMediaUrl(string $collection = 'default', string $conversion = ''): ?string
     {
-        return $this->getMedia($collection)->last()?->getUrl($conversion);
+        return $this->getMedia($collection)
+            ->sortByDesc('created_at')
+            ->first()?->getUrl($conversion);
+
     }
 
 

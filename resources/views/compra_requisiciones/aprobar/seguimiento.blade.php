@@ -250,7 +250,7 @@
                          aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <form
-                                action="{{ route('compra.requisiciones.solicitante.firmar.imprimir',$requisicion->id ?? 0) }}"
+                                action="{{ route('compra.requisiciones.aprobador.firmar.imprimir',$requisicion->id ?? 0) }}"
                                 method="POST" class="esperar">
                                 @csrf
                                 <div class="modal-content">

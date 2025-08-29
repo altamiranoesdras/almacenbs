@@ -194,7 +194,7 @@ class CompraRequisicionController extends AppBaseController
             return redirect()
                 ->back()
                 ->with('error', 'La requisición ya tiene la firma del solicitante.')
-                ->with('rutaArchivoFirmado', $requisicion->getFirstMediaUrl(CompraRequisicion::COLLECTION_REQUISICION_COMPRA));
+                ->with('rutaArchivoFirmado', $requisicion->getLastMediaUrl(CompraRequisicion::COLLECTION_REQUISICION_COMPRA));
         }
 
         $request->validate([
@@ -254,8 +254,8 @@ class CompraRequisicionController extends AppBaseController
             ->setRubricaUsuario(auth()->user()->rubrica ?? null)    // o la rúbrica del usuario
             ->setInicioX($x)                                        // coordenadas opcionales
             ->setInicioY($y)                                        // coordenadas opcionales
-            ->setAncho(220)
-            ->setAlto(45)
+            ->setAncho(200)
+            ->setAlto(35)
             ->setLugar('Guatemala, Guatemala')                      // opcional
             ->setTipoSolicitud('PDF')                               // opcional
             ->setConcepto('Requisición de compra')             // opcional
@@ -274,7 +274,7 @@ class CompraRequisicionController extends AppBaseController
 
         return redirect()->back()
             ->with('success', 'PDF generado y firmado correctamente.')
-            ->with('rutaArchivoFirmado', $requisicion->getFirstMediaUrl(CompraRequisicion::COLLECTION_REQUISICION_COMPRA));
+            ->with('rutaArchivoFirmado', $requisicion->getLastMediaUrl(CompraRequisicion::COLLECTION_REQUISICION_COMPRA));
 
         // 4) Asociar el documento
     }

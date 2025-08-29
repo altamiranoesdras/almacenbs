@@ -10,8 +10,6 @@ use App\Models\CompraBandeja;
 use App\Models\CompraRequisicion\CompraRequisicion;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Storage;
 
 class CompraRequisicionAprobarController extends Controller
 {
@@ -79,10 +77,10 @@ class CompraRequisicionAprobarController extends Controller
             ->setCorreo($request->usuario_firma)                         // credenciales del proveedor de firma
             ->setClaveFirma($request->password_firma)
             ->setRubricaUsuario(auth()->user()->rubrica ?? null)    // o la rúbrica del usuario
-            ->setInicioX(250)                                        // coordenadas opcionales
+            ->setInicioX(200)                                        // coordenadas opcionales
             ->setInicioY($y)                                        // coordenadas opcionales
-            ->setAncho(220)
-            ->setAlto(45)
+            ->setAncho(200)
+            ->setAlto(35)
             ->setLugar('Guatemala, Guatemala')                      // opcional
             ->setTipoSolicitud('PDF')                               // opcional
             ->setConcepto('Requisición de compra')             // opcional
