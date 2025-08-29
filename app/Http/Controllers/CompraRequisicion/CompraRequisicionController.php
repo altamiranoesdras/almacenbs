@@ -267,14 +267,13 @@ class CompraRequisicionController extends AppBaseController
             'justificacion' => $request->justificacion,
         ]);
 
-        $requisicion
+        $media = $requisicion
             ->addMediaFromDisk($rutaArchivoFirmado, $disk)
             ->toMediaCollection(CompraRequisicion::COLLECTION_REQUISICION_COMPRA);
 
-
         return redirect()->back()
             ->with('success', 'PDF generado y firmado correctamente.')
-            ->with('rutaArchivoFirmado', $requisicion->getLastMediaUrl(CompraRequisicion::COLLECTION_REQUISICION_COMPRA));
+            ->with('rutaArchivoFirmado', $media->getUrl());
 
         // 4) Asociar el documento
     }
