@@ -6,6 +6,7 @@
 
 @section('content')
 
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <x-content-header titulo="Buscar Ingresos a Almacén">
         <a class="btn btn-success float-right"
            href="{{ route('compras.create') }}">
@@ -15,10 +16,8 @@
     </x-content-header>
 
     <div class="content-body">
-
-
         <div class="row">
-            <div class="col">
+            <div class="col" id="root">
                 <div class="card card-outline card-success">
                     <div class="card-header p-1">
                         <h3 class="card-title">Filtros</h3>
@@ -73,14 +72,31 @@
                                     !!}
                                 </div>
 
-
-
                                 <div class="col-sm-3 mb-1">
                                     {!! Form::label('codigo', 'Codigo:') !!}
                                     {!! Form::text('codigo', null, ['class' => 'form-control']) !!}
                                 </div>
 
+                                <div class="col-sm-3 mb-1">
+                                    {!! Form::label('h1', 'H1:') !!}
+                                    {!! Form::text('h1', null, ['class' => 'form-control']) !!}
+                                </div>
 
+                                <div class="col-3 mb-1">
+                                    <label for="unidad_solicitante">Unidad Solicitante</label>
+                                    <multiselect
+                                        v-model="unidadadSeleccionada"
+                                        :options="unidades"
+                                        label="nombre"
+                                        track-by="id">
+                                    </multiselect>
+                                    <input type="hidden" name="unidad_solicitante" :value="unidadadSeleccionada ? unidadadSeleccionada.id : ''">
+                                </div>
+
+                                <div class="col-sm-3 mb-1">
+                                    {!! Form::label('orden_compra', 'Orden de Compra:') !!}
+                                    {!! Form::text('orden_compra', null, ['class' => 'form-control']) !!}
+                                </div>
 
                                 <div class="col-sm-3 mb-1 pl-3">
                                     {!! Form::label('boton','&nbsp;') !!}
@@ -93,7 +109,6 @@
                                 </div>
                             </div>
                         </form>
-
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -113,29 +128,40 @@
             </div>
             <!-- /.col-md-6 -->
         </div>
-
     </div>
-
 @endsection
-
-
-
-
-
-
 
 @push('scripts')
     <script>
-
-
         $(function () {
             $('#formFiltersDatatables').submit(function(e){
-
                 e.preventDefault();
                 table = window.LaravelDataTables["dataTableBuilder"];
-
                 table.draw();
             });
         })
+
+        vm = new Vue({
+            el: '#root',
+            mounted() {
+                
+            },
+            created: function() {
+                
+            },
+            data: {
+                unidades: @json(\App\Models\RrhhUnidad::areas()->solicitan()->get()),
+                unidadadSeleccionada: null
+            },
+            methods: {
+
+            },
+            computed: {
+
+            },
+            watch:{
+
+            }
+        });
     </script>
 @endpush

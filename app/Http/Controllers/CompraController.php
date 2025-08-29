@@ -24,6 +24,7 @@ use App\Http\Requests\CreateCompraRequest;
 use App\Http\Requests\UpdateCompraRequest;
 use App\Http\Controllers\AppBaseController;
 use App\DataTables\Scopes\ScopeCompraDataTable;
+use App\Models\EnvioFiscal;
 
 class CompraController extends AppBaseController
 {
@@ -310,11 +311,16 @@ class CompraController extends AppBaseController
 
     public function anular(Compra $compra){
 
+        $justificativa_anulacion = request()->justificativa_anulacion;
         try {
             DB::beginTransaction();
 
             $compra->anular();
 
+
+            $compraH1 = $compra->compra1h;
+            $compraH1->justificativa_anulacion = $justificativa_anulacion;
+            $compraH1->save();
 
         } catch (\Exception $exception) {
             DB::rollBack();
@@ -448,8 +454,17 @@ class CompraController extends AppBaseController
         try {
             DB::beginTransaction();
 
-           $compra->genera1h(request()->folio);
+            $envioFiscal = EnvioFiscal::where('nombre_tabla', 'compras')->where('activo', 'si')->first();
 
+            if($envioFiscal->folio_actual >= $envioFiscal->correlativo_al) {
+                $envioFiscal->activo = 'no';
+            }else{
+                $envioFiscal->increment('folio_actual');
+            }
+
+            $envioFiscal->save();
+
+            $compra->genera1h(request()->folio);
 
         } catch (\Exception $exception) {
             DB::rollBack();

@@ -583,6 +583,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $fecha_ingreso Fecha de ingreso al sistema
  * @property string|null $serie
  * @property string|null $numero
+ * @property int|null $recibo_de_caja
  * @property int $estado_id
  * @property int $usuario_crea
  * @property int|null $usuario_recibe
@@ -607,6 +608,7 @@ namespace App\Models{
  * @property-read mixed $total_venta
  * @property-read \App\Models\Proveedor|null $proveedor
  * @property-read \App\Models\CompraTipo|null $tipo
+ * @property-read \App\Models\RrhhUnidad|null $unidadSolicitante
  * @property-read \App\Models\User $usuarioCrea
  * @property-read \App\Models\User|null $usuarioRecibe
  * @method static \Illuminate\Database\Eloquent\Builder|Compra delItem($item)
@@ -635,6 +637,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereObservaciones($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereOrdenCompra($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereProveedorId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereReciboDeCaja($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereSerie($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereTipoId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereUnidadSolicitaId($value)
@@ -644,7 +647,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Compra withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Compra withoutTrashed()
  * @mixin \Eloquent
- * @property-read \App\Models\RrhhUnidad|null $unidadSolicitante
  */
 	class Compra extends \Eloquent {}
 }
@@ -697,6 +699,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1h withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1h withoutTrashed()
  * @mixin \Eloquent
+ * @property string|null $justificativa_anulacion
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra1h whereJustificativaAnulacion($value)
  */
 	class Compra1h extends \Eloquent {}
 }
@@ -747,8 +751,6 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
- *
  * @property int $id
  * @property int $rol_id
  * @property string $nombre
@@ -803,6 +805,7 @@ namespace App\Models{
  * @property-read int|null $stocks_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\StockTransaccion> $transaccionesStock
  * @property-read int|null $transacciones_stock_count
+ * @property-read \App\Models\RrhhUnidad|null $unidadSolicitante
  * @method static \Database\Factories\CompraDetalleFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle newQuery()
@@ -822,7 +825,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraDetalle withoutTrashed()
  * @mixin \Eloquent
- * @property-read \App\Models\RrhhUnidad|null $unidadSolicitante
  */
 	class CompraDetalle extends \Eloquent {}
 }
@@ -857,8 +859,6 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
- *
  * @property int $id
  * @property int $gestion_id
  * @property int $proveedor_id
@@ -895,8 +895,6 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
- *
  * @property int $id
  * @property int $orden_id
  * @property int $item_id
@@ -930,8 +928,6 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
- *
  * @property int $id
  * @property string $nombre
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -958,34 +954,6 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
- *
- * @property int $id
- * @property string $nombre
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @method static \Database\Factories\CompraRequicicionTipoAdquisicionFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionTipoAdquisicion newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionTipoAdquisicion newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionTipoAdquisicion onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionTipoAdquisicion query()
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionTipoAdquisicion whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionTipoAdquisicion whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionTipoAdquisicion whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionTipoAdquisicion whereNombre($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionTipoAdquisicion whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionTipoAdquisicion withTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionTipoAdquisicion withoutTrashed()
- * @mixin \Eloquent
- */
-	class CompraRequicicionTipoAdquisicion extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
- * 
- *
  * @property int $id
  * @property int $requisicion_id
  * @property int $solicitud_detalle_id
@@ -996,6 +964,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read mixed $sub_total
  * @property-read \App\Models\Item $item
  * @property-read \App\Models\CompraRequisicion\CompraRequisicion $requisicion
  * @property-read \App\Models\CompraSolicitudDetalle $solicitudDetalle
@@ -1023,8 +992,29 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
- *
+ * @property int $id
+ * @property string $nombre
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoAdquisicion newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoAdquisicion newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoAdquisicion onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoAdquisicion query()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoAdquisicion whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoAdquisicion whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoAdquisicion whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoAdquisicion whereNombre($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoAdquisicion whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoAdquisicion withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoAdquisicion withoutTrashed()
+ * @mixin \Eloquent
+ */
+	class CompraRequisicionTipoAdquisicion extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * @property int $id
  * @property string $nombre
  * @property string|null $descripcion
@@ -1051,8 +1041,6 @@ namespace App\Models{
 
 namespace App\Models\CompraRequisicion{
 /**
- * 
- *
  * @property int $id
  * @property int|null $tipo_concurso_id
  * @property int|null $ipo_adquisicion_id
@@ -1081,7 +1069,11 @@ namespace App\Models\CompraRequisicion{
  * @property-read int|null $compra_solicitudes_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraRequisicionDetalle> $detalles
  * @property-read int|null $detalles_count
+ * @property-read \App\Models\CompraRequicicionEstado $estado
+ * @property-read \App\Models\Proveedor|null $proveedorAdjudicado
+ * @property-read \App\Models\CompraRequisicionTipoAdquisicion|null $tipoAdquisicion
  * @property-read \App\Models\CompraRequisicionTipoConcurso|null $tipoConcurso
+ * @property-read \App\Models\RrhhUnidad $unidad
  * @method static \Database\Factories\CompraRequisicion\CompraRequisicionFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion newQuery()
@@ -1120,8 +1112,6 @@ namespace App\Models\CompraRequisicion{
 
 namespace App\Models\CompraRequisicion{
 /**
- * 
- *
  * @property int $id
  * @property string $nombre
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -1129,6 +1119,7 @@ namespace App\Models\CompraRequisicion{
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraBandeja> $compraBandejas
  * @property-read int|null $compra_bandejas_count
+ * @property-read string $color
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraRequisicion\CompraRequisicion> $requisicion
  * @property-read int|null $requisicion_count
  * @method static \Database\Factories\CompraRequisicion\CompraRequisicionEstadoFactory factory($count = null, $state = [])
@@ -1150,8 +1141,6 @@ namespace App\Models\CompraRequisicion{
 
 namespace App\Models{
 /**
- * 
- *
  * @property int $id
  * @property int|null $bodega_id
  * @property int|null $unidad_id
@@ -1204,8 +1193,6 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
- *
  * @property int $id
  * @property int $solicitud_id
  * @property int $item_id
@@ -1241,8 +1228,6 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
- *
  * @property int $id
  * @property string $nombre
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -1484,8 +1469,6 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
- *
  * @property int $id
  * @property int|null $padre_id
  * @property string|null $nombre
@@ -2526,8 +2509,6 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
- *
  * @property int $id
  * @property string $nombre
  * @property bool|null $nivel
@@ -2974,8 +2955,6 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
- *
  * @property int $id
  * @property int $user_id
  * @property string $key

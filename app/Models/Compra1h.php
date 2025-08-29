@@ -81,7 +81,8 @@ class Compra1h extends Model
         'al',
         'fecha_procesa',
         'usuario_procesa',
-        'observaciones'
+        'observaciones',
+        'justificativa_anulacion'
     ];
 
     /**
@@ -99,7 +100,8 @@ class Compra1h extends Model
         'al' => 'integer',
         'fecha_procesa' => 'datetime',
         'usuario_procesa' => 'integer',
-        'observaciones' => 'string'
+        'observaciones' => 'string',
+        'justificativa_anulacion' => 'string'
     ];
 
     /**
@@ -117,6 +119,7 @@ class Compra1h extends Model
         'fecha_procesa' => 'nullable',
         'usuario_procesa' => 'required',
         'observaciones' => 'nullable|string',
+        'justificativa_anulacion' => 'nullable|string',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'
