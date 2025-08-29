@@ -15,7 +15,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int|null $tipo_concurso_id
@@ -292,6 +292,18 @@ class CompraRequisicion extends Model implements HasMedia
             ->sortByDesc('created_at')
             ->first()?->getUrl($conversion);
 
+    }
+
+    public function puedeEditar()
+    {
+        return in_array($this->estado_id, [
+            CompraRequisicionEstado::CREADA,
+        ]);
+    }
+
+    public function puedeAnular()
+    {
+        return $this->estado_id != CompraRequisicionEstado::ANULADA;
     }
 
 

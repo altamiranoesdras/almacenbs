@@ -47,6 +47,9 @@ class CompraRequisicionDataTable extends DataTable
     public function query(CompraRequisicion $model)
     {
         return $model->newQuery()->with([
+            'detalles.item' => function ($q) {
+                $q->withOutAppends();
+            },
             'unidad',
             'estado'
         ]);

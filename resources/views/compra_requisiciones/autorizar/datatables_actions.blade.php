@@ -25,7 +25,7 @@
     </a>
 
 
-    <form action="{{ route('compra.requisiciones.requisiciones.destroy', $id) }}" method="POST"
+    <form action="{{ route('compra.requisiciones.destroy', $id) }}" method="POST"
           id="delete-form{{ $id }}">
         @method('DELETE')
         @csrf

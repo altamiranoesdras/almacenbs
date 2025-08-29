@@ -37,7 +37,7 @@
 
                 <div class="card">
 
-                    {!! Form::model($requisicion, ['url' => route('compra.requisiciones.requisiciones.update', $requisicion->id), 'method' => 'patch','class' => 'esperar']) !!}
+                    {!! Form::model($requisicion, ['url' => route('compra.requisiciones.update', $requisicion->id), 'method' => 'patch','class' => 'esperar']) !!}
 
                     <div class="card-body">
                         <div class="row">

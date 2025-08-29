@@ -36,14 +36,14 @@ Route::prefix('compra')->name('compra.')->group(function () {
         Route::get('autorizar/seguimiento/{requisicion}', [CompraRequisicionAutorizarController::class, 'seguimiento'])->name('autorizar.seguimiento');
         Route::patch('autorizar/store/{requisicion}', [CompraRequisicionAutorizarController::class, 'autorizar'])->name('autorizar.store');
 
-        Route::get('requisiciones', [CompraRequisicionController::class, 'index'])->name('requisiciones.index');
-        Route::get('requisiciones/create', [CompraRequisicionController::class, 'create'])->name('requisiciones.create');
-        Route::post('requisiciones', [CompraRequisicionController::class, 'store'])->name('requisiciones.store');
-        Route::get('requisiciones/{requisicion}', [CompraRequisicionController::class, 'show'])->name('requisiciones.show');
-        Route::get('requisiciones/{requisicion}/edit', [CompraRequisicionController::class, 'edit'])->name('requisiciones.edit');
-        Route::put('requisiciones/{requisicion}', [CompraRequisicionController::class, 'update'])->name('requisiciones.update');
+        Route::get('requisiciones', [CompraRequisicionController::class, 'index'])->name('index');
+        Route::get('requisiciones/create', [CompraRequisicionController::class, 'create'])->name('create');
+        Route::post('requisiciones', [CompraRequisicionController::class, 'store'])->name('store');
+        Route::get('requisiciones/{requisicion}', [CompraRequisicionController::class, 'show'])->name('show');
+        Route::get('requisiciones/{requisicion}/edit', [CompraRequisicionController::class, 'edit'])->name('edit');
+        Route::put('requisiciones/{requisicion}', [CompraRequisicionController::class, 'update'])->name('update');
         Route::patch('requisiciones/{requisicion}', [CompraRequisicionController::class, 'update']);
-        Route::delete('requisiciones/{requisicion}', [CompraRequisicionController::class, 'destroy'])->name('requisiciones.destroy');
+        Route::delete('requisiciones/{requisicion}', [CompraRequisicionController::class, 'destroy'])->name('destroy');
 
 
     });
