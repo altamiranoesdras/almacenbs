@@ -19,7 +19,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  *
  * @property int $id
  * @property int|null $tipo_concurso_id
- * @property int|null $ipo_adquisicion_id
+ * @property int|null $tipo_adquisicion_id
  * @property int|null $correlativo
  * @property string|null $codigo ID interno de gestión, p.ej. G-2025-001
  * @property string|null $codigo_consolidacion Código de lote interno, p.ej. L-2025-001
@@ -95,7 +95,7 @@ class CompraRequisicion extends Model implements HasMedia
 
     public $fillable = [
         'tipo_concurso_id',
-        'ipo_adquisicion_id',
+        'tipo_adquisicion_id',
         'correlativo',
         'codigo',
         'codigo_consolidacion',
@@ -143,7 +143,7 @@ class CompraRequisicion extends Model implements HasMedia
 
     public static $rules = [
         'tipo_concurso_id' => 'nullable',
-        'ipo_adquisicion_id' => 'nullable',
+        'tipo_adquisicion_id' => 'nullable',
         'correlativo' => 'nullable',
         'codigo' => 'nullable|string|max:20',
         'codigo_consolidacion' => 'nullable|string|max:45',
@@ -191,7 +191,7 @@ class CompraRequisicion extends Model implements HasMedia
 
     public function tipoAdquisicion(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(\App\Models\CompraRequisicionTipoAdquisicion::class, 'ipo_adquisicion_id');
+        return $this->belongsTo(\App\Models\CompraRequisicionTipoAdquisicion::class, 'tipo_adquisicion_id');
     }
 
     public function tipoConcurso(): \Illuminate\Database\Eloquent\Relations\BelongsTo

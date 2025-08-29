@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\CompraRequisicion;
+namespace Database\Seeders;
 
 use App\Models\CompraRequisicion\CompraRequisicionEstado;
 use Illuminate\Database\Seeder;
@@ -9,7 +9,7 @@ class CompraRequisicionEstadosTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     * Para ejecutar este seeder: php artisan db:seed --class="Database\Seeders\CompraRequisicion\CompraRequisicionEstadosTableSeeder"
+     * Para ejecutar este seeder: php artisan db:seed --class="Database\Seeders\CompraRequisicionEstadosTableSeeder"
      * @return void
      */
     public function run()

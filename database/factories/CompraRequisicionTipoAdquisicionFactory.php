@@ -6,7 +6,7 @@ use App\Models\CompraRequisicionTipoAdquisicion;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 
-class CompraRequicicionTipoAdquisicionFactory extends Factory
+class CompraRequisicionTipoAdquisicionFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
@@ -25,10 +25,8 @@ class CompraRequicicionTipoAdquisicionFactory extends Factory
 
         return [
             'nombre' => $this->faker->text($this->faker->numberBetween(5, 255)),
-            'tipo_proceso' => $this->faker->text($this->faker->numberBetween(5, 4096)),
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s'),
-            'deleted_at' => $this->faker->date('Y-m-d H:i:s')
         ];
     }
 }

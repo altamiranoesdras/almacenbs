@@ -747,7 +747,7 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $rol_id
@@ -857,7 +857,7 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $gestion_id
@@ -895,7 +895,7 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $orden_id
@@ -930,7 +930,7 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $nombre
@@ -958,7 +958,7 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $nombre
@@ -984,7 +984,7 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $requisicion_id
@@ -1023,7 +1023,7 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $nombre
@@ -1051,11 +1051,11 @@ namespace App\Models{
 
 namespace App\Models\CompraRequisicion{
 /**
- * 
+ *
  *
  * @property int $id
  * @property int|null $tipo_concurso_id
- * @property int|null $ipo_adquisicion_id
+ * @property int|null $tipo_adquisicion_id
  * @property int|null $correlativo
  * @property string|null $codigo ID interno de gestión, p.ej. G-2025-001
  * @property string|null $codigo_consolidacion Código de lote interno, p.ej. L-2025-001
@@ -1120,7 +1120,7 @@ namespace App\Models\CompraRequisicion{
 
 namespace App\Models\CompraRequisicion{
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $nombre
@@ -1150,7 +1150,7 @@ namespace App\Models\CompraRequisicion{
 
 namespace App\Models{
 /**
- * 
+ *
  *
  * @property int $id
  * @property int|null $bodega_id
@@ -1204,7 +1204,7 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $solicitud_id
@@ -1241,7 +1241,7 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $nombre
@@ -1484,7 +1484,7 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
+ *
  *
  * @property int $id
  * @property int|null $padre_id
@@ -2526,7 +2526,7 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $nombre
@@ -2974,7 +2974,7 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $user_id

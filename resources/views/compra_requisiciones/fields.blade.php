@@ -7,8 +7,8 @@
 
 <!-- Ipo Adquisicion Id Field -->
 <div class="col-sm-6 mb-1">
-    {!! Form::label('ipo_adquisicion_id', 'Ipo Adquisicion Id:') !!}
-    {!! Form::number('ipo_adquisicion_id', null, ['class' => 'form-control', 'required']) !!}
+    {!! Form::label('tipo_adquisicion_id', 'Ipo Adquisicion Id:') !!}
+    {!! Form::number('tipo_adquisicion_id', null, ['class' => 'form-control', 'required']) !!}
 </div>
 
 

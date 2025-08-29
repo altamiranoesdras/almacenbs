@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('compra_requisiciones', function (Blueprint $table) {
-            $table->foreign(['ipo_adquisicion_id'], 'fk_compra_requisiciones_compra_requisicion_adquisicion_tipos1')->references(['id'])->on('compra_requisicion_tipo_adquisiciones')->onUpdate('no action')->onDelete('no action');
+            $table->foreign(['tipo_adquisicion_id'], 'fk_compra_requisiciones_compra_requisicion_adquisicion_tipos1')->references(['id'])->on('compra_requisicion_tipo_adquisiciones')->onUpdate('no action')->onDelete('no action');
             $table->foreign(['tipo_concurso_id'], 'fk_compra_requisiciones_compra_requisicion_tipo_concursos1')->references(['id'])->on('compra_requisicion_tipo_concursos')->onUpdate('no action')->onDelete('no action');
             $table->foreign(['proveedor_adjudicado'], 'fk_compra_requisiciones_proveedores1')->references(['id'])->on('proveedores')->onUpdate('no action')->onDelete('no action');
             $table->foreign(['estado_id'], 'fk_compra_solicitud_gestiones_compra_solicitud_gestion_estados1')->references(['id'])->on('compra_requisicion_estados')->onUpdate('no action')->onDelete('no action');
