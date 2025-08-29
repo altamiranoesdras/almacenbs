@@ -1,5 +1,5 @@
 @php
-    $detalles = $compraRequisicion->detalles ?? collect();
+    $detalles = $requisicion->detalles ?? collect();
     $Q = $Q ?? 'Q';
     $total = $detalles->sum('sub_total');
     $totalItems = $detalles->count();

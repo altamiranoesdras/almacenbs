@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use phpDocumentor\Reflection\Types\Boolean;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
@@ -252,7 +253,18 @@ class CompraRequisicion extends Model implements HasMedia
     public function puedeSolicitarse(): bool
     {
         return $this->estado_id == CompraRequisicionEstado::CREADA && $this->tiene_firma_solicitante;
-
     }
+
+    public function puedeAprobarse(): bool
+    {
+        return $this->estado_id == CompraRequisicionEstado::REQUERIDA && $this->tiene_firma_aprobador;
+    }
+
+
+    public function getLastMediaUrl(string $collection = 'default', string $conversion = ''): ?string
+    {
+        return $this->getMedia($collection)->last()?->getUrl($conversion);
+    }
+
 
 }

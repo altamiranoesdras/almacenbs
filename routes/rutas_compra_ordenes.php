@@ -19,12 +19,15 @@ Route::prefix('compra')->name('compra.')->group(function () {
     Route::prefix('requisiciones')->name('requisiciones.')->group(function () {
 
         Route::post('solicitante/firmar/imprimir{requisicion}', [CompraRequisicionController::class,'solicitanteFirmarEImprimir'])->name('solicitante.firmar.imprimir');
+        Route::post('aprobador/firmar/imprimir{requisicion}', [CompraRequisicionAprobarController::class,'aprobadorFirmarEImprimir'])->name('aprobador.firmar.imprimir');
+
         Route::resource('estados', App\Http\Controllers\CompraRequicicionEstadoController::class);
         Route::resource('tipo-adquisiciones', App\Http\Controllers\CompraRequicicionTipoAdquisicionController::class);
         Route::resource('tipo-concursos', App\Http\Controllers\CompraRequisicionTipoConcursoController::class);
 
         Route::get('mis/requisiciones', [CompraRequisicionUsuarioController::class, 'index'])->name('mis.requisiciones');
         Route::get('aprobar', [CompraRequisicionAprobarController::class, 'index'])->name('aprobar');
+        Route::get('aprobar/seguimiento/{requisicion}', [CompraRequisicionAprobarController::class, 'seguimiento'])->name('aprobar.seguimiento');
         Route::get('autorizar', [CompraRequisicionAutorizarController::class, 'index'])->name('autorizar');
 
         Route::get('requisiciones', [CompraRequisicionController::class, 'index'])->name('requisiciones.index');

@@ -86,15 +86,15 @@ class CompraRequisicionController extends AppBaseController
     public function edit($id)
     {
         /** @var CompraRequisicion $compraRequisicion */
-        $compraRequisicion = CompraRequisicion::find($id);
+        $requisicion = CompraRequisicion::find($id);
 
-        if (empty($compraRequisicion)) {
+        if (empty($requisicion)) {
             flash()->error('Compra Requisicion no encontrado');
 
             return redirect(route('compra.requisiciones.index'));
         }
 
-        return view('compra_requisiciones.edit')->with('compraRequisicion', $compraRequisicion);
+        return view('compra_requisiciones.edit')->with('requisicion', $requisicion);
     }
 
     /**

@@ -6,7 +6,7 @@
 <button
     type="button"
     data-bs-toggle="modal"
-    data-bs-target="#modal-detalles-{{ $compraRequisicion->id }}"
+    data-bs-target="#modal-detalles-{{ $requisicion->id }}"
     data-toggle="tooltip"
     title="Ver detalles"
     class='btn btn-icon btn-outline-info rounded-circle'
@@ -16,7 +16,7 @@
 @endcan
 
 @can('Editar Compra Requisicions')
-    <a href="{{ route('compra.requisiciones.requisiciones.edit', $id) }}" data-toggle="tooltip" title="Editar" class='btn btn-icon btn-outline-warning rounded-circle'>
+    <a href="{{ route('compra.requisiciones.aprobar.seguimiento', $id) }}" data-toggle="tooltip" title="Editar" class='btn btn-icon btn-outline-warning rounded-circle'>
         <i class="fa fa-edit"></i>
     </a>
 @endcan
