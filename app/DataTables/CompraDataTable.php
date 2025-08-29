@@ -36,13 +36,6 @@ class CompraDataTable extends DataTable
                 return $h1;
             })
 
-            ->addColumn('unidad_solicitante',function (Compra $compra){
-
-                $unidadSolicitante = $compra->unidadSolicitante->nombre ?? null;
-
-                return $unidadSolicitante;
-            })
-
             ->editColumn('id',function (Compra $compra){
                 return view('compras.columna_id',compact('compra'));
             })
@@ -205,7 +198,6 @@ class CompraDataTable extends DataTable
                     ->data('usuario_crea.name')
                     ->name('usuarioCrea.name'),
             Column::make('h1'),
-            Column::make('unidad_solicitante'),
             Column::make('orden_compra')
             ->data('orden_compra')
             ->name('orden_compra'),

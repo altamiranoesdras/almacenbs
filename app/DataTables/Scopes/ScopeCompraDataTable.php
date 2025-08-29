@@ -93,9 +93,13 @@ class ScopeCompraDataTable implements DataTableScope
             });
         }
 
-        if ($this->unidad_solicitante) {
-            $query->whereHas('unidadSolicitante', function ($q) {
-                $q->where('nombre', 'like', "%$this->unidad_solicitante%");
+        if($this->unidad_solicitante){
+            $query->whereHas('detalles', function ($queryDetalles) {
+                if (is_array($this->unidad_solicitante)){
+                    $queryDetalles->whereIn('unidad_solicita_id', $this->unidad_solicitante);
+                }else{
+                    $queryDetalles->where('unidad_solicita_id', $this->unidad_solicitante);
+                }
             });
         }
 

@@ -16,10 +16,8 @@
     </x-content-header>
 
     <div class="content-body">
-
-
         <div class="row">
-            <div class="col">
+            <div class="col" id="root">
                 <div class="card card-outline card-success">
                     <div class="card-header p-1">
                         <h3 class="card-title">Filtros</h3>
@@ -84,9 +82,15 @@
                                     {!! Form::text('h1', null, ['class' => 'form-control']) !!}
                                 </div>
 
-                                <div class="col-sm-3 mb-1">
-                                    {!! Form::label('unidad_solicitante', 'Unidad Solicitante:') !!}
-                                    {!! Form::text('unidad_solicitante', null, ['class' => 'form-control']) !!}
+                                <div class="col-3 mb-1">
+                                    <label for="unidad_solicitante">Unidad Solicitante</label>
+                                    <multiselect
+                                        v-model="unidadadSeleccionada"
+                                        :options="unidades"
+                                        label="nombre"
+                                        track-by="id">
+                                    </multiselect>
+                                    <input type="hidden" name="unidad_solicitante" :value="unidadadSeleccionada ? unidadadSeleccionada.id : ''">
                                 </div>
 
                                 <div class="col-sm-3 mb-1">
@@ -105,7 +109,6 @@
                                 </div>
                             </div>
                         </form>
-
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -125,29 +128,40 @@
             </div>
             <!-- /.col-md-6 -->
         </div>
-
     </div>
-
 @endsection
-
-
-
-
-
-
 
 @push('scripts')
     <script>
-
-
         $(function () {
             $('#formFiltersDatatables').submit(function(e){
-
                 e.preventDefault();
                 table = window.LaravelDataTables["dataTableBuilder"];
-
                 table.draw();
             });
         })
+
+        vm = new Vue({
+            el: '#root',
+            mounted() {
+                
+            },
+            created: function() {
+                
+            },
+            data: {
+                unidades: @json(\App\Models\RrhhUnidad::areas()->solicitan()->get()),
+                unidadadSeleccionada: null
+            },
+            methods: {
+
+            },
+            computed: {
+
+            },
+            watch:{
+
+            }
+        });
     </script>
 @endpush
