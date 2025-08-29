@@ -185,8 +185,22 @@ class CompraRequisicionController extends AppBaseController
 
 
 
-    public function solicitanteFirmar(CompraRequisicion $requisicion, Request $request)
+    /**
+     * Genera el PDF de la requisición, lo firma electrónicamente y lo asocia al modelo.
+     */
+    public function solicitanteFirmarEImprimir(CompraRequisicion $requisicion, Request $request)
     {
+        $request->validate([
+            'usuario_firma'   => ['required','string'],
+            'password_firma'  => ['required','string'],
+        ]);
+        if ($requisicion->tiene_firma_solicitante) {
+            return redirect()
+                ->back()
+                ->with('error', 'La requisición ya tiene la firma del solicitante.')
+                ->with('rutaArchivoFirmado', $requisicion->getFirstMediaUrl(CompraRequisicion::COLLECTION_REQUISICION_COMPRA));
+        }
+
         // 1) Generar el PDF con Snappy (wkhtmltopdf)
         $pdf = App::make('snappy.pdf.wrapper');
 
@@ -242,9 +256,12 @@ class CompraRequisicionController extends AppBaseController
             'tiene_firma_solicitante' => true,
         ]);
 
+        $requisicion->addMediaFromUrl(asset('storage/' . $rutaArchivoFirmado))
+            ->toMediaCollection(CompraRequisicion::COLLECTION_REQUISICION_COMPRA);
+
         return redirect()->back()
             ->with('success', 'PDF generado y firmado correctamente.')
-            ->with('rutaArchivoFirmado', $rutaArchivoFirmado);
+            ->with('rutaArchivoFirmado', $requisicion->getFirstMediaUrl(CompraRequisicion::COLLECTION_REQUISICION_COMPRA));
 
         // 4) Asociar el documento
     }

@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
  *
@@ -80,12 +82,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion withoutTrashed()
  * @mixin \Eloquent
  */
-class CompraRequisicion extends Model
+class CompraRequisicion extends Model implements HasMedia
 {
 
     use SoftDeletes;
     use HasFactory;
     use HasBitacora;
+    use InteractsWithMedia;
 
     public $table = 'compra_requisiciones';
 
@@ -166,6 +169,8 @@ class CompraRequisicion extends Model
     public static $messages = [
 
     ];
+
+    const COLLECTION_REQUISICION_COMPRA = 'requisicion_compra';
 
     protected static function booted()
     {

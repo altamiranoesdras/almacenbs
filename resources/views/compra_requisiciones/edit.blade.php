@@ -186,7 +186,7 @@
                     <div class="modal fade" id="modalFirmar" tabindex="-1" role="dialog"
                          aria-labelledby="modelTitleId" aria-hidden="true">
                         <div class="modal-dialog" role="document">
-                            <form action="{{ route('compra.requisiciones.solicitante.firmar',$compraRequisicion->id ?? 0) }}" method="POST" class="esperar">
+                            <form action="{{ route('compra.requisiciones.solicitante.firmar.imprimir',$compraRequisicion->id ?? 0) }}" method="POST" class="esperar">
                                 @csrf
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -245,7 +245,7 @@
                 <div class="modal-body p-0">
                     <!-- Aquí va el visor PDF -->
                     <div class="ratio ratio-16x9">
-                        <iframe src="{{ asset('storage/' . session('rutaArchivoFirmado')) }}"
+                        <iframe src="{{ session('rutaArchivoFirmado') }}"
                                 frameborder="0"></iframe>
 
                     </div>
