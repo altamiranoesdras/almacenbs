@@ -17,25 +17,31 @@
             @include('layouts.partials.request_errors')
 
             <div class="card">
+                {!! Form::open(['route' => 'rrhhUnidades.store','class' => 'esperar']) !!}
+
                 <div class="card-body">
-                    {!! Form::open(['route' => 'rrhhUnidades.store','class' => 'esperar']) !!}
                         <div class="row">
 
                             @include('rrhh_unidads.fields')
 
-                            <div class="col-sm-12 mb-1 text-right">
-                                <a href="{!! route('rrhhUnidades.index') !!}" class="btn btn-outline-secondary round me-1">
-                                    Cancelar
-                                </a>
-                                &nbsp;
-                                <button type="submit" class="btn btn-outline-success round">
-                                    <i class="fa fa-floppy-o"></i> Guardar
-                                </button>
-                            </div>
+
                         </div>
-                    {!! Form::close() !!}
                 </div>
-        </div>
+                <div class="card-footer">
+                    <div class="col-sm-12 mb-1 text-end">
+                        <a href="{!! route('rrhhUnidades.index') !!}" class="btn btn-outline-secondary round me-1">
+                            Cancelar
+                        </a>
+                        &nbsp;
+                        <button type="submit" class="btn btn-success round">
+                            <i class="fa fa-save"></i>
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+                {!! Form::close() !!}
+
+            </div>
     </div>
 
 @endsection

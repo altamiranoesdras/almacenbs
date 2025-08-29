@@ -105,7 +105,9 @@ class RrhhUnidadController extends AppBaseController
             return redirect(route('rrhhUnidads.index'));
         }
 
-        return view('rrhh_unidads.edit')->with('rrhhUnidad', $rrhhUnidad);
+        $parent = $rrhhUnidad->parent ?? null;
+
+        return view('rrhh_unidads.edit', compact('rrhhUnidad','parent'));
     }
 
     /**

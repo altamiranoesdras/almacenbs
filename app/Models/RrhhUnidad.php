@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read int|null $children_count
  * @property-read string $text
  * @property-read \App\Models\User|null $jefe
+ * @property-read RrhhUnidad|null $parent
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RrhhPuesto> $puestos
  * @property-read int|null $puestos_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Solicitud> $solicitudes
@@ -56,8 +57,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad withoutTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad areas()
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad solicitan()
  * @mixin \Eloquent
  */
 class RrhhUnidad extends Model
@@ -145,6 +144,10 @@ class RrhhUnidad extends Model
         return $this->hasMany(User::class, 'unidad_id');
     }
 
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(RrhhUnidad::class,'unidad_padre_id','id')->with('parent');
+    }
     public function children(): HasMany
     {
         return $this->hasMany(RrhhUnidad::class,'unidad_padre_id','id')

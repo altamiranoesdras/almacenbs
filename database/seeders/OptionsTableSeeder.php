@@ -1234,7 +1234,7 @@ class OptionsTableSeeder extends Seeder
                 'id' => 73,
                 'option_id' => 70,
                 'nombre' => 'Buscador Requisiciones',
-                'ruta' => 'compra.requisiciones.requisicions.index',
+                'ruta' => 'compra.requisiciones.index',
                 'descripcion' => 'Página para buscar las requisiciones.',
                 'icono_l' => 'fa-search',
                 'icono_r' => NULL,

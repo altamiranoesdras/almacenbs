@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\CompraRequisicion\CompraRequisicion;
 use App\Models\CompraRequisicionDetalle;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -25,22 +26,17 @@ class CompraRequisicionDetalleFactory extends Factory
      */
     public function definition()
     {
-        
-        $item = Item::first();
-        if (!$item) {
-            $item = Item::factory()->create();
-        }
+
 
         return [
-            'requisicion_id' => $this->faker->word,
-            'solicitud_detalle_id' => $this->faker->word,
-            'item_id' => $this->faker->word,
+            'requisicion_id' => CompraRequisicion::all()->random()->id,
+            'solicitud_detalle_id' => CompraSolicitudDetalle::all()->random()->id,
+            'item_id' => Item::limit(1000)->get()->random()->id,
             'cantidad' => $this->faker->numberBetween(0, 9223372036854775807),
             'precio_estimado' => $this->faker->numberBetween(0, 9223372036854775807),
             'observaciones' => $this->faker->text($this->faker->numberBetween(5, 255)),
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s'),
-            'deleted_at' => $this->faker->date('Y-m-d H:i:s')
         ];
     }
 }

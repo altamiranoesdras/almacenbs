@@ -15,7 +15,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property int|null $tipo_concurso_id
@@ -38,14 +38,25 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property string|null $partidas
  * @property string|null $observaciones
  * @property string|null $justificacion
+ * @property \Illuminate\Support\Carbon|null $fecha_solicita
+ * @property \Illuminate\Support\Carbon|null $fecha_aprueba
+ * @property int|null $usuario_solicita_id
+ * @property \Illuminate\Support\Carbon|null $fecha_autoriza
+ * @property bool|null $tiene_firma_solicitante
+ * @property bool|null $tiene_firma_aprobador
+ * @property bool|null $tiene_firma_autorizador
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Bitacora> $bitacoras
+ * @property-read int|null $bitacoras_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, CompraSolicitud> $compraSolicitudes
  * @property-read int|null $compra_solicitudes_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraRequisicionDetalle> $detalles
  * @property-read int|null $detalles_count
  * @property-read \App\Models\CompraRequicicionEstado $estado
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
+ * @property-read int|null $media_count
  * @property-read \App\Models\Proveedor|null $proveedorAdjudicado
  * @property-read \App\Models\CompraRequisicionTipoAdquisicion|null $tipoAdquisicion
  * @property-read \App\Models\CompraRequisicionTipoConcurso|null $tipoConcurso
@@ -61,8 +72,10 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereEstadoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereFechaAprueba($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereFechaAutoriza($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereFechaSolicita($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereIpoAdquisicionId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereJustificacion($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereNog($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereNpg($value)
@@ -71,6 +84,10 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion wherePartidas($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereProveedorAdjudicado($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereSubproductos($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereTieneFirmaAprobador($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereTieneFirmaAutorizador($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereTieneFirmaSolicitante($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereTipoAdquisicionId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereTipoConcursoId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereUnidadId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereUpdatedAt($value)
@@ -79,6 +96,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereUsuarioAsignaId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereUsuarioAutorizaId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereUsuarioCreaId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereUsuarioSolicitaId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion withoutTrashed()
  * @mixin \Eloquent

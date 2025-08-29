@@ -18,25 +18,28 @@
         @include('layouts.partials.request_errors')
 
         <div class="card">
-            <div class="card-body">
-
+            <div class="card-content">
                 {!! Form::model($rrhhUnidad, ['route' => ['rrhhUnidades.update', $rrhhUnidad->id], 'method' => 'patch','class' => 'esperar']) !!}
-                <div class="row">
 
-                    @include('rrhh_unidads.fields')
+                <div class="card-body">
+                    <div class="row">
+                        @include('rrhh_unidads.fields')
+                    </div>
 
+                </div>
+                <div class="card-footer">
                     <!-- Submit Field -->
-                    <div class="col-sm-12 mb-1 text-right">
+                    <div class="col-sm-12 mb-1 text-end">
                         <a href="{!! route('rrhhUnidades.index') !!}" class="btn btn-outline-secondary round me-1">
                             Cancelar
                         </a>
                         &nbsp;
-                        <button type="submit" class="btn btn-outline-success round">
-                            <i class="fa fa-floppy-o"></i> Guardar
+                        <button type="submit" class="btn btn-success round">
+                            <i class="fa fa-save"></i>
+                            Guardar
                         </button>
                     </div>
                 </div>
-
                 {!! Form::close() !!}
             </div>
         </div>

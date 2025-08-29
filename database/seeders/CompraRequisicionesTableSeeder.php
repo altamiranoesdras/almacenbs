@@ -60,8 +60,8 @@ class CompraRequisicionesTableSeeder extends Seeder
             ->has(
                 CompraRequisicionDetalle::factory()
                     ->state(new Sequence(
-                        ['cantidad' => 25, 'precio' => 6],
-                        ['cantidad' => 50, 'precio' => 7]
+                        ['cantidad' => 25, 'precio_estimado' => 6],
+                        ['cantidad' => 50, 'precio_estimado' => 7]
                     ))
                     ->count(rand(3,8)),
                 'detalles'

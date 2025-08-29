@@ -6,6 +6,66 @@ use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\SoftDeletes;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * 
+ *
+ * @property int $id
+ * @property string $nombre_tabla
+ * @property int $correlativo_del
+ * @property int $correlativo_al
+ * @property int $folio_inicial
+ * @property int $folio_actual
+ * @property int|null $nuemero_constancia
+ * @property string|null $serie_constancia
+ * @property \Illuminate\Support\Carbon|null $fecha
+ * @property string|null $numero_cuenta
+ * @property string|null $forma
+ * @property string|null $serie
+ * @property string|null $numero
+ * @property string|null $libro
+ * @property int|null $folio
+ * @property string|null $resolucion
+ * @property string|null $numero_gestion
+ * @property \Illuminate\Support\Carbon|null $fecha_gestion
+ * @property string|null $correlativo
+ * @property string|null $activo
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Compra1h> $compra1hs
+ * @property-read int|null $compra1hs_count
+ * @method static \Database\Factories\EnvioFiscalFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal query()
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereActivo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereCorrelativo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereCorrelativoAl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereCorrelativoDel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereFecha($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereFechaGestion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereFolio($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereFolioActual($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereFolioInicial($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereForma($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereLibro($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereNombreTabla($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereNuemeroConstancia($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereNumero($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereNumeroCuenta($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereNumeroGestion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereResolucion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereSerie($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereSerieConstancia($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal withoutTrashed()
+ * @mixin \Eloquent
+ */
 class EnvioFiscal extends Model
 {
 

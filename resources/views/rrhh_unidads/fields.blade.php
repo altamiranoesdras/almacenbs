@@ -2,7 +2,7 @@
 
     {!! Form::label('nombre', 'Opción Superior:') !!}
     <div class="form-group">
-        {{$parent->nombre ?? "Ninguna"}}
+        <b>{{isset($parent) && $parent->id ? $parent->text : "Ninguna"}}</b>
         <input type="hidden" name="unidad_padre_id" value="{{$parent->id ?? ""}}">
 
     </div>
