@@ -64,7 +64,6 @@ class GeneradorCrudInfyomComando extends Command
         $this->genero = $this->askWithCompletion("Seleccione el género de la tabla (m/f)", ['m', 'f'], 'm');
         $this->nombreModelo = $nombreModeloArgumento ?? aNombreDeClase($this->tabla);
 
-        dd($this->nombreModelo);
 
         $this->generaCrud();
 
