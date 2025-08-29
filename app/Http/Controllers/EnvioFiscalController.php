@@ -3,52 +3,41 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\EnvioFiscalDataTable;
-use App\Http\Requests;
 use App\Http\Requests\CreateEnvioFiscalRequest;
 use App\Http\Requests\UpdateEnvioFiscalRequest;
-use App\Models\EnvioFiscal;
-use Flash;
 use App\Http\Controllers\AppBaseController;
-use Response;
+use App\Models\EnvioFiscal;
+use Illuminate\Http\Request;
 
 class EnvioFiscalController extends AppBaseController
 {
 
     public function __construct()
     {
-        $this->middleware('permission:Ver Envio Fiscals')->only(['show']);
+        $this->middleware('permission:Ver Envio Fiscals')->only('show');
         $this->middleware('permission:Crear Envio Fiscals')->only(['create','store']);
-        $this->middleware('permission:Editar Envio Fiscals')->only(['edit','update',]);
-        $this->middleware('permission:Eliminar Envio Fiscals')->only(['destroy']);
+        $this->middleware('permission:Editar Envio Fiscals')->only(['edit','update']);
+        $this->middleware('permission:Eliminar Envio Fiscals')->only('destroy');
     }
-
     /**
      * Display a listing of the EnvioFiscal.
-     *
-     * @param EnvioFiscalDataTable $envioFiscalDataTable
-     * @return Response
      */
     public function index(EnvioFiscalDataTable $envioFiscalDataTable)
     {
-        return $envioFiscalDataTable->render('envio_fiscals.index');
+    return $envioFiscalDataTable->render('envio_fiscales.index');
     }
+
 
     /**
      * Show the form for creating a new EnvioFiscal.
-     *
-     * @return Response
      */
     public function create()
     {
-        return view('envio_fiscals.create');
+        return view('envio_fiscales.create');
     }
 
     /**
      * Store a newly created EnvioFiscal in storage.
-     *
-     * @param CreateEnvioFiscalRequest $request
-     *
-     * @return Response
      */
     public function store(CreateEnvioFiscalRequest $request)
     {
@@ -57,17 +46,13 @@ class EnvioFiscalController extends AppBaseController
         /** @var EnvioFiscal $envioFiscal */
         $envioFiscal = EnvioFiscal::create($input);
 
-        Flash::success('Envio Fiscal guardado exitosamente.');
+        flash()->success('Envio Fiscal guardado.');
 
-        return redirect(route('envioFiscals.index'));
+        return redirect(route('envioFiscales.index'));
     }
 
     /**
      * Display the specified EnvioFiscal.
-     *
-     * @param  int $id
-     *
-     * @return Response
      */
     public function show($id)
     {
@@ -75,20 +60,16 @@ class EnvioFiscalController extends AppBaseController
         $envioFiscal = EnvioFiscal::find($id);
 
         if (empty($envioFiscal)) {
-            Flash::error('Envio Fiscal no encontrado');
+            flash()->error('Envio Fiscal no encontrado');
 
-            return redirect(route('envioFiscals.index'));
+            return redirect(route('envioFiscales.index'));
         }
 
-        return view('envio_fiscals.show')->with('envioFiscal', $envioFiscal);
+        return view('envio_fiscales.show')->with('envioFiscal', $envioFiscal);
     }
 
     /**
      * Show the form for editing the specified EnvioFiscal.
-     *
-     * @param  int $id
-     *
-     * @return Response
      */
     public function edit($id)
     {
@@ -96,21 +77,16 @@ class EnvioFiscalController extends AppBaseController
         $envioFiscal = EnvioFiscal::find($id);
 
         if (empty($envioFiscal)) {
-            Flash::error('Envio Fiscal no encontrado');
+            flash()->error('Envio Fiscal no encontrado');
 
-            return redirect(route('envioFiscals.index'));
+            return redirect(route('envioFiscales.index'));
         }
 
-        return view('envio_fiscals.edit')->with('envioFiscal', $envioFiscal);
+        return view('envio_fiscales.edit')->with('envioFiscal', $envioFiscal);
     }
 
     /**
      * Update the specified EnvioFiscal in storage.
-     *
-     * @param  int              $id
-     * @param UpdateEnvioFiscalRequest $request
-     *
-     * @return Response
      */
     public function update($id, UpdateEnvioFiscalRequest $request)
     {
@@ -118,27 +94,23 @@ class EnvioFiscalController extends AppBaseController
         $envioFiscal = EnvioFiscal::find($id);
 
         if (empty($envioFiscal)) {
-            Flash::error('Envio Fiscal no encontrado');
+            flash()->error('Envio Fiscal no encontrado');
 
-            return redirect(route('envioFiscals.index'));
+            return redirect(route('envioFiscales.index'));
         }
 
         $envioFiscal->fill($request->all());
         $envioFiscal->save();
 
-        Flash::success('Envio Fiscal actualizado con éxito.');
+        flash()->success('Envio Fiscal actualizado.');
 
-        return redirect(route('envioFiscals.index'));
+        return redirect(route('envioFiscales.index'));
     }
 
     /**
      * Remove the specified EnvioFiscal from storage.
      *
-     * @param  int $id
-     *
      * @throws \Exception
-     *
-     * @return Response
      */
     public function destroy($id)
     {
@@ -146,15 +118,15 @@ class EnvioFiscalController extends AppBaseController
         $envioFiscal = EnvioFiscal::find($id);
 
         if (empty($envioFiscal)) {
-            Flash::error('Envio Fiscal no encontrado');
+            flash()->error('Envio Fiscal no encontrado');
 
-            return redirect(route('envioFiscals.index'));
+            return redirect(route('envioFiscales.index'));
         }
 
         $envioFiscal->delete();
 
-        Flash::success('Envio Fiscal deleted successfully.');
+        flash()->success('Envio Fiscal eliminado.');
 
-        return redirect(route('envioFiscals.index'));
+        return redirect(route('envioFiscales.index'));
     }
 }

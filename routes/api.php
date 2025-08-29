@@ -139,7 +139,7 @@ Route::group(['as'=>'api.'], function () {
         Route::resource('user_despacha_users', UserDespachaUserAPIController::class);
 
 
-        Route::resource('envio_fiscals', EnvioFiscalAPIController::class);
+        Route::resource('envio_fiscales', EnvioFiscalAPIController::class);
 
 
         Route::resource('compra1hs', Compra1hAPIController::class);
@@ -256,6 +256,9 @@ Route::group(['as'=>'api.'], function () {
             //            Route::resource('compra-solicitud-estados', App\Http\Controllers\API\CompraSolicitudEstadoAPIController::class)
 //                ->except(['create', 'edit']);
         });
+
+        Route::resource('envio-fiscals', EnvioFiscalAPIController::class)
+            ->except(['create', 'edit']);
 
 
     });

@@ -25,7 +25,12 @@ class UpdateCompraDetalleAPIRequest extends APIRequest
     public function rules()
     {
         $rules = CompraDetalle::$rules;
-        
+
         return $rules;
+    }
+
+    public function messages()
+    {
+        return CompraDetalle::$mensajes;
     }
 }

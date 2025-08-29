@@ -26,4 +26,10 @@ class CreateCompraDetalleAPIRequest extends APIRequest
     {
         return CompraDetalle::$rules;
     }
+
+    //mensajes personalizados
+    public function messages()
+    {
+        return CompraDetalle::$mensajes;
+    }
 }

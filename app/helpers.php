@@ -7,6 +7,7 @@ use App\Models\Option;
 use App\Models\User;
 use App\Services\ConfiguracionService;
 use Carbon\Carbon;
+use Doctrine\Inflector\InflectorFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -971,3 +972,41 @@ if (!function_exists('iniciales')) {
         return $iniciales;
     }
 }
+
+
+if (!function_exists('aNombreDeClase')) {
+    function aNombreDeClase(string $texto): string
+    {
+        // Quitar acentos
+        $texto = str_replace(
+            ['á','é','í','ó','ú','ñ'],
+            ['a','e','i','o','u','n'],
+            strtolower($texto)
+        );
+
+        // Separar palabras
+        $partes = preg_split('/[\s_-]+/', $texto);
+
+        // Reglas simples para singularizar en español
+        $reglas = [
+            '/iones$/' => 'ion',   // canciones → cancion
+            '/ces$/'   => 'z',     // luces → luz
+            '/es$/'    => '',      // flores → flor
+            '/s$/'     => '',      // gatos → gato
+        ];
+
+        $camel = '';
+        foreach ($partes as $parte) {
+            foreach ($reglas as $patron => $reemplazo) {
+                if (preg_match($patron, $parte)) {
+                    $parte = preg_replace($patron, $reemplazo, $parte);
+                    break;
+                }
+            }
+            $camel .= ucfirst($parte);
+        }
+
+        return $camel;
+    }
+}
+

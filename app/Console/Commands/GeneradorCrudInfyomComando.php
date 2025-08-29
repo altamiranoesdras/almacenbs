@@ -16,10 +16,10 @@ class GeneradorCrudInfyomComando extends Command
 
     /**
      * The name and signature of the console command.
-     *
+     * debe recibir como argumento el nombre del modelo
      * @var string
      */
-    protected $signature = 'generar:crud';
+    protected $signature = 'generar:crud {nombreModelo?}';
 
     /**
      * The console command description.
@@ -57,10 +57,12 @@ class GeneradorCrudInfyomComando extends Command
             return 0;
         }
 
+        $nombreModeloArgumento = $this->argument('nombreModelo');
+
         $this->creaMigracion = $this->askWithCompletion('¿Desea crear la migración para la tabla? (si/no)', ['si', 'no'], 'no');
         $this->creaApi = $this->askWithCompletion('¿Desea crear la API para la tabla? (si/no)', ['si', 'no'], 'si');
         $this->genero = $this->askWithCompletion("Seleccione el género de la tabla (m/f)", ['m', 'f'], 'm');
-        $this->nombreModelo = Str::ucfirst(Str::camel(Str::singular($this->tabla)));
+        $this->nombreModelo = $nombreModeloArgumento ?? aNombreDeClase($this->tabla);
 
 
         $this->generaCrud();

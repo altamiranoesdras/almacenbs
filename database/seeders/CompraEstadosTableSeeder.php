@@ -15,6 +15,7 @@ class CompraEstadosTableSeeder extends Seeder
     public function run()
     {
 
+        deshabilitaLlavesForaneas();
 
         \DB::table('compra_estados')->truncate();
 

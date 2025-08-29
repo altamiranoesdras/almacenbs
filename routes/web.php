@@ -264,7 +264,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::resource('userDespachaUsers', UserDespachaUserController::class);
 
 
-    Route::resource('envioFiscals', EnvioFiscalController::class);
+    Route::resource('envioFiscales', EnvioFiscalController::class);
 
 
     Route::resource('compra1hs', Compra1hController::class);
@@ -366,6 +366,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
         Route::get('firma-electronica', [FirmaElectronicaController::class, 'index'])->name('firma.electronica');
         Route::post('firmar-documento', [FirmaElectronicaController::class, 'firmarDocumento'])->name('firmar.documento');
     });
+
+    Route::resource('envioFiscales', App\Http\Controllers\EnvioFiscalController::class);
 
 
 });
