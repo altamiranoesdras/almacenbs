@@ -264,6 +264,7 @@ class CompraRequisicionController extends AppBaseController
 
         $requisicion->update([
             'tiene_firma_solicitante' => true,
+            'justificacion' => $request->justificacion,
         ]);
 
         $requisicion
