@@ -153,7 +153,7 @@
 
 <table style="margin-top: 15px; width: 100%; border: 1px solid black; border-collapse: collapse;">
     <tr>
-        <td style="width: 50%; border: none; text-align: center; padding: 50px;">
+        <td style="width: 50%; border: none; text-align: center; padding: 65px;">
 
         </td>
         <td style="width: 50%; border: none; text-align: center; padding: 50px;">

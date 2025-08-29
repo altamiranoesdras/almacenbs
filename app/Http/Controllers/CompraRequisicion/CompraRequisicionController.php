@@ -235,6 +235,15 @@ class CompraRequisicionController extends AppBaseController
             true // test mode (no mueve/elimina el archivo fuente)
         );
 
+        $x = 0;
+        $y = 280;
+
+        foreach ($requisicion->detalles as $index => $detalle) {
+            if($index > 15) {
+                $y -= 13;
+            }
+        }
+
         // 4) Firmar usando tu mismo builder
         $rutaArchivoFirmado = (new FirmaElectronica())
             ->respuestaRuta()
@@ -243,10 +252,10 @@ class CompraRequisicionController extends AppBaseController
             ->setCorreo($request->usuario_firma)                         // credenciales del proveedor de firma
             ->setClaveFirma($request->password_firma)
             ->setRubricaUsuario(auth()->user()->rubrica ?? null)    // o la rúbrica del usuario
-            ->setInicioX(-30)                                        // coordenadas opcionales
-            ->setInicioY(218)
-            ->setAncho(225)
-            ->setAlto(50)
+            ->setInicioX($x)                                        // coordenadas opcionales
+            ->setInicioY($y)                                        // coordenadas opcionales
+            ->setAncho(220)
+            ->setAlto(45)
             ->setLugar('Guatemala, Guatemala')                      // opcional
             ->setTipoSolicitud('PDF')                               // opcional
             ->setConcepto('Requisición de compra')             // opcional
