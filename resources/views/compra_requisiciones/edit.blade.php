@@ -9,8 +9,8 @@
             <div class="row breadcrumbs-top">
                 <div class="col-12">
                     <h2 class="content-header-title float-start mb-0">
-                                                    Editar Compra Requisición
-                                            </h2>
+                        Editar Compra Requisición
+                    </h2>
                 </div>
             </div>
         </div>
@@ -18,7 +18,7 @@
             <div class="mb-1 breadcrumb-right">
                 <div class="dropdown">
                     <a class="btn btn-outline-secondary float-right"
-                       href="{{ url()->previous() }}"
+                       href="{{ route('compra.requisiciones.mis.requisiciones') }}"
                     >
                         <i class="fa fa-arrow-left"></i>
                         Regresar
@@ -138,9 +138,17 @@
 
                             <div class="col-sm-3 text-center">
 
-                                <button type="button" class="btn btn-outline-info round" @click="firmar()">
-                                    Firmar
-                                </button>
+                                @if(!$compraRequisicion->tiene_firma_solicitante)
+                                    <button type="button" class="btn btn-outline-info round" @click="firmar()">
+                                        Firmar
+                                    </button>
+                                @else
+
+                                        <button type="button" class="btn btn-outline-info round" data-bs-toggle="modal"
+                                                data-bs-target="#modalImprimir">
+                                            Ver PDF Firmado
+                                        </button>
+                                @endif
 
                             </div>
 
@@ -153,7 +161,8 @@
 
                             @if($compraRequisicion->puedeSolicitarse())
                                 <div class="col-sm-3 text-end">
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#modal-confirma-procesar"
+                                    <button type="button" data-bs-toggle="modal"
+                                            data-bs-target="#modal-confirma-procesar"
                                             class="btn btn-outline-primary round">
                                         <i class="fa fa-paper-plane"></i>
                                         Solicitar
@@ -167,14 +176,16 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title">Solicitar Requisición!</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         Seguro que desea continuar?
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
-                                        <button type="submit" class="btn btn-primary" name="solicitar" value="1">SI</button>
+                                        <button type="submit" class="btn btn-primary" name="solicitar" value="1">SI
+                                        </button>
                                     </div>
                                 </div><!-- /.modal-content -->
                             </div><!-- /.modal-dialog -->
@@ -186,28 +197,33 @@
                     <div class="modal fade" id="modalFirmar" tabindex="-1" role="dialog"
                          aria-labelledby="modelTitleId" aria-hidden="true">
                         <div class="modal-dialog" role="document">
-                            <form action="{{ route('compra.requisiciones.solicitante.firmar.imprimir',$compraRequisicion->id ?? 0) }}" method="POST" class="esperar">
+                            <form
+                                action="{{ route('compra.requisiciones.solicitante.firmar.imprimir',$compraRequisicion->id ?? 0) }}"
+                                method="POST" class="esperar">
                                 @csrf
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title" id="modelTitleId">
                                             Credenciales de firma
                                         </h4>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
                                             {{-- Usuario --}}
                                             <div class="col-12 mb-1">
                                                 <label for="usuario_firma" class="form-label">Usuario</label>
-                                                <input class="form-control" type="text" name="usuario_firma" id="usuario_firma"
+                                                <input class="form-control" type="text" name="usuario_firma"
+                                                       id="usuario_firma"
                                                        value="{{ auth()->user()->email }}">
                                             </div>
 
                                             {{-- Contraseña de firma --}}
                                             <div class="col-12 mb-1">
                                                 <label for="password_firma" class="form-label">Contraseña Firma</label>
-                                                <input class="form-control" type="password" name="password_firma" id="password_firma"
+                                                <input class="form-control" type="password" name="password_firma"
+                                                       id="password_firma"
                                                        placeholder="******" required>
                                             </div>
                                         </div>
@@ -226,6 +242,47 @@
 
                             </form>
 
+                        </div>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="modalImprimir" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+                         aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <form
+                                action="{{ route('compra.requisiciones.solicitante.firmar.imprimir',$compraRequisicion->id ?? 0) }}"
+                                method="POST" class="esperar">
+                                @csrf
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="modelTitleId">
+                                            Imprimir Requisición Firmada
+                                        </h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-12 mb-1">
+                                                La requisición ya fue firmada por el solicitante.
+                                                <br>
+                                                Puede imprimir el documento firmado.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                            Cerrar
+                                        </button>
+                                        <button
+                                            type="submit"
+                                            class="btn btn-outline-primary round" target="_blank">
+                                            <i class="fa fa-print"></i> Imprimir
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </form>
                         </div>
                     </div>
 
@@ -258,8 +315,8 @@
 @push('scripts')
     <script>
         @if(session('rutaArchivoFirmado'))
-            var myModal = new bootstrap.Modal(document.getElementById('pdfModal'));
-            myModal.show();
+        var myModal = new bootstrap.Modal(document.getElementById('pdfModal'));
+        myModal.show();
         @endif
 
         new Vue({
@@ -275,9 +332,9 @@
                 justificacion: @json($compraRequisicion->justificacion ?? ''),
             },
             methods: {
-                firmar(){
+                firmar() {
                     //valida justificación
-                    if(this.justificacion.trim() === ''){
+                    if (this.justificacion.trim() === '') {
                         alertWarning('Debe ingresar una justificación de la compra');
                         return;
                     }
