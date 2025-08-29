@@ -139,40 +139,37 @@
                                     para poder generar 1H
                                 </h4>
                             @else
-
                                 @if(!$compra->tiene1h())
+                                    @php
+                                        $envioFiscal = \App\Models\EnvioFiscal::where('nombre_tabla', 'compras')->where('activo', 'si')->first();
+                                    @endphp
 
-                                    <form action="{{route('compra.generar.1h',$compra->id)}}" method="post"
-                                          class="esperar">
-
-                                        @csrf
-                                        <div class="row">
-
-                                            <div class="col-sm-4 mb-1">
-                                                {!! Form::label('folio', 'Folio:') !!}
-                                                {!! Form::text('folio', null, ['class' => 'form-control','required']) !!}
-                                            </div>
-
-                                            <div class="col-sm-8 mb-1 ">
-                                                <label for="generar">&nbsp;</label>
-                                                <div>
-                                                    <button type="submit" id="generar" class="btn btn-outline-primary">
-                                                        <i class="fa fa-gears"></i>
-                                                        Generar 1H
-                                                    </button>
+                                    @if($envioFiscal != null && $envioFiscal->folio_actual <= $envioFiscal->correlativo_al)
+                                        <form action="{{route('compra.generar.1h',$compra->id)}}" method="post" class="esperar">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-sm-4 mb-1">
+                                                    {!! Form::label('folio', 'Folio:') !!}
+                                                    {{ $envioFiscal->folio_actual }}
+                                                    <input type="hidden" name="folio" value="{{ $envioFiscal->folio_actual }}">
+                                                    <div class="mt-1">
+                                                        <button type="submit" id="generar" class="btn btn-outline-primary">
+                                                            <i class="fa fa-gears"></i>
+                                                            Generar 1H
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
-
+                                        </form>
+                                    @else
+                                        <div class="alert alert-danger p-2" role="alert">
+                                            No se puede generar 1H. El folio actual ha alcanzado el folio final.
                                         </div>
-
-                                    </form>
-
+                                    @endif
                                 @else
-
                                     <form action="{{route('compra.actualiza.1h',$compra->id)}}" method="post">
                                         @csrf
                                         <div class="row">
-
                                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-right">
                                                 <h3>
                                                     Folio:
@@ -184,15 +181,12 @@
                                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-1">
                                                 @include('compras.tabla_detalles_1h')
                                             </div>
-
-
                                             <div class="form-group col-md-12 mb-1">
                                                 <label>Observaciones:</label>
                                                 <textarea class="form-control" name="observaciones" rows="2" cols="2">
                                                     {{ $compra->compra1h->observaciones }}
                                                 </textarea>
                                             </div>
-
                                             <!-- Submit Field -->
                                             <div class="col-4 col-sm-4 col-md-4 col-lg-4 ">
                                                 <a href="{!! route('compras.index') !!}"
@@ -206,7 +200,6 @@
                                                 </button>
                                             </div>
                                             <div class="col-4 col-sm-4 col-md-4 col-lg-4 float-end">
-
                                                 <a href="{{route('compra.h1.pdf',$compra->id)}}" target="_blank"
                                                    class='btn btn-outline-primary round float-end' data-toggle="tooltip"
                                                    title="Imprimir 1H">
@@ -214,20 +207,16 @@
                                                 </a>
                                             </div>
                                         </div>
-
                                     </form>
                                 @endif
                             @endif
                         </div>
                     </div>
                 </div>
-
             </div>
             <!-- /.col-md-6 -->
         </div>
-
     </div>
-
 @endsection
 
 
