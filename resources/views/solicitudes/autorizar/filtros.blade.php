@@ -2,13 +2,8 @@
 <form id="formFiltersDatatables">
     <div class="row">
         <div class="col-sm-3 mb-1">
-            <label for="del">DEL:</label>
-            <input type="date" class="form-control" name="del_solicita">
-        </div>
-
-        <div class="col-sm-3 mb-1">
-            <label for="al">AL:</label>
-            <input type="date" class="form-control" name="al_solicita">
+            <label for="codigo">Código</label>
+            <input type="text" class="form-control" name="codigo" value="">
         </div>
 
         <div class="col-sm-3 mb-1">
@@ -19,8 +14,13 @@
         </div>
 
         <div class="col-sm-3 mb-1">
-            <label for="codigo">Código</label>
-            <input type="text" class="form-control" name="codigo" value="">
+            <label for="del">DEL:</label>
+            <input type="date" class="form-control" name="del_solicita">
+        </div>
+
+        <div class="col-sm-3 mb-1">
+            <label for="al">AL:</label>
+            <input type="date" class="form-control" name="al_solicita">
         </div>
 
         <div class="col-sm-3 mb-1 ">
