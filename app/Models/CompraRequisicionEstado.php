@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $nombre
@@ -17,20 +17,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraBandeja> $compraBandejas
  * @property-read int|null $compra_bandejas_count
  * @method static \Database\Factories\CompraRequicicionEstadoFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado query()
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado whereNombre($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado withTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado query()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado whereNombre($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado withoutTrashed()
  * @mixin \Eloquent
  */
-class CompraRequicicionEstado extends Model
+class CompraRequisicionEstado extends Model
 {
 
     use SoftDeletes;

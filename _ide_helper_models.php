@@ -756,7 +756,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraRequicicionEstado> $estados
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraRequisicionEstado> $estados
  * @property-read int|null $estados_count
  * @property-read \App\Models\Role $rol
  * @method static \Database\Factories\CompraBandejaFactory factory($count = null, $state = [])
@@ -940,17 +940,17 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraBandeja> $compraBandejas
  * @property-read int|null $compra_bandejas_count
  * @method static \Database\Factories\CompraRequicicionEstadoFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado query()
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado whereNombre($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado withTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequicicionEstado withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado query()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado whereNombre($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado withoutTrashed()
  * @mixin \Eloquent
  */
 	class CompraRequicicionEstado extends \Eloquent {}

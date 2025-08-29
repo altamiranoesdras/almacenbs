@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\API;
 
-use App\Models\CompraRequicicionEstado;
+use App\Models\CompraRequisicionEstado;
 use InfyOm\Generator\Request\APIRequest;
 
 class CreateCompraRequicicionEstadoAPIRequest extends APIRequest
@@ -24,6 +24,6 @@ class CreateCompraRequicicionEstadoAPIRequest extends APIRequest
      */
     public function rules()
     {
-        return CompraRequicicionEstado::$rules;
+        return CompraRequisicionEstado::$rules;
     }
 }

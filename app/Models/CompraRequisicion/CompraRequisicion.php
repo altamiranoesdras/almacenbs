@@ -15,7 +15,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int|null $tipo_concurso_id
@@ -54,7 +54,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property-read int|null $compra_solicitudes_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraRequisicionDetalle> $detalles
  * @property-read int|null $detalles_count
- * @property-read \App\Models\CompraRequicicionEstado $estado
+ * @property-read \App\Models\CompraRequisicionEstado $estado
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
  * @property-read int|null $media_count
  * @property-read \App\Models\Proveedor|null $proveedorAdjudicado
@@ -229,7 +229,7 @@ class CompraRequisicion extends Model implements HasMedia
 
     public function estado(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(\App\Models\CompraRequicicionEstado::class, 'estado_id');
+        return $this->belongsTo(\App\Models\CompraRequisicionEstado::class, 'estado_id');
     }
 
 //    public function compraOrdenes(): \Illuminate\Database\Eloquent\Relations\HasMany

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreateCompraRequicicionEstadoAPIRequest;
 use App\Http\Requests\API\UpdateCompraRequicicionEstadoAPIRequest;
-use App\Models\CompraRequicicionEstado;
+use App\Models\CompraRequisicionEstado;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -20,7 +20,7 @@ class CompraRequicicionEstadoAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $query = CompraRequicicionEstado::query();
+        $query = CompraRequisicionEstado::query();
 
         if ($request->get('skip')) {
             $query->skip($request->get('skip'));
@@ -42,8 +42,8 @@ class CompraRequicicionEstadoAPIController extends AppBaseController
     {
         $input = $request->all();
 
-        /** @var CompraRequicicionEstado $compraRequicicionEstado */
-        $compraRequicicionEstado = CompraRequicicionEstado::create($input);
+        /** @var CompraRequisicionEstado $compraRequicicionEstado */
+        $compraRequicicionEstado = CompraRequisicionEstado::create($input);
 
         return $this->sendResponse($compraRequicicionEstado->toArray(), 'Compra Requicicion Estado guardado');
     }
@@ -54,8 +54,8 @@ class CompraRequicicionEstadoAPIController extends AppBaseController
      */
     public function show($id): JsonResponse
     {
-        /** @var CompraRequicicionEstado $compraRequicicionEstado */
-        $compraRequicicionEstado = CompraRequicicionEstado::find($id);
+        /** @var CompraRequisicionEstado $compraRequicicionEstado */
+        $compraRequicicionEstado = CompraRequisicionEstado::find($id);
 
         if (empty($compraRequicicionEstado)) {
             return $this->sendError('Compra Requicicion Estado no encontrado');
@@ -70,8 +70,8 @@ class CompraRequicicionEstadoAPIController extends AppBaseController
      */
     public function update($id, UpdateCompraRequicicionEstadoAPIRequest $request): JsonResponse
     {
-        /** @var CompraRequicicionEstado $compraRequicicionEstado */
-        $compraRequicicionEstado = CompraRequicicionEstado::find($id);
+        /** @var CompraRequisicionEstado $compraRequicicionEstado */
+        $compraRequicicionEstado = CompraRequisicionEstado::find($id);
 
         if (empty($compraRequicicionEstado)) {
             return $this->sendError('Compra Requicicion Estado no encontrado');
@@ -91,8 +91,8 @@ class CompraRequicicionEstadoAPIController extends AppBaseController
      */
     public function destroy($id): JsonResponse
     {
-        /** @var CompraRequicicionEstado $compraRequicicionEstado */
-        $compraRequicicionEstado = CompraRequicicionEstado::find($id);
+        /** @var CompraRequisicionEstado $compraRequicicionEstado */
+        $compraRequicicionEstado = CompraRequisicionEstado::find($id);
 
         if (empty($compraRequicicionEstado)) {
             return $this->sendError('Compra Requicicion Estado no encontrado');

@@ -1,4 +1,3 @@
-
 <div class="row" id="campos_estados">
     <div class="col-sm-6 mb-1">
         {!! Form::label('rol_id','Rol:') !!}
@@ -46,7 +45,7 @@
 
             },
             data: {
-                estados: @json(\App\Models\CompraRequicicionEstado::whereNotIn('id',isset($compraBandeja) ? $compraBandeja->estados->pluck('id') :  [])->get()),
+                estados: @json(\App\Models\CompraRequisicionEstado::whereNotIn('id',isset($compraBandeja) ? $compraBandeja->estados->pluck('id') :  [])->get()),
                 // estados: [],
                 estados_asignados: @json($compraBandeja->estados ?? []),
             },

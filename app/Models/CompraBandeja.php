@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $rol_id
@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraRequicicionEstado> $estados
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraRequisicionEstado> $estados
  * @property-read int|null $estados_count
  * @property-read \App\Models\Role $rol
  * @method static \Database\Factories\CompraBandejaFactory factory($count = null, $state = [])
@@ -79,7 +79,7 @@ class CompraBandeja extends Model
 
     public function estados(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(\App\Models\CompraRequicicionEstado::class,
+        return $this->belongsToMany(\App\Models\CompraRequisicionEstado::class,
             'compra_estado_has_bandeja',
             'bandeja_id',
             'estado_id'

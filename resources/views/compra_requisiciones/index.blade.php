@@ -14,17 +14,17 @@
                 </div>
             </div>
         </div>
-{{--        <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">--}}
-{{--            <div class="mb-1 breadcrumb-right">--}}
-{{--                <div class="dropdown">--}}
-{{--                    <a class="btn btn-outline-success float-end round"--}}
-{{--                       href="{{ route('compraRequisicions.create') }}">--}}
-{{--                        <i class="fa fa-plus"></i>--}}
-{{--                        Agregar--}}
-{{--                    </a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
+        {{--        <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">--}}
+        {{--            <div class="mb-1 breadcrumb-right">--}}
+        {{--                <div class="dropdown">--}}
+        {{--                    <a class="btn btn-outline-success float-end round"--}}
+        {{--                       href="{{ route('compraRequisicions.create') }}">--}}
+        {{--                        <i class="fa fa-plus"></i>--}}
+        {{--                        Agregar--}}
+        {{--                    </a>--}}
+        {{--                </div>--}}
+        {{--            </div>--}}
+        {{--        </div>--}}
     </div>
 
     <div class="row">
@@ -63,7 +63,7 @@
                                 {!!
                                     Form::select(
                                         'estado_id',
-                                        select(\App\Models\CompraRequicicionEstado::class,'nombre','id',null)
+                                        select(\App\Models\CompraRequisicionEstado::class,'nombre','id',null)
                                         , null
                                         , ['id'=>'estado_id','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
                                     )

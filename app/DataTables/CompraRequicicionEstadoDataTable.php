@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\CompraRequicicionEstado;
+use App\Models\CompraRequisicionEstado;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Services\DataTable;
@@ -20,11 +20,11 @@ class CompraRequicicionEstadoDataTable extends DataTable
 
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', function(CompraRequicicionEstado $compraRequicicionEstado){
+            ->addColumn('action', function(CompraRequisicionEstado $compraRequicicionEstado){
                 $id = $compraRequicicionEstado->id;
                 return view('compra_requisicion_estados.datatables_actions',compact('compraRequicicionEstado','id'));
             })
-            ->editColumn('id',function (CompraRequicicionEstado $compraRequicicionEstado){
+            ->editColumn('id',function (CompraRequisicionEstado $compraRequicicionEstado){
 
                 return $compraRequicicionEstado->id;
 
@@ -35,10 +35,10 @@ class CompraRequicicionEstadoDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\CompraRequicicionEstado $model
+     * @param \App\Models\CompraRequisicionEstado $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(CompraRequicicionEstado $model)
+    public function query(CompraRequisicionEstado $model)
     {
         return $model->newQuery()->select($model->getTable().'.*');
     }

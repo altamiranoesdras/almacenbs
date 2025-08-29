@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\CompraRequicicionEstadoDataTable;
 use App\Http\Requests\CreateCompraRequicicionEstadoRequest;
 use App\Http\Requests\UpdateCompraRequicicionEstadoRequest;
-use App\Models\CompraRequicicionEstado;
+use App\Models\CompraRequisicionEstado;
 
 class CompraRequicicionEstadoController extends AppBaseController
 {
@@ -41,8 +41,8 @@ class CompraRequicicionEstadoController extends AppBaseController
     {
         $input = $request->all();
 
-        /** @var CompraRequicicionEstado $compraRequicicionEstado */
-        $compraRequicicionEstado = CompraRequicicionEstado::create($input);
+        /** @var CompraRequisicionEstado $compraRequicicionEstado */
+        $compraRequicicionEstado = CompraRequisicionEstado::create($input);
 
         flash()->success('Compra Requicicion Estado guardado.');
 
@@ -54,8 +54,8 @@ class CompraRequicicionEstadoController extends AppBaseController
      */
     public function show($id)
     {
-        /** @var CompraRequicicionEstado $compraRequicicionEstado */
-        $compraRequicicionEstado = CompraRequicicionEstado::find($id);
+        /** @var CompraRequisicionEstado $compraRequicicionEstado */
+        $compraRequicicionEstado = CompraRequisicionEstado::find($id);
 
         if (empty($compraRequicicionEstado)) {
             flash()->error('Compra Requicicion Estado no encontrado');
@@ -71,8 +71,8 @@ class CompraRequicicionEstadoController extends AppBaseController
      */
     public function edit($id)
     {
-        /** @var CompraRequicicionEstado $compraRequicicionEstado */
-        $compraRequicicionEstado = CompraRequicicionEstado::find($id);
+        /** @var CompraRequisicionEstado $compraRequicicionEstado */
+        $compraRequicicionEstado = CompraRequisicionEstado::find($id);
 
         if (empty($compraRequicicionEstado)) {
             flash()->error('Compra Requicicion Estado no encontrado');
@@ -88,8 +88,8 @@ class CompraRequicicionEstadoController extends AppBaseController
      */
     public function update($id, UpdateCompraRequicicionEstadoRequest $request)
     {
-        /** @var CompraRequicicionEstado $compraRequicicionEstado */
-        $compraRequicicionEstado = CompraRequicicionEstado::find($id);
+        /** @var CompraRequisicionEstado $compraRequicicionEstado */
+        $compraRequicicionEstado = CompraRequisicionEstado::find($id);
 
         if (empty($compraRequicicionEstado)) {
             flash()->error('Compra Requicicion Estado no encontrado');
@@ -112,8 +112,8 @@ class CompraRequicicionEstadoController extends AppBaseController
      */
     public function destroy($id)
     {
-        /** @var CompraRequicicionEstado $compraRequicicionEstado */
-        $compraRequicicionEstado = CompraRequicicionEstado::find($id);
+        /** @var CompraRequisicionEstado $compraRequicicionEstado */
+        $compraRequicicionEstado = CompraRequisicionEstado::find($id);
 
         if (empty($compraRequicicionEstado)) {
             flash()->error('Compra Requicicion Estado no encontrado');
