@@ -26,8 +26,12 @@ Route::prefix('compra')->name('compra.')->group(function () {
         Route::resource('tipo-concursos', App\Http\Controllers\CompraRequisicionTipoConcursoController::class);
 
         Route::get('mis/requisiciones', [CompraRequisicionUsuarioController::class, 'index'])->name('mis.requisiciones');
+
         Route::get('aprobar', [CompraRequisicionAprobarController::class, 'index'])->name('aprobar');
         Route::get('aprobar/seguimiento/{requisicion}', [CompraRequisicionAprobarController::class, 'seguimiento'])->name('aprobar.seguimiento');
+        Route::patch('aprobar/store/{requisicion}', [CompraRequisicionAprobarController::class, 'aprobar'])->name('aprobar.store');
+
+
         Route::get('autorizar', [CompraRequisicionAutorizarController::class, 'index'])->name('autorizar');
 
         Route::get('requisiciones', [CompraRequisicionController::class, 'index'])->name('requisiciones.index');

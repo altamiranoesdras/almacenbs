@@ -250,6 +250,16 @@ class CompraRequisicion extends Model implements HasMedia
         $this->addBitacora("SISTEMA","REQUISICIÓN DE COMPRA SOLICITADA","");
     }
 
+    public function aprobar(): void
+    {
+        $this->estado_id = CompraRequisicionEstado::APROBADA;
+        $this->fecha_aprueba = now();
+        $this->usuario_aprueba_id = usuarioAutenticado()->id;
+        $this->save();
+
+        $this->addBitacora("SISTEMA","REQUISICIÓN DE COMPRA APROBADA","");
+    }
+
     public function puedeSolicitarse(): bool
     {
         return $this->estado_id == CompraRequisicionEstado::CREADA && $this->tiene_firma_solicitante;

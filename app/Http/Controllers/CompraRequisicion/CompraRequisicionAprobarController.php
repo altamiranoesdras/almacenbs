@@ -102,4 +102,13 @@ class CompraRequisicionAprobarController extends Controller
 
         // 4) Asociar el documento
     }
+
+    public function aprobar(CompraRequisicion $requisicion)
+    {
+        $requisicion->aprobar();
+
+        flash('La requisición ha sido aprobada correctamente.')->success();
+        return redirect()->route('compra.requisiciones.aprobar');
+
+    }
 }
