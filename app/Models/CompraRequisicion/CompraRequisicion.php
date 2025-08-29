@@ -3,6 +3,7 @@
 namespace App\Models\CompraRequisicion;
 
 use App\Models\CompraSolicitud;
+use App\Traits\HasBitacora;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -84,6 +85,7 @@ class CompraRequisicion extends Model
 
     use SoftDeletes;
     use HasFactory;
+    use HasBitacora;
 
     public $table = 'compra_requisiciones';
 
@@ -240,6 +242,12 @@ class CompraRequisicion extends Model
         $this->save();
 
         $this->addBitacora("SISTEMA","REQUISICIÓN DE COMPRA SOLICITADA","");
+    }
+
+    public function puedeSolicitarse(): bool
+    {
+        return $this->estado_id == CompraRequisicionEstado::CREADA && $this->tiene_firma_solicitante;
+
     }
 
 }

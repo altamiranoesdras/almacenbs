@@ -151,16 +151,14 @@
                                 </button>
                             </div>
 
-                            <div class="col-sm-3 text-end">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#modal-confirma-procesar"
-                                        class="btn btn-outline-primary round">
-                                    <i class="fa fa-paper-plane"></i>
-                                    Solicitar
-                                </button>
-                            </div>
-
-                            @if(session('rutaArchivoFirmado'))
-                                <p>{{ asset('storage/' . session('rutaArchivoFirmado')) }}</p>
+                            @if($compraRequisicion->puedeSolicitarse())
+                                <div class="col-sm-3 text-end">
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#modal-confirma-procesar"
+                                            class="btn btn-outline-primary round">
+                                        <i class="fa fa-paper-plane"></i>
+                                        Solicitar
+                                    </button>
+                                </div>
                             @endif
 
                         </div>
@@ -188,7 +186,7 @@
                     <div class="modal fade" id="modalFirmar" tabindex="-1" role="dialog"
                          aria-labelledby="modelTitleId" aria-hidden="true">
                         <div class="modal-dialog" role="document">
-                            <form action="{{ route('compra.requisiciones.pdf',$compraRequisicion->id ?? 0) }}" method="POST" class="esperar">
+                            <form action="{{ route('compra.requisiciones.solicitante.firmar',$compraRequisicion->id ?? 0) }}" method="POST" class="esperar">
                                 @csrf
                                 <div class="modal-content">
                                     <div class="modal-header">

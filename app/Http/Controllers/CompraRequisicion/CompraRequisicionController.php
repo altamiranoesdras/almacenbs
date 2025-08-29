@@ -185,7 +185,7 @@ class CompraRequisicionController extends AppBaseController
 
 
 
-    public function pdf(CompraRequisicion $requisicion, Request $request)
+    public function solicitanteFirmar(CompraRequisicion $requisicion, Request $request)
     {
         // 1) Generar el PDF con Snappy (wkhtmltopdf)
         $pdf = App::make('snappy.pdf.wrapper');
@@ -238,10 +238,13 @@ class CompraRequisicionController extends AppBaseController
             ->setDocumento($uploaded)                                   // ← el PDF recién creado
             ->firmarDocumento();
 
+        $requisicion->update([
+            'tiene_firma_solicitante' => true,
+        ]);
+
         return redirect()->back()
             ->with('success', 'PDF generado y firmado correctamente.')
             ->with('rutaArchivoFirmado', $rutaArchivoFirmado);
-
 
         // 4) Asociar el documento
     }
