@@ -24,6 +24,7 @@
         </div>
 
         <div class="col-sm-3 mb-1 ">
+            <label for="">&nbsp;</label>
             <div >
                 <button type="submit" id="boton" class="btn btn-info btn-block">
                     <i class="fa fa-sync"></i> Aplicar Filtros
@@ -32,6 +33,7 @@
         </div>
 
         <div class="col-sm-3 mb-1">
+            <label for="">&nbsp;</label>
             <div>
                 <a  href="{{url()->current()}}" type="submit" id="boton" class="btn btn-info btn-block">
                     <i class="fa fa-times"></i> Limpiar Filtros
