@@ -106,7 +106,15 @@ class CompraDetalle extends Model
         'precio' => 'required|numeric',
         'descuento' => 'nullable|numeric',
         'fecha_vence' => 'nullable',
-        'unidad_solicita_id' => 'nullable|integer',
+        'unidad_solicita_id' => 'required|integer',
+    ];
+
+    public static $mensajes = [
+        'item_id.required' => 'El campo item es obligatorio',
+        'cantidad.required' => 'El campo cantidad es obligatorio',
+        'cantidad.min' => 'El campo cantidad debe ser mayor a 0',
+        'precio.required' => 'El campo precio es obligatorio',
+        'unidad_solicita_id.required' => 'El campo unidad solicitante es obligatorio',
     ];
 
     /**
