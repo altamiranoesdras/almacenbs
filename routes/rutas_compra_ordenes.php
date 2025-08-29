@@ -20,6 +20,7 @@ Route::prefix('compra')->name('compra.')->group(function () {
 
         Route::post('solicitante/firmar/imprimir{requisicion}', [CompraRequisicionController::class,'solicitanteFirmarEImprimir'])->name('solicitante.firmar.imprimir');
         Route::post('aprobador/firmar/imprimir{requisicion}', [CompraRequisicionAprobarController::class,'aprobadorFirmarEImprimir'])->name('aprobador.firmar.imprimir');
+        Route::post('autorizador/firmar/imprimir{requisicion}', [CompraRequisicionAutorizarController::class,'autorizadorFirmarEImprimir'])->name('autorizador.firmar.imprimir');
 
         Route::resource('estados', App\Http\Controllers\CompraRequicicionEstadoController::class);
         Route::resource('tipo-adquisiciones', App\Http\Controllers\CompraRequicicionTipoAdquisicionController::class);
@@ -31,8 +32,9 @@ Route::prefix('compra')->name('compra.')->group(function () {
         Route::get('aprobar/seguimiento/{requisicion}', [CompraRequisicionAprobarController::class, 'seguimiento'])->name('aprobar.seguimiento');
         Route::patch('aprobar/store/{requisicion}', [CompraRequisicionAprobarController::class, 'aprobar'])->name('aprobar.store');
 
-
         Route::get('autorizar', [CompraRequisicionAutorizarController::class, 'index'])->name('autorizar');
+        Route::get('autorizar/seguimiento/{requisicion}', [CompraRequisicionAutorizarController::class, 'seguimiento'])->name('autorizar.seguimiento');
+        Route::get('autorizar/store/{requisicion}', [CompraRequisicionAutorizarController::class, 'autorizar'])->name('autorizar.store');
 
         Route::get('requisiciones', [CompraRequisicionController::class, 'index'])->name('requisiciones.index');
         Route::get('requisiciones/create', [CompraRequisicionController::class, 'create'])->name('requisiciones.create');

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('titulo_pagina', 'Compra Requisicions')
+@section('titulo_pagina', 'Autorizar Requisiciones de Compra')
 
 @section('content')
 

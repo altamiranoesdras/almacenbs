@@ -77,7 +77,7 @@ class CompraRequisicionAprobarController extends Controller
             ->setCorreo($request->usuario_firma)                         // credenciales del proveedor de firma
             ->setClaveFirma($request->password_firma)
             ->setRubricaUsuario(auth()->user()->rubrica ?? null)    // o la rúbrica del usuario
-            ->setInicioX(200)                                        // coordenadas opcionales
+            ->setInicioX(150)                                        // coordenadas opcionales
             ->setInicioY($y)                                        // coordenadas opcionales
             ->setAncho(200)
             ->setAlto(35)

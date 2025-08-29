@@ -1,6 +1,6 @@
-{{$compraRequisicion->codigo}}
+{{$requisicion->codigo}}
 {{--Modal de solicitud--}}
-<div class="modal fade" id="modal-detalles-{{$compraRequisicion->id}}" tabindex='-1'>
+<div class="modal fade" id="modal-detalles-{{$requisicion->id}}" tabindex='-1'>
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -14,27 +14,27 @@
                             <div class="col-sm-3">
                                 <div class="mb-2">
                                     <label for="id">Id:</label>
-                                    <div><strong>{{ $compraRequisicion->id }}</strong></div>
+                                    <div><strong>{{ $requisicion->id }}</strong></div>
                                 </div>
                             </div>
 
                             <div class="col-sm-3">
                                 <div class="mb-2">
                                     <label for="codigo">Código:</label>
-                                    <div><strong>{{ $compraRequisicion->codigo }}</strong></div>
+                                    <div><strong>{{ $requisicion->codigo }}</strong></div>
                                 </div>
                             </div>
 
                             <div class="col-sm-3">
                                 <div class="mb-2">
                                     <label for="departamento">Departamento solicita:</label>
-                                    <div><strong>{{ $compraRequisicion->unidad->nombre ?? '' }}</strong></div>
+                                    <div><strong>{{ $requisicion->unidad->nombre ?? '' }}</strong></div>
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="mb-2">
                                     <label for="fecha_solicita">Fecha Creación:</label>
-                                    <div><strong>{{ fechaLtn($compraRequisicion->created_at) }}</strong></div>
+                                    <div><strong>{{ fechaLtn($requisicion->created_at) }}</strong></div>
                                 </div>
                             </div>
 
@@ -42,7 +42,7 @@
                                 <div class="mb-2">
                                     <label for="estado">Estado:</label><br>
                                     <span
-                                        class="badge bg-info">{{ $compraRequisicion->estado->nombre }}</span>
+                                        class="badge bg-info">{{ $requisicion->estado->nombre }}</span>
                                 </div>
                             </div>
 
@@ -52,7 +52,7 @@
 
                     <div class="col-12 mt-3">
                         <label for="justificacion">Justificación:</label>
-                        <div><strong>{{ $compraRequisicion->justificacion }}</strong></div>
+                        <div><strong>{{ $requisicion->justificacion }}</strong></div>
                     </div>
                 </div>
 
@@ -67,7 +67,7 @@
                     </thead>
                     <tbody>
 
-                    @foreach($compraRequisicion->detalles as $det)
+                    @foreach($requisicion->detalles as $det)
                         <tr>
                             <td>{{$det->item->text}}</td>
                             <td>{{$det->cantidad}}</td>
@@ -81,7 +81,7 @@
                             TOTAL Artículos
                         </th>
                         <th colspan="5" class="text-right">
-                            {{$compraRequisicion->detalles->sum('cantidad')}}
+                            {{$requisicion->detalles->sum('cantidad')}}
                         </th>
                     </tr>
                     </tfoot>
@@ -91,7 +91,7 @@
                 <div class="row">
                     <div class="col-sm-6 text-left">
                         <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
-                                data-target="#modalRegresar{{$compraRequisicion->id}}"
+                                data-target="#modalRegresar{{$requisicion->id}}"
                         >
                             <i class="fa fa-arrow-left"></i> Regresar
                         </button>
@@ -101,7 +101,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="modalRegresar{{$compraRequisicion->id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+<div class="modal fade" id="modalRegresar{{$requisicion->id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -110,7 +110,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{route('solicitudes.aprobar.store',$compraRequisicion->id)}}" method="post" class="esperar">
+            <form action="{{route('solicitudes.aprobar.store',$requisicion->id)}}" method="post" class="esperar">
 
                 @csrf
                 <div class="modal-body">
