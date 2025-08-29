@@ -236,7 +236,7 @@ class CompraRequisicion extends Model
     {
         $this->estado_id = CompraRequisicionEstado::REQUERIDA;
         $this->fecha_solicita = now();
-        $this->usuario_solicita = usuarioAutenticado()->id;
+        $this->usuario_solicita_id = usuarioAutenticado()->id;
         $this->save();
 
         $this->addBitacora("SISTEMA","REQUISICIÓN DE COMPRA SOLICITADA","");

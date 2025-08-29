@@ -116,7 +116,7 @@ class CompraRequisicionController extends AppBaseController
 
         if($request->solicitar){
             if($compraRequisicion->tiene_firma_solicitante){
-
+                $compraRequisicion->solicitar();
                 flash()->success('Requisición de compra solicitada.');
                 return redirect(route('compra.requisiciones.mis.requisiciones'));
             }else{
