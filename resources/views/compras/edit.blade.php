@@ -264,7 +264,11 @@
                             @csrf
                             {{-- lo habilita si justificativa_anulacion es mayor a 25 --}}
                             <template x-if="justificativa.length > 25">
-                                <button type="submit"  class="btn btn-danger click" >Anular Ingreso</button>
+                                <button type="submit"  class="btn btn-danger mt-2" >Anular Ingreso</button>
+                            </template>
+
+                            <template x-if="justificativa.length <= 25">
+                                <div class="btn btn-danger disabled mt-2" >Anular Ingreso</div>
                             </template>
                         </form>
                     </div>
