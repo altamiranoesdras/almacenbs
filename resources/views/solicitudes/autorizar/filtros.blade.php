@@ -1,39 +1,37 @@
 
 <form id="formFiltersDatatables">
     <div class="row">
-        <div class="col-sm-2 mb-1">
+        <div class="col-sm-3 mb-1">
             <label for="del">DEL:</label>
             <input type="date" class="form-control" name="del_solicita">
         </div>
 
-        <div class="col-sm-2 mb-1">
+        <div class="col-sm-3 mb-1">
             <label for="al">AL:</label>
             <input type="date" class="form-control" name="al_solicita">
         </div>
 
-        <div class="col-sm-4 mb-1">
+        <div class="col-sm-3 mb-1">
             <label for="tipos">Usuario Solicita:</label>
             <multiselect v-model="usuarios_seleccionados" :options="usuarios" label="name" :multiple="true" track-by="id" placeholder="Seleccione uno..." >
             </multiselect>
             <input type="hidden" name="usuarios_solicita[]" v-for="usuario in usuarios_seleccionados" :value="usuario ? usuario.id : null">
         </div>
 
-        <div class="col-sm-2 mb-1">
+        <div class="col-sm-3 mb-1">
             <label for="codigo">Código</label>
             <input type="text" class="form-control" name="codigo" value="">
         </div>
 
-        <div class="col-sm-2 mb-1 ">
-            <label for="">&nbsp;</label>
-            <div>
+        <div class="col-sm-3 mb-1 ">
+            <div >
                 <button type="submit" id="boton" class="btn btn-info btn-block">
                     <i class="fa fa-sync"></i> Aplicar Filtros
                 </button>
             </div>
         </div>
 
-        <div class="col-sm-2 mb-1">
-            <label for="">&nbsp;</label>
+        <div class="col-sm-3 mb-1">
             <div>
                 <a  href="{{url()->current()}}" type="submit" id="boton" class="btn btn-info btn-block">
                     <i class="fa fa-times"></i> Limpiar Filtros
