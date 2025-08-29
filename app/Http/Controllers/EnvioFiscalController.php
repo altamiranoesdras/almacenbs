@@ -24,7 +24,7 @@ class EnvioFiscalController extends AppBaseController
      */
     public function index(EnvioFiscalDataTable $envioFiscalDataTable)
     {
-    return $envioFiscalDataTable->render('envio_fiscals.index');
+    return $envioFiscalDataTable->render('envio_fiscales.index');
     }
 
 
@@ -33,7 +33,7 @@ class EnvioFiscalController extends AppBaseController
      */
     public function create()
     {
-        return view('envio_fiscals.create');
+        return view('envio_fiscales.create');
     }
 
     /**
@@ -48,7 +48,7 @@ class EnvioFiscalController extends AppBaseController
 
         flash()->success('Envio Fiscal guardado.');
 
-        return redirect(route('envioFiscals.index'));
+        return redirect(route('envioFiscales.index'));
     }
 
     /**
@@ -62,10 +62,10 @@ class EnvioFiscalController extends AppBaseController
         if (empty($envioFiscal)) {
             flash()->error('Envio Fiscal no encontrado');
 
-            return redirect(route('envioFiscals.index'));
+            return redirect(route('envioFiscales.index'));
         }
 
-        return view('envio_fiscals.show')->with('envioFiscal', $envioFiscal);
+        return view('envio_fiscales.show')->with('envioFiscal', $envioFiscal);
     }
 
     /**
@@ -79,10 +79,10 @@ class EnvioFiscalController extends AppBaseController
         if (empty($envioFiscal)) {
             flash()->error('Envio Fiscal no encontrado');
 
-            return redirect(route('envioFiscals.index'));
+            return redirect(route('envioFiscales.index'));
         }
 
-        return view('envio_fiscals.edit')->with('envioFiscal', $envioFiscal);
+        return view('envio_fiscales.edit')->with('envioFiscal', $envioFiscal);
     }
 
     /**
@@ -96,7 +96,7 @@ class EnvioFiscalController extends AppBaseController
         if (empty($envioFiscal)) {
             flash()->error('Envio Fiscal no encontrado');
 
-            return redirect(route('envioFiscals.index'));
+            return redirect(route('envioFiscales.index'));
         }
 
         $envioFiscal->fill($request->all());
@@ -104,7 +104,7 @@ class EnvioFiscalController extends AppBaseController
 
         flash()->success('Envio Fiscal actualizado.');
 
-        return redirect(route('envioFiscals.index'));
+        return redirect(route('envioFiscales.index'));
     }
 
     /**
@@ -120,13 +120,13 @@ class EnvioFiscalController extends AppBaseController
         if (empty($envioFiscal)) {
             flash()->error('Envio Fiscal no encontrado');
 
-            return redirect(route('envioFiscals.index'));
+            return redirect(route('envioFiscales.index'));
         }
 
         $envioFiscal->delete();
 
         flash()->success('Envio Fiscal eliminado.');
 
-        return redirect(route('envioFiscals.index'));
+        return redirect(route('envioFiscales.index'));
     }
 }

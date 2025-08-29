@@ -1,16 +1,15 @@
 @extends('layouts.app')
 
-@section('titulo_pagina', 'Crear Envio Fiscal')
+@section('titulo_pagina', 'Envio Fiscal')
 
 @section('content')
-
 
     <div class="content-header row">
         <div class="content-header-left col-md-9 col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
                     <h2 class="content-header-title float-start mb-0">
-                        Crear Envio Fiscal
+                        Envio Fiscal detalle
                     </h2>
                 </div>
             </div>
@@ -29,43 +28,19 @@
         </div>
     </div>
 
+
     <div class="content-body">
 
         <div class="row">
             <div class="col-12">
-
-                @include('layouts.partials.request_errors')
-
                 <div class="card">
-                    {!! Form::open(['route' => 'envioFiscals.store','class' => 'esperar']) !!}
-
                     <div class="card-body">
-
                         <div class="row">
-                            @include('envio_fiscals.fields')
+                            @include('envio_fiscales.show_fields')
                         </div>
-
                     </div>
-
-                    <div class="card-footer text-end">
-
-                        <a href="{{ route('envioFiscals.index') }}"
-                           class="btn btn-outline-secondary round me-1">
-                            <i class="fa fa-ban"></i>
-                            Cancelar
-                        </a>
-
-                        <button type="submit" class="btn btn-success round">
-                            <i class="fa fa-save"></i>
-                            Guardar
-                        </button>
-                    </div>
-
-                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
-
     </div>
-
 @endsection

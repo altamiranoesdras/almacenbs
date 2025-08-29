@@ -9,8 +9,8 @@
             <div class="row breadcrumbs-top">
                 <div class="col-12">
                     <h2 class="content-header-title float-start mb-0">
-                                                    Editar Envio Fiscal
-                                            </h2>
+                        Editar Envio Fiscal
+                    </h2>
                 </div>
             </div>
         </div>
@@ -37,17 +37,17 @@
 
                 <div class="card">
 
-                    {!! Form::model($envioFiscal, ['route' => ['envioFiscals.update', $envioFiscal->id], 'method' => 'patch','class' => 'esperar']) !!}
+                    {!! Form::model($envioFiscal, ['route' => ['envioFiscales.update', $envioFiscal->id], 'method' => 'patch','class' => 'esperar']) !!}
 
                     <div class="card-body">
                         <div class="row">
-                            @include('envio_fiscals.fields')
+                            @include('envio_fiscales.fields')
                         </div>
                     </div>
 
                     <div class="card-footer text-end">
 
-                        <a href="{{ route('envioFiscals.index') }}"
+                        <a href="{{ route('envioFiscales.index') }}"
                            class="btn btn-outline-secondary round me-1">
                             <i class="fa fa-ban"></i>
                             Cancelar

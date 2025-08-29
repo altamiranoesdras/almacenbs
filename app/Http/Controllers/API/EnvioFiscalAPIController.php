@@ -29,9 +29,9 @@ class EnvioFiscalAPIController extends AppBaseController
             $query->limit($request->get('limit'));
         }
 
-        $envioFiscals = $query->get();
+        $envioFiscales = $query->get();
 
-        return $this->sendResponse($envioFiscals->toArray(), 'Envio Fiscals ');
+        return $this->sendResponse($envioFiscales->toArray(), 'Envio Fiscals ');
     }
 
     /**

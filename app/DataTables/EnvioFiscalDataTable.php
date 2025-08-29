@@ -22,7 +22,7 @@ class EnvioFiscalDataTable extends DataTable
             ->eloquent($query)
             ->addColumn('action', function(EnvioFiscal $envioFiscal){
                 $id = $envioFiscal->id;
-                return view('envio_fiscals.datatables_actions',compact('envioFiscal','id'));
+                return view('envio_fiscales.datatables_actions',compact('envioFiscal','id'));
             })
             ->editColumn('id',function (EnvioFiscal $envioFiscal){
 
@@ -116,19 +116,19 @@ class EnvioFiscalDataTable extends DataTable
             Column::make('correlativo_al'),
             Column::make('folio_inicial'),
             Column::make('folio_actual'),
-            Column::make('nuemero_constancia'),
-            Column::make('serie_constancia'),
-            Column::make('fecha'),
-            Column::make('numero_cuenta'),
-            Column::make('forma'),
-            Column::make('serie'),
-            Column::make('numero'),
-            Column::make('libro'),
-            Column::make('folio'),
-            Column::make('resolucion'),
-            Column::make('numero_gestion'),
-            Column::make('fecha_gestion'),
-            Column::make('correlativo'),
+//            Column::make('nuemero_constancia'),
+//            Column::make('serie_constancia'),
+//            Column::make('fecha'),
+//            Column::make('numero_cuenta'),
+//            Column::make('forma'),
+//            Column::make('serie'),
+//            Column::make('numero'),
+//            Column::make('libro'),
+//            Column::make('folio'),
+//            Column::make('resolucion'),
+//            Column::make('numero_gestion'),
+//            Column::make('fecha_gestion'),
+//            Column::make('correlativo'),
             Column::make('activo'),
             Column::computed('action')
                 ->exportable(false)
@@ -145,6 +145,6 @@ class EnvioFiscalDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'envio_fiscals_datatable_' . time();
+        return 'envio_fiscales_datatable_' . time();
     }
 }

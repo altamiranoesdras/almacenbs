@@ -19,7 +19,7 @@ class EnvioFiscalApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/envio_fiscals', $envioFiscal
+            '/api/envio_fiscales', $envioFiscal
         );
 
         $this->assertApiResponse($envioFiscal);
@@ -34,7 +34,7 @@ class EnvioFiscalApiTest extends TestCase
 
         $this->response = $this->json(
             'GET',
-            '/api/envio_fiscals/'.$envioFiscal->id
+            '/api/envio_fiscales/'.$envioFiscal->id
         );
 
         $this->assertApiResponse($envioFiscal->toArray());
@@ -50,7 +50,7 @@ class EnvioFiscalApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/envio_fiscals/'.$envioFiscal->id,
+            '/api/envio_fiscales/'.$envioFiscal->id,
             $editedEnvioFiscal
         );
 
@@ -66,13 +66,13 @@ class EnvioFiscalApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/envio_fiscals/'.$envioFiscal->id
+             '/api/envio_fiscales/'.$envioFiscal->id
          );
 
         $this->assertApiSuccess();
         $this->response = $this->json(
             'GET',
-            '/api/envio_fiscals/'.$envioFiscal->id
+            '/api/envio_fiscales/'.$envioFiscal->id
         );
 
         $this->response->assertStatus(404);
