@@ -259,12 +259,12 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr v-if="detalle_editable.length==0">
+                                                <tr v-if="detalles.length==0">
                                                     <td colspan="7"><span class="help-block text-center">No se ha agregado ningún artículo</span></td>
                                                 </tr>
-                                                <tr v-for="detalle in detalle_editable" class="text-sm">
+                                                <tr v-for="detalle in detalles" class="text-sm">
                                                     <td v-text="detalle.item.text"></td>
-                                                    <td v-text="detalle.unidad_solicitante.nombre"></td>
+                                                    <td v-text="getNombre(detalle)"></td>
 
                                                     <td v-text="dvs + nfp(detalle.precio)"></td>
                                                     <td v-text="nf(detalle.cantidad)"></td>
@@ -442,7 +442,6 @@
             methods: {
 
                 nfp: function(numero){
-                    console.log(numero);
                     let decimales = parseInt(@json(config('app.cantidad_decimales_precio')));
                     return number_format(numero,decimales)
                 },
@@ -455,6 +454,10 @@
                         return item.id;
 
                     return null
+                },
+                getNombre(detalle,relacion='unidad_solicitante'){
+
+                    return detalle[relacion] ? detalle[relacion].nombre : '' ;
                 },
 
                 editItem (detalle) {
@@ -499,6 +502,7 @@
                     try {
 
                         this.editedItem.item_id = this.getId(this.itemSelect);
+                        this.editedItem.unidad_solicita_id = this.getId(this.editedItem.unidad_solicita);
                         const data = this.editedItem;
 
                         if(this.editedItem.id === 0){
@@ -564,21 +568,6 @@
                     this.itemSelect = null;
                     this.$refs.multiselect.$refs.multiselect.$el.focus();
                 },
-                async edit (detalle) {
-                    this.loading = true;
-                    try {
-                        var res = await axios.patch(route('api.compra_detalles.update',detalle.id),detalle);
-                        iziTs(res.data.message);
-
-                        this.getItems()
-
-                        this.loading = false;
-
-                    }catch (e) {
-                        notifyErrorApi(e);
-                        this.loading = false;
-                    }
-                },
             },
 
             computed: {
@@ -632,17 +621,6 @@
                     return false;
                 },
 
-                detalle_editable() {
-                    this.detalles.forEach(async detalle => {
-                        detalle.sub_total = detalle.precio * detalle.cantidad;
-
-                        if(detalle.cantidad_real != detalle.cantidad || detalle.precio_real != detalle.precio){
-                            await this.edit(detalle)
-                        }
-                    });
-
-                    return this.detalles
-                },
             },
             watch:{
                 itemSelect (item) {

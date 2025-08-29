@@ -15,7 +15,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property int|null $tipo_concurso_id

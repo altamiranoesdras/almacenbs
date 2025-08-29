@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\Compra $compra
  * @property-read mixed $codigo
+ * @property-read mixed $fecha_vence_latina
  * @property-read mixed $responsable
  * @property-read mixed $sub_total
  * @property-read \App\Models\Item $item
@@ -107,7 +108,15 @@ class CompraDetalle extends Model
         'precio' => 'required|numeric',
         'descuento' => 'nullable|numeric',
         'fecha_vence' => 'nullable',
-        'unidad_solicita_id' => 'nullable|integer',
+        'unidad_solicita_id' => 'required|integer',
+    ];
+
+    public static $mensajes = [
+        'item_id.required' => 'El campo item es obligatorio',
+        'cantidad.required' => 'El campo cantidad es obligatorio',
+        'cantidad.min' => 'El campo cantidad debe ser mayor a 0',
+        'precio.required' => 'El campo precio es obligatorio',
+        'unidad_solicita_id.required' => 'El campo unidad solicitante es obligatorio',
     ];
 
     /**

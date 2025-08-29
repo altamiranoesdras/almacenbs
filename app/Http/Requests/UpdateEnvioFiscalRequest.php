@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Models\EnvioFiscal;
+use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateEnvioFiscalRequest extends FormRequest
 {
@@ -27,5 +27,10 @@ class UpdateEnvioFiscalRequest extends FormRequest
         $rules = EnvioFiscal::$rules;
         
         return $rules;
+    }
+
+    public function messages()
+    {
+        return EnvioFiscal::$messages;
     }
 }

@@ -5,25 +5,20 @@ namespace App\Http\Controllers\API;
 use App\Http\Requests\API\CreateEnvioFiscalAPIRequest;
 use App\Http\Requests\API\UpdateEnvioFiscalAPIRequest;
 use App\Models\EnvioFiscal;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
-use Response;
 
 /**
- * Class EnvioFiscalController
- * @package App\Http\Controllers\API
+ * Class EnvioFiscalAPIController
  */
-
 class EnvioFiscalAPIController extends AppBaseController
 {
     /**
-     * Display a listing of the EnvioFiscal.
-     * GET|HEAD /envioFiscals
-     *
-     * @param Request $request
-     * @return Response
+     * Display a listing of the EnvioFiscals.
+     * GET|HEAD /envio-fiscals
      */
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $query = EnvioFiscal::query();
 
@@ -34,38 +29,30 @@ class EnvioFiscalAPIController extends AppBaseController
             $query->limit($request->get('limit'));
         }
 
-        $envioFiscals = $query->get();
+        $envioFiscales = $query->get();
 
-        return $this->sendResponse($envioFiscals->toArray(), 'Envio Fiscals retrieved successfully');
+        return $this->sendResponse($envioFiscales->toArray(), 'Envio Fiscals ');
     }
 
     /**
      * Store a newly created EnvioFiscal in storage.
-     * POST /envioFiscals
-     *
-     * @param CreateEnvioFiscalAPIRequest $request
-     *
-     * @return Response
+     * POST /envio-fiscals
      */
-    public function store(CreateEnvioFiscalAPIRequest $request)
+    public function store(CreateEnvioFiscalAPIRequest $request): JsonResponse
     {
         $input = $request->all();
 
         /** @var EnvioFiscal $envioFiscal */
         $envioFiscal = EnvioFiscal::create($input);
 
-        return $this->sendResponse($envioFiscal->toArray(), 'Envio Fiscal guardado exitosamente');
+        return $this->sendResponse($envioFiscal->toArray(), 'Envio Fiscal guardado');
     }
 
     /**
      * Display the specified EnvioFiscal.
-     * GET|HEAD /envioFiscals/{id}
-     *
-     * @param int $id
-     *
-     * @return Response
+     * GET|HEAD /envio-fiscals/{id}
      */
-    public function show($id)
+    public function show($id): JsonResponse
     {
         /** @var EnvioFiscal $envioFiscal */
         $envioFiscal = EnvioFiscal::find($id);
@@ -74,19 +61,14 @@ class EnvioFiscalAPIController extends AppBaseController
             return $this->sendError('Envio Fiscal no encontrado');
         }
 
-        return $this->sendResponse($envioFiscal->toArray(), 'Envio Fiscal retrieved successfully');
+        return $this->sendResponse($envioFiscal->toArray(), 'Envio Fiscal ');
     }
 
     /**
      * Update the specified EnvioFiscal in storage.
-     * PUT/PATCH /envioFiscals/{id}
-     *
-     * @param int $id
-     * @param UpdateEnvioFiscalAPIRequest $request
-     *
-     * @return Response
+     * PUT/PATCH /envio-fiscals/{id}
      */
-    public function update($id, UpdateEnvioFiscalAPIRequest $request)
+    public function update($id, UpdateEnvioFiscalAPIRequest $request): JsonResponse
     {
         /** @var EnvioFiscal $envioFiscal */
         $envioFiscal = EnvioFiscal::find($id);
@@ -98,20 +80,16 @@ class EnvioFiscalAPIController extends AppBaseController
         $envioFiscal->fill($request->all());
         $envioFiscal->save();
 
-        return $this->sendResponse($envioFiscal->toArray(), 'EnvioFiscal actualizado con éxito');
+        return $this->sendResponse($envioFiscal->toArray(), 'EnvioFiscal actualizado');
     }
 
     /**
      * Remove the specified EnvioFiscal from storage.
-     * DELETE /envioFiscals/{id}
-     *
-     * @param int $id
+     * DELETE /envio-fiscals/{id}
      *
      * @throws \Exception
-     *
-     * @return Response
      */
-    public function destroy($id)
+    public function destroy($id): JsonResponse
     {
         /** @var EnvioFiscal $envioFiscal */
         $envioFiscal = EnvioFiscal::find($id);
@@ -122,6 +100,6 @@ class EnvioFiscalAPIController extends AppBaseController
 
         $envioFiscal->delete();
 
-        return $this->sendSuccess('Envio Fiscal deleted successfully');
+        return $this->sendSuccess('Envio Fiscal eliminado');
     }
 }
