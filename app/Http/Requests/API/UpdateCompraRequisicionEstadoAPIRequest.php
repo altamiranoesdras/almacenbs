@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\API;
 
 use App\Models\CompraRequisicionEstado;
-use Illuminate\Foundation\Http\FormRequest;
+use InfyOm\Generator\Request\APIRequest;
 
-class CreateCompraRequicicionEstadoRequest extends FormRequest
+class UpdateCompraRequisicionEstadoAPIRequest extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,8 @@ class CreateCompraRequicicionEstadoRequest extends FormRequest
      */
     public function rules()
     {
-        return CompraRequisicionEstado::$rules;
-    }
+        $rules = CompraRequisicionEstado::$rules;
 
-    public function messages()
-    {
-        return CompraRequisicionEstado::$messages;
+        return $rules;
     }
 }

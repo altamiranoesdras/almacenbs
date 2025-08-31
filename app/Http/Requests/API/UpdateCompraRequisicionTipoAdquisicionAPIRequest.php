@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\API;
 
-use App\Models\CompraRequisicionEstado;
+use App\Models\CompraRequisicionTipoAdquisicion;
 use InfyOm\Generator\Request\APIRequest;
 
-class UpdateCompraRequicicionEstadoAPIRequest extends APIRequest
+class UpdateCompraRequisicionTipoAdquisicionAPIRequest extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class UpdateCompraRequicicionEstadoAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = CompraRequisicionEstado::$rules;
+        $rules = CompraRequisicionTipoAdquisicion::$rules;
 
         return $rules;
     }

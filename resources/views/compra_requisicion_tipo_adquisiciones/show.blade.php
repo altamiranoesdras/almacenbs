@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('titulo_pagina', 'Compra Requicicion Tipo Adquisicion')
+@section('titulo_pagina', 'Compra Requisicion Tipo Adquisicion')
 
 @section('content')
 
@@ -9,7 +9,7 @@
             <div class="row breadcrumbs-top">
                 <div class="col-12">
                     <h2 class="content-header-title float-start mb-0">
-                                                    Compra Requicicion Tipo Adquisicion detalle
+                                                    Compra Requisicion Tipo Adquisicion detalle
                                             </h2>
                 </div>
             </div>

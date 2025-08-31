@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Models\CompraRequisicionTipoAdquisicion;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateCompraRequicicionTipoAdquisicionRequest extends FormRequest
+class UpdateCompraRequisicionTipoAdquisicionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

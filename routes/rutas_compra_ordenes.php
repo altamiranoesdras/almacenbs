@@ -22,8 +22,8 @@ Route::prefix('compra')->name('compra.')->group(function () {
         Route::post('aprobador/firmar/imprimir{requisicion}', [CompraRequisicionAprobarController::class,'aprobadorFirmarEImprimir'])->name('aprobador.firmar.imprimir');
         Route::post('autorizador/firmar/imprimir{requisicion}', [CompraRequisicionAutorizarController::class,'autorizadorFirmarEImprimir'])->name('autorizador.firmar.imprimir');
 
-        Route::resource('estados', App\Http\Controllers\CompraRequicicionEstadoController::class);
-        Route::resource('tipo-adquisiciones', App\Http\Controllers\CompraRequicicionTipoAdquisicionController::class);
+        Route::resource('estados', App\Http\Controllers\CompraRequisicionEstadoController::class);
+        Route::resource('tipo-adquisiciones', App\Http\Controllers\CompraRequisicionTipoAdquisicionController::class);
         Route::resource('tipo-concursos', App\Http\Controllers\CompraRequisicionTipoConcursoController::class);
 
         Route::get('mis/requisiciones', [CompraRequisicionUsuarioController::class, 'index'])->name('mis.requisiciones');

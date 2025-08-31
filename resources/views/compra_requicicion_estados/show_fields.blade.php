@@ -1,12 +1,12 @@
 <!-- Nombre Field -->
 <div class="col-sm-12">
     {!! Form::label('nombre', 'Nombre:') !!}
-    <p>{{ $compraRequicicionEstado->nombre }}</p>
+    <p>{{ $compraRequisicionEstado->nombre }}</p>
 </div>
 
 <!-- Tipo Proceso Field -->
 <div class="col-sm-12">
     {!! Form::label('tipo_proceso', 'Tipo Proceso:') !!}
-    <p>{{ $compraRequicicionEstado->tipo_proceso }}</p>
+    <p>{{ $compraRequisicionEstado->tipo_proceso }}</p>
 </div>
 

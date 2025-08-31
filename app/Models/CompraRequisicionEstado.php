@@ -97,8 +97,6 @@ class CompraRequisicionEstado extends Model
     public function getColorAttribute(): string
     {
         switch ($this->id) {
-            case self::CREADA:
-                return 'secondary';
             case self::ASIGNADA_A_ANALISTA_DE_PRESUPUESTOS:
             case self::ASIGNADA_A_ANALISTA_DE_COMPRAS:
             case self::CUADRO_COMPARATIVO_GENERADO:
@@ -120,6 +118,7 @@ class CompraRequisicionEstado extends Model
                 return 'success';
             case self::CANCELADA:
                 return 'danger';
+            case self::CREADA:
             default:
                 return 'secondary';
         }

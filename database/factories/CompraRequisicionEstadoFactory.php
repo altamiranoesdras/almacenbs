@@ -6,7 +6,7 @@ use App\Models\CompraRequisicionEstado;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 
-class CompraRequicicionEstadoFactory extends Factory
+class CompraRequisicionEstadoFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.

@@ -2,12 +2,12 @@
 
 namespace App\DataTables;
 
-use App\Models\CompraRequisicionTipoAdquisicion;
-use Yajra\DataTables\Html\Button;
+use App\Models\CompraRequisicionEstado;
 use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Services\DataTable;
 
-class CompraRequicicionTipoAdquisicionDataTable extends DataTable
+class CompraRequisicionEstadoDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -20,13 +20,13 @@ class CompraRequicicionTipoAdquisicionDataTable extends DataTable
 
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', function(CompraRequisicionTipoAdquisicion $compraRequicicionTipoAdquisicion){
-                $id = $compraRequicicionTipoAdquisicion->id;
-                return view('compra_requisicion_tipo_adquisiciones.datatables_actions',compact('compraRequicicionTipoAdquisicion','id'));
+            ->addColumn('action', function(CompraRequisicionEstado $compraRequisicionEstado){
+                $id = $compraRequisicionEstado->id;
+                return view('compra_requisicion_estados.datatables_actions',compact('compraRequisicionEstado','id'));
             })
-            ->editColumn('id',function (CompraRequisicionTipoAdquisicion $compraRequicicionTipoAdquisicion){
+            ->editColumn('id',function (CompraRequisicionEstado $compraRequisicionEstado){
 
-                return $compraRequicicionTipoAdquisicion->id;
+                return $compraRequisicionEstado->id;
 
             })
             ->rawColumns(['action']);
@@ -35,10 +35,10 @@ class CompraRequicicionTipoAdquisicionDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\CompraRequisicionTipoAdquisicion $model
+     * @param \App\Models\CompraRequisicionEstado $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(CompraRequisicionTipoAdquisicion $model)
+    public function query(CompraRequisicionEstado $model)
     {
         return $model->newQuery()->select($model->getTable().'.*');
     }
@@ -128,6 +128,6 @@ class CompraRequicicionTipoAdquisicionDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'compra_requisicion_tipo_adquisiciones_datatable_' . time();
+        return 'compra_requisicion_estados_datatable_' . time();
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('titulo_pagina', 'Editar Compra Requicicion Estado' )
+@section('titulo_pagina', 'Editar Compra Requisicion Estado' )
 
 @section('content')
 
@@ -9,7 +9,7 @@
             <div class="row breadcrumbs-top">
                 <div class="col-12">
                     <h2 class="content-header-title float-start mb-0">
-                                                    Editar Compra Requicicion Estado
+                                                    Editar Compra Requisicion Estado
                                             </h2>
                 </div>
             </div>
@@ -37,7 +37,7 @@
 
                 <div class="card">
 
-                    {!! Form::model($compraRequicicionEstado, ['route' => ['compra.requisiciones.estados.update', $compraRequicicionEstado->id], 'method' => 'patch','class' => 'esperar']) !!}
+                    {!! Form::model($compraRequisicionEstado, ['route' => ['compra.requisiciones.estados.update', $compraRequisicionEstado->id], 'method' => 'patch','class' => 'esperar']) !!}
 
                     <div class="card-body">
                         <div class="row">
