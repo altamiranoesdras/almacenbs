@@ -112,7 +112,6 @@ class CompraRequisicionEstadoDataTable extends DataTable
     {
         return [
             Column::make('nombre'),
-            Column::make('tipo_proceso'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
