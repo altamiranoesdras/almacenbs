@@ -3,8 +3,8 @@
 namespace App\DataTables;
 
 use App\Models\CompraRequisicionTipoAdquisicion;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Services\DataTable;
 
 class CompraRequisicionTipoAdquisicionDataTable extends DataTable
@@ -112,7 +112,6 @@ class CompraRequisicionTipoAdquisicionDataTable extends DataTable
     {
         return [
             Column::make('nombre'),
-            Column::make('tipo_proceso'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

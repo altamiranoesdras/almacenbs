@@ -25,7 +25,7 @@ class UpdateCompraRequisicionTipoAdquisicionRequest extends FormRequest
     public function rules()
     {
         $rules = CompraRequisicionTipoAdquisicion::$rules;
-
+        
         return $rules;
     }
 
