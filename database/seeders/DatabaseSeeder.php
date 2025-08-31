@@ -80,10 +80,11 @@ class DatabaseSeeder extends Seeder
         $this->call(MediaTableSeeder::class);
 
 
-        //Seeders de Compra Requisiciones
+
         $this->call(CompraRequisicionEstadosTableSeeder::class);
         $this->call(CompraBandejasTableSeeder::class);
 
+        $this->call(CompraRequisicionProcesoTiposTableSeeder::class);
         $this->call(CompraRequisicionTipoConcursosTableSeeder::class);
         $this->call(CompraRequisicionTipoAdquisicionsTableSeeder::class);
 

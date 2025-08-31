@@ -18,6 +18,9 @@ Route::prefix('compra')->name('compra.')->group(function () {
 
     Route::prefix('requisiciones')->name('requisiciones.')->group(function () {
 
+        Route::resource('proceso-tipos', App\Http\Controllers\CompraRequisicionProcesoTipoController::class);
+
+
         Route::post('solicitante/firmar/imprimir{requisicion}', [CompraRequisicionController::class,'solicitanteFirmarEImprimir'])->name('solicitante.firmar.imprimir');
         Route::post('aprobador/firmar/imprimir{requisicion}', [CompraRequisicionAprobarController::class,'aprobadorFirmarEImprimir'])->name('aprobador.firmar.imprimir');
         Route::post('autorizador/firmar/imprimir{requisicion}', [CompraRequisicionAutorizarController::class,'autorizadorFirmarEImprimir'])->name('autorizador.firmar.imprimir');
