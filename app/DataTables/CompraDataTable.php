@@ -29,9 +29,17 @@ class CompraDataTable extends DataTable
 
                 return view('compras.datatables_actions',compact('compra','id'));
             })
+            ->addColumn('h1',function (Compra $compra){
+
+                $h1 = $compra->compra1h->folio ?? null;
+
+                return $h1;
+            })
+
             ->editColumn('id',function (Compra $compra){
                 return view('compras.columna_id',compact('compra'));
             })
+            
             ->editColumn('fecha_documento',function (Compra $compra){
                 return fechaLtn($compra->fecha_documento);
             })
@@ -197,6 +205,10 @@ class CompraDataTable extends DataTable
             Column::make('usuario')
                     ->data('usuario_crea.name')
                     ->name('usuarioCrea.name'),
+            Column::make('h1'),
+            Column::make('orden_compra')
+            ->data('orden_compra')
+            ->name('orden_compra'),
             Column::make('total'),
             Column::computed('action')
                 ->exportable(false)

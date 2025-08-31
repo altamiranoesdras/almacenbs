@@ -1,4 +1,4 @@
-<table class="table table-bordered table-hover table-xtra-condensed">
+<table class="table table-bordered table-hover table-xtra-condensed" id="table-detalles-{{ $solicitud->id }}">
     <thead>
     <tr>
         <th>Producto</th>
@@ -6,12 +6,12 @@
         <th>Cantidad Solicitada</th>
         <th>Cantidad Aprobada</th>
         <th>Cantidad despachada</th>
-
+        {{-- <th></th> --}}
     </tr>
     </thead>
     <tbody>
 
-    @foreach($solicitud->detalles as $det)
+    {{-- @foreach($solicitud->detalles as $det)
         <tr>
             <td>{{$det->item->text}}</td>
             <th>{{$det->item->stock_total}}</th>
@@ -21,12 +21,27 @@
                 <td> {{$det->cantidad_despachada}}</td>
             @else
             <td>
-                <input type="number" name="cantidades_despacha[]" step="any" class="form-control form-control-sm" required >
+                <input type="number" name="cantidades_despacha[]" step="any" class="form-control form-control-sm" required value="{{ $det->cantidad_aprobada }}" >
             </td>
             @endif
         </tr>
-    @endforeach
+    @endforeach --}}
 
+    <tr v-for="detalle in detalles">
+        <td v-text="detalle.item.text"></td>
+        <th v-text="detalle.item.stock_total"></th>
+        <td v-text="detalle.cantidad_solicitada"></td>
+        <td v-text="detalle.cantidad_aprobada"></td>
+        <td>
+            <input type="number" name="cantidades_despacha[]" step="any" class="form-control form-control-sm" required v-model="detalle.cantidad_real">
+        </td>
+        {{-- <td>
+            <div class="btn btn-primary" @click="completar(detalle)">
+                ok
+            </div>
+        </td> --}}
+    </tr>
+    
     </tbody>
     <tfoot>
     <tr>
@@ -38,3 +53,33 @@
     </tr>
     </tfoot>
 </table>
+
+
+{{-- @push('scripts') --}}
+    <script >
+        new Vue({
+            el: '#table-detalles-{{ $solicitud->id }}',
+            created() {
+                this.detalles.forEach(det => {
+                    det.cantidad_real = 0;
+                });
+            },
+            data: {
+                detalles: @json($solicitud->detalles)
+            },
+            methods: {
+                completar(detalle) {
+                    this.$set(detalle, 'cantidad_real', detalle.cantidad_aprobada);
+                    console.log('completar', detalle);
+                }
+            },
+            computed:{
+
+            },
+            watch:{
+
+            }
+        });
+    </script>
+{{-- @endpush --}}
+
