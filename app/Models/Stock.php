@@ -79,6 +79,7 @@ class Stock extends Model
 
     public $fillable = [
         'item_id',
+        'unidad_id',
         'bodega_id',
         'lote',
         'fecha_ing',
@@ -92,6 +93,8 @@ class Stock extends Model
     protected $casts = [
         'id' => 'integer',
         'item_id' => 'integer',
+        'unidad_id' => 'integer',
+        'bodega_id' => 'integer',
         'lote' => 'string',
         'fecha_ing' => 'datetime',
         'fecha_vence' => 'date',

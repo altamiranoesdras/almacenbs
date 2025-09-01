@@ -18,6 +18,9 @@ class CreateBodegasTable extends Migration
             $table->string('nombre');
             $table->text('direccion')->nullable();
             $table->char('telefono', 30)->nullable();
+            $table->foreignId('unidad_id')
+                ->nullable()
+                ->constrained('rrhh_unidades');
             $table->timestamps();
             $table->softDeletes();
         });

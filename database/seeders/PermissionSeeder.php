@@ -143,6 +143,8 @@ class PermissionSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'Anular Solicitud de Compra']);
         Permission::firstOrCreate(['name' => 'Autorizar Solicitud de Compra']);
 
+        Permission::firstOrCreate(['name' => 'Puede procesar ingreso de compra']);
+
 
 
     }

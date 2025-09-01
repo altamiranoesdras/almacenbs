@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Bodega;
+use App\Models\RrhhUnidad;
 use Illuminate\Database\Seeder;
 
 class RrhhUnidadesTableSeeder extends Seeder
@@ -16,8 +17,9 @@ class RrhhUnidadesTableSeeder extends Seeder
     public function run()
     {
 
+        deshabilitaLlavesForaneas();
 
-        \DB::table('rrhh_unidades')->delete();
+        RrhhUnidad::truncate();
 
         \DB::table('rrhh_unidades')->insert(array (
             0 =>
@@ -2288,10 +2290,17 @@ II)',
             ),
         ));
 
-        $unidades = \App\Models\RrhhUnidad::get();
 
-        foreach ($unidades as $unidad) {
+        Bodega::truncate();
+
+        //bodega principal central
+        Bodega::create([
+            'nombre' => 'Bodega Principal Central'
+        ]);
+
+        foreach (RrhhUnidad::areas()->solicitan()->get() as $unidad) {
             Bodega::create([
+                'unidad_id' => $unidad->id,
                 'nombre' => $unidad->nombre
             ]);
         }

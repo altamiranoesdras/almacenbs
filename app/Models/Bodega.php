@@ -59,6 +59,7 @@ class Bodega extends Model
 
 
     public $fillable = [
+        'unidad_id',
         'nombre',
         'direccion',
         'telefono'
