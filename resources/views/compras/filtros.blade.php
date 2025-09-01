@@ -20,51 +20,81 @@
          --}}
         <form id="formFiltersDatatables">
             <div class="row">
-
-                <!-- Campo -->
-                <div class="col-sm-4 mb-3">
-                    <label for="campo_fecha" class="form-label">Campo Fecha:</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control rangofecha" name="campo_fecha" value="">
-                        <button class="btn btn-outline-secondary" type="button">
-                            <i class="fa fa-calendar"></i>
-                        </button>
-                    </div>
+                <div class="col-sm-4 mb-1">
+                    {!! Form::label('proveedor_id','Proveedor: ') !!}
+                    {!!
+                        Form::select(
+                            'proveedores',
+                            select(\App\Models\Proveedor::class,'nombre','id',null)
+                            , $proveedor_id ?? null
+                            , ['id'=>'proveedores','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
+                        )
+                    !!}
                 </div>
 
-                <!-- Campo -->
-                <div class="col-sm-4 mb-3">
-                    <label for="tipos" class="form-label">Usuarios:</label>
-                    <multiselect v-model="usuario" :options="usuarios" label="name" placeholder="Seleccione uno...">
+                <div class="col-sm-2 mb-1">
+                    {!! Form::label('del', 'Del:') !!}
+                    {!! Form::date('del', iniMesDb(), ['class' => 'form-control ']) !!}
+                </div>
+
+                <div class="col-sm-2 mb-1">
+                    {!! Form::label('al', 'Al:') !!}
+                    {!! Form::date('al', hoyDb(), ['class' => 'form-control ']) !!}
+                </div>
+
+                <div class="col-sm-4 mb-1">
+                    {!! Form::label('item_id','Artículo: ') !!}
+                    {!!
+                        Form::select(
+                            'items',
+                            select(\App\Models\Item::conIngresos(),'text','id',null)
+                            , null
+                            , ['id'=>'items','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
+                        )
+                    !!}
+                </div>
+
+                <div class="col-sm-3 mb-1">
+                    {!! Form::label('estado_id','Estado: ') !!}
+                    {!!
+                        Form::select(
+                            'estados',
+                            select(\App\Models\CompraEstado::class,'nombre','id',null)
+                            , null
+                            , ['id'=>'estados','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
+                        )
+                    !!}
+                </div>
+
+                <div class="col-sm-3 mb-1">
+                    {!! Form::label('codigo', 'Codigo:') !!}
+                    {!! Form::text('codigo', null, ['class' => 'form-control']) !!}
+                </div>
+
+                <div class="col-sm-3 mb-1">
+                    {!! Form::label('h1', 'H1:') !!}
+                    {!! Form::text('h1', null, ['class' => 'form-control']) !!}
+                </div>
+
+                <div class="col-3 mb-1">
+                    <label for="unidad_solicitante">Unidad Solicitante</label>
+                    <multiselect
+                        v-model="unidadadSeleccionada"
+                        :options="unidades"
+                        label="nombre"
+                        track-by="id">
                     </multiselect>
-                    <input type="hidden" name="usuarios" :value="usuario ? usuario.id : null">
+                    <input type="hidden" name="unidad_solicitante" :value="unidadadSeleccionada ? unidadadSeleccionada.id : ''">
                 </div>
 
-                <!-- Campo -->
-                <div class="col-sm-4 mb-3">
-                    <label for="estado_id" class="form-label">Estado:</label>
-                    <multiselect v-model="estado" :options="estados" track-by="id" label="nombre"
-                                 :multiple="true"
-                                 placeholder="Seleccione uno">
-                    </multiselect>
-                    <input type="hidden" name="estados[]" :value="item.id" v-for="item in estado">
-                </div>
-
-                <!-- Campo -->
-                <div class="col-sm-4 mb-3">
-                    <label for="campo_texto" class="form-label">Campo Texto:</label>
-                    <input class="form-control" type="text" name="campo_texto">
-                </div>
-
-                <!-- Campo -->
-                <div class="col-sm-4 mb-3">
-                    <label for="campo_numero" class="form-label">Campo Número:</label>
-                    <input class="form-control" type="number" step="any" min="0" name="campo_numero">
+                <div class="col-sm-3 mb-1">
+                    {!! Form::label('orden_compra', 'Orden de Compra:') !!}
+                    {!! Form::text('orden_compra', null, ['class' => 'form-control']) !!}
                 </div>
 
                 <!-- Acciones -->
                 <div class="col-sm-12 text-end">
-                    <button type="button" @click.prevent="limpiarFormulario()" class="btn btn-secondary">
+                    <button type="button" @click.prevent="limpiarFormulario()" class="btn btn-outline-secondary">
                         <i class="fa fa-refresh"></i> Limpiar
                     </button>
                     &nbsp;
@@ -79,9 +109,6 @@
 </div>
 </div>
 
-
-
-@include('layouts.plugins.bootstrap_daterangepicker')
 
 @push('scripts')
     <script>
@@ -98,8 +125,8 @@
                 estados: @json([]),
                 estado: null,
 
-                usuarios: @json(\App\Models\User::all() ?? []),
-                usuario: null,
+                unidades: @json(\App\Models\RrhhUnidad::areas()->solicitan()->get()),
+                unidadadSeleccionada: null
 
             },
             methods: {
