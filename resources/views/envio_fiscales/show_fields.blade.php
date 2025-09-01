@@ -1,7 +1,7 @@
 <!-- Nombre Tabla Field -->
 <div class="col-sm-12">
     {!! Form::label('nombre_tabla', 'Nombre Tabla:') !!}
-    <p>{{ $envioFiscal->nombre_tabla }}</p>
+    <p>{{ $envioFiscal->nombre }}</p>
 </div>
 
 <!-- Correlativo Del Field -->

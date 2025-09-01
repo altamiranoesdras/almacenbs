@@ -34,6 +34,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Compra1h> $compra1hs
  * @property-read int|null $compra1hs_count
+ * @property-read mixed $nombre
  * @method static \Database\Factories\EnvioFiscalFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal newQuery()
@@ -162,6 +163,22 @@ class EnvioFiscal extends Model
         }
 
         $this->save();
+
+    }
+
+    public function getNombreAttribute()
+    {
+        switch ($this->nombre_tabla) {
+            case 'compras':
+                return 'Formularios de 1H';
+                break;
+            case 'solicitudes':
+                return 'Requisiciones almacén';
+                break;
+            default:
+                return $this->nombre_tabla;
+                break;
+        }
 
     }
 }
