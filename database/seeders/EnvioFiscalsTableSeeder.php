@@ -20,17 +20,17 @@ class EnvioFiscalsTableSeeder extends Seeder
 
         EnvioFiscal::factory()->count(1)->create([
             'nombre_tabla' => 'compras',
-            'correlativo_del' => 1000,
-            'correlativo_al' => 10000,
+            'correlativo_del' => 1,
+            'correlativo_al' => 2000,
             'folio_inicial' => 1,
-            'folio_actual' => 1,
+            'folio_actual' => 40,
             'activo' => 'si'
         ]);
 
         EnvioFiscal::factory()->count(1)->create([
-            'nombre_tabla' => 'compra_requisiciones',
-            'correlativo_del' => 1000,
-            'correlativo_al' => 10000,
+            'nombre_tabla' => 'solicitudes',
+            'correlativo_del' => 1,
+            'correlativo_al' => 7500,
             'folio_inicial' => 1,
             'folio_actual' => 1,
             'activo' => 'si'
