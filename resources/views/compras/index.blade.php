@@ -24,12 +24,10 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="card-body">
                         @include('compras.table')
                         <h3 class="text-muted">
                             Total <span id="count_rows"></span>   registros  <span class="text-success"><span id="total_filtro"></span></span>
                         </h3>
-                    </div>
                 </div>
                 <!-- /.card -->
             </div>

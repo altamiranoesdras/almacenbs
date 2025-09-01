@@ -207,6 +207,7 @@ class CompraController extends AppBaseController
         flash('Listo! compra procesada.')->success();
 
         return redirect(route('compras.edit', $compra->id));
+
     }
 
     public function actualizarProcesada(Compra $compra,Request $request)
@@ -368,7 +369,7 @@ class CompraController extends AppBaseController
         flash('Ingreso Realizado')->success();
 
 
-        return redirect(route('compras.edit',$compra->id));
+        return redirect(route('bandejas.compras1h.operador.gestionar', $compra->id));
 
     }
 

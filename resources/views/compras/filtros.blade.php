@@ -20,7 +20,19 @@
          --}}
         <form id="formFiltersDatatables">
             <div class="row">
-                <div class="col-sm-4 mb-1">
+
+                <div class="col-6 mb-1">
+                    <label for="unidad_solicitante">Unidad Solicitante</label>
+                    <multiselect
+                        v-model="unidadadSeleccionada"
+                        :options="unidades"
+                        label="nombre_con_padre"
+                        track-by="id">
+                    </multiselect>
+                    <input type="hidden" name="unidad_solicitante" :value="unidadadSeleccionada ? unidadadSeleccionada.id : ''">
+                </div>
+
+                <div class="col-sm-6 mb-1">
                     {!! Form::label('proveedor_id','Proveedor: ') !!}
                     {!!
                         Form::select(
@@ -42,7 +54,22 @@
                     {!! Form::date('al', hoyDb(), ['class' => 'form-control ']) !!}
                 </div>
 
-                <div class="col-sm-4 mb-1">
+                <div class="col-sm-2 mb-1">
+                    {!! Form::label('codigo', 'Codigo:') !!}
+                    {!! Form::text('codigo', null, ['class' => 'form-control']) !!}
+                </div>
+
+                <div class="col-sm-2 mb-1">
+                    {!! Form::label('h1', 'H1:') !!}
+                    {!! Form::text('h1', null, ['class' => 'form-control']) !!}
+                </div>
+
+                <div class="col-sm-2 mb-1">
+                    {!! Form::label('orden_compra', 'Orden de Compra:') !!}
+                    {!! Form::text('orden_compra', null, ['class' => 'form-control']) !!}
+                </div>
+
+                <div class="col-sm-6 mb-1">
                     {!! Form::label('item_id','Artículo: ') !!}
                     {!!
                         Form::select(
@@ -54,7 +81,7 @@
                     !!}
                 </div>
 
-                <div class="col-sm-3 mb-1">
+                <div class="col-sm-6 mb-1">
                     {!! Form::label('estado_id','Estado: ') !!}
                     {!!
                         Form::select(
@@ -66,31 +93,6 @@
                     !!}
                 </div>
 
-                <div class="col-sm-3 mb-1">
-                    {!! Form::label('codigo', 'Codigo:') !!}
-                    {!! Form::text('codigo', null, ['class' => 'form-control']) !!}
-                </div>
-
-                <div class="col-sm-3 mb-1">
-                    {!! Form::label('h1', 'H1:') !!}
-                    {!! Form::text('h1', null, ['class' => 'form-control']) !!}
-                </div>
-
-                <div class="col-3 mb-1">
-                    <label for="unidad_solicitante">Unidad Solicitante</label>
-                    <multiselect
-                        v-model="unidadadSeleccionada"
-                        :options="unidades"
-                        label="nombre"
-                        track-by="id">
-                    </multiselect>
-                    <input type="hidden" name="unidad_solicitante" :value="unidadadSeleccionada ? unidadadSeleccionada.id : ''">
-                </div>
-
-                <div class="col-sm-3 mb-1">
-                    {!! Form::label('orden_compra', 'Orden de Compra:') !!}
-                    {!! Form::text('orden_compra', null, ['class' => 'form-control']) !!}
-                </div>
 
                 <!-- Acciones -->
                 <div class="col-sm-12 text-end">
