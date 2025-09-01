@@ -35,7 +35,7 @@
 
         <li class="nav-item {{$option->active()}}">
             <a class="d-flex align-items-center" href="{{rutaOpcion($option)}}">
-                <i class="fa {{$option->icono_l}}"></i>
+                <i class="fa {{$option->icono_l}} text-{{$option->color}}"></i>
                 <span class="menu-title text-truncate" data-i18n="Menu Levels">
                     {{$option->nombre}}
                     </span>
