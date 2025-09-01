@@ -96,4 +96,5 @@ class CompraEstado extends Model
     {
         return $this->hasMany(\App\Models\Compra::class, 'estado_id');
     }
+
 }

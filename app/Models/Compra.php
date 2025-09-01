@@ -609,6 +609,19 @@ class Compra extends Model
         ]);
     }
 
+    //puede gestionar 1h
+    public function puedeGestionar1h()
+    {
+        return in_array($this->estado_id,[
+            CompraEstado::INGRESADO,
+            CompraEstado::UNO_H_OPERADO,
+            CompraEstado::UNO_H_APROBADO,
+            CompraEstado::UNO_H_AUTORIZADO,
+            CompraEstado::RETORNO_POR_APROBADOR,
+            CompraEstado::RETORNO_POR_AUTORIZADOR,
+        ]);
+    }
+
     public function operar1h()
     {
         $this->addBitacora("Formulario 1H Operado, folio: ".$this->compra1h->folio,'');

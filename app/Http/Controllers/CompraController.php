@@ -440,45 +440,6 @@ class CompraController extends AppBaseController
         return $pdf->inline('CompraH1-'.$compra->id. '_'. time().'.pdf');
     }
 
-    public function actualizar1h(Compra $compra, Request $request)
-    {
-        /** @var Compra1h $compra1h */
-        $compra1h = $compra->compra1h;
 
-        if (empty($compra1h)) {
-            Flash::error('1H no encontrado');
-
-            return redirect(route('compra1hs.index'));
-        }
-
-        try {
-            DB::beginTransaction();
-
-
-            $compra1h->fill($request->all());
-            $compra1h->save();
-
-            foreach ($compra1h->detalles as $index => $detalle) {
-                $detalle->texto_extra = $request->textos_extras[$detalle->id] ?? null;
-                $detalle->folio_almacen = $request->folios_almacen[$detalle->id] ?? null;
-                $detalle->folio_inventario = $request->folios_inventario[$detalle->id] ?? null;
-                $detalle->codigo_inventario = $request->codigos_inventario[$detalle->id] ?? null;
-                $detalle->save();
-            }
-
-
-        } catch (Exception $exception) {
-            DB::rollBack();
-
-            throw new Exception($exception);
-        }
-
-        DB::commit();
-
-
-        flash()->success('1H actualizado con éxito.');
-
-        return redirect(route('compras.edit',$compra->id));
-    }
 
 }

@@ -4,29 +4,15 @@
 
 @section('content')
 
-    <div class="content-header row">
-        <div class="content-header-left col-md-9 col-12 mb-2">
-            <div class="row breadcrumbs-top">
-                <div class="col-12">
-                    <h2 class="content-header-title float-start mb-0">
-                        Autorizar Ingreso Almacén
-                    </h2>
-                </div>
-            </div>
-        </div>
-
-        <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
-            <div class="mb-1 breadcrumb-right">
-                <div class="dropdown">
-                    <a class="btn btn-outline-secondary float-right"
-                       href="{{ route('compras.index') }}">
-                        <i class="fa fa-arrow-left"></i>
-                        Regresar
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <x-content-header titulo="Autorizar Ingreso Almacén">
+        <a class="btn btn-outline-secondary round"
+           href="{!! route('bandejas.compras1h.autorizador') !!}">
+            <i class="fa fa-arrow-left"></i>
+            <span class="d-none d-sm-inline">
+                Regresar
+            </span>
+        </a>
+    </x-content-header>
 
     <div class="content-body">
 
@@ -84,7 +70,7 @@
                                                          data-toggle="tooltip" title="Anular Ingreso"
                                                          class="btn round btn-outline-danger ms-1 float-end"
                                                          data-bs-toggle="modal"
-                                                         data-bs-target="#modal-anular">
+                                                         data-bs-target="#modalAnularaIngresoAlmacen">
                                                     Anular Ingreso <i class="fa fa-undo-alt"></i>
                                                 </button>
                                             @endif
@@ -244,55 +230,9 @@
             <!-- /.col-md-6 -->
         </div>
     </div>
+
+    @include('compras.partials.modal_anular_ingreso_almacen')
 @endsection
-
-
-{{-- Modal para anular compra --}}
-<div class="modal fade" id="modal-anular" tabindex='-1'>
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content " style="color: #0A0A0A">
-            <div class="modal-header">
-                <h5 class="modal-title">Detalles del ingreso</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            {{-- <div class="modal-body">
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-sm">
-                        @include('compras.show_fields',['compra'=>$compra])
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        @include('compras.tabla_detalles',['compra'=>$compra])
-                    </div>
-                </div>
-            </div> --}}
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-12" x-data="{ justificativa: '' }">
-                        <form action="{{ route('compras.anular', $compra->id)}}" method="POST">
-                            @method('POST')
-                            {{ Form::textarea('justificativa_anulacion', null, ['class' => 'form-control', 'placeholder' => 'Ingrese motivo de anulación', 'rows' => 4, 'x-model' => 'justificativa', 'minlength' => 25]) }}
-                            <span x-show="justificativa.length <= 25" style="color: red;">
-                                La justificación debe tener al menos 25 caracteres. /
-                                <b>
-                                    <span x-text="justificativa.length" class="text-info"></span>
-                                </b>
-                            </span>
-                            @csrf
-                            {{-- lo habilita si justificativa_anulacion es mayor a 25 --}}
-                            <template x-if="justificativa.length > 25">
-                                <button type="submit"  class="btn btn-danger mt-2" >Anular Ingreso</button>
-                            </template>
-
-                            <template x-if="justificativa.length <= 25">
-                                <div class="btn btn-danger disabled mt-2" >Anular Ingreso</div>
-                            </template>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 
 
 @push('scripts')

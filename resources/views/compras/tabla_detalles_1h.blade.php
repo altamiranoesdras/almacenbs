@@ -20,14 +20,14 @@
             <td>{{nf($det->cantidad)}}</td>
             <td>
                 {{$det->item->texto_principal}}
-{{--                @if($det->item->esGrupo300())--}}
+                @if($camposDatos ?? true)
                 <input type="text"
                        class="form-control form-control-sm"
                        placeholder="Series o descripción adicional"
                        name="textos_extras[{{$det->id}}]"
                        value="{{$det->texto_extra ?? ''}}"
                 >
-{{--                @endif--}}
+                @endif
             </td>
             <td>{{$det->item->unimed->nombre ?? ''}}</td>
             <td>{{$det->item->renglon->numero ?? ''}}</td>
