@@ -2,8 +2,8 @@
 <div class="col-sm-6 mb-1">
     {!! Form::label('nombre_tabla', 'Nombre Tabla:') !!}
     {!! Form::select('nombre_tabla', [
-        'compras' => 'Compras',
-        'compra_requisiciones' => 'Compra Requisiciones',
+        'compras' => 'Formulario 1H',
+        'solicitudes' => 'Requisiciones Almacén',
         ], null, ['class' => 'form-select', 'required']) !!}
 </div>
 
