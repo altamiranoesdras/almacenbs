@@ -29,6 +29,12 @@ class EnvioFiscalDataTable extends DataTable
                 return $envioFiscal->id;
 
             })
+            //edit nombre
+            ->editColumn('nombre',function (EnvioFiscal $envioFiscal){
+
+                return $envioFiscal->nombre;
+
+            })
             ->rawColumns(['action']);
     }
 
@@ -111,7 +117,8 @@ class EnvioFiscalDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('nombre_tabla'),
+            Column::make('nombre')->searchable(false)->title('Para'),
+            Column::make('nombre_tabla')->visible(false)->exportable(false),
             Column::make('correlativo_del'),
             Column::make('correlativo_al'),
             Column::make('folio_inicial'),
