@@ -41,7 +41,7 @@
                                         Debe generar el formulario 1H para poder aprobarlo
                                     </h4>
                                 @else
-                                    <form action="{{route('bandejas.compras1h.aprobar.procesar',$compra->id)}}" method="post">
+                                    <form action="{{route('bandejas.compras1h.aprobar.procesar',$compra->id)}}" method="post" class="esperar">
                                         @csrf
                                         @include('compras.partials.datos_1h',['compra' => $compra,'editable' => false])
 

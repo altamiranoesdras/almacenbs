@@ -39,7 +39,7 @@
                                 @if(!$compra->tiene1h())
                                     @include('compras.partials.formulario_generar_1h')
                                 @else
-                                    <form action="{{route('bandejas.compras1h.autorizar.procesar',$compra->id)}}" method="post">
+                                    <form action="{{route('bandejas.compras1h.autorizar.procesar',$compra->id)}}" method="post" class="esperar">
                                         @csrf
                                         @include('compras.partials.datos_1h',['compra' => $compra,'editable' => false])
 

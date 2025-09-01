@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="card-content collapse {{($abierta ?? false) ? 'show' : 'hide'}}">
-        <form action="{{route('compras.actualizar.procesada',$compra->id)}}" method="post">
+        <form action="{{route('compras.actualizar.procesada',$compra->id)}}" method="post" class="esperar">
             @csrf
 
         <div class="card-body">

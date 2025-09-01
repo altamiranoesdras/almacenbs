@@ -78,6 +78,8 @@ class RrhhUnidad extends Model
 
     protected $appends = ['text','nombre_con_padre'];
 
+    protected $with = ['tipo','parent'];
+
     public $fillable = [
         'nombre',
         'codigo',
