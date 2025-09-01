@@ -192,6 +192,7 @@ class CompraDetalle extends Model
         $stock =  $this->item->stocks
             ->where('fecha_vence',$this->fecha_vence)
             ->where('bodega_id',Bodega::PRINCIPAL)
+            ->where('unidad_id',$this->unidad_solicita_id)
             ->where('precio_compra',$this->precio)
             ->sortBy('orden_salida')
             ->sortBy('fecha_vence')
@@ -209,6 +210,7 @@ class CompraDetalle extends Model
 
             $stock= Stock::create([
                 'bodega_id' => Bodega::PRINCIPAL,
+                'unidad_id' => $this->unidad_solicita_id,
                 'item_id' => $this->item->id,
                 'lote' =>  null,
                 'precio_compra' => $this->precio,
