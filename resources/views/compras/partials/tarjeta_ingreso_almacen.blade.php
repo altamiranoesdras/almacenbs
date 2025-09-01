@@ -74,7 +74,8 @@
                         <button type="button" class="btn btn-outline-warning btn-sm"
                                 data-bs-toggle="modal"
                                 data-bs-target="#modalCancelarIngresoAlmacen">
-                            Cancelar ingreso almacén
+                            <i class="fa fa-trash"></i>
+                            Eliminar ingreso a almacén
                         </button>
                     </div>
                 </div>

@@ -589,6 +589,7 @@ class Compra extends Model
     {
         return in_array($this->estado_id,[
             CompraEstado::INGRESADO,
+            CompraEstado::PROCESADO_PENDIENTE_RECIBIR,
             CompraEstado::RETORNO_POR_APROBADOR,
         ]);
     }
@@ -659,6 +660,18 @@ class Compra extends Model
         $this->addBitacora("Formulario 1H retornado a Aprobador, folio: ".$this->compra1h->folio,$comentario);
         $this->estado_id = CompraEstado::RETORNO_POR_AUTORIZADOR;
         $this->save();
+    }
+
+    public function puedeImprimir1h()
+    {
+        return in_array($this->estado_id,[
+            CompraEstado::UNO_H_OPERADO,
+            CompraEstado::UNO_H_APROBADO,
+            CompraEstado::UNO_H_AUTORIZADO,
+            CompraEstado::RETORNO_POR_APROBADOR,
+            CompraEstado::RETORNO_POR_AUTORIZADOR,
+        ]);
+
     }
 
 }

@@ -4,28 +4,25 @@ namespace App\Http\Controllers;
 
 use App\DataTables\CompraDataTable;
 use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 use Response;
 use Carbon\Carbon;
 use App\Models\Item;
-use App\Http\Requests;
 use App\Models\Compra;
 use App\Models\Compra1h;
-use App\Models\ItemTipo;
 use App\Models\Proveedor;
 use App\Models\CompraEstado;
 use Illuminate\Http\Request;
-use App\Models\CompraDetalle;
-use App\Models\Compra1hDetalle;
 use Illuminate\Support\Facades\DB;
-use App\DataTables\CompraAprobarDataTable;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
-use Barryvdh\Snappy\Facades\SnappyPdf;
 use App\Http\Requests\CreateCompraRequest;
 use App\Http\Requests\UpdateCompraRequest;
-use App\Http\Controllers\AppBaseController;
 use App\DataTables\Scopes\ScopeCompraDataTable;
-use App\Models\EnvioFiscal;
+use Throwable;
 
 class CompraController extends AppBaseController
 {
@@ -41,7 +38,8 @@ class CompraController extends AppBaseController
     /**
      * Display a listing of the Compra.
      *
-     * @param CompraAprobarDataTable $compraDataTable
+     * @param CompraDataTable $compraDataTable
+     * @param Request $request
      * @return Response
      */
     public function index(CompraDataTable $compraDataTable, Request $request)
@@ -49,7 +47,7 @@ class CompraController extends AppBaseController
 
         $scope = new ScopeCompraDataTable();
 
-        //si es la primera carga de la pagina es decir no se ha hecho ningun filtro
+        //si es la primera carga de la página es decir no se ha hecho ningún filtro
         if ( count($request->all()) == 0 ) {
             $scope->del =  iniMesDb();
             $scope->al =  hoyDb();
@@ -89,7 +87,7 @@ class CompraController extends AppBaseController
     /**
      * Show the form for creating a new Compra.
      *
-     * @return Response
+     * @return Application|Factory|View|\Illuminate\Foundation\Application|\Illuminate\View\View
      */
     public function create()
     {
@@ -105,14 +103,13 @@ class CompraController extends AppBaseController
      *
      * @param CreateCompraRequest $request
      *
-     * @return Response
+     * @return Application|\Illuminate\Foundation\Application|RedirectResponse|Redirector
      */
     public function store(CreateCompraRequest $request)
     {
         $input = $request->all();
 
-        /** @var Compra $compra */
-        $compra = Compra::create($input);
+        Compra::create($input);
 
         flash()->success('Compra guardado exitosamente.');
 
@@ -122,11 +119,11 @@ class CompraController extends AppBaseController
     /**
      * Display the specified Compra.
      *
-     * @param  int $id
+     * @param int $id
      *
-     * @return Response
+     * @return Application|\Illuminate\Foundation\Application|RedirectResponse|Redirector
      */
-    public function show($id)
+    public function show(int $id)
     {
         /** @var Compra $compra */
         $compra = Compra::find($id);
@@ -143,11 +140,11 @@ class CompraController extends AppBaseController
     /**
      * Show the form for editing the specified Compra.
      *
-     * @param  int $id
+     * @param int $id
      *
-     * @return Response
+     * @return Application|\Illuminate\Foundation\Application|RedirectResponse|Redirector
      */
-    public function edit($id)
+    public function edit(int $id)
     {
         /** @var Compra $compra */
         $compra = Compra::with(['detalles' => function ($q){ $q->whereHas('item'); }])->find($id);
@@ -170,12 +167,13 @@ class CompraController extends AppBaseController
     /**
      * Update the specified Compra in storage.
      *
-     * @param  int              $id
+     * @param int $id
      * @param UpdateCompraRequest $request
      *
-     * @return Response
+     * @return Application|\Illuminate\Foundation\Application|RedirectResponse|Redirector
+     * @throws Throwable
      */
-    public function update($id, UpdateCompraRequest $request)
+    public function update(int $id, UpdateCompraRequest $request)
     {
         /** @var Compra $compra */
         $compra = Compra::find($id);
@@ -191,7 +189,7 @@ class CompraController extends AppBaseController
 
             $this->procesar($compra,$request);
 
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
 
             DB::rollBack();
 
@@ -240,9 +238,9 @@ class CompraController extends AppBaseController
         }
 
 
-        if($compra){
-            //Mail::send(new OrdenCompra($compra));
-        }
+//        if($compra){
+//            //Mail::send(new OrdenCompra($compra));
+//        }
 
         return $compra;
     }
@@ -250,13 +248,13 @@ class CompraController extends AppBaseController
     /**
      * Remove the specified Compra from storage.
      *
-     * @param  int $id
+     * @param int $id
      *
-     * @throws \Exception
+     * @return Application|\Illuminate\Foundation\Application|RedirectResponse|Redirector
+     * @throws Exception
      *
-     * @return Response
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
         /** @var Compra $compra */
         $compra = Compra::find($id);
@@ -269,7 +267,7 @@ class CompraController extends AppBaseController
 
         $compra->delete();
 
-        flash()->success('Compra deleted successfully.');
+        flash()->success('Ingreso almacén eliminado exitosamente.');
 
         return redirect(route('compras.index'));
     }
@@ -311,6 +309,9 @@ class CompraController extends AppBaseController
         return 1;
     }
 
+    /**
+     * @throws Throwable
+     */
     public function anular(Compra $compra){
 
         $justificativa_anulacion = request()->justificativa_anulacion;
@@ -324,7 +325,7 @@ class CompraController extends AppBaseController
             $compraH1->justificativa_anulacion = $justificativa_anulacion;
             $compraH1->save();
 
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             DB::rollBack();
 
             $msj = manejarException($exception);
@@ -343,6 +344,9 @@ class CompraController extends AppBaseController
         return redirect(route('compras.index'));
     }
 
+    /**
+     * @throws Throwable
+     */
     public function ingreso($id){
 
 
@@ -353,7 +357,7 @@ class CompraController extends AppBaseController
 
             $compra->procesaIngreso();
 
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             DB::rollBack();
 
             $msj = manejarException($exception);
@@ -373,6 +377,9 @@ class CompraController extends AppBaseController
 
     }
 
+    /**
+     * @throws Throwable
+     */
     public function pdf(Compra $compra){
 
 //        dd('este es el metodo que genera el pdf', $compra->toArray());
@@ -391,34 +398,17 @@ class CompraController extends AppBaseController
             ->setOption('margin-bottom', 10)
             ->setOption('margin-left', 0)
             ->setOption('margin-right', 0)
-            ->stream('report.pdf');
+            ->inline('report.pdf');
 
         return $pdf->inline();
 
 
     }
 
-    public function rptComprasDiarias(){
 
-        $diasMes=diasMesActual();
-        $recibidas = Cestado::RECIBIDA;
-
-        $results = DB::select( DB::raw("
-            select
-                date(c.fecha_ingreso) dia,sum((d.cantidad* d.precio)) monto
-            from
-                compras c inner join compra_detalles d on c.id= d.compra_id
-            where
-                month(c.fecha_ingreso)=MONTH(CURDATE())
-                and c.estado_id  in($recibidas)
-                and c.deleted_at IS NULL
-            group by
-                1
-        ") );
-
-        return view('reportes.compras.rpt_compras_dia', compact('results'));
-    }
-
+    /**
+     * @throws Throwable
+     */
     public function pdfH1(Compra $compra)
     {
 

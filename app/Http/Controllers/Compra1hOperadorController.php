@@ -24,7 +24,10 @@ class Compra1hOperadorController extends Controller
     {
 
         $scoper = new ScopeCompraDataTable();
-        $scoper->estados = [CompraEstado::INGRESADO];
+        $scoper->estados = [
+            CompraEstado::PROCESADO_PENDIENTE_RECIBIR,
+            CompraEstado::INGRESADO
+        ];
 
         $dataTable->addScope($scoper);
 

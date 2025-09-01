@@ -642,10 +642,14 @@ function iniMes(){
 
 function iniMesDb(){
 
-    list($dia,$mes,$anio)=explode('/',hoy());
-
-    return $anio.'-'.$mes.'-01';
+    return Carbon::now()->startOfMonth()->format('Y-m-d');
 }
+
+function finMes($formato='Y-m-d'){
+    return Carbon::now()->endOfMonth()->format($formato);
+}
+
+
 
 function mesActualBetween(){
     $del = Carbon::createFromFormat('Y-m-d H:i:s', iniMesDb().'00:00:00');

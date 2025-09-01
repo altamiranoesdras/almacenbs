@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-lg-12">
 
-                @include('compras.partials.tarjeta_ingreso_almacen', ['compra'=> $compra])
+                @include('compras.partials.tarjeta_ingreso_almacen', ['compra'=> $compra,'abierta' => $compra->estaPendienteRecibir()])
 
                 <div class="card ">
                     <div class="card-header">

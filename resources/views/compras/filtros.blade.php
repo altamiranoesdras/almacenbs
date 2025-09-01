@@ -51,7 +51,7 @@
 
                 <div class="col-sm-2 mb-1">
                     {!! Form::label('al', 'Al:') !!}
-                    {!! Form::date('al', hoyDb(), ['class' => 'form-control ']) !!}
+                    {!! Form::date('al', finMes(), ['class' => 'form-control ']) !!}
                 </div>
 
                 <div class="col-sm-2 mb-1">
