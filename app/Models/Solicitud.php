@@ -541,15 +541,20 @@ class Solicitud extends Model
 
     public function despachar($fecha=null): void
     {
+
+        //actualiza las cantidades despachadas, si son enviadas desde el formulario
+        foreach ($this->detalles as $index => $detalle) {
+            $detalle->cantidad_despachada = request()->cantidades_despacha[$index] ?? $detalle->cantidad_aprobada;
+            $detalle->save();
+        }
+
         $this->estado_id = SolicitudEstado::DESPACHADA;
         $this->fecha_despacha =  $fecha ?? Carbon::now();
         $this->usuario_despacha = usuarioAutenticado()->id;
         $this->save();
 
-
         $this->egreso();
         $this->ingreso();
-
 
         $this->addBitacora("REQUISICIÓN DESPACHADA","");
     }

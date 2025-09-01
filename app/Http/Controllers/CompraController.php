@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\CompraDataTable;
 use Exception;
 use Response;
 use Carbon\Carbon;
@@ -43,7 +44,7 @@ class CompraController extends AppBaseController
      * @param CompraAprobarDataTable $compraDataTable
      * @return Response
      */
-    public function index(CompraAprobarDataTable $compraDataTable, Request $request)
+    public function index(CompraDataTable $compraDataTable, Request $request)
     {
 
         $scope = new ScopeCompraDataTable();

@@ -42,7 +42,10 @@ class SolicitudDespachaController extends Controller
     }
 
 
-    public function store(Solicitud $solicitud,Request $request)
+    /**
+     * @throws \Throwable
+     */
+    public function store(Solicitud $solicitud, Request $request)
     {
 
 
@@ -63,8 +66,12 @@ class SolicitudDespachaController extends Controller
                     return redirect()->back()->withErrors($errores->toArray());
                 }
 
-                $this->despachar($solicitud,$request);
-                $msj="Solicitud aprobada correctamente";
+                $solicitud->despachar();
+
+                $this->verificaStockCritico($solicitud);
+
+//            Mail::send(new DespacharSolicitud($solicitud));
+                $msj="Solicitud despachada correctamente";
 
             }
 
@@ -72,9 +79,11 @@ class SolicitudDespachaController extends Controller
         } catch (Exception $exception) {
             DB::rollBack();
 
-            errorException($exception);
+            $msj = manejarException($exception);
 
-            return redirect(route('solicitudes.despachar'));
+            flash($msj)->error()->important();
+
+            return redirect()->back()->withInput();
         }
 
 
@@ -86,34 +95,6 @@ class SolicitudDespachaController extends Controller
     }
 
 
-
-    public function despachar(Solicitud $solicitud,Request $request)
-    {
-
-        /**
-         * @var SolicitudDetalle $detalle
-         */
-        foreach ($solicitud->detalles as $index => $detalle) {
-            $detalle->cantidad_despachada = $request->cantidades_despacha[$index] ?? $detalle->cantidad_aprobada;
-            $detalle->save();
-        }
-
-        $solicitud->estado_id = SolicitudEstado::DESPACHADA;
-        $solicitud->usuario_despacha = auth()->user()->id;
-        $solicitud->fecha_despacha = fechaHoraActualDb();
-        $solicitud->save();
-
-
-        $solicitud->egreso();
-        $solicitud->ingreso();
-
-//            $this->verificaStockCritico($solicitud);
-
-//            Mail::send(new DespacharSolicitud($solicitud));
-
-
-        $solicitud->addBitacora("REQUISICIÓN DESPACHADA",'');
-    }
 
 
     public function retornar(Solicitud $solicitud,Request $request)
@@ -161,7 +142,6 @@ class SolicitudDespachaController extends Controller
 
 
         }
-
 
         return $errores;
     }

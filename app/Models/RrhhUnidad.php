@@ -25,6 +25,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, RrhhUnidad> $children
  * @property-read int|null $children_count
+ * @property-read mixed $nombre_con_padre
+ * @property-read mixed $nombre_con_padres
  * @property-read string $text
  * @property-read \App\Models\User|null $jefe
  * @property-read RrhhUnidad|null $parent
@@ -73,6 +75,8 @@ class RrhhUnidad extends Model
 
 
     protected $dates = ['deleted_at'];
+
+    protected $appends = ['text','nombre_con_padre'];
 
     public $fillable = [
         'nombre',
@@ -178,6 +182,31 @@ class RrhhUnidad extends Model
     public function getTextAttribute(): string
     {
         return $this->codigo . ' - ' . $this->nombre . ' (' . $this->tipo->nombre . ')';
+
+    }
+
+    public function getNombreConPadresAttribute()
+    {
+
+        return $this->nombreConPadres().' ('.$this->tipo->nombre.')';
+
+    }
+
+    public function nombreConPadres()
+    {
+        if($this->parent){
+            return $this->parent->nombreConPadres().' > '.$this->nombre;
+        }
+        return $this->nombre;
+
+    }
+
+    public function getNombreConPadreAttribute()
+    {
+        if($this->parent){
+            return $this->parent->nombre.' > '.$this->text;
+        }
+        return $this->text;
 
     }
 

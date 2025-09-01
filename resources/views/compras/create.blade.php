@@ -161,7 +161,7 @@
 
                                         <div class="row mb-2">
 
-                                            <div class="col-8 mb-1">
+                                            <div class="col-12 mb-1">
                                                 <label for="item_id">Insumo</label>
                                                 <select-items
                                                     api="{{route('api.items.index')}}"
@@ -172,12 +172,12 @@
                                                 </select-items>
                                             </div>
 
-                                            <div class="col-4 mb-1">
+                                            <div class="col-12 mb-1">
                                                 <label for="unidad_solicita">Unidad Solicitante</label>
                                                 <multiselect
                                                     v-model="editedItem.unidad_solicita"
                                                     :options="unidades"
-                                                    label="nombre"
+                                                    label="nombre_con_padre"
                                                     track-by="id">
 
                                                 </multiselect>
@@ -457,7 +457,7 @@
                 },
                 getNombre(detalle,relacion='unidad_solicitante'){
 
-                    return detalle[relacion] ? detalle[relacion].nombre : '' ;
+                    return detalle[relacion] ? detalle[relacion].nombre_con_padre : '' ;
                 },
 
                 editItem (detalle) {

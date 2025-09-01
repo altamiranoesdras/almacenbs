@@ -20,7 +20,7 @@
             <td>{{nf($det->cantidad)}}</td>
             <td>
                 {{$det->item->texto_principal}}
-                @if($camposDatos ?? true)
+                @if($editable ?? true)
                 <input type="text"
                        class="form-control form-control-sm"
                        placeholder="Series o descripción adicional"
