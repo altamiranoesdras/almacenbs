@@ -24,8 +24,21 @@ class Compra1hAprobadorController extends Controller
         return $dataTable->render('compras.aprobar.index');
     }
 
-    public function gestionar(Compra $compra)
+    public function gestionar($id)
     {
+        $compra = Compra::with([
+            'proveedor',
+            'detalles.item' => function ($query) {
+                $query->withOutAppends();
+            },
+            'estado',
+            'compra1h.detalles.item' => function ($query) {
+                $query->withOutAppends();
+            },
+        ])
+            ->where('id', $id)
+            ->firstOrFail();
+
         return view('compras.aprobar.gestionar', compact('compra'));
     }
 
