@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('titulo_pagina', 'Operar Ingresos a Almacén')
+@section('titulo_pagina', 'Autorizar Ingresos a Almacén')
 
 @include('layouts.plugins.select2')
 
 @section('content')
 
-    <x-content-header titulo="Operar ingreso almacén" >
+    <x-content-header titulo="Autorizar ingreso almacén" >
         <a class="btn btn-success float-right"
            href="{{ route('compras.create') }}">
             <i class="fa fa-plus"></i>
@@ -17,7 +17,7 @@
     <div class="content-body">
         <div class="row">
             <div class="col">
-                @include('compras.operar.filtros')
+                @include('compras.autorizar.filtros')
             </div>
         </div>
         <div class="row">

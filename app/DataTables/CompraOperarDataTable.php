@@ -24,7 +24,7 @@ class CompraOperarDataTable extends DataTable
             ->addColumn('action', function (Compra $compra){
                 $id = $compra->id;
 
-                return view('compras.datatables_actions',compact('compra','id'));
+                return view('compras.operar.datatables_actions',compact('compra','id'));
             })
             ->addColumn('compra1h.folio',function (Compra $compra){
                 return $compra->compra1h->folio ?? 'Sin 1H';

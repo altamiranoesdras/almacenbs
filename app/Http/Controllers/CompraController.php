@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 use App\Models\CompraDetalle;
 use App\Models\Compra1hDetalle;
 use Illuminate\Support\Facades\DB;
-use App\DataTables\CompraDataTable;
+use App\DataTables\CompraAprobarDataTable;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\Snappy\Facades\SnappyPdf;
@@ -40,10 +40,10 @@ class CompraController extends AppBaseController
     /**
      * Display a listing of the Compra.
      *
-     * @param CompraDataTable $compraDataTable
+     * @param CompraAprobarDataTable $compraDataTable
      * @return Response
      */
-    public function index(CompraDataTable $compraDataTable,Request $request)
+    public function index(CompraAprobarDataTable $compraDataTable, Request $request)
     {
 
         $scope = new ScopeCompraDataTable();

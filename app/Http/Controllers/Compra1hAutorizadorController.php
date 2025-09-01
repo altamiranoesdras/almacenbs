@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\CompraAutorizarDataTable;
+use App\DataTables\Scopes\ScopeCompraDataTable;
+use App\Models\CompraEstado;
 use Illuminate\Http\Request;
 
 class Compra1hAutorizadorController extends Controller
 {
-    public function __construct()
+    public function index(CompraAutorizarDataTable $dataTable)
     {
-        $this->middleware('auth');
+        $scope = new ScopeCompraDataTable();
+        $scope->estados = [CompraEstado::UNO_H_APROBADO];
+        $dataTable->addScope($scope);
+
+        return $dataTable->render('compras.autorizar.index');
     }
 
-    public function index()
-    {
-        return view('pagina_en_construccion');
-    }
 
     public function procesar(Request $request)
     {

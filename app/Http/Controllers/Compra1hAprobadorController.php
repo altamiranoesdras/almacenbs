@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\CompraAprobarDataTable;
+use App\DataTables\Scopes\ScopeCompraDataTable;
+use App\Models\CompraEstado;
 use Illuminate\Http\Request;
 
 class Compra1hAprobadorController extends Controller
@@ -11,9 +14,13 @@ class Compra1hAprobadorController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(CompraAprobarDataTable $dataTable)
     {
-        return view('pagina_en_construccion');
+        $scope = new ScopeCompraDataTable();
+        $scope->estados = [CompraEstado::INGRESADO];
+        $dataTable->addScope($scope);
+
+        return $dataTable->render('compras.aprobar.index');
     }
 
     public function procesar(Request $request)

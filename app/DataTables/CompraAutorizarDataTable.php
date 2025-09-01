@@ -2,11 +2,8 @@
 
 namespace App\DataTables;
 
-use App\Models\CompraEstado;
 use App\Models\Compra;
-use App\Models\VistaCompra;
 use App\extensiones\DataTable;
-use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
@@ -27,13 +24,10 @@ class CompraAutorizarDataTable extends DataTable
             ->addColumn('action', function (Compra $compra){
                 $id = $compra->id;
 
-                return view('compras.datatables_actions',compact('compra','id'));
+                return view('compras.autorizar.datatables_actions',compact('compra','id'));
             })
-            ->addColumn('h1',function (Compra $compra){
-
-                $h1 = $compra->compra1h->folio ?? null;
-
-                return $h1;
+            ->addColumn('compra1h.folio',function (Compra $compra){
+                return $compra->compra1h->folio ?? 'Sin 1H';
             })
 
             ->editColumn('id',function (Compra $compra){
@@ -51,27 +45,13 @@ class CompraAutorizarDataTable extends DataTable
 
                 $color = $compra->color_estado;
 
-                return "<span class='badge bg-{$color} fw-bold'>{$compra->estado->nombre}</span>";
+                return "<span class='badge bg-{$color} fw-bold text-wrap' style='max-width: 200px;'>{$compra->estado->nombre}</span>";
 
             })
 
             ->editColumn('total',function (Compra $compra){
                 return dvs().nfp($compra->total);
             })
-//            ->setRowClass(function ($data) {
-//
-//                $alert = '';
-//
-//                if(hoyDb()>$data->fecha_ingreso_plan && $data->estado->id == CompraEstado::CREADA ){
-//                    $alert = 'alert-danger';
-//                }
-//                elseif(hoyDb() == $data->fecha_ingreso_plan  && $data->estado->id == CompraEstado::CREADA ){
-//                    $alert = 'alert-warning';
-//                }
-//
-//                return $alert;
-//
-//            })
             ->with([
                 'totalFilter' => function() use ($dataTable){
                     return dvs().nfp($dataTable->results()->sum('total'));
@@ -105,7 +85,8 @@ class CompraAutorizarDataTable extends DataTable
                 'tipo',
                 'usuarioCrea',
                 'estado',
-                'proveedor'
+                'proveedor',
+                'compra1h'
             ]);
 
 //        $user = Auth::user();
@@ -190,25 +171,30 @@ class CompraAutorizarDataTable extends DataTable
     {
         return [
             Column::make('id'),
-            Column::make('codigo'),
+            Column::make('h1')
+                ->title('1H')
+                ->data('compra1h.folio')
+                ->name('compra1h.folio')
+                ->searchable(false)
+                ->orderable(false),
             Column::make('fecha_documento'),
             Column::make('fecha_ingreso'),
             Column::make('tipo')
-                    ->data('tipo.nombre')
-                    ->name('tipo.nombre'),
+                ->data('tipo.nombre')
+                ->name('tipo.nombre'),
             Column::make('proveedor')
-                    ->data('proveedor.nombre')
-                    ->name('proveedor.nombre'),
+                ->data('proveedor.nombre')
+                ->name('proveedor.nombre'),
             Column::make('estado')
-                    ->data('estado.nombre')
-                    ->name('estado.nombre'),
+                ->data('estado.nombre')
+                ->name('estado.nombre'),
             Column::make('usuario')
-                    ->data('usuario_crea.name')
-                    ->name('usuarioCrea.name'),
-            Column::make('h1'),
-            Column::make('orden_compra')
-            ->data('orden_compra')
-            ->name('orden_compra'),
+                ->data('usuario_crea.name')
+                ->name('usuarioCrea.name'),
+
+//            Column::make('orden_compra')
+//            ->data('orden_compra')
+//            ->name('orden_compra'),
             Column::make('total'),
             Column::computed('action')
                 ->exportable(false)

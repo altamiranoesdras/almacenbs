@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\CompraDataTable;
+use App\DataTables\CompraAprobarDataTable;
+use App\DataTables\CompraOperarDataTable;
 use App\DataTables\Scopes\ScopeCompraDataTable;
 use App\Models\CompraEstado;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class Compra1hOperadorController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(CompraDataTable $dataTable)
+    public function index(CompraOperarDataTable $dataTable)
     {
 
         $scoper = new ScopeCompraDataTable();
