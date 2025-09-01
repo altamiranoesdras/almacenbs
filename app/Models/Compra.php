@@ -399,6 +399,36 @@ class Compra extends Model
         return $this->estado_id==CompraEstado::INGRESADO;
     }
 
+    public function estaAutorizado1h()
+    {
+        return in_array($this->estado_id,[
+            CompraEstado::UNO_H_AUTORIZADO,
+        ]);
+    }
+
+    //esat aprobado 1h
+    public function estaAprobado1h()
+    {
+        return in_array($this->estado_id,[
+            CompraEstado::UNO_H_APROBADO,
+        ]);
+    }
+
+    public function estaOperado1h()
+    {
+        return in_array($this->estado_id,[
+            CompraEstado::UNO_H_OPERADO,
+        ]);
+    }
+
+    //estaPendiente de recibir
+    public function estaPendienteRecibir()
+    {
+        return in_array($this->estado_id,[
+            CompraEstado::PROCESADO_PENDIENTE_RECIBIR,
+        ]);
+    }
+
     public function puedeAnular()
     {
         return $this->estado_id != CompraEstado::ANULADO && $this->estado_id == CompraEstado::INGRESADO;
@@ -441,7 +471,10 @@ class Compra extends Model
 
     public function genera1h($folio): void
     {
-        $folio = $folio ?? request()->folio ?? null;
+
+        $envioFiscal = EnvioFiscal::where('nombre_tabla', 'compras')->where('activo', 'si')->first();
+
+        $folio = $folio ?? $envioFiscal->folio_actual;
 
         /**
          * @var Compra1h $compra1h
@@ -449,7 +482,7 @@ class Compra extends Model
         $compra1h = Compra1h::create([
             'folio' => $folio,
             'compra_id' => $this->id,
-            'envio_fiscal_id' => 1,
+            'envio_fiscal_id' => $envioFiscal->id,
             'codigo' => $this->getCodigo1h(),
             'correlativo' => $this->getCorrelativo1h(),
             'del' => 0,
@@ -500,6 +533,9 @@ class Compra extends Model
 
         $this->procesarKardex();
 
+        // actualizar folio en envio fiscal
+        $envioFiscal->siguienteFolio();
+
     }
 
 
@@ -544,6 +580,7 @@ class Compra extends Model
         }
 
     }
+
 
 
 }

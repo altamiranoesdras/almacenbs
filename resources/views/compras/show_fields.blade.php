@@ -29,6 +29,11 @@
     <!-- Columna 2 -->
     <div class="col-md-4">
         <div class="mb-1">
+            <label class="form-label mb-0">Folio 1H:</label>
+            <div><span class="fw-bold">{{ $compra->compra1h->folio ?? 'Sin 1H'}}</span></div>
+        </div>
+
+        <div class="mb-1">
             <label class="form-label mb-0">Fecha Recepción:</label>
             <div><span class="fw-bold">{{ fechaLtn($compra->fecha_ingreso) }}</span></div>
         </div>

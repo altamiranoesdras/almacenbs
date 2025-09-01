@@ -4,7 +4,6 @@
 
 @section('content')
 
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <div class="content-header row">
         <div class="content-header-left col-md-9 col-12 mb-2">
             <div class="row breadcrumbs-top">
@@ -59,56 +58,87 @@
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-sm-4">
-                                        @if($compra->estado_id == \App\Models\CompraEstado::PROCESADO_PENDIENTE_RECIBIR )
-                                            <a href="{!! route('compras.ingreso',$compra->id) !!}"
-                                               class="btn btn-outline-success round ms-1">
-                                                Ingresar
-                                            </a>
-                                        @endif
+                                        <a href="{!! route('compras.index') !!}" class="btn round btn-outline-secondary mr-2 ">
+                                            Regresar
+                                        </a>
                                     </div>
-                                    <div class="col-sm-4 d-flex justify-content-center">
+                                    <div class="col-sm-4 text-center">
                                         <div type="submit" class="btn btn-outline-success round mx-auto">
                                             <i class="fa fa-save "></i>
                                             Actualizar
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <a href="{!! route('compras.index') !!}" class="btn round btn-outline-secondary mr-2 float-end">
-                                            Regresar
-                                        </a>
+
+                                    <div class="col-sm-4 text-end">
+                                        @if($compra->estaPendienteRecibir())
+                                            <a href="{!! route('compras.ingreso',$compra->id) !!}"
+                                               class="btn btn-success round ms-1">
+                                                <i class="fa-solid fa-cart-flatbed"></i>
+                                                Ingresar
+                                            </a>
+                                        @endif
+                                        @can('Anular Ingreso de almacen')
+                                            @if($compra->puedeAnular() )
+
+                                                <button  type="button"
+                                                         data-toggle="tooltip" title="Anular Ingreso"
+                                                         class="btn round btn-outline-danger ms-1 float-end"
+                                                         data-bs-toggle="modal"
+                                                         data-bs-target="#modal-anular">
+                                                    Anular Ingreso <i class="fa fa-undo-alt"></i>
+                                                </button>
+                                            @endif
+                                        @endcan
+
                                     </div>
+
                                 </div>
                             </form>
 
                             <div class="row">
-                                <div class="col-12">
-                                    @can('Anular Ingreso de almacen')
-                                        @if($compra->puedeAnular() )
-
-                                            <button  type="button"
-                                                data-toggle="tooltip" title="Anular Ingreso"
-                                                class="btn round btn-outline-danger ms-1 float-end"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#modal-anular">
-                                                Anular Ingreso <i class="fa fa-undo-alt"></i>
-                                            </button>
-
-                                            {{-- <div onclick="deleteItemDt(this)" data-id="{{$compra->id}}"
-                                                data-toggle="tooltip" title="Anular Ingreso"
-                                                class='btn round btn-outline-danger ms-1 float-end'>
-                                                Anular Ingreso
-                                                <i class="fa fa-undo-alt"></i>
-                                            </div> --}}
-                                        @endif
-                                    @endcan
+                                <div class="col-12 mt-2 text-start">
                                     @if( $compra->puedeCancelar() )
-                                        <form action="{{ route('compras.anular', $compra->id)}}" method="POST" id="delete-form{{$compra->id}}">
-                                            @method('POST')
-                                            @csrf
-                                            <button data-toggle="tooltip" title="Cancelar Solicitud de Compra" class='btn btn-outline-danger float-end' >
-                                                Cancelar Solicitud de Compra <i class="fas fa-ban"></i>
-                                            </button>
-                                        </form>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-outline-warning btn-sm" data-bs-toggle="modal"
+                                                data-bs-target="#modelId">
+                                            Cancelar ingreso almacén
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="modelId" tabindex="-1" role="dialog"
+                                             aria-labelledby="modelTitleId" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <form action="{{ route('compras.anular', $compra->id)}}" method="POST" id="delete-form{{$compra->id}}">
+                                                    @method('POST')
+                                                    @csrf
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title" id="modelTitleId">
+                                                                Cancelar Ingreso Almacén
+                                                            </h4>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <h4 class="text-center">
+                                                                ¿Está seguro que desea cancelar este ingreso de almacén?
+                                                            </h4>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">No
+                                                            </button>
+                                                            <button data-toggle="tooltip" title="Cancelar Solicitud de Compra" class='btn btn-outline-danger float-start' >
+
+                                                                Sí, Cancelar Ingreso
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+
+                                            </div>
+                                        </div>
+
                                     @endif
                                 </div>
                             </div>
@@ -149,9 +179,6 @@
                                             @csrf
                                             <div class="row">
                                                 <div class="col-sm-4 mb-1">
-                                                    {!! Form::label('folio', 'Folio:') !!}
-                                                    {{ $envioFiscal->folio_actual }}
-                                                    <input type="hidden" name="folio" value="{{ $envioFiscal->folio_actual }}">
                                                     <div class="mt-1">
                                                         <button type="submit" id="generar" class="btn btn-outline-primary">
                                                             <i class="fa fa-gears"></i>

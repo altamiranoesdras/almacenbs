@@ -17,7 +17,7 @@ class Compra1hAprobadorController extends Controller
     public function index(CompraAprobarDataTable $dataTable)
     {
         $scope = new ScopeCompraDataTable();
-        $scope->estados = [CompraEstado::INGRESADO];
+        $scope->estados = [CompraEstado::UNO_H_OPERADO];
         $dataTable->addScope($scope);
 
         return $dataTable->render('compras.aprobar.index');

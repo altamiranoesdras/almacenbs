@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $nombre_tabla
@@ -144,5 +144,24 @@ class EnvioFiscal extends Model
     public function compra1hs(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(\App\Models\Compra1h::class, 'envio_fiscal_id');
+    }
+
+    public function desactivar()
+    {
+        $this->activo = 'no';
+        $this->save();
+    }
+
+    public function siguienteFolio()
+    {
+        // si se llega al final del rango desactiva el envio fiscal
+        if($this->folio_actual >= $this->correlativo_al) {
+            $this->desactivar();
+        }else{
+            $this->increment('folio_actual');
+        }
+
+        $this->save();
+
     }
 }

@@ -454,16 +454,6 @@ class CompraController extends AppBaseController
         try {
             DB::beginTransaction();
 
-            $envioFiscal = EnvioFiscal::where('nombre_tabla', 'compras')->where('activo', 'si')->first();
-
-            if($envioFiscal->folio_actual >= $envioFiscal->correlativo_al) {
-                $envioFiscal->activo = 'no';
-            }else{
-                $envioFiscal->increment('folio_actual');
-            }
-
-            $envioFiscal->save();
-
             $compra->genera1h(request()->folio);
 
         } catch (\Exception $exception) {
