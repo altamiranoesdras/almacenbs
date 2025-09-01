@@ -435,7 +435,14 @@ class Compra extends Model
 
     public function puedeAnular()
     {
-        return $this->estado_id != CompraEstado::ANULADO && $this->estado_id == CompraEstado::INGRESADO;
+        return $this->estado_id != CompraEstado::ANULADO && in_array($this->estado_id,[
+                CompraEstado::INGRESADO,
+                CompraEstado::UNO_H_OPERADO,
+                CompraEstado::UNO_H_APROBADO,
+                CompraEstado::UNO_H_AUTORIZADO,
+                CompraEstado::RETORNO_POR_APROBADOR,
+                CompraEstado::RETORNO_POR_AUTORIZADOR,
+        ]);
     }
 
     public function puedeCancelar()
