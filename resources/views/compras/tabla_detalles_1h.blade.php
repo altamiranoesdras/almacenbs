@@ -27,6 +27,9 @@
                        name="textos_extras[{{$det->id}}]"
                        value="{{$det->texto_extra ?? ''}}"
                 >
+                @else
+                    <br>
+                    {{$det->texto_extra}}
                 @endif
             </td>
             <td>{{$det->item->unimed->nombre ?? ''}}</td>

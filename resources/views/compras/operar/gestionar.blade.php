@@ -147,24 +147,11 @@
         </div>
     </div>
 
-
-
 @endsection
 
 @push('scripts')
     <script>
 
-        $(".esperarClick").on('click', function (event) {
-
-            Swal.fire({
-                title: 'Espera por favor...',
-                allowEscapeKey: false,
-                allowOutsideClick: false,
-                timerProgressBar: true,
-            });
-
-            Swal.showLoading();
-        });
 
     </script>
 @endpush

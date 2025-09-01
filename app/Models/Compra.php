@@ -622,31 +622,31 @@ class Compra extends Model
         ]);
     }
 
-    public function operar1h()
+    public function operar1h($comentario='')
     {
-        $this->addBitacora("Formulario 1H Operado, folio: ".$this->compra1h->folio,'');
+        $this->addBitacora("Formulario 1H Operado, folio: ".$this->compra1h->folio,$comentario);
         $this->estado_id = CompraEstado::UNO_H_OPERADO;
         $this->save();
     }
 
     //aprobar 1h
-    public function aprobar1h()
+    public function aprobar1h($comentario='')
     {
-        $this->addBitacora("Formulario 1H Aprobado, folio: ".$this->compra1h->folio,'');
+        $this->addBitacora("Formulario 1H Aprobado, folio: ".$this->compra1h->folio,$comentario);
         $this->estado_id = CompraEstado::UNO_H_APROBADO;
         $this->save();
     }
 
     //autorizar 1h
-    public function autorizar1h()
+    public function autorizar1h($comentario='')
     {
-        $this->addBitacora("Formulario 1H Autorizado, folio: ".$this->compra1h->folio,'');
+        $this->addBitacora("Formulario 1H Autorizado, folio: ".$this->compra1h->folio,$comentario);
         $this->estado_id = CompraEstado::UNO_H_AUTORIZADO;
         $this->save();
     }
 
     //retornar a operador
-    public function retornarAOperador1h($comentario)
+    public function retornarAOperador1h($comentario='')
     {
         $this->addBitacora("Formulario 1H retornado a Operador, folio: ".$this->compra1h->folio,$comentario);
         $this->estado_id = CompraEstado::RETORNO_POR_APROBADOR;
@@ -654,7 +654,7 @@ class Compra extends Model
     }
 
     //retornar a aprobador
-    public function retornarAAprobador1h($comentario)
+    public function retornarAAprobador1h($comentario='')
     {
         $this->addBitacora("Formulario 1H retornado a Aprobador, folio: ".$this->compra1h->folio,$comentario);
         $this->estado_id = CompraEstado::RETORNO_POR_AUTORIZADOR;

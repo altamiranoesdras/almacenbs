@@ -29,20 +29,14 @@ class Compra1hAprobadorController extends Controller
         return view('compras.aprobar.gestionar', compact('compra'));
     }
 
-    public function procesar(Request $request)
+    public function procesar(Compra $compra, Request $request)
     {
-        $request->validate([
-            'fecha' => 'required|date',
-            'hora' => 'required|date_format:H:i',
-        ]);
 
-        $fecha = $request->input('fecha');
-        $hora = $request->input('hora');
+        $compra->aprobar1h($request->observaciones ?? '');
 
-        // Aquí iría la lógica para procesar la compra 1 hora operador
-        // Por ejemplo, llamar a un servicio o realizar alguna operación
+        flash('Formulario 1H aprobado!')->success();
 
-        // Para este ejemplo, simplemente retornamos una vista de éxito
-        return view('compra1hoperador.success', compact('fecha', 'hora'));
+        return redirect()->route('bandejas.compras1h.aprobador');
+
     }
 }
