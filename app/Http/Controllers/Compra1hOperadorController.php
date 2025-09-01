@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\CompraDataTable;
+use App\DataTables\Scopes\ScopeCompraDataTable;
+use App\Models\CompraEstado;
 use Illuminate\Http\Request;
 
 class Compra1hOperadorController extends Controller
@@ -12,9 +15,16 @@ class Compra1hOperadorController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(CompraDataTable $dataTable)
     {
-        return view('pagina_en_construccion');
+
+        $scoper = new ScopeCompraDataTable();
+//        $scoper->estados = [CompraEstado::INGRESADO];
+        $scoper->estados = [CompraEstado::PROCESADO_PENDIENTE_RECIBIR];
+
+        $dataTable->addScope($scoper);
+
+        return $dataTable->render('compras.operar.index');
     }
 
     public function procesar(Request $request)

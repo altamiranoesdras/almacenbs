@@ -8,7 +8,7 @@ use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 
-class CompraDataTable extends DataTable
+class CompraOperarDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -172,25 +172,25 @@ class CompraDataTable extends DataTable
         return [
             Column::make('id'),
             Column::make('h1')
-                ->title('1H')
-                ->data('compra1h.folio')
-                ->name('compra1h.folio')
-                ->searchable(false)
-                ->orderable(false),
+                    ->title('1H')
+                    ->data('compra1h.folio')
+                    ->name('compra1h.folio')
+                    ->searchable(false)
+                    ->orderable(false),
             Column::make('fecha_documento'),
             Column::make('fecha_ingreso'),
             Column::make('tipo')
-                ->data('tipo.nombre')
-                ->name('tipo.nombre'),
+                    ->data('tipo.nombre')
+                    ->name('tipo.nombre'),
             Column::make('proveedor')
-                ->data('proveedor.nombre')
-                ->name('proveedor.nombre'),
+                    ->data('proveedor.nombre')
+                    ->name('proveedor.nombre'),
             Column::make('estado')
-                ->data('estado.nombre')
-                ->name('estado.nombre'),
+                    ->data('estado.nombre')
+                    ->name('estado.nombre'),
             Column::make('usuario')
-                ->data('usuario_crea.name')
-                ->name('usuarioCrea.name'),
+                    ->data('usuario_crea.name')
+                    ->name('usuarioCrea.name'),
 
 //            Column::make('orden_compra')
 //            ->data('orden_compra')

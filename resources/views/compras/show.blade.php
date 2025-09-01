@@ -71,7 +71,7 @@
 
                                         </div>
                                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                            <a href="{{route('compra.h1.pdf',$compra->id)}}" class="btn btn-primary">
+                                            <a href="{{route('compras.h1.pdf',$compra->id)}}" class="btn btn-primary">
                                                 <i class="fa fa-print"></i>
                                                 Imprimir
                                             </a>

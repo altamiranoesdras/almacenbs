@@ -73,9 +73,8 @@ Route::get('login/{driver}', [LoginController::class,'redirectToProvider'])->nam
 Route::get('login/{driver}/callback', [LoginController::class,'handleProviderCallback']);
 
 
-
 /**
- * Rutas admin
+ * Rutas admin protegidas
  */
 Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
@@ -162,30 +161,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
    Route::resource('compraTipos', CompraTipoController::class);
 
 
-    Route::get('compras/ingreso/{id}',[CompraController::class,'ingreso'])->name('compra.ingreso');
-    Route::post('compras/anular/{compra}', [CompraController::class,'anular'])->name('compras.anular');
-    Route::get('compras/factura/pdf/{compra}', [CompraController::class,'pdf'])->name('compra.pdf');
-    Route::get('compras/h1/pdf/{compra}', [CompraController::class,'pdfH1'])->name('compra.h1.pdf');
-    Route::post('comprar/actualizar/1h/{compra}',[CompraController::class,'actualizar1h'])->name('compra.actualiza.1h');
-    Route::post('comprar/generar/1h/{compra}',[CompraController::class,'generar1h'])->name('compra.generar.1h');
 
-    Route::post('compras/actualizar/procesada/{compra}', [CompraController::class,'actualizarProcesada'])->name('compras.actualizar.procesada');
-
-    Route::group(['prefix' => 'bandejas/compras1h', 'as' => 'bandejas.compras1h.'], function () {
-
-        Route::get('operador', [Compra1hOperadorController::class,'index'])->name('operador');
-        Route::get('aprobador', [Compra1hAprobadorController::class,'index'])->name('aprobador');
-        Route::get('autorizador', [Compra1hAutorizadorController::class,'index'])->name('autorizador');
-
-        Route::post('operador/{compra}', [Compra1hOperadorController::class,'procesar'])->name('operador.procesar');
-        Route::post('aprobar/{compra}', [Compra1hAprobadorController::class,'procesar'])->name('aprobar.procesar');
-        Route::post('autorizar/{compra}', [Compra1hAutorizadorController::class,'procesar'])->name('autorizar.procesar');
-    });
-
-
-
-
-    Route::resource('compras', CompraController::class);
 
 
     Route::resource('itemCategorias', ItemCategoriaController::class);
@@ -357,7 +333,9 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('notificaciones/leer/{notification}', [NotificacionesController::class,'leer'])->name('notificaciones.leer');
     Route::resource('notificaciones', NotificacionesController::class);
 
-    include 'rutas_compra_ordenes.php';
+    include 'rutas_compras.php';
+
+    include 'rutas_ingreso_almacen.php';
 
     Route::resource('costo-centros', App\Http\Controllers\CostoCentroController::class);
 
@@ -370,14 +348,38 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::resource('envioFiscales', App\Http\Controllers\EnvioFiscalController::class);
 
 
+    Route::get('/test', [TestController::class, 'test'])->name('test');
+    Route::get('/test-reverb', [TestController::class, 'reverb'])->name('reverb');
+    Route::post('/test-reverb', [TestController::class, 'testEvent'])->name('test.reverb');
+
+
+    Route::post('change-layout', [LayoutController::class, 'changeLayout'])->name('change.layout');
+
+    Route::get('enviar-correo', function () {
+        $userId = 1;
+        $user = User::find($userId);
+
+        // if (!$user) {
+        //     $this->error("No se encontró el usuario con ID {$userId}");
+        //     return;
+        // }
+
+        // $user->notify(new NoticiaPrueba());
+
+
+        Notification::route('mail', [
+            $user->email
+        ])->notify(new NoticiaPrueba());
+
+
+        return "Correo enviado a {$user->email}";
+    })->name('enviar.correo');
+
 });
 
 
-
-
-
 /**
- * Rutas web
+ * Rutas web públicas
  */
 Route::group(['prefix' => ''], function () {
 
@@ -391,29 +393,4 @@ Route::group(['prefix' => ''], function () {
 
 });
 
-Route::get('/test', [TestController::class, 'test'])->name('test');
-Route::get('/test-reverb', [TestController::class, 'reverb'])->name('reverb');
-Route::post('/test-reverb', [TestController::class, 'testEvent'])->name('test.reverb');
 
-
-Route::post('change-layout', [LayoutController::class, 'changeLayout'])->name('change.layout');
-
-Route::get('enviar-correo', function () {
-    $userId = 1;
-    $user = User::find($userId);
-
-    // if (!$user) {
-    //     $this->error("No se encontró el usuario con ID {$userId}");
-    //     return;
-    // }
-
-    // $user->notify(new NoticiaPrueba());
-
-
-    Notification::route('mail', [
-        $user->email
-    ])->notify(new NoticiaPrueba());
-
-
-    return "Correo enviado a {$user->email}";
-})->name('enviar.correo');

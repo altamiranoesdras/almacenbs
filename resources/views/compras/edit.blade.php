@@ -60,7 +60,7 @@
                                 <div class="row mb-2">
                                     <div class="col-sm-4">
                                         @if($compra->estado_id == \App\Models\CompraEstado::PROCESADO_PENDIENTE_RECIBIR )
-                                            <a href="{!! route('compra.ingreso',$compra->id) !!}"
+                                            <a href="{!! route('compras.ingreso',$compra->id) !!}"
                                                class="btn btn-outline-success round ms-1">
                                                 Ingresar
                                             </a>
@@ -145,7 +145,7 @@
                                     @endphp
 
                                     @if($envioFiscal != null && $envioFiscal->folio_actual <= $envioFiscal->correlativo_al)
-                                        <form action="{{route('compra.generar.1h',$compra->id)}}" method="post" class="esperar">
+                                        <form action="{{route('compras.generar.1h',$compra->id)}}" method="post" class="esperar">
                                             @csrf
                                             <div class="row">
                                                 <div class="col-sm-4 mb-1">
@@ -167,7 +167,7 @@
                                         </div>
                                     @endif
                                 @else
-                                    <form action="{{route('compra.actualiza.1h',$compra->id)}}" method="post">
+                                    <form action="{{route('compras.actualiza.1h',$compra->id)}}" method="post">
                                         @csrf
                                         <div class="row">
                                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-right">
@@ -200,7 +200,7 @@
                                                 </button>
                                             </div>
                                             <div class="col-4 col-sm-4 col-md-4 col-lg-4 float-end">
-                                                <a href="{{route('compra.h1.pdf',$compra->id)}}" target="_blank"
+                                                <a href="{{route('compras.h1.pdf',$compra->id)}}" target="_blank"
                                                    class='btn btn-outline-primary round float-end' data-toggle="tooltip"
                                                    title="Imprimir 1H">
                                                     Imprimir 1H
@@ -245,7 +245,7 @@
                             @method('POST')
                             {{ Form::textarea('justificativa_anulacion', null, ['class' => 'form-control', 'placeholder' => 'Ingrese motivo de anulación', 'rows' => 4, 'x-model' => 'justificativa', 'minlength' => 25]) }}
                             <span x-show="justificativa.length <= 25" style="color: red;">
-                                La justificación debe tener al menos 25 caracteres. / 
+                                La justificación debe tener al menos 25 caracteres. /
                                 <b>
                                     <span x-text="justificativa.length" class="text-info"></span>
                                 </b>

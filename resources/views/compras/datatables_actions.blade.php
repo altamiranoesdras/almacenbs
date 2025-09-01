@@ -13,7 +13,7 @@
 @endif
 
 @if($compra->tiene1h())
-    <a href="{{route('compra.h1.pdf',$compra->id)}}" target="_blank" class='btn btn-icon btn-outline-primary rounded-circle' data-toggle="tooltip" title="Imprimir 1H">
+    <a href="{{route('compras.h1.pdf',$compra->id)}}" target="_blank" class='btn btn-icon btn-outline-primary rounded-circle' data-toggle="tooltip" title="Imprimir 1H">
         <i class="fas fa-print"></i>
     </a>
 @endif

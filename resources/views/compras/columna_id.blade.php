@@ -18,7 +18,7 @@
             </div>
             <div class="modal-footer">
                 @if($compra->estado_id == \App\Models\CompraEstado::PROCESADO_PENDIENTE_RECIBIR)
-                    <a href="{{route('compra.ingreso', $compra->id)}}">
+                    <a href="{{route('compras.ingreso', $compra->id)}}">
                         <div class="btn btn-outline-success round">Ingresar</div>
                     </a>
                 @else
@@ -80,7 +80,7 @@
                             @method('POST')
                             {{ Form::textarea('justificativa_anulacion', null, ['class' => 'form-control', 'placeholder' => 'Ingrese motivo de anulación', 'rows' => 4, 'x-model' => 'justificativa', 'minlength' => 25]) }}
                             <span x-show="justificativa.length <= 25" style="color: red;">
-                                La justificación debe tener al menos 25 caracteres. / 
+                                La justificación debe tener al menos 25 caracteres. /
                                 <b>
                                     <span x-text="justificativa.length" class="text-info"></span>
                                 </b>
