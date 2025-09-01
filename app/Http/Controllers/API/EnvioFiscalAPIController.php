@@ -15,7 +15,7 @@ use App\Http\Controllers\AppBaseController;
 class EnvioFiscalAPIController extends AppBaseController
 {
     /**
-     * Display a listing of the EnvioFiscals.
+     * Display a listing of the EnvioFiscales.
      * GET|HEAD /envio-fiscals
      */
     public function index(Request $request): JsonResponse
@@ -31,7 +31,7 @@ class EnvioFiscalAPIController extends AppBaseController
 
         $envioFiscales = $query->get();
 
-        return $this->sendResponse($envioFiscales->toArray(), 'Envio Fiscals ');
+        return $this->sendResponse($envioFiscales->toArray(), 'Envio Fiscales ');
     }
 
     /**

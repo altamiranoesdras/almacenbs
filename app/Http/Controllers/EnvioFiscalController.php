@@ -14,10 +14,10 @@ class EnvioFiscalController extends AppBaseController
 
     public function __construct()
     {
-        $this->middleware('permission:Ver Envio Fiscals')->only('show');
-        $this->middleware('permission:Crear Envio Fiscals')->only(['create','store']);
-        $this->middleware('permission:Editar Envio Fiscals')->only(['edit','update']);
-        $this->middleware('permission:Eliminar Envio Fiscals')->only('destroy');
+        $this->middleware('permission:Ver Envió Fiscal')->only('show');
+        $this->middleware('permission:Crear Envió Fiscal')->only(['create','store']);
+        $this->middleware('permission:Editar Envió Fiscal')->only(['edit','update']);
+        $this->middleware('permission:Eliminar Envió Fiscal')->only('destroy');
     }
     /**
      * Display a listing of the EnvioFiscal.
