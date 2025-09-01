@@ -32,10 +32,10 @@ class UsersTableSeeder extends Seeder
             "username" => "dev",
             "name" => "Developer",
             'email' => 'altamiranoesdras@gmail.com',
-            "password" => bcrypt("123456"),
-            'bodega_id' => 1,
-            'unidad_id' => 1,
-            'puesto_id' => 1,
+            "password" => bcrypt("Sbs2025**"),
+            'bodega_id' => Bodega::PRINCIPAL,
+            'unidad_id' => RrhhUnidad::PRINCIPAL,
+            'puesto_id' => null,
         ])->each(function (User $user){
             $user->syncRoles([Role::DEVELOPER]);
             $user->options()->sync(Option::pluck('id')->toArray());
@@ -54,12 +54,12 @@ class UsersTableSeeder extends Seeder
         });
 
         User::factory(1)->create([
-            "username" => "Super",
+            "username" => "Superadmin",
             "name" => "Super Admin",
-            "password" => bcrypt("123456"),
-            'bodega_id' => 1,
-            'unidad_id' => 1,
-            'puesto_id' => 1,
+            "password" => bcrypt("Sbs2025**"),
+            'bodega_id' => Bodega::PRINCIPAL,
+            'unidad_id' => RrhhUnidad::PRINCIPAL,
+            'puesto_id' => null,
         ])->each(function (User $user){
             $user->syncRoles(Role::SUPERADMIN);
             $user->options()->sync(Option::pluck('id')->toArray());
@@ -80,10 +80,10 @@ class UsersTableSeeder extends Seeder
         User::factory(1)->create([
             "username" => "Admin",
             "name" => "Administrador",
-            "password" => bcrypt("123456"),
-            'bodega_id' => 1,
-            'unidad_id' => 1,
-            'puesto_id' => 1,
+            "password" => bcrypt("Sbs2025**"),
+            'bodega_id' => Bodega::PRINCIPAL,
+            'unidad_id' => RrhhUnidad::PRINCIPAL,
+            'puesto_id' => null,
         ])->each(function (User $user){
             $user->syncRoles(Role::ADMIN);
             $user->options()->sync(Option::pluck('id')->toArray());
@@ -108,48 +108,64 @@ class UsersTableSeeder extends Seeder
                 'name' => 'NORA SUCELY CASTILLO LÓPEZ',
                 'email' => 'jefatura.almace@sbs.gob.gt',
                 'puesto_id' => RrhhPuesto::JEFE_DEPARTAMENTO_ALMACEN,
+                'bodega_id' => Bodega::PRINCIPAL,
+                'unidad_id' => RrhhUnidad::ALMACEN
             ],
             [
                 'username' => 'elena.lucas',
                 'name' => 'ELENA JUAN LUCAS',
                 'email' => 'elena.lucas@sbs.gob.gt',
                 'puesto_id' => RrhhPuesto::ENCARGADA_DE_BODEGA,
+                'bodega_id' => Bodega::PRINCIPAL,
+                'unidad_id' => RrhhUnidad::ALMACEN
             ],
             [
                 'username' => 'antonio.rodriguez',
                 'name' => 'ANTONIO RODRÍGUEZ',
                 'email' => 'operativos.almacen@sbs.gob.gt',
                 'puesto_id' => RrhhPuesto::AUXILIAR_DE_BODEGA,
+                'bodega_id' => Bodega::PRINCIPAL,
+                'unidad_id' => RrhhUnidad::ALMACEN
             ],
             [
                 'username' => 'lilian.valle',
                 'name' => 'LILIAN MARBETTI VALLE ORDÓÑEZ',
                 'email' => 'almacen.asistente@sbs.gob.gt',
                 'puesto_id' => RrhhPuesto::ANALISTA_ALMACEN,
+                'bodega_id' => Bodega::PRINCIPAL,
+                'unidad_id' => RrhhUnidad::ALMACEN
             ],
             [
                 'username' => 'martha.ramos',
                 'name' => 'MARTHA YESENIA RAMOS FUENTES',
                 'email' => 'recepcion.almacen@sbs.gob.gt',
                 'puesto_id' => RrhhPuesto::RECEPCIONISTA,
+                'bodega_id' => Bodega::PRINCIPAL,
+                'unidad_id' => RrhhUnidad::ALMACEN
             ],
             [
                 'username' => 'mynor.medina',
                 'name' => 'MYNOR MANUEL MEDINA GODÍNEZ',
                 'email' => 'mynor.medina@sbs.gob.gt',
                 'puesto_id' => RrhhPuesto::ENCARGADA_DE_BODEGA,
+                'bodega_id' => Bodega::PRINCIPAL,
+                'unidad_id' => RrhhUnidad::ALMACEN
             ],
             [
                 'username' => 'cesar.vicente',
                 'name' => 'CÉSAR AUGUSTO VICENTE RODRÍGUEZ',
                 'email' => 'cesar.vicente@sbs.gob.gt',
                 'puesto_id' => RrhhPuesto::ENCARGADA_DE_BODEGA,
+                'bodega_id' => Bodega::PRINCIPAL,
+                'unidad_id' => RrhhUnidad::ALMACEN
             ],
             [
                 'username' => 'roberto.tiul',
                 'name' => 'ROBERTO TIUL ICHICH',
                 'email' => 'operativos2.almacen@sbs.gob.gt',
                 'puesto_id' => RrhhPuesto::AUXILIAR_DE_BODEGA,
+                'bodega_id' => Bodega::PRINCIPAL,
+                'unidad_id' => RrhhUnidad::ALMACEN
             ],
         ];
 
@@ -163,7 +179,8 @@ class UsersTableSeeder extends Seeder
                 'unidad_id' => RrhhUnidad::all()->random()->id,
                 'puesto_id' => $usuario['puesto_id'],
             ])->each(function (User $user) {
-                $user->syncRoles(Role::find(2)); // Asigna un rol predeterminado (ajustar según tus roles)
+                $user->syncRoles(Role::ADMINISTRADOR_REQUISICION_ALMACEN);
+
                 $user->options()->sync(Option::pluck('id')->toArray());
                 $user->shortcuts()->sync([
                     Option::MIS_REQUISICIONES,
