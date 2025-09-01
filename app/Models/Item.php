@@ -789,4 +789,15 @@ class Item extends Model implements HasMedia
         return $this->hasMany(CompraSolicitudDetalle::class,'item_id');
 
     }
+
+    public function esServicio()
+    {
+        return $this->tipo_id == ItemTipo::SERVICIOS;
+    }
+
+    public function esMateriaSumistro()
+    {
+        return $this->tipo_id == ItemTipo::MATERIALES_SUMINISTROS;
+    }
+
 }

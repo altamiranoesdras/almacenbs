@@ -64,11 +64,11 @@
     {!! $item->ubicacion !!}
 </div>
 
-<!-- Inventariable Field -->
-<div class="form-group">
-    {!! Form::label('inventariable', 'Inventariable:') !!}
-    {!! $item->inventariable !!}
-</div>
+{{--<!-- Inventariable Field -->--}}
+{{--<div class="form-group">--}}
+{{--    {!! Form::label('inventariable', 'Inventariable:') !!}--}}
+{{--    {!! $item->inventariable !!}--}}
+{{--</div>--}}
 
 <!-- Marca Field -->
 <div class="form-group">

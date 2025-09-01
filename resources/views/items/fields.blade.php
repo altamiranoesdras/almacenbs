@@ -153,21 +153,21 @@
                                     {!! Form::text('ubicacion', null, ['class' => 'form-control']) !!}
                                 </div>
 
-                                <div class="col-3 mb-1">
-                                    <input type="hidden" name="inventariable" value="0">
-                                    <div class="d-flex flex-column">
-                                        <label class="form-check-label mb-50" for="inventariable">
-                                            Inventariable
-                                        </label>
-                                        <div class="form-check form-switch form-check-primary">
-                                            <input type="checkbox" class="form-check-input" value="1" name="inventariable" id="inventariable" {{ ($item->inventariable ?? false) ? ' checked' : '' }} />
-                                            <label class="form-check-label" for="inventariable">
-                                                <span class="switch-icon-left"><i data-feather="check"></i></span>
-                                                <span class="switch-icon-right"><i data-feather="x"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
+{{--                                <div class="col-3 mb-1">--}}
+{{--                                    <input type="hidden" name="inventariable" value="0">--}}
+{{--                                    <div class="d-flex flex-column">--}}
+{{--                                        <label class="form-check-label mb-50" for="inventariable">--}}
+{{--                                            Inventariable--}}
+{{--                                        </label>--}}
+{{--                                        <div class="form-check form-switch form-check-primary">--}}
+{{--                                            <input type="checkbox" class="form-check-input" value="1" name="inventariable" id="inventariable" {{ ($item->inventariable ?? false) ? ' checked' : '' }} />--}}
+{{--                                            <label class="form-check-label" for="inventariable">--}}
+{{--                                                <span class="switch-icon-left"><i data-feather="check"></i></span>--}}
+{{--                                                <span class="switch-icon-right"><i data-feather="x"></i></span>--}}
+{{--                                            </label>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
 
 

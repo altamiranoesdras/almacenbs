@@ -127,7 +127,8 @@ class ConsumoDetalle extends Model
 
         $bodega = $this->consumo->bodega_id ?? Bodega::PRINCIPAL;
 
-        if (!$this->item->inventariable)
+        // No ingresa stock si es servicio
+        if($this->item->esServicio())
             return null;
 
         $cantidad = $this->cantidad*-1;

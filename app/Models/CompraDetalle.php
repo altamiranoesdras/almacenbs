@@ -182,7 +182,8 @@ class CompraDetalle extends Model
     public function ingreso()
     {
 
-        if(!$this->item->inventariable)
+        // No ingresa stock si es servicio
+        if($this->item->esServicio())
             return null;
 
         /**

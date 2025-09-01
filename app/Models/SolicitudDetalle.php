@@ -134,7 +134,8 @@ class SolicitudDetalle extends Model
     public function egreso()
     {
 
-        if (!$this->item->inventariable)
+        // No ingresa stock si es servicio
+        if($this->item->esServicio())
             return null;
 
         $cantidad = $this->cantidad_despachada*-1;
@@ -213,7 +214,8 @@ class SolicitudDetalle extends Model
     public function ingreso($bodega)
     {
 
-        if(!$this->item->inventariable)
+        // No ingresa stock si es servicio
+        if($this->item->esServicio())
             return null;
 
         /**
