@@ -11,51 +11,11 @@
                         <i class="fa fa-home"></i>
                     </a>
                 </li>
-                <li class="nav-item d-none d-lg-block" style="font-size: 1.2rem">
-                    <a class="nav-link me-1" href="{{route('home')}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Email">
-                        <i class="fa fa-inbox"></i>
-                    </a>
-                </li>
-                <li class="nav-item d-none d-lg-block" style="font-size: 1.2rem">
-                    <a class="nav-link me-1" href="{{route('home')}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Chat">
-                        <i class="fa fa-message"></i>
-                    </a>
-                </li>
-                <li class="nav-item d-none d-lg-block" style="font-size: 1.2rem">
-                    <a class="nav-link me-1" href="{{route('home')}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Calendar">
-                        <i class="fa fa-calendar"></i>
-                    </a>
-                </li>
-                <li class="nav-item d-none d-lg-block" style="font-size: 1.2rem">
-                    <a class="nav-link me-1" href="{{route('home')}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tareas">
-                        <i class="fa fa-tasks"></i>
-                    </a>
-                </li>
             </ul>
         </div>
 
         <ul class="nav navbar-nav align-items-center ms-auto">
 
-            <!--            Selector de idiomas
-            ------------------------------------------------------------------------>
-            <li class="nav-item dropdown dropdown-language">
-                <a class="nav-link dropdown-toggle" id="dropdown-flag" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="flag-icon flag-icon-us"></i>
-                    <span class="selected-language">English</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-flag">
-                    <a class="dropdown-item" href="#" data-language="en">
-                        <i class="flag-icon flag-icon-us"></i> English
-                    </a>
-                    <a class="dropdown-item" href="#" data-language="es">
-                        <i class="flag-icon flag-icon-es"></i> Español
-                    </a>
-                </div>
-            </li>
-
-            {{-- @livewire('mode-layout.mode-layout') --}}
-
-            {{-- fetch('{{ route('change.layout') }}', { method: 'POST', headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}' }}) --}}
 
             <li class="nav-item d-none d-lg-block" onclick="fetch('{{ route('change.layout') }}', { method: 'POST', headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}' }, body: JSON.stringify({}) })">
                 <a class="nav-link nav-link-style">
