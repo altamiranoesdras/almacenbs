@@ -114,7 +114,7 @@ class SolicitudApruebaController extends Controller
         }
 //            Mail::send(new DespacharSolicitud($solicitud));
 
-        $solicitud->addBitacora("SISTEMA","REQUISICIÓN APROBADA",'');
+        $solicitud->addBitacora("REQUISICIÓN APROBADA",'');
     }
 
 
@@ -127,7 +127,7 @@ class SolicitudApruebaController extends Controller
         $solicitud->save();
 
 
-        $solicitud->addBitacora("SISTEMA","REQUISICIÓN RETORNADA","Motivo: ".$request->motivo);
+        $solicitud->addBitacora("REQUISICIÓN RETORNADA","Motivo: ".$request->motivo);
     }
 
 }

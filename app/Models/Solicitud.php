@@ -461,7 +461,7 @@ class Solicitud extends Model
         $this->estado_id = SolicitudEstado::ANULADA;
         $this->save();
 
-        $this->addBitacora("SISTEMA","REQUISICIÓN ANULADA","");
+        $this->addBitacora("REQUISICIÓN ANULADA","");
 
 
     }
@@ -515,7 +515,7 @@ class Solicitud extends Model
         $this->usuario_aprueba = usuarioAutenticado()->id;
         $this->save();
 
-        $this->addBitacora("SISTEMA","REQUISICIÓN APROBADA","");
+        $this->addBitacora("REQUISICIÓN APROBADA","");
 
     }
 
@@ -526,7 +526,7 @@ class Solicitud extends Model
         $this->usuario_autoriza = usuarioAutenticado()->id;
         $this->save();
 
-        $this->addBitacora("SISTEMA","REQUISICIÓN AUTORIZADA","");
+        $this->addBitacora("REQUISICIÓN AUTORIZADA","");
     }
 
     public function solicitar($fecha=null): void
@@ -536,7 +536,7 @@ class Solicitud extends Model
         $this->usuario_solicita = usuarioAutenticado()->id;
         $this->save();
 
-        $this->addBitacora("SISTEMA","REQUISICIÓN SOLICITADA","");
+        $this->addBitacora("REQUISICIÓN SOLICITADA","");
     }
 
     public function despachar($fecha=null): void
@@ -551,7 +551,7 @@ class Solicitud extends Model
         $this->ingreso();
 
 
-        $this->addBitacora("SISTEMA","REQUISICIÓN DESPACHADA","");
+        $this->addBitacora("REQUISICIÓN DESPACHADA","");
     }
 
 }

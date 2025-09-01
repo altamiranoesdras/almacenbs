@@ -112,7 +112,7 @@ class SolicitudDespachaController extends Controller
 //            Mail::send(new DespacharSolicitud($solicitud));
 
 
-        $solicitud->addBitacora("SISTEMA","REQUISICIÓN DESPACHADA",'');
+        $solicitud->addBitacora("REQUISICIÓN DESPACHADA",'');
     }
 
 
@@ -125,7 +125,7 @@ class SolicitudDespachaController extends Controller
         $solicitud->save();
 
 
-        $solicitud->addBitacora("SISTEMA","REQUISICIÓN RETORNADA","Motivo: ".$request->motivo);
+        $solicitud->addBitacora("REQUISICIÓN RETORNADA","Motivo: ".$request->motivo);
     }
 
 

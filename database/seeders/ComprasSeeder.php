@@ -68,9 +68,13 @@ class ComprasSeeder extends Seeder
                 ->afterCreating(function (Compra $compra) {
                     // Procesar ingreso y generar 1h para cada compra
 
-                    if($compra->estaRecibida() || $compra->estaAprobado1h() || $compra->estaAutorizado1h()){
+
+                    if($compra->estaOperado1h() || $compra->estaAprobado1h() || $compra->estaAutorizado1h()){
+                        $compra->genera1h(null);
+                    }
+
+                    if ($compra->estaRecibida()) {
                         $compra->procesaIngreso();
-                        $compra->genera1h($compra->correlativo + 10000);
                         //crea egreso de compra
                         $this->egreso($compra);
                     }

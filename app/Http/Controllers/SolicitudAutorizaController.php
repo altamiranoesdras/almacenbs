@@ -84,7 +84,7 @@ class SolicitudAutorizaController extends Controller
         }
 //            Mail::send(new DespacharSolicitud($solicitud));
 
-        $solicitud->addBitacora("SISTEMA","REQUISICIÓN APROBADA",null);
+        $solicitud->addBitacora("REQUISICIÓN APROBADA",null);
     }
 
 
@@ -104,6 +104,6 @@ class SolicitudAutorizaController extends Controller
 
         }
 
-        $solicitud->addBitacora("SISTEMA","REQUISICIÓN RETORNADA",$request->observacion);
+        $solicitud->addBitacora("REQUISICIÓN RETORNADA",$request->observacion);
     }
 }

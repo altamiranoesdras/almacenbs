@@ -440,42 +440,6 @@ class CompraController extends AppBaseController
         return $pdf->inline('CompraH1-'.$compra->id. '_'. time().'.pdf');
     }
 
-    /**
-     * @throws \Throwable
-     */
-    public function generar1h($id)
-    {
-
-        /**
-         * @var Compra $compra
-         */
-        $compra = Compra::find($id);
-
-        try {
-            DB::beginTransaction();
-
-            $compra->genera1h(request()->folio);
-
-        } catch (\Exception $exception) {
-            DB::rollBack();
-
-            $msj = manejarException($exception);
-
-            flash()->warning($msj);
-
-            return back()->withInput();
-        }
-
-        DB::commit();
-
-        flash('1H generado!')->success();
-
-        return redirect()->back();
-
-    }
-
-
-
     public function actualizar1h(Compra $compra, Request $request)
     {
         /** @var Compra1h $compra1h */

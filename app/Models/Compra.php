@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasBitacora;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -32,6 +33,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Bitacora> $bitacoras
+ * @property-read int|null $bitacoras_count
  * @property-read \App\Models\Compra1h|null $compra1h
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Compra1h> $compra1hs
  * @property-read int|null $compra1hs_count
@@ -91,6 +94,7 @@ class Compra extends Model
     use SoftDeletes;
 
     use HasFactory;
+    use HasBitacora;
 
     public $table = 'compras';
 
@@ -469,7 +473,7 @@ class Compra extends Model
 
     }
 
-    public function genera1h($folio): void
+    public function genera1h($folio=null): void
     {
 
         $envioFiscal = EnvioFiscal::where('nombre_tabla', 'compras')->where('activo', 'si')->first();
@@ -581,6 +585,67 @@ class Compra extends Model
 
     }
 
+    public function puedeOperar()
+    {
+        return in_array($this->estado_id,[
+            CompraEstado::INGRESADO,
+            CompraEstado::RETORNO_POR_APROBADOR,
+        ]);
+    }
 
+    public function puedeAprobar()
+    {
+        return in_array($this->estado_id,[
+            CompraEstado::UNO_H_OPERADO,
+            CompraEstado::RETORNO_POR_AUTORIZADOR,
+        ]);
+
+    }
+
+    public function puedeAutorizar()
+    {
+        return in_array($this->estado_id,[
+            CompraEstado::UNO_H_APROBADO,
+        ]);
+    }
+
+    public function operar1h()
+    {
+        $this->addBitacora("Formulario 1H Operado, folio: ".$this->compra1h->folio,'');
+        $this->estado_id = CompraEstado::UNO_H_OPERADO;
+        $this->save();
+    }
+
+    //aprobar 1h
+    public function aprobar1h()
+    {
+        $this->addBitacora("Formulario 1H Aprobado, folio: ".$this->compra1h->folio,'');
+        $this->estado_id = CompraEstado::UNO_H_APROBADO;
+        $this->save();
+    }
+
+    //autorizar 1h
+    public function autorizar1h()
+    {
+        $this->addBitacora("Formulario 1H Autorizado, folio: ".$this->compra1h->folio,'');
+        $this->estado_id = CompraEstado::UNO_H_AUTORIZADO;
+        $this->save();
+    }
+
+    //retornar a operador
+    public function retornarAOperador1h($comentario)
+    {
+        $this->addBitacora("Formulario 1H retornado a Operador, folio: ".$this->compra1h->folio,$comentario);
+        $this->estado_id = CompraEstado::RETORNO_POR_APROBADOR;
+        $this->save();
+    }
+
+    //retornar a aprobador
+    public function retornarAAprobador1h($comentario)
+    {
+        $this->addBitacora("Formulario 1H retornado a Aprobador, folio: ".$this->compra1h->folio,$comentario);
+        $this->estado_id = CompraEstado::RETORNO_POR_AUTORIZADOR;
+        $this->save();
+    }
 
 }

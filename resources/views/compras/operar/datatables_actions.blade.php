@@ -6,8 +6,8 @@
     <i class="fa fa-eye"></i>
 </button>
 
-@if($compra->puedeEditar())
-    <a href="{{ route('compras.edit', $compra->id) }}" class='btn btn-icon btn-outline-primary rounded-circle' data-toggle="tooltip" title="Editar">
+@if($compra->puedeOperar())
+    <a href="{{ route('bandejas.compras1h.operador.gestionar', $compra->id) }}" class='btn btn-icon btn-outline-primary rounded-circle' data-toggle="tooltip" title="Operar">
         <i class="fa fa-edit"></i>
     </a>
 @endif

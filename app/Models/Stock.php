@@ -12,7 +12,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property int $id
  * @property int $item_id
- * @property int|null $bodega_id
+ * @property int|null $unidad_id sirve para saber el stock que la unidad tiene como limite para poder requerir
+ * @property int|null $bodega_id despues que la unidad haga el requerimiento, se traslada a la bodega de la unidad
  * @property string|null $lote
  * @property \Illuminate\Support\Carbon $fecha_ing
  * @property \Illuminate\Support\Carbon|null $fecha_vence
@@ -53,6 +54,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereLote($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereOrdenSalida($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Stock wherePrecioCompra($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock whereUnidadId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Stock withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Stock withoutTrashed()

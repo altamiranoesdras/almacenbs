@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\DataTables\CompraAprobarDataTable;
 use App\DataTables\CompraOperarDataTable;
 use App\DataTables\Scopes\ScopeCompraDataTable;
+use App\Models\Compra;
 use App\Models\CompraEstado;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Compra1hOperadorController extends Controller
 {
@@ -20,28 +22,47 @@ class Compra1hOperadorController extends Controller
     {
 
         $scoper = new ScopeCompraDataTable();
-//        $scoper->estados = [CompraEstado::INGRESADO];
-        $scoper->estados = [CompraEstado::PROCESADO_PENDIENTE_RECIBIR];
+        $scoper->estados = [CompraEstado::INGRESADO];
 
         $dataTable->addScope($scoper);
 
         return $dataTable->render('compras.operar.index');
     }
 
-    public function procesar(Request $request)
+    public function gestionar(Compra $compra)
     {
-        $request->validate([
-            'fecha' => 'required|date',
-            'hora' => 'required|date_format:H:i',
-        ]);
+        return view('compras.operar.gestionar', compact('compra'));
+    }
 
-        $fecha = $request->input('fecha');
-        $hora = $request->input('hora');
+    public function genera1h(Compra $compra)
+    {
+        try {
+            DB::beginTransaction();
 
-        // Aquí iría la lógica para procesar la compra 1 hora operador
-        // Por ejemplo, llamar a un servicio o realizar alguna operación
+            $compra->genera1h(request()->folio);
+            $compra->addBitacora('Formulario 1H generado');
 
-        // Para este ejemplo, simplemente retornamos una vista de éxito
-        return view('compra1hoperador.success', compact('fecha', 'hora'));
+        } catch (\Exception $exception) {
+            DB::rollBack();
+
+            $msj = manejarException($exception);
+
+            flash()->warning($msj);
+
+            return back()->withInput();
+        }
+
+        DB::commit();
+
+        flash('1H generado!')->success();
+
+        return redirect()->back();
+    }
+
+
+    public function procesar(Compra $compra)
+    {
+
+
     }
 }

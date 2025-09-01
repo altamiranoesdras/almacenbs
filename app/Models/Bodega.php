@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $nombre
  * @property string|null $direccion
  * @property string|null $telefono
+ * @property int|null $unidad_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -31,6 +32,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Bodega whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Bodega whereNombre($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Bodega whereTelefono($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bodega whereUnidadId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Bodega whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Bodega withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Bodega withoutTrashed()

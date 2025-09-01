@@ -262,7 +262,7 @@ class SolicitudController extends AppBaseController
 
         }
 
-        $solicitud->addBitacora("SISTEMA","REQUISICIÓN SOLICITADA","");
+        $solicitud->addBitacora("REQUISICIÓN SOLICITADA","");
 
 
         return $solicitud;

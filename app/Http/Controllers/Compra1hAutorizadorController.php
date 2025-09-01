@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\CompraAutorizarDataTable;
 use App\DataTables\Scopes\ScopeCompraDataTable;
+use App\Models\Compra;
 use App\Models\CompraEstado;
 use Illuminate\Http\Request;
 
@@ -18,6 +19,10 @@ class Compra1hAutorizadorController extends Controller
         return $dataTable->render('compras.autorizar.index');
     }
 
+    public function gestionar(Compra $compra)
+    {
+        return view('compras.autorizar.gestionar', compact('compra'));
+    }
 
     public function procesar(Request $request)
     {

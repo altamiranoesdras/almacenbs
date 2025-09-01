@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\CompraAprobarDataTable;
 use App\DataTables\Scopes\ScopeCompraDataTable;
+use App\Models\Compra;
 use App\Models\CompraEstado;
 use Illuminate\Http\Request;
 
@@ -21,6 +22,11 @@ class Compra1hAprobadorController extends Controller
         $dataTable->addScope($scope);
 
         return $dataTable->render('compras.aprobar.index');
+    }
+
+    public function gestionar(Compra $compra)
+    {
+        return view('compras.aprobar.gestionar', compact('compra'));
     }
 
     public function procesar(Request $request)

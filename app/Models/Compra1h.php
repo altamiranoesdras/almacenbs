@@ -21,6 +21,7 @@ use stdClass;
  * @property \Illuminate\Support\Carbon|null $fecha_procesa
  * @property int $usuario_procesa
  * @property string|null $observaciones
+ * @property string|null $justificativa_anulacion
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -48,6 +49,7 @@ use stdClass;
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1h whereFechaProcesa($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1h whereFolio($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1h whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra1h whereJustificativaAnulacion($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1h whereObservaciones($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1h whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra1h whereUsuarioProcesa($value)

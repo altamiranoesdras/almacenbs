@@ -265,7 +265,7 @@ class CompraRequisicion extends Model implements HasMedia
         $this->usuario_solicita_id = usuarioAutenticado()->id;
         $this->save();
 
-        $this->addBitacora("SISTEMA","REQUISICIÓN DE COMPRA SOLICITADA","");
+        $this->addBitacora("REQUISICIÓN DE COMPRA SOLICITADA","");
     }
 
     public function aprobar(): void
@@ -275,7 +275,7 @@ class CompraRequisicion extends Model implements HasMedia
         $this->usuario_aprueba_id = usuarioAutenticado()->id;
         $this->save();
 
-        $this->addBitacora("SISTEMA","REQUISICIÓN DE COMPRA APROBADA","");
+        $this->addBitacora("REQUISICIÓN DE COMPRA APROBADA","");
     }
 
     public function autorizar(): void
@@ -285,7 +285,7 @@ class CompraRequisicion extends Model implements HasMedia
         $this->usuario_autoriza_id = usuarioAutenticado()->id;
         $this->save();
 
-        $this->addBitacora("SISTEMA","REQUISICIÓN DE COMPRA AUTORIZADA","");
+        $this->addBitacora("REQUISICIÓN DE COMPRA AUTORIZADA","");
     }
 
     public function puedeSolicitarse(): bool

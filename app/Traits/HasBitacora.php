@@ -28,10 +28,10 @@ trait HasBitacora
      *
      * @return $this
      */
-    public function addBitacora($setion,$titulo,$comentario,$user=null)
+    public function addBitacora($titulo,$comentario='',$user=null,$seccion='Sistema')
     {
         $bitacora = new Bitacora([
-            'seccion' => $setion,
+            'seccion' => $seccion,
             'titulo' => $titulo,
             'comentario' => $comentario,
             'usuario_id' => $user ?? usuarioAutenticado()->id,

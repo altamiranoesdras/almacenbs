@@ -14,7 +14,7 @@
     </tr>
     </thead>
     <tbody>
-    @foreach($compra1h->detalles as $det)
+    @foreach($compra->compra1h->detalles as $det)
         <tr >
             <td>{{nf($det->item->id)}}</td>
             <td>{{nf($det->cantidad)}}</td>
