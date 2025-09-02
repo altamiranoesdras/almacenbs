@@ -6,7 +6,7 @@ use App\Models\Proveedor;
 use Illuminate\Console\Command;
 use League\Csv\Reader;
 
-class LeerProveedoresCSV extends Command
+class ImportarProveedores extends Command
 {
     protected $signature = 'leer:proveedores';
     protected $description = 'Lee e itera el archivo Proveedores 2.csv con league/csv';

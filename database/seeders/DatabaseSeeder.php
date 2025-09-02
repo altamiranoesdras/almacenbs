@@ -21,9 +21,7 @@ class DatabaseSeeder extends Seeder
 
         if (!file_exists(storage_path('temp'))){
             mkdir(storage_path('temp'));
-            $this->call(CompraRequisicionTipoConcursosTableSeeder::class);
-        $this->call(CompraRequisicionesTableSeeder::class);
-    }
+        }
 
         foreach(glob(storage_path('app/public/*')) as $file){
             if(file_exists($file)){
@@ -43,11 +41,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ConfigurationsTableSeeder::class);
         $this->call(UserConfigurationsTableSeeder::class);
 
-//        $this->call(ImportPuestosUnidadesSeeder::class);
         $this->call(RrhhPuestosTableSeeder::class);
         $this->call(UsersTableSeeder::class);
-//        $this->call(ImportUserSeeder::class);
-
 
         $this->call(CompraEstadosTableSeeder::class);
         $this->call(ProveedoresTableSeeder::class);
@@ -73,12 +68,9 @@ class DatabaseSeeder extends Seeder
         $this->call(ItemCategoriaTableSeeder::class);
         $this->call(ItemsTableSeeder::class);
 
-//        Artisan::call("import:colaboradores");
-
         $this->call(CompraSolicitudEstadosTableSeeder::class);
         $this->call(CompraSolicitudsTableSeeder::class);
         $this->call(MediaTableSeeder::class);
-
 
 
         $this->call(CompraRequisicionEstadosTableSeeder::class);

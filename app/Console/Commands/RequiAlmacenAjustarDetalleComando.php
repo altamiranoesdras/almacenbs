@@ -11,7 +11,7 @@ use App\Models\StockTransaccion;
 use App\Traits\ComandosTrait;
 use Illuminate\Console\Command;
 
-class AjustarDetalleSolicitudComando extends Command
+class RequiAlmacenAjustarDetalleComando extends Command
 {
 
     use ComandosTrait;

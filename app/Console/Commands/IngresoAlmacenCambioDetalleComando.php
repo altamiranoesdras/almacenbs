@@ -11,7 +11,7 @@ use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
-class CambioDetalleCompraComando extends Command
+class IngresoAlmacenCambioDetalleComando extends Command
 {
 
     use ComandosTrait;

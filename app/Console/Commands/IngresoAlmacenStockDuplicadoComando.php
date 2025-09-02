@@ -8,7 +8,7 @@ use App\Models\StockTransaccion;
 use App\Traits\ComandosTrait;
 use Illuminate\Console\Command;
 
-class ComprasConIngresoDuplicadoComando extends Command
+class IngresoAlmacenStockDuplicadoComando extends Command
 {
 
     use ComandosTrait;

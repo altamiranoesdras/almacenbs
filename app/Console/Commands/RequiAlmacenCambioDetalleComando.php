@@ -10,7 +10,7 @@ use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
-class CambioDetalleSolicitudComando extends Command
+class RequiAlmacenCambioDetalleComando extends Command
 {
 
     use ComandosTrait;

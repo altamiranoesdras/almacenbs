@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Archivados;
 
 use App\Models\Kardex;
 use Illuminate\Console\Command;
