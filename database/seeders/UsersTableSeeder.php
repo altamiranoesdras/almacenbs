@@ -174,7 +174,7 @@ class UsersTableSeeder extends Seeder
                 'username' => $usuario['username'],
                 'name' => $usuario['name'],
                 'email' => $usuario['email'],
-                'password' => bcrypt('123456'),
+                'password' => bcrypt('Sbs2025**'),
                 'bodega_id' => Bodega::PRINCIPAL,
                 'unidad_id' => RrhhUnidad::all()->random()->id,
                 'puesto_id' => $usuario['puesto_id'],
