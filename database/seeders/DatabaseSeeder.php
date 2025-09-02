@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
@@ -66,7 +67,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ItemPresentacionesTableSeeder::class);
 
         $this->call(ItemCategoriaTableSeeder::class);
-        $this->call(ItemsTableSeeder::class);
+        Artisan::call("importar:insumos2");
+//        $this->call(ItemsTableSeeder::class);
 
         $this->call(CompraSolicitudEstadosTableSeeder::class);
         $this->call(CompraSolicitudsTableSeeder::class);

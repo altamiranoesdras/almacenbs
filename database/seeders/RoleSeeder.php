@@ -31,12 +31,6 @@ RoleSeeder extends Seeder
             Option::NUEVA_REQUISICION_ALMACEN,
         ]);
 
-        $rol->syncPermissions([
-            'Ver Requisición',
-            'Crear Requisición',
-            'Editar Requisición',
-        ]);
-
         $rol = Role::firstOrCreate(["name" => "Aprobador Requisición Almacén"]);
 
         $rol->options()->sync([
@@ -72,7 +66,7 @@ RoleSeeder extends Seeder
         //iterar todos los roles para asignar todos los permisos
         $roles = Role::all();
         foreach ($roles as $role) {
-            $rol->syncPermissions(Permission::all()->pluck('name')->toArray());
+            $role->syncPermissions(Permission::all()->pluck('name')->toArray());
         }
 
     }

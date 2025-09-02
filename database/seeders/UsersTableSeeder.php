@@ -188,10 +188,6 @@ class UsersTableSeeder extends Seeder
                     Option::BUSCAR_INSUMOS,
                     Option::NUEVO_INSUMO,
                     Option::PROVEEDORES,
-                    Option::DESPACHAR_REQUISICION_ALMACEN,
-                    Option::USUARIOS,
-                    Option::ROLES,
-                    Option::CONFIGURACIONES,
                 ]);
             });
         }
