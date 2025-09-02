@@ -56,7 +56,7 @@ class CompraBandejasTableSeeder extends Seeder
             CompraRequisicionEstado::APROBADA,
         ]);
 
-        habilitaLlavesForaneas();
+
 
     }
 }

@@ -64,6 +64,6 @@ class CompraRequisicionEstadosTableSeeder extends Seeder
             CompraRequisicionEstado::create($estado);
         }
 
-        habilitaLlavesForaneas();
+
     }
 }

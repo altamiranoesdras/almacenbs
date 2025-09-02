@@ -40,7 +40,7 @@ class CompraRequisicionTipoConcursosTableSeeder extends Seeder
             ),
         ));
 
-        habilitaLlavesForaneas();
+
 
     }
 }

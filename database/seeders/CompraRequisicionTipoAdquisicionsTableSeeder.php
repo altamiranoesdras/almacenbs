@@ -51,6 +51,6 @@ class CompraRequisicionTipoAdquisicionsTableSeeder extends Seeder
             ]);
         }
 
-        habilitaLlavesForaneas();
+
     }
 }

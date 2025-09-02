@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +14,7 @@ class DatabaseSeeder extends Seeder
      * Seed the application's database.
      *
      * @return void
+     * @throws \Throwable
      */
     public function run()
     {
@@ -67,12 +69,9 @@ class DatabaseSeeder extends Seeder
         $this->call(ItemPresentacionesTableSeeder::class);
 
         $this->call(ItemCategoriaTableSeeder::class);
-        Artisan::call("importar:insumos2");
-//        $this->call(ItemsTableSeeder::class);
+        $this->importarInsumos();
 
         $this->call(CompraSolicitudEstadosTableSeeder::class);
-        $this->call(CompraSolicitudsTableSeeder::class);
-        $this->call(MediaTableSeeder::class);
 
 
         $this->call(CompraRequisicionEstadosTableSeeder::class);
@@ -89,7 +88,10 @@ class DatabaseSeeder extends Seeder
 
             $this->call(ComprasSeeder::class);
             $this->call(SolicitudesTableSeeder::class);
+            $this->call(CompraSolicitudsTableSeeder::class);
             $this->call(CompraRequisicionesTableSeeder::class);
+            $this->call(MediaTableSeeder::class);
+
 //            $this->call(ConsumosTableSeeder::class);
 ////            $this->call(ActivosTableSeeder::class);
 
@@ -100,7 +102,32 @@ class DatabaseSeeder extends Seeder
                 unlink($file);
         }
 
-        habilitaLlavesForaneas();
+
+
+    }
+
+    /**
+     * @throws \Throwable
+     */
+    public function importarInsumos(): void
+    {
+        try {
+            $exitCode = Artisan::call('importar:insumos2', [
+                '--no-interaction' => true,
+            ]);
+
+            $output = Artisan::output();
+            dump($output);
+
+            // opcional: si quieres ver el fallo al correr `db:seed`
+            if ($exitCode !== 0) {
+                throw new \RuntimeException("Comando importar:insumos2 falló con código {$exitCode}. Revisa storage/logs/laravel.log");
+            }
+        } catch (\Throwable $e) {
+            Log::error("[Seeder] Error al ejecutar importar:insumos2: ".$e->getMessage(), ['trace' => $e->getTraceAsString()]);
+            // relanza para que el seeding falle visiblemente
+            throw $e;
+        }
 
     }
 }

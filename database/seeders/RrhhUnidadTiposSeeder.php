@@ -13,6 +13,9 @@ class RrhhUnidadTiposSeeder extends Seeder
      */
     public function run(): void
     {
+
+        RrhhUnidadTipo::truncate();
+
         $tipos = [
             ['nombre' => 'Secretaría', 'nivel' => 1],
             ['nombre' => 'Subsecretaría', 'nivel' => 2],
