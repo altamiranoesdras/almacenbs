@@ -97,10 +97,10 @@ class DatabaseSeeder extends Seeder
 
         }
 
-        foreach(glob(storage_path('temp/*')) as $file){
-            if(is_file($file))
-                unlink($file);
-        }
+//        foreach(glob(storage_path('temp/*')) as $file){
+//            if(is_file($file))
+//                unlink($file);
+//        }
 
 
 
