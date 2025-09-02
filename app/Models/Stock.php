@@ -26,8 +26,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\Bodega|null $bodega
  * @property-read mixed $codigo
+ * @property-read mixed $color_vence
  * @property-read mixed $responsable
  * @property-read mixed $sub_total
+ * @property-read mixed $texto_vence
  * @property-read \App\Models\Item $item
  * @property-read \App\Models\Kardex|null $kardex
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\StockTransaccion> $transaccion
@@ -171,12 +173,18 @@ class Stock extends Model
         return $query->orWhere('fecha_vence','<',$hoy)->conStock();
     }
 
-    public function scopeQuedanMeses($query,$meses){
+    public function scopeQuedanMeses($query,$meses,$vencidos=false){
 
         $fechaFin = Carbon::now()->addMonth($meses)->format('Y-m-d');
         $fechaIni = Carbon::now()->format('Y-m-d');
 
-        return $query->conStock()->whereBetween('fecha_vence',[$fechaIni,$fechaFin])->vencidos();
+        $query->conStock()->whereBetween('fecha_vence',[$fechaIni,$fechaFin]);
+
+        if ($vencidos){
+            $query->vencidos();
+        }
+
+        return $query;
     }
 
     public function scopeDeBodega($query,$bodega=null){
@@ -205,4 +213,54 @@ class Stock extends Model
         return $this->precio_compra * $this->cantidad;
     }
 
+    public function getTextoVenceAttribute()
+    {
+        $hoy = \Carbon\Carbon::now();
+        $fechaVen = \Carbon\Carbon::parse($this->fecha_vence);
+
+        if ($fechaVen->isFuture()) {
+            // Si aún no ha vencido
+            $meses = $hoy->diffInMonths($fechaVen);
+            $dias = $hoy->copy()->addMonths($meses)->diffInDays($fechaVen);
+
+            if ($meses > 0) {
+                return 'vence en ' .$meses . ' ' . ($meses == 1 ? 'mes' : 'meses');
+            } else {
+                return 'vence en ' .$dias . ' ' . ($dias == 1 ? 'día' : 'días');
+            }
+        } else {
+            // Si ya venció
+            $meses = $fechaVen->diffInMonths($hoy);
+            $dias = $fechaVen->copy()->addMonths($meses)->diffInDays($hoy);
+
+            if ($meses > 0) {
+                return 'venció hace ' . $meses . ' ' . ($meses == 1 ? 'mes' : 'meses');
+            } else {
+                return 'venció hace ' . $dias . ' ' . ($dias == 1 ? 'día' : 'días');
+            }
+        }
+
+    }
+
+    public function getColorVenceAttribute()
+    {
+        $hoy = \Carbon\Carbon::now();
+        $fechaVen = \Carbon\Carbon::parse($this->fecha_vence);
+
+        if ($fechaVen->isFuture()) {
+            // Si aún no ha vencido
+            $meses = $hoy->diffInMonths($fechaVen);
+            $dias = $hoy->copy()->addMonths($meses)->diffInDays($fechaVen);
+
+            if ($meses >= 6) {
+                return 'success'; // Verde
+            } elseif ($meses >= 3) {
+                return 'secondary'; // Amarillo
+            } else {
+                return 'warning'; // Rojo
+            }
+        } else {
+            return 'danger'; // Rojo
+        }
+    }
 }

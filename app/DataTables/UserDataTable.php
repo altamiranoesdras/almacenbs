@@ -29,6 +29,10 @@ class UserDataTable extends DataTable
                 return view('admin.users.columna_nombre',compact('user'));
 
             })
+            //puesto
+                ->editColumn('puesto.nombre',function (User $user){
+                    return $user->puesto->nombre ?? 'Sin puesto';
+                })
             ->editColumn('roles',function (User $user){
 
                 return view('admin.users.partials.roles',compact('user'));

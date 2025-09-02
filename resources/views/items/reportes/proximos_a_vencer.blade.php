@@ -3,113 +3,49 @@
 @section('titulo_pagina','Reporte Artículos Próximos A Vencer')
 
 @section('content')
+
     <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col">
-                    <h1 class="m-0 text-dark">Reporte Artículos Próximos A Vencer</h1>
-                </div><!-- /.col -->
-                <div class="col">
-                    <a class="btn btn-outline-info float-right" href="{!! route('home') !!}">
-                        <i class="fa fa-list"></i>
-                        <span class="d-none d-sm-inline">Listado</span>
-                    </a>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
+    <x-content-header titulo="Reporte Artículos Próximos A Vencer">
+        <a href="{{ route('home') }}" class="btn btn-default btn-sm">
+            <i class="fa fa-home"></i> Inicio
+        </a>
+    </x-content-header>
 
     <!-- Main content -->
     <div class="content-body">
-        <div class="container-fluid">
 
+        @include('items.reportes.filtros')
 
-            <div class="row">
-                <div class="col">
-                    <div class="card card-outline card-success">
-                        <div class="card-header p-1">
-                            <h3 class="card-title">Filtros</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body p-2">
-
-                            {!! Form::open(['rout' => 'rpt.items.vencen','id' =>'form-filter-items-vencen']) !!}
-                            <div class="row">
-                                <div class="col-sm-6 mb-1">
-                                    {!! Form::label('cliente_id','Meses a validar: ') !!}
-                                    {!!
-                                        Form::select(
-                                            'meses'
-                                            ,[1 => '1 mes',2 =>'2 meses',3 =>'3 meses',4 =>'4 meses',5 =>'5 meses',6 =>'6 meses']
-                                            , 1
-                                            , ['id'=>'meses','class' => 'form-control',]
-                                        )
-                                    !!}
-                                </div>
-
-                                <div class="col-sm-4 mb-1">
-                                    {!! Form::label('boton','&nbsp;') !!}
-                                    <div>
-                                        <button type="submit" id="boton" class="btn btn-info">
-                                            <i class="fa fa-sync"></i> Filtrar
-                                        </button>
-                                    </div>
-                                </div>
-
-                            </div>
-                            {!! Form::close() !!}
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    {!! $dataTable->table(['width' => '100%', 'class' => 'table table-striped ']) !!}
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-
-                            <div class="table-responsive">
-                                {!! $dataTable->table(['width' => '100%']) !!}
-                            </div>
-
-                        </div>
-                    </div>
-                    <!-- /.card -->
-                </div>
-                <!-- /.col-md-6 -->
-            </div>
-            <!-- /.row -->
         </div>
-        <!-- /.container-fluid -->
+            <!-- /.row -->
     </div>
     <!-- /.content -->
+
 @endsection
 
+@push('estilos_dt')
+    @include('layouts.datatables_css')
+@endpush
 
-@section('scripts')
+
+@push('scripts')
     @include('layouts.datatables_js')
     {!! $dataTable->scripts() !!}
     <script>
         $(function () {
-            var dt = window.LaravelDataTables["dataTableBuilder"];
-
-            //Cuando dibuja la tabla
-            dt.on( 'draw.dt', function () {
-                $(this).addClass('table-sm  table-bordered table-hover');
-            });
-
-
-            $('#form-filter-items-vencen').submit(function(e){
+            $('#formFiltersDatatables').submit(function(e){
 
                 e.preventDefault();
                 table = window.LaravelDataTables["dataTableBuilder"];
 
                 table.draw();
             });
-
         })
     </script>
-@endsection
+@endpush

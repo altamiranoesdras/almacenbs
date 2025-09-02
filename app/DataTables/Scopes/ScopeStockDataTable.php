@@ -2,11 +2,13 @@
 
 namespace App\DataTables\Scopes;
 
+use Carbon\Carbon;
 use Yajra\DataTables\Contracts\DataTableScope;
 
 class ScopeStockDataTable implements DataTableScope
 {
     public $mesesVence;
+    public $vencidos;
 
     /**
      * ScopeStockDataTable constructor.
@@ -15,6 +17,7 @@ class ScopeStockDataTable implements DataTableScope
     {
 
         $this->mesesVence = request()->meses ?? 6;
+        $this->vencidos = request()->vencidos ?? false;
     }
 
 
@@ -26,6 +29,6 @@ class ScopeStockDataTable implements DataTableScope
      */
     public function apply($query)
     {
-         return $query->quedanMeses($this->mesesVence);
+         return $query->quedanMeses($this->mesesVence,$this->vencidos);
     }
 }

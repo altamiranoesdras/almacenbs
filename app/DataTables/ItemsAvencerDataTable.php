@@ -6,6 +6,7 @@ use App\Models\Stock;
 use Carbon\Carbon;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Button;
+use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
 class ItemsAvencerDataTable extends DataTable
@@ -22,23 +23,13 @@ class ItemsAvencerDataTable extends DataTable
 
         return $dataTable
             ->editColumn('fecha_vence',function (Stock $stock){
-                return fecha($stock->fecha_vence);
+                return fechaLtn($stock->fecha_vence);
             })
             ->editColumn('quedan',function (Stock $stock){
-                $hoy = Carbon::now();
-                $fechaVen = Carbon::parse($stock->fecha_vence);
-                $dif = $fechaVen->diffForHumans($hoy,false);
-                return str_replace('después','',$dif);
+                return '<span class="badge rounded-pill badge-light-'.$stock->color_vence.'">'.$stock->texto_vence.'</span>';
             })
-            ->setRowClass(function (Stock $stock) {
 
-                $hoy = Carbon::now();
-                $fechaVen = Carbon::parse($stock->fecha_vence);
-
-                return $fechaVen < $hoy  ? 'bg-danger' : 'bg-warning';
-
-            })
-            ->rawColumns(['action']);
+            ->rawColumns(['action','quedan']);
     }
 
     /**
@@ -71,20 +62,20 @@ class ItemsAvencerDataTable extends DataTable
             ->stateSave(false)
             ->orderBy(1,'desc')
             ->dom('
-                    <"card-header border-bottom p-1"
-                        <"head-label">
-                        <"dt-action-buttons text-start" B>
-                    >
-                    <"d-flex justify-content-between align-items-center mx-0 row"
-                        <"col-sm-12 col-md-6" l>
-                        <"col-sm-12 col-md-6" f>
-                    >
-                    t
-                    <"d-flex justify-content-between mx-0 row"
-                        <"col-sm-12 col-md-6" i>
-                        <"col-sm-12 col-md-6" p>
-                    o>
-                ')
+                <"card-header border-bottom p-1"
+                    <"head-label">
+                    <"dt-action-buttons text-start" B>
+                >
+                <"d-flex justify-content-between align-items-center mx-0 row"
+                    <"col-sm-12 col-md-6" l>
+                    <"col-sm-12 col-md-6" f>
+                >
+                t
+                <"d-flex justify-content-between mx-0 row"
+                    <"col-sm-12 col-md-6" i>
+                    <"col-sm-12 col-md-6" p>
+                o>
+            ')
             ->buttons(
 
 
@@ -121,11 +112,40 @@ class ItemsAvencerDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'id',
-            'Artículo' => ['data' => 'item.nombre','name' => 'item.nombre'],
-            'Stock' => ['data' => 'cantidad','name' => 'cantidad'],
-            'Fecha Vence' => ['data' => 'fecha_vence','name' => 'fecha_vence'],
-            'Le Quedan' => ['data' => 'quedan','searchable' => false],
+            //codigo insumo
+            Column::make('Código Insumo')
+                ->name('item.codigo_insumo')
+                ->data('item.codigo_insumo'),
+            Column::make('Código Presentación')
+                ->name('item.codigo_presentacion')
+                ->data('item.codigo_presentacion')
+                ->searchable(true)
+                ->orderable(true),
+            Column::make('Insumo')
+                ->name('item.nombre')
+                ->data('item.nombre'),
+            Column::make('Unidad Medida')
+                ->name('item.unimed.nombre')
+                ->data('item.unimed.nombre')
+                ->searchable(true)
+                ->orderable(true),
+            Column::make('Stock')
+                ->name('cantidad')
+                ->data('cantidad'),
+
+            //'Fecha Vence' => ['data' => 'fecha_vence','name' => 'fecha_vence'],
+            Column::make('Fecha Vence')
+                ->name('fecha_vence')
+                ->data('fecha_vence')
+                ->searchable(true)
+                ->orderable(true),
+
+            Column::make('Le Quedan')
+                ->name('quedan')
+                ->data('quedan')
+                ->searchable(false)
+                ->orderable(false),
+
 
         ];
     }
