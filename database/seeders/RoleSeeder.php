@@ -23,49 +23,37 @@ RoleSeeder extends Seeder
         $rol= Role::firstOrCreate(["name" => "Admin"]);
         $rol->syncPermissions(Permission::pluck('name')->toArray());
 
-        $rolGeneral = Role::firstOrCreate(["name" => "General"]);
 
-        $rolGeneral->options()->sync([
-            Option::MIS_REQUISICIONES,
-            Option::NUEVA_REQUISICION,
+        $rol = Role::firstOrCreate(["name" => "Solicitante Requisición Almacén"]);
+
+        $rol->options()->sync([
+            Option::MIS_REQUISICIONES_ALMACEN,
+            Option::NUEVA_REQUISICION_ALMACEN,
         ]);
 
-        $rolGeneral->syncPermissions([
+        $rol->syncPermissions([
             'Ver Requisición',
             'Crear Requisición',
             'Editar Requisición',
         ]);
 
-        $rolGeneral = Role::firstOrCreate(["name" => "Jefe Almacén"]);
-        $rolGeneral = Role::firstOrCreate(["name" => "Jefe Inventarios"]);
-        $rolGeneral = Role::firstOrCreate(["name" => "Asistente Caja"]);
-
-
-        $rol = Role::firstOrCreate(["name" => "Solicitante Requisición Almacén"]);
-        $rol->options()->sync([
-            Option::MIS_REQUISICIONES,
-            Option::NUEVA_REQUISICION,
-        ]);
-
         $rol = Role::firstOrCreate(["name" => "Aprobador Requisición Almacén"]);
 
         $rol->options()->sync([
-            Option::MIS_REQUISICIONES,
-            Option::NUEVA_REQUISICION,
-            Option::APROBAR_REQISICION,
+            Option::MIS_REQUISICIONES_ALMACEN,
+            Option::NUEVA_REQUISICION_ALMACEN,
+            Option::AUTORIZAR_REQUISICION_ALMACEN,
         ]);
 
         $rol = Role::firstOrCreate(["name" => "Administrador Requisición Almacén"]);
 
         $rol->options()->sync([
-            Option::MIS_REQUISICIONES,
-            Option::NUEVA_REQUISICION,
-            Option::APROBAR_REQISICION,
-            Option::BUSCAR_REQUISICION,
+            Option::MIS_REQUISICIONES_ALMACEN,
+            Option::NUEVA_REQUISICION_ALMACEN,
+            Option::AUTORIZAR_REQUISICION_ALMACEN,
+            Option::DESPACHAR_REQUISICION_ALMACEN,
+            Option::BUSCAR_REQUISICION_ALMACEN,
         ]);
-
-
-
 
 
         Role::firstOrCreate(["name" => "Requirente Compras"]);//Solo crea la solicitud
@@ -81,17 +69,11 @@ RoleSeeder extends Seeder
         Role::firstOrCreate(["name" => "Administrador Compras"]);//Administra las compras
 
 
-
-
         //iterar todos los roles para asignar todos los permisos
         $roles = Role::all();
         foreach ($roles as $role) {
             $rol->syncPermissions(Permission::all()->pluck('name')->toArray());
         }
-
-
-
-
 
     }
 }

@@ -40,13 +40,13 @@ class UsersTableSeeder extends Seeder
             $user->syncRoles([Role::DEVELOPER]);
             $user->options()->sync(Option::pluck('id')->toArray());
             $user->shortcuts()->sync([
-                Option::MIS_REQUISICIONES,
-                Option::NUEVA_COMPRA,
-                Option::BUSCAR_COMPRAS,
-                Option::BUSCAR_ARTICULO,
-                Option::NUEVO_ARTICULO,
+                Option::MIS_REQUISICIONES_ALMACEN,
+                Option::NUEVO_INGRESO_ALMACEN,
+                Option::BUSCAR_INGRESOS_A_ALMACEN,
+                Option::BUSCAR_INSUMOS,
+                Option::NUEVO_INSUMO,
                 Option::PROVEEDORES,
-                Option::DESPACHAR_REQUISICION,
+                Option::DESPACHAR_REQUISICION_ALMACEN,
                 Option::USUARIOS,
                 Option::ROLES,
                 Option::CONFIGURACIONES,
@@ -64,13 +64,13 @@ class UsersTableSeeder extends Seeder
             $user->syncRoles(Role::SUPERADMIN);
             $user->options()->sync(Option::pluck('id')->toArray());
             $user->shortcuts()->sync([
-                Option::MIS_REQUISICIONES,
-                Option::NUEVA_COMPRA,
-                Option::BUSCAR_COMPRAS,
-                Option::BUSCAR_ARTICULO,
-                Option::NUEVO_ARTICULO,
+                Option::MIS_REQUISICIONES_ALMACEN,
+                Option::NUEVO_INGRESO_ALMACEN,
+                Option::BUSCAR_INGRESOS_A_ALMACEN,
+                Option::BUSCAR_INSUMOS,
+                Option::NUEVO_INSUMO,
                 Option::PROVEEDORES,
-                Option::DESPACHAR_REQUISICION,
+                Option::DESPACHAR_REQUISICION_ALMACEN,
                 Option::USUARIOS,
                 Option::ROLES,
                 Option::CONFIGURACIONES,
@@ -88,13 +88,13 @@ class UsersTableSeeder extends Seeder
             $user->syncRoles(Role::ADMIN);
             $user->options()->sync(Option::pluck('id')->toArray());
             $user->shortcuts()->sync([
-                Option::MIS_REQUISICIONES,
-                Option::NUEVA_COMPRA,
-                Option::BUSCAR_COMPRAS,
-                Option::BUSCAR_ARTICULO,
-                Option::NUEVO_ARTICULO,
+                Option::MIS_REQUISICIONES_ALMACEN,
+                Option::NUEVO_INGRESO_ALMACEN,
+                Option::BUSCAR_INGRESOS_A_ALMACEN,
+                Option::BUSCAR_INSUMOS,
+                Option::NUEVO_INSUMO,
                 Option::PROVEEDORES,
-                Option::DESPACHAR_REQUISICION,
+                Option::DESPACHAR_REQUISICION_ALMACEN,
                 Option::USUARIOS,
                 Option::ROLES,
                 Option::CONFIGURACIONES,
@@ -181,15 +181,14 @@ class UsersTableSeeder extends Seeder
             ])->each(function (User $user) {
                 $user->syncRoles(Role::ADMINISTRADOR_REQUISICION_ALMACEN);
 
-                $user->options()->sync(Option::pluck('id')->toArray());
                 $user->shortcuts()->sync([
-                    Option::MIS_REQUISICIONES,
-                    Option::NUEVA_COMPRA,
-                    Option::BUSCAR_COMPRAS,
-                    Option::BUSCAR_ARTICULO,
-                    Option::NUEVO_ARTICULO,
+                    Option::MIS_REQUISICIONES_ALMACEN,
+                    Option::NUEVO_INGRESO_ALMACEN,
+                    Option::BUSCAR_INGRESOS_A_ALMACEN,
+                    Option::BUSCAR_INSUMOS,
+                    Option::NUEVO_INSUMO,
                     Option::PROVEEDORES,
-                    Option::DESPACHAR_REQUISICION,
+                    Option::DESPACHAR_REQUISICION_ALMACEN,
                     Option::USUARIOS,
                     Option::ROLES,
                     Option::CONFIGURACIONES,
