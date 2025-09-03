@@ -105,7 +105,7 @@
                                                 </div>
                                                 <div class="col-3 mb-1 ">
                                                     {!! Form::label('fecha_ingreso', 'Fecha Ingreso:') !!}
-                                                    {!! Form::date('fecha_ingreso', hoyDb(), ['class' => 'form-control']) !!}
+                                                    {!! Form::date('fecha_ingreso', hoyDb(), ['class' => 'form-control','readonly']) !!}
                                                 </div>
                                                 <div class="col-3 mb-1 ">
                                                     {!! Form::label('orden_compra', 'Orden Compra:') !!}
