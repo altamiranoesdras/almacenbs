@@ -39,7 +39,7 @@
                 @include('layouts.errores')
 
                 <div class="card border-info">
-                    {!! Form::model($temporal, ['route' => ['compras.update', $temporal->id], 'method' => 'patch']) !!}
+                    {!! Form::model($temporal, ['route' => ['compras.update', $temporal->id], 'method' => 'patch','class'=>'esperar']) !!}
                     <div class="card-content collapse show">
                         <div class="card-body p-1">
 
@@ -109,7 +109,7 @@
                                                 </div>
                                                 <div class="col-3 mb-1 ">
                                                     {!! Form::label('orden_compra', 'Orden Compra:') !!}
-                                                    {!! Form::number('orden_compra', null, ['class' => 'form-control', 'required', 'v-model' => 'orden']) !!}
+                                                    {!! Form::number('orden_compra', null, ['class' => 'form-control', 'required']) !!}
                                                 </div>
 
 
@@ -127,7 +127,7 @@
                                                             class="form-control"
                                                             rows="2"
                                                             placeholder="Observaciones"
-                                                        ></textarea>
+                                                        >{{old('observaciones',$temporal->observaciones)}}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -360,7 +360,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
-                                            <button type="submit" class="btn btn-primary" name="procesar" value="1"  onclick="esperar()">SI</button>
+                                            <button type="submit" class="btn btn-primary" name="procesar" value="1" >SI</button>
                                         </div>
                                     </div><!-- /.modal-content -->
                                 </div><!-- /.modal-dialog -->
@@ -437,7 +437,6 @@
                 proveedor: @json($compra->proveedor ?? Proveedor::find(old('proveedor_id')) ?? null),
                 tipo: @json($compra->tipo ?? CompraTipo::find(old('tipo_id')) ?? CompraTipo::find(CompraTipo::FACTURA)),
                 descuento: @json($compra->descuento ?? old('descuento') ?? 0),
-                orden: '',
             },
             methods: {
 
@@ -546,15 +545,31 @@
 
                 },
                 procesar: function () {
-                    if(this.totalitems>=1 && this.orden.length >= 5) {
-                        $('#modal-confirma-procesar').modal('show');
+
+                    // 1) Validación de items
+                    if (this.totalitems == 0) {
+                        alertWarning('Debe agregar al menos un artículo');
+                        return;
                     }
 
-                    if(this.orden.length == 0) {
-                        alertWarning('El número de orden es requerido');
-                    }else if(this.orden.length < 5) {
-                        alertWarning('El número de orden debe tener al menos 5 caracteres');
+                    // 2) Validación nativa HTML5 de TODO el formulario
+                    // this.$el es el contenedor del componente; busca el <form>
+                    const form = this.$el.querySelector('form');
+
+                    // Asegúrate de que los campos condicionales ya tengan el required correcto
+                    // (ya lo hicimos con v-bind:required arriba)
+
+                    if (!form.checkValidity()) {
+                        // Muestra mensajes de error del navegador y enfoca el primer inválido
+                        form.reportValidity();
+                        return;
                     }
+
+                    // 3) Si todo está OK, muestra el modal de confirmación
+                    const modalEl = document.getElementById('modal-confirma-procesar');
+                    // Bootstrap 5 API (evita jQuery si no es necesario)
+                    const modal = new bootstrap.Modal(modalEl);
+                    modal.show();
                 },
                 siguienteCampo: function (campo){
                     if (campo=='agregar'){
