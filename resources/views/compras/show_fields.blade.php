@@ -56,6 +56,13 @@
         </div>
 
         <div class="mb-1">
+            <label class="form-label mb-0"># Orden de Compra:</label>
+            <div>
+                <span class="fw-bold">{{ $compra->orden_compra ?? 'Sin orden' }}</span>
+            </div>
+        </div>
+
+        <div class="mb-1">
             <label class="form-label mb-0">Observaciones:</label>
             <div><span class="fw-bold">{{ $compra->observaciones }}</span></div>
         </div>

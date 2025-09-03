@@ -22,7 +22,7 @@
             </td>
             <td class="text-right">{{dvs().nfp($det->precio)}}</td>
             <td class="text-right">{{nf($det->cantidad)}}</td>
-            <td class="text-right">{{fecha($det->fecha_vence)}}</td>
+            <td class="text-right">{{fechaLtn($det->fecha_vence)}}</td>
             <td class="text-right">{{dvs().nf($det->cantidad*$det->precio)}}</td>
         </tr>
     @endforeach
