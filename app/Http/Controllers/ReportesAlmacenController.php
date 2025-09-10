@@ -324,9 +324,7 @@ class ReportesAlmacenController extends AppBaseController
                 $q->where('renglon_id',$renglon);
             });
 
-            $queryItmes = $queryItmes->whereHas('item',function (Builder $q) use ($renglon,$itemId){
-                $q->where('renglon_id',$renglon);
-            });
+            $queryItmes = $queryItmes->where('renglon_id',$renglon);
         }
 
 
