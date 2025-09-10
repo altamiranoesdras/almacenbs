@@ -301,6 +301,7 @@ class ReportesAlmacenController extends AppBaseController
         $bodega_id = $request->bodega_id ?? null;
         $buscar = $request->buscar ?? null;
         $stock = $request->stock ?? null;
+        $categoria_id = $request->categoria_id ?? null;
         $itemId = $request->item_id ?? null;
 
         $query = Stock::with(['item'])->whereHas('item');
@@ -353,6 +354,14 @@ class ReportesAlmacenController extends AppBaseController
             $queryItmes = $queryItmes->whereHas('stocks',function ($q){
                 $q->where('cantidad','0');
             });
+        }
+
+        if ($categoria_id){
+            $query = $query->whereHas('item',function (Builder $q) use ($categoria_id){
+                $q->where('categoria_id',$categoria_id);
+            });
+
+            $queryItmes = $queryItmes->where('categoria_id',$categoria_id);
         }
 
         $stocks = $query
