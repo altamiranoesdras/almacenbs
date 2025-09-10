@@ -196,7 +196,8 @@ class CompraAprobarDataTable extends DataTable
 //            ->data('orden_compra')
 //            ->name('orden_compra'),
             Column::make('total')
-            ->searchable(false),
+            ->searchable(false)
+            ->orderable(false),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
