@@ -10,22 +10,22 @@
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active"
-                           id="informacion-general-tab"
+                           id="informacion-general-tab{{$compra->id}}"
                            data-bs-toggle="tab"
-                           href="#informacion-general"
+                           href="#informacion-general{{$compra->id}}"
                            role="tab"
-                           aria-controls="informacion-general"
+                           aria-controls="informacion-general{{$compra->id}}"
                            aria-selected="true">
                             <i data-feather="user"></i> Detalles
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"
-                           id="bitacora-tab"
+                           id="bitacora-tab{{$compra->id}}"
                            data-bs-toggle="tab"
-                           href="#bitacora"
+                           href="#bitacora{{$compra->id}}"
                            role="tab"
-                           aria-controls="bitacora"
+                           aria-controls="bitacora{{$compra->id}}"
                            aria-selected="false">
                             <i data-feather="book"></i> Bitácora
                         </a>
@@ -35,9 +35,9 @@
                 <div class="card-body">
                     <div class="tab-content">
                         <div class="tab-pane fade show active"
-                             id="informacion-general"
+                             id="informacion-general{{$compra->id}}"
                              role="tabpanel"
-                             aria-labelledby="informacion-general-tab">
+                             aria-labelledby="informacion-general-tab{{$compra->id}}">
                             <div class="row">
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-sm">
                                     @include('compras.show_fields',['compra'=>$compra])
@@ -49,9 +49,9 @@
 
                         </div>
                         <div class="tab-pane fade"
-                             id="bitacora"
+                             id="bitacora{{$compra->id}}"
                              role="tabpanel"
-                             aria-labelledby="bitacora-tab">
+                             aria-labelledby="bitacora-tab{{$compra->id}}">
                             @include('layouts.partials.bitacoras', ['bitacoras' => $compra->bitacoras])
                         </div>
 

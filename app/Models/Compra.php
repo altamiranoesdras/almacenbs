@@ -392,6 +392,8 @@ class Compra extends Model
         foreach ($this->detalles as $detalle){
             $detalle->anular();
         }
+
+        $this->addBitacora("Compra anulada");
     }
 
 

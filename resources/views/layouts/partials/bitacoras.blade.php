@@ -1,8 +1,8 @@
 <ul class="timeline">
 
-    @foreach($bitacoras as $bitacora)
+    @forelse($bitacoras->sortByDesc('created_at') as $bitacora)
         <li class="timeline-item">
-            <span class="timeline-point timeline-point-warning timeline-point-indicator"></span>
+            <span class="timeline-point timeline-point-info timeline-point-indicator"></span>
             <div class="timeline-event">
 
                 {{-- Título y hora --}}
@@ -40,6 +40,15 @@
 
             </div>
         </li>
-    @endforeach
+    @empty
+        <li class="timeline-item">
+            <span class="timeline-point timeline-point-secondary timeline-point-indicator"></span>
+            <div class="timeline-event">
+                <div class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
+                    <h6 class="mb-50">No hay registros en la bitácora</h6>
+                </div>
+            </div>
+        </li>
+    @endforelse
 
 </ul>

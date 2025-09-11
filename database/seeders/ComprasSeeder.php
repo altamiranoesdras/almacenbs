@@ -89,31 +89,45 @@ class ComprasSeeder extends Seeder
 
                     if ($compra->estaOperado1h()){
                         $compra->procesaIngreso();
+                        sleep(1);
                         $compra->genera1h();
+                        sleep(1);
                         $compra->operar1h();
                     }
 
                     if ($compra->estaAprobado1h()){
                         $compra->procesaIngreso();
+                        sleep(1);
                         $compra->genera1h();
+                        sleep(1);
                         $compra->operar1h();
+                        sleep(1);
                         $compra->aprobar1h();
                     }
 
                     if ($compra->estaAutorizado1h()){
                         $compra->procesaIngreso();
+                        sleep(1);
                         $compra->genera1h();
+                        sleep(1);
                         $compra->operar1h();
+                        sleep(1);
                         $compra->aprobar1h();
+                        sleep(1);
                         $compra->autorizar1h();
                     }
 
                     if($compra->estaAnulada()){
                         $compra->procesaIngreso();
+                        sleep(1);
                         $compra->genera1h();
+                        sleep(1);
                         $compra->operar1h();
+                        sleep(1);
                         $compra->aprobar1h();
+                        sleep(1);
                         $compra->autorizar1h();
+                        sleep(1);
                         $compra->anular();
                     }
 
