@@ -2,11 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Bitacora;
 use App\Models\Bodega;
 use App\Models\Compra;
 use App\Models\Compra1h;
 use App\Models\Compra1hDetalle;
 use App\Models\CompraDetalle;
+use App\Models\CompraEstado;
 use App\Models\Kardex;
 use App\Models\RrhhUnidad;
 use App\Models\Solicitud;
@@ -40,16 +42,29 @@ class ComprasSeeder extends Seeder
         DB::table('solicitudes')->truncate();
         DB::table('solicitud_detalles')->truncate();
 
+        Bitacora::truncate();
+
         DB::transaction(function () {
 
             $compras = Compra::factory()
-                ->count(100)
+                ->count(10)
                 ->state(new Sequence(
-                    [
-                        'created_at' => now()->startOfMonth()->subDays(rand(1, 7)),
-                        'fecha_documento' => now()->startOfMonth()->subDays(rand(1, 7)),
-                        'fecha_ingreso' => now()->startOfMonth()->subDays(rand(1, 7)),
-                    ],
+                    ['estado_id' => CompraEstado::PROCESADO_PENDIENTE_RECIBIR],
+                    ['estado_id' => CompraEstado::INGRESADO],
+                    ['estado_id' => CompraEstado::UNO_H_OPERADO],
+                    ['estado_id' => CompraEstado::UNO_H_APROBADO],
+                    ['estado_id' => CompraEstado::UNO_H_AUTORIZADO],
+                    ['estado_id' => CompraEstado::RETORNO_POR_APROBADOR],
+                    ['estado_id' => CompraEstado::RETORNO_POR_AUTORIZADOR],
+                    ['estado_id' => CompraEstado::CANCELADO],
+                    ['estado_id' => CompraEstado::ANULADO],
+                ))
+                ->state(new Sequence(
+//                    [
+//                        'created_at' => now()->startOfMonth()->subDays(rand(1, 7)),
+//                        'fecha_documento' => now()->startOfMonth()->subDays(rand(1, 7)),
+//                        'fecha_ingreso' => now()->startOfMonth()->subDays(rand(1, 7)),
+//                    ],
                     [
                         'created_at' => now()->startOfMonth()->addDays(rand(1,7)),
                         'fecha_documento' => now()->startOfMonth()->addDays(rand(1, 7)),
@@ -68,15 +83,38 @@ class ComprasSeeder extends Seeder
                 ->afterCreating(function (Compra $compra) {
                     // Procesar ingreso y generar 1h para cada compra
 
-
-                    if($compra->estaOperado1h() || $compra->estaAprobado1h() || $compra->estaAutorizado1h()){
-                        $compra->genera1h(null);
+                    if ($compra->estaRecibida()){
+                        $compra->procesaIngreso();
                     }
 
-                    if ($compra->estaRecibida()) {
+                    if ($compra->estaOperado1h()){
                         $compra->procesaIngreso();
-                        //crea egreso de compra
-                        $this->egreso($compra);
+                        $compra->genera1h();
+                        $compra->operar1h();
+                    }
+
+                    if ($compra->estaAprobado1h()){
+                        $compra->procesaIngreso();
+                        $compra->genera1h();
+                        $compra->operar1h();
+                        $compra->aprobar1h();
+                    }
+
+                    if ($compra->estaAutorizado1h()){
+                        $compra->procesaIngreso();
+                        $compra->genera1h();
+                        $compra->operar1h();
+                        $compra->aprobar1h();
+                        $compra->autorizar1h();
+                    }
+
+                    if($compra->estaAnulada()){
+                        $compra->procesaIngreso();
+                        $compra->genera1h();
+                        $compra->operar1h();
+                        $compra->aprobar1h();
+                        $compra->autorizar1h();
+                        $compra->anular();
                     }
 
                 })

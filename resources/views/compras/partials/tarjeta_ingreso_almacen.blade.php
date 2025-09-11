@@ -112,8 +112,10 @@
                      id="bitacora"
                      role="tabpanel"
                      aria-labelledby="bitacora-tab">
-                    <div class="col-sm-11">
-                        @include('layouts.partials.bitacoras', ['bitacoras' => $compra->bitacoras])
+                    <div class="row">
+                        <div class="col">
+                            @include('layouts.partials.bitacoras', ['bitacoras' => $compra->bitacoras])
+                        </div>
                     </div>
 
                 </div>
