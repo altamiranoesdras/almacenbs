@@ -113,7 +113,7 @@
         </tr>
     @endforeach
 
-    @for ($i = count($compra->detalles); $i < 15; $i++)
+    @for ($i = count($compra->detalles); $i < 23; $i++)
         <tr>
             <td style="border: none;">&nbsp;</td>
             <td style="border: none;">&nbsp;</td>
@@ -184,7 +184,7 @@
         <td style="width: 15%; border: none; text-align: center;"></td>
     </tr>
     <tr>
-        <td colspan="3" style="width: 100%; border: none; text-align: center;"><h3>- Original: Contabilidad -</h3></td>
+        <td colspan="3" style="width: 100%; border: none; text-align: center; color: #cd0303; font-weight: bold"><h3>- Original: Contabilidad -</h3></td>
     </tr>
 </table>
 
