@@ -1,193 +1,261 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>REQUISICIÓN DE COMPRA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ $compra->id }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
     <style>
-        body {
-            font-family: DejaVu Sans, sans-serif;
-            font-size: 11px;
-        }
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        td, th {
-            border: 1px solid #000;
-            padding: 4px;
-            vertical-align: middle;
-            text-align: center;
-        }
-        .no-border td {
-            border: none;
-            padding: 2px;
-        }
-        .header {
-            text-align: center;
-            font-weight: bold;
-        }
-        .section-title {
-            font-weight: bold;
-            background-color: #f0f0f0;
-        }
-        .left {
-            text-align: left;
-        }
-        .underline {
-            border-bottom: 1px solid black;
+        #tabla-detalles > tbody > tr > td {
+            font-size: 12px;
         }
     </style>
 </head>
-<body>
 
-<!-- Encabezado institucional -->
-<table class="no-border">
-    <tr>
-        <td style="width: 100%; padding: 0;">
-            <div style="display: table; width: 100%; border-collapse: collapse;">
-                <div style="display: table-cell; width: 10%; vertical-align: middle;">
-                    <img src="{{ asset('img/logos/Logo_Gobierno_Republica.png') }}" alt="Logo" style="width: 100px;">
-                </div>
-                <div style="display: table-cell; width: 80%; vertical-align: middle;">
-                    <h2 style="color: #1B244B">SECRETARÍA DE BIENESTAR SOCIAL DE LA PRESIDENCIA DE LA REPÚBLICA</h2>
-                    <h3 style="color: #1B244B">DEPARTAMENTO DE ALMACEN</h3>
-                    <h3 style="color: #1B244B">32 Calle 9-34 Zona 11, Las Charcas</h3>
-                    <h3 style="color: #1B244B">NIT: 3377881</h3>
-                </div>
-                <div style="display: table-cell; width: 10%; vertical-align: middle;">
-                    <img src="{{ asset('img/logos/Logo_CGC_FT.png') }}" alt="Logo" style="width: 100px;">
-                </div>
-            </div>
-            <div style="width: 100%">
-                <h2 style="color: #1B244B">FORMA 1-H CONSTANCIA DE INGRESO A ALMACÉN Y A INVENTARIOS</h2>
-            </div>
-        </td>
-    </tr>
-</table>
+<body style="width: 100%; margin-right: 0px">
 
-<!-- Datos generales -->
-<table style="margin-top: 15px; width: 100%; border-collapse: collapse; border: 1px solid #00008f; padding: 10px;">
-    <tr>
-        <td class="left" style="height: 5px; width: 75%; border: none; padding: 10px">
-            <strong>NOMBRE DEL PROVEEDOR: </strong>{{$compra->proveedor->nombre ?? ''}}<br>
-        </td>
-        <td class="left" style="height: 5px; width: 25%; border: none;">
-            <strong>FECHA: </strong>{{fechaLtn($compra->fecha_ingreso) ?? ''}}<br>
-        </td>
-    </tr>
-    <tr>
-        <td class="left" style="height: 5px; width: 75%; border: none; padding: 10px">
-            <strong>NIT: </strong> {{$compra->proveedor->nit ?? ''}}
-        </td>
-        <td class="left" style="height: 5px; width: 25%; border: none;">
-            <strong>ORDEN DE COMPRA: </strong> {{$compra->orden_compra ?? ''}}
-        </td>
-    </tr>
-    <tr>
-        <td class="left" style="height: 5px; width: 50%; border: none; padding: 10px">
-            <strong>NO. DOCUMENTO: </strong> {{$compra->numero ?? ''}}
-        </td>
-        <td class="left" style="height: 5px; width: 50%; border: none;">
-        </td>
-    </tr>
-</table>
+<div>
+        <span style="font-size: 1.4em">
+            <div style="margin-top: 0.35cm"></div>
+        </span>
+</div>
 
-<!-- Detalle de insumos -->
-<table style="margin-top: 25px; width: 100%; border-collapse: collapse; border: 1px solid rgba(2,24,98,0.86);">
-    <tr class="section-title" style="border-bottom: 1px solid black; background: #1B244B; color: white">
-        <td style="border: none; padding: 7px;">RENGLÓN</td>
-        <td style="border: none; padding: 7px;">DESCRIPCION DEL PRODUCTO</td>
-        <td style="border: none; padding: 7px;">CANTIDAD</td>
-        <td style="border: none; padding: 7px;">VALOR UNITARIO</td>
-        <td style="border: none; padding: 7px;">VALOR TOTAL</td>
-    </tr>
-    @foreach ($compra->detalles as $detalle)
-        <tr>
-            <td style="border: none;">{{ $detalle->item->renglon->numero ?? '' }}</td>
-            <td class="left" style="border: none;">
-                {{ $detalle->item->descripcion === '<p>&nbsp;</p>' || !$detalle->item->descripcion ? 'Sin Descripción' : $detalle->item->descripcion }}
+<div style="margin-top: 1.15cm; font-size: 14px">
+    <table class="table table-borderless table-sm" style="width: 100%" >
+        <tr style="">
+            <td style="width:70%; vertical-align: middle; padding-left: 3.5cm">
+                SECRETARIA DE BIENESTAR SOCIAL DE LA PRESIDENCIA DE LA REPUBLICA
             </td>
-            <td style="border: none;">{{ (int)$detalle->cantidad }}</td>
-            <td style="border: none;">{{ dvs() .nf($detalle->precio) ?? '' }}</td>
-            <td style="border: none;">{{ dvs(). nf($detalle->precio * $detalle->cantidad) }}</td>
+            <td style="width:10%; vertical-align: middle; text-align: left;color: white">
+                Número
+            </td>
+            <td style="width:18%; font-size: 16px; padding-top: 0; padding-left: 1rem">
+                <b>
+                    {{ $compra->compra1h->folio ?? "" }}
+                </b>
+            </td>
         </tr>
-    @endforeach
-
-    @for ($i = count($compra->detalles); $i < 23; $i++)
-        <tr>
-            <td style="border: none;">&nbsp;</td>
-            <td style="border: none;">&nbsp;</td>
-            <td style="border: none;">&nbsp;</td>
-            <td style="border: none;">&nbsp;</td>
-            <td style="border: none;">&nbsp;</td>
+        <tr style="">
+            <td style="width:70%; padding-left: 3.5cm">
+                {{--                 SECRETARIA DE BIENESTAR SOCIAL DE LA PRESIDENCIA DE LA REPUBLICA--}}
+            </td>
+            <td style="width:10%;color: white">
+                Fecha:
+            </td>
+            <td style="width:18%;">
+                <span style="margin-left: 0">{{ fechaLtn($compra->fecha_documento) }}</span>
+            </td>
         </tr>
-    @endfor
-</table>
+        <tr style="">
+            <td style="width:70%; padding-left: 3.5cm; font-size: 12px">
+                {{strtoupper($compra->proveedor->razon_social)}} / NIT: {{$compra->proveedor->nit}}
+            </td>
+            <td style="width:10%;color: white">
+                Orden de C.
+            </td>
+
+            <td style="width:18%; padding-left: 2.5cm" >
+                {{ $compra->orden_compra ?? "" }}
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div>
+    <table class="" style="width: 100%" border="0" id="tabla-detalles">
+        <thead>
+        <tr style="text-align: center; font-size: 12px" class="">
+            <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px;color: white">
+                Cantidad
+            </th>
+            <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px;color: white">
+                Descripción del articulo
+            </th>
+            <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px;color: white">
+                CODIGO DEL GASTO RENGLON
+            </th>
+            <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px;color: white">
+                Folio Libro Almacen
+            </th>
+            <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px;color: white">
+                PRECIO POR UNIDAD
+            </th>
+            <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px;color: white">
+                VALOR TOTAL
+            </th>
+            <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px;color: white">
+                Folio libro inventario
+            </th>
+            <th style="border-color: black; font-weight: normal; vertical-align: middle; line-height: 14px;color: white">
+                NOMENCLA TURA DE CUENTAS
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($compra->compra1h->detalles as $i => $det)
+            <tr style="">
+                <td style="border-color: black;
+                        width: 7.85%;
+                        text-align: center;
+                        padding-right: 7px;" class="py-0">
+
+                    {{nf($det->cantidad,0)}}
+                </td>
+                <td  class="py-0 text-left"
+                     style="border-color: black;
+                         width: 32.63%;
+                         text-align: left;
+                         padding-left: 0px;">
+
+                    {{mb_strtoupper($det->text)}}
+                </td>
+                <td class="" style="border-color: black;
+                        width: 10.53%;
+                        text-align: center;
+                        padding-left: 5px;" >
+
+                    {{$det->item->renglon->numero}}
+                </td>
+                <td class="py-0" style="border-color: black;
+                        width: 8.95%;
+                        text-align: center;
+                            padding: 5px;" >
+                    {!! $det->folio_almacen ?? $compra->folio_almacen ?? '' !!}
+                </td>
+                <td class="py-0" style="border-color: black;
+                        width: 10.53%;
+                        text-align: right;
+                        padding-right: 8px;" >
+                    {{dvs().nfp($det->precio)}}
+                </td>
+                <td class="py-0" style="border-color: black;
+                        width: 11.58%;
+                        text-align: right;
+                        padding-right: 8px;" >
+                    {{dvs().nfp($det->sub_total,2)}}
+                </td>
+                <td class="py-0" style="border-color: black;
+                        width: 9.47%;
+                        padding-right: 8px;
+                        text-align: right;"
+                >
+                    {!! $det->folio_inventario ?? $compra->folio_inventario ?? '' !!}
+
+                </td>
+                <td class="py-0" style="border-color: black;
+                        text-align: center;
+                        padding: 5px;" >
+
+                </td>
+            </tr>
+        @endforeach
 
 
+        <tr >
+            <td colspan="20" style="border-color: black; text-align: center; padding: 5px; font-size: small" class="py-0">
+                &nbsp;
+            </td>
+        </tr>
+        <tr >
+            <td colspan="20" style="border-color: black; text-align: center; padding: 5px; font-size: small" class="py-0">
+                &nbsp;
+            </td>
+        </tr>
+        <tr >
+            <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
+                &nbsp;
+            </td>
+            <td class="py-0 text-left " style="border-color: black;  text-align: center; padding: 2px; font-size: small" >
+                {{--                {{$compra->compra1h->total_letras}}--}}
+                TOTAL--------------------------------------------------
+            </td>
 
-<table style="margin-top: 5px; width: 100%; border-collapse: collapse;">
-    <tr>
-        <td class="left" style="height: 5px; width: 75%; border: none; vertical-align: top;">
-            <strong>TOTAL EN LETRAS: </strong>{{$compra->proveedor->nombre ?? ''}}<br>
-        </td>
-        <td class="left" style="height: 5px; width: 25%; border: none; vertical-align: top;">
-            <strong>SUBTOTAL: </strong>{{$compra->fecha_ingreso ?? ''}}<br><br>
-            <strong>DESCUENTO: </strong>{{$compra->fecha_ingreso ?? ''}}<br><br>
-            <strong>TOTAL: </strong>{{$compra->fecha_ingreso ?? ''}}<br><br>
-        </td>
-    </tr>
-</table>
+            <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
+                --------------
+            </td>
 
+            <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
+                --------------
+            </td>
 
-<!-- Justificación -->
-<table style="margin-top: 15px; width: 100%">
-    <tr>
-        <td class="left" colspan="4" style="border: none">OBSERVACIONES:</td>
-    </tr>
-    <tr>
-        <td class="left" colspan="4" style="height: 50px; width: 100%">
-            {{$compra->observaciones ?? ''}}
-        </td>
-    </tr>
-</table>
+            <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
+                --------------
+            </td>
+            <td style="border-color: black;
+                    vertical-align: middle;
+                    text-align: right;
+                    font-size: 12px;
+                    padding-right: 8px;
+                    padding-bottom: 0;
+                    ">
 
-<table style="margin-top: 40px; width: 100%;border-collapse: collapse;">
-    <tr>
-        <td style="width: 25%; border: none; text-align: center;">
-            _______________________________<br><br>
-            OPERADO POR
-        </td>
-        <td style="width: 25%; border: none; text-align: center;">
-            _______________________________<br><br>
-            JEFE DE ALMACEN
-        </td>
-        <td style="width: 25%; border: none; text-align: center;">
-            _______________________________<br><br>
-            DIRECTOR ADMINISTRATIVO
-        </td>
-        <td style="width: 25%; border: none; text-align: center;">
-            _______________________________<br><br>
-            JEFE DE INVENTARIOS
-        </td>
-    </tr>
-</table>
+                <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 2px;"></div>
 
-<table style="margin-top: 40px; width: 100%;border-collapse: collapse;">
-    <tr>
-        <td style="width: 15%; border: none; text-align: center;"></td>
-        <td style="width: 70%; border: none; text-align: center;">
-            Autorizado según Resolución de la Contraloría General de Cuentas No. F.O. xxxxxxx Gestión: xxxxx de fecha xx-xx-xxxx, correlativo xx-xxxx de
-            fecha xx-xx-xxxx, Envío fiscal xxxx de fecha xx-xx-xxxx, Autorizado del 0001 al 2,000 Sin Serie, Libro x-xxxx Folio xx SECRETARÍA DE
-            BIENESTAR SOCIAL DE LA PRESIDENCIA DE LA REPÚBLICA NIT 3377881
-        </td>
-        <td style="width: 15%; border: none; text-align: center;"></td>
-    </tr>
-    <tr>
-        <td colspan="3" style="width: 100%; border: none; text-align: center; color: #cd0303; font-weight: bold"><h3>- Original: Contabilidad -</h3></td>
-    </tr>
-</table>
+                {{dvs().nfp($compra->compra1h->total,2)}}
+                <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 2px;"></div>
+                <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 0;"></div>
+            </td>
+            <td class="py-0" style="border-color: black;  text-align: center; padding: 5px; font-size: small" >
 
+            </td>
+
+            <td style="border-color: black;  text-align: center; padding: 5px; font-size: small" class="py-0">
+
+            </td>
+        </tr>
+        <tr >
+            <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
+                &nbsp;
+            </td>
+            <td class="py-0 text-left " style="border-color: black;  text-align: center; padding: 2px; font-size: small" >
+                Factura <br>
+                Serie: {{ $compra->serie ?? '' }}<br>
+                Número de DTE: {{ $compra->numero }}
+            </td>
+
+            <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
+                &nbsp;
+            </td>
+
+            <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
+                &nbsp;
+            </td>
+
+            <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
+                &nbsp;
+            </td>
+            <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
+                &nbsp;
+            </td>
+            <td class="py-0" style="border-color: black;  text-align: center; padding: 5px; font-size: small" >
+
+            </td>
+
+            <td style="border-color: black;  text-align: center; padding: 5px; font-size: small" class="py-0">
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <br><br><br>
+
+</div>
 
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+
+<script src="{{asset('js/numeros_a_letras.js')}}"></script>
 </html>
+
+
+
