@@ -13,9 +13,32 @@
 {{--        <i class="fa fa-file-pdf"></i>--}}
 {{--    </a>--}}
 
-        <a href="{{ route('solicitudes.despachoPdf', $id) }}"  class='btn btn-icon btn-outline-primary rounded-circle' data-toggle="tooltip" title="Imprimir" target="_blank">
-            <i class="fa fa-file-pdf"></i>
-        </a>
+{{--        <a href="{{ route('solicitudes.despachoPdf', $id) }}"  class='btn btn-icon btn-outline-primary rounded-circle' data-toggle="tooltip" title="Imprimir" target="_blank">--}}
+{{--            <i class="fa fa-file-pdf"></i>--}}
+{{--        </a>--}}
+
+<div class="col text-center">
+    <div class="btn-group">
+        <button type="button"
+                class="btn btn-outline-primary round dropdown-toggle"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+            <i class="fas fa-print"></i>
+        </button>
+        <ul class="dropdown-menu">
+            <li>
+                <a class="dropdown-item" href="{{ route('solicitudes.despachoPdf', $id) }}" target="_blank">
+                    <i class="fas fa-file-pdf"></i> PreImpreso
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{{ route('solicitudes.despachoPdf.digital', $id) }}" target="_blank">
+                    <i class="fas fa-file-alt"></i> Digital
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
 @endif
 
 @if($solicitud->puedeEditar())

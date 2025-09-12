@@ -559,4 +559,9 @@ class Solicitud extends Model
         $this->addBitacora("REQUISICIÓN DESPACHADA","");
     }
 
+    public function getTotalDetallesAttribute(): float
+    {
+        return $this->detalles->sum('sub_total');
+    }
+
 }

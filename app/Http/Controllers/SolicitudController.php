@@ -443,6 +443,36 @@ class SolicitudController extends AppBaseController
 
     }
 
+    public function despachoPdfDigital(Solicitud $solicitud){
+
+        $solicitud->load([
+            'detalles.item',
+        ]);
+
+        $pdf = App::make('snappy.pdf.wrapper');
+
+        $view = view('solicitudes.despachar.pdfs.pdf_digital', compact('solicitud'))->render();
+
+        $footer = view('solicitudes.despachar.pdf_footer',compact('solicitud'))->render();
+
+//         return $view;
+//        dd($solicitud->toArray());
+
+        $pdf->loadHTML($view)
+            ->setOption('page-width', 279)
+            ->setOption('page-height', 216)
+            ->setOrientation('landscape')
+            ->setOption('footer-html',utf8_decode($footer))
+            ->setOption('margin-top', 8)
+            ->setOption('margin-bottom',10)
+            ->setOption('margin-left',10)
+            ->setOption('margin-right',15);
+
+        return $pdf->inline('Despacho '.$solicitud->id. '_'. time().'.pdf');
+
+
+    }
+
     public function enviarNotificacion()
     {
 
