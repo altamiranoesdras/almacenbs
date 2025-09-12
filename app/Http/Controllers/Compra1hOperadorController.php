@@ -58,7 +58,6 @@ class Compra1hOperadorController extends Controller
             DB::beginTransaction();
 
             $compra->genera1h(request()->folio);
-            $compra->addBitacora('Formulario 1H generado');
 
         } catch (\Exception $exception) {
             DB::rollBack();
