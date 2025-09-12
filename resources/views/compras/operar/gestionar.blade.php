@@ -77,10 +77,6 @@
                                                     </ul>
                                                 </div>
                                             </div>
-
-
-
-
                                         @if($compra->puedeOperar())
                                                 <div class="col text-center">
                                                     <button type="submit" class="btn btn-outline-success round">
