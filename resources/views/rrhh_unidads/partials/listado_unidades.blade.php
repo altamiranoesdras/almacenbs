@@ -34,7 +34,7 @@
 
         @if($hasChildren)
             <ul class="tree tree-children collapse show list-unstyled" id="{{ $childrenId }}">
-                @include('rrhh_unidads.partials.listado_unidades', ['unidades' => $unidad->children])
+                @include('rrhh_unidads.partials.listado_unidades', ['unidades' => $unidad->children->sortBy('codigo')])
             </ul>
         @endif
     </li>
