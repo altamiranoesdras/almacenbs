@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\CompraSolicitud;
+use App\Models\RrhhUnidad;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -28,20 +29,26 @@ class CompraSolicitudFactory extends Factory
     public function definition()
     {
 
-        $user = User::all()->random();
+        $area = RrhhUnidad::areas()
+            ->with('usuarios')
+            ->whereHas('usuarios')
+            ->get()
+            ->random();
+
+        $user = $area->usuarios->random();
 
         $fechaCrea = Carbon::now()->startOfMonth()->addDays(rand(1, 15));
 
 
         return [
-            'unidad_id' => $user->unidad_id,
+            'unidad_id' => $area->id,
             'bodega_id' => $user->bodega_id,
 //            'proveedor_id' => Proveedor::all()->random()->id,
             'fecha_solicita' => $fechaCrea->copy()->addDays(rand(0,3)),
             'justificacion' => $this->faker->text,
             'estado_id' => CompraSolicitudEstado::all()->random()->id,
             'usuario_solicita' => $user->id,
-            'usuario_verifica' => User::whereNotIn('id',[$user->id])->get()->random()->id,
+            'usuario_verifica' => $area->parent?->jefe_id ?? $user->id,
             'created_at' => $fechaCrea,
             'updated_at' => $fechaCrea,
         ];

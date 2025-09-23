@@ -64,8 +64,7 @@ class CompraSolicitudConsolidarController extends Controller
 
             foreach ($solicitudes as $solicitud) {
 
-                $solicitud->estado_id = CompraSolicitudEstado::ASIGNADA_A_REQUISICION;
-                $solicitud->save();
+                $solicitud->asignarARequisicion($requisicion->id);
 
                 foreach ($solicitud->detalles as $detalle) {
                     $detallesRequisicion->push( new CompraRequisicionDetalle(
@@ -81,7 +80,6 @@ class CompraSolicitudConsolidarController extends Controller
 
             $requisicion->detalles()->saveMany($detallesRequisicion);
 
-            $requisicion->compraSolicitudes()->sync($solicitudIds);
 
         } catch (\Throwable $e) {
             return redirect()->back()->withErrors(['error' => 'Error al consolidar las solicitudes: ' . $e->getMessage()]);
@@ -91,6 +89,26 @@ class CompraSolicitudConsolidarController extends Controller
 
         return redirect()->route('compra.requisiciones.edit', $requisicion->id)
             ->with('success', 'Solicitudes consolidadas en la requisición exitosamente.');
+
+    }
+
+
+    public function validaSolicitudes(Request $request)
+    {
+        $solicitudIds = $request->input('solicitudes_ids');
+
+        $solicitudes = CompraSolicitud::with('detalles')
+            ->whereIn('id', $solicitudIds)
+            ->get();
+
+        $padres = null;
+        foreach ($solicitudes as $solicitud) {
+            $padres[$solicitud->id] = $solicitud->unidad->direccionPadre()->id ?? null;
+        }
+
+        dd($padres);
+
+        return $solicitudes;
 
     }
 }

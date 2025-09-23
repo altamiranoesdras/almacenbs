@@ -45,9 +45,9 @@
                                     {!!
                                         Form::select(
                                             'unidad_id',
-                                            select(\App\Models\RrhhUnidad::class, 'text')
-                                            , null
-                                            , ['id'=>'unodads','class' => 'form-control','style'=>'width: 100%']
+                                            select(\App\Models\RrhhUnidad::areas(), 'nombre_con_padre')
+                                            , []
+                                            , ['id'=>'unidades','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
                                         )
                                     !!}
                                 </div>
@@ -203,6 +203,7 @@
             },
 
         });
+
         $(function () {
             $('#formFiltersDatatables').submit(function(e){
                 e.preventDefault();

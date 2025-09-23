@@ -34,7 +34,7 @@ class SolicitudCompraUnificarTable extends DataTable
             })
             ->editColumn('unidad.nombre', function (CompraSolicitud $compraSolicitud) {
 
-                return $compraSolicitud->unidad->nombre ?? 'Sin Unidad';
+                return $compraSolicitud->unidad->nombre_con_padre ?? 'Sin Unidad';
 
             })
             ->editColumn('fecha_solicita', function (CompraSolicitud $compraSolicitud) {

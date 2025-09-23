@@ -154,7 +154,8 @@ class RrhhUnidad extends Model
 
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(RrhhUnidad::class,'unidad_padre_id','id')->with('parent');
+        return $this->belongsTo(RrhhUnidad::class,'unidad_padre_id','id')
+            ->with('parent');
     }
     public function children(): HasMany
     {
@@ -223,4 +224,39 @@ class RrhhUnidad extends Model
     {
         return $query->where('solicita', 'si');
     }
+
+    /**
+     * busca el padre de un tipo determinado
+     * si no lo encuentra, devuelve null
+     * si no sé específica tipo, busca la dirección
+     */
+    public function buscarPadre(int $tipoId = RrhhUnidadTipo::DIRECCION): ?RrhhUnidad
+    {
+        //si no tiene padre, no hay dirección
+        if(!$this->parent){
+            return null;
+        }
+        //si el padre es del tipo buscado, devolverlo
+        if($this->parent->unidad_tipo_id == $tipoId){
+            return $this->parent;
+        }
+        //si no, seguir buscando hacia arriba
+        return $this->parent->buscarPadre($tipoId);
+    }
+
+    public function direccionPadre(): ?RrhhUnidad
+    {
+        return $this->buscarPadre();
+    }
+
+    public function grupoPadre(): ?RrhhUnidad
+    {
+        return $this->buscarPadre(RrhhUnidadTipo::GRUPO);
+    }
+
+    public function subsecretariaPadre(): ?RrhhUnidad
+    {
+        return $this->buscarPadre(RrhhUnidadTipo::SUBSECRETARIA);
+    }
+
 }

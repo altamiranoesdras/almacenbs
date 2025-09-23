@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\CompraRequisicion\CompraRequisicion;
 use App\Traits\TieneCodigo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int|null $bodega_id
@@ -171,6 +172,25 @@ class CompraSolicitud extends Model
     public function esTemporal()
     {
         return $this->estado_id == CompraSolicitudEstado::TEMPORAL;
+
+    }
+
+
+    public function requisiciones()
+    {
+        return $this->belongsToMany(
+            CompraRequisicion::class,
+            'compra_solicitud_has_requisicion',
+            'solicitud_id',
+            'requisicion_id'
+        );
+    }
+    public function asignaARequisicion($idRequisicion)
+    {
+        $this->requisiciones()->sync([$idRequisicion]);
+
+        $this->estado_id = CompraSolicitudEstado::ASIGNADA_A_REQUISICION;
+        $this->save();
 
     }
 }

@@ -37,6 +37,7 @@ class RrhhUnidadFactory extends Factory
         return [
             'codigo' => $this->faker->numberBetween(1000, 9999),
             'nombre' => $this->faker->randomElement($this->unidades),
+            'jefe_id' => null,
             'activa' => $this->faker->randomElement(['si','no']),
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s'),
