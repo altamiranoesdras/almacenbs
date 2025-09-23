@@ -21,6 +21,7 @@ Route::prefix('compras')->name('compras.')->group(function () {
     Route::post('anular/{compra}', [CompraController::class,'anular'])->name('anular');
     Route::get('factura/pdf/{compra}', [CompraController::class,'pdf'])->name('pdf');
     Route::get('h1/pdf/{compra}', [CompraController::class,'pdfH1'])->name('h1.pdf');
+    Route::get('h1/pdf/digital/{compra}', [CompraController::class,'pdfH1Digital'])->name('h1.pdf.digital');
     Route::post('actualizar/1h/{compra}',[CompraController::class,'actualizar1h'])->name('actualiza.1h');
     Route::post('generar/1h/{compra}',[CompraController::class,'generar1h'])->name('generar.1h');
 

@@ -26,7 +26,7 @@
         <i class="fa fa-trash-alt"></i>
     </button>
 
-    <form action="{{ route('rrhhUnidades.destroy', $id) }}" method="POST" id="delete-form-{{ $id }}" class="d-none">
+    <form action="{{ route('rrhhUnidades.destroy', $id) }}" method="POST" id="delete-form{{ $id }}" class="d-none">
         @csrf
         @method('DELETE')
     </form>

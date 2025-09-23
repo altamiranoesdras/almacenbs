@@ -333,6 +333,8 @@ class Compra extends Model
         $this->save();
 
         $this->actualizaPreciosItem();
+
+        $this->addBitacora("Ingreso de almacén ingresado");
     }
 
     public function procesarKardex()
@@ -390,6 +392,8 @@ class Compra extends Model
         foreach ($this->detalles as $detalle){
             $detalle->anular();
         }
+
+        $this->addBitacora("Compra anulada");
     }
 
 
@@ -547,6 +551,8 @@ class Compra extends Model
         // actualizar folio en envio fiscal
         $envioFiscal->siguienteFolio();
 
+        $this->addBitacora("Formulario 1H generado, folio: ".$compra1h->folio);
+
     }
 
 
@@ -679,6 +685,11 @@ class Compra extends Model
             CompraEstado::RETORNO_POR_AUTORIZADOR,
         ]);
 
+    }
+
+    public function estaAnulada()
+    {
+        return $this->estado_id==CompraEstado::ANULADO;
     }
 
 }

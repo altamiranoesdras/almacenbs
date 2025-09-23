@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -26,7 +27,7 @@
     <table class="table table-borderless table-sm" style="width: 100%" >
         <tr style="">
             <td style="width:70%; vertical-align: middle; padding-left: 3.5cm">
-                 SECRETARIA DE BIENESTAR SOCIAL DE LA PRESIDENCIA DE LA REPUBLICA
+                SECRETARIA DE BIENESTAR SOCIAL DE LA PRESIDENCIA DE LA REPUBLICA
             </td>
             <td style="width:10%; vertical-align: middle; text-align: left;color: white">
                 Número
@@ -39,7 +40,7 @@
         </tr>
         <tr style="">
             <td style="width:70%; padding-left: 3.5cm">
-{{--                 SECRETARIA DE BIENESTAR SOCIAL DE LA PRESIDENCIA DE LA REPUBLICA--}}
+                {{--                 SECRETARIA DE BIENESTAR SOCIAL DE LA PRESIDENCIA DE LA REPUBLICA--}}
             </td>
             <td style="width:10%;color: white">
                 Fecha:
@@ -168,7 +169,7 @@
                 &nbsp;
             </td>
             <td class="py-0 text-left " style="border-color: black;  text-align: center; padding: 2px; font-size: small" >
-{{--                {{$compra->compra1h->total_letras}}--}}
+                {{--                {{$compra->compra1h->total_letras}}--}}
                 TOTAL--------------------------------------------------
             </td>
 
@@ -255,3 +256,6 @@
 
 <script src="{{asset('js/numeros_a_letras.js')}}"></script>
 </html>
+
+
+

@@ -6,7 +6,6 @@ use App\DataTables\RrhhUnidadDataTable;
 use App\Http\Requests\CreateRrhhUnidadRequest;
 use App\Http\Requests\UpdateRrhhUnidadRequest;
 use App\Models\RrhhUnidad;
-use Flash;
 use Response;
 
 class RrhhUnidadController extends AppBaseController
@@ -14,14 +13,14 @@ class RrhhUnidadController extends AppBaseController
 
     public function __construct()
     {
-        $this->middleware('permission:Ver Rrhh Unidads')->only(['show']);
-        $this->middleware('permission:Crear Rrhh Unidads')->only(['create','store']);
-        $this->middleware('permission:Editar Rrhh Unidads')->only(['edit','update',]);
-        $this->middleware('permission:Eliminar Rrhh Unidads')->only(['destroy']);
+//        $this->middleware('permission:Ver Unidades')->only(['show']);
+//        $this->middleware('permission:Crear Unidades')->only(['create','store']);
+//        $this->middleware('permission:Editar Unidades')->only(['edit','update']);
+//        $this->middleware('permission:Eliminar Unidades')->only(['destroy']);
     }
 
     /**
-     * Display a listing of the RrhhUnidad.
+     * Display a listing of the Unidad.
      *
      * @param RrhhUnidadDataTable $rrhhUnidadDataTable
      * @return Response
@@ -32,7 +31,7 @@ class RrhhUnidadController extends AppBaseController
     }
 
     /**
-     * Show the form for creating a new RrhhUnidad.
+     * Show the form for creating a new Unidad.
      *
      * @return Response
      */
@@ -44,7 +43,7 @@ class RrhhUnidadController extends AppBaseController
     }
 
     /**
-     * Store a newly created RrhhUnidad in storage.
+     * Store a newly created Unidad in storage.
      *
      * @param CreateRrhhUnidadRequest $request
      *
@@ -61,13 +60,13 @@ class RrhhUnidadController extends AppBaseController
         /** @var RrhhUnidad $rrhhUnidad */
         $rrhhUnidad = RrhhUnidad::create($input);
 
-        Flash::success('Rrhh Unidad guardado exitosamente.');
+        flash()->success('Unidad guardada exitosamente.');
 
         return redirect(route('rrhhUnidades.index'));
     }
 
     /**
-     * Display the specified RrhhUnidad.
+     * Display the specified Unidad.
      *
      * @param  int $id
      *
@@ -79,7 +78,7 @@ class RrhhUnidadController extends AppBaseController
         $rrhhUnidad = RrhhUnidad::find($id);
 
         if (empty($rrhhUnidad)) {
-            Flash::error('Rrhh Unidad no encontrado');
+            flash()->error('Unidad no encontrada.');
 
             return redirect(route('rrhhUnidads.index'));
         }
@@ -88,7 +87,7 @@ class RrhhUnidadController extends AppBaseController
     }
 
     /**
-     * Show the form for editing the specified RrhhUnidad.
+     * Show the form for editing the specified Unidad.
      *
      * @param  int $id
      *
@@ -100,7 +99,7 @@ class RrhhUnidadController extends AppBaseController
         $rrhhUnidad = RrhhUnidad::find($id);
 
         if (empty($rrhhUnidad)) {
-            Flash::error('Rrhh Unidad no encontrado');
+            flash()->error('Unidad no encontrada.');
 
             return redirect(route('rrhhUnidads.index'));
         }
@@ -111,7 +110,7 @@ class RrhhUnidadController extends AppBaseController
     }
 
     /**
-     * Update the specified RrhhUnidad in storage.
+     * Update the specified Unidad in storage.
      *
      * @param  int              $id
      * @param UpdateRrhhUnidadRequest $request
@@ -129,7 +128,7 @@ class RrhhUnidadController extends AppBaseController
         $rrhhUnidad = RrhhUnidad::find($id);
 
         if (empty($rrhhUnidad)) {
-            Flash::error('Rrhh Unidad no encontrado');
+            flash()->error('Unidad no encontrada.');
 
             return redirect(route('rrhhUnidades.index'));
         }
@@ -137,13 +136,13 @@ class RrhhUnidadController extends AppBaseController
         $rrhhUnidad->fill($request->all());
         $rrhhUnidad->save();
 
-        Flash::success('Rrhh Unidad actualizado con éxito.');
+        flash()->success('Unidad actualizada con éxito.');
 
         return redirect(route('rrhhUnidades.index'));
     }
 
     /**
-     * Remove the specified RrhhUnidad from storage.
+     * Remove the specified Unidad from storage.
      *
      * @param  int $id
      *
@@ -157,14 +156,14 @@ class RrhhUnidadController extends AppBaseController
         $rrhhUnidad = RrhhUnidad::find($id);
 
         if (empty($rrhhUnidad)) {
-            Flash::error('Rrhh Unidad no encontrado');
+            flash()->error('Unidad no encontrada.');
 
             return redirect(route('rrhhUnidades.index'));
         }
 
         $rrhhUnidad->delete();
 
-        Flash::success('Rrhh Unidad deleted successfully.');
+        flash()->success('Unidad eliminada exitosamente.');
 
         return redirect(route('rrhhUnidades.index'));
     }
