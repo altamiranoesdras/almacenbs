@@ -270,4 +270,10 @@ class SolicitudDetalle extends Model
 
         }
     }
+
+    public function getSubTotalAttribute()
+    {
+        return $this->cantidad_despachada * $this->precio;
+
+    }
 }

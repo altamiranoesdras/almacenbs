@@ -57,12 +57,27 @@
                                                 </a>
                                             </div>
                                             <div class="col text-center">
-                                                <a href="{{route('compras.h1.pdf',$compra->id)}}" target="_blank"
-                                                   class='btn btn-outline-primary round ' data-toggle="tooltip"
-                                                   title="Imprimir 1H">
-                                                    <i class="fas fa-print"></i>
-                                                    Imprimir 1H
-                                                </a>
+                                                <div class="btn-group">
+                                                    <button type="button"
+                                                            class="btn btn-outline-primary round dropdown-toggle"
+                                                            data-bs-toggle="dropdown"
+                                                            aria-expanded="false">
+                                                        <i class="fas fa-print"></i> Imprimir
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li>
+                                                            <a class="dropdown-item" href="{{ route('compras.h1.pdf', $compra->id) }}" target="_blank">
+                                                                <i class="fas fa-file-pdf"></i> PreImpreso
+                                                            </a>
+
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item" href="{{ route('compras.h1.pdf.digital', $compra->id) }}" target="_blank">
+                                                                <i class="fas fa-file-alt"></i> Digital
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
 
                                             @if($compra->puedeAprobar())

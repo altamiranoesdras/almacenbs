@@ -13,9 +13,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use phpDocumentor\Reflection\Types\Boolean;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-
+use App\Models\CompraRequisicionEstado;
 /**
- * 
+ *
  *
  * @property int $id
  * @property int|null $tipo_concurso_id
@@ -54,7 +54,6 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property-read int|null $compra_solicitudes_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraRequisicionDetalle> $detalles
  * @property-read int|null $detalles_count
- * @property-read \App\Models\CompraRequisicionEstado $estado
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
  * @property-read int|null $media_count
  * @property-read \App\Models\Proveedor|null $proveedorAdjudicado
@@ -321,7 +320,7 @@ class CompraRequisicion extends Model implements HasMedia
 
     public function puedeAnular()
     {
-        return $this->estado_id != CompraRequisicionEstado::ANULADA;
+        return $this->estado_id != CompraRequisicionEstado::CANCELADA;
     }
 
 
