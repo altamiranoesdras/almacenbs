@@ -446,4 +446,265 @@ class ReportesAlmacenController extends AppBaseController
 
         return redirect()->back();
     }
+
+    public function existenciaInsumos(Request $request)
+    {
+        $items = Item::with('stocks')
+        ->whereHas('stocks')
+        ->get();
+
+        // dd($items->toArray());
+
+        return view('reportes.existencia_insumo',[
+            'items' => $items,
+        ]);
+    }
+
+    // Reporte 2: Existencia por Unidad Solicitante
+    public function existenciaPorUnidadSolicitante(Request $request)
+    {
+        $unidad_id = $request->unidad_id ?? null;
+        $fecha_desde = $request->fecha_desde ?? null;
+        $fecha_hasta = $request->fecha_hasta ?? null;
+
+        $query = Item::with(['stocks', 'solicitudDetalles.solicitud'])
+            ->whereHas('stocks')
+            ->whereHas('solicitudDetalles.solicitud', function($q) use ($unidad_id) {
+                if ($unidad_id) {
+                    $q->where('unidad_id', $unidad_id);
+                }
+            });
+
+        if ($fecha_desde && $fecha_hasta) {
+            $query->whereHas('solicitudDetalles.solicitud', function($q) use ($fecha_desde, $fecha_hasta) {
+                $q->whereBetween('created_at', [$fecha_desde, $fecha_hasta]);
+            });
+        }
+
+        $items = $query->get();
+
+        $unidades = \App\Models\RrhhUnidad::where('solicita', 'si')->get();
+
+        return view('reportes.existencia_por_unidad_solicitante', compact('items', 'unidades', 'unidad_id', 'fecha_desde', 'fecha_hasta'));
+    }
+
+    // Reporte 3: Existencia por Subsecretaría
+    public function existenciaPorSubsecretaria(Request $request)
+    {
+        $subsecretaria_id = $request->subsecretaria_id ?? null;
+        $fecha_desde = $request->fecha_desde ?? null;
+        $fecha_hasta = $request->fecha_hasta ?? null;
+
+        $query = Item::with(['stocks', 'solicitudDetalles.solicitud.unidad'])
+            ->whereHas('stocks')
+            ->whereHas('solicitudDetalles.solicitud.unidad', function($q) use ($subsecretaria_id) {
+                if ($subsecretaria_id) {
+                    $q->where('unidad_padre_id', $subsecretaria_id);
+                }
+            });
+
+        if ($fecha_desde && $fecha_hasta) {
+            $query->whereHas('solicitudDetalles.solicitud', function($q) use ($fecha_desde, $fecha_hasta) {
+                $q->whereBetween('created_at', [$fecha_desde, $fecha_hasta]);
+            });
+        }
+
+        $items = $query->get();
+
+        $subsecretarias = \App\Models\RrhhUnidad::whereNull('unidad_padre_id')
+            ->whereHas('children', function($q) {
+                $q->where('solicita', 'si');
+            })
+            ->get();
+
+        return view('reportes.existencia_por_subsecretaria', compact('items', 'subsecretarias', 'subsecretaria_id', 'fecha_desde', 'fecha_hasta'));
+    }
+
+    // Reporte 4: Existencia Periódicas (Semanales y Mensuales)
+    public function existenciaPeriodicas(Request $request)
+    {
+        $tipo_periodo = $request->tipo_periodo ?? 'semanal';
+        $fecha_especifica = $request->fecha_especifica ?? now()->format('Y-m-d');
+
+        $items = Item::with(['stocks', 'solicitudDetalles.solicitud'])
+            ->whereHas('stocks')
+            ->whereHas('solicitudDetalles', function($q) use ($tipo_periodo, $fecha_especifica) {
+                if ($tipo_periodo === 'semanal') {
+                    $q->whereBetween('created_at', [
+                        \Carbon\Carbon::parse($fecha_especifica)->startOfWeek(),
+                        \Carbon\Carbon::parse($fecha_especifica)->endOfWeek()
+                    ]);
+                } else {
+                    $q->whereMonth('created_at', \Carbon\Carbon::parse($fecha_especifica)->month)
+                       ->whereYear('created_at', \Carbon\Carbon::parse($fecha_especifica)->year);
+                }
+            })
+            ->get();
+
+        return view('reportes.existencia_periodicas', compact('items', 'tipo_periodo', 'fecha_especifica'));
+    }
+
+    // Reporte 5: Ingresos y Egresos Diarios
+    public function ingresosEgresosDiarios(Request $request)
+    {
+        $fecha_desde = $request->fecha_desde ?? now()->format('Y-m-d');
+        $fecha_hasta = $request->fecha_hasta ?? now()->format('Y-m-d');
+
+        $kardex = Kardex::with(['item', 'model'])
+            ->whereBetween('created_at', [$fecha_desde . ' 00:00:00', $fecha_hasta . ' 23:59:59'])
+            ->where('cantidad', '>', 0)
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        return view('reportes.ingresos_egresos_diarios', compact('kardex', 'fecha_desde', 'fecha_hasta'));
+    }
+
+    // Reporte 6: 1-H elaborados mensuales
+    public function unoHElaboradosMensuales(Request $request)
+    {
+        $fecha_desde = $request->fecha_desde ?? now()->startOfMonth()->format('Y-m-d');
+        $fecha_hasta = $request->fecha_hasta ?? now()->endOfMonth()->format('Y-m-d');
+
+        $compras1h = \App\Models\Compra1h::with(['compra.proveedor', 'compra.detalles.item'])
+            ->whereBetween('fecha_procesa', [$fecha_desde, $fecha_hasta])
+            ->orderBy('fecha_procesa', 'desc')
+            ->get();
+
+        return view('reportes.uno_h_elaborados_mensuales', compact('compras1h', 'fecha_desde', 'fecha_hasta'));
+    }
+
+    // Reporte 7: Reporte de Antigüedad de Inventario (Existencias)
+    public function antiguedadInventario(Request $request)
+    {
+        $fecha_desde = $request->fecha_desde ?? null;
+        $fecha_hasta = $request->fecha_hasta ?? now()->format('Y-m-d');
+
+        $items = Item::with(['stocks' => function($q) use ($fecha_desde, $fecha_hasta) {
+            if ($fecha_desde) {
+                $q->whereBetween('fecha_ing', [$fecha_desde, $fecha_hasta]);
+            }
+        }])
+        ->whereHas('stocks', function($q) {
+            $q->where('cantidad', '>', 0);
+        })
+        ->get();
+
+        return view('reportes.antiguedad_inventario', compact('items', 'fecha_desde', 'fecha_hasta'));
+    }
+
+    // Reporte 8: Reporte de Movimiento por Tipo
+    public function movimientoPorTipo(Request $request)
+    {
+        $tipo_movimiento = $request->tipo_movimiento ?? null;
+        $fecha_desde = $request->fecha_desde ?? now()->startOfMonth()->format('Y-m-d');
+        $fecha_hasta = $request->fecha_hasta ?? now()->endOfMonth()->format('Y-m-d');
+
+        $query = Kardex::with(['item', 'model'])
+            ->whereBetween('created_at', [$fecha_desde . ' 00:00:00', $fecha_hasta . ' 23:59:59'])
+            ->where('cantidad', '>', 0);
+
+        if ($tipo_movimiento) {
+            $query->where('tipo', $tipo_movimiento);
+        }
+
+        $movimientos = $query->orderBy('created_at', 'desc')->get();
+
+        return view('reportes.movimiento_por_tipo', compact('movimientos', 'tipo_movimiento', 'fecha_desde', 'fecha_hasta'));
+    }
+
+    // Reporte 9: Reporte de Movimientos de Compra por Proveedor
+    public function movimientosCompraPorProveedor(Request $request)
+    {
+        $proveedor_id = $request->proveedor_id ?? null;
+        $fecha_desde = $request->fecha_desde ?? now()->startOfMonth()->format('Y-m-d');
+        $fecha_hasta = $request->fecha_hasta ?? now()->endOfMonth()->format('Y-m-d');
+
+        $compras = \App\Models\Compra::with(['detalles.item', 'proveedor'])
+            ->whereHas('detalles')
+            ->when($proveedor_id, function($q) use ($proveedor_id) {
+                $q->where('proveedor_id', $proveedor_id);
+            })
+            ->whereBetween('fecha_ingreso', [$fecha_desde, $fecha_hasta])
+            ->orderBy('fecha_ingreso', 'desc')
+            ->get();
+
+        $proveedores = \App\Models\Proveedor::all();
+
+        return view('reportes.movimientos_compra_por_proveedor', compact('compras', 'proveedores', 'proveedor_id', 'fecha_desde', 'fecha_hasta'));
+    }
+
+    // Reporte 10: Reporte de Listado de Operaciones por Empleado
+    public function operacionesPorEmpleado(Request $request)
+    {
+        $empleado_id = $request->empleado_id ?? null;
+        $fecha_desde = $request->fecha_desde ?? now()->startOfMonth()->format('Y-m-d');
+        $fecha_hasta = $request->fecha_hasta ?? now()->endOfMonth()->format('Y-m-d');
+
+        $operaciones = Kardex::with(['item', 'usuario'])
+            ->whereBetween('created_at', [$fecha_desde . ' 00:00:00', $fecha_hasta . ' 23:59:59'])
+            ->when($empleado_id, function($q) use ($empleado_id) {
+                $q->where('usuario_id', $empleado_id);
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $empleados = \App\Models\User::whereHas('kardexes')->get();
+
+        // Estadísticas
+        $estadisticas = [
+            'total_operaciones' => $operaciones->count(),
+            'operaciones_asignadas' => $operaciones->where('usuario_id', $empleado_id)->count(),
+            'operaciones_completadas' => $operaciones->where('usuario_id', $empleado_id)->whereNotNull('saldo')->count(),
+            'tiempo_promedio' => $operaciones->where('usuario_id', $empleado_id)->avg('created_at')->diffInHours(now())
+        ];
+
+        return view('reportes.operaciones_por_empleado', compact('operaciones', 'empleados', 'empleado_id', 'fecha_desde', 'fecha_hasta', 'estadisticas'));
+    }
+
+    // Reporte 11: Reporte de Registro de Control de Inventario
+    public function registroControlInventario(Request $request)
+    {
+        $items = Item::with(['stocks', 'presentacion', 'unimed'])
+            ->whereHas('stocks', function($q) {
+                $q->where('cantidad', '>', 0);
+            })
+            ->orderBy('nombre')
+            ->get();
+
+        return view('reportes.registro_control_inventario', compact('items'));
+    }
+
+    // Reporte 12: Reporte Movimiento de Salidas por Unidad y Subsecretaría
+    public function movimientoSalidasPorUnidad(Request $request)
+    {
+        $unidad_id = $request->unidad_id ?? null;
+        $subsecretaria_id = $request->subsecretaria_id ?? null;
+        $fecha_desde = $request->fecha_desde ?? now()->startOfMonth()->format('Y-m-d');
+        $fecha_hasta = $request->fecha_hasta ?? now()->endOfMonth()->format('Y-m-d');
+
+        $query = \App\Models\Solicitud::with(['detalles.item', 'unidad'])
+            ->where('estado_id', \App\Models\SolicitudEstado::DESPACHADA)
+            ->whereBetween('fecha_despacha', [$fecha_desde, $fecha_hasta]);
+
+        if ($unidad_id) {
+            $query->where('unidad_id', $unidad_id);
+        }
+
+        if ($subsecretaria_id) {
+            $query->whereHas('unidad', function($q) use ($subsecretaria_id) {
+                $q->where('unidad_padre_id', $subsecretaria_id);
+            });
+        }
+
+        $solicitudes = $query->orderBy('fecha_despacha', 'desc')->get();
+
+        $unidades = \App\Models\RrhhUnidad::where('solicita', 'si')->get();
+        $subsecretarias = \App\Models\RrhhUnidad::whereNull('unidad_padre_id')
+            ->whereHas('children', function($q) {
+                $q->where('solicita', 'si');
+            })
+            ->get();
+
+        return view('reportes.movimiento_salidas_por_unidad', compact('solicitudes', 'unidades', 'subsecretarias', 'unidad_id', 'subsecretaria_id', 'fecha_desde', 'fecha_hasta'));
+    }
 }
