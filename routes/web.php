@@ -415,3 +415,4 @@ Route::group(['prefix' => ''], function () {
 
 
 Route::resource('red-produccion-resultados', App\Http\Controllers\RedProduccionResultadoController::class);
+Route::resource('red-produccion-programas', App\Http\Controllers\RedProduccionProgramaController::class);
