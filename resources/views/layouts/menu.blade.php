@@ -47,3 +47,10 @@
         <p>Red Produccion Proyectos</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('redProduccionProductos.index') }}" class="nav-link {{ Request::is('redProduccionProductos*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Red Produccion Productos</p>
+    </a>
+</li>

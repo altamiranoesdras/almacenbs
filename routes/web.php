@@ -418,3 +418,4 @@ Route::resource('red-produccion-resultados', App\Http\Controllers\RedProduccionR
 Route::resource('red-produccion-programas', App\Http\Controllers\RedProduccionProgramaController::class);
 Route::resource('red-produccion-sub-programas', App\Http\Controllers\RedProduccionSubProgramaController::class);
 Route::resource('red-produccion-proyectos', App\Http\Controllers\RedProduccionProyectoController::class);
+Route::resource('red-produccion-productos', App\Http\Controllers\RedProduccionProductoController::class);
