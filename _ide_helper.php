@@ -21113,6 +21113,9 @@ namespace App\Console\Commands {
      */        class CompararStockCalculadoStockAlmacenado {
             }
             /**
+     */        class customInfyom {
+            }
+            /**
      */        class EnviarEmailPerecederos {
             }
             /**

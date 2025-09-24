@@ -1,0 +1,132 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\DataTables\RedProduccionResultadoDataTable;
+use App\Http\Requests\CreateRedProduccionResultadoRequest;
+use App\Http\Requests\UpdateRedProduccionResultadoRequest;
+use App\Http\Controllers\AppBaseController;
+use App\Models\RedProduccionResultado;
+use Illuminate\Http\Request;
+
+class RedProduccionResultadoController extends AppBaseController
+{
+
+    public function __construct()
+    {
+        $this->middleware('permission:Ver Red Produccion Resultados')->only('show');
+        $this->middleware('permission:Crear Red Produccion Resultados')->only(['create','store']);
+        $this->middleware('permission:Editar Red Produccion Resultados')->only(['edit','update']);
+        $this->middleware('permission:Eliminar Red Produccion Resultados')->only('destroy');
+    }
+    /**
+     * Display a listing of the RedProduccionResultado.
+     */
+    public function index(RedProduccionResultadoDataTable $redProduccionResultadoDataTable)
+    {
+    return $redProduccionResultadoDataTable->render('red_produccion_resultados.index');
+    }
+
+
+    /**
+     * Show the form for creating a new RedProduccionResultado.
+     */
+    public function create()
+    {
+        return view('red_produccion_resultados.create');
+    }
+
+    /**
+     * Store a newly created RedProduccionResultado in storage.
+     */
+    public function store(CreateRedProduccionResultadoRequest $request)
+    {
+        $input = $request->all();
+
+        /** @var RedProduccionResultado $redProduccionResultado */
+        $redProduccionResultado = RedProduccionResultado::create($input);
+
+        flash()->success('Red Produccion Resultado guardado.');
+
+        return redirect(route('redProduccionResultados.index'));
+    }
+
+    /**
+     * Display the specified RedProduccionResultado.
+     */
+    public function show($id)
+    {
+        /** @var RedProduccionResultado $redProduccionResultado */
+        $redProduccionResultado = RedProduccionResultado::find($id);
+
+        if (empty($redProduccionResultado)) {
+            flash()->error('Red Produccion Resultado no encontrado');
+
+            return redirect(route('redProduccionResultados.index'));
+        }
+
+        return view('red_produccion_resultados.show')->with('redProduccionResultado', $redProduccionResultado);
+    }
+
+    /**
+     * Show the form for editing the specified RedProduccionResultado.
+     */
+    public function edit($id)
+    {
+        /** @var RedProduccionResultado $redProduccionResultado */
+        $redProduccionResultado = RedProduccionResultado::find($id);
+
+        if (empty($redProduccionResultado)) {
+            flash()->error('Red Produccion Resultado no encontrado');
+
+            return redirect(route('redProduccionResultados.index'));
+        }
+
+        return view('red_produccion_resultados.edit')->with('redProduccionResultado', $redProduccionResultado);
+    }
+
+    /**
+     * Update the specified RedProduccionResultado in storage.
+     */
+    public function update($id, UpdateRedProduccionResultadoRequest $request)
+    {
+        /** @var RedProduccionResultado $redProduccionResultado */
+        $redProduccionResultado = RedProduccionResultado::find($id);
+
+        if (empty($redProduccionResultado)) {
+            flash()->error('Red Produccion Resultado no encontrado');
+
+            return redirect(route('redProduccionResultados.index'));
+        }
+
+        $redProduccionResultado->fill($request->all());
+        $redProduccionResultado->save();
+
+        flash()->success('Red Produccion Resultado actualizado.');
+
+        return redirect(route('redProduccionResultados.index'));
+    }
+
+    /**
+     * Remove the specified RedProduccionResultado from storage.
+     *
+     * @throws \Exception
+     */
+    public function destroy($id)
+    {
+        /** @var RedProduccionResultado $redProduccionResultado */
+        $redProduccionResultado = RedProduccionResultado::find($id);
+
+        if (empty($redProduccionResultado)) {
+            flash()->error('Red Produccion Resultado no encontrado');
+
+            return redirect(route('redProduccionResultados.index'));
+        }
+
+        $redProduccionResultado->delete();
+
+        flash()->success('Red Produccion Resultado eliminado.');
+
+        return redirect(route('redProduccionResultados.index'));
+    }
+}

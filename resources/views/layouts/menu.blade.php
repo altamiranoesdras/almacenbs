@@ -19,3 +19,10 @@
         <p>Compra Requisicions</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('redProduccionResultados.index') }}" class="nav-link {{ Request::is('redProduccionResultados*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Red Produccion Resultados</p>
+    </a>
+</li>
