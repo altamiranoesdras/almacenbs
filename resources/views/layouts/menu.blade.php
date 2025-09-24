@@ -33,3 +33,10 @@
         <p>Red Produccion Programas</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('redProduccionSubProgramas.index') }}" class="nav-link {{ Request::is('redProduccionSubProgramas*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Red Produccion Sub Programas</p>
+    </a>
+</li>
