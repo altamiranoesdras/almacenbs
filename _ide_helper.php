@@ -21107,25 +21107,13 @@ namespace App\Console\Commands {
      */        class ActivosImportCommand {
             }
             /**
-     */        class AjustarDetalleSolicitudComando {
-            }
-            /**
      */        class AnonimizarNombresUsuarios {
-            }
-            /**
-     */        class CambioDetalleCompraComando {
-            }
-            /**
-     */        class CambioDetalleSolicitudComando {
             }
             /**
      */        class CompararStockCalculadoStockAlmacenado {
             }
             /**
-     */        class ComprasConIngresoDuplicadoComando {
-            }
-            /**
-     */        class CrearFolioUltimoRegistroKardex {
+     */        class customInfyom {
             }
             /**
      */        class EnviarEmailPerecederos {
@@ -21143,16 +21131,28 @@ namespace App\Console\Commands {
      */        class GenerarDocblockDto {
             }
             /**
+     */        class ImportarProveedores {
+            }
+            /**
      */        class ImportPersonalCommand {
             }
             /**
      */        class ImportSaldosInsumosCommand {
             }
             /**
-     */        class InsumosImportCommand {
+     */        class IngresoAlmacenCambioDetalleComando {
             }
             /**
-     */        class LeerProveedoresCSV {
+     */        class IngresoAlmacenStockDuplicadoComando {
+            }
+            /**
+     */        class InsertarStocksDePruebas {
+            }
+            /**
+     */        class InsumosImportarDesdeCsvCommand {
+            }
+            /**
+     */        class InsumosImportCommand {
             }
             /**
      */        class MigrarDBaLocalComando {
@@ -21167,10 +21167,22 @@ namespace App\Console\Commands {
      */        class ReingresarDetalleCompra {
             }
             /**
+     */        class RequiAlmacenAjustarDetalleComando {
+            }
+            /**
+     */        class RequiAlmacenCambioDetalleComando {
+            }
+            /**
      */        class VaciarStockBodega {
             }
             /**
      */        class ValidarFoliosRepetidosKardexComando {
+            }
+    }
+
+namespace App\Console\Commands\Archivados {
+            /**
+     */        class CrearFolioUltimoRegistroKardex {
             }
     }
 
