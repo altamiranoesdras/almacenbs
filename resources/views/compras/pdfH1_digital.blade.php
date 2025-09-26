@@ -37,6 +37,22 @@
         .underline {
             border-bottom: 1px solid black;
         }
+        #datosGenerales tr td {
+            height: 5px;
+            width: 75%;
+            border: none;
+            padding: 8px 15px;
+        }
+        #datosGenerales {
+            margin-top: 15px;
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #00008f;
+            padding: 10px;
+        }
+        #datosGenerales tr {
+            padding: 10px;
+        }
     </style>
 </head>
 <body>
@@ -67,28 +83,30 @@
 </table>
 
 <!-- Datos generales -->
-<table style="margin-top: 15px; width: 100%; border-collapse: collapse; border: 1px solid #00008f; padding: 10px;">
+<table id="datosGenerales">
     <tr>
-        <td class="left" style="height: 5px; width: 75%; border: none; padding: 10px">
+        <td class="left" >
             <strong>NOMBRE DEL PROVEEDOR: </strong>{{$compra->proveedor->nombre ?? ''}}<br>
         </td>
-        <td class="left" style="height: 5px; width: 25%; border: none;">
-            <strong>FECHA: </strong>{{fechaLtn($compra->fecha_ingreso) ?? ''}}<br>
+        <td class="left" >
+
         </td>
     </tr>
     <tr>
-        <td class="left" style="height: 5px; width: 75%; border: none; padding: 10px">
+        <td class="left" >
             <strong>NIT: </strong> {{$compra->proveedor->nit ?? ''}}
         </td>
-        <td class="left" style="height: 5px; width: 25%; border: none;">
-            <strong>ORDEN DE COMPRA: </strong> {{$compra->orden_compra ?? ''}}
+        <td class="left" >
+            <strong>FECHA: </strong>{{fechaLtn($compra->fecha_ingreso) ?? ''}}<br>
+
         </td>
     </tr>
     <tr>
-        <td class="left" style="height: 5px; width: 50%; border: none; padding: 10px">
-            <strong>NO. DOCUMENTO: </strong> {{$compra->numero ?? ''}}
+        <td class="left" >
+            <strong>NO. DOCUMENTO: </strong> {{$compra->compra1h->folio ?? ''}}
         </td>
-        <td class="left" style="height: 5px; width: 50%; border: none;">
+        <td class="left" >
+            <strong>ORDEN DE COMPRA: </strong> {{$compra->orden_compra ?? ''}}
         </td>
     </tr>
 </table>
@@ -96,25 +114,27 @@
 <!-- Detalle de insumos -->
 <table style="margin-top: 25px; width: 100%; border-collapse: collapse; border: 1px solid rgba(2,24,98,0.86);">
     <tr class="section-title" style="border-bottom: 1px solid black; background: #1B244B; color: white">
+{{--        <td style="border: none; padding: 7px;">Numero</td>--}}
         <td style="border: none; padding: 7px;">RENGLÓN</td>
         <td style="border: none; padding: 7px;">DESCRIPCION DEL PRODUCTO</td>
         <td style="border: none; padding: 7px;">CANTIDAD</td>
         <td style="border: none; padding: 7px;">VALOR UNITARIO</td>
         <td style="border: none; padding: 7px;">VALOR TOTAL</td>
     </tr>
-    @foreach ($compra->detalles as $detalle)
+    @foreach ($compra->compra1h->detalles as $index => $detalle)
         <tr>
+{{--            <td style="border: none;">{{ $index ?? '' }}</td>--}}
             <td style="border: none;">{{ $detalle->item->renglon->numero ?? '' }}</td>
             <td class="left" style="border: none;">
                 {{ $detalle->item->descripcion === '<p>&nbsp;</p>' || !$detalle->item->descripcion ? 'Sin Descripción' : $detalle->item->descripcion }}
             </td>
             <td style="border: none;">{{ (int)$detalle->cantidad }}</td>
-            <td style="border: none;">{{ dvs() .nf($detalle->precio) ?? '' }}</td>
-            <td style="border: none;">{{ dvs(). nf($detalle->precio * $detalle->cantidad) }}</td>
+            <td style="border: none;">{{ dvs() .nfp($detalle->precio) ?? '' }}</td>
+            <td style="border: none;">{{ dvs(). nfp($detalle->precio * $detalle->cantidad) }}</td>
         </tr>
     @endforeach
 
-    @for ($i = count($compra->detalles); $i < 23; $i++)
+    @for ($i = count($compra->compra1h->detalles); $i < 23; $i++)
         <tr>
             <td style="border: none;">&nbsp;</td>
             <td style="border: none;">&nbsp;</td>
@@ -130,62 +150,13 @@
 <table style="margin-top: 5px; width: 100%; border-collapse: collapse;">
     <tr>
         <td class="left" style="height: 5px; width: 75%; border: none; vertical-align: top;">
-            <strong>TOTAL EN LETRAS: </strong>{{$compra->proveedor->nombre ?? ''}}<br>
+            <strong>TOTAL EN LETRAS: </strong>{{$compra->compra1h->total_letras ?? ''}}<br>
         </td>
         <td class="left" style="height: 5px; width: 25%; border: none; vertical-align: top;">
-            <strong>SUBTOTAL: </strong>{{$compra->fecha_ingreso ?? ''}}<br><br>
-            <strong>DESCUENTO: </strong>{{$compra->fecha_ingreso ?? ''}}<br><br>
-            <strong>TOTAL: </strong>{{$compra->fecha_ingreso ?? ''}}<br><br>
+            <strong>SUBTOTAL: </strong>{{dvs() .nfp($compra->compra1h->sub_total) ?? ''}}<br><br>
+            <strong>DESCUENTO: </strong>{{dvs() .nfp($compra->compra1h->descuento ?? $compra->descuento) ?? ''}}<br><br>
+            <strong>TOTAL: </strong>{{dvs() .nfp($compra->compra1h->total) ?? ''}}<br><br>
         </td>
-    </tr>
-</table>
-
-
-<!-- Justificación -->
-<table style="margin-top: 15px; width: 100%">
-    <tr>
-        <td class="left" colspan="4" style="border: none">OBSERVACIONES:</td>
-    </tr>
-    <tr>
-        <td class="left" colspan="4" style="height: 50px; width: 100%">
-            {{$compra->observaciones ?? ''}}
-        </td>
-    </tr>
-</table>
-
-<table style="margin-top: 40px; width: 100%;border-collapse: collapse;">
-    <tr>
-        <td style="width: 25%; border: none; text-align: center;">
-            _______________________________<br><br>
-            OPERADO POR
-        </td>
-        <td style="width: 25%; border: none; text-align: center;">
-            _______________________________<br><br>
-            JEFE DE ALMACEN
-        </td>
-        <td style="width: 25%; border: none; text-align: center;">
-            _______________________________<br><br>
-            DIRECTOR ADMINISTRATIVO
-        </td>
-        <td style="width: 25%; border: none; text-align: center;">
-            _______________________________<br><br>
-            JEFE DE INVENTARIOS
-        </td>
-    </tr>
-</table>
-
-<table style="margin-top: 40px; width: 100%;border-collapse: collapse;">
-    <tr>
-        <td style="width: 15%; border: none; text-align: center;"></td>
-        <td style="width: 70%; border: none; text-align: center;">
-            Autorizado según Resolución de la Contraloría General de Cuentas No. F.O. xxxxxxx Gestión: xxxxx de fecha xx-xx-xxxx, correlativo xx-xxxx de
-            fecha xx-xx-xxxx, Envío fiscal xxxx de fecha xx-xx-xxxx, Autorizado del 0001 al 2,000 Sin Serie, Libro x-xxxx Folio xx SECRETARÍA DE
-            BIENESTAR SOCIAL DE LA PRESIDENCIA DE LA REPÚBLICA NIT 3377881
-        </td>
-        <td style="width: 15%; border: none; text-align: center;"></td>
-    </tr>
-    <tr>
-        <td colspan="3" style="width: 100%; border: none; text-align: center; color: #cd0303; font-weight: bold"><h3>- Original: Contabilidad -</h3></td>
     </tr>
 </table>
 
