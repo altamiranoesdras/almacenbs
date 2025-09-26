@@ -460,10 +460,9 @@ class CompraController extends AppBaseController
             ->setOption('page-height', 278)
             ->setOrientation('portrait')
             ->setOption('margin-top', 10)
-            ->setOption('margin-bottom', 90)
+            ->setOption('margin-bottom', 95)
             ->setOption('margin-left', 15)
-            ->setOption('margin-right', 15)
-            ->setOption('disable-smart-shrinking', false);
+            ->setOption('margin-right', 15);
 
         return $pdf->inline('CompraH1-'.$compra->id. '_'. time().'.pdf');
     }
