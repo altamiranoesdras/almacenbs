@@ -41,6 +41,7 @@ class EnvioFiscalController extends AppBaseController
      */
     public function store(CreateEnvioFiscalRequest $request)
     {
+
         $input = $request->all();
 
         /** @var EnvioFiscal $envioFiscal */
@@ -90,6 +91,7 @@ class EnvioFiscalController extends AppBaseController
      */
     public function update($id, UpdateEnvioFiscalRequest $request)
     {
+
         /** @var EnvioFiscal $envioFiscal */
         $envioFiscal = EnvioFiscal::find($id);
 

@@ -462,9 +462,11 @@ class CompraController extends AppBaseController
     {
         $pdf = App::make('snappy.pdf.wrapper');
 
+        $envioFiscal = $compra->compra1h->envioFiscal;
+
         // Renderizamos una sola copia de la vista
         $view = view('compras.pdfH1_digital', compact('compra'))->render();
-        $footer = view('compras.pdfH1_digital_footer', compact('compra'))->render();
+        $footer = view('compras.pdfH1_digital_footer', compact('compra', 'envioFiscal'))->render();
 
         // Queremos, por ejemplo, 3 copias
         $copias = 2;

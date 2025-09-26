@@ -123,7 +123,7 @@ class EnvioFiscalDataTable extends DataTable
             Column::make('correlativo_al'),
             Column::make('folio_inicial'),
             Column::make('folio_actual'),
-//            Column::make('nuemero_constancia'),
+//            Column::make('numero_constancia'),
 //            Column::make('serie_constancia'),
 //            Column::make('fecha'),
 //            Column::make('numero_cuenta'),

@@ -33,8 +33,8 @@
 
 <!-- Nuemero Constancia Field -->
 <div class="col-sm-6 mb-1">
-    {!! Form::label('nuemero_constancia', 'Número Constancia:') !!}
-    {!! Form::number('nuemero_constancia', null, ['class' => 'form-control']) !!}
+    {!! Form::label('numero_constancia', 'Número Constancia:') !!}
+    {!! Form::number('numero_constancia', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Serie Constancia Field -->

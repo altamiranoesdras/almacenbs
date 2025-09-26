@@ -29,8 +29,8 @@ class EnvioFiscalFactory extends Factory
             'folio_inicial'      => $folioInicial,
             'folio_actual'       => $folioActual,
 
-            // OJO: el schema tiene "nuemero_constancia" (con u). Mantener mientras no se renombre.
-            'nuemero_constancia' => $this->faker->optional()->numberBetween(1, 999_999),
+            // OJO: el schema tiene "numero_constancia" (con u). Mantener mientras no se renombre.
+            'numero_constancia' => $this->faker->optional()->numberBetween(1, 999_999),
             'serie_constancia'   => $this->faker->optional()->bothify('SC-####'),
 
             'fecha'              => $this->faker->optional()->date('Y-m-d'),
@@ -70,7 +70,7 @@ class EnvioFiscalFactory extends Factory
     public function conConstancia(): self
     {
         return $this->state(fn () => [
-            'nuemero_constancia' => $this->faker->numberBetween(1, 999_999),
+            'numero_constancia' => $this->faker->numberBetween(1, 999_999),
             'serie_constancia'   => $this->faker->bothify('SC-####'),
         ]);
     }

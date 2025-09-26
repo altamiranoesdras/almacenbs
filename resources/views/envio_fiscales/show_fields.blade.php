@@ -30,8 +30,8 @@
 
 <!-- Nuemero Constancia Field -->
 <div class="col-sm-12">
-    {!! Form::label('nuemero_constancia', 'Nuemero Constancia:') !!}
-    <p>{{ $envioFiscal->nuemero_constancia }}</p>
+    {!! Form::label('numero_constancia', 'Nuemero Constancia:') !!}
+    <p>{{ $envioFiscal->numero_constancia }}</p>
 </div>
 
 <!-- Serie Constancia Field -->

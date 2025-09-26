@@ -71,10 +71,10 @@
         <tr>
             <td style="width: 15%; border: none; text-align: center;"></td>
             <td style="width: 70%; border: none; text-align: center;">
-                Autorizado según Resolución de la Contraloría General de Cuentas No. F.O. xxxxxxx Gestión: xxxxx de
-                fecha xx-xx-xxxx, correlativo xx-xxxx de
-                fecha xx-xx-xxxx, Envío fiscal xxxx de fecha xx-xx-xxxx, Autorizado del 0001 al 2,000 Sin Serie, Libro
-                x-xxxx Folio xx SECRETARÍA DE
+                Autorizado según Resolución de la Contraloría General de Cuentas No. F.O. {{ $envioFiscal->numero_cuenta }}  Gestión: {{ $envioFiscal->numero_gestion }} de
+                fecha {{ $envioFiscal->fecha_gestion }}, correlativo {{ $envioFiscal->correlativo }} de
+                fecha {{ $envioFiscal->fecha  }}, Envío fiscal {{ $envioFiscal->folio }} de fecha {{$envioFiscal->fecha}}, Autorizado del {{ nfp($envioFiscal->correlativo_del, 0) }} al {{ nfp($envioFiscal->correlativo_al, 0) }} Serie {{ $envioFiscal->serie }}, Libro
+                {{ $envioFiscal->libro }} Folio {{ $envioFiscal->folio }} SECRETARÍA DE
                 BIENESTAR SOCIAL DE LA PRESIDENCIA DE LA REPÚBLICA NIT 3377881
             </td>
             <td style="width: 15%; border: none; text-align: center;"></td>

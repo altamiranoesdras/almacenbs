@@ -1565,7 +1565,7 @@ namespace App\Models{
  * Class EnvioFiscal
  *
  * @property int $id
- * @property int $nuemero_constancia
+ * @property int $numero_constancia
  * @property string $serie_constancia
  * @property \Illuminate\Support\Carbon $fecha
  * @property string $numero_cuenta

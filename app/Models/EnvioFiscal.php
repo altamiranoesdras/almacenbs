@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $nombre_tabla
@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $correlativo_al
  * @property int $folio_inicial
  * @property int $folio_actual
- * @property int|null $nuemero_constancia
+ * @property int|null $numero_constancia
  * @property string|null $serie_constancia
  * @property \Illuminate\Support\Carbon|null $fecha
  * @property string|null $numero_cuenta
@@ -81,7 +81,7 @@ class EnvioFiscal extends Model
         'correlativo_al',
         'folio_inicial',
         'folio_actual',
-        'nuemero_constancia',
+        'numero_constancia',
         'serie_constancia',
         'fecha',
         'numero_cuenta',
@@ -100,7 +100,7 @@ class EnvioFiscal extends Model
     protected $casts = [
         'nombre_tabla' => 'string',
         'serie_constancia' => 'string',
-        'fecha' => 'date',
+        'fecha' => 'date:Y-m-d',
         'numero_cuenta' => 'string',
         'forma' => 'string',
         'serie' => 'string',
@@ -108,7 +108,7 @@ class EnvioFiscal extends Model
         'libro' => 'string',
         'resolucion' => 'string',
         'numero_gestion' => 'string',
-        'fecha_gestion' => 'date',
+        'fecha_gestion' => 'date:Y-m-d',
         'correlativo' => 'string',
         'activo' => 'string'
     ];
@@ -119,7 +119,7 @@ class EnvioFiscal extends Model
         'correlativo_al' => 'required',
         'folio_inicial' => 'required',
         'folio_actual' => 'required',
-        'nuemero_constancia' => 'nullable',
+        'numero_constancia' => 'nullable',
         'serie_constancia' => 'nullable|string|max:255',
         'fecha' => 'nullable',
         'numero_cuenta' => 'nullable|string|max:255',
