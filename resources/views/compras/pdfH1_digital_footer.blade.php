@@ -20,17 +20,6 @@
         border: none;
         padding: 2px;
     }
-
-    #datosGenerales tr td {
-        height: 5px;
-        width: 75%;
-        border: none;
-        padding: 8px 15px;
-    }
-
-    #datosGenerales tr {
-        padding: 10px;
-    }
 </style>
 <footer>
 
@@ -40,7 +29,7 @@
             <td class="left" colspan="4" style="border: none">OBSERVACIONES:</td>
         </tr>
         <tr>
-            <td class="left" colspan="4" style="height: 50px; width: 100%">
+            <td class="left" colspan="4" style="height: 6rem; width: 100%">
                 {{$compra->compra1h->observaciones ?? ''}}
             </td>
         </tr>
