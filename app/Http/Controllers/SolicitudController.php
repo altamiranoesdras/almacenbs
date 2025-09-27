@@ -455,16 +455,13 @@ class SolicitudController extends AppBaseController
 
         $footer = view('solicitudes.despachar.pdf_footer',compact('solicitud'))->render();
 
-//         return $view;
-//        dd($solicitud->toArray());
-
         $pdf->loadHTML($view)
             ->setOption('page-width', 279)
             ->setOption('page-height', 216)
             ->setOrientation('landscape')
             ->setOption('footer-html',utf8_decode($footer))
             ->setOption('margin-top', 8)
-            ->setOption('margin-bottom',10)
+            ->setOption('margin-bottom',95)
             ->setOption('margin-left',10)
             ->setOption('margin-right',15);
 
