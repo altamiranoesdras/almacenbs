@@ -82,7 +82,7 @@
 </table>
 
 <!-- Detalle de insumos -->
-<table style="margin-top: 25px; width: 100%; border-collapse: collapse; border: 1px solid rgba(2,24,98,0.86);">
+<table style="margin-top: 18px; width: 100%; border-collapse: collapse; border: 1px solid rgba(2,24,98,0.86);">
     <tr class="section-title" style="border-bottom: 1px solid black; background: #1B244B; color: white">
         <td style="border: none; padding: 7px;">RENGLÓN</td>
         <td style="border: none; padding: 7px;">DESCRIPCION</td>

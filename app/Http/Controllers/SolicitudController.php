@@ -454,13 +454,11 @@ class SolicitudController extends AppBaseController
 
         $footer = view('solicitudes.despachar.pdf_footer',compact('solicitud', 'envioFiscal'))->render();
 
-        // Queremos, por ejemplo, 3 copias
         $copias = 2;
         $contenido = '';
         for ($i = 1; $i <= $copias; $i++) {
             $contenido .= $view;
 
-            // Si quieres que cada copia empiece en una nueva hoja:
             if ($i < $copias) {
                 $contenido .= '<div style="page-break-after: always;"></div>';
             }
