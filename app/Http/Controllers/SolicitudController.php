@@ -10,6 +10,7 @@ use App\Http\Requests;
 use App\Http\Requests\CreateSolicitudRequest;
 use App\Http\Requests\UpdateSolicitudRequest;
 use App\Models\Bodega;
+use App\Models\EnvioFiscal;
 use App\Models\RrhhUnidad;
 use App\Models\Solicitud;
 use App\Models\SolicitudDetalle;
@@ -248,6 +249,7 @@ class SolicitudController extends AppBaseController
             'usuario_solicita' => $request->usuario_solicita,
             'fecha_solicita' => Carbon::now(),
             'estado_id' => SolicitudEstado::SOLICITADA,
+            'envio_fiscal_id' => EnvioFiscal::SOLICITUD,
         ]);
 
 

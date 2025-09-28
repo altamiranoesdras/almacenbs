@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property string $nombre_tabla
@@ -65,6 +65,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereNumeroConstancia($value)
  * @mixin \Eloquent
  */
 class EnvioFiscal extends Model
@@ -137,6 +138,9 @@ class EnvioFiscal extends Model
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'
     ];
+
+    const COMPRA = 1;
+    const SOLICITUD = 2;
 
     public static $messages = [
 
