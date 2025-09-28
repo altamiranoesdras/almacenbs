@@ -116,9 +116,9 @@
 <table style="margin-top: 5px; width: 100%; border-collapse: collapse;">
     <tr>
         <td class="left" style="height: 5px; width: 75%; border: none; vertical-align: top;">
-            <strong>TOTAL EN LETRAS: </strong>Pendiente<br>
+            <strong>TOTAL EN LETRAS: </strong>{{$solicitud->total_letras}}<br>
         </td>
-        <td class="left" style="height: 5px; width: 25%; border: none; vertical-align: top;">
+        <td style="height: 5px; width: 25%; border: none; vertical-align: top; text-align: right">
             <strong>TOTAL: </strong> {{ dvs(). nfp($solicitud->total_detalles) }}<br><br>
         </td>
     </tr>

@@ -6,7 +6,6 @@ use App\DataTables\Scopes\ScopeSolicitudDataTable;
 use App\DataTables\SolicitudDataTable;
 use App\DataTables\SolicitudUserDataTable;
 use App\Events\EventoCambioEstadoSolicitud;
-use App\Http\Requests;
 use App\Http\Requests\CreateSolicitudRequest;
 use App\Http\Requests\UpdateSolicitudRequest;
 use App\Models\Bodega;
@@ -19,12 +18,9 @@ use App\Models\User;
 use App\Notifications\RequisicionSolicitidaNotificacion;
 use Carbon\Carbon;
 use Exception;
-use Flash;
-use App\Http\Controllers\AppBaseController;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
-use Response;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
+use Response;
 
 class SolicitudController extends AppBaseController
 {
@@ -451,27 +447,39 @@ class SolicitudController extends AppBaseController
             'detalles.item',
         ]);
 
+        $envioFiscal = $solicitud->envioFiscal;
         $pdf = App::make('snappy.pdf.wrapper');
 
         $view = view('solicitudes.despachar.pdfs.pdf_digital', compact('solicitud'))->render();
 
-        $footer = view('solicitudes.despachar.pdf_footer',compact('solicitud'))->render();
+        $footer = view('solicitudes.despachar.pdf_footer',compact('solicitud', 'envioFiscal'))->render();
 
-        $pdf->loadHTML($view)
-            ->setOption('page-width', 279)
-            ->setOption('page-height', 216)
-            ->setOrientation('landscape')
-            ->setOption('footer-html',utf8_decode($footer))
-            ->setOption('margin-top', 8)
-            ->setOption('margin-bottom',95)
-            ->setOption('margin-left',10)
-            ->setOption('margin-right',15);
+        // Queremos, por ejemplo, 3 copias
+        $copias = 2;
+        $contenido = '';
+        for ($i = 1; $i <= $copias; $i++) {
+            $contenido .= $view;
+
+            // Si quieres que cada copia empiece en una nueva hoja:
+            if ($i < $copias) {
+                $contenido .= '<div style="page-break-after: always;"></div>';
+            }
+        }
+
+        $pdf->loadHTML($contenido)
+            ->setOption('footer-html', utf8_decode($footer))
+            ->setOption('page-width', 217)
+            ->setOption('page-height', 278)
+            ->setOrientation('portrait')
+            ->setOption('margin-top', 10)
+            ->setOption('margin-bottom', 90)
+            ->setOption('margin-left', 15)
+            ->setOption('margin-right', 15);
 
         return $pdf->inline('Despacho '.$solicitud->id. '_'. time().'.pdf');
 
 
     }
-
     public function enviarNotificacion()
     {
 
