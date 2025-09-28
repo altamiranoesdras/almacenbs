@@ -421,7 +421,7 @@ class SolicitudController extends AppBaseController
 
         $view = view(config('impresos.requisiciones.solicitud.vista_pdf'), compact('solicitud'))->render();
 
-        $footer = view('solicitudes.despachar.pdf_footer',compact('solicitud'))->render();
+//        $footer = view('solicitudes.despachar.pdf_footer',compact('solicitud'))->render();
 
 //         return $view;
 //        dd($solicitud->toArray());
@@ -430,7 +430,7 @@ class SolicitudController extends AppBaseController
             ->setOption('page-width', 279)
             ->setOption('page-height', 216)
             ->setOrientation('landscape')
-            ->setOption('footer-html',utf8_decode($footer))
+//            ->setOption('footer-html',utf8_decode($footer))
             ->setOption('margin-top', 8)
             ->setOption('margin-bottom',10)
             ->setOption('margin-left',10)

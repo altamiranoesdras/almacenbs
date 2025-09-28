@@ -11,8 +11,6 @@
             font-family: DejaVu Sans, sans-serif;
             font-size: 11px;
         }
-
-
         #datosGenerales tr td {
 
             height: 5px;
@@ -63,7 +61,7 @@
 <body>
 
 <!-- Encabezado institucional -->
-<table class="table" id="encabezado">
+<table class="table" id="encabezado" style="border: 1px white solid">
     <tr class="border-0">
         <td class="border-0">
             <img src="{{ asset('img/logos/Logo_Gobierno_Republica.png') }}" alt="Logo" style="width: 100px;">
@@ -155,7 +153,7 @@
 
     </tbody>
 
-    <tfoot>
+    <tfoot style="border: 1px white solid; border-top: 1px black solid">
     <tr>
         <th class="text-start" colspan="3" >
             TOTAL EN LETRAS: {{$compra->compra1h->total_letras ?? ''}}
