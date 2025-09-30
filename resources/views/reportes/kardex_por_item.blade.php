@@ -175,16 +175,16 @@
                                                                 @endphp
 
                                                                 <td class="text-bold">
-                                                                    <span>{{ $det->precio }}</span>
+                                                                    <span>{{ nfp($det->precio) }}</span>
                                                                 </td>
                                                                 <td>
                                                                     <span>{{ $saldo }}</span>
                                                                 </td>
                                                                 <td>
-                                                                    {{ $det->ingreso ? nfp($det->precio * $det->ingreso, 2) : '' }}
+                                                                    {{ $det->ingreso ? nf($det->precio * $det->ingreso) : '' }}
                                                                 </td>
                                                                 <td>
-                                                                    {{ $det->salida ? nfp($det->precio * $det->salida, 2) : '' }}
+                                                                    {{ $det->salida ? nf($det->precio * $det->salida) : '' }}
                                                                 </td>
                                                                 <td>
                                                                      <span>
