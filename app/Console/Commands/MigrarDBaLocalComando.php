@@ -41,7 +41,7 @@ class MigrarDBaLocalComando extends Command
 
     private $nombreAplicacionRemota = "Laravel";
 
-    private $rutaAplicacion = "/var/www/almacengt";
+    private $rutaAplicacion = "/var/www/almacenbs";
 
     private $nombreBaseDatos;
 
