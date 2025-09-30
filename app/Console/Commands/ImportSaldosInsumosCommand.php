@@ -15,6 +15,8 @@ class ImportSaldosInsumosCommand extends Command
 
     use ComandosTrait;
 
+
+
     /**
      * The name and signature of the console command.
      *
@@ -58,7 +60,7 @@ class ImportSaldosInsumosCommand extends Command
 
             $import = new ImportSaldosInsumos();
 
-            $import->withOutput($this->output)->import(storage_path('imports/STOCK AL 15-03-2023.xlsx'));
+            $import->withOutput($this->output)->import(storage_path('imports/saldos_insumos.xlsx'));
 
         }
         catch (ValidationException $e) {

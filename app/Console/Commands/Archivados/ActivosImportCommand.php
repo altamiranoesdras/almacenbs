@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Archivados;
 
 use App\Imports\ActivosImport;
 use App\Models\Activo;

@@ -50,7 +50,7 @@ trait ComandosTrait
 
         }
 
-        return $tiempoEmpleadoText;
+        return $tiempoEmpleadoText ?? 0;
     }
 
     public function guardarLog($contenido='contenido')

@@ -19,6 +19,24 @@ class ImportSaldosInsumos implements ToCollection,WithHeadingRow,WithProgressBar
 
     public $errores;
 
+
+    const CODIGO_DE_INSUMO ="codigo_de_insumo";
+    const CODIGO_DE_PRESENTACION ="codigo_de_presentacion";
+    const RENGLON ="renglon";
+    const NOMBRE ="nombre";
+    const CARACTERISTICAS ="caracteristicas";
+    const NOMBRE_DE_LA_PRESENTACION ="nombre_de_la_presentacion";
+    const CANTIDAD_Y_UNIDAD_DE_MEDIDA_DE_LA_PRESENTACION ="cantidad_y_unidad_de_medida_de_la_presentacion";
+    const CANTIDAD ="cantidad";
+    const PRECIO_UNITARIO ="precio_unitario";
+    const TOTAL ="total";
+    const FECHA_DE_INGRESO ="fecha_de_ingreso";
+    const FECHA_DE_VENCIMIENTO ="fecha_de_vencimiento";
+    const CATEGORIA ="categoria";
+    const CODIGO_DE_UNIDAD ="codigo_de_unidad";
+    const UNIDAD ="unidad";
+
+
     /**
      * ImportSaldosInsumos constructor.
      */
@@ -40,65 +58,53 @@ class ImportSaldosInsumos implements ToCollection,WithHeadingRow,WithProgressBar
 
         foreach ($collection as $index => $fila) {
 
-
-            if(($fila['codigo_de_insumo'] && $fila['codigo_de_presentacion'])){
-
-
-                if ($fila['codigo_de_presentacion']!='N/A'){
+            $codigoInsumo = $fila[self::CODIGO_DE_INSUMO] ?? false;
+            $codigoPresentacion = $fila[self::CODIGO_DE_PRESENTACION] ?? false;
 
 
+            if ($codigoInsumo && $codigoPresentacion){
 
-                    try {
-
-
-                        /**
-                         * @var Item $item
-                         */
-                        $item = Item::whereCodigoPresentacion($fila['codigo_de_presentacion'])
-                            ->whereCodigoInsumo($fila['codigo_de_insumo'])
-                            ->first();
+                try {
 
 
-                        if ($item){
+                    /**
+                     * @var Item $item
+                     */
+                    $item = Item::whereCodigoPresentacion($fila[self::CODIGO_DE_PRESENTACION])
+                        ->whereCodigoInsumo($fila[self::CODIGO_DE_INSUMO])
+                        ->first();
 
-                            $item->precio_compra = $fila['precio_unitario'];
-                            $item->save();
+                    if ($item){
 
-                            $stock = $fila['saldo_actual'];
+                        $item->precio_compra = $fila[self::PRECIO_UNITARIO] ?? 0;
+                        $item->save();
 
-                            $res = $item->actualizaOregistraStcokInicial($stock);
+                        $stock = $fila[self::CANTIDAD] ?? 0;
 
-                            if ($res){
-                                $ingresados++;
-                            }
+                        $res = $item->actualizaOregistraStcokInicial($stock);
 
-                        }else{
-
-                            $nombre = $fila['nombre']." - CI: ".$fila['codigo_de_insumo']." - CP: ".$fila['codigo_de_presentacion'];
-
-                            $this->errores->push([$nombre => "No se encontró"]);
-
-                            $noEncontrados++;
-
+                        if ($res){
+                            $ingresados++;
                         }
 
-                    }
-
-                    catch (Exception $exception){
+                    }else{
 
                         $nombre = $fila['nombre']." - CI: ".$fila['codigo_de_insumo']." - CP: ".$fila['codigo_de_presentacion'];
 
-                        $this->errores->push([$nombre => $exception->getMessage()]);
+                        $this->errores->push([$nombre => "No se encontró"]);
+
+                        $noEncontrados++;
+
                     }
 
-                }else{
+                }
 
+                catch (Exception $exception){
 
                     $nombre = $fila['nombre']." - CI: ".$fila['codigo_de_insumo']." - CP: ".$fila['codigo_de_presentacion'];
 
-                    $this->errores->push([$nombre => "Renglon 122"]);
+                    $this->errores->push([$nombre => $exception->getMessage()]);
                 }
-
 
             }
 
