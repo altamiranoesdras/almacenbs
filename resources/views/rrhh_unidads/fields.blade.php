@@ -36,7 +36,7 @@
     {!!
         Form::select(
             'jefe_id',
-            select(\App\Models\User::jefes(), 'name'),
+            select(\App\Models\User::deUnidad($rrhhUnidad->id), 'name'),
             old('jefe_id', $rrhhUnidad->jefe_id ?? []),
             ['id'=>'jefe_id', 'class' => 'form-control select2-simple', 'multiple', 'style'=>'width: 100%']
         )

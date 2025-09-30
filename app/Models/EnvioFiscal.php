@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property string $nombre_tabla
@@ -55,8 +55,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereLibro($value)
  * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereNombreTabla($value)
- * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereNuemeroConstancia($value)
  * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereNumero($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereNumeroConstancia($value)
  * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereNumeroCuenta($value)
  * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereNumeroGestion($value)
  * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal whereResolucion($value)

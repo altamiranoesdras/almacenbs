@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read mixed $sub_total
  * @property-read \App\Models\Item $item
  * @property-read \App\Models\Kardex|null $kardex
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Kardex> $kardexs

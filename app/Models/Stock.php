@@ -41,7 +41,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|Stock newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Stock newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Stock onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Stock quedanMeses($meses)
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock quedanMeses($meses, $vencidos = false)
  * @method static \Illuminate\Database\Eloquent\Builder|Stock query()
  * @method static \Illuminate\Database\Eloquent\Builder|Stock vencidos()
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereBodegaId($value)

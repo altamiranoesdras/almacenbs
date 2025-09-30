@@ -34,6 +34,8 @@ use Spatie\Permission\Traits\HasRoles;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Bitacora> $bitacoras
+ * @property-read int|null $bitacoras_count
  * @property-read \App\Models\Bodega|null $bodega
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Compra1h> $compra1hs
  * @property-read int|null $compra1hs_count
@@ -82,6 +84,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $usersSolicita
  * @property-read int|null $users_solicita_count
  * @method static \Illuminate\Database\Eloquent\Builder|User admins()
+ * @method static \Illuminate\Database\Eloquent\Builder|User deUnidad($unidad_id)
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|User jefes()
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
@@ -112,8 +115,6 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Eloquent\Builder|User withoutPermission($permissions)
  * @method static \Illuminate\Database\Eloquent\Builder|User withoutRole($roles, $guard = null)
  * @method static \Illuminate\Database\Eloquent\Builder|User withoutTrashed()
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Bitacora> $bitacoras
- * @property-read int|null $bitacoras_count
  * @mixin \Eloquent
  */
 class User extends Authenticatable implements  HasMedia
@@ -470,6 +471,11 @@ class User extends Authenticatable implements  HasMedia
         return $this->where('puesto_id', RrhhPuesto::JEFE_UNIDAD);
 //            ->orWhere('puesto_id', RrhhPuesto::JEFE_DEPARTAMENTO_ALMACEN);
 
+    }
+
+    public function scopeDeUnidad($query, $unidad_id)
+    {
+        return $query->where('unidad_id', $unidad_id);
     }
 
 }

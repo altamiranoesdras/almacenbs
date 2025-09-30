@@ -46,6 +46,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read int|null $detalles_count
  * @property-read \App\Models\SolicitudEstado $estado
  * @property-read mixed $motivo_retorna
+ * @property-read float $total_detalles
  * @property-read \App\Models\RrhhUnidad|null $unidad
  * @property-read \App\Models\User|null $usuarioAprueba
  * @property-read \App\Models\User|null $usuarioAutoriza

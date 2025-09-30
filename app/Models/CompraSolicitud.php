@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property int|null $bodega_id
@@ -25,13 +25,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\Bodega|null $bodega
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraRequisicion\CompraRequisicion> $compraRequisiciones
- * @property-read int|null $compra_requisiciones_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraSolicitudDetalle> $detalles
  * @property-read int|null $detalles_count
  * @property-read \App\Models\CompraSolicitudEstado $estado
  * @property-read mixed $sub_total
  * @property-read mixed $total
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, CompraRequisicion> $requisiciones
+ * @property-read int|null $requisiciones_count
  * @property-read \App\Models\RrhhUnidad|null $unidad
  * @property-read \App\Models\User $usuarioSolicita
  * @property-read \App\Models\User|null $usuarioVerifica
