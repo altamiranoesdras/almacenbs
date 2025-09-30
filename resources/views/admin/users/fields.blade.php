@@ -23,7 +23,7 @@
         {!!
             Form::select(
                 'unidad_id',
-                select(\App\Models\RrhhUnidad::class)
+                select(\App\Models\RrhhUnidad::areas(), 'nombre_con_padre')
                 , $user->unidad_id ?? []
                 , ['id'=>'unidads','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
             )
