@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\EnvioFiscal;
 use App\Models\RrhhUnidad;
 use App\Models\Solicitud;
 use App\Models\SolicitudEstado;
@@ -61,6 +62,8 @@ class SolicitudFactory extends Factory
 
             'fecha_almacen_firma' => null,
             'fecha_informa' => null,
+
+            'envio_fiscal_id' => EnvioFiscal::SOLICITUD,
 
             'estado_id' => $this->faker->randomElement($estados),
             'created_at' => $this->faker->date('Y-m-d H:i:s'),

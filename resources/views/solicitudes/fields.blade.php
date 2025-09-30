@@ -59,8 +59,18 @@
                 Seguro que desea continuar?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
-{{--                <button type="submit" class="btn btn-primary" name="solicitar" value="1">--}}
+                <button
+                    type="button"
+                    class="btn btn-default"
+                    data-bs-dismiss="modal"
+                >
+                    NO
+                </button>
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    name="solicitar" value="1"
+                >
                     SI
                 </button>
             </div>

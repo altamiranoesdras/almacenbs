@@ -6,9 +6,11 @@ use App\Traits\HasBitacora;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use stdClass;
 
 /**
  * Class Solicitud
@@ -92,6 +94,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Solicitud whereUsuarioSolicita($value)
  * @method static Builder|Solicitud withTrashed()
  * @method static Builder|Solicitud withoutTrashed()
+ * @property int|null $envio_fiscal_id
+ * @property-read float $total_detalles
+ * @method static Builder|Solicitud whereEnvioFiscalId($value)
+ * @property-read \App\Models\EnvioFiscal|null $envioFiscal
+ * @property-read string $total_letras
  * @mixin \Eloquent
  */
 class Solicitud extends Model
@@ -142,7 +149,9 @@ class Solicitud extends Model
         'fecha_almacen_firma',
         'fecha_informa',
         'fecha_despacha',
-        'estado_id'
+        'estado_id',
+
+        'envio_fiscal_id',
     ];
 
     /**
@@ -264,6 +273,11 @@ class Solicitud extends Model
     public function bodega()
     {
         return $this->belongsTo(Bodega::class, 'bodega_id');
+    }
+
+    public function envioFiscal(): BelongsTo
+    {
+        return $this->belongsTo(EnvioFiscal::class, 'envio_fiscal_id');
     }
 
 
@@ -563,6 +577,18 @@ class Solicitud extends Model
     public function getTotalDetallesAttribute(): float
     {
         return $this->detalles->sum('sub_total');
+    }
+
+    public function getTotalLetrasAttribute(): string
+    {
+        $currency = new stdClass();
+
+        $currency->plural = 'QUETZALES';
+        $currency->singular = 'QUETZAL';
+        $currency->centPlural = 'CENTAVOS';
+        $currency->centSingular = 'CENTAVO';
+
+        return numALetrasConmoneda($this->total_detalles, $currency);
     }
 
 }

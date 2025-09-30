@@ -6,10 +6,10 @@ use App\DataTables\Scopes\ScopeSolicitudDataTable;
 use App\DataTables\SolicitudDataTable;
 use App\DataTables\SolicitudUserDataTable;
 use App\Events\EventoCambioEstadoSolicitud;
-use App\Http\Requests;
 use App\Http\Requests\CreateSolicitudRequest;
 use App\Http\Requests\UpdateSolicitudRequest;
 use App\Models\Bodega;
+use App\Models\EnvioFiscal;
 use App\Models\RrhhUnidad;
 use App\Models\Solicitud;
 use App\Models\SolicitudDetalle;
@@ -18,12 +18,9 @@ use App\Models\User;
 use App\Notifications\RequisicionSolicitidaNotificacion;
 use Carbon\Carbon;
 use Exception;
-use Flash;
-use App\Http\Controllers\AppBaseController;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
-use Response;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
+use Response;
 
 class SolicitudController extends AppBaseController
 {
@@ -248,6 +245,7 @@ class SolicitudController extends AppBaseController
             'usuario_solicita' => $request->usuario_solicita,
             'fecha_solicita' => Carbon::now(),
             'estado_id' => SolicitudEstado::SOLICITADA,
+            'envio_fiscal_id' => EnvioFiscal::SOLICITUD,
         ]);
 
 
@@ -423,7 +421,7 @@ class SolicitudController extends AppBaseController
 
         $view = view(config('impresos.requisiciones.solicitud.vista_pdf'), compact('solicitud'))->render();
 
-        $footer = view('solicitudes.despachar.pdf_footer',compact('solicitud'))->render();
+//        $footer = view('solicitudes.despachar.pdf_footer',compact('solicitud'))->render();
 
 //         return $view;
 //        dd($solicitud->toArray());
@@ -432,7 +430,7 @@ class SolicitudController extends AppBaseController
             ->setOption('page-width', 279)
             ->setOption('page-height', 216)
             ->setOrientation('landscape')
-            ->setOption('footer-html',utf8_decode($footer))
+//            ->setOption('footer-html',utf8_decode($footer))
             ->setOption('margin-top', 8)
             ->setOption('margin-bottom',10)
             ->setOption('margin-left',10)
@@ -449,30 +447,37 @@ class SolicitudController extends AppBaseController
             'detalles.item',
         ]);
 
+        $envioFiscal = $solicitud->envioFiscal;
         $pdf = App::make('snappy.pdf.wrapper');
 
         $view = view('solicitudes.despachar.pdfs.pdf_digital', compact('solicitud'))->render();
 
-        $footer = view('solicitudes.despachar.pdf_footer',compact('solicitud'))->render();
+        $footer = view('solicitudes.despachar.pdf_footer',compact('solicitud', 'envioFiscal'))->render();
 
-//         return $view;
-//        dd($solicitud->toArray());
+        $copias = 2;
+        $contenido = '';
+        for ($i = 1; $i <= $copias; $i++) {
+            $contenido .= $view;
 
-        $pdf->loadHTML($view)
-            ->setOption('page-width', 279)
-            ->setOption('page-height', 216)
-            ->setOrientation('landscape')
-            ->setOption('footer-html',utf8_decode($footer))
-            ->setOption('margin-top', 8)
-            ->setOption('margin-bottom',10)
-            ->setOption('margin-left',10)
-            ->setOption('margin-right',15);
+            if ($i < $copias) {
+                $contenido .= '<div style="page-break-after: always;"></div>';
+            }
+        }
+
+        $pdf->loadHTML($contenido)
+            ->setOption('footer-html', utf8_decode($footer))
+            ->setOption('page-width', 217)
+            ->setOption('page-height', 278)
+            ->setOrientation('portrait')
+            ->setOption('margin-top', 10)
+            ->setOption('margin-bottom', 90)
+            ->setOption('margin-left', 15)
+            ->setOption('margin-right', 15);
 
         return $pdf->inline('Despacho '.$solicitud->id. '_'. time().'.pdf');
 
 
     }
-
     public function enviarNotificacion()
     {
 
