@@ -73,7 +73,7 @@ class RrhhUnidad extends Model
     const UPDATED_AT = 'updated_at';
 
     const PRINCIPAL = 1;
-    const ALMACEN = 30;
+    const ALMACEN = 31;
 
 
     protected $dates = ['deleted_at'];

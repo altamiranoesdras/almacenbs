@@ -175,8 +175,8 @@ class UsersTableSeeder extends Seeder
                 'name' => $usuario['name'],
                 'email' => $usuario['email'],
                 'password' => bcrypt('Sbs2025**'),
-                'bodega_id' => Bodega::PRINCIPAL,
-                'unidad_id' => RrhhUnidad::all()->random()->id,
+                'bodega_id' => $usuario['bodega_id'],
+                'unidad_id' => $usuario['unidad_id'],
                 'puesto_id' => $usuario['puesto_id'],
             ])->each(function (User $user) {
                 $user->syncRoles(Role::ADMINISTRADOR_REQUISICION_ALMACEN);
