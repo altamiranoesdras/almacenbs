@@ -39,7 +39,7 @@ class MigrarDBaLocalComando extends Command
 
     private $directorioExtrae;
 
-    private $nombreAplicacionRemota = "Laravel";
+    private $nombreAplicacionRemota = "almacenbs";
 
     private $rutaAplicacion = "/var/www/almacenbs";
 
@@ -155,7 +155,7 @@ class MigrarDBaLocalComando extends Command
         }
 
         $nombreArchivo = $this->fechaBackup.".zip";
-        $rutaRemota = "$this->rutaAplicacion/storage/app/public/$this->nombreAplicacionRemota/".$nombreArchivo;
+        $rutaRemota = "$this->rutaAplicacion/storage/app/$this->nombreAplicacionRemota/".$nombreArchivo;
         $rutaLocal = $this->directorioDescarga."/".$nombreArchivo;
 
 
