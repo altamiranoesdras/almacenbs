@@ -267,6 +267,24 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     Route::get('reportes/items/vencen', [ReportesAlmacenController::class,'itemsAvencer'])->name('reportes.items.vencen');
 
+
+    Route::get('reportes/existencia-insumos', [ReportesAlmacenController::class,'existenciaInsumos'])->name('reportes.existencia.insumos');
+
+    // Nuevas rutas para los 12 reportes
+    Route::get('reportes/existencia-por-unidad-solicitante', [ReportesAlmacenController::class,'existenciaPorUnidadSolicitante'])->name('reportes.existencia.unidad.solicitante');
+    Route::get('reportes/existencia-por-subsecretaria', [ReportesAlmacenController::class,'existenciaPorSubsecretaria'])->name('reportes.existencia.subsecretaria');
+    Route::get('reportes/existencia-periodicas', [ReportesAlmacenController::class,'existenciaPeriodicas'])->name('reportes.existencia.periodicas');
+    Route::get('reportes/ingresos-egresos-diarios', [ReportesAlmacenController::class,'ingresosEgresosDiarios'])->name('reportes.ingresos.egresos.diarios');
+    Route::get('reportes/1h-elaborados-mensuales', [ReportesAlmacenController::class,'unoHElaboradosMensuales'])->name('reportes.1h.elaborados.mensuales');
+    Route::get('reportes/antiguedad-inventario', [ReportesAlmacenController::class,'antiguedadInventario'])->name('reportes.antiguedad.inventario');
+    Route::get('reportes/movimiento-por-tipo', [ReportesAlmacenController::class,'movimientoPorTipo'])->name('reportes.movimiento.por.tipo');
+    Route::get('reportes/movimientos-compra-por-proveedor', [ReportesAlmacenController::class,'movimientosCompraPorProveedor'])->name('reportes.movimientos.compra.proveedor');
+    Route::get('reportes/operaciones-por-empleado', [ReportesAlmacenController::class,'operacionesPorEmpleado'])->name('reportes.operaciones.por.empleado');
+    Route::get('reportes/registro-control-inventario', [ReportesAlmacenController::class,'registroControlInventario'])->name('reportes.registro.control.inventario');
+    Route::get('reportes/movimiento-salidas-por-unidad', [ReportesAlmacenController::class,'movimientoSalidasPorUnidad'])->name('reportes.movimiento.salidas.unidad');
+
+
+
     Route::get('compras/libro/almacen/pdf', [LibroAlamcenController::class,'pdf'])->name('compras.libro.almacen.pdf');
     Route::get('compras/libro/almacen', [LibroAlamcenController::class,'index'])->name('compras.libro.almacen');
 
