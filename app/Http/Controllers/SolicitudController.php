@@ -441,22 +441,53 @@ class SolicitudController extends AppBaseController
 
     }
 
+//    public function despachoPdfDigital(Solicitud $solicitud){
+//
+//        $solicitud->load([
+//            'detalles.item',
+//        ]);
+//
+//        $envioFiscal = $solicitud->envioFiscal;
+//        $pdf = App::make('snappy.pdf.wrapper');
+//
+//        $view = view('solicitudes.despachar.pdfs.pdf_digital', compact('solicitud'))->render();
+//
+//        $footer = view('solicitudes.despachar.pdf_footer',compact('solicitud', 'envioFiscal'))->render();
+//
+//        $copias = 2;
+//        $contenido = '';
+//        for ($i = 1; $i <= $copias; $i++) {
+//            $contenido .= $view;
+//
+//            if ($i < $copias) {
+//                $contenido .= '<div style="page-break-after: always;"></div>';
+//            }
+//        }
+//
+//        $pdf->loadHTML($contenido)
+//            ->setOption('footer-html', utf8_decode($footer))
+//            ->setOption('page-width', 217)
+//            ->setOption('page-height', 278)
+//            ->setOrientation('portrait')
+//            ->setOption('margin-top', 10)
+//            ->setOption('margin-bottom', 90)
+//            ->setOption('margin-left', 15)
+//            ->setOption('margin-right', 15);
+//
+//        return $pdf->inline('Despacho '.$solicitud->id. '_'. time().'.pdf');
+//
+//
+//    }
+
     public function despachoPdfDigital(Solicitud $solicitud){
-
-        $solicitud->load([
-            'detalles.item',
-        ]);
-
         $envioFiscal = $solicitud->envioFiscal;
         $pdf = App::make('snappy.pdf.wrapper');
-
-        $view = view('solicitudes.despachar.pdfs.pdf_digital', compact('solicitud'))->render();
-
-        $footer = view('solicitudes.despachar.pdf_footer',compact('solicitud', 'envioFiscal'))->render();
 
         $copias = 2;
         $contenido = '';
         for ($i = 1; $i <= $copias; $i++) {
+            $textoFooter = $i == 1 ? '- Original: Almacén -' : '- Duplicado: Solicitante -';
+            $view = view('solicitudes.despachar.pdfs.pdf_digital_con_footer', compact('solicitud', 'envioFiscal', 'textoFooter'))->render();
             $contenido .= $view;
 
             if ($i < $copias) {
@@ -465,12 +496,11 @@ class SolicitudController extends AppBaseController
         }
 
         $pdf->loadHTML($contenido)
-            ->setOption('footer-html', utf8_decode($footer))
             ->setOption('page-width', 217)
             ->setOption('page-height', 278)
             ->setOrientation('portrait')
             ->setOption('margin-top', 10)
-            ->setOption('margin-bottom', 90)
+            ->setOption('margin-bottom', 10)
             ->setOption('margin-left', 15)
             ->setOption('margin-right', 15);
 

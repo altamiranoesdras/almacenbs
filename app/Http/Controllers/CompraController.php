@@ -477,7 +477,7 @@ class CompraController extends AppBaseController
         $copias = 2;
         $contenido = '';
         for ($i = 1; $i <= $copias; $i++) {
-            $textoFooter = $i == 1 ? '- Original: Contabilidad -' : '- Duplicado: Almacen -';
+            $textoFooter = $i == 1 ? '- Original: Contabilidad -' : '- Duplicado: Almacén -';
             $view = view('compras.pdfH1_digital_con_footer', compact('compra', 'envioFiscal', 'textoFooter'))->render();
             $contenido .= $view;
 
