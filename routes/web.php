@@ -395,8 +395,14 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     })->name('enviar.correo');
 
 
-    Route::resource('red-produccion-resultados', App\Http\Controllers\RedProduccionResultadoController::class);
-    Route::resource('estructura-presupuestaria-programas', App\Http\Controllers\EstructuraPresupuestariaProgramaController::class);
+
+    Route::group(['prefix' => 'red-produccion','as' =>'red-produccion.'], function () {
+        Route::resource('resultados', App\Http\Controllers\RedProduccionResultadoController::class);
+    });
+
+    Route::group(['prefix' => 'estructura-presupuestaria','as' =>'estructura-presupuestaria.'], function () {
+        Route::resource('programas', App\Http\Controllers\EstructuraPresupuestariaProgramaController::class);
+    });
 
 });
 

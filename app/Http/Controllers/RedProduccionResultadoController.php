@@ -48,7 +48,7 @@ class RedProduccionResultadoController extends AppBaseController
 
         flash()->success('Red Produccion Resultado guardado.');
 
-        return redirect(route('redProduccionResultados.index'));
+        return redirect(route('red-produccion.resultados.index'));
     }
 
     /**
@@ -62,7 +62,7 @@ class RedProduccionResultadoController extends AppBaseController
         if (empty($redProduccionResultado)) {
             flash()->error('Red Produccion Resultado no encontrado');
 
-            return redirect(route('redProduccionResultados.index'));
+            return redirect(route('red-produccion.resultados.index'));
         }
 
         return view('red_produccion_resultados.show')->with('redProduccionResultado', $redProduccionResultado);
@@ -79,7 +79,7 @@ class RedProduccionResultadoController extends AppBaseController
         if (empty($redProduccionResultado)) {
             flash()->error('Red Produccion Resultado no encontrado');
 
-            return redirect(route('redProduccionResultados.index'));
+            return redirect(route('red-produccion.resultados.index'));
         }
 
         return view('red_produccion_resultados.edit')->with('redProduccionResultado', $redProduccionResultado);
@@ -96,7 +96,7 @@ class RedProduccionResultadoController extends AppBaseController
         if (empty($redProduccionResultado)) {
             flash()->error('Red Produccion Resultado no encontrado');
 
-            return redirect(route('redProduccionResultados.index'));
+            return redirect(route('red-produccion.resultados.index'));
         }
 
         $redProduccionResultado->fill($request->all());
@@ -104,7 +104,7 @@ class RedProduccionResultadoController extends AppBaseController
 
         flash()->success('Red Produccion Resultado actualizado.');
 
-        return redirect(route('redProduccionResultados.index'));
+        return redirect(route('red-produccion.resultados.index'));
     }
 
     /**
@@ -120,13 +120,13 @@ class RedProduccionResultadoController extends AppBaseController
         if (empty($redProduccionResultado)) {
             flash()->error('Red Produccion Resultado no encontrado');
 
-            return redirect(route('redProduccionResultados.index'));
+            return redirect(route('red-produccion.resultados.index'));
         }
 
         $redProduccionResultado->delete();
 
         flash()->success('Red Produccion Resultado eliminado.');
 
-        return redirect(route('redProduccionResultados.index'));
+        return redirect(route('red-produccion.resultados.index'));
     }
 }

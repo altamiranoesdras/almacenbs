@@ -48,7 +48,7 @@ class EstructuraPresupuestariaProgramaController extends AppBaseController
 
         flash()->success('Estructura Presupuestaria Programa guardado.');
 
-        return redirect(route('estructuraPresupuestariaProgramas.index'));
+        return redirect(route('estructura-presupuestaria.programas.index'));
     }
 
     /**
@@ -62,7 +62,7 @@ class EstructuraPresupuestariaProgramaController extends AppBaseController
         if (empty($estructuraPresupuestariaPrograma)) {
             flash()->error('Estructura Presupuestaria Programa no encontrado');
 
-            return redirect(route('estructuraPresupuestariaProgramas.index'));
+            return redirect(route('estructura-presupuestaria.programas.index'));
         }
 
         return view('estructura_presupuestaria_programas.show')->with('estructuraPresupuestariaPrograma', $estructuraPresupuestariaPrograma);
@@ -79,7 +79,7 @@ class EstructuraPresupuestariaProgramaController extends AppBaseController
         if (empty($estructuraPresupuestariaPrograma)) {
             flash()->error('Estructura Presupuestaria Programa no encontrado');
 
-            return redirect(route('estructuraPresupuestariaProgramas.index'));
+            return redirect(route('estructura-presupuestaria.programas.index'));
         }
 
         return view('estructura_presupuestaria_programas.edit')->with('estructuraPresupuestariaPrograma', $estructuraPresupuestariaPrograma);
@@ -96,7 +96,7 @@ class EstructuraPresupuestariaProgramaController extends AppBaseController
         if (empty($estructuraPresupuestariaPrograma)) {
             flash()->error('Estructura Presupuestaria Programa no encontrado');
 
-            return redirect(route('estructuraPresupuestariaProgramas.index'));
+            return redirect(route('estructura-presupuestaria.programas.index'));
         }
 
         $estructuraPresupuestariaPrograma->fill($request->all());
@@ -104,7 +104,7 @@ class EstructuraPresupuestariaProgramaController extends AppBaseController
 
         flash()->success('Estructura Presupuestaria Programa actualizado.');
 
-        return redirect(route('estructuraPresupuestariaProgramas.index'));
+        return redirect(route('estructura-presupuestaria.programas.index'));
     }
 
     /**
@@ -120,13 +120,13 @@ class EstructuraPresupuestariaProgramaController extends AppBaseController
         if (empty($estructuraPresupuestariaPrograma)) {
             flash()->error('Estructura Presupuestaria Programa no encontrado');
 
-            return redirect(route('estructuraPresupuestariaProgramas.index'));
+            return redirect(route('estructura-presupuestaria.programas.index'));
         }
 
         $estructuraPresupuestariaPrograma->delete();
 
         flash()->success('Estructura Presupuestaria Programa eliminado.');
 
-        return redirect(route('estructuraPresupuestariaProgramas.index'));
+        return redirect(route('estructura-presupuestaria.programas.index'));
     }
 }

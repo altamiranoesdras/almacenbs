@@ -1,11 +1,11 @@
 @can('Ver Red Produccion Resultados')
-    <a href="{{ route('redProduccionResultados.show', $id) }}" data-toggle="tooltip" title="Ver" class='btn btn-icon btn-flat-secondary rounded-circle'>
+    <a href="{{ route('red-produccion.resultados.show', $id) }}" data-toggle="tooltip" title="Ver" class='btn btn-icon btn-flat-secondary rounded-circle'>
         <i class="fa fa-eye"></i>
     </a>
 @endcan
 
 @can('Editar Red Produccion Resultados')
-    <a href="{{ route('redProduccionResultados.edit', $id) }}" data-toggle="tooltip" title="Editar" class='btn btn-icon btn-flat-info rounded-circle'>
+    <a href="{{ route('red-produccion.resultados.edit', $id) }}" data-toggle="tooltip" title="Editar" class='btn btn-icon btn-flat-info rounded-circle'>
         <i class="fa fa-edit"></i>
     </a>
 @endcan
@@ -16,7 +16,7 @@
     </a>
 
 
-    <form action="{{ route('redProduccionResultados.destroy', $id) }}" method="POST" id="delete-form{{ $id }}">
+    <form action="{{ route('red-produccion.resultados.destroy', $id) }}" method="POST" id="delete-form{{ $id }}">
         @method('DELETE')
         @csrf
     </form>

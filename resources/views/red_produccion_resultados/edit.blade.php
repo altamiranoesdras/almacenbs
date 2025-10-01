@@ -37,7 +37,7 @@
 
                 <div class="card">
 
-                    {!! Form::model($redProduccionResultado, ['route' => ['redProduccionResultados.update', $redProduccionResultado->id], 'method' => 'patch','class' => 'esperar']) !!}
+                    {!! Form::model($redProduccionResultado, ['route' => ['red-produccion.resultados.update', $redProduccionResultado->id], 'method' => 'patch','class' => 'esperar']) !!}
 
                     <div class="card-body">
                         <div class="row">
@@ -47,7 +47,7 @@
 
                     <div class="card-footer text-end">
 
-                        <a href="{{ route('redProduccionResultados.index') }}"
+                        <a href="{{ route('red-produccion.resultados.index') }}"
                            class="btn btn-outline-secondary round me-1">
                             <i class="fa fa-ban"></i>
                             Cancelar

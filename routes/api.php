@@ -260,11 +260,15 @@ Route::group(['as'=>'api.'], function () {
         Route::resource('envio-fiscals', EnvioFiscalAPIController::class)
             ->except(['create', 'edit']);
 
-        Route::resource('red-produccion-resultados', App\Http\Controllers\API\RedProduccionResultadoAPIController::class)
-            ->except(['create', 'edit']);
 
-        Route::resource('estructura-presupuestaria-programas', App\Http\Controllers\API\EstructuraPresupuestariaProgramaAPIController::class)
-            ->except(['create', 'edit']);
+
+        Route::group(['prefix' => 'red-produccion','as' =>'red.produccion.'], function () {
+            Route::resource('resultados', App\Http\Controllers\RedProduccionResultadoController::class);
+        });
+
+        Route::group(['prefix' => 'estructura-presupuestaria','as' =>'estructura.presupuestaria.'], function () {
+            Route::resource('programas', App\Http\Controllers\EstructuraPresupuestariaProgramaController::class);
+        });
 
     });
 

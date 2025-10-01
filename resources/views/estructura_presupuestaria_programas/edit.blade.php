@@ -37,7 +37,7 @@
 
                 <div class="card">
 
-                    {!! Form::model($estructuraPresupuestariaPrograma, ['route' => ['estructuraPresupuestariaProgramas.update', $estructuraPresupuestariaPrograma->id], 'method' => 'patch','class' => 'esperar']) !!}
+                    {!! Form::model($estructuraPresupuestariaPrograma, ['route' => ['estructura-presupuestaria.programas.update', $estructuraPresupuestariaPrograma->id], 'method' => 'patch','class' => 'esperar']) !!}
 
                     <div class="card-body">
                         <div class="row">
@@ -47,7 +47,7 @@
 
                     <div class="card-footer text-end">
 
-                        <a href="{{ route('estructuraPresupuestariaProgramas.index') }}"
+                        <a href="{{ route('estructura-presupuestaria.programas.index') }}"
                            class="btn btn-outline-secondary round me-1">
                             <i class="fa fa-ban"></i>
                             Cancelar
