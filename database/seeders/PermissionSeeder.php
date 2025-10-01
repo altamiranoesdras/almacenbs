@@ -150,6 +150,11 @@ class PermissionSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'Editar Red Producción Resultados']);
         Permission::firstOrCreate(['name' => 'Eliminar Red Producción Resultados']);
 
+        Permission::firstOrCreate(['name' => 'Ver Estructura Presupuestaria Programas']);
+        Permission::firstOrCreate(['name' => 'Crear Estructura Presupuestaria Programas']);
+        Permission::firstOrCreate(['name' => 'Editar Estructura Presupuestaria Programas']);
+        Permission::firstOrCreate(['name' => 'Eliminar Estructura Presupuestaria Programas']);
+
 
 
     }
