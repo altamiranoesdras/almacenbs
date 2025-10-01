@@ -68,8 +68,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ConsumoEstadosTableSeeder::class);
         $this->call(ItemPresentacionesTableSeeder::class);
 
-        $this->call(ItemCategoriaTableSeeder::class);
-        $this->importarInsumos();
+        $this->call(ItemCategoriasTableSeeder::class);
 
         $this->call(CompraSolicitudEstadosTableSeeder::class);
 
@@ -80,17 +79,18 @@ class DatabaseSeeder extends Seeder
         $this->call(CompraRequisicionProcesoTiposTableSeeder::class);
         $this->call(CompraRequisicionTipoConcursosTableSeeder::class);
         $this->call(CompraRequisicionTipoAdquisicionsTableSeeder::class);
+        $this->importarInsumos();
 
 
 
 
         if(app()->environment()=='local'){
 
-            $this->call(ComprasSeeder::class);
-            $this->call(SolicitudesTableSeeder::class);
-            $this->call(CompraSolicitudsTableSeeder::class);
-            $this->call(CompraRequisicionesTableSeeder::class);
-            $this->call(MediaTableSeeder::class);
+//            $this->call(ComprasSeeder::class);
+//            $this->call(SolicitudesTableSeeder::class);
+//            $this->call(CompraSolicitudsTableSeeder::class);
+//            $this->call(CompraRequisicionesTableSeeder::class);
+//            $this->call(MediaTableSeeder::class);
 
 //            $this->call(ConsumosTableSeeder::class);
 ////            $this->call(ActivosTableSeeder::class);

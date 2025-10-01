@@ -654,7 +654,7 @@ class Item extends Model implements HasMedia
         return $this->compraDetalles->count() == 0;
     }
 
-    public function actualizaOregistraStcokInicial($cantidad,$fechaVence = null)
+    public function actualizaOregistraStcokInicial($cantidad,$fechaVence = null,$rrhhUnidadId = null)
     {
 
 
@@ -668,6 +668,7 @@ class Item extends Model implements HasMedia
         $stock =  $this->stocks
             ->where('precio_compra',$this->precio_compra)
             ->where('bodega_id',Bodega::PRINCIPAL)
+            ->where('unidad_id',$rrhhUnidadId)
             ->sortBy('orden_salida')
             ->sortBy('fecha_vence')
             ->sortBy('created_at')
@@ -690,6 +691,7 @@ class Item extends Model implements HasMedia
                 'lote' =>  null,
                 'precio_compra' => $this->precio_compra,
                 'fecha_vence' => $fechaVence,
+                'unidad_id' => $rrhhUnidadId,
                 'cantidad' =>  $cantidad,
                 'cantidad_inicial' =>  $cantidad,
                 'orden_salida' => 0

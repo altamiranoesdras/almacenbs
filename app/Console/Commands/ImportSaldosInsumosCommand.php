@@ -80,7 +80,16 @@ class ImportSaldosInsumosCommand extends Command
 
         }
 
-        $this->fin($import->errores);
+        $this->fin();
+
+        $this->line("Errores encontrados: ".$import->errores->count());
+        foreach ($import->errores as $error){
+            $this->line($error);
+        }
+
+        $this->line("Insumos procesados: ".$import->acutalizados+$import->nuevos);
+        $this->line("Insumos actualizados: ".$import->acutalizados);
+        $this->line("Insumos nuevos: ".$import->nuevos);
 
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
