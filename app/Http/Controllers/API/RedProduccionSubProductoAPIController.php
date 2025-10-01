@@ -31,7 +31,7 @@ class RedProduccionSubProductoAPIController extends AppBaseController
 
         $redProduccionSubProductos = $query->get();
 
-        return $this->sendResponse($redProduccionSubProductos->toArray(), 'Red Produccion Sub Productos ');
+        return $this->sendResponse($redProduccionSubProductos->toArray(), 'Red Producción Sub Productos ');
     }
 
     /**
@@ -45,7 +45,7 @@ class RedProduccionSubProductoAPIController extends AppBaseController
         /** @var RedProduccionSubProducto $redProduccionSubProducto */
         $redProduccionSubProducto = RedProduccionSubProducto::create($input);
 
-        return $this->sendResponse($redProduccionSubProducto->toArray(), 'Red Produccion Sub Producto guardado');
+        return $this->sendResponse($redProduccionSubProducto->toArray(), 'Red Producción Sub Producto guardado');
     }
 
     /**
@@ -58,10 +58,10 @@ class RedProduccionSubProductoAPIController extends AppBaseController
         $redProduccionSubProducto = RedProduccionSubProducto::find($id);
 
         if (empty($redProduccionSubProducto)) {
-            return $this->sendError('Red Produccion Sub Producto no encontrado');
+            return $this->sendError('Red Producción Sub Producto no encontrado');
         }
 
-        return $this->sendResponse($redProduccionSubProducto->toArray(), 'Red Produccion Sub Producto ');
+        return $this->sendResponse($redProduccionSubProducto->toArray(), 'Red Producción Sub Producto ');
     }
 
     /**
@@ -74,7 +74,7 @@ class RedProduccionSubProductoAPIController extends AppBaseController
         $redProduccionSubProducto = RedProduccionSubProducto::find($id);
 
         if (empty($redProduccionSubProducto)) {
-            return $this->sendError('Red Produccion Sub Producto no encontrado');
+            return $this->sendError('Red Producción Sub Producto no encontrado');
         }
 
         $redProduccionSubProducto->fill($request->all());
@@ -95,11 +95,11 @@ class RedProduccionSubProductoAPIController extends AppBaseController
         $redProduccionSubProducto = RedProduccionSubProducto::find($id);
 
         if (empty($redProduccionSubProducto)) {
-            return $this->sendError('Red Produccion Sub Producto no encontrado');
+            return $this->sendError('Red Producción Sub Producto no encontrado');
         }
 
         $redProduccionSubProducto->delete();
 
-        return $this->sendSuccess('Red Produccion Sub Producto eliminado');
+        return $this->sendSuccess('Red Producción Sub Producto eliminado');
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('titulo_pagina', 'Crear Red Produccion Resultado')
+@section('titulo_pagina', 'Crear Red Producción Resultado')
 
 @section('content')
 
@@ -10,7 +10,7 @@
             <div class="row breadcrumbs-top">
                 <div class="col-12">
                     <h2 class="content-header-title float-start mb-0">
-                        Crear Red Produccion Resultado
+                        Crear Red Producción Resultado
                     </h2>
                 </div>
             </div>

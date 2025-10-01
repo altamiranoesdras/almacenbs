@@ -14,10 +14,10 @@ class RedProduccionResultadoController extends AppBaseController
 
     public function __construct()
     {
-        $this->middleware('permission:Ver Red Produccion Resultados')->only('show');
-        $this->middleware('permission:Crear Red Produccion Resultados')->only(['create','store']);
-        $this->middleware('permission:Editar Red Produccion Resultados')->only(['edit','update']);
-        $this->middleware('permission:Eliminar Red Produccion Resultados')->only('destroy');
+        $this->middleware('permission:Ver Red Producción Resultados')->only('show');
+        $this->middleware('permission:Crear Red Producción Resultados')->only(['create','store']);
+        $this->middleware('permission:Editar Red Producción Resultados')->only(['edit','update']);
+        $this->middleware('permission:Eliminar Red Producción Resultados')->only('destroy');
     }
     /**
      * Display a listing of the RedProduccionResultado.
@@ -46,7 +46,7 @@ class RedProduccionResultadoController extends AppBaseController
         /** @var RedProduccionResultado $redProduccionResultado */
         $redProduccionResultado = RedProduccionResultado::create($input);
 
-        flash()->success('Red Produccion Resultado guardado.');
+        flash()->success('Red Producción Resultado guardado.');
 
         return redirect(route('red-produccion.resultados.index'));
     }
@@ -60,7 +60,7 @@ class RedProduccionResultadoController extends AppBaseController
         $redProduccionResultado = RedProduccionResultado::find($id);
 
         if (empty($redProduccionResultado)) {
-            flash()->error('Red Produccion Resultado no encontrado');
+            flash()->error('Red Producción Resultado no encontrado');
 
             return redirect(route('red-produccion.resultados.index'));
         }
@@ -77,7 +77,7 @@ class RedProduccionResultadoController extends AppBaseController
         $redProduccionResultado = RedProduccionResultado::find($id);
 
         if (empty($redProduccionResultado)) {
-            flash()->error('Red Produccion Resultado no encontrado');
+            flash()->error('Red Producción Resultado no encontrado');
 
             return redirect(route('red-produccion.resultados.index'));
         }
@@ -94,7 +94,7 @@ class RedProduccionResultadoController extends AppBaseController
         $redProduccionResultado = RedProduccionResultado::find($id);
 
         if (empty($redProduccionResultado)) {
-            flash()->error('Red Produccion Resultado no encontrado');
+            flash()->error('Red Producción Resultado no encontrado');
 
             return redirect(route('red-produccion.resultados.index'));
         }
@@ -102,7 +102,7 @@ class RedProduccionResultadoController extends AppBaseController
         $redProduccionResultado->fill($request->all());
         $redProduccionResultado->save();
 
-        flash()->success('Red Produccion Resultado actualizado.');
+        flash()->success('Red Producción Resultado actualizado.');
 
         return redirect(route('red-produccion.resultados.index'));
     }
@@ -118,14 +118,14 @@ class RedProduccionResultadoController extends AppBaseController
         $redProduccionResultado = RedProduccionResultado::find($id);
 
         if (empty($redProduccionResultado)) {
-            flash()->error('Red Produccion Resultado no encontrado');
+            flash()->error('Red Producción Resultado no encontrado');
 
             return redirect(route('red-produccion.resultados.index'));
         }
 
         $redProduccionResultado->delete();
 
-        flash()->success('Red Produccion Resultado eliminado.');
+        flash()->success('Red Producción Resultado eliminado.');
 
         return redirect(route('red-produccion.resultados.index'));
     }

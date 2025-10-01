@@ -31,7 +31,7 @@ class RedProduccionResultadoAPIController extends AppBaseController
 
         $redProduccionResultados = $query->get();
 
-        return $this->sendResponse($redProduccionResultados->toArray(), 'Red Produccion Resultados ');
+        return $this->sendResponse($redProduccionResultados->toArray(), 'Red Producción Resultados ');
     }
 
     /**
@@ -45,7 +45,7 @@ class RedProduccionResultadoAPIController extends AppBaseController
         /** @var RedProduccionResultado $redProduccionResultado */
         $redProduccionResultado = RedProduccionResultado::create($input);
 
-        return $this->sendResponse($redProduccionResultado->toArray(), 'Red Produccion Resultado guardado');
+        return $this->sendResponse($redProduccionResultado->toArray(), 'Red Producción Resultado guardado');
     }
 
     /**
@@ -58,10 +58,10 @@ class RedProduccionResultadoAPIController extends AppBaseController
         $redProduccionResultado = RedProduccionResultado::find($id);
 
         if (empty($redProduccionResultado)) {
-            return $this->sendError('Red Produccion Resultado no encontrado');
+            return $this->sendError('Red Producción Resultado no encontrado');
         }
 
-        return $this->sendResponse($redProduccionResultado->toArray(), 'Red Produccion Resultado ');
+        return $this->sendResponse($redProduccionResultado->toArray(), 'Red Producción Resultado ');
     }
 
     /**
@@ -74,7 +74,7 @@ class RedProduccionResultadoAPIController extends AppBaseController
         $redProduccionResultado = RedProduccionResultado::find($id);
 
         if (empty($redProduccionResultado)) {
-            return $this->sendError('Red Produccion Resultado no encontrado');
+            return $this->sendError('Red Producción Resultado no encontrado');
         }
 
         $redProduccionResultado->fill($request->all());
@@ -95,11 +95,11 @@ class RedProduccionResultadoAPIController extends AppBaseController
         $redProduccionResultado = RedProduccionResultado::find($id);
 
         if (empty($redProduccionResultado)) {
-            return $this->sendError('Red Produccion Resultado no encontrado');
+            return $this->sendError('Red Producción Resultado no encontrado');
         }
 
         $redProduccionResultado->delete();
 
-        return $this->sendSuccess('Red Produccion Resultado eliminado');
+        return $this->sendSuccess('Red Producción Resultado eliminado');
     }
 }

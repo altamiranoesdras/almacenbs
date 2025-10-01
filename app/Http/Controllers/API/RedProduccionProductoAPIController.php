@@ -31,7 +31,7 @@ class RedProduccionProductoAPIController extends AppBaseController
 
         $redProduccionProductos = $query->get();
 
-        return $this->sendResponse($redProduccionProductos->toArray(), 'Red Produccion Productos ');
+        return $this->sendResponse($redProduccionProductos->toArray(), 'Red Producción Productos ');
     }
 
     /**
@@ -45,7 +45,7 @@ class RedProduccionProductoAPIController extends AppBaseController
         /** @var RedProduccionProducto $redProduccionProducto */
         $redProduccionProducto = RedProduccionProducto::create($input);
 
-        return $this->sendResponse($redProduccionProducto->toArray(), 'Red Produccion Producto guardado');
+        return $this->sendResponse($redProduccionProducto->toArray(), 'Red Producción Producto guardado');
     }
 
     /**
@@ -58,10 +58,10 @@ class RedProduccionProductoAPIController extends AppBaseController
         $redProduccionProducto = RedProduccionProducto::find($id);
 
         if (empty($redProduccionProducto)) {
-            return $this->sendError('Red Produccion Producto no encontrado');
+            return $this->sendError('Red Producción Producto no encontrado');
         }
 
-        return $this->sendResponse($redProduccionProducto->toArray(), 'Red Produccion Producto ');
+        return $this->sendResponse($redProduccionProducto->toArray(), 'Red Producción Producto ');
     }
 
     /**
@@ -74,7 +74,7 @@ class RedProduccionProductoAPIController extends AppBaseController
         $redProduccionProducto = RedProduccionProducto::find($id);
 
         if (empty($redProduccionProducto)) {
-            return $this->sendError('Red Produccion Producto no encontrado');
+            return $this->sendError('Red Producción Producto no encontrado');
         }
 
         $redProduccionProducto->fill($request->all());
@@ -95,11 +95,11 @@ class RedProduccionProductoAPIController extends AppBaseController
         $redProduccionProducto = RedProduccionProducto::find($id);
 
         if (empty($redProduccionProducto)) {
-            return $this->sendError('Red Produccion Producto no encontrado');
+            return $this->sendError('Red Producción Producto no encontrado');
         }
 
         $redProduccionProducto->delete();
 
-        return $this->sendSuccess('Red Produccion Producto eliminado');
+        return $this->sendSuccess('Red Producción Producto eliminado');
     }
 }

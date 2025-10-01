@@ -145,6 +145,11 @@ class PermissionSeeder extends Seeder
 
         Permission::firstOrCreate(['name' => 'Puede procesar ingreso de compra']);
 
+        Permission::firstOrCreate(['name' => 'Ver Red Producción Resultados']);
+        Permission::firstOrCreate(['name' => 'Crear Red Producción Resultados']);
+        Permission::firstOrCreate(['name' => 'Editar Red Producción Resultados']);
+        Permission::firstOrCreate(['name' => 'Eliminar Red Producción Resultados']);
+
 
 
     }
