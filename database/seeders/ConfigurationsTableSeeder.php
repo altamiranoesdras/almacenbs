@@ -119,6 +119,16 @@ class ConfigurationsTableSeeder extends Seeder
                 'updated_at' => '2021-07-16 09:30:10',
                 'deleted_at' => NULL,
             ),
+            10 =>
+            array (
+                'id' => 11,
+                'key' => 'app.desglosar_activos_fijos_1h',
+                'value' => '0',
+                'descripcion' => '',
+                'created_at' => NULL,
+                'updated_at' => NULL,
+                'deleted_at' => NULL,
+            ),
         ));
 
 

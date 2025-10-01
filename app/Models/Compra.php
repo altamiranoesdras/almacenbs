@@ -513,8 +513,9 @@ class Compra extends Model
             foreach ($this->detalles as $detalle) {
 
 
-                if ($detalle->item->tipo_id == ItemTipo::ACTIVO_FIJO) {
+                if ($detalle->item->esActivoFijo() && configuracion()->desglosarActivosFijos1h()) {
 
+                    // crear un detalle por cada activo fijo
                     for ($i = 0; $i < $detalle->cantidad; $i++) {
 
                         $compra1hDetalle = Compra1hDetalle::create([

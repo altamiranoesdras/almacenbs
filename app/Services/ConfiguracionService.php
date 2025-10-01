@@ -46,4 +46,10 @@ class ConfiguracionService
         return config('app.mail_negocio');
     }
 
+    public function desglosarActivosFijos1h()
+    {
+        return (bool) config('app.desglosar_activos_fijos_1h', false);
+
+    }
+
 }

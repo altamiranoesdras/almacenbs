@@ -802,4 +802,9 @@ class Item extends Model implements HasMedia
         return $this->tipo_id == ItemTipo::MATERIALES_SUMINISTROS;
     }
 
+    public function esActivoFijo()
+    {
+        return $this->tipo_id == ItemTipo::ACTIVO_FIJO;
+    }
+
 }
