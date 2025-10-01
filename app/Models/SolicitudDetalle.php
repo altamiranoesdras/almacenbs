@@ -144,6 +144,7 @@ class SolicitudDetalle extends Model
 
         $stocks = $this->item->stocks
             ->where('bodega_id',Bodega::PRINCIPAL)
+            ->where('unidad_id',$this->solicitud->unidad_id)
             ->where('cantidad','>',0)
             ->sortBy('orden_salida')
             ->sortBy('fecha_vence')
