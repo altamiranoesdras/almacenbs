@@ -120,7 +120,7 @@
 <!-- Detalle de insumos -->
 <table class="table table-sm" id="tablaDetalles">
     <thead>
-        <tr>
+        <tr style="border-right: 1px black solid ">
             {{--        <td style="border: none; padding: 7px;">Numero</td>--}}
             <th width="5%">RENGLÓN</th>
             <th width="65%">DESCRIPCION DEL PRODUCTO</th>
@@ -240,8 +240,8 @@
             </td>
             <td style="width: 15%; border: none; text-align: center;"></td>
         </tr>
-        <tr>
-            <td colspan="3" style="width: 100%; border: none; text-align: center; color: #cd0303; font-weight: bold">
+        <tr style="height: 60px">
+            <td  colspan="3" style="width: 100%; border: none; text-align: center; color: #cd0303; font-weight: bold; vertical-align: middle;">
                 <h3>{{ $textoFooter }}</h3></td>
         </tr>
     </table>
