@@ -394,6 +394,10 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
         return "Correo enviado a {$user->email}";
     })->name('enviar.correo');
 
+
+    Route::resource('red-produccion-resultados', App\Http\Controllers\RedProduccionResultadoController::class);
+    Route::resource('estructura-presupuestaria-programas', App\Http\Controllers\EstructuraPresupuestariaProgramaController::class);
+
 });
 
 
