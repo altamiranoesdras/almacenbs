@@ -66,7 +66,7 @@ class ItemCategoriaDataTable extends DataTable
             ->language(['url' => asset('js/SpanishDataTables.json')])
             ->responsive(true)
             ->stateSave(false)
-            ->orderBy(1,'desc')
+            ->orderBy(0,'asc')
             ->dom('
                     <"card-header border-bottom p-1"
                         <"head-label">
@@ -118,6 +118,7 @@ class ItemCategoriaDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            Column::make('id'),
             Column::make('nombre'),
             Column::make('descripcion'),
             Column::computed('action')
