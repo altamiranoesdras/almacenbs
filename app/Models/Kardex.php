@@ -346,7 +346,11 @@ class Kardex extends Model
         }
 
         if ($this->model instanceof Stock){
-            return "Stock inicial de ".$this->model->bodega->nombre;
+            if ($this->responsable){
+                return $this->responsable;
+            }else{
+                return "Stock inicial de ".$this->model->bodega->nombre;
+            }
         }
 
         if ($this->model instanceof SolicitudDetalle){
