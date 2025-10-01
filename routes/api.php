@@ -263,17 +263,25 @@ Route::group(['as'=>'api.'], function () {
 
 
         Route::group(['prefix' => 'red-produccion','as' =>'red.produccion.'], function () {
-            Route::resource('resultados', App\Http\Controllers\RedProduccionResultadoController::class);
+            Route::resource('resultados', App\Http\Controllers\RedProduccionResultadoController::class)
+                ->except(['create', 'edit']);
+            Route::resource('productos', App\Http\Controllers\API\RedProduccionProductoAPIController::class)
+                ->except(['create', 'edit']);
+            Route::resource('sub-productos', App\Http\Controllers\API\RedProduccionSubProductoAPIController::class)
+                ->except(['create', 'edit']);
         });
 
         Route::group(['prefix' => 'estructura-presupuestaria','as' =>'estructura.presupuestaria.'], function () {
-            Route::resource('programas', App\Http\Controllers\EstructuraPresupuestariaProgramaController::class);
+            Route::resource('programas', App\Http\Controllers\EstructuraPresupuestariaProgramaController::class)
+                ->except(['create', 'edit']);
         });
 
     });
 
 
 });
+
+
 
 
 
