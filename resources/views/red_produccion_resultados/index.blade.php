@@ -29,12 +29,12 @@
 
 
 
-    <div class="content-body">
+    <div class="content-body" id="root">
 
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    @include('red_produccion_resultados.table')
+
                 </div>
             </div>
         </div>
@@ -42,3 +42,21 @@
     </div>
 
 @endsection
+
+@push('scripts')
+<script>
+    const app = new Vue({
+        el: '#root',
+        nam: 'root',
+        created() {
+
+        },
+        data: {
+
+        },
+        methods: {
+
+        }
+    });
+</script>
+@endpush

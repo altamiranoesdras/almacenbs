@@ -6,15 +6,16 @@ use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\SoftDeletes;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class RedProduccionResultado extends Model
+class EstructuraPresupuestariaActividad extends Model
 {
 
     use SoftDeletes;
     use HasFactory;
 
-    public $table = 'red_produccion_resultados';
+    public $table = 'estructura_presupuestaria_actividades';
 
     public $fillable = [
+        'proyecto_id',
         'codigo',
         'nombre',
         'descripcion'
@@ -27,6 +28,7 @@ class RedProduccionResultado extends Model
     ];
 
     public static $rules = [
+        'proyecto_id' => 'required',
         'codigo' => 'required|string|max:255',
         'nombre' => 'required|string|max:255',
         'descripcion' => 'nullable|string|max:65535',
@@ -39,13 +41,13 @@ class RedProduccionResultado extends Model
 
     ];
 
-    public function productos(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function proyecto(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->hasMany(\App\Models\RedProduccionProducto::class, 'resultado_id');
+        return $this->belongsTo(\App\Models\EstructuraPresupuestariaProyecto::class, 'proyecto_id');
     }
 
-    public function subProgramas(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function redProduccionProductos(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(\App\Models\EstructuraPresupuestariaSubprograma::class, 'red_produccion_resultado_subprograma');
+        return $this->belongsToMany(\App\Models\RedProduccionProducto::class, 'red_produccion_producto_actividad');
     }
 }

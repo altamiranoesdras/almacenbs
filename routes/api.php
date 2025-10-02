@@ -274,12 +274,23 @@ Route::group(['as'=>'api.'], function () {
         Route::group(['prefix' => 'estructura-presupuestaria','as' =>'estructura.presupuestaria.'], function () {
             Route::resource('programas', App\Http\Controllers\EstructuraPresupuestariaProgramaController::class)
                 ->except(['create', 'edit']);
+
+
+            Route::resource('subprogramas', App\Http\Controllers\API\EstructuraPresupuestariaSubprogramaAPIController::class)
+                ->except(['create', 'edit']);
+
+            Route::resource('proyectos', App\Http\Controllers\API\EstructuraPresupuestariaProyectoAPIController::class)
+                ->except(['create', 'edit']);
+
+            Route::resource('actividades', App\Http\Controllers\API\EstructuraPresupuestariaActividadAPIController::class)
+                ->except(['create', 'edit']);
         });
 
     });
 
 
 });
+
 
 
 
