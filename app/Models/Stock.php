@@ -263,4 +263,9 @@ class Stock extends Model
             return 'danger'; // Rojo
         }
     }
+
+    public function rrhhUnidad()
+    {
+        return $this->belongsTo(\App\Models\RrhhUnidad::class, 'unidad_id');
+    }
 }

@@ -165,6 +165,7 @@
                                                             <th>Código Presentación</th>
                                                             <th>Renglón</th>
                                                             <th>U/M</th>
+                                                            <th>Unidad Solicita</th>
                                                             <th>Fecha Vence</th>
                                                             <th>Stock</th>
                                                             <th data-toggle="tooltip" title="Precio de Compra Unitario">
@@ -186,6 +187,7 @@
                                                                 <td>{{$det->item->codigo_presentacion}}</td>
                                                                 <td>{{$det->item->renglon->numero ?? ''}}</td>
                                                                 <td>{{$det->item->unimed->nombre ?? ''}}</td>
+                                                                <td>{{$det->rrhhUnidad->nombre ?? ''}}</td>
                                                                 <td>
                                                                     <!-- campo fecha vence -->
                                                                     <input type="date"
