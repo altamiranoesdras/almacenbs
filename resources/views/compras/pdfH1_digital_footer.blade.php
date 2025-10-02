@@ -71,7 +71,7 @@
         </tr>
         <tr>
             <td colspan="3" style="width: 100%; border: none; text-align: center; color: #cd0303; font-weight: bold">
-                <h3>- Original: Contabilidad -</h3></td>
+                <h3>{{ $textoFooter }}</h3></td>
         </tr>
     </table>
 </footer>

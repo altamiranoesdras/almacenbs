@@ -3,25 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\CompraDataTable;
+use App\DataTables\Scopes\ScopeCompraDataTable;
+use App\Http\Requests\CreateCompraRequest;
+use App\Http\Requests\UpdateCompraRequest;
+use App\Models\Compra;
+use App\Models\Compra1h;
+use App\Models\CompraEstado;
+use App\Models\Item;
+use App\Models\Proveedor;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Routing\Redirector;
-use Response;
-use Carbon\Carbon;
-use App\Models\Item;
-use App\Models\Compra;
-use App\Models\Compra1h;
-use App\Models\Proveedor;
-use App\Models\CompraEstado;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\App;
-use App\Http\Requests\CreateCompraRequest;
-use App\Http\Requests\UpdateCompraRequest;
-use App\DataTables\Scopes\ScopeCompraDataTable;
+use Illuminate\Support\Facades\DB;
+use Response;
 use Throwable;
 
 class CompraController extends AppBaseController
@@ -432,42 +432,72 @@ class CompraController extends AppBaseController
         return $pdf->inline('CompraH1-'.$compra->id. '_'. time().'.pdf');
     }
 
+//    public function pdfH1Digital(Compra $compra)
+//    {
+//        $pdf = App::make('snappy.pdf.wrapper');
+//
+//        $envioFiscal = $compra->compra1h->envioFiscal;
+//
+//        // Renderizamos una sola copia de la vista
+//        $view = view('compras.pdfH1_digital', compact('compra'))->render();
+//        $footer = view('compras.pdfH1_digital_footer', compact('compra', 'envioFiscal'))->render();
+//
+//        // Queremos, por ejemplo, 3 copias
+//        $copias = 2;
+//        $contenido = '';
+//        for ($i = 1; $i <= $copias; $i++) {
+//            $contenido .= $view;
+//
+//            // Si quieres que cada copia empiece en una nueva hoja:
+//            if ($i < $copias) {
+//                $contenido .= '<div style="page-break-after: always;"></div>';
+//            }
+//        }
+//
+//        $pdf->loadHTML($contenido)
+//            ->setOption('footer-html', utf8_decode($footer))
+//            ->setOption('page-width', 217)
+//            ->setOption('page-height', 278)
+//            ->setOrientation('portrait')
+//            ->setOption('margin-top', 10)
+//            ->setOption('margin-bottom', 95)
+//            ->setOption('margin-left', 15)
+//            ->setOption('margin-right', 15);
+//
+//        return $pdf->inline('CompraH1-'.$compra->id. '_'. time().'.pdf');
+//    }
+
     public function pdfH1Digital(Compra $compra)
     {
         $pdf = App::make('snappy.pdf.wrapper');
 
         $envioFiscal = $compra->compra1h->envioFiscal;
 
-        // Renderizamos una sola copia de la vista
-        $view = view('compras.pdfH1_digital', compact('compra'))->render();
-        $footer = view('compras.pdfH1_digital_footer', compact('compra', 'envioFiscal'))->render();
 
-        // Queremos, por ejemplo, 3 copias
         $copias = 2;
         $contenido = '';
         for ($i = 1; $i <= $copias; $i++) {
+            $textoFooter = $i == 1 ? '- Original: Contabilidad -' : '- Duplicado: Almacén -';
+            $view = view('compras.pdfH1_digital_con_footer', compact('compra', 'envioFiscal', 'textoFooter'))->render();
             $contenido .= $view;
 
-            // Si quieres que cada copia empiece en una nueva hoja:
             if ($i < $copias) {
                 $contenido .= '<div style="page-break-after: always;"></div>';
             }
         }
 
         $pdf->loadHTML($contenido)
-            ->setOption('footer-html', utf8_decode($footer))
+//            ->setOption('footer-html', utf8_decode($footer))
             ->setOption('page-width', 217)
             ->setOption('page-height', 278)
             ->setOrientation('portrait')
             ->setOption('margin-top', 10)
-            ->setOption('margin-bottom', 95)
+            ->setOption('margin-bottom', 10)
             ->setOption('margin-left', 15)
             ->setOption('margin-right', 15);
 
         return $pdf->inline('CompraH1-'.$compra->id. '_'. time().'.pdf');
     }
-
-
 
 
 }
