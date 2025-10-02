@@ -4,88 +4,10 @@
     <p>{{ $envioFiscal->nombre }}</p>
 </div>
 
-<!-- Correlativo Del Field -->
+<!-- Numero Resolucion Field -->
 <div class="col-sm-12">
-    {!! Form::label('correlativo_del', 'Correlativo Del:') !!}
-    <p>{{ $envioFiscal->correlativo_del }}</p>
-</div>
-
-<!-- Correlativo Al Field -->
-<div class="col-sm-12">
-    {!! Form::label('correlativo_al', 'Correlativo Al:') !!}
-    <p>{{ $envioFiscal->correlativo_al }}</p>
-</div>
-
-<!-- Folio Inicial Field -->
-<div class="col-sm-12">
-    {!! Form::label('folio_inicial', 'Folio Inicial:') !!}
-    <p>{{ $envioFiscal->folio_inicial }}</p>
-</div>
-
-<!-- Folio Actual Field -->
-<div class="col-sm-12">
-    {!! Form::label('folio_actual', 'Folio Actual:') !!}
-    <p>{{ $envioFiscal->folio_actual }}</p>
-</div>
-
-<!-- Nuemero Constancia Field -->
-<div class="col-sm-12">
-    {!! Form::label('numero_constancia', 'Nuemero Constancia:') !!}
-    <p>{{ $envioFiscal->numero_constancia }}</p>
-</div>
-
-<!-- Serie Constancia Field -->
-<div class="col-sm-12">
-    {!! Form::label('serie_constancia', 'Serie Constancia:') !!}
-    <p>{{ $envioFiscal->serie_constancia }}</p>
-</div>
-
-<!-- Fecha Field -->
-<div class="col-sm-12">
-    {!! Form::label('fecha', 'Fecha:') !!}
-    <p>{{ $envioFiscal->fecha }}</p>
-</div>
-
-<!-- Numero Cuenta Field -->
-<div class="col-sm-12">
-    {!! Form::label('numero_cuenta', 'Numero Cuenta:') !!}
-    <p>{{ $envioFiscal->numero_cuenta }}</p>
-</div>
-
-<!-- Forma Field -->
-<div class="col-sm-12">
-    {!! Form::label('forma', 'Forma:') !!}
-    <p>{{ $envioFiscal->forma }}</p>
-</div>
-
-<!-- Serie Field -->
-<div class="col-sm-12">
-    {!! Form::label('serie', 'Serie:') !!}
-    <p>{{ $envioFiscal->serie }}</p>
-</div>
-
-<!-- Numero Field -->
-<div class="col-sm-12">
-    {!! Form::label('numero', 'Numero:') !!}
-    <p>{{ $envioFiscal->numero }}</p>
-</div>
-
-<!-- Libro Field -->
-<div class="col-sm-12">
-    {!! Form::label('libro', 'Libro:') !!}
-    <p>{{ $envioFiscal->libro }}</p>
-</div>
-
-<!-- Folio Field -->
-<div class="col-sm-12">
-    {!! Form::label('folio', 'Folio:') !!}
-    <p>{{ $envioFiscal->folio }}</p>
-</div>
-
-<!-- Resolucion Field -->
-<div class="col-sm-12">
-    {!! Form::label('resolucion', 'Resolucion:') !!}
-    <p>{{ $envioFiscal->resolucion }}</p>
+    {!! Form::label('numero_resolucion', 'Numero Resolucion:') !!}
+    <p>{{ $envioFiscal->numero_resolucion }}</p>
 </div>
 
 <!-- Numero Gestion Field -->
@@ -100,10 +22,70 @@
     <p>{{ $envioFiscal->fecha_gestion }}</p>
 </div>
 
-<!-- Correlativo Field -->
+<!-- Correlativo Resolucion Field -->
 <div class="col-sm-12">
-    {!! Form::label('correlativo', 'Correlativo:') !!}
-    <p>{{ $envioFiscal->correlativo }}</p>
+    {!! Form::label('correlativo_resolucion', 'Correlativo Resolucion:') !!}
+    <p>{{ $envioFiscal->correlativo_resolucion }}</p>
+</div>
+
+<!-- Fecha Correlativo Resolucion Field -->
+<div class="col-sm-12">
+    {!! Form::label('fecha_correlativo_resolucion', 'Fecha Correlativo Resolucion:') !!}
+    <p>{{ $envioFiscal->fecha_correlativo_resolucion }}</p>
+</div>
+
+<!-- Serie Envio Field -->
+<div class="col-sm-12">
+    {!! Form::label('serie_envio', 'Serie Envio:') !!}
+    <p>{{ $envioFiscal->serie_envio }}</p>
+</div>
+
+<!-- Numero Envio Field -->
+<div class="col-sm-12">
+    {!! Form::label('numero_envio', 'Numero Envio:') !!}
+    <p>{{ $envioFiscal->numero_envio }}</p>
+</div>
+
+<!-- Fecha Envio Field -->
+<div class="col-sm-12">
+    {!! Form::label('fecha_envio', 'Fecha Envio:') !!}
+    <p>{{ $envioFiscal->fecha_envio }}</p>
+</div>
+
+<!-- Correlativo Del Field -->
+<div class="col-sm-12">
+    {!! Form::label('correlativo_del', 'Correlativo Del:') !!}
+    <p>{{ $envioFiscal->correlativo_del }}</p>
+</div>
+
+<!-- Correlativo Al Field -->
+<div class="col-sm-12">
+    {!! Form::label('correlativo_al', 'Correlativo Al:') !!}
+    <p>{{ $envioFiscal->correlativo_al }}</p>
+</div>
+
+<!-- Correlativo Inicial Field -->
+<div class="col-sm-12">
+    {!! Form::label('correlativo_inicial', 'Correlativo Inicial:') !!}
+    <p>{{ $envioFiscal->correlativo_inicial }}</p>
+</div>
+
+<!-- Correlativo Actual Field -->
+<div class="col-sm-12">
+    {!! Form::label('correlativo_actual', 'Correlativo Actual:') !!}
+    <p>{{ $envioFiscal->correlativo_actual }}</p>
+</div>
+
+<!-- Libro Field -->
+<div class="col-sm-12">
+    {!! Form::label('libro', 'Libro:') !!}
+    <p>{{ $envioFiscal->libro }}</p>
+</div>
+
+<!-- Folio Field -->
+<div class="col-sm-12">
+    {!! Form::label('folio', 'Folio:') !!}
+    <p>{{ $envioFiscal->folio }}</p>
 </div>
 
 <!-- Activo Field -->

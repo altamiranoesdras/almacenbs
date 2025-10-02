@@ -119,23 +119,9 @@ class EnvioFiscalDataTable extends DataTable
         return [
             Column::make('nombre')->searchable(false)->title('Para'),
             Column::make('nombre_tabla')->visible(false)->exportable(false),
+            Column::make('numero_resolucion'),
             Column::make('correlativo_del'),
             Column::make('correlativo_al'),
-            Column::make('folio_inicial'),
-            Column::make('folio_actual'),
-//            Column::make('numero_constancia'),
-//            Column::make('serie_constancia'),
-//            Column::make('fecha'),
-//            Column::make('numero_cuenta'),
-//            Column::make('forma'),
-//            Column::make('serie'),
-//            Column::make('numero'),
-//            Column::make('libro'),
-//            Column::make('folio'),
-//            Column::make('resolucion'),
-//            Column::make('numero_gestion'),
-//            Column::make('fecha_gestion'),
-//            Column::make('correlativo'),
             Column::make('activo'),
             Column::computed('action')
                 ->exportable(false)
@@ -152,6 +138,6 @@ class EnvioFiscalDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'envio_fiscales_datatable_' . time();
+        return 'envio_fiscals_datatable_' . time();
     }
 }

@@ -22,8 +22,8 @@ class EnvioFiscalsTableSeeder extends Seeder
             'nombre_tabla' => 'compras',
             'correlativo_del' => 1,
             'correlativo_al' => 2000,
-            'folio_inicial' => 1,
-            'folio_actual' => 40,
+            'correlativo_inicial' => 1,
+            'correlativo_actual' => 40,
             'activo' => 'si'
         ]);
 
@@ -31,8 +31,8 @@ class EnvioFiscalsTableSeeder extends Seeder
             'nombre_tabla' => 'solicitudes',
             'correlativo_del' => 1,
             'correlativo_al' => 7500,
-            'folio_inicial' => 1,
-            'folio_actual' => 1,
+            'correlativo_inicial' => 1,
+            'correlativo_actual' => 1,
             'activo' => 'si'
         ]);
     }

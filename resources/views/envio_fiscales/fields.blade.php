@@ -7,11 +7,87 @@
         ], null, ['class' => 'form-select', 'required']) !!}
 </div>
 
+
+<!-- Numero Resolucion Field -->
+<div class="col-sm-6 mb-1">
+    {!! Form::label('numero_resolucion', 'Numero Resolucion:') !!}
+    {!! Form::text('numero_resolucion', null, ['class' => 'form-control', 'maxlength' => 255, 'maxlength' => 255]) !!}
+</div>
+
+
+<!-- Numero Gestion Field -->
+<div class="col-sm-6 mb-1">
+    {!! Form::label('numero_gestion', 'Numero Gestion:') !!}
+    {!! Form::text('numero_gestion', null, ['class' => 'form-control', 'maxlength' => 255, 'maxlength' => 255]) !!}
+</div>
+
+
+<!-- Fecha Gestion Field -->
+<div class="col-sm-6 mb-1">
+    {!! Form::label('fecha_gestion', 'Fecha Gestion:') !!}
+    {!! Form::text('fecha_gestion', null, ['class' => 'form-control','id'=>'fecha_gestion']) !!}
+</div>
+
+@push('scripts')
+    <script type="text/javascript">
+        $('#fecha_gestion').datepicker()
+    </script>
+@endpush
+
+
+<!-- Correlativo Resolucion Field -->
+<div class="col-sm-6 mb-1">
+    {!! Form::label('correlativo_resolucion', 'Correlativo Resolucion:') !!}
+    {!! Form::text('correlativo_resolucion', null, ['class' => 'form-control', 'maxlength' => 255, 'maxlength' => 255]) !!}
+</div>
+
+
+<!-- Fecha Correlativo Resolucion Field -->
+<div class="col-sm-6 mb-1">
+    {!! Form::label('fecha_correlativo_resolucion', 'Fecha Correlativo Resolucion:') !!}
+    {!! Form::text('fecha_correlativo_resolucion', null, ['class' => 'form-control','id'=>'fecha_correlativo_resolucion']) !!}
+</div>
+
+@push('scripts')
+    <script type="text/javascript">
+        $('#fecha_correlativo_resolucion').datepicker()
+    </script>
+@endpush
+
+
+<!-- Serie Envio Field -->
+<div class="col-sm-6 mb-1">
+    {!! Form::label('serie_envio', 'Serie Envio:') !!}
+    {!! Form::text('serie_envio', null, ['class' => 'form-control', 'maxlength' => 255, 'maxlength' => 255]) !!}
+</div>
+
+
+<!-- Numero Envio Field -->
+<div class="col-sm-6 mb-1">
+    {!! Form::label('numero_envio', 'Numero Envio:') !!}
+    {!! Form::text('numero_envio', null, ['class' => 'form-control', 'maxlength' => 255, 'maxlength' => 255]) !!}
+</div>
+
+
+<!-- Fecha Envio Field -->
+<div class="col-sm-6 mb-1">
+    {!! Form::label('fecha_envio', 'Fecha Envio:') !!}
+    {!! Form::text('fecha_envio', null, ['class' => 'form-control','id'=>'fecha_envio']) !!}
+</div>
+
+@push('scripts')
+    <script type="text/javascript">
+        $('#fecha_envio').datepicker()
+    </script>
+@endpush
+
+
 <!-- Correlativo Del Field -->
 <div class="col-sm-6 mb-1">
     {!! Form::label('correlativo_del', 'Correlativo Del:') !!}
     {!! Form::number('correlativo_del', null, ['class' => 'form-control', 'required']) !!}
 </div>
+
 
 <!-- Correlativo Al Field -->
 <div class="col-sm-6 mb-1">
@@ -19,65 +95,27 @@
     {!! Form::number('correlativo_al', null, ['class' => 'form-control', 'required']) !!}
 </div>
 
-<!-- Folio Inicial Field -->
+
+<!-- Correlativo Inicial Field -->
 <div class="col-sm-6 mb-1">
-    {!! Form::label('folio_inicial', 'Folio Inicial:') !!}
-    {!! Form::number('folio_inicial', null, ['class' => 'form-control', 'required']) !!}
+    {!! Form::label('correlativo_inicial', 'Correlativo Inicial:') !!}
+    {!! Form::number('correlativo_inicial', null, ['class' => 'form-control', 'required']) !!}
 </div>
 
-<!-- Folio Actual Field -->
+
+<!-- Correlativo Actual Field -->
 <div class="col-sm-6 mb-1">
-    {!! Form::label('folio_actual', 'Folio Actual:') !!}
-    {!! Form::number('folio_actual', null, ['class' => 'form-control', 'required']) !!}
+    {!! Form::label('correlativo_actual', 'Correlativo Actual:') !!}
+    {!! Form::number('correlativo_actual', null, ['class' => 'form-control', 'required']) !!}
 </div>
 
-<!-- Nuemero Constancia Field -->
-<div class="col-sm-6 mb-1">
-    {!! Form::label('numero_constancia', 'Número Constancia:') !!}
-    {!! Form::number('numero_constancia', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Serie Constancia Field -->
-<div class="col-sm-6 mb-1">
-    {!! Form::label('serie_constancia', 'Serie Constancia:') !!}
-    {!! Form::text('serie_constancia', null, ['class' => 'form-control', 'maxlength' => 255]) !!}
-</div>
-
-<!-- Fecha Field -->
-<div class="col-sm-6 mb-1">
-    {!! Form::label('fecha', 'Fecha:') !!}
-    {!! Form::date('fecha', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Numero Cuenta Field -->
-<div class="col-sm-6 mb-1">
-    {!! Form::label('numero_cuenta', 'Número Cuenta:') !!}
-    {!! Form::text('numero_cuenta', null, ['class' => 'form-control', 'maxlength' => 255]) !!}
-</div>
-
-<!-- Forma Field -->
-<div class="col-sm-6 mb-1">
-    {!! Form::label('forma', 'Forma:') !!}
-    {!! Form::text('forma', null, ['class' => 'form-control', 'maxlength' => 255]) !!}
-</div>
-
-<!-- Serie Field -->
-<div class="col-sm-6 mb-1">
-    {!! Form::label('serie', 'Serie:') !!}
-    {!! Form::text('serie', null, ['class' => 'form-control', 'maxlength' => 255]) !!}
-</div>
-
-<!-- Numero Field -->
-<div class="col-sm-6 mb-1">
-    {!! Form::label('numero', 'Número:') !!}
-    {!! Form::text('numero', null, ['class' => 'form-control', 'maxlength' => 255]) !!}
-</div>
 
 <!-- Libro Field -->
 <div class="col-sm-6 mb-1">
     {!! Form::label('libro', 'Libro:') !!}
-    {!! Form::text('libro', null, ['class' => 'form-control', 'maxlength' => 255]) !!}
+    {!! Form::text('libro', null, ['class' => 'form-control', 'maxlength' => 255, 'maxlength' => 255]) !!}
 </div>
+
 
 <!-- Folio Field -->
 <div class="col-sm-6 mb-1">
@@ -85,29 +123,6 @@
     {!! Form::number('folio', null, ['class' => 'form-control']) !!}
 </div>
 
-<!-- Resolucion Field -->
-<div class="col-sm-6 mb-1">
-    {!! Form::label('resolucion', 'Resolución:') !!}
-    {!! Form::text('resolucion', null, ['class' => 'form-control', 'maxlength' => 255]) !!}
-</div>
-
-<!-- Numero Gestion Field -->
-<div class="col-sm-6 mb-1">
-    {!! Form::label('numero_gestion', 'Número Gestión:') !!}
-    {!! Form::text('numero_gestion', null, ['class' => 'form-control', 'maxlength' => 255]) !!}
-</div>
-
-<!-- Fecha Gestion Field -->
-<div class="col-sm-6 mb-1">
-    {!! Form::label('fecha_gestion', 'Fecha Gestión:') !!}
-    {!! Form::date('fecha_gestion', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Correlativo Field -->
-<div class="col-sm-6 mb-1">
-    {!! Form::label('correlativo', 'Correlativo:') !!}
-    {!! Form::text('correlativo', null, ['class' => 'form-control', 'maxlength' => 255]) !!}
-</div>
 
 <!-- Activo Field -->
 <div class="col-sm-6 mb-1">

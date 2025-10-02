@@ -489,7 +489,7 @@ class Compra extends Model
 
         $envioFiscal = EnvioFiscal::where('nombre_tabla', 'compras')->where('activo', 'si')->first();
 
-        $folio = $folio ?? $envioFiscal->folio_actual;
+        $folio = $folio ?? $envioFiscal->correlativo_actual;
 
         /**
          * @var Compra1h $compra1h

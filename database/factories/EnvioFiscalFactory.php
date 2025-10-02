@@ -19,38 +19,36 @@ class EnvioFiscalFactory extends Factory
         $folioActual  = $folioInicial + $this->faker->numberBetween(0, 5_000);
 
         return [
+
+
+
             'nombre_tabla'       => $this->faker->randomElement([
                 'captacions', 'colocacions', 'pagos', 'ventas', 'envios'
             ]),
+            'numero_resolucion' => $this->faker->text($this->faker->numberBetween(5, 255)),
+            'correlativo_resolucion' => $this->faker->text($this->faker->numberBetween(5, 255)),
+            'fecha_correlativo_resolucion' => $this->faker->date('Y-m-d'),
+            'serie_envio' => $this->faker->text($this->faker->numberBetween(5, 255)),
+            'numero_envio' => $this->faker->text($this->faker->numberBetween(5, 255)),
+            'fecha_envio' => $this->faker->date('Y-m-d'),
 
             'correlativo_del'    => $correlativoDel,
             'correlativo_al'     => $correlativoAl,
 
-            'folio_inicial'      => $folioInicial,
-            'folio_actual'       => $folioActual,
+            'correlativo_inicial' => $correlativoDel,
+            'correlativo_actual' => $folioActual,
 
-            // OJO: el schema tiene "numero_constancia" (con u). Mantener mientras no se renombre.
-            'numero_constancia' => $this->faker->optional()->numberBetween(1, 999_999),
-            'serie_constancia'   => $this->faker->optional()->bothify('SC-####'),
 
-            'fecha'              => $this->faker->optional()->date('Y-m-d'),
 
-            'numero_cuenta'      => $this->faker->optional()->bothify('############'),
-            'forma'              => $this->faker->optional()->randomElement(['Factura','Recibo','Nota de crédito']),
-            'serie'              => $this->faker->optional()->bothify('??-###'),
-            'numero'             => $this->faker->optional()->bothify('########'),
+
             'libro'              => $this->faker->optional()->bothify('LIB-###'),
             'folio'              => $this->faker->optional()->numberBetween(1, 99_999),
-
-            'resolucion'         => $this->faker->optional()->bothify('RES-####/####'),
-            'numero_gestion'     => $this->faker->optional()->bothify('GES-########'),
-            'fecha_gestion'      => $this->faker->optional()->date('Y-m-d'),
-
-            'correlativo'        => $this->faker->optional()->bothify('CORR-########'),
-
             'activo'             => $this->faker->randomElement(['si', 'no']),
             // No setees created_at/updated_at: Eloquent los maneja.
             // 'deleted_at' => null, // softDeletes queda null por defecto
+
+
+
         ];
     }
 

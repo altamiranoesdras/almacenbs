@@ -2,7 +2,7 @@
     $envioFiscal = \App\Models\EnvioFiscal::where('nombre_tabla', 'compras')->where('activo', 'si')->first();
 @endphp
 
-@if($envioFiscal != null && $envioFiscal->folio_actual <= $envioFiscal->correlativo_al)
+@if($envioFiscal != null && $envioFiscal->correlativo_actual <= $envioFiscal->correlativo_al)
     <form action="{{route('bandejas.compras1h.operador.genera1h',$compra->id)}}" method="post" class="esperar">
         @csrf
         <div class="row">
