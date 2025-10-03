@@ -6,6 +6,13 @@
         'local' => 'bg-info',
         default => 'bg-primary',
     };
+
+    $textoInfo = match(config('app.env')) {
+        'staging' => 'Entorno de Pruebas',
+        'production' => '',
+        'local' => 'Entorno Local',
+        default => 'Entorno Desconocido',
+    };
 @endphp
 
 <nav class="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-light navbar-shadow container-xxl {{ $navbarColor }}">
@@ -16,11 +23,20 @@
                 <li class="nav-item"><a class="nav-link menu-toggle" href="#"><i class="ficon" data-feather="menu"></i></a></li>
             </ul>
             <ul class="nav navbar-nav bookmark-icons">
-                <li class="nav-item d-none d-lg-block" style="font-size: 1.2rem">
-                    <a class="nav-link me-1" href="{{route('home')}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Inicio">
-                        <i class="fa fa-home"></i>
-                    </a>
+
+
+                <li class="nav-item d-none d-lg-block">
+                    <a class="nav-link" href="{{route('home')}}" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                       title="Email"><i class="ficon" data-feather="home"></i></a>
                 </li>
+
+                @if($textoInfo)
+                    <li class="nav-item d-none d-lg-block ms-3 text-xl ">
+                        <b class="nav-link me-1 text-white text-uppercase " >
+                            !!! {{ $textoInfo }} !!!
+                        </b>
+                    </li>
+                @endif
             </ul>
         </div>
 
