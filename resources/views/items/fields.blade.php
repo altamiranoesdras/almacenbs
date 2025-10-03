@@ -43,10 +43,10 @@
             </div>
 
             <!-- Stock Field -->
-            <div class="col-sm-4 mb-1">
-                {!! Form::label('stock', 'Existencias:') !!}<span class="text-danger"> *</span>
-                {!! Form::number('stock', $item->stocks->sum('cantidad') ?? 0, ['class' => 'form-control',($item->puedeEditarNombre() ?? true) ? '' : 'readonly']) !!}
-            </div>
+{{--            <div class="col-sm-4 mb-1">--}}
+{{--                {!! Form::label('stock', 'Existencias:') !!}<span class="text-danger"> *</span>--}}
+{{--                {!! Form::number('stock', $item->stocks->sum('cantidad') ?? 0, ['class' => 'form-control',($item->puedeEditarNombre() ?? true) ? '' : 'readonly']) !!}--}}
+{{--            </div>--}}
 
 {{--            <!-- Precio Venta Field -->--}}
 {{--            <div class="col-sm-4 mb-1">--}}
@@ -55,12 +55,10 @@
 {{--            </div>--}}
 
             <!-- Precio Compra Field -->
-            <div class="col-sm-4 mb-1">
-                {!! Form::label('precio_compra', 'Precio Compra:') !!}<span class="text-danger"> *</span>
-                {!! Form::number('precio_compra', null, ['class' => 'form-control','step'=>".01"]) !!}
-            </div>
-
-
+{{--            <div class="col-sm-4 mb-1">--}}
+{{--                {!! Form::label('precio_compra', 'Precio Compra:') !!}<span class="text-danger"> *</span>--}}
+{{--                {!! Form::number('precio_compra', null, ['class' => 'form-control','step'=>".01"]) !!}--}}
+{{--            </div>--}}
 
 
             <div class="col-sm-6 mb-1">

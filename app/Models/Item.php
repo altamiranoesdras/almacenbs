@@ -222,7 +222,7 @@ class Item extends Model implements HasMedia
         'unimed_id' => 'nullable|integer',
         'categoria_id' => 'nullable|integer',
         'precio_venta' => 'nullable|numeric',
-        'precio_compra' => 'required|numeric',
+        'precio_compra' => 'nullable|numeric',
         'precio_promedio' => 'nullable|numeric',
         'stock_minimo' => 'nullable|numeric',
         'stock_maximo' => 'nullable|numeric',

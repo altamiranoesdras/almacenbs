@@ -23,7 +23,8 @@ trait ItemTrait
 
         $request->merge([
             'categoria_id' => $categorias[0] ?? null,
-            'precio_promedio' => $request->precio_compra
+            'precio_compra' => $request->precio_compra ?? 0,
+            'precio_promedio' => $request->precio_compra ?? 0,
         ]);
 
         /**
@@ -52,10 +53,11 @@ trait ItemTrait
         //Categoría principal (si se selecciona al menos una categoría; la categoría principal es la primera del array)
         $request->merge(['categoria_id' => $categorias[0] ?? null]);
 
-        if ($item->puedeEditarPrecioPromedio()){
-
-            $request->merge(['precio_promedio' => $request->precio_compra]);
-        }
+//        if ($item->puedeEditarPrecioPromedio()){
+//
+//            $request->merge(['precio_promedio' => $request->precio_compra ?? 0]);
+//
+//        }
 
         if ($request->hasFile('imagen')){
             $item->addMediaFromRequest('imagen')->toMediaCollection('items');
@@ -71,11 +73,10 @@ trait ItemTrait
         //Sincroniza las categorías
         $item->categorias()->sync($categorias);
 
-        if ($item->puedeEditarStock() ){
-
-            $item->actualizaOregistraStcokInicial($request->stock);
-
-
-        }
+//        if ($item->puedeEditarStock() ){
+//
+//            $item->actualizaOregistraStcokInicial($request->stock ?? 0);
+//
+//        }
     }
 }
