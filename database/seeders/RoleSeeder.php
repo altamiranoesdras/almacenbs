@@ -8,8 +8,7 @@ use App\Models\Role;
 use Illuminate\Database\Seeder;
 
 
-class
-RoleSeeder extends Seeder
+class RoleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -61,6 +60,29 @@ RoleSeeder extends Seeder
         Role::firstOrCreate(["name" => "Analista Compras"]);//Analiza las compras
         Role::firstOrCreate(["name" => "Supervisor Compras"]);//Supervisa las compras
         Role::firstOrCreate(["name" => "Administrador Compras"]);//Administra las compras
+
+
+
+        $rol = Role::firstOrCreate(["name" => 'Operador de ingresos almacén 1H']);
+
+        $rol->options()->sync([
+            Option::NUEVO_INGRESO_ALMACEN,
+            Option::OPERAR_INGRESO_ALMACEN,
+            Option::BUSCAR_INGRESOS_A_ALMACEN,
+        ]);
+
+        $rol = Role::firstOrCreate(["name" => 'Aprobador de ingresos almacén 1H']);
+        $rol->options()->sync([
+            Option::APROBAR_INGRESO_ALMACEN,
+            Option::BUSCAR_INGRESOS_A_ALMACEN,
+        ]);
+
+        $rol = Role::firstOrCreate(["name" => 'Autorizador de ingresos almacén 1H']);
+
+        $rol->options()->sync([
+            Option::AUTORIZAR_INGRESO_ALMACEN,
+            Option::BUSCAR_INGRESOS_A_ALMACEN,
+        ]);
 
 
         //iterar todos los roles para asignar todos los permisos

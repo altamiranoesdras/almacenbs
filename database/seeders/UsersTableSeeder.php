@@ -109,7 +109,8 @@ class UsersTableSeeder extends Seeder
                 'email' => 'jefatura.almace@sbs.gob.gt',
                 'puesto_id' => RrhhPuesto::JEFE_DEPARTAMENTO_ALMACEN,
                 'bodega_id' => Bodega::PRINCIPAL,
-                'unidad_id' => RrhhUnidad::ALMACEN
+                'unidad_id' => RrhhUnidad::ALMACEN,
+                'roles' => [Role::APROBADOR_DE_INGRESOS_ALMACEN_1H]
             ],
             [
                 'username' => 'elena.lucas',
@@ -117,7 +118,8 @@ class UsersTableSeeder extends Seeder
                 'email' => 'elena.lucas@sbs.gob.gt',
                 'puesto_id' => RrhhPuesto::ENCARGADA_DE_BODEGA,
                 'bodega_id' => Bodega::PRINCIPAL,
-                'unidad_id' => RrhhUnidad::ALMACEN
+                'unidad_id' => RrhhUnidad::ALMACEN,
+                'roles' => [Role::OPERADOR_DE_INGRESOS_ALMACEN_1H]
             ],
             [
                 'username' => 'fabiola.figueroa',
@@ -125,9 +127,27 @@ class UsersTableSeeder extends Seeder
                 'email' => 'fabiola.figueroa@sbs.gob.gt',
                 'puesto_id' => RrhhPuesto::ENCARGADA_DE_BODEGA,
                 'bodega_id' => Bodega::PRINCIPAL,
-                'unidad_id' => RrhhUnidad::ALMACEN
+                'unidad_id' => RrhhUnidad::ALMACEN,
+                'roles' => [Role::OPERADOR_DE_INGRESOS_ALMACEN_1H]
             ],
-
+            [
+                'username' => 'mynor.medina',
+                'name' => 'MYNOR MANUEL MEDINA GODÍNEZ',
+                'email' => 'mynor.medina@sbs.gob.gt',
+                'puesto_id' => RrhhPuesto::ENCARGADA_DE_BODEGA,
+                'bodega_id' => Bodega::PRINCIPAL,
+                'unidad_id' => RrhhUnidad::ALMACEN,
+                'roles' => [Role::OPERADOR_DE_INGRESOS_ALMACEN_1H]
+            ],
+            [
+                'username' => 'cesar.vicente',
+                'name' => 'CÉSAR AUGUSTO VICENTE RODRÍGUEZ',
+                'email' => 'cesar.vicente@sbs.gob.gt',
+                'puesto_id' => RrhhPuesto::ENCARGADA_DE_BODEGA,
+                'bodega_id' => Bodega::PRINCIPAL,
+                'unidad_id' => RrhhUnidad::ALMACEN,
+                'roles' => [Role::OPERADOR_DE_INGRESOS_ALMACEN_1H]
+            ],
             [
                 'username' => 'antonio.rodriguez',
                 'name' => 'ANTONIO RODRÍGUEZ',
@@ -137,10 +157,10 @@ class UsersTableSeeder extends Seeder
                 'unidad_id' => RrhhUnidad::ALMACEN
             ],
             [
-                'username' => 'lilian.valle',
-                'name' => 'LILIAN MARBETTI VALLE ORDÓÑEZ',
-                'email' => 'almacen.asistente@sbs.gob.gt',
-                'puesto_id' => RrhhPuesto::ANALISTA_ALMACEN,
+                'username' => 'roberto.tiul',
+                'name' => 'ROBERTO TIUL ICHICH',
+                'email' => 'operativos2.almacen@sbs.gob.gt',
+                'puesto_id' => RrhhPuesto::AUXILIAR_DE_BODEGA,
                 'bodega_id' => Bodega::PRINCIPAL,
                 'unidad_id' => RrhhUnidad::ALMACEN
             ],
@@ -153,32 +173,18 @@ class UsersTableSeeder extends Seeder
                 'unidad_id' => RrhhUnidad::ALMACEN
             ],
             [
-                'username' => 'mynor.medina',
-                'name' => 'MYNOR MANUEL MEDINA GODÍNEZ',
-                'email' => 'mynor.medina@sbs.gob.gt',
-                'puesto_id' => RrhhPuesto::ENCARGADA_DE_BODEGA,
+                'username' => 'lilian.valle',
+                'name' => 'LILIAN MARBETTI VALLE ORDÓÑEZ',
+                'email' => 'almacen.asistente@sbs.gob.gt',
+                'puesto_id' => RrhhPuesto::ANALISTA_ALMACEN,
                 'bodega_id' => Bodega::PRINCIPAL,
                 'unidad_id' => RrhhUnidad::ALMACEN
             ],
-            [
-                'username' => 'cesar.vicente',
-                'name' => 'CÉSAR AUGUSTO VICENTE RODRÍGUEZ',
-                'email' => 'cesar.vicente@sbs.gob.gt',
-                'puesto_id' => RrhhPuesto::ENCARGADA_DE_BODEGA,
-                'bodega_id' => Bodega::PRINCIPAL,
-                'unidad_id' => RrhhUnidad::ALMACEN
-            ],
-            [
-                'username' => 'roberto.tiul',
-                'name' => 'ROBERTO TIUL ICHICH',
-                'email' => 'operativos2.almacen@sbs.gob.gt',
-                'puesto_id' => RrhhPuesto::AUXILIAR_DE_BODEGA,
-                'bodega_id' => Bodega::PRINCIPAL,
-                'unidad_id' => RrhhUnidad::ALMACEN
-            ],
+
         ];
 
         foreach ($usuarios as $usuario) {
+            $roles = $usuario['roles'] ?? [];
             User::factory(1)->create([
                 'username' => $usuario['username'],
                 'name' => $usuario['name'],
@@ -187,8 +193,9 @@ class UsersTableSeeder extends Seeder
                 'bodega_id' => $usuario['bodega_id'],
                 'unidad_id' => $usuario['unidad_id'],
                 'puesto_id' => $usuario['puesto_id'],
-            ])->each(function (User $user) {
-                $user->syncRoles(Role::ADMINISTRADOR_REQUISICION_ALMACEN);
+            ])->each(function (User $user) use ($roles) {
+
+                $user->syncRoles($roles);
 
                 $user->shortcuts()->sync([
                     Option::MIS_REQUISICIONES_ALMACEN,
