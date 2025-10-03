@@ -1,5 +1,15 @@
 <!-- BEGIN: Header-->
-<nav class="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-light navbar-shadow container-xxl">
+@php
+    $navbarColor = match(config('app.env')) {
+        'staging' => 'bg-success',
+        'production' => '',
+        'local' => 'bg-info',
+        default => 'bg-primary',
+    };
+@endphp
+
+<nav class="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-light navbar-shadow container-xxl {{ $navbarColor }}">
+
     <div class="navbar-container d-flex content">
         <div class="bookmark-wrapper d-flex align-items-center">
             <ul class="nav navbar-nav d-xl-none">
