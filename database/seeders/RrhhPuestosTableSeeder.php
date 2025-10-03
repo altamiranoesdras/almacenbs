@@ -26,6 +26,7 @@ class RrhhPuestosTableSeeder extends Seeder
         RrhhPuesto::factory()->create(['nombre' => 'ANALISTA ALMACÉN']);
         RrhhPuesto::factory()->create(['nombre' => 'RECEPCIONISTA']);
         RrhhPuesto::factory()->create(['nombre' => 'JEFE UNIDAD']);
+        RrhhPuesto::factory()->create(['nombre' => 'DIRECTOR ADMINISTRATIVO']);
 
     }
 }

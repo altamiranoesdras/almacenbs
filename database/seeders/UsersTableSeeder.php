@@ -120,6 +120,15 @@ class UsersTableSeeder extends Seeder
                 'unidad_id' => RrhhUnidad::ALMACEN
             ],
             [
+                'username' => 'fabiola.figueroa',
+                'name' => 'Fabiola Figueroa',
+                'email' => 'fabiola.figueroa@sbs.gob.gt',
+                'puesto_id' => RrhhPuesto::ENCARGADA_DE_BODEGA,
+                'bodega_id' => Bodega::PRINCIPAL,
+                'unidad_id' => RrhhUnidad::ALMACEN
+            ],
+
+            [
                 'username' => 'antonio.rodriguez',
                 'name' => 'ANTONIO RODRÍGUEZ',
                 'email' => 'operativos.almacen@sbs.gob.gt',

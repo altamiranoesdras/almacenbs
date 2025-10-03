@@ -55,6 +55,8 @@ class RrhhPuesto extends Model
     public const RECEPCIONISTA = 5;
     public const JEFE_UNIDAD = 6;
 
+    public const DIRECTOR_ADMINISTRATIVO = 7;
+
 
 
     public $fillable = [
