@@ -149,6 +149,10 @@ class CompraController extends AppBaseController
         /** @var Compra $compra */
         $compra = Compra::with(['detalles' => function ($q){ $q->whereHas('item'); }])->find($id);
 
+        if ($compra->esTemporal()) {
+            return redirect(route('compras.create'));
+        }
+
         /**
          * @var Compra1h $compra1h
          */
@@ -202,9 +206,16 @@ class CompraController extends AppBaseController
 
         DB::commit();
 
-        flash('Listo! compra procesada.')->success();
+        if ($request->procesar) {
+            flash('Ingreso almacén procesado exitosamente.')->success();
+            return redirect(route('compras.edit', $compra->id));
 
-        return redirect(route('compras.edit', $compra->id));
+        } else {
+            flash('Ingreso almacén actualizado exitosamente.')->success();
+            return redirect(route('compras.create'));
+        }
+
+
 
     }
 
@@ -223,12 +234,15 @@ class CompraController extends AppBaseController
     public function procesar(Compra $compra,UpdateCompraRequest $request){
 
 
+        if ($request->procesar){
 
-        $request->merge([
-            'estado_id' => CompraEstado::PROCESADO_PENDIENTE_RECIBIR,
-            'codigo' => $this->getCodigo(),
-            'correlativo' => $this->getCorrelativo(),
-        ]);
+            $request->merge([
+                'estado_id' => CompraEstado::PROCESADO_PENDIENTE_RECIBIR,
+                'codigo' => $this->getCodigo(),
+                'correlativo' => $this->getCorrelativo(),
+            ]);
+
+        }
 
         $compra->fill($request->all());
         $compra->save();
@@ -236,11 +250,6 @@ class CompraController extends AppBaseController
         if ($request->ingreso_inmediato){
             $compra->procesaIngreso();
         }
-
-
-//        if($compra){
-//            //Mail::send(new OrdenCompra($compra));
-//        }
 
         return $compra;
     }

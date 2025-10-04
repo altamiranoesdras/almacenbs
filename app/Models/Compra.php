@@ -693,4 +693,10 @@ class Compra extends Model
         return $this->estado_id==CompraEstado::ANULADO;
     }
 
+    public function esTemporal()
+    {
+        return $this->estado_id == CompraEstado::TEMPORAL;
+
+    }
+
 }

@@ -12,7 +12,7 @@
             editar
         </a>
 
-        <multiselect v-model="item" :options="options" label="nombre" placeholder="Seleccione uno..." :disabled="disabled">
+        <multiselect v-model="item" :options="options" label="texto" placeholder="Seleccione uno..." :disabled="disabled">
             <template  slot="noResult">
                 <a class="btn btn-sm btn-block btn-success" href="#" @click.prevent="newItem()">
                     <i class="fa fa-plus"></i> Nuevo
@@ -25,7 +25,7 @@
 
 
         <div class="modal fade" :id="id" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="modelTitleId">
@@ -38,71 +38,126 @@
                     <form @submit.prevent="save">
                         <div class="modal-body">
                             <div class="row">
-                                <!-- Nit Field -->
-                                <div class="col-sm-6 mb-3">
-                                    <label for="nit" class="form-label">Nit:</label>
-                                    <input type="text" class="form-control" 
-                                        @keydown.enter.prevent="save()" 
-                                        v-model="editedItem.nit">
+                                <!-- Nit (Requerido) -->
+                                <div class="col-4 mb-1">
+                                    <label for="nit" class="form-label">
+                                        Nit:
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input
+                                        id="nit"
+                                        type="text"
+                                        class="form-control"
+                                        @keydown.enter.prevent="save()"
+                                        v-model="editedItem.nit"
+                                        autocomplete="off"
+                                    >
                                 </div>
 
-                                <!-- Nombre Field -->
-                                <div class="col-sm-6 mb-3">
-                                    <label for="nombre" class="form-label">Nombre:</label>
-                                    <input type="text" class="form-control" 
-                                        @keydown.enter.prevent="save()" 
-                                        v-model="editedItem.nombre">
+                                <!-- Nombre (Requerido) -->
+                                <div class="col-4 mb-1">
+                                    <label for="nombre" class="form-label">
+                                        Nombre:
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input
+                                        id="nombre"
+                                        type="text"
+                                        class="form-control"
+                                        @keydown.enter.prevent="save()"
+                                        v-model="editedItem.nombre"
+                                        autocomplete="name"
+                                    >
                                 </div>
 
-                                <!-- Razon Social Field -->
-                                <div class="col-sm-6 mb-3">
-                                    <label for="razon_social" class="form-label">Razon Social:</label>
-                                    <input type="text" class="form-control" 
-                                        @keydown.enter.prevent="save()" 
-                                        v-model="editedItem.razon_social">
+                                <!-- Razón Social (Opcional) -->
+                                <div class="col-4 mb-1">
+                                    <label for="razon_social" class="form-label">Razón Social:</label>
+                                    <input
+                                        id="razon_social"
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Opcional"
+                                        @keydown.enter.prevent="save()"
+                                        v-model="editedItem.razon_social"
+                                        autocomplete="organization"
+                                    >
                                 </div>
 
-                                <!-- Correo Field -->
-                                <div class="col-sm-6 mb-3">
+                                <!-- Correo (Opcional) -->
+                                <div class="col-4 mb-1">
                                     <label for="correo" class="form-label">Correo:</label>
-                                    <input type="text" class="form-control" 
-                                        @keydown.enter.prevent="save()" 
-                                        v-model="editedItem.correo">
+                                    <input
+                                        id="correo"
+                                        type="email"
+                                        class="form-control"
+                                        placeholder="Opcional"
+                                        @keydown.enter.prevent="save()"
+                                        v-model="editedItem.correo"
+                                        autocomplete="email"
+                                        inputmode="email"
+                                    >
                                 </div>
 
-                                <!-- Telefono Movil Field -->
-                                <div class="col-sm-6 mb-3">
-                                    <label for="telefono_movil" class="form-label">Telefono Movil:</label>
-                                    <input type="text" class="form-control" 
-                                        @keydown.enter.prevent="save()" 
-                                        v-model="editedItem.telefono_movil">
+                                <!-- Teléfono Móvil (Opcional) -->
+                                <div class="col-4 mb-1">
+                                    <label for="telefono_movil" class="form-label">Teléfono Móvil:</label>
+                                    <input
+                                        id="telefono_movil"
+                                        type="tel"
+                                        class="form-control"
+                                        placeholder="Opcional"
+                                        @keydown.enter.prevent="save()"
+                                        v-model="editedItem.telefono_movil"
+                                        autocomplete="tel-national"
+                                        inputmode="tel"
+                                    >
                                 </div>
 
-                                <!-- Telefono Oficina Field -->
-                                <div class="col-sm-6 mb-3">
-                                    <label for="telefono_oficina" class="form-label">Telefono Oficina:</label>
-                                    <input type="text" class="form-control" 
-                                        @keydown.enter.prevent="save()" 
-                                        v-model="editedItem.telefono_oficina">
+                                <!-- Teléfono Oficina (Opcional) -->
+                                <div class="col-4 mb-1">
+                                    <label for="telefono_oficina" class="form-label">Teléfono Oficina:</label>
+                                    <input
+                                        id="telefono_oficina"
+                                        type="tel"
+                                        class="form-control"
+                                        placeholder="Opcional"
+                                        @keydown.enter.prevent="save()"
+                                        v-model="editedItem.telefono_oficina"
+                                        autocomplete="tel"
+                                        inputmode="tel"
+                                    >
                                 </div>
 
-                                <!-- Direccion Field -->
-                                <div class="col-12 mb-3">
-                                    <label for="direccion" class="form-label">Direccion:</label>
-                                    <textarea class="form-control" 
-                                        @keydown.enter.prevent="save()" 
-                                        v-model="editedItem.direccion"></textarea>
+                                <!-- Dirección (Opcional) -->
+                                <div class="col-12 mb-1">
+                                    <label for="direccion" class="form-label">Dirección:</label>
+                                    <textarea
+                                        id="direccion"
+                                        class="form-control"
+                                        placeholder="Opcional"
+                                        @keydown.enter.prevent="save()"
+                                        v-model="editedItem.direccion"
+                                        rows="2"
+                                        autocomplete="street-address"
+                                    ></textarea>
                                 </div>
 
-                                <!-- Observaciones Field -->
-                                <div class="col-12 mb-3">
+                                <!-- Observaciones (Opcional) -->
+                                <div class="col-12 mb-1">
                                     <label for="observaciones" class="form-label">Observaciones:</label>
-                                    <textarea class="form-control" 
-                                        @keydown.enter.prevent="save()" 
-                                        v-model="editedItem.observaciones"></textarea>
+                                    <textarea
+                                        id="observaciones"
+                                        class="form-control"
+                                        placeholder="Opcional"
+                                        @keydown.enter.prevent="save()"
+                                        v-model="editedItem.observaciones"
+                                        rows="2"
+                                    ></textarea>
                                 </div>
                             </div>
                         </div>
+
 
                         <div class="modal-footer">
                             <!-- data-bs-dismiss en lugar de data-dismiss -->

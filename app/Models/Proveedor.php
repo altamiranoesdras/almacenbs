@@ -58,7 +58,7 @@ class Proveedor extends Model
 
     protected $dates = ['deleted_at'];
 
-
+    protected $appends = ['texto'];
 
     public $fillable = [
         'nit',
@@ -113,5 +113,10 @@ class Proveedor extends Model
     public function compras()
     {
         return $this->hasMany(\App\Models\Compra::class, 'proveedor_id');
+    }
+
+    public function getTextoAttribute()
+    {
+        return $this->nombre . ' (' . $this->nit . ')';
     }
 }

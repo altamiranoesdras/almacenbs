@@ -39,7 +39,7 @@
                 @include('layouts.errores')
 
                 <div class="card border-info">
-                    {!! Form::model($temporal, ['route' => ['compras.update', $temporal->id], 'method' => 'patch','class'=>'esperar']) !!}
+                    {!! Form::model($temporal, ['url' => route('compras.update', $temporal->id), 'method' => 'patch','class'=>'esperar']) !!}
                     <div class="card-content collapse show">
                         <div class="card-body p-1">
 
@@ -64,7 +64,13 @@
                                             <div class="row">
 
                                                 <div class="col-6 mb-1">
-                                                    <select-proveedor v-model="proveedor" label="Proveedor"></select-proveedor>
+                                                    <select-proveedor
+                                                        v-model="proveedor"
+                                                        label="Proveedor"
+                                                        ref="selectProveedor"
+                                                    >
+
+                                                    </select-proveedor>
                                                 </div>
 
                                                 <div class="col-3 mb-1">
@@ -177,7 +183,8 @@
                                                 <multiselect
                                                     v-model="editedItem.unidad_solicita"
                                                     :options="unidades"
-                                                    label="nombre_con_padre"
+                                                    label="text"
+                                                    ref="selector_unidad"
                                                     track-by="id">
 
                                                 </multiselect>
@@ -323,29 +330,33 @@
 
                         </div>
                         <div class="card-footer">
-
                             <div class="row">
 
-                                <div class="d-grid col-sm-5 mb-1">
+                                <div class="d-grid col-sm-4 mb-1">
                                     <a class="btn btn-outline-danger btn-block" data-bs-toggle="modal" href="#modal-cancel-compra">
-                                                                <span data-toggle="tooltip" title="Cancelar compra">
-                                                                    <i class="fa fa-ban"></i>
-                                                                    Cancelar
-                                                                </span>
+                                    <span data-toggle="tooltip" title="Cancelar compra">
+                                        <i class="fa fa-ban"></i>
+                                        Cancelar
+                                    </span>
                                     </a>
                                 </div>
 
-                                <div class="d-grid col-sm-7 mb-1">
-                                    <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                                <div class="d-grid col-sm-4 mb-1">
+                                    <button type="submit" class="btn btn-outline-primary btn-block" @click="esperar()">
+                                        <i class="fa fa-save"></i>
+                                        Guardar
+                                    </button>
+                                </div>
 
-                                    <button type="button"  class="btn btn-outline-success btn-block" @click="procesar()">
+                                <div class="d-grid col-sm-4 mb-1">
+                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                    <button type="button" class="btn btn-outline-success btn-block" @click="procesar()">
                                         <i class="fa fa-check"></i>
                                         Procesar
                                     </button>
                                 </div>
 
                             </div>
-
 
                             <!-- Modal confirm -->
                             <div class="modal fade modal-info" id="modal-confirma-procesar">
@@ -359,37 +370,39 @@
                                             Seguro que desea continuar?
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
-                                            <button type="submit" class="btn btn-primary" name="procesar" value="1" >SI</button>
+                                            <button type="button" class="btn btn-default" data-bs-dismiss="modal">NO</button>
+                                            <button type="submit" class="btn btn-primary" name="procesar" value="1">SI</button>
                                         </div>
-                                    </div><!-- /.modal-content -->
-                                </div><!-- /.modal-dialog -->
-                            </div><!-- /.modal -->
-
-                            <!-- Modal cancel -->
-                            <div class="modal fade modal-warning" id="modal-cancel-compra">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            <h4 class="modal-title">Cancelar compra!</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            Seguro que desea cancelar la compra?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
-                                            <a href="{{route('compras.destroy',$temporal->id)}}" class="btn btn-danger">
-                                                SI
-                                            </a>
-                                        </div>
-                                    </div><!-- /.modal-content -->
-                                </div><!-- /.modal-dialog -->
-                            </div><!-- /.modal -->
-
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                     {!! Form::close() !!}
+
+
+
+                    <!-- Modal cancel -->
+                    <div class="modal fade modal-warning" id="modal-cancel-compra">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <h4 class="modal-title">Cancelar compra!</h4>
+                                </div>
+                                <div class="modal-body">
+                                    Seguro que desea cancelar la compra?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
+                                    <a href="{{route('compras.destroy',$temporal->id)}}" class="btn btn-danger">
+                                        SI
+                                    </a>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
 
                 </div>
             </div>
@@ -406,7 +419,7 @@
         vm = new Vue({
             el: '#root',
             mounted() {
-                this.abreSelectorItems();
+                // this.abreSelectorItems();
             },
             created: function() {
                 this.getItems();
@@ -434,9 +447,9 @@
                 loading: false,
                 idEliminando: '',
                 ingreso_inmediato: false,
-                proveedor: @json($compra->proveedor ?? Proveedor::find(old('proveedor_id')) ?? null),
-                tipo: @json($compra->tipo ?? CompraTipo::find(old('tipo_id')) ?? CompraTipo::find(CompraTipo::FACTURA)),
-                descuento: @json($compra->descuento ?? old('descuento') ?? 0),
+                proveedor: @json($temporal->proveedor ?? Proveedor::find(old('proveedor_id')) ?? null),
+                tipo: @json($temporal->tipo ?? CompraTipo::find(old('tipo_id')) ?? CompraTipo::find(CompraTipo::FACTURA)),
+                descuento: @json($temporal->descuento ?? old('descuento') ?? 0),
             },
             methods: {
 
@@ -456,7 +469,7 @@
                 },
                 getNombre(detalle,relacion='unidad_solicitante'){
 
-                    return detalle[relacion] ? detalle[relacion].nombre_con_padre : '' ;
+                    return detalle[relacion] ? detalle[relacion].text : '' ;
                 },
 
                 editItem (detalle) {
@@ -583,6 +596,17 @@
                     this.itemSelect = null;
                     this.$refs.multiselect.$refs.multiselect.$el.focus();
                 },
+                abreSelectorProveedores () {
+                    this.proveedor = null;
+                    this.$refs.selectProveedor.$refs.multiselect.$el.focus();
+                },
+                abrirSelectorUnidad() {
+                    // Verifica que exista la referencia y el método open
+                    if (this.$refs.selector_unidad && this.$refs.selector_unidad.$el) {
+                        // Vue Multiselect tiene un método interno para abrir el dropdown
+                        this.$refs.selector_unidad.activate();
+                    }
+                }
             },
 
             computed: {
@@ -642,11 +666,17 @@
                     if (item){
                         this.editedItem.precio = item.precio_compra;
                         this.editedItem.item_id = item.id;
-                        $(this.$refs.cantidad).focus().select();
+                        //$(this.$refs.cantidad).focus().select();
+                        this.abrirSelectorUnidad();
                     }else{
                         this.nuevoDetalle = Object.assign({}, this.itemDefault);
                     }
                 },
+                'editedItem.unidad_solicita'(nuevoValor, valorAnterior) {
+                    if (nuevoValor !== valorAnterior) {
+                        $(this.$refs.cantidad).focus().select();
+                    }
+                }
             }
         });
     </script>
