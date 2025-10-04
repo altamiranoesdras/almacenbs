@@ -78,7 +78,10 @@
                                                 </div>
                                                 <div class="col-3 mb-1" v-show="esFactura || esFacturaCambiaria">
                                                     <label for="serie" >Serie</label>
-                                                    {!! Form::text('serie', null, ['class' => 'form-control','placeholder'=>'Serie']) !!}
+                                                    <input type="text" name="serie" class="form-control" placeholder="Serie"
+                                                           v-model="serie"
+                                                           @input="serie = serie.toUpperCase()"
+                                                           required>
                                                 </div>
 
                                                 <div class="col-3" v-show="esFactura || esFacturaCambiaria">
@@ -425,6 +428,7 @@
                 this.getItems();
             },
             data: {
+                temporal : @json($temporal),
                 detalles: [],
 
                 itemSelect: null,
@@ -449,6 +453,7 @@
                 ingreso_inmediato: false,
                 proveedor: @json($temporal->proveedor ?? Proveedor::find(old('proveedor_id')) ?? null),
                 tipo: @json($temporal->tipo ?? CompraTipo::find(old('tipo_id')) ?? CompraTipo::find(CompraTipo::FACTURA)),
+                serie: @json($temporal->serie ?? old('serie') ?? ''),
                 descuento: @json($temporal->descuento ?? old('descuento') ?? 0),
             },
             methods: {

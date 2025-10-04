@@ -67,6 +67,7 @@
                                         @keydown.enter.prevent="save()"
                                         v-model="editedItem.nombre"
                                         autocomplete="name"
+                                        @input="editedItem.nombre = editedItem.nombre.toUpperCase()"
                                     >
                                 </div>
 
@@ -81,6 +82,7 @@
                                         @keydown.enter.prevent="save()"
                                         v-model="editedItem.razon_social"
                                         autocomplete="organization"
+                                        @input="editedItem.razon_social = editedItem.razon_social.toUpperCase()"
                                     >
                                 </div>
 
