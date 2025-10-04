@@ -509,8 +509,9 @@ class Compra extends Model
 
         if ($this->detalles->count() > 0) {
 
+            $this->agruparDetalles();
 
-            foreach ($this->detalles as $detalle) {
+            foreach ($this->detalles as $index => $detalle) {
 
 
                 if ($detalle->item->esActivoFijo() && configuracion()->desglosarActivosFijos1h()) {
@@ -529,7 +530,8 @@ class Compra extends Model
 
                     }
 
-                }else{
+                }
+                else{
 
                     $compra1hDetalle = Compra1hDetalle::create([
                         '1h_id' => $compra1h->id,
@@ -696,6 +698,23 @@ class Compra extends Model
     public function esTemporal()
     {
         return $this->estado_id == CompraEstado::TEMPORAL;
+
+    }
+
+    /**
+     * Cre un colección de detalles agrupados por item_id.
+     *
+     * @return void
+     */
+    public function agruparDetalles()
+    {
+        $detallesAgrupados = $this->detalles->groupBy('item_id');
+
+        $this->detalles = $detallesAgrupados->map(function ($detalles, $itemId) {
+            $detalle = $detalles->first();
+            $detalle->cantidad = $detalles->sum('cantidad');
+            return $detalle;
+        })->values();
 
     }
 

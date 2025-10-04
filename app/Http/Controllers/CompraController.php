@@ -231,28 +231,38 @@ class CompraController extends AppBaseController
         return redirect(route('compras.edit', $compra->id));
     }
 
-    public function procesar(Compra $compra,UpdateCompraRequest $request){
+    public function procesar(Compra $compra, UpdateCompraRequest $request): Compra
+    {
+        $procesar         = (bool) $request->boolean('procesar');
+        $ingresoInmediato = (bool) $request->boolean('ingreso_inmediato');
 
-
-        if ($request->procesar){
-
+        // 1) Preparación de datos (solo si se procesa)
+        if ($procesar) {
             $request->merge([
-                'estado_id' => CompraEstado::PROCESADO_PENDIENTE_RECIBIR,
-                'codigo' => $this->getCodigo(),
+                'estado_id'   => CompraEstado::PROCESADO_PENDIENTE_RECIBIR,
+                'codigo'      => $this->getCodigo(),
                 'correlativo' => $this->getCorrelativo(),
             ]);
-
         }
 
+        // 2) Persistencia
         $compra->fill($request->all());
         $compra->save();
 
-        if ($request->ingreso_inmediato){
+        // 3) Bitácora
+        $compra->addBitacora($procesar
+            ? 'Ingreso almacén procesado'
+            : 'Ingreso almacén actualizado'
+        );
+
+        // 4) Acciones posteriores
+        if ($ingresoInmediato) {
             $compra->procesaIngreso();
         }
 
         return $compra;
     }
+
 
     /**
      * Remove the specified Compra from storage.
@@ -364,7 +374,10 @@ class CompraController extends AppBaseController
 
             $compra = Compra::with('detalles.item.stocks')->find($id);
 
-            $compra->procesaIngreso();
+
+            $compra->estado_id = CompraEstado::INGRESADO;
+            $compra->save();
+//            $compra->procesaIngreso();
 
         } catch (Exception $exception) {
             DB::rollBack();
@@ -380,7 +393,6 @@ class CompraController extends AppBaseController
         DB::commit();
 
         flash('Ingreso Realizado')->success();
-
 
         return redirect(route('bandejas.compras1h.operador.gestionar', $compra->id));
 

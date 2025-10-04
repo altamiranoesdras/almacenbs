@@ -9,7 +9,7 @@
             <div class="row breadcrumbs-top">
                 <div class="col-12">
                     <h2 class="content-header-title float-start mb-0">
-                        Editar Ingreso Almacén
+                        Operar Ingreso Almacén
                     </h2>
                 </div>
             </div>
