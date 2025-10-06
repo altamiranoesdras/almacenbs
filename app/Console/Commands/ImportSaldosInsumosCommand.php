@@ -3,6 +3,9 @@
 namespace App\Console\Commands;
 
 use App\Imports\ImportSaldosInsumos;
+use App\Models\Kardex;
+use App\Models\Stock;
+use App\Models\StockTransaccion;
 use App\Traits\ComandosTrait;
 use Exception;
 use Illuminate\Console\Command;
@@ -52,8 +55,10 @@ class ImportSaldosInsumosCommand extends Command
         $this->inicio();
 
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
-        DB::table('stocks')->truncate();
-//        DB::table('items')->update(['precio_compra' => 0]);
+
+        StockTransaccion::truncate();
+        Stock::truncate();
+        Kardex::truncate();
 
         try {
 
@@ -91,8 +96,27 @@ class ImportSaldosInsumosCommand extends Command
         $this->line("Insumos actualizados: ".$import->acutalizados);
         $this->line("Insumos nuevos: ".$import->nuevos);
 
+        $this->actualizaResponsableKardex();
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
+
+    }
+
+    public function actualizaResponsableKardex()
+    {
+        $this->line("Actualizando responsable de kardex...");
+
+
+
+        foreach (Kardex::all() as $kardex) {
+
+            if($kardex->model instanceof Stock){
+                $kardex->responsable = "Existencia inicial segun acta Administrativa 006-2025, de fecha 30 de septiembre";
+                $kardex->save();
+            }
+        }
+
+        $this->line("Responsables actualizados: ".$kardex->count());
 
     }
 }
