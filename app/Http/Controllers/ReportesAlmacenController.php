@@ -475,27 +475,24 @@ class ReportesAlmacenController extends AppBaseController
         $fecha_desde = $request->fecha_desde ?? null;
         $fecha_hasta = $request->fecha_hasta ?? null;
 
-        $query = Item::with(['stocks', 'solicitudDetalles.solicitud'])
-            ->whereHas('stocks', function($q) use ($unidades_seleccionadas) {
-                if ($unidades_seleccionadas) {
-                    $q->where('bodega_id', Bodega::PRINCIPAL)
-                    ->whereIn('unidad_id', $unidades_seleccionadas);
-                }
-            });
+        $query = Stock::whereHas('item')
+                    ->where('bodega_id', Bodega::PRINCIPAL);
 
-            // dd($query->get());
-
-        if ($fecha_desde && $fecha_hasta) {
-            $query->whereHas('solicitudDetalles.solicitud', function($q) use ($fecha_desde, $fecha_hasta) {
-                $q->whereBetween('created_at', [$fecha_desde, $fecha_hasta]);
-            });
+        if($unidades_seleccionadas){
+            $query->whereIn('unidad_id', $unidades_seleccionadas);
         }
 
-        $items = $query->get();
+//        if ($fecha_desde && $fecha_hasta) {
+//            $query->whereHas('solicitudDetalles.solicitud', function($q) use ($fecha_desde, $fecha_hasta) {
+//                $q->whereBetween('created_at', [$fecha_desde, $fecha_hasta]);
+//            });
+//        }
 
-        
+        $stocks = $query->get();
 
-        return view('reportes.existencia_por_unidad_solicitante', compact('items', 'unidades_seleccionadas', 'fecha_desde', 'fecha_hasta'));
+
+
+        return view('reportes.existencia_por_unidad_solicitante', compact('stocks', 'unidades_seleccionadas', 'fecha_desde', 'fecha_hasta'));
     }
 
     // Reporte 3: Existencia por Subsecretaría

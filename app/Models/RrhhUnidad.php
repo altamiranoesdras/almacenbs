@@ -259,4 +259,15 @@ class RrhhUnidad extends Model
         return $this->buscarPadre(RrhhUnidadTipo::SUBSECRETARIA);
     }
 
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class, 'unidad_id');
+    }
+
+    public function scopeConStock()
+    {
+        return $this->whereHas('stocks');
+
+    }
+
 }
