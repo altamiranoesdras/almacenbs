@@ -82,30 +82,36 @@
                             <table class="table table-bordered table-striped" id="tabla-reporte-existencia">
                                 <thead>
                                     <tr>
-                                        <th>ID Insumo</th>
                                         <th>Unidad Solicitante</th>
                                         <th>Código Insumo</th>
+                                        <th>Código Presentación</th>
                                         <th>Nombre Insumo</th>
                                         <th>Presentación</th>
+                                        <th>Unidad Medida</th>
                                         <th>Existencia</th>
                                         <th>Última Solicitud</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($stocks as $stock)
+                                    @forelse($stocks as $stock)
                                         @php
                                             $ultima_solicitud = $stock->item->solicitudDetalles->sortByDesc('created_at')->first();
                                         @endphp
                                         <tr>
-                                            <td>{{ $stock->item->id }}</td>
                                             <td>{{ $stock->rrhhUnidad->nombre ?? 'N/A' }}</td>
-                                            <td>{{ $stock->item->codigo_insumo }}</td>
+                                            <td>{{ $stock->item->codigo_insumo}}</td>
+                                            <td>{{ $stock->item->codigo_presentacion }}</td>
                                             <td>{{ $stock->item->nombre }}</td>
                                             <td>{{ $stock->item->presentacion->nombre ?? 'N/A' }}</td>
+                                            <td>{{ $stock->item->unimed->nombre ?? 'N/A' }}</td>
                                             <td class="text-right">{{ number_format($stock->cantidad, 2) }}</td>
                                             <td>{{ $ultima_solicitud ? $ultima_solicitud->solicitud->created_at->format('d/m/Y') : 'N/A' }}</td>
                                         </tr>
-                                    @endforeach
+                                    @empty
+                                        <tr>
+                                            <td colspan="8" class="text-center">No se encontraron resultados</td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
