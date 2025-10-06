@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\ItemsAvencerDataTable;
-use App\DataTables\Scopes\ScopeStockDataTable;
-use App\DataTables\StockDataTable;
-use App\Models\Item;
-use App\Models\Kardex;
-use App\Models\Stock;
-use Barryvdh\Snappy\PdfWrapper;
 use DB;
 use Exception;
+use App\Models\Item;
+use App\Models\Stock;
+use App\Models\Bodega;
+use App\Models\Kardex;
+use Illuminate\Http\Request;
+use Barryvdh\Snappy\PdfWrapper;
+use App\DataTables\StockDataTable;
+use Illuminate\Support\Facades\App;
+use App\DataTables\ItemsAvencerDataTable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
+use App\DataTables\Scopes\ScopeStockDataTable;
 
 class ReportesAlmacenController extends AppBaseController
 {
@@ -470,17 +471,19 @@ class ReportesAlmacenController extends AppBaseController
     // Reporte 2: Existencia por Unidad Solicitante
     public function existenciaPorUnidadSolicitante(Request $request)
     {
-        $unidad_id = $request->unidad_id ?? null;
+        $unidades_seleccionadas = $request->unidades_seleccionadas ?? [];
         $fecha_desde = $request->fecha_desde ?? null;
         $fecha_hasta = $request->fecha_hasta ?? null;
 
         $query = Item::with(['stocks', 'solicitudDetalles.solicitud'])
-            ->whereHas('stocks')
-            ->whereHas('solicitudDetalles.solicitud', function($q) use ($unidad_id) {
-                if ($unidad_id) {
-                    $q->where('unidad_id', $unidad_id);
+            ->whereHas('stocks', function($q) use ($unidades_seleccionadas) {
+                if ($unidades_seleccionadas) {
+                    $q->where('bodega_id', Bodega::PRINCIPAL)
+                    ->whereIn('unidad_id', $unidades_seleccionadas);
                 }
             });
+
+            // dd($query->get());
 
         if ($fecha_desde && $fecha_hasta) {
             $query->whereHas('solicitudDetalles.solicitud', function($q) use ($fecha_desde, $fecha_hasta) {
@@ -490,9 +493,9 @@ class ReportesAlmacenController extends AppBaseController
 
         $items = $query->get();
 
-        $unidades = \App\Models\RrhhUnidad::where('solicita', 'si')->get();
+        
 
-        return view('reportes.existencia_por_unidad_solicitante', compact('items', 'unidades', 'unidad_id', 'fecha_desde', 'fecha_hasta'));
+        return view('reportes.existencia_por_unidad_solicitante', compact('items', 'unidades_seleccionadas', 'fecha_desde', 'fecha_hasta'));
     }
 
     // Reporte 3: Existencia por Subsecretaría

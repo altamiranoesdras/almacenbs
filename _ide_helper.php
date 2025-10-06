@@ -21104,9 +21104,6 @@ namespace Yajra\DataTables {
 
 namespace App\Console\Commands {
             /**
-     */        class ActivosImportCommand {
-            }
-            /**
      */        class AnonimizarNombresUsuarios {
             }
             /**
@@ -21178,6 +21175,9 @@ namespace App\Console\Commands {
     }
 
 namespace App\Console\Commands\Archivados {
+            /**
+     */        class ActivosImportCommand {
+            }
             /**
      */        class CrearFolioUltimoRegistroKardex {
             }

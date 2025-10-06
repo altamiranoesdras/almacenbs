@@ -35,13 +35,15 @@
                         <div class="card-body">
                             {!! Form::open(['route' => 'reportes.existencia.unidad.solicitante', 'method' => 'get']) !!}
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        {!! Form::label('unidad_id', 'Unidad Solicitante') !!}
-                                        {!! Form::select('unidad_id', $unidades->pluck('nombre_con_padre', 'id'), $unidad_id, ['class' => 'form-control select2', 'placeholder' => 'Todas las unidades']) !!}
+                                <div class="col-md-12">
+                                    <div class="form-group" >
+                                        <label for="tipos">Unidad Solicitante:</label>
+                                        <multiselect v-model="unidades_seleccionadas" :options="rr_hh_unidades" label="text" :multiple="true" track-by="id" placeholder="Seleccione uno..." >
+                                        </multiselect>
+                                        <input type="hidden" name="unidades_seleccionadas[]" v-for="unidad in unidades_seleccionadas" :value="unidad.id">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                {{-- <div class="col-md-3">
                                     <div class="form-group">
                                         {!! Form::label('fecha_desde', 'Fecha Desde') !!}
                                         {!! Form::date('fecha_desde', $fecha_desde, ['class' => 'form-control']) !!}
@@ -52,7 +54,7 @@
                                         {!! Form::label('fecha_hasta', 'Fecha Hasta') !!}
                                         {!! Form::date('fecha_hasta', $fecha_hasta, ['class' => 'form-control']) !!}
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label>&nbsp;</label>
@@ -74,18 +76,10 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Resultados</h3>
-                            <div class="card-tools">
-                                <button class="btn btn-success btn-sm" onclick="exportToExcel()">
-                                    <i class="fa fa-file-excel"></i> Exportar Excel
-                                </button>
-                                <button class="btn btn-danger btn-sm" onclick="exportToPDF()">
-                                    <i class="fa fa-file-pdf"></i> Exportar PDF
-                                </button>
-                            </div>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped" id="reportTable">
+                            <div class="table-responsive" >
+                                <table class="table table-bordered table-striped" id="tabla-reporte-existencia">
                                     <thead>
                                         <tr>
                                             <th>ID Insumo</th>
@@ -126,34 +120,61 @@
 
 @push('scripts')
 <script>
-    $(document).ready(function() {
-        $('#reportTable').DataTable({
-            "responsive": true,
-            "autoWidth": false,
-            "ordering": true,
-            "paging": true,
-            "searching": true,
-            "info": true,
-            "language": {
-                "url": "{{ asset('js/SpanishDataTables.json') }}"
+    $('#tabla-reporte-existencia').DataTable({
+        dom: 'Brtip',
+        paginate: false,
+        ordering: true,
+        language: {
+            "url": "{{asset('js/SpanishDataTables.json')}}"
+        },
+        buttons: [
+            {
+                extend: 'copy',
+                'text': '<i class="fa fa-copy"></i> <span class="d-none d-sm-inline">Copiar</span>'
             },
-            "columnDefs": [
-                {
-                    "targets": [5],
-                    "className": "text-right"
-                }
-            ]
-        });
+            {
+                extend: 'csv',
+                'text': '<i class="fa fa-file-excel"></i> <span class="d-none d-sm-inline">CSV</span>'
+            },
+            {
+                extend: 'excel',
+                'text': '<i class="fa fa-file-excel"></i> <span class="d-none d-sm-inline">Excel</span>'
+            },
+            {
+                extend: 'pdf',
+                'text': '<i class="fa fa-file-pdf"></i> <span class="d-none d-sm-inline">PDF</span>'
+            },
+            {
+                extend: 'print',
+                'text': '<i class="fa fa-print"></i> <span class="d-none d-sm-inline">Imprimir</span>'
+            },
+        ],
+        "order": []
     });
 
-    function exportToExcel() {
-        // Implementar exportación a Excel
-        alert('Función de exportación a Excel - Por implementar');
-    }
+    new Vue({
+            el: '#root',
+            name: 'root',
+            created() {
 
-    function exportToPDF() {
-        // Implementar exportación a PDF
-        alert('Función de exportación a PDF - Por implementar');
-    }
+            },
+            data: {
+
+                unidades_seleccionadas: @json(\App\Models\RrhhUnidad::whereIn('id', $unidades_seleccionadas)->get() ?? []),
+                rr_hh_unidades: @json(\App\Models\RrhhUnidad::areas()->solicitan()->get() ?? []),
+
+            },
+            methods: {
+
+            },
+            computed:{
+
+            },
+            watch:{
+
+            }
+        });
 </script>
+
+
 @endpush
