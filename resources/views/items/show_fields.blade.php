@@ -101,3 +101,9 @@
     {!! $item->deleted_at !!}
 </div>
 
+<!-- link a kardex -->
+<div class="form-group mt-3">
+    <a href="{{ route('reportes.kardex'). '?item_id=' . $item->id.'&buscar=1' }}" class="btn btn-outline-primary btn-sm" target="_blank">
+        <i class="fa fa-list"></i> Ver Kardex
+    </a>
+</div>
