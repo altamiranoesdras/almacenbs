@@ -661,19 +661,23 @@ class Item extends Model implements HasMedia
         if(!$this->inventariable)
             return null;
 
+        $queryStocks =  $this->stocks
+            ->where('precio_compra',$this->precio_compra)
+            ->where('bodega_id',Bodega::PRINCIPAL)
+            ->sortBy('orden_salida')
+            ->sortBy('fecha_vence')
+            ->sortBy('created_at')
+            ->sortBy('id');
+
+        if ($rrhhUnidadId){
+            $queryStocks = $queryStocks->where('unidad_id',$rrhhUnidadId);
+        }
 
         /**
          * @var Stock $stock
          */
-        $stock =  $this->stocks
-            ->where('precio_compra',$this->precio_compra)
-            ->where('bodega_id',Bodega::PRINCIPAL)
-            ->where('unidad_id',$rrhhUnidadId)
-            ->sortBy('orden_salida')
-            ->sortBy('fecha_vence')
-            ->sortBy('created_at')
-            ->sortBy('id')
-            ->first();
+        $stock = $queryStocks->first();
+
 
 
 

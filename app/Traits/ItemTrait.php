@@ -73,10 +73,8 @@ trait ItemTrait
         //Sincroniza las categorías
         $item->categorias()->sync($categorias);
 
-//        if ($item->puedeEditarStock() ){
-//
-//            $item->actualizaOregistraStcokInicial($request->stock ?? 0);
-//
-//        }
+        if ($item->puedeEditarStock() ){
+            $item->actualizaOregistraStcokInicial($request->stock ?? 0);
+        }
     }
 }
