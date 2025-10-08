@@ -8,7 +8,7 @@
 
         <div class="mb-1">
             <label class="form-label mb-0">Proveedor:</label>
-            <div><span class="fw-bold">{{ $compra->proveedor->razon_social ?? '' }}</span></div>
+            <div><span class="fw-bold">{{ $compra->proveedor->nombre ?? '' }}</span></div>
         </div>
 
         @if(!empty($compra->serie) && !empty($compra->numero))

@@ -51,7 +51,7 @@
         </tr>
         <tr style="">
             <td style="width:70%; padding-left: 3.5cm; font-size: 12px">
-                {{strtoupper($compra->proveedor->razon_social)}} / NIT: {{$compra->proveedor->nit}}
+                {{strtoupper($compra->proveedor->nombre)}} / NIT: {{$compra->proveedor->nit}}
             </td>
             <td style="width:10%;color: white">
                 Orden de C.
