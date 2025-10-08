@@ -22,14 +22,15 @@ class RedProduccionResultadoFactory extends Factory
      */
     public function definition()
     {
-        
+
         return [
-            'codigo' => $this->faker->text($this->faker->numberBetween(5, 255)),
-            'nombre' => $this->faker->text($this->faker->numberBetween(5, 255)),
+            //ejem 00-0001
+            'codigo' => $this->faker->unique()->numerify('00-####'),
+            'nombre' => $this->faker->paragraph,
             'descripcion' => $this->faker->text($this->faker->numberBetween(5, 65535)),
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s'),
-            'deleted_at' => $this->faker->date('Y-m-d H:i:s')
+
         ];
     }
 }

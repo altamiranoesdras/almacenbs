@@ -41,14 +41,17 @@ use stdClass;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property int|null $envio_fiscal_id
  * @property-read Collection<int, \App\Models\Bitacora> $bitacoras
  * @property-read int|null $bitacoras_count
  * @property-read \App\Models\Bodega|null $bodega
  * @property-read Collection<int, \App\Models\SolicitudDetalle> $detalles
  * @property-read int|null $detalles_count
+ * @property-read \App\Models\EnvioFiscal|null $envioFiscal
  * @property-read \App\Models\SolicitudEstado $estado
  * @property-read mixed $motivo_retorna
  * @property-read float $total_detalles
+ * @property-read string $total_letras
  * @property-read \App\Models\RrhhUnidad|null $unidad
  * @property-read \App\Models\User|null $usuarioAprueba
  * @property-read \App\Models\User|null $usuarioAutoriza
@@ -71,6 +74,7 @@ use stdClass;
  * @method static Builder|Solicitud whereCorrelativo($value)
  * @method static Builder|Solicitud whereCreatedAt($value)
  * @method static Builder|Solicitud whereDeletedAt($value)
+ * @method static Builder|Solicitud whereEnvioFiscalId($value)
  * @method static Builder|Solicitud whereEstadoId($value)
  * @method static Builder|Solicitud whereFechaAlmacenFirma($value)
  * @method static Builder|Solicitud whereFechaAprueba($value)
@@ -94,11 +98,6 @@ use stdClass;
  * @method static Builder|Solicitud whereUsuarioSolicita($value)
  * @method static Builder|Solicitud withTrashed()
  * @method static Builder|Solicitud withoutTrashed()
- * @property int|null $envio_fiscal_id
- * @property-read float $total_detalles
- * @method static Builder|Solicitud whereEnvioFiscalId($value)
- * @property-read \App\Models\EnvioFiscal|null $envioFiscal
- * @property-read string $total_letras
  * @mixin \Eloquent
  */
 class Solicitud extends Model

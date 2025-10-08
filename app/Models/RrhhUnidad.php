@@ -34,10 +34,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read int|null $puestos_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Solicitud> $solicitudes
  * @property-read int|null $solicitudes_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Stock> $stocks
+ * @property-read int|null $stocks_count
  * @property-read \App\Models\RrhhUnidadTipo $tipo
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $usuarios
  * @property-read int|null $usuarios_count
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad areas()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad conStock()
  * @method static \Database\Factories\RrhhUnidadFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad newQuery()

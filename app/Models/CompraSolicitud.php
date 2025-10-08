@@ -9,8 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * 
- *
  * @property int $id
  * @property int|null $bodega_id
  * @property int|null $unidad_id
@@ -56,8 +54,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud whereUsuarioVerifica($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitud withoutTrashed()
- * @property-read \Illuminate\Database\Eloquent\Collection<int, CompraRequisicion> $requisiciones
- * @property-read int|null $requisiciones_count
  * @mixin \Eloquent
  */
 class CompraSolicitud extends Model

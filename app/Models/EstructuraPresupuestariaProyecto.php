@@ -6,6 +6,33 @@ use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\SoftDeletes;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * @property int $id
+ * @property int $subprograma_id
+ * @property string $codigo
+ * @property string $nombre
+ * @property string|null $descripcion
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\EstructuraPresupuestariaSubprograma $subprograma
+ * @method static \Database\Factories\EstructuraPresupuestariaProyectoFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaProyecto newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaProyecto newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaProyecto onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaProyecto query()
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaProyecto whereCodigo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaProyecto whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaProyecto whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaProyecto whereDescripcion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaProyecto whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaProyecto whereNombre($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaProyecto whereSubprogramaId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaProyecto whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaProyecto withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaProyecto withoutTrashed()
+ * @mixin \Eloquent
+ */
 class EstructuraPresupuestariaProyecto extends Model
 {
 

@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * 
- *
  * @property int $id
  * @property string $nombre
  * @property \Illuminate\Support\Carbon|null $created_at

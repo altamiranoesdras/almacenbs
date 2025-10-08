@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * 
- *
  * @property int $id
  * @property int $gestion_id
  * @property int $proveedor_id

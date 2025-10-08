@@ -24,7 +24,7 @@ class CompraOrdenFactory extends Factory
      */
     public function definition()
     {
-        
+
         $proveedore = Proveedore::first();
         if (!$proveedore) {
             $proveedore = Proveedore::factory()->create();
@@ -39,7 +39,7 @@ class CompraOrdenFactory extends Factory
             'observaciones' => $this->faker->text($this->faker->numberBetween(5, 65535)),
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s'),
-            'deleted_at' => $this->faker->date('Y-m-d H:i:s')
+
         ];
     }
 }

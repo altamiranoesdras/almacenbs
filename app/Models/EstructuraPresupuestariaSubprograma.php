@@ -6,6 +6,37 @@ use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\SoftDeletes;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * @property int $id
+ * @property int $programa_id
+ * @property string $codigo
+ * @property string $nombre
+ * @property string|null $descripcion
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\EstructuraPresupuestariaProyecto> $estructuraPresupuestariaProyectos
+ * @property-read int|null $estructura_presupuestaria_proyectos_count
+ * @property-read \App\Models\EstructuraPresupuestariaPrograma $programa
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RedProduccionResultado> $redProduccionResultados
+ * @property-read int|null $red_produccion_resultados_count
+ * @method static \Database\Factories\EstructuraPresupuestariaSubprogramaFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaSubprograma newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaSubprograma newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaSubprograma onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaSubprograma query()
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaSubprograma whereCodigo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaSubprograma whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaSubprograma whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaSubprograma whereDescripcion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaSubprograma whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaSubprograma whereNombre($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaSubprograma whereProgramaId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaSubprograma whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaSubprograma withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaSubprograma withoutTrashed()
+ * @mixin \Eloquent
+ */
 class EstructuraPresupuestariaSubprograma extends Model
 {
 

@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read mixed $texto_vence
  * @property-read \App\Models\Item $item
  * @property-read \App\Models\Kardex|null $kardex
+ * @property-read \App\Models\RrhhUnidad|null $rrhhUnidad
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\StockTransaccion> $transaccion
  * @property-read int|null $transaccion_count
  * @method static \Illuminate\Database\Eloquent\Builder|Stock conIngresos()

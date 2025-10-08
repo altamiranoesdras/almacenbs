@@ -15,8 +15,6 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use App\Models\CompraRequisicionEstado;
 /**
- * 
- *
  * @property int $id
  * @property int|null $tipo_concurso_id
  * @property int|null $tipo_adquisicion_id
@@ -99,7 +97,6 @@ use App\Models\CompraRequisicionEstado;
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereUsuarioSolicitaId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion withoutTrashed()
- * @property-read CompraRequisicionEstado $estado
  * @mixin \Eloquent
  */
 class CompraRequisicion extends Model implements HasMedia

@@ -50,7 +50,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle withoutTrashed()
- * @property-read mixed $sub_total
  * @mixin \Eloquent
  */
 class SolicitudDetalle extends Model
