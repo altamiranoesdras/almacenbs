@@ -101,6 +101,12 @@ class RedProduccionResultadoAPIController extends AppBaseController
             return $this->sendError('Red Producción Resultado no encontrado');
         }
 
+        foreach ($redProduccionResultado->productos as $producto) {
+            $producto->subProductos()->delete();
+        }
+
+        $redProduccionResultado->productos()->delete();
+
         $redProduccionResultado->delete();
 
         return $this->sendSuccess('Red Producción Resultado eliminado');

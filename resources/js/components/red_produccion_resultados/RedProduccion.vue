@@ -43,7 +43,47 @@ export default {
         agregarSubProducto(productoId) {
             this.mostrarModalSubProducto = true;
             this.productoSeleccionadoId = productoId;
-        }
+        },
+
+        editarResultado(resultado) {
+            console.log("Editar Resultado:", resultado);
+        },
+
+        async eliminarResultado(id) {
+            let respuesta = await realizarPregunta("¿Estás seguro de eliminar este Resultado?");
+            if (!respuesta) return;
+            try {
+                let res = await axios.delete(route('api.red.produccion.resultados.destroy', id));
+                await this.getResultados();
+                iziTs(res.data.message)
+            } catch (e) {
+                notifyErrorApi(e);
+            }
+        },
+
+        // Producto
+        editarProducto(producto) {
+            console.log("Editar Producto:", producto);
+        },
+        async eliminarProducto(id) {
+            let respuesta = await realizarPregunta("¿Estás seguro de eliminar este Producto?");
+            if (!respuesta) return;
+            try {
+                let res = await axios.delete(route('api.red.produccion.productos.destroy', id));
+                await this.getResultados();
+                iziTs(res.data.message)
+            } catch (e) {
+                notifyErrorApi(e);
+            }
+        },
+
+        // SubProducto
+        editarSubProducto(subProducto) {
+            console.log("Editar SubProducto:", subProducto);
+        },
+        eliminarSubProducto(id) {
+            console.log("Eliminar SubProducto con ID:", id);
+        },
     }
 }
 </script>
@@ -67,8 +107,7 @@ export default {
                                 data-bs-toggle="collapse"
                                 type="button"
                             >
-                                <i class="fa fa-folder-open me-2"></i> Resultado:
-                                {{ item.codigo }}
+                                <i class="fa fa-folder-open me-2"></i> Resultado: {{ item.codigo }}
                             </button>
                         </h2>
 
@@ -79,25 +118,40 @@ export default {
                             data-bs-parent="#accordionResultados"
                         >
                             <div class="accordion-body">
+
+                                <!-- 🔹 Botones de acción para cada Resultado -->
+                                <div class="mb-2 text-end">
+                                    <button class="btn btn-sm btn-warning me-2" @click="editarResultado(item)">
+                                        <i class="fa fa-edit"></i> Editar
+                                    </button>
+                                    <button class="btn btn-sm btn-danger" @click="eliminarResultado(item.id)">
+                                        <i class="fa fa-trash"></i> Eliminar
+                                    </button>
+                                </div>
+
                                 <div class="list-group mb-2">
                                     <div
                                         v-for="producto in item.productos"
                                         :key="producto.id"
                                         class="list-group-item"
                                     >
-                                        <div
-                                            class="d-flex justify-content-between align-items-center"
-                                        >
+                                        <div class="d-flex justify-content-between align-items-center">
                                             <div>
                                                 <i class="fa fa-cube text-success me-2"></i>
                                                 <strong>Producto:</strong> {{ producto.codigo }}
                                             </div>
-                                            <button
-                                                class="btn btn-outline-primary btn-sm"
-                                                @click="agregarSubProducto(producto.id)"
-                                            >
-                                                <i class="fa fa-plus"></i> Agregar SubProducto
-                                            </button>
+                                            <div>
+                                                <!-- 🔹 Botones de acción para Producto -->
+                                                <button class="btn btn-outline-primary btn-sm me-1" @click="agregarSubProducto(producto.id)">
+                                                    <i class="fa fa-plus"></i> SubProducto
+                                                </button>
+                                                <button class="btn btn-sm btn-warning me-1" @click="editarProducto(producto)">
+                                                    <i class="fa fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" @click="eliminarProducto(producto.id)">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </div>
                                         </div>
 
                                         <ul
@@ -107,10 +161,21 @@ export default {
                                             <li
                                                 v-for="subProducto in producto.subproductos"
                                                 :key="subProducto.id"
-                                                class="list-group-item"
+                                                class="list-group-item d-flex justify-content-between align-items-center"
                                             >
-                                                <i class="fa fa-angle-right text-secondary me-2"></i>
-                                                <b>Subproducto:</b> {{ subProducto.codigo }}
+                                                <div>
+                                                    <i class="fa fa-angle-right text-secondary me-2"></i>
+                                                    <b>Subproducto:</b> {{ subProducto.codigo }}
+                                                </div>
+                                                <div>
+                                                    <!-- 🔹 Botones de acción para SubProducto -->
+                                                    <button class="btn btn-sm btn-warning me-1" @click="editarSubProducto(subProducto)">
+                                                        <i class="fa fa-edit"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-danger" @click="eliminarSubProducto(subProducto.id)">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </div>
                                             </li>
                                         </ul>
                                     </div>
@@ -120,12 +185,13 @@ export default {
                                     class="btn btn-outline-primary btn-sm mt-2"
                                     @click="agregarProducto(item.id)"
                                 >
-                                    <i class="fa fa-plus"></i> Agregar Producto1
+                                    <i class="fa fa-plus"></i> Agregar Producto
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
+
 
                 <div class="mt-3 text-end">
                     <button class="btn btn-outline-success" @click="agregarResultado">

@@ -9086,6 +9086,120 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     agregarSubProducto: function agregarSubProducto(productoId) {
       this.mostrarModalSubProducto = true;
       this.productoSeleccionadoId = productoId;
+    },
+    editarResultado: function editarResultado(resultado) {
+      console.log("Editar Resultado:", resultado);
+    },
+    eliminarResultado: function eliminarResultado(id) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var respuesta, res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return realizarPregunta("¿Estás seguro de eliminar este Resultado?");
+
+              case 2:
+                respuesta = _context2.sent;
+
+                if (respuesta) {
+                  _context2.next = 5;
+                  break;
+                }
+
+                return _context2.abrupt("return");
+
+              case 5:
+                _context2.prev = 5;
+                _context2.next = 8;
+                return axios["delete"](route('api.red.produccion.resultados.destroy', id));
+
+              case 8:
+                res = _context2.sent;
+                _context2.next = 11;
+                return _this2.getResultados();
+
+              case 11:
+                iziTs(res.data.message);
+                _context2.next = 17;
+                break;
+
+              case 14:
+                _context2.prev = 14;
+                _context2.t0 = _context2["catch"](5);
+                notifyErrorApi(_context2.t0);
+
+              case 17:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, null, [[5, 14]]);
+      }))();
+    },
+    // Producto
+    editarProducto: function editarProducto(producto) {
+      console.log("Editar Producto:", producto);
+    },
+    eliminarProducto: function eliminarProducto(id) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var respuesta, res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return realizarPregunta("¿Estás seguro de eliminar este Producto?");
+
+              case 2:
+                respuesta = _context3.sent;
+
+                if (respuesta) {
+                  _context3.next = 5;
+                  break;
+                }
+
+                return _context3.abrupt("return");
+
+              case 5:
+                _context3.prev = 5;
+                _context3.next = 8;
+                return axios["delete"](route('api.red.produccion.productos.destroy', id));
+
+              case 8:
+                res = _context3.sent;
+                _context3.next = 11;
+                return _this3.getResultados();
+
+              case 11:
+                iziTs(res.data.message);
+                _context3.next = 17;
+                break;
+
+              case 14:
+                _context3.prev = 14;
+                _context3.t0 = _context3["catch"](5);
+                notifyErrorApi(_context3.t0);
+
+              case 17:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, null, [[5, 14]]);
+      }))();
+    },
+    // SubProducto
+    editarSubProducto: function editarSubProducto(subProducto) {
+      console.log("Editar SubProducto:", subProducto);
+    },
+    eliminarSubProducto: function eliminarSubProducto(id) {
+      console.log("Eliminar SubProducto con ID:", id);
     }
   }
 });
@@ -9288,8 +9402,10 @@ __webpack_require__(/*! bootstrap-toggle/js/bootstrap-toggle.js */ "./node_modul
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var izitoast_dist_js_iziToast_min__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! izitoast/dist/js/iziToast.min */ "./node_modules/izitoast/dist/js/iziToast.min.js");
-/* harmony import */ var izitoast_dist_js_iziToast_min__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(izitoast_dist_js_iziToast_min__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var izitoast_dist_js_iziToast_min__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! izitoast/dist/js/iziToast.min */ "./node_modules/izitoast/dist/js/iziToast.min.js");
+/* harmony import */ var izitoast_dist_js_iziToast_min__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(izitoast_dist_js_iziToast_min__WEBPACK_IMPORTED_MODULE_1__);
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -9304,29 +9420,35 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
 window.iziTi = function (tile, message) {
-  izitoast_dist_js_iziToast_min__WEBPACK_IMPORTED_MODULE_0___default().info({
+  izitoast_dist_js_iziToast_min__WEBPACK_IMPORTED_MODULE_1___default().info({
     title: tile,
     message: message || " "
   });
 };
 
 window.iziTs = function (tile, message) {
-  izitoast_dist_js_iziToast_min__WEBPACK_IMPORTED_MODULE_0___default().success({
+  izitoast_dist_js_iziToast_min__WEBPACK_IMPORTED_MODULE_1___default().success({
     title: tile,
     message: message || " "
   });
 };
 
 window.iziTw = function (tile, message) {
-  izitoast_dist_js_iziToast_min__WEBPACK_IMPORTED_MODULE_0___default().warning({
+  izitoast_dist_js_iziToast_min__WEBPACK_IMPORTED_MODULE_1___default().warning({
     title: tile,
     message: message || " "
   });
 };
 
 window.iziTe = function (tile, message) {
-  izitoast_dist_js_iziToast_min__WEBPACK_IMPORTED_MODULE_0___default().error({
+  izitoast_dist_js_iziToast_min__WEBPACK_IMPORTED_MODULE_1___default().error({
     title: tile,
     message: message || " "
   });
@@ -9437,7 +9559,45 @@ window.deleteItemDt = function (data) {
       $("#delete-form" + id).submit();
     }
   });
-}; // oculta los alertas de request error
+}; //realizar pregunta y retornar true o false
+
+
+window.realizarPregunta = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(title, text, confirmButtonText) {
+    var result;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            confirmButtonText = confirmButtonText || 'Sí, ¡hazlo!';
+            _context.next = 3;
+            return Swal.fire({
+              title: title || '¿Estás seguro?',
+              text: text || "",
+              icon: 'info',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: confirmButtonText,
+              reverseButtons: true
+            });
+
+          case 3:
+            result = _context.sent;
+            return _context.abrupt("return", result.isConfirmed);
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x, _x2, _x3) {
+    return _ref.apply(this, arguments);
+  };
+}(); // oculta los alertas de request error
 // $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
 
 
@@ -12183,7 +12343,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Tus estilos personalizados aquí si los necesitas */\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Tus estilos personalizados aquí si los necesitas */\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -56080,7 +56240,7 @@ var render = function () {
                         [
                           _c("i", { staticClass: "fa fa-folder-open me-2" }),
                           _vm._v(
-                            " Resultado:\n                            " +
+                            " Resultado: " +
                               _vm._s(item.codigo) +
                               "\n                        "
                           ),
@@ -56101,6 +56261,44 @@ var render = function () {
                     },
                     [
                       _c("div", { staticClass: "accordion-body" }, [
+                        _c("div", { staticClass: "mb-2 text-end" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-sm btn-warning me-2",
+                              on: {
+                                click: function ($event) {
+                                  return _vm.editarResultado(item)
+                                },
+                              },
+                            },
+                            [
+                              _c("i", { staticClass: "fa fa-edit" }),
+                              _vm._v(
+                                " Editar\n                                "
+                              ),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-sm btn-danger",
+                              on: {
+                                click: function ($event) {
+                                  return _vm.eliminarResultado(item.id)
+                                },
+                              },
+                            },
+                            [
+                              _c("i", { staticClass: "fa fa-trash" }),
+                              _vm._v(
+                                " Eliminar\n                                "
+                              ),
+                            ]
+                          ),
+                        ]),
+                        _vm._v(" "),
                         _c(
                           "div",
                           { staticClass: "list-group mb-2" },
@@ -56133,26 +56331,65 @@ var render = function () {
                                       ),
                                     ]),
                                     _vm._v(" "),
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-outline-primary btn-sm",
-                                        on: {
-                                          click: function ($event) {
-                                            return _vm.agregarSubProducto(
-                                              producto.id
-                                            )
+                                    _c("div", [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass:
+                                            "btn btn-outline-primary btn-sm me-1",
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.agregarSubProducto(
+                                                producto.id
+                                              )
+                                            },
                                           },
                                         },
-                                      },
-                                      [
-                                        _c("i", { staticClass: "fa fa-plus" }),
-                                        _vm._v(
-                                          " Agregar SubProducto\n                                        "
-                                        ),
-                                      ]
-                                    ),
+                                        [
+                                          _c("i", {
+                                            staticClass: "fa fa-plus",
+                                          }),
+                                          _vm._v(
+                                            " SubProducto\n                                            "
+                                          ),
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass:
+                                            "btn btn-sm btn-warning me-1",
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.editarProducto(
+                                                producto
+                                              )
+                                            },
+                                          },
+                                        },
+                                        [_c("i", { staticClass: "fa fa-edit" })]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass: "btn btn-sm btn-danger",
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.eliminarProducto(
+                                                producto.id
+                                              )
+                                            },
+                                          },
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fa fa-trash",
+                                          }),
+                                        ]
+                                      ),
+                                    ]),
                                   ]
                                 ),
                                 _vm._v(" "),
@@ -56171,20 +56408,68 @@ var render = function () {
                                             "li",
                                             {
                                               key: subProducto.id,
-                                              staticClass: "list-group-item",
+                                              staticClass:
+                                                "list-group-item d-flex justify-content-between align-items-center",
                                             },
                                             [
-                                              _c("i", {
-                                                staticClass:
-                                                  "fa fa-angle-right text-secondary me-2",
-                                              }),
+                                              _c("div", [
+                                                _c("i", {
+                                                  staticClass:
+                                                    "fa fa-angle-right text-secondary me-2",
+                                                }),
+                                                _vm._v(" "),
+                                                _c("b", [
+                                                  _vm._v("Subproducto:"),
+                                                ]),
+                                                _vm._v(
+                                                  " " +
+                                                    _vm._s(subProducto.codigo) +
+                                                    "\n                                            "
+                                                ),
+                                              ]),
                                               _vm._v(" "),
-                                              _c("b", [_vm._v("Subproducto:")]),
-                                              _vm._v(
-                                                " " +
-                                                  _vm._s(subProducto.codigo) +
-                                                  "\n                                        "
-                                              ),
+                                              _c("div", [
+                                                _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-sm btn-warning me-1",
+                                                    on: {
+                                                      click: function ($event) {
+                                                        return _vm.editarSubProducto(
+                                                          subProducto
+                                                        )
+                                                      },
+                                                    },
+                                                  },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass: "fa fa-edit",
+                                                    }),
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-sm btn-danger",
+                                                    on: {
+                                                      click: function ($event) {
+                                                        return _vm.eliminarSubProducto(
+                                                          subProducto.id
+                                                        )
+                                                      },
+                                                    },
+                                                  },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass:
+                                                        "fa fa-trash",
+                                                    }),
+                                                  ]
+                                                ),
+                                              ]),
                                             ]
                                           )
                                         }
@@ -56211,7 +56496,7 @@ var render = function () {
                           [
                             _c("i", { staticClass: "fa fa-plus" }),
                             _vm._v(
-                              " Agregar Producto1\n                            "
+                              " Agregar Producto\n                            "
                             ),
                           ]
                         ),

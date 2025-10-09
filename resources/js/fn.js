@@ -152,6 +152,23 @@ window.deleteItemDt = (data) =>{
     });
 }
 
+//realizar pregunta y retornar true o false
+window.realizarPregunta = async (title, text, confirmButtonText) =>{
+    confirmButtonText = confirmButtonText || 'Sí, ¡hazlo!';
+    const result = await Swal.fire({
+        title: title || '¿Estás seguro?',
+        text: text || "",
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: confirmButtonText,
+        reverseButtons: true
+    });
+
+    return result.isConfirmed;
+}
+
 
 
 // oculta los alertas de request error

@@ -100,6 +100,8 @@ class RedProduccionProductoAPIController extends AppBaseController
             return $this->sendError('Red Producción Producto no encontrado');
         }
 
+        $redProduccionProducto->subProductos()->delete();
+
         $redProduccionProducto->delete();
 
         return $this->sendSuccess('Red Producción Producto eliminado');
