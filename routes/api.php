@@ -263,7 +263,7 @@ Route::group(['as'=>'api.'], function () {
 
 
         Route::group(['prefix' => 'red-produccion','as' =>'red.produccion.'], function () {
-            Route::resource('resultados', App\Http\Controllers\RedProduccionResultadoController::class)
+            Route::resource('resultados', App\Http\Controllers\API\RedProduccionResultadoAPIController::class)
                 ->except(['create', 'edit']);
             Route::resource('productos', App\Http\Controllers\API\RedProduccionProductoAPIController::class)
                 ->except(['create', 'edit']);

@@ -28,6 +28,7 @@ import SelectBodegas from "./components/SelectBodegas";
 import SelectItemPresentacion from "./components/SelectItemPresentacion";
 import SelectItemModelo from "./components/SelectItemModelo";
 import DualListBoxCompraRequisicionEstados from "./components/DualListBoxCompraRequisicionEstados";
+import RedProduccionResultados from "./components/red_produccion_resultados/RedProduccionResultados.vue";
 
 // register globally
 Vue.component('multiselect', Multiselect);
@@ -119,6 +120,8 @@ Vue.component('select-item-presentacion',SelectItemPresentacion)
 Vue.component('select-item-modelo',SelectItemModelo);
 
 Vue.component('dual-listbox-compra-requisicion-estados',DualListBoxCompraRequisicionEstados);
+
+Vue.component('red-produccion-resultados',RedProduccionResultados);
 
 
 

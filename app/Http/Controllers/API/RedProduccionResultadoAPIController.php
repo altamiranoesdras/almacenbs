@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreateRedProduccionResultadoAPIRequest;
 use App\Http\Requests\API\UpdateRedProduccionResultadoAPIRequest;
 use App\Models\RedProduccionResultado;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
 
 /**
  * Class RedProduccionResultadoAPIController
@@ -29,7 +29,8 @@ class RedProduccionResultadoAPIController extends AppBaseController
             $query->limit($request->get('limit'));
         }
 
-        $redProduccionResultados = $query->get();
+        $redProduccionResultados = $query->with('productos.subproductos')
+            ->get();
 
         return $this->sendResponse($redProduccionResultados->toArray(), 'Red Producción Resultados ');
     }
