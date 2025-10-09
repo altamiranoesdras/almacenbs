@@ -1,14 +1,14 @@
 <script>
 import FormularioPrograma from "./FormularioPrograma.vue";
 import FormularioSubPrograma from "./FormularioSubPrograma.vue";
-// import FormularioSubProducto from "./FormularioSubProducto.vue";
+import FormularioProyecto from "./FormularioProyecto.vue";
 
 export default {
     name: "red-produccion-resultados",
     components: {
         FormularioPrograma,
         FormularioSubPrograma,
-        // FormularioSubProducto
+        FormularioProyecto
     },
     data() {
         return {
@@ -46,9 +46,9 @@ export default {
             this.mostrarFormularioSubPrograma = true;
             this.programaSeleccionadoId = resultadoId;
         },
-        agregarProyecto(productoId) {
+        agregarProyecto(subProgramaId) {
             this.mostrarFormularioProyecto = true;
-            this.subProgramaSeleccionadoId = productoId;
+            this.subProgramaSeleccionadoId = subProgramaId;
         },
 
         editarResultado(resultado) {
@@ -325,13 +325,13 @@ export default {
                     @registro-guardado="getResultados"
                 />
 
-        <!--        <FormularioSubProducto-->
-        <!--            :mostrar-modal="mostrarFormularioProyecto"-->
-        <!--            :producto-id="subProgramaSeleccionadoId"-->
-        <!--            :item="proyectoSeleccionado"-->
-        <!--            @registro-guardado="getResultados"-->
-        <!--            @cerrarModal="cerrarFormularioSubProducto"-->
-        <!--        />-->
+                <FormularioProyecto
+                    :item="proyectoSeleccionado"
+                    :mostrar-modal="mostrarFormularioProyecto"
+                    :sub-programa-id="subProgramaSeleccionadoId"
+                    @cerrarModal="cerrarFormularioSubProducto"
+                    @registro-guardado="getResultados"
+                />
 
     </div>
 </template>

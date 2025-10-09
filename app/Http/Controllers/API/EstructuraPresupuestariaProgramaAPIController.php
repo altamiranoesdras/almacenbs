@@ -113,7 +113,7 @@ class EstructuraPresupuestariaProgramaAPIController extends AppBaseController
             ->whereRaw('year(created_at) ='.Carbon::now()->year)
             ->max('id');
 
-        return 'RPSP-'.Carbon::now()->year.'-'.str_pad((int)$correlativo + 1, 6, '0', STR_PAD_LEFT);
+        return 'EPP-'.Carbon::now()->year.'-'.str_pad((int)$correlativo + 1, 6, '0', STR_PAD_LEFT);
     }
 
 }
