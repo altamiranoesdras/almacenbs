@@ -2,13 +2,15 @@
 import FormularioPrograma from "./FormularioPrograma.vue";
 import FormularioSubPrograma from "./FormularioSubPrograma.vue";
 import FormularioProyecto from "./FormularioProyecto.vue";
+import FormularioActividad from "./FormularioActividad.vue";
 
 export default {
     name: "red-produccion-resultados",
     components: {
         FormularioPrograma,
         FormularioSubPrograma,
-        FormularioProyecto
+        FormularioProyecto,
+        FormularioActividad,
     },
     data() {
         return {
@@ -16,14 +18,16 @@ export default {
             mostrarFormularioPrograma: false,
             mostrarFormularioSubPrograma: false,
             mostrarFormularioProyecto: false,
+            mostrarFormularioActividad: false,
 
             programaSeleccionadoId: null,
             subProgramaSeleccionadoId: null,
+            proyectoSeleccionadoId: null,
 
             programaSeleccionado: null,
             subProgramaSeleccionado: null,
             proyectoSeleccionado: null,
-
+            actividadSeleccionada: null,
         }
     },
     mounted() {
@@ -49,6 +53,14 @@ export default {
         agregarProyecto(subProgramaId) {
             this.mostrarFormularioProyecto = true;
             this.subProgramaSeleccionadoId = subProgramaId;
+        },
+        agregarActividad(proyectoId) {
+            this.mostrarFormularioActividad = true;
+            this.proyectoSeleccionadoId = proyectoId;
+        },
+        editarActividad(actividad) {
+            this.actividadSeleccionada = actividad;
+            this.mostrarFormularioActividad = true;
         },
 
         editarResultado(resultado) {
@@ -100,18 +112,24 @@ export default {
                 notifyErrorApi(e);
             }
         },
-        cerrarModalResultado() {
+
+        cerrarModalPrograma() {
             this.mostrarFormularioPrograma = false;
             this.programaSeleccionado = null;
         },
-        cerrarFormularioProducto() {
+        cerrarModalSubPrograma() {
             this.mostrarFormularioSubPrograma = false;
             this.subProgramaSeleccionado = null;
         },
-        cerrarFormularioSubProducto() {
+        cerrarModalProyecto() {
             this.mostrarFormularioProyecto = false;
             this.proyectoSeleccionado = null;
+        },
+        cerrarModalActividad() {
+            this.mostrarFormularioActividad = false;
+            this.actividadSeleccionada = null;
         }
+
     }
 }
 </script>
@@ -313,7 +331,7 @@ export default {
                 <FormularioPrograma
                     :item="programaSeleccionado"
                     :mostrar-modal="mostrarFormularioPrograma"
-                    @cerrarModal="cerrarModalResultado"
+                    @cerrarModal="cerrarModalPrograma"
                     @registro-guardado="getResultados"
                 />
 
@@ -321,7 +339,7 @@ export default {
                     :item="subProgramaSeleccionado"
                     :mostrar-modal="mostrarFormularioSubPrograma"
                     :programa-id="programaSeleccionadoId"
-                    @cerrarModal="cerrarFormularioProducto"
+                    @cerrarModal="cerrarModalSubPrograma"
                     @registro-guardado="getResultados"
                 />
 
@@ -329,7 +347,15 @@ export default {
                     :item="proyectoSeleccionado"
                     :mostrar-modal="mostrarFormularioProyecto"
                     :sub-programa-id="subProgramaSeleccionadoId"
-                    @cerrarModal="cerrarFormularioSubProducto"
+                    @cerrarModal="cerrarModalProyecto"
+                    @registro-guardado="getResultados"
+                />
+
+                <FormularioActividad
+                    :item="actividadSeleccionada"
+                    :mostrar-modal="mostrarFormularioActividad"
+                    :proyecto-id="proyectoSeleccionadoId"
+                    @cerrarModal="cerrarModalActividad"
                     @registro-guardado="getResultados"
                 />
 

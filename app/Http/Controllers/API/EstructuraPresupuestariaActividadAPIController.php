@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreateEstructuraPresupuestariaActividadAPIRequest;
 use App\Http\Requests\API\UpdateEstructuraPresupuestariaActividadAPIRequest;
 use App\Models\EstructuraPresupuestariaActividad;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
 
 /**
  * Class EstructuraPresupuestariaActividadAPIController
@@ -41,6 +42,8 @@ class EstructuraPresupuestariaActividadAPIController extends AppBaseController
     public function store(CreateEstructuraPresupuestariaActividadAPIRequest $request): JsonResponse
     {
         $input = $request->all();
+
+        $input['codigo'] = $this->getCodigo();
 
         /** @var EstructuraPresupuestariaActividad $estructuraPresupuestariaActividad */
         $estructuraPresupuestariaActividad = EstructuraPresupuestariaActividad::create($input);
@@ -102,4 +105,15 @@ class EstructuraPresupuestariaActividadAPIController extends AppBaseController
 
         return $this->sendSuccess('Estructura Presupuestaria Actividad eliminado');
     }
+
+    public function getCodigo()
+    {
+        $correlativo = EstructuraPresupuestariaActividad::withTrashed()
+            ->whereRaw('year(created_at) ='.Carbon::now()->year)
+            ->max('id');
+
+        return 'EPP-'.Carbon::now()->year.'-'.str_pad((int)$correlativo + 1, 6, '0', STR_PAD_LEFT);
+    }
+
+
 }
