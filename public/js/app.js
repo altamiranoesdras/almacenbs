@@ -7950,30 +7950,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee, null, [[0, 8]]);
       }))();
     },
+    //Programa
     agregarPrograma: function agregarPrograma() {
       this.mostrarFormularioPrograma = true;
     },
-    agregarSubPrograma: function agregarSubPrograma(resultadoId) {
-      this.mostrarFormularioSubPrograma = true;
-      this.programaSeleccionadoId = resultadoId;
-    },
-    agregarProyecto: function agregarProyecto(subProgramaId) {
-      this.mostrarFormularioProyecto = true;
-      this.subProgramaSeleccionadoId = subProgramaId;
-    },
-    agregarActividad: function agregarActividad(proyectoId) {
-      this.mostrarFormularioActividad = true;
-      this.proyectoSeleccionadoId = proyectoId;
-    },
-    editarActividad: function editarActividad(actividad) {
-      this.actividadSeleccionada = actividad;
-      this.mostrarFormularioActividad = true;
-    },
-    editarResultado: function editarResultado(resultado) {
+    editarPrograma: function editarPrograma(resultado) {
       this.programaSeleccionado = resultado;
       this.mostrarFormularioPrograma = true;
     },
-    eliminarResultado: function eliminarResultado(id) {
+    eliminarPrograma: function eliminarPrograma(id) {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
@@ -7983,7 +7968,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return realizarPregunta("¿Estás seguro de eliminar este Resultado?");
+                return realizarPregunta("¿Estás seguro de eliminar este Programa?");
 
               case 2:
                 respuesta = _context2.sent;
@@ -7998,7 +7983,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 5:
                 _context2.prev = 5;
                 _context2.next = 8;
-                return axios["delete"](route('api.red.produccion.resultados.destroy', id));
+                return axios["delete"](route('api.estructura.presupuestaria.programas.destroy', id));
 
               case 8:
                 res = _context2.sent;
@@ -8023,12 +8008,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2, null, [[5, 14]]);
       }))();
     },
-    // Producto
-    editarProducto: function editarProducto(producto) {
+    // SubPrograma
+    agregarSubPrograma: function agregarSubPrograma(resultadoId) {
+      this.mostrarFormularioSubPrograma = true;
+      this.programaSeleccionadoId = resultadoId;
+    },
+    editarSubPrograma: function editarSubPrograma(producto) {
       this.subProgramaSeleccionado = producto;
       this.mostrarFormularioSubPrograma = true;
     },
-    eliminarProducto: function eliminarProducto(id) {
+    eliminarSubPrograma: function eliminarSubPrograma(id) {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
@@ -8038,7 +8027,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return realizarPregunta("¿Estás seguro de eliminar este Producto?");
+                return realizarPregunta("¿Estás seguro de eliminar este SubPrograma?");
 
               case 2:
                 respuesta = _context3.sent;
@@ -8053,7 +8042,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 5:
                 _context3.prev = 5;
                 _context3.next = 8;
-                return axios["delete"](route('api.red.produccion.productos.destroy', id));
+                return axios["delete"](route('api.estructura.presupuestaria.subprogramas.destroy', id));
 
               case 8:
                 res = _context3.sent;
@@ -8078,11 +8067,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3, null, [[5, 14]]);
       }))();
     },
-    editarSubProducto: function editarSubProducto(subProducto) {
+    // Proyecto
+    agregarProyecto: function agregarProyecto(subProgramaId) {
+      this.mostrarFormularioProyecto = true;
+      this.subProgramaSeleccionadoId = subProgramaId;
+    },
+    editarProyecto: function editarProyecto(subProducto) {
       this.proyectoSeleccionado = subProducto;
       this.mostrarFormularioProyecto = true;
     },
-    eliminarSubProducto: function eliminarSubProducto(id) {
+    eliminarProyecto: function eliminarProyecto(id) {
       var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
@@ -8092,7 +8086,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.next = 2;
-                return realizarPregunta("¿Estás seguro de eliminar este SubProducto?");
+                return realizarPregunta("¿Estás seguro de eliminar este Proyecto?");
 
               case 2:
                 respuesta = _context4.sent;
@@ -8107,7 +8101,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 5:
                 _context4.prev = 5;
                 _context4.next = 8;
-                return axios["delete"](route('api.red.produccion.sub-productos.destroy', id));
+                return axios["delete"](route('api.estructura.presupuestaria.proyectos.destroy', id));
 
               case 8:
                 res = _context4.sent;
@@ -8130,6 +8124,65 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee4, null, [[5, 14]]);
+      }))();
+    },
+    //Actividad
+    agregarActividad: function agregarActividad(proyectoId) {
+      this.mostrarFormularioActividad = true;
+      this.proyectoSeleccionadoId = proyectoId;
+    },
+    editarActividad: function editarActividad(actividad) {
+      this.actividadSeleccionada = actividad;
+      this.mostrarFormularioActividad = true;
+    },
+    eliminarActividad: function eliminarActividad(id) {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+        var respuesta, res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return realizarPregunta("¿Estás seguro de eliminar esta Actividad?");
+
+              case 2:
+                respuesta = _context5.sent;
+
+                if (respuesta) {
+                  _context5.next = 5;
+                  break;
+                }
+
+                return _context5.abrupt("return");
+
+              case 5:
+                _context5.prev = 5;
+                _context5.next = 8;
+                return axios["delete"](route('api.estructura.presupuestaria.actividades.destroy', id));
+
+              case 8:
+                res = _context5.sent;
+                _context5.next = 11;
+                return _this5.getResultados();
+
+              case 11:
+                iziTs(res.data.message);
+                _context5.next = 17;
+                break;
+
+              case 14:
+                _context5.prev = 14;
+                _context5.t0 = _context5["catch"](5);
+                notifyErrorApi(_context5.t0);
+
+              case 17:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5, null, [[5, 14]]);
       }))();
     },
     cerrarModalPrograma: function cerrarModalPrograma() {
@@ -13229,7 +13282,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Tus estilos personalizados aquí si los necesitas */\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Tus estilos personalizados aquí si los necesitas */\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -56475,7 +56528,7 @@ var render = function () {
                                     staticClass: "btn btn-warning",
                                     on: {
                                       click: function ($event) {
-                                        return _vm.editarResultado(item)
+                                        return _vm.editarPrograma(item)
                                       },
                                     },
                                   },
@@ -56493,7 +56546,7 @@ var render = function () {
                                     staticClass: "btn btn-danger",
                                     on: {
                                       click: function ($event) {
-                                        return _vm.eliminarResultado(item.id)
+                                        return _vm.eliminarPrograma(item.id)
                                       },
                                     },
                                   },
@@ -56598,7 +56651,7 @@ var render = function () {
                                             staticClass: "btn btn-warning",
                                             on: {
                                               click: function ($event) {
-                                                return _vm.editarProducto(
+                                                return _vm.editarSubPrograma(
                                                   subPrograma
                                                 )
                                               },
@@ -56617,7 +56670,7 @@ var render = function () {
                                             staticClass: "btn btn-danger",
                                             on: {
                                               click: function ($event) {
-                                                return _vm.eliminarProducto(
+                                                return _vm.eliminarSubPrograma(
                                                   subPrograma.id
                                                 )
                                               },
@@ -56774,7 +56827,7 @@ var render = function () {
                                                             click: function (
                                                               $event
                                                             ) {
-                                                              return _vm.editarSubProducto(
+                                                              return _vm.editarProyecto(
                                                                 proyecto
                                                               )
                                                             },
@@ -56797,7 +56850,7 @@ var render = function () {
                                                             click: function (
                                                               $event
                                                             ) {
-                                                              return _vm.eliminarSubProducto(
+                                                              return _vm.eliminarProyecto(
                                                                 proyecto.id
                                                               )
                                                             },

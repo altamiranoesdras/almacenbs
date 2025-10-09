@@ -101,6 +101,10 @@ class EstructuraPresupuestariaProyectoAPIController extends AppBaseController
             return $this->sendError('Estructura Presupuestaria Proyecto no encontrado');
         }
 
+        foreach ($estructuraPresupuestariaProyecto->actividades as $index => $actividade) {
+            $actividade->delete();
+        }
+
         $estructuraPresupuestariaProyecto->delete();
 
         return $this->sendSuccess('Estructura Presupuestaria Proyecto eliminado');

@@ -101,6 +101,13 @@ class EstructuraPresupuestariaSubprogramaAPIController extends AppBaseController
             return $this->sendError('Estructura Presupuestaria Subprograma no encontrado');
         }
 
+        foreach ($estructuraPresupuestariaSubprograma->proyectos as $proyecto) {
+            foreach ($proyecto->actividades as $actividad) {
+                $actividad->delete();
+            }
+            $proyecto->delete();
+        }
+
         $estructuraPresupuestariaSubprograma->delete();
 
         return $this->sendSuccess('Estructura Presupuestaria Subprograma eliminado');

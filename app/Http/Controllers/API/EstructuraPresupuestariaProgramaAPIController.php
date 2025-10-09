@@ -96,16 +96,28 @@ class EstructuraPresupuestariaProgramaAPIController extends AppBaseController
     public function destroy($id): JsonResponse
     {
         /** @var EstructuraPresupuestariaPrograma $estructuraPresupuestariaPrograma */
-        $estructuraPresupuestariaPrograma = EstructuraPresupuestariaPrograma::find($id);
+        $estructuraPresupuestariaPrograma = EstructuraPresupuestariaPrograma::with('subProgramas.proyectos.actividades')
+            ->find($id);
 
         if (empty($estructuraPresupuestariaPrograma)) {
             return $this->sendError('Estructura Presupuestaria Programa no encontrado');
+        }
+
+        foreach ($estructuraPresupuestariaPrograma->subProgramas as $subPrograma) {
+            foreach ($subPrograma->proyectos as $proyecto) {
+                foreach ($proyecto->actividades as $actividad) {
+                    $actividad->delete();
+                }
+                $proyecto->delete();
+            }
+            $subPrograma->delete();
         }
 
         $estructuraPresupuestariaPrograma->delete();
 
         return $this->sendSuccess('Estructura Presupuestaria Programa eliminado');
     }
+
 
     public function getCodigo()
     {

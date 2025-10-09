@@ -43,17 +43,70 @@ export default {
                 notifyErrorApi(e);
             }
         },
+
+        //Programa
         agregarPrograma() {
             this.mostrarFormularioPrograma = true;
         },
+        editarPrograma(resultado) {
+            this.programaSeleccionado = resultado;
+            this.mostrarFormularioPrograma = true;
+        },
+        async eliminarPrograma(id) {
+            let respuesta = await realizarPregunta("¿Estás seguro de eliminar este Programa?");
+            if (!respuesta) return;
+            try {
+                let res = await axios.delete(route('api.estructura.presupuestaria.programas.destroy', id));
+                await this.getResultados();
+                iziTs(res.data.message)
+            } catch (e) {
+                notifyErrorApi(e);
+            }
+        },
+
+        // SubPrograma
         agregarSubPrograma(resultadoId) {
             this.mostrarFormularioSubPrograma = true;
             this.programaSeleccionadoId = resultadoId;
         },
+        editarSubPrograma(producto) {
+            this.subProgramaSeleccionado = producto;
+            this.mostrarFormularioSubPrograma = true;
+        },
+        async eliminarSubPrograma(id) {
+            let respuesta = await realizarPregunta("¿Estás seguro de eliminar este SubPrograma?");
+            if (!respuesta) return;
+            try {
+                let res = await axios.delete(route('api.estructura.presupuestaria.subprogramas.destroy', id));
+                await this.getResultados();
+                iziTs(res.data.message)
+            } catch (e) {
+                notifyErrorApi(e);
+            }
+        },
+
+        // Proyecto
         agregarProyecto(subProgramaId) {
             this.mostrarFormularioProyecto = true;
             this.subProgramaSeleccionadoId = subProgramaId;
         },
+        editarProyecto(subProducto) {
+            this.proyectoSeleccionado = subProducto;
+            this.mostrarFormularioProyecto = true;
+        },
+        async eliminarProyecto(id) {
+            let respuesta = await realizarPregunta("¿Estás seguro de eliminar este Proyecto?");
+            if (!respuesta) return;
+            try {
+                let res = await axios.delete(route('api.estructura.presupuestaria.proyectos.destroy', id));
+                await this.getResultados();
+                iziTs(res.data.message)
+            } catch (e) {
+                notifyErrorApi(e);
+            }
+        },
+
+        //Actividad
         agregarActividad(proyectoId) {
             this.mostrarFormularioActividad = true;
             this.proyectoSeleccionadoId = proyectoId;
@@ -62,17 +115,11 @@ export default {
             this.actividadSeleccionada = actividad;
             this.mostrarFormularioActividad = true;
         },
-
-        editarResultado(resultado) {
-            this.programaSeleccionado = resultado;
-            this.mostrarFormularioPrograma = true;
-        },
-
-        async eliminarResultado(id) {
-            let respuesta = await realizarPregunta("¿Estás seguro de eliminar este Resultado?");
+        async eliminarActividad(id) {
+            let respuesta = await realizarPregunta("¿Estás seguro de eliminar esta Actividad?");
             if (!respuesta) return;
             try {
-                let res = await axios.delete(route('api.red.produccion.resultados.destroy', id));
+                let res = await axios.delete(route('api.estructura.presupuestaria.actividades.destroy', id));
                 await this.getResultados();
                 iziTs(res.data.message)
             } catch (e) {
@@ -80,38 +127,6 @@ export default {
             }
         },
 
-        // Producto
-        editarProducto(producto) {
-            this.subProgramaSeleccionado = producto;
-            this.mostrarFormularioSubPrograma = true;
-        },
-        async eliminarProducto(id) {
-            let respuesta = await realizarPregunta("¿Estás seguro de eliminar este Producto?");
-            if (!respuesta) return;
-            try {
-                let res = await axios.delete(route('api.red.produccion.productos.destroy', id));
-                await this.getResultados();
-                iziTs(res.data.message)
-            } catch (e) {
-                notifyErrorApi(e);
-            }
-        },
-
-        editarSubProducto(subProducto) {
-            this.proyectoSeleccionado = subProducto;
-            this.mostrarFormularioProyecto = true;
-        },
-        async eliminarSubProducto(id) {
-            let respuesta = await realizarPregunta("¿Estás seguro de eliminar este SubProducto?");
-            if (!respuesta) return;
-            try {
-                let res = await axios.delete(route('api.red.produccion.sub-productos.destroy', id));
-                await this.getResultados();
-                iziTs(res.data.message)
-            } catch (e) {
-                notifyErrorApi(e);
-            }
-        },
 
         cerrarModalPrograma() {
             this.mostrarFormularioPrograma = false;
@@ -180,10 +195,10 @@ export default {
                                 <!-- Acciones Resultado -->
                                 <div class="mb-3 d-flex justify-content-end gap-2">
                                     <div class="btn-group btn-group-sm">
-                                        <button class="btn btn-warning" @click="editarResultado(item)">
+                                        <button class="btn btn-warning" @click="editarPrograma(item)">
                                             <i class="fa fa-edit"></i> Editar
                                         </button>
-                                        <button class="btn btn-danger" @click="eliminarResultado(item.id)">
+                                        <button class="btn btn-danger" @click="eliminarPrograma(item.id)">
                                             <i class="fa fa-trash"></i> Eliminar
                                         </button>
                                     </div>
@@ -211,11 +226,11 @@ export default {
                                                         @click="agregarProyecto(subPrograma.id)">
                                                     <i class="fa fa-plus"></i> Proyecto
                                                 </button>
-                                                <button class="btn btn-warning" @click="editarProducto(subPrograma)">
+                                                <button class="btn btn-warning" @click="editarSubPrograma(subPrograma)">
                                                     <i class="fa fa-edit"></i>
                                                 </button>
                                                 <button class="btn btn-danger"
-                                                        @click="eliminarProducto(subPrograma.id)">
+                                                        @click="eliminarSubPrograma(subPrograma.id)">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                             </div>
@@ -256,11 +271,11 @@ export default {
                                                             <i class="fa fa-plus"></i>
                                                         </button>
                                                         <button class="btn btn-warning"
-                                                                @click="editarSubProducto(proyecto)">
+                                                                @click="editarProyecto(proyecto)">
                                                             <i class="fa fa-edit"></i>
                                                         </button>
                                                         <button class="btn btn-danger"
-                                                                @click="eliminarSubProducto(proyecto.id)">
+                                                                @click="eliminarProyecto(proyecto.id)">
                                                             <i class="fa fa-trash"></i>
                                                         </button>
                                                     </div>
