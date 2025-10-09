@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreateEstructuraPresupuestariaProgramaAPIRequest;
 use App\Http\Requests\API\UpdateEstructuraPresupuestariaProgramaAPIRequest;
 use App\Models\EstructuraPresupuestariaPrograma;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
 
 /**
  * Class EstructuraPresupuestariaProgramaAPIController
@@ -29,7 +29,8 @@ class EstructuraPresupuestariaProgramaAPIController extends AppBaseController
             $query->limit($request->get('limit'));
         }
 
-        $estructuraPresupuestariaProgramas = $query->get();
+        $estructuraPresupuestariaProgramas = $query->with('subProgramas.proyectos.actividades')
+            ->get();
 
         return $this->sendResponse($estructuraPresupuestariaProgramas->toArray(), 'Estructura Presupuestaria Programas ');
     }

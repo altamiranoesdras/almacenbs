@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\EstructuraPresupuestariaProgramaDataTable;
 use App\Http\Requests\CreateEstructuraPresupuestariaProgramaRequest;
 use App\Http\Requests\UpdateEstructuraPresupuestariaProgramaRequest;
-use App\Http\Controllers\AppBaseController;
 use App\Models\EstructuraPresupuestariaPrograma;
-use Illuminate\Http\Request;
 
 class EstructuraPresupuestariaProgramaController extends AppBaseController
 {
@@ -24,7 +22,7 @@ class EstructuraPresupuestariaProgramaController extends AppBaseController
      */
     public function index(EstructuraPresupuestariaProgramaDataTable $estructuraPresupuestariaProgramaDataTable)
     {
-    return $estructuraPresupuestariaProgramaDataTable->render('estructura_presupuestaria_programas.index');
+        return view('estructura_presupuestaria_programas.index');
     }
 
 

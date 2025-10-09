@@ -33,8 +33,8 @@
 
         <div class="row">
             <div class="col-12">
-                <div class="card">
-                    @include('estructura_presupuestaria_programas.table')
+                <div class="card" id="appVue">
+                    <estructura-presupuestaria/>
                 </div>
             </div>
         </div>
@@ -42,3 +42,24 @@
     </div>
 
 @endsection
+
+@push('scripts')
+    <script>
+        new Vue({
+            el: '#appVue',
+            mounted() {
+                console.log('Instancia vue montada');
+            },
+            created() {
+                console.log('Instancia vue creada');
+            },
+            data: {
+            },
+            methods: {
+                getDatos(){
+                    console.log('Metodo Get Datos');
+                }
+            }
+        });
+    </script>
+@endpush

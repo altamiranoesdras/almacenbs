@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\SoftDeletes;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int $id
@@ -73,8 +73,8 @@ class EstructuraPresupuestariaProyecto extends Model
         return $this->belongsTo(\App\Models\EstructuraPresupuestariaSubprograma::class, 'subprograma_id');
     }
 
-    public function estructuraPresupuestariaActividades(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function actividades(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(\App\Models\EstructuraPresupuestariaActividade::class, 'proyecto_id');
+        return $this->hasMany(\App\Models\EstructuraPresupuestariaActividad::class, 'proyecto_id');
     }
 }

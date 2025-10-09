@@ -1,14 +1,14 @@
 <script>
-import FormularioResultado from "./FormularioProductoResultado.vue";
-import FormularioProducto from "./FormularioProducto.vue";
-import FormularioSubProducto from "./FormularioSubProducto.vue";
+// import FormularioResultado from "./FormularioProductoResultado.vue";
+// import FormularioProducto from "./FormularioProducto.vue";
+// import FormularioSubProducto from "./FormularioSubProducto.vue";
 
 export default {
     name: "red-produccion-resultados",
     components: {
-        FormularioProducto,
-        FormularioResultado,
-        FormularioSubProducto
+        // FormularioProducto,
+        // FormularioResultado,
+        // FormularioSubProducto
     },
     data() {
         return {
@@ -32,13 +32,13 @@ export default {
     methods: {
         async getResultados() {
             try {
-                var res = await axios.get(route('api.red.produccion.resultados.index'));
+                var res = await axios.get(route('api.estructura.presupuestaria.programas.index'));
                 this.resultados = res.data.data;
             } catch (e) {
                 notifyErrorApi(e);
             }
         },
-        agregarResultado() {
+        agregarPrograma() {
             this.mostrarModalResultado = true;
         },
         agregarProducto(resultadoId) {
@@ -120,8 +120,8 @@ export default {
         <div class="row">
             <div class="col-12">
                 <div class="text-end mb-2">
-                    <button class="btn btn-outline-success" @click="agregarResultado">
-                        <i class="fa fa-plus"></i> Nuevo Resultado
+                    <button class="btn btn-outline-success" @click="agregarPrograma">
+                        <i class="fa fa-plus"></i> Nuevo Programa
                     </button>
                 </div>
                 <div id="accordionResultados" class="accordion">
@@ -163,48 +163,48 @@ export default {
 
                                 <div class="list-group mb-2">
                                     <div
-                                        v-for="producto in item.productos"
-                                        :key="producto.id"
+                                        v-for="subPrograma in item.subPrograma"
+                                        :key="subPrograma.id"
                                         class="list-group-item"
                                     >
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div>
                                                 <i class="fa fa-cube text-success me-2"></i>
-                                                <strong>{{ producto.codigo }}</strong> - {{ producto.nombre }}
+                                                <strong>{{ subPrograma.codigo }}</strong> - {{ subPrograma.nombre }}
                                             </div>
                                             <div>
                                                 <!-- 🔹 Botones de acción para Producto -->
-                                                <button class="btn btn-outline-primary btn-sm me-1" @click="agregarSubProducto(producto.id)">
+                                                <button class="btn btn-outline-primary btn-sm me-1" @click="agregarSubProducto(subPrograma.id)">
                                                     <i class="fa fa-plus"></i> SubProducto
                                                 </button>
-                                                <button class="btn btn-sm btn-warning me-1" @click="editarProducto(producto)">
+                                                <button class="btn btn-sm btn-warning me-1" @click="editarProducto(subPrograma)">
                                                     <i class="fa fa-edit"></i>
                                                 </button>
-                                                <button class="btn btn-sm btn-danger" @click="eliminarProducto(producto.id)">
+                                                <button class="btn btn-sm btn-danger" @click="eliminarProducto(subPrograma.id)">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                             </div>
                                         </div>
 
                                         <ul
-                                            v-if="producto.subproductos && producto.subproductos.length"
+                                            v-if="subPrograma.proyectos && producto.proyectos.length"
                                             class="list-group list-group-flush mt-2"
                                         >
                                             <li
-                                                v-for="subProducto in producto.subproductos"
-                                                :key="subProducto.id"
+                                                v-for="proyecto in subPrograma.proyectos"
+                                                :key="proyecto.id"
                                                 class="list-group-item d-flex justify-content-between align-items-center"
                                             >
                                                 <div>
                                                     <i class="fa fa-angle-right text-secondary me-2"></i>
-                                                    <b>{{ subProducto.codigo }}</b> - {{ subProducto.nombre }}
+                                                    <b>{{ proyecto.codigo }}</b> - {{ proyecto.nombre }}
                                                 </div>
                                                 <div>
                                                     <!-- 🔹 Botones de acción para SubProducto -->
-                                                    <button class="btn btn-sm btn-warning me-1" @click="editarSubProducto(subProducto)">
+                                                    <button class="btn btn-sm btn-warning me-1" @click="editarSubProducto(proyecto)">
                                                         <i class="fa fa-edit"></i>
                                                     </button>
-                                                    <button class="btn btn-sm btn-danger" @click="eliminarSubProducto(subProducto.id)">
+                                                    <button class="btn btn-sm btn-danger" @click="eliminarSubProducto(proyecto.id)">
                                                         <i class="fa fa-trash"></i>
                                                     </button>
                                                 </div>
@@ -217,7 +217,7 @@ export default {
                                     class="btn btn-outline-primary btn-sm mt-2"
                                     @click="agregarProducto(item.id)"
                                 >
-                                    <i class="fa fa-plus"></i> Agregar Producto
+                                    <i class="fa fa-plus"></i> Agregar SubPrograma
                                 </button>
                             </div>
                         </div>
@@ -225,28 +225,28 @@ export default {
                 </div>
             </div>
         </div>
-        <FormularioResultado
-            :mostrar-modal="mostrarModalResultado"
-            :item="resultadoSeleccionado"
-            @registro-guardado="getResultados"
-            @cerrarModal="cerrarModalResultado"
-        />
+<!--        <FormularioResultado-->
+<!--            :mostrar-modal="mostrarModalResultado"-->
+<!--            :item="resultadoSeleccionado"-->
+<!--            @registro-guardado="getResultados"-->
+<!--            @cerrarModal="cerrarModalResultado"-->
+<!--        />-->
 
-        <FormularioProducto
-            :mostrar-modal="mostrarModalProducto"
-            :resultado-id="resultadoSeleccionadoId"
-            :item="productoSeleccionado"
-            @registro-guardado="getResultados"
-            @cerrarModal="cerrarFormularioProducto"
-        />
+<!--        <FormularioProducto-->
+<!--            :mostrar-modal="mostrarModalProducto"-->
+<!--            :resultado-id="resultadoSeleccionadoId"-->
+<!--            :item="productoSeleccionado"-->
+<!--            @registro-guardado="getResultados"-->
+<!--            @cerrarModal="cerrarFormularioProducto"-->
+<!--        />-->
 
-        <FormularioSubProducto
-            :mostrar-modal="mostrarModalSubProducto"
-            :producto-id="productoSeleccionadoId"
-            :item="subProductoSeleccionado"
-            @registro-guardado="getResultados"
-            @cerrarModal="cerrarFormularioSubProducto"
-        />
+<!--        <FormularioSubProducto-->
+<!--            :mostrar-modal="mostrarModalSubProducto"-->
+<!--            :producto-id="productoSeleccionadoId"-->
+<!--            :item="subProductoSeleccionado"-->
+<!--            @registro-guardado="getResultados"-->
+<!--            @cerrarModal="cerrarFormularioSubProducto"-->
+<!--        />-->
 
     </div>
 </template>

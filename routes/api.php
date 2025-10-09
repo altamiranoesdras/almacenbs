@@ -272,7 +272,7 @@ Route::group(['as'=>'api.'], function () {
         });
 
         Route::group(['prefix' => 'estructura-presupuestaria','as' =>'estructura.presupuestaria.'], function () {
-            Route::resource('programas', App\Http\Controllers\EstructuraPresupuestariaProgramaController::class)
+            Route::resource('programas', App\Http\Controllers\Api\EstructuraPresupuestariaProgramaAPIController::class)
                 ->except(['create', 'edit']);
 
 
