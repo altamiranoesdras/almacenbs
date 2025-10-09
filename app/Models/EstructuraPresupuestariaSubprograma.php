@@ -59,8 +59,8 @@ class EstructuraPresupuestariaSubprograma extends Model
     ];
 
     public static $rules = [
-        'programa_id' => 'required',
-        'codigo' => 'required|string|max:255',
+        'programa_id' => 'nullable',
+        'codigo' => 'nullable|string|max:255',
         'nombre' => 'required|string|max:255',
         'descripcion' => 'nullable|string|max:65535',
         'created_at' => 'nullable',

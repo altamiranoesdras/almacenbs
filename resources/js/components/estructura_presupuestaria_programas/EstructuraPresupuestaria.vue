@@ -1,13 +1,13 @@
 <script>
 import FormularioPrograma from "./FormularioPrograma.vue";
-// import FormularioProducto from "./FormularioProducto.vue";
+import FormularioSubPrograma from "./FormularioSubPrograma.vue";
 // import FormularioSubProducto from "./FormularioSubProducto.vue";
 
 export default {
     name: "red-produccion-resultados",
     components: {
         FormularioPrograma,
-        // FormularioResultado,
+        FormularioSubPrograma,
         // FormularioSubProducto
     },
     data() {
@@ -317,13 +317,13 @@ export default {
                     @registro-guardado="getResultados"
                 />
 
-        <!--        <FormularioProducto-->
-        <!--            :mostrar-modal="mostrarFormularioSubPrograma"-->
-        <!--            :resultado-id="programaSeleccionadoId"-->
-        <!--            :item="subProgramaSeleccionado"-->
-        <!--            @registro-guardado="getResultados"-->
-        <!--            @cerrarModal="cerrarFormularioProducto"-->
-        <!--        />-->
+                <FormularioSubPrograma
+                    :item="subProgramaSeleccionado"
+                    :mostrar-modal="mostrarFormularioSubPrograma"
+                    :programa-id="programaSeleccionadoId"
+                    @cerrarModal="cerrarFormularioProducto"
+                    @registro-guardado="getResultados"
+                />
 
         <!--        <FormularioSubProducto-->
         <!--            :mostrar-modal="mostrarFormularioProyecto"-->
