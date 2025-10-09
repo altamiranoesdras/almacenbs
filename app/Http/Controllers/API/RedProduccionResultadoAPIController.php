@@ -44,7 +44,7 @@ class RedProduccionResultadoAPIController extends AppBaseController
     {
         $input = $request->all();
 
-        $input['codigo'] = $this->getCodigo();
+//        $input['codigo'] = $this->getCodigo();
 
         /** @var RedProduccionResultado $redProduccionResultado */
         $redProduccionResultado = RedProduccionResultado::create($input);

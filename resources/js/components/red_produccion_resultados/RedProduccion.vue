@@ -31,12 +31,14 @@ export default {
     },
     methods: {
         async getResultados() {
+            esperar();
             try {
                 var res = await axios.get(route('api.red.produccion.resultados.index'));
                 this.resultados = res.data.data;
             } catch (e) {
                 notifyErrorApi(e);
             }
+            finEspera();
         },
         agregarResultado() {
             this.mostrarModalResultado = true;

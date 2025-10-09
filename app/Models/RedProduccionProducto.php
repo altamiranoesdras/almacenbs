@@ -58,7 +58,7 @@ class RedProduccionProducto extends Model
 
     public static $rules = [
         'resultado_id' => 'nullable',
-        'codigo' => 'nullable|string|max:255',
+        'codigo' => 'required|string|max:255',
         'nombre' => 'required|string|max:255',
         'descripcion' => 'nullable|string|max:65535',
         'created_at' => 'nullable',

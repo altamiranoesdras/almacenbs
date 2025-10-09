@@ -43,7 +43,7 @@ class RedProduccionSubProductoAPIController extends AppBaseController
     {
         $input = $request->all();
 
-        $input['codigo'] = $this->getCodigo();
+//        $input['codigo'] = $this->getCodigo();
 
         /** @var RedProduccionSubProducto $redProduccionSubProducto */
         $redProduccionSubProducto = RedProduccionSubProducto::create($input);
