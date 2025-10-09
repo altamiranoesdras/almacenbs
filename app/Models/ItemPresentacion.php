@@ -39,7 +39,7 @@ class ItemPresentacion extends Model
     use HasFactory;
 
     public $table = 'item_presentaciones';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -70,7 +70,7 @@ class ItemPresentacion extends Model
      * @var array
      */
     public static $rules = [
-        'codigo' => 'required|string|max:255',
+        'codigo' => 'nullable|string|max:255',
         'nombre' => 'required|string|max:255',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
