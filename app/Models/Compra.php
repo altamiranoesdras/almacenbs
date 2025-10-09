@@ -141,7 +141,7 @@ class Compra extends Model
         'fecha_ingreso' => 'date',
         'serie' => 'string',
         'numero' => 'string',
-        'recibo_de_caja' => 'integer',
+        'recibo_de_caja' => 'string',
         'estado_id' => 'integer',
         'usuario_crea' => 'integer',
         'usuario_recibe' => 'integer',
