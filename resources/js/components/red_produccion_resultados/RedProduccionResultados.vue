@@ -1,9 +1,15 @@
 <script>
+import ModalNuevoProductoResultado from "./ModalNuevoProductoResultado.vue";
+
 export default {
     name: "red-produccion-resultados",
+    components: {
+        ModalNuevoProductoResultado
+    },
     data() {
         return {
-            resultados: []
+            resultados: [],
+            mostrarModalProductoResultado: false
         }
     },
     mounted() {
@@ -19,7 +25,7 @@ export default {
             }
         },
         agregarResultado() {
-            // lógica para agregar resultado
+            this.mostrarModalProductoResultado = true;
         },
         agregarProducto(resultadoId) {
             // lógica para agregar producto a un resultado
@@ -117,6 +123,8 @@ export default {
                 </div>
             </div>
         </div>
+        <ModalNuevoProductoResultado :mostrar-modal="mostrarModalProductoResultado" />
+
     </div>
 </template>
 
