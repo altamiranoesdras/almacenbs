@@ -8684,6 +8684,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     resultadoId: {
       type: Number,
       "default": null
+    },
+    item: {
+      type: Object,
+      "default": function _default() {
+        return {};
+      },
+      required: false
     }
   },
   data: function data() {
@@ -8725,33 +8732,50 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 7:
                 _context.prev = 7;
-                _context.next = 10;
+
+                if (!_this.form.id) {
+                  _context.next = 14;
+                  break;
+                }
+
+                _context.next = 11;
+                return axios.put(route('api.red.produccion.productos.update', _this.form.id), _this.form);
+
+              case 11:
+                respuesta = _context.sent;
+                _context.next = 17;
+                break;
+
+              case 14:
+                _context.next = 16;
                 return axios.post(route('api.red.produccion.productos.store'), _objectSpread(_objectSpread({}, _this.form), {}, {
                   resultado_id: _this.resultadoId
                 }));
 
-              case 10:
+              case 16:
                 respuesta = _context.sent;
+
+              case 17:
                 iziTs(respuesta.data.message);
 
                 _this.cerrarModal();
 
                 _this.$emit('registro-guardado', respuesta.data.resultado);
 
-                _context.next = 19;
+                _context.next = 25;
                 break;
 
-              case 16:
-                _context.prev = 16;
+              case 22:
+                _context.prev = 22;
                 _context.t0 = _context["catch"](7);
                 notifyErrorApi(_context.t0);
 
-              case 19:
+              case 25:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[7, 16]]);
+        }, _callee, null, [[7, 22]]);
       }))();
     },
     cerrarModal: function cerrarModal() {
@@ -8762,6 +8786,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   watch: {
     mostrarModal: function mostrarModal(nuevoValor) {
       if (nuevoValor) {
+        this.form = this.item ? _objectSpread({}, this.item) : {
+          nombre: "",
+          descripcion: ""
+        };
         $("#modalProducto").modal('show');
       }
     }
@@ -8783,6 +8811,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -8795,6 +8829,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     mostrarModal: {
       type: Boolean,
       "default": false
+    },
+    item: {
+      type: Object,
+      "default": null,
+      required: false
     }
   },
   data: function data() {
@@ -8804,6 +8843,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         descripcion: ""
       }
     };
+  },
+  onMounted: function onMounted() {
+    this.form = this.item;
   },
   methods: {
     guardar: function guardar() {
@@ -8834,31 +8876,48 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 6:
                 _context.prev = 6;
-                _context.next = 9;
+
+                if (!_this.form.id) {
+                  _context.next = 13;
+                  break;
+                }
+
+                _context.next = 10;
+                return axios.put(route('api.red.produccion.resultados.update', _this.form.id), _this.form);
+
+              case 10:
+                respuesta = _context.sent;
+                _context.next = 16;
+                break;
+
+              case 13:
+                _context.next = 15;
                 return axios.post(route('api.red.produccion.resultados.store'), _this.form);
 
-              case 9:
+              case 15:
                 respuesta = _context.sent;
+
+              case 16:
                 iziTs(respuesta.data.message);
 
                 _this.cerrarModal();
 
                 _this.$emit('registro-guardado', respuesta.data.resultado);
 
-                _context.next = 18;
+                _context.next = 24;
                 break;
 
-              case 15:
-                _context.prev = 15;
+              case 21:
+                _context.prev = 21;
                 _context.t0 = _context["catch"](6);
                 notifyErrorApi(_context.t0);
 
-              case 18:
+              case 24:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[6, 15]]);
+        }, _callee, null, [[6, 21]]);
       }))();
     },
     cerrarModal: function cerrarModal() {
@@ -8868,9 +8927,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   watch: {
     mostrarModal: function mostrarModal(nuevoValor) {
-      console.log('Abrieno el modal desde el resultado ');
-
       if (nuevoValor) {
+        this.form = this.item ? _objectSpread({}, this.item) : {
+          nombre: "",
+          descripcion: ""
+        };
         $("#formModal").modal('show');
       }
     }
@@ -9037,7 +9098,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       mostrarModalProducto: false,
       mostrarModalSubProducto: false,
       resultadoSeleccionadoId: null,
-      productoSeleccionadoId: null
+      productoSeleccionadoId: null,
+      resultadoSeleccionado: null,
+      productoSeleccionado: null
     };
   },
   mounted: function mounted() {
@@ -9088,7 +9151,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.productoSeleccionadoId = productoId;
     },
     editarResultado: function editarResultado(resultado) {
-      console.log("Editar Resultado:", resultado);
+      this.resultadoSeleccionado = resultado;
+      this.mostrarModalProductoResultado = true;
     },
     eliminarResultado: function eliminarResultado(id) {
       var _this2 = this;
@@ -9142,7 +9206,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     // Producto
     editarProducto: function editarProducto(producto) {
-      console.log("Editar Producto:", producto);
+      this.productoSeleccionado = producto;
+      this.mostrarModalProducto = true;
     },
     eliminarProducto: function eliminarProducto(id) {
       var _this3 = this;
@@ -12318,7 +12383,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* estilos opcionales */\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* estilos opcionales */\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -12342,7 +12407,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* estilos opcionales */\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* estilos opcionales */\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -12390,7 +12455,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Tus estilos personalizados aquí si los necesitas */\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Tus estilos personalizados aquí si los necesitas */\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -55889,19 +55954,14 @@ var render = function () {
                 ]
               ),
               _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  attrs: { type: "button" },
-                  on: { click: _vm.guardar },
+              _c("button", {
+                staticClass: "btn btn-primary",
+                attrs: { type: "button" },
+                domProps: {
+                  textContent: _vm._s(_vm.form.id ? "Actualizar" : "Guardar"),
                 },
-                [
-                  _vm._v(
-                    "\n                        Guardar\n                    "
-                  ),
-                ]
-              ),
+                on: { click: _vm.guardar },
+              }),
             ]),
           ]),
         ]),
@@ -56034,19 +56094,14 @@ var render = function () {
                 ]
               ),
               _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  attrs: { type: "button" },
-                  on: { click: _vm.guardar },
+              _c("button", {
+                staticClass: "btn btn-primary",
+                attrs: { type: "button" },
+                domProps: {
+                  textContent: _vm._s(_vm.form.id ? "Actualizar" : "Guardar"),
                 },
-                [
-                  _vm._v(
-                    "\n                        Guardar\n                    "
-                  ),
-                ]
-              ),
+                on: { click: _vm.guardar },
+              }),
             ]),
           ]),
         ]),
@@ -56573,7 +56628,10 @@ var render = function () {
       ]),
       _vm._v(" "),
       _c("FormularioResultado", {
-        attrs: { "mostrar-modal": _vm.mostrarModalProductoResultado },
+        attrs: {
+          "mostrar-modal": _vm.mostrarModalProductoResultado,
+          item: _vm.resultadoSeleccionado,
+        },
         on: { "registro-guardado": _vm.getResultados },
       }),
       _vm._v(" "),
@@ -56581,6 +56639,7 @@ var render = function () {
         attrs: {
           "mostrar-modal": _vm.mostrarModalProducto,
           "resultado-id": _vm.resultadoSeleccionadoId,
+          item: _vm.productoSeleccionado,
         },
         on: { "registro-guardado": _vm.getResultados },
       }),

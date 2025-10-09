@@ -18,7 +18,11 @@ export default {
             mostrarModalSubProducto: false,
 
             resultadoSeleccionadoId: null,
-            productoSeleccionadoId: null
+            productoSeleccionadoId: null,
+
+            resultadoSeleccionado: null,
+            productoSeleccionado: null,
+
         }
     },
     mounted() {
@@ -46,7 +50,8 @@ export default {
         },
 
         editarResultado(resultado) {
-            console.log("Editar Resultado:", resultado);
+            this.resultadoSeleccionado = resultado;
+            this.mostrarModalProductoResultado = true;
         },
 
         async eliminarResultado(id) {
@@ -63,7 +68,8 @@ export default {
 
         // Producto
         editarProducto(producto) {
-            console.log("Editar Producto:", producto);
+            this.productoSeleccionado = producto;
+            this.mostrarModalProducto = true;
         },
         async eliminarProducto(id) {
             let respuesta = await realizarPregunta("¿Estás seguro de eliminar este Producto?");
@@ -210,12 +216,14 @@ export default {
         </div>
         <FormularioResultado
             :mostrar-modal="mostrarModalProductoResultado"
+            :item="resultadoSeleccionado"
             @registro-guardado="getResultados"
         />
 
         <FormularioProducto
             :mostrar-modal="mostrarModalProducto"
             :resultado-id="resultadoSeleccionadoId"
+            :item="productoSeleccionado"
             @registro-guardado="getResultados"
         />
 

@@ -6,7 +6,11 @@ export default {
             type: Boolean,
             default: false
         },
-
+        item: {
+            type: Object,
+            default: null,
+            required: false
+        }
     },
     data() {
         return {
@@ -15,6 +19,9 @@ export default {
                 descripcion: ""
             }
         }
+    },
+    onMounted() {
+        this.form = this.item
     },
     methods: {
         async guardar() {
@@ -27,8 +34,12 @@ export default {
                 return;
             }
             try {
-                let respuesta = await axios.post(route('api.red.produccion.resultados.store'), this.form);
-
+                let respuesta;
+                if (this.form.id) {
+                    respuesta = await axios.put(route('api.red.produccion.resultados.update', this.form.id), this.form);
+                } else{
+                    respuesta = await axios.post(route('api.red.produccion.resultados.store'), this.form);
+                }
                 iziTs(respuesta.data.message);
                 this.cerrarModal();
                 this.$emit('registro-guardado', respuesta.data.resultado);
@@ -44,8 +55,8 @@ export default {
     },
     watch: {
         mostrarModal(nuevoValor) {
-            console.log('Abrieno el modal desde el resultado ')
             if (nuevoValor) {
+                this.form = this.item ? { ...this.item } : { nombre: "", descripcion: "" };
                 $("#formModal").modal('show');
             }
         },
@@ -103,8 +114,12 @@ export default {
                         >
                             Cancelar
                         </button>
-                        <button class="btn btn-primary" type="button" @click="guardar">
-                            Guardar
+                        <button
+                            class="btn btn-primary"
+                            type="button"
+                            @click="guardar"
+                            v-text="form.id ? 'Actualizar' : 'Guardar'"
+                        >
                         </button>
                     </div>
                 </div>
