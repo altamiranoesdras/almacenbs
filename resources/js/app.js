@@ -28,7 +28,7 @@ import SelectBodegas from "./components/SelectBodegas";
 import SelectItemPresentacion from "./components/SelectItemPresentacion";
 import SelectItemModelo from "./components/SelectItemModelo";
 import DualListBoxCompraRequisicionEstados from "./components/DualListBoxCompraRequisicionEstados";
-import RedProduccionResultados from "./components/red_produccion_resultados/RedProduccionResultados.vue";
+import RedProduccion from "./components/red_produccion_resultados/RedProduccion.vue";
 
 //Pruebas
 import Pruebas from "./components/Pruebas.vue";
@@ -124,7 +124,7 @@ Vue.component('select-item-modelo',SelectItemModelo);
 
 Vue.component('dual-listbox-compra-requisicion-estados',DualListBoxCompraRequisicionEstados);
 
-Vue.component('red-produccion-resultados',RedProduccionResultados);
+Vue.component('red-produccion',RedProduccion);
 
 //Pruebas
 Vue.component('pruebas',Pruebas);

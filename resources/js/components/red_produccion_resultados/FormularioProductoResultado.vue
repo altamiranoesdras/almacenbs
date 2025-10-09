@@ -1,0 +1,117 @@
+<script>
+export default {
+    name: "formulario-modal",
+    props: {
+        mostrarModal: {
+            type: Boolean,
+            default: false
+        },
+
+    },
+    data() {
+        return {
+            form: {
+                nombre: "",
+                descripcion: ""
+            }
+        }
+    },
+    methods: {
+        async guardar() {
+            if(!this.form.nombre) {
+                iziTi("El nombre es obligatorio", "warning");
+                return;
+            }
+            if(!this.form.descripcion) {
+                iziTi("La descripción es obligatoria", "warning");
+                return;
+            }
+            try {
+                let respuesta = await axios.post(route('api.red.produccion.resultados.store'), this.form);
+
+                iziTs(respuesta.data.message);
+                this.cerrarModal();
+                this.$emit('registro-guardado', respuesta.data.resultado);
+            }
+            catch (error) {
+                notifyErrorApi(error);
+            }
+        },
+        cerrarModal() {
+            $("#formModal").modal('hide');
+            this.$emit('update:mostrarModal', false);
+        }
+    },
+    watch: {
+        mostrarModal(nuevoValor) {
+            if (nuevoValor) {
+                $("#formModal").modal('show');
+            }
+        },
+
+    }
+
+}
+
+</script>
+
+<template>
+    <div>
+        <!-- Modal -->
+        <div
+            id="formModal"
+            class="modal fade"
+            tabindex="-1"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 id="formModalLabel" class="modal-title">Nuevo Resultado</h5>
+                        <button
+                            aria-label="Cerrar"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            type="button"
+                        ></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+
+                            <input
+                                v-model="form.nombre"
+                                class="form-control"
+                                placeholder="Ingrese el nombre"
+                                type="text"
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Descripción</label>
+                            <textarea
+                                v-model="form.descripcion"
+                                class="form-control"
+                                placeholder="Ingrese la descripción"
+                            ></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                            type="button"
+                        >
+                            Cancelar
+                        </button>
+                        <button class="btn btn-primary" type="button" @click="guardar">
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<style scoped>
+/* estilos opcionales */
+</style>

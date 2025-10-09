@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\SoftDeletes;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int $id
@@ -57,8 +57,8 @@ class RedProduccionProducto extends Model
     ];
 
     public static $rules = [
-        'resultado_id' => 'required',
-        'codigo' => 'required|string|max:255',
+        'resultado_id' => 'nullable',
+        'codigo' => 'nullable|string|max:255',
         'nombre' => 'required|string|max:255',
         'descripcion' => 'nullable|string|max:65535',
         'created_at' => 'nullable',

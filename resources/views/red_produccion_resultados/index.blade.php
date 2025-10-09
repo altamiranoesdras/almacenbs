@@ -75,7 +75,7 @@
 {{--        </div>--}}
 {{--    </div>--}}
     <div class="content-body" id="app">
-        <red-produccion-resultados/>
+        <red-produccion/>
     </div>
 @endsection
 

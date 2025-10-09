@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreateRedProduccionProductoAPIRequest;
 use App\Http\Requests\API\UpdateRedProduccionProductoAPIRequest;
 use App\Models\RedProduccionProducto;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
 
 /**
  * Class RedProduccionProductoAPIController
@@ -41,6 +41,8 @@ class RedProduccionProductoAPIController extends AppBaseController
     public function store(CreateRedProduccionProductoAPIRequest $request): JsonResponse
     {
         $input = $request->all();
+
+        $input['codigo'] = $this->getCodigo();
 
         /** @var RedProduccionProducto $redProduccionProducto */
         $redProduccionProducto = RedProduccionProducto::create($input);
@@ -101,5 +103,18 @@ class RedProduccionProductoAPIController extends AppBaseController
         $redProduccionProducto->delete();
 
         return $this->sendSuccess('Red Producción Producto eliminado');
+    }
+
+    public function getCodigo()
+    {
+        $last = RedProduccionProducto::orderBy('id', 'desc')->first();
+        if (!$last) {
+            return '00-001';
+        } else {
+            $number = (int) $last->id;
+            $number++;
+        }
+        return  '00-' . str_pad($number, 3, '0', STR_PAD_LEFT);
+
     }
 }

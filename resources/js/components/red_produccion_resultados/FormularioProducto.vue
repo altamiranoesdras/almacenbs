@@ -1,11 +1,15 @@
 <script>
 export default {
-    name: "formulario-modal",
+    name: "modal-producto",
     props: {
         mostrarModal: {
             type: Boolean,
             default: false
         },
+        resultadoId: {
+            type: Number,
+            default: null
+        }
     },
     data() {
         return {
@@ -27,7 +31,10 @@ export default {
                 return;
             }
             try {
-                let respuesta = await axios.post(route('api.red.produccion.resultados.store'), this.form);
+                let respuesta = await axios.post(route('api.red.produccion.productos.store'), {
+                    ...this.form,
+                    resultado_id: this.resultadoId
+                });
 
                 iziTs(respuesta.data.message);
                 this.cerrarModal();
@@ -38,20 +45,14 @@ export default {
             }
         },
         cerrarModal() {
-            const modalElement = document.getElementById('formModal');
-            const modal = bootstrap.Modal.getInstance(modalElement);
-            if (modal) {
-                modal.hide();
-            }
+            $("#modalProducto").modal('hide');
             this.$emit('update:mostrarModal', false);
         }
     },
     watch: {
         mostrarModal(nuevoValor) {
             if (nuevoValor) {
-                const modalElement = document.getElementById('formModal');
-                const modal = new bootstrap.Modal(modalElement);
-                modal.show();
+                $("#modalProducto").modal('show');
             }
         },
 
@@ -65,16 +66,15 @@ export default {
     <div>
         <!-- Modal -->
         <div
-            id="formModal"
+            id="modalProducto"
             aria-hidden="true"
-            aria-labelledby="formModalLabel"
             class="modal fade"
             tabindex="-1"
         >
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 id="formModalLabel" class="modal-title">Nuevo Resultado</h5>
+                        <h5 id="formModalLabel" class="modal-title">Nuevo Producto</h5>
                         <button
                             aria-label="Cerrar"
                             class="btn-close"
