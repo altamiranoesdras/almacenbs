@@ -53,7 +53,7 @@ class EstructuraPresupuestariaPrograma extends Model
     ];
 
     public static $rules = [
-        'codigo' => 'required|string|max:255',
+        'codigo' => 'nullable|string|max:255',
         'nombre' => 'required|string|max:255',
         'descripcion' => 'nullable|string|max:65535',
         'created_at' => 'nullable',

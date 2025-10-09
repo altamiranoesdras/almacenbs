@@ -14,31 +14,12 @@
                 </div>
             </div>
         </div>
-        <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
-            <div class="mb-1 breadcrumb-right">
-                <div class="dropdown">
-                    <a class="btn btn-outline-success float-end round"
-                       href="{{ route('estructura-presupuestaria.programas.create') }}">
-                        <i class="fa fa-plus"></i>
-                        Agregar
-                    </a>
-                </div>
-            </div>
-        </div>
     </div>
 
 
 
-    <div class="content-body">
-
-        <div class="row">
-            <div class="col-12">
-                <div class="card" id="appVue">
-                    <estructura-presupuestaria/>
-                </div>
-            </div>
-        </div>
-
+    <div class="content-body" id="appVue">
+        <estructura-presupuestaria/>
     </div>
 
 @endsection
@@ -53,10 +34,9 @@
             created() {
                 console.log('Instancia vue creada');
             },
-            data: {
-            },
+            data: {},
             methods: {
-                getDatos(){
+                getDatos() {
                     console.log('Metodo Get Datos');
                 }
             }

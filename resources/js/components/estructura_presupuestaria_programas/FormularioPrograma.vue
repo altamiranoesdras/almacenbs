@@ -1,6 +1,6 @@
 <script>
 export default {
-    name: "formulario-sub-programas",
+    name: "formulario-programa",
     props: {
         mostrarModal: {
             type: Boolean,
@@ -37,12 +37,9 @@ export default {
             try {
                 let respuesta;
                 if(this.form.id){
-                    respuesta = await axios.put(route('api.red.produccion.sub-productos.update', this.form.id), this.form);
+                    respuesta = await axios.put(route('api.estructura.presupuestaria.programas.update', this.form.id), this.form);
                 } else {
-                    respuesta = await axios.post(route('api.red.produccion.sub-productos.store'), {
-                        ...this.form,
-                        producto_id: this.productoId
-                    });
+                    respuesta = await axios.post(route('api.estructura.presupuestaria.programas.store'), this.form);
                 }
 
                 iziTs(respuesta.data.message);
@@ -54,7 +51,7 @@ export default {
             }
         },
         cerrarModal() {
-            $("#formulario-sub-producto").modal('hide');
+            $("#formulario-programa").modal('hide');
             this.$emit('cerrarModal', false);
         }
     },
@@ -62,7 +59,7 @@ export default {
         mostrarModal(nuevoValor) {
             if (nuevoValor) {
                 this.form = this.item ? { ...this.item } : { nombre: "", descripcion: "" };
-                $("#formulario-sub-producto").modal('show');
+                $("#formulario-programa").modal('show');
             }
         },
 
@@ -76,7 +73,7 @@ export default {
     <div>
         <!-- Modal -->
         <div
-            id="formulario-sub-producto"
+            id="formulario-programa"
             aria-hidden="true"
             class="modal fade"
             tabindex="-1"
@@ -84,7 +81,7 @@ export default {
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 id="formModalLabel" class="modal-title">Nuevo SubProducto</h5>
+                        <h5 id="formModalLabel" class="modal-title">Nuevo Programa</h5>
                         <button
                             aria-label="Cerrar"
                             class="btn-close"

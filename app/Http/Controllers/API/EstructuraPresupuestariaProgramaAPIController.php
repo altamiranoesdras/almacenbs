@@ -6,6 +6,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreateEstructuraPresupuestariaProgramaAPIRequest;
 use App\Http\Requests\API\UpdateEstructuraPresupuestariaProgramaAPIRequest;
 use App\Models\EstructuraPresupuestariaPrograma;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -42,6 +43,8 @@ class EstructuraPresupuestariaProgramaAPIController extends AppBaseController
     public function store(CreateEstructuraPresupuestariaProgramaAPIRequest $request): JsonResponse
     {
         $input = $request->all();
+
+        $input['codigo'] = $this->getCodigo();
 
         /** @var EstructuraPresupuestariaPrograma $estructuraPresupuestariaPrograma */
         $estructuraPresupuestariaPrograma = EstructuraPresupuestariaPrograma::create($input);
@@ -103,4 +106,14 @@ class EstructuraPresupuestariaProgramaAPIController extends AppBaseController
 
         return $this->sendSuccess('Estructura Presupuestaria Programa eliminado');
     }
+
+    public function getCodigo()
+    {
+        $correlativo = EstructuraPresupuestariaPrograma::withTrashed()
+            ->whereRaw('year(created_at) ='.Carbon::now()->year)
+            ->max('id');
+
+        return 'RPSP-'.Carbon::now()->year.'-'.str_pad((int)$correlativo + 1, 6, '0', STR_PAD_LEFT);
+    }
+
 }
