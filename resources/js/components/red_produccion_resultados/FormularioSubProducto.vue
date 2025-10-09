@@ -1,11 +1,15 @@
 <script>
 export default {
-    name: "formulario-modal",
+    name: "formulario-sub-producto",
     props: {
         mostrarModal: {
             type: Boolean,
             default: false
         },
+        productoId: {
+            type: Number,
+            default: null
+        }
 
     },
     data() {
@@ -27,7 +31,10 @@ export default {
                 return;
             }
             try {
-                let respuesta = await axios.post(route('api.red.produccion.resultados.store'), this.form);
+                let respuesta = await axios.post(route('api.red.produccion.sub-productos.store'), {
+                    ...this.form,
+                    producto_id: this.productoId
+                });
 
                 iziTs(respuesta.data.message);
                 this.cerrarModal();
@@ -38,15 +45,14 @@ export default {
             }
         },
         cerrarModal() {
-            $("#formModal").modal('hide');
+            $("#formulario-sub-producto").modal('hide');
             this.$emit('update:mostrarModal', false);
         }
     },
     watch: {
         mostrarModal(nuevoValor) {
-            console.log('Abrieno el modal desde el resultado ')
             if (nuevoValor) {
-                $("#formModal").modal('show');
+                $("#formulario-sub-producto").modal('show');
             }
         },
 
@@ -60,15 +66,15 @@ export default {
     <div>
         <!-- Modal -->
         <div
-            id="formModal"
+            id="formulario-sub-producto"
+            aria-hidden="true"
             class="modal fade"
             tabindex="-1"
-            aria-hidden="true"
         >
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 id="formModalLabel" class="modal-title">Nuevo Resultado</h5>
+                        <h5 id="formModalLabel" class="modal-title">Nuevo SubProducto</h5>
                         <button
                             aria-label="Cerrar"
                             class="btn-close"

@@ -1,20 +1,24 @@
 <script>
-import ModalNuevoProductoResultado from "./FormularioProductoResultado.vue";
-import ModalProducto from "./FormularioProducto.vue";
+import FormularioResultado from "./FormularioProductoResultado.vue";
+import FormularioProducto from "./FormularioProducto.vue";
+import FormularioSubProducto from "./FormularioSubProducto.vue";
 
 export default {
     name: "red-produccion-resultados",
     components: {
-        ModalProducto,
-        ModalNuevoProductoResultado
+        FormularioProducto,
+        FormularioResultado,
+        FormularioSubProducto
     },
     data() {
         return {
             resultados: [],
             mostrarModalProductoResultado: false,
             mostrarModalProducto: false,
+            mostrarModalSubProducto: false,
 
-            resultadoSeleccionadoId: null
+            resultadoSeleccionadoId: null,
+            productoSeleccionadoId: null
         }
     },
     mounted() {
@@ -37,7 +41,8 @@ export default {
             this.resultadoSeleccionadoId = resultadoId;
         },
         agregarSubProducto(productoId) {
-            // lógica para agregar subproducto a un producto
+            this.mostrarModalSubProducto = true;
+            this.productoSeleccionadoId = productoId;
         }
     }
 }
@@ -129,14 +134,20 @@ export default {
                 </div>
             </div>
         </div>
-        <ModalNuevoProductoResultado
+        <FormularioResultado
             :mostrar-modal="mostrarModalProductoResultado"
             @registro-guardado="getResultados"
         />
 
-        <ModalProducto
+        <FormularioProducto
             :mostrar-modal="mostrarModalProducto"
             :resultado-id="resultadoSeleccionadoId"
+            @registro-guardado="getResultados"
+        />
+
+        <FormularioSubProducto
+            :mostrar-modal="mostrarModalSubProducto"
+            :producto-id="productoSeleccionadoId"
             @registro-guardado="getResultados"
         />
 
