@@ -6,6 +6,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreateRedProduccionProductoAPIRequest;
 use App\Http\Requests\API\UpdateRedProduccionProductoAPIRequest;
 use App\Models\RedProduccionProducto;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -109,14 +110,10 @@ class RedProduccionProductoAPIController extends AppBaseController
 
     public function getCodigo()
     {
-        $last = RedProduccionProducto::orderBy('id', 'desc')->first();
-        if (!$last) {
-            return '00-001';
-        } else {
-            $number = (int) $last->id;
-            $number++;
-        }
-        return  '00-' . str_pad($number, 3, '0', STR_PAD_LEFT);
+        $correlativo = RedProduccionProducto::withTrashed()
+            ->whereRaw('year(created_at) ='.Carbon::now()->year)
+            ->max('id');
 
+        return 'RPP-'.Carbon::now()->year.'-'.str_pad((int)$correlativo + 1, 6, '0', STR_PAD_LEFT);
     }
 }

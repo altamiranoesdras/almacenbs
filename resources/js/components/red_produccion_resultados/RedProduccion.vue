@@ -81,8 +81,16 @@ export default {
         editarSubProducto(subProducto) {
             console.log("Editar SubProducto:", subProducto);
         },
-        eliminarSubProducto(id) {
-            console.log("Eliminar SubProducto con ID:", id);
+        async eliminarSubProducto(id) {
+            let respuesta = await realizarPregunta("¿Estás seguro de eliminar este SubProducto?");
+            if (!respuesta) return;
+            try {
+                let res = await axios.delete(route('api.red.produccion.sub-productos.destroy', id));
+                await this.getResultados();
+                iziTs(res.data.message)
+            } catch (e) {
+                notifyErrorApi(e);
+            }
         },
     }
 }
