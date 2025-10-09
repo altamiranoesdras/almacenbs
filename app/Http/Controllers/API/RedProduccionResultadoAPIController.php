@@ -43,6 +43,16 @@ class RedProduccionResultadoAPIController extends AppBaseController
     {
         $input = $request->all();
 
+        //generar un correlativo asi 00-001 en base al id del ultimo registro
+        $last = RedProduccionResultado::orderBy('id', 'desc')->first();
+        if (!$last) {
+            $input['codigo'] = '00-001';
+        } else {
+            $number = (int) $last->id;
+            $number++;
+            $input['codigo'] = '00-' . str_pad($number, 3, '0', STR_PAD_LEFT);
+        }
+
         /** @var RedProduccionResultado $redProduccionResultado */
         $redProduccionResultado = RedProduccionResultado::create($input);
 

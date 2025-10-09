@@ -123,7 +123,10 @@ export default {
                 </div>
             </div>
         </div>
-        <ModalNuevoProductoResultado :mostrar-modal="mostrarModalProductoResultado" />
+        <ModalNuevoProductoResultado
+            :mostrar-modal="mostrarModalProductoResultado"
+            @registro-guardado="getResultados"
+        />
 
     </div>
 </template>

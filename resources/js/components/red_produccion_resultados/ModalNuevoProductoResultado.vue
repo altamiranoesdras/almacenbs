@@ -7,9 +7,6 @@ export default {
             default: false
         },
     },
-    components: {
-        Fields
-    },
     data() {
         return {
             form: {
@@ -19,8 +16,34 @@ export default {
         }
     },
     methods: {
-        guardar() {
-            console.log("Guardando...", this.form)
+        async guardar() {
+            console.log(this.form)
+            if(!this.form.nombre) {
+                iziTi("El nombre es obligatorio", "warning");
+                return;
+            }
+            if(!this.form.descripcion) {
+                iziTi("La descripción es obligatoria", "warning");
+                return;
+            }
+            try {
+                let respuesta = await axios.post(route('api.red.produccion.resultados.store'), this.form);
+
+                iziTs(respuesta.data.message);
+                this.cerrarModal();
+                this.$emit('registro-guardado', respuesta.data.resultado);
+            }
+            catch (error) {
+                notifyErrorApi(error);
+            }
+        },
+        cerrarModal() {
+            const modalElement = document.getElementById('formModal');
+            const modal = bootstrap.Modal.getInstance(modalElement);
+            if (modal) {
+                modal.hide();
+            }
+            this.$emit('update:mostrarModal', false);
         }
     },
     watch: {
@@ -31,14 +54,11 @@ export default {
                 modal.show();
             }
         },
-        form() {
-            console.log(this.form)
-        }
+
     }
 
 }
 
-import Fields from "./Fields.vue";
 </script>
 
 <template>
@@ -63,7 +83,23 @@ import Fields from "./Fields.vue";
                         ></button>
                     </div>
                     <div class="modal-body">
-                        <Fields v-model="form" />
+                        <div class="mb-3">
+
+                            <input
+                                v-model="form.nombre"
+                                class="form-control"
+                                placeholder="Ingrese el nombre"
+                                type="text"
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Descripción</label>
+                            <textarea
+                                v-model="form.descripcion"
+                                class="form-control"
+                                placeholder="Ingrese la descripción"
+                            ></textarea>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button
