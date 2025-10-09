@@ -164,7 +164,7 @@ class Compra extends Model
         'fecha_ingreso' => 'nullable',
         'serie' => 'nullable|string|max:45',
         'numero' => 'nullable|string|max:20',
-        'recibo_de_caja' => 'nullable|integer',
+        'recibo_de_caja' => 'nullable|string|max:255',
         'estado_id' => 'nullable',
         'usuario_crea' => 'nullable',
         'usuario_recibe' => 'nullable',
