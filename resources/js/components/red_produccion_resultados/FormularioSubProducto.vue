@@ -9,6 +9,10 @@ export default {
         productoId: {
             type: Number,
             default: null
+        },
+        item: {
+            type: Object,
+            default: null
         }
 
     },
@@ -31,10 +35,15 @@ export default {
                 return;
             }
             try {
-                let respuesta = await axios.post(route('api.red.produccion.sub-productos.store'), {
-                    ...this.form,
-                    producto_id: this.productoId
-                });
+                let respuesta;
+                if(this.form.id){
+                    respuesta = await axios.put(route('api.red.produccion.sub-productos.update', this.form.id), this.form);
+                } else {
+                    respuesta = await axios.post(route('api.red.produccion.sub-productos.store'), {
+                        ...this.form,
+                        producto_id: this.productoId
+                    });
+                }
 
                 iziTs(respuesta.data.message);
                 this.cerrarModal();
@@ -52,6 +61,7 @@ export default {
     watch: {
         mostrarModal(nuevoValor) {
             if (nuevoValor) {
+                this.form = this.item ? { ...this.item } : { nombre: "", descripcion: "" };
                 $("#formulario-sub-producto").modal('show');
             }
         },
@@ -109,8 +119,12 @@ export default {
                         >
                             Cancelar
                         </button>
-                        <button class="btn btn-primary" type="button" @click="guardar">
-                            Guardar
+                        <button
+                            class="btn btn-primary"
+                            type="button"
+                            @click="guardar"
+                            v-text="form.id ? 'Actualizar' : 'Guardar'"
+                        >
                         </button>
                     </div>
                 </div>

@@ -22,6 +22,7 @@ export default {
 
             resultadoSeleccionado: null,
             productoSeleccionado: null,
+            subProductoSeleccionado: null,
 
         }
     },
@@ -83,9 +84,9 @@ export default {
             }
         },
 
-        // SubProducto
         editarSubProducto(subProducto) {
-            console.log("Editar SubProducto:", subProducto);
+            this.subProductoSeleccionado = subProducto;
+            this.mostrarModalSubProducto = true;
         },
         async eliminarSubProducto(id) {
             let respuesta = await realizarPregunta("¿Estás seguro de eliminar este SubProducto?");
@@ -230,6 +231,7 @@ export default {
         <FormularioSubProducto
             :mostrar-modal="mostrarModalSubProducto"
             :producto-id="productoSeleccionadoId"
+            :item="subProductoSeleccionado"
             @registro-guardado="getResultados"
         />
 

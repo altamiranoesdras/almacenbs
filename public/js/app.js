@@ -8975,6 +8975,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     productoId: {
       type: Number,
       "default": null
+    },
+    item: {
+      type: Object,
+      "default": null
     }
   },
   data: function data() {
@@ -9014,33 +9018,50 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 6:
                 _context.prev = 6;
-                _context.next = 9;
+
+                if (!_this.form.id) {
+                  _context.next = 13;
+                  break;
+                }
+
+                _context.next = 10;
+                return axios.put(route('api.red.produccion.sub-productos.update', _this.form.id), _this.form);
+
+              case 10:
+                respuesta = _context.sent;
+                _context.next = 16;
+                break;
+
+              case 13:
+                _context.next = 15;
                 return axios.post(route('api.red.produccion.sub-productos.store'), _objectSpread(_objectSpread({}, _this.form), {}, {
                   producto_id: _this.productoId
                 }));
 
-              case 9:
+              case 15:
                 respuesta = _context.sent;
+
+              case 16:
                 iziTs(respuesta.data.message);
 
                 _this.cerrarModal();
 
                 _this.$emit('registro-guardado', respuesta.data.resultado);
 
-                _context.next = 18;
+                _context.next = 24;
                 break;
 
-              case 15:
-                _context.prev = 15;
+              case 21:
+                _context.prev = 21;
                 _context.t0 = _context["catch"](6);
                 notifyErrorApi(_context.t0);
 
-              case 18:
+              case 24:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[6, 15]]);
+        }, _callee, null, [[6, 21]]);
       }))();
     },
     cerrarModal: function cerrarModal() {
@@ -9051,6 +9072,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   watch: {
     mostrarModal: function mostrarModal(nuevoValor) {
       if (nuevoValor) {
+        this.form = this.item ? _objectSpread({}, this.item) : {
+          nombre: "",
+          descripcion: ""
+        };
         $("#formulario-sub-producto").modal('show');
       }
     }
@@ -9100,7 +9125,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       resultadoSeleccionadoId: null,
       productoSeleccionadoId: null,
       resultadoSeleccionado: null,
-      productoSeleccionado: null
+      productoSeleccionado: null,
+      subProductoSeleccionado: null
     };
   },
   mounted: function mounted() {
@@ -9259,9 +9285,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3, null, [[5, 14]]);
       }))();
     },
-    // SubProducto
     editarSubProducto: function editarSubProducto(subProducto) {
-      console.log("Editar SubProducto:", subProducto);
+      this.subProductoSeleccionado = subProducto;
+      this.mostrarModalSubProducto = true;
     },
     eliminarSubProducto: function eliminarSubProducto(id) {
       var _this4 = this;
@@ -12431,7 +12457,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* estilos opcionales */\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* estilos opcionales */\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -12455,7 +12481,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Tus estilos personalizados aquí si los necesitas */\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Tus estilos personalizados aquí si los necesitas */\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -56238,19 +56264,14 @@ var render = function () {
                 ]
               ),
               _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  attrs: { type: "button" },
-                  on: { click: _vm.guardar },
+              _c("button", {
+                staticClass: "btn btn-primary",
+                attrs: { type: "button" },
+                domProps: {
+                  textContent: _vm._s(_vm.form.id ? "Actualizar" : "Guardar"),
                 },
-                [
-                  _vm._v(
-                    "\n                        Guardar\n                    "
-                  ),
-                ]
-              ),
+                on: { click: _vm.guardar },
+              }),
             ]),
           ]),
         ]),
@@ -56648,6 +56669,7 @@ var render = function () {
         attrs: {
           "mostrar-modal": _vm.mostrarModalSubProducto,
           "producto-id": _vm.productoSeleccionadoId,
+          item: _vm.subProductoSeleccionado,
         },
         on: { "registro-guardado": _vm.getResultados },
       }),
