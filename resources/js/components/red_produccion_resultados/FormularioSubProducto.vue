@@ -55,7 +55,7 @@ export default {
         },
         cerrarModal() {
             $("#formulario-sub-producto").modal('hide');
-            this.$emit('update:mostrarModal', false);
+            this.$emit('cerrarModal', false);
         }
     },
     watch: {
@@ -88,7 +88,7 @@ export default {
                         <button
                             aria-label="Cerrar"
                             class="btn-close"
-                            data-bs-dismiss="modal"
+                            @click="cerrarModal"
                             type="button"
                         ></button>
                     </div>
@@ -114,7 +114,7 @@ export default {
                     <div class="modal-footer">
                         <button
                             class="btn btn-secondary"
-                            data-bs-dismiss="modal"
+                            @click="cerrarModal"
                             type="button"
                         >
                             Cancelar

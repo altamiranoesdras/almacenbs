@@ -49,20 +49,20 @@ export default {
             }
         },
         cerrarModal() {
-            $("#formModal").modal('hide');
-            this.$emit('update:mostrarModal', false);
-        }
+            $("#formulario-producto-resuelto").modal('hide');
+            this.$emit('cerrarModal', false);
+        },
+
     },
     watch: {
         mostrarModal(nuevoValor) {
             if (nuevoValor) {
                 this.form = this.item ? { ...this.item } : { nombre: "", descripcion: "" };
-                $("#formModal").modal('show');
+                $("#formulario-producto-resuelto").modal('show');
             }
         },
 
     }
-
 }
 
 </script>
@@ -71,10 +71,12 @@ export default {
     <div>
         <!-- Modal -->
         <div
-            id="formModal"
+            id="formulario-producto-resuelto"
             class="modal fade"
             tabindex="-1"
             aria-hidden="true"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
         >
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -83,8 +85,8 @@ export default {
                         <button
                             aria-label="Cerrar"
                             class="btn-close"
-                            data-bs-dismiss="modal"
                             type="button"
+                            @click="cerrarModal()"
                         ></button>
                     </div>
                     <div class="modal-body">
@@ -109,8 +111,8 @@ export default {
                     <div class="modal-footer">
                         <button
                             class="btn btn-secondary"
-                            data-bs-dismiss="modal"
                             type="button"
+                            @click="cerrarModal()"
                         >
                             Cancelar
                         </button>

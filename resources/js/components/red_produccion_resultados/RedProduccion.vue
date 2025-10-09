@@ -13,7 +13,7 @@ export default {
     data() {
         return {
             resultados: [],
-            mostrarModalProductoResultado: false,
+            mostrarModalResultado: false,
             mostrarModalProducto: false,
             mostrarModalSubProducto: false,
 
@@ -39,7 +39,7 @@ export default {
             }
         },
         agregarResultado() {
-            this.mostrarModalProductoResultado = true;
+            this.mostrarModalResultado = true;
         },
         agregarProducto(resultadoId) {
             this.mostrarModalProducto = true;
@@ -52,7 +52,7 @@ export default {
 
         editarResultado(resultado) {
             this.resultadoSeleccionado = resultado;
-            this.mostrarModalProductoResultado = true;
+            this.mostrarModalResultado = true;
         },
 
         async eliminarResultado(id) {
@@ -99,6 +99,18 @@ export default {
                 notifyErrorApi(e);
             }
         },
+        cerrarModalResultado() {
+            this.mostrarModalResultado = false;
+            this.resultadoSeleccionado = null;
+        },
+        cerrarFormularioProducto() {
+            this.mostrarModalProducto = false;
+            this.productoSeleccionado = null;
+        },
+        cerrarFormularioSubProducto() {
+            this.mostrarModalSubProducto = false;
+            this.subProductoSeleccionado = null;
+        }
     }
 }
 </script>
@@ -122,7 +134,7 @@ export default {
                                 data-bs-toggle="collapse"
                                 type="button"
                             >
-                                <i class="fa fa-folder-open me-2"></i> Resultado: {{ item.codigo }}
+                                <i class="fa fa-folder-open me-2"></i> {{ item.codigo }} - {{ item.nombre }}
                             </button>
                         </h2>
 
@@ -153,7 +165,7 @@ export default {
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div>
                                                 <i class="fa fa-cube text-success me-2"></i>
-                                                <strong>Producto:</strong> {{ producto.codigo }}
+                                                <strong>{{ producto.codigo }}</strong> - {{ producto.nombre }}
                                             </div>
                                             <div>
                                                 <!-- 🔹 Botones de acción para Producto -->
@@ -180,7 +192,7 @@ export default {
                                             >
                                                 <div>
                                                     <i class="fa fa-angle-right text-secondary me-2"></i>
-                                                    <b>Subproducto:</b> {{ subProducto.codigo }}
+                                                    <b>{{ subProducto.codigo }}</b> - {{ subProducto.nombre }}
                                                 </div>
                                                 <div>
                                                     <!-- 🔹 Botones de acción para SubProducto -->
@@ -216,9 +228,10 @@ export default {
             </div>
         </div>
         <FormularioResultado
-            :mostrar-modal="mostrarModalProductoResultado"
+            :mostrar-modal="mostrarModalResultado"
             :item="resultadoSeleccionado"
             @registro-guardado="getResultados"
+            @cerrarModal="cerrarModalResultado"
         />
 
         <FormularioProducto
@@ -226,6 +239,7 @@ export default {
             :resultado-id="resultadoSeleccionadoId"
             :item="productoSeleccionado"
             @registro-guardado="getResultados"
+            @cerrarModal="cerrarFormularioProducto"
         />
 
         <FormularioSubProducto
@@ -233,6 +247,7 @@ export default {
             :producto-id="productoSeleccionadoId"
             :item="subProductoSeleccionado"
             @registro-guardado="getResultados"
+            @cerrarModal="cerrarFormularioSubProducto"
         />
 
     </div>
