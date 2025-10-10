@@ -1,33 +1,39 @@
 <script>
-import PruebaHijo from "./PruebaHijo.vue";
+import DualListBox from "dual-listbox-vue";
+import "dual-listbox-vue/dist/dual-listbox.css";
 
 export default {
-    name: "Pruebas",
+    name: "App",
     components: {
-        PruebaHijo
+        DualListBox
     },
-    data () {
+    data: function () {
         return {
-            dataPadre: ''
-        }
+            source: [
+                { name: "WHITE", code: "#FFFFFF" },
+                { name: "SILVER", code: "#C0C0C0" },
+                { name: "GRAY", code: "#808080" }
+            ],
+            destination: [
+                { name: "BLACK", code: "#000000" },
+                { name: "RED", code: "#FF0000" }
+            ]
+        };
     },
     methods: {
-        recibirDelHijo(valor) {
-            console.log("Recibido desde el hijo:", valor);
-            this.dataPadre = valor;
+        onChangeList: function ({ source, destination }) {
+            this.source = source;
+            this.destination = destination;
         }
     }
-}
+};
 </script>
 
 <template>
-    <div>
-        <h1>Hola desde el padre</h1>
-        <input v-model="dataPadre" type="text">
-
-        <div class="divider">aca ya no es padre</div>
-
-        <!-- 👇 Escuchamos el evento personalizado -->
-        <PruebaHijo :datahijo="dataPadre" @enviar-al-padre="recibirDelHijo"/>
-    </div>
+    <DualListBox
+        :destination="destination"
+        :source="source"
+        label="name"
+        @onChangeList="onChangeList"
+    />
 </template>

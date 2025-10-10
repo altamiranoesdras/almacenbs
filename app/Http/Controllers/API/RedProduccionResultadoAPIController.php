@@ -30,7 +30,11 @@ class RedProduccionResultadoAPIController extends AppBaseController
             $query->limit($request->get('limit'));
         }
 
-        $redProduccionResultados = $query->with('productos.subproductos')
+        $redProduccionResultados = $query->with([
+            'productos.subproductos.rrhhUnidades',
+            'subProgramas',
+            'productos.actividades',
+        ])
             ->get();
 
         return $this->sendResponse($redProduccionResultados->toArray(), 'Red Producción Resultados ');
@@ -46,8 +50,13 @@ class RedProduccionResultadoAPIController extends AppBaseController
 
 //        $input['codigo'] = $this->getCodigo();
 
+
         /** @var RedProduccionResultado $redProduccionResultado */
         $redProduccionResultado = RedProduccionResultado::create($input);
+
+        if($input['sub_programas']){
+            $redProduccionResultado->subProgramas()->sync($input['sub_programas']);
+        }
 
         return $this->sendResponse($redProduccionResultado->toArray(), 'Red Producción Resultado guardado');
     }
@@ -84,6 +93,8 @@ class RedProduccionResultadoAPIController extends AppBaseController
         $redProduccionResultado->fill($request->all());
         $redProduccionResultado->save();
 
+        $redProduccionResultado->subProgramas()->sync($request->get('sub_programas'));
+
         return $this->sendResponse($redProduccionResultado->toArray(), 'RedProduccionResultado actualizado');
     }
 
@@ -107,6 +118,8 @@ class RedProduccionResultadoAPIController extends AppBaseController
         }
 
         $redProduccionResultado->productos()->delete();
+
+        $redProduccionResultado->subProgramas()->delete();
 
         $redProduccionResultado->delete();
 

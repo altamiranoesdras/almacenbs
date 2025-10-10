@@ -75,6 +75,9 @@ class RedProduccionSubProducto extends Model
 
     public function rrhhUnidades(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(\App\Models\RrhhUnidade::class, 'red_produccion_subproducto_rrhh_unidad');
+        return $this->belongsToMany(\App\Models\RrhhUnidad::class,
+            'red_produccion_subproducto_rrhh_unidad',
+            'subproducto_id',
+            'rrhh_unidad_id');
     }
 }

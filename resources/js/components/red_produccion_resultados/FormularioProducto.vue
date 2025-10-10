@@ -7,7 +7,7 @@
             class="modal fade"
             tabindex="-1"
         >
-            <div class="modal-dialog">
+            <div class="modal-dialog" style="max-width: 60%;">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 id="formModalLabel" class="modal-title">Nuevo Producto</h5>
@@ -46,6 +46,15 @@
                                     placeholder="Ingrese la descripción"
                                 ></textarea>
                             </div>
+                            <div class="col-12 mb-1">
+                                <label class="form-label">actividades</label>
+                                <DualListBox
+                                    :destination="form.actividades"
+                                    :source="actividades"
+                                    label="nombre"
+                                    @onChangeList="onChangeList"
+                                />
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -71,8 +80,11 @@
 </template>
 
 <script>
+import DualListBox from "dual-listbox-vue";
+
 export default {
     name: "modal-producto",
+    components: {DualListBox},
     props: {
         mostrarModal: {
             type: Boolean,
@@ -93,17 +105,22 @@ export default {
             form: {
                 codigo: "",
                 nombre: "",
-                descripcion: ""
-            }
+                descripcion: "",
+                actividades: []
+            },
+            actividadesOriginales: [],
+            actividades: []
         }
     },
     methods: {
         async guardar() {
-
             esperar();
-
             try {
                 let respuesta;
+                this.form = {
+                    ...this.form,
+                    actividades: this.form.actividades.length ? this.form.actividades.map(sp => sp.id) : []
+                }
                 if(this.form.id){
                     respuesta = await axios.put(route('api.red.produccion.productos.update', this.form.id), this.form);
                 } else {
@@ -123,19 +140,39 @@ export default {
 
             finEspera();
         },
+        async getActividades() {
+            try {
+                const respuesta = await axios.get(route('api.estructura.presupuestaria.actividades.index'));
+                this.actividades = respuesta.data.data;
+                this.actividadesOriginales = respuesta.data.data;
+            } catch (error) {
+                notifyErrorApi(error);
+            }
+        },
         cerrarModal() {
             $("#modalProducto").modal('hide');
             this.$emit('cerrarModal', false);
+        },
+        onChangeList: function({ source, destination }) {
+            this.actividades = source;
+            this.form.actividades = destination;
         }
+    },
+    created() {
+        this.getActividades();
     },
     watch: {
         mostrarModal(nuevoValor) {
             if (nuevoValor) {
-                this.form = this.item ? { ...this.item } : { nombre: "", descripcion: "" };
+                this.form = this.item ? { ...this.item } : { nombre: "", descripcion: "", codigo: "", actividades: [] };
+                if (this.form.actividades.length) {
+                    this.actividades = this.actividades.filter(sp => !this.form.actividades.some(fsp => fsp.id === sp.id));
+                } else {
+                    this.actividades = [...this.actividadesOriginales];
+                }
                 $("#modalProducto").modal('show');
             }
         },
-
     }
 
 }
