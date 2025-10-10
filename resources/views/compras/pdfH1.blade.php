@@ -29,10 +29,10 @@
             <td style="width:70%; vertical-align: middle; padding-left: 3.5cm">
                 SECRETARIA DE BIENESTAR SOCIAL DE LA PRESIDENCIA DE LA REPUBLICA
             </td>
-            <td style="width:10%; vertical-align: middle; text-align: left;color: white">
+            <td style="width:14%; vertical-align: middle; text-align: left;color: white">
                 Número
             </td>
-            <td style="width:18%; font-size: 16px; padding-top: 0; padding-left: 1rem">
+            <td style="width:16%; font-size: 16px; padding-top: 0; padding-left: 1rem">
                 <b>
                     {{ $compra->compra1h->folio ?? "" }}
                 </b>
@@ -58,7 +58,7 @@
             </td>
 
             <td style="width:18%; padding-left: 2.5cm" >
-                {{ $compra->orden_compra ?? "" }}
+                {{--                {{ $compra->orden_compra ?? "" }}--}}
             </td>
         </tr>
     </table>
@@ -126,7 +126,7 @@
                     {!! $det->folio_almacen ?? $compra->folio_almacen ?? '' !!}
                 </td>
                 <td class="py-0" style="border-color: black;
-                        width: 10.53%;
+                        width: 12%;
                         text-align: right;
                         padding-right: 8px;" >
                     {{dvs().nfp($det->precio)}}
@@ -138,7 +138,7 @@
                     {{dvs().nfp($det->sub_total,2)}}
                 </td>
                 <td class="py-0" style="border-color: black;
-                        width: 9.47%;
+                        width: 8%;
                         padding-right: 8px;
                         text-align: right;"
                 >
@@ -192,11 +192,11 @@
                     padding-bottom: 0;
                     ">
 
-                <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 2px;"></div>
+                <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 2px; margin-left: 15px"></div>
 
                 {{dvs().nfp($compra->compra1h->total,2)}}
-                <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 2px;"></div>
-                <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 0;"></div>
+                <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 2px; margin-left: 15px"></div>
+                <div style="border-bottom: 1px solid black; margin-top: 0; margin-bottom: 0;margin-left: 15px"></div>
             </td>
             <td class="py-0" style="border-color: black;  text-align: center; padding: 5px; font-size: small" >
 

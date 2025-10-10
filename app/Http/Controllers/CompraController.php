@@ -444,7 +444,7 @@ class CompraController extends AppBaseController
            ->setOption('page-height', 278)
             ->setOrientation('portrait')
             // ->setOption('footer-html',utf8_decode($footer))
-            ->setOption('margin-top', 23)
+            ->setOption('margin-top', 19)
             ->setOption('margin-bottom',3)
             ->setOption('margin-left',9)
             ->setOption('margin-right',17);
