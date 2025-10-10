@@ -93,6 +93,8 @@ class RedProduccionResultadoAPIController extends AppBaseController
         $redProduccionResultado->fill($request->all());
         $redProduccionResultado->save();
 
+        $redProduccionResultado->subProgramas()->sync($request->get('sub_programas'));
+
         return $this->sendResponse($redProduccionResultado->toArray(), 'RedProduccionResultado actualizado');
     }
 
@@ -116,6 +118,8 @@ class RedProduccionResultadoAPIController extends AppBaseController
         }
 
         $redProduccionResultado->productos()->delete();
+
+        $redProduccionResultado->subProgramas()->delete();
 
         $redProduccionResultado->delete();
 

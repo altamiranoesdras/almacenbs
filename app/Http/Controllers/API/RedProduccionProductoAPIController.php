@@ -48,6 +48,8 @@ class RedProduccionProductoAPIController extends AppBaseController
         /** @var RedProduccionProducto $redProduccionProducto */
         $redProduccionProducto = RedProduccionProducto::create($input);
 
+        $redProduccionProducto->actividades()->sync($request->get('actividades', []));
+
         return $this->sendResponse($redProduccionProducto->toArray(), 'Red Producción Producto guardado');
     }
 
@@ -83,6 +85,8 @@ class RedProduccionProductoAPIController extends AppBaseController
         $redProduccionProducto->fill($request->all());
         $redProduccionProducto->save();
 
+        $redProduccionProducto->actividades()->sync($request->get('actividades', []));
+
         return $this->sendResponse($redProduccionProducto->toArray(), 'RedProduccionProducto actualizado');
     }
 
@@ -102,6 +106,8 @@ class RedProduccionProductoAPIController extends AppBaseController
         }
 
         $redProduccionProducto->subProductos()->delete();
+
+        $redProduccionProducto->actividades()->delete();
 
         $redProduccionProducto->delete();
 

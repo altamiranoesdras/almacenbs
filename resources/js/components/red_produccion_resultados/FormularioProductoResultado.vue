@@ -55,7 +55,7 @@
                                 <DualListBox
                                     :destination="form.sub_programas"
                                     :source="subProgramas"
-                                    label="descripcion"
+                                    label="nombre"
                                     @onChangeList="onChangeList"
                                 />
                             </div>
@@ -150,6 +150,7 @@ export default {
             $("#formulario-producto-resuelto").modal('hide');
             this.$emit('cerrarModal', false);
             this.subProgramas = [...this.subProgramasOriginales];
+            this.form = { nombre: "", descripcion: "", codigo: "", sub_programas: [] };
 
         },
         async getSubProgramas() {
