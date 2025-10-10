@@ -9,7 +9,7 @@
             class="modal fade"
             tabindex="-1"
         >
-            <div class="modal-dialog">
+            <div class="modal-dialog" style="max-width: 60%;">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 id="formModalLabel" class="modal-title">Nuevo SubProducto</h5>
@@ -48,6 +48,15 @@
                                     placeholder="Ingrese la descripción"
                                 ></textarea>
                             </div>
+                            <div class="col-12 mb-1">
+                                <label class="form-label">RRHH Unidades</label>
+                                <DualListBox
+                                    :destination="form.rrhh_unidades"
+                                    :source="unidades"
+                                    label="nombre"
+                                    @onChangeList="onChangeList"
+                                />
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -73,8 +82,11 @@
 </template>
 
 <script>
+import DualListBox from "dual-listbox-vue";
+
 export default {
     name: "formulario-sub-producto",
+    components: {DualListBox},
     props: {
         mostrarModal: {
             type: Boolean,
@@ -95,8 +107,11 @@ export default {
             form: {
                 codigo: "",
                 nombre: "",
-                descripcion: ""
-            }
+                descripcion: "",
+                rrhh_unidades: []
+            },
+            unidadesOriginales: [],
+            unidades: []
         }
     },
     methods: {
@@ -104,6 +119,10 @@ export default {
             esperar();
             try {
                 let respuesta;
+                this.form = {
+                    ...this.form,
+                    rrhh_unidades: this.form.rrhh_unidades.length ? this.form.rrhh_unidades.map(sp => sp.id) : []
+                }
                 if(this.form.id){
                     respuesta = await axios.put(route('api.red.produccion.sub-productos.update', this.form.id), this.form);
                 } else {
@@ -122,15 +141,35 @@ export default {
             }
             finEspera();
         },
+        async getUnidades() {
+            try {
+                const respuesta = await axios.get(route('api.rrhh_unidades.index'));
+                this.unidadesOriginales = respuesta.data.data;
+                this.unidades = respuesta.data.data;
+            } catch (error) {
+                notifyErrorApi(error);
+            }
+        },
         cerrarModal() {
             $("#formulario-sub-producto").modal('hide');
             this.$emit('cerrarModal', false);
+        },
+        onChangeList: function({ source, destination }) {
+            this.unidades = source;
+            this.form.rrhh_unidades = destination;
         }
+    },
+    created() {
+        this.getUnidades();
     },
     watch: {
         mostrarModal(nuevoValor) {
             if (nuevoValor) {
-                this.form = this.item ? { ...this.item } : { nombre: "", descripcion: "" };
+                this.form = this.item ? { ...this.item } : { nombre: "", descripcion: "", codigo: "", rrhh_unidades: [] };
+                this.form = {
+                    ...this.form,
+                    unidades: this.form.rrhh_unidades.length ? this.form.rrhh_unidades.map(sp => sp.id) : []
+                }
                 $("#formulario-sub-producto").modal('show');
             }
         },

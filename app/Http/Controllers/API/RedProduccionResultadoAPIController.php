@@ -31,7 +31,7 @@ class RedProduccionResultadoAPIController extends AppBaseController
         }
 
         $redProduccionResultados = $query->with([
-            'productos.subproductos',
+            'productos.subproductos.rrhhUnidades',
             'subProgramas',
             'productos.actividades',
         ])

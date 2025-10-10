@@ -48,6 +48,8 @@ class RedProduccionSubProductoAPIController extends AppBaseController
         /** @var RedProduccionSubProducto $redProduccionSubProducto */
         $redProduccionSubProducto = RedProduccionSubProducto::create($input);
 
+        $redProduccionSubProducto->rrhhUnidades()->sync($request->get('rrhh_unidades', []));
+
         return $this->sendResponse($redProduccionSubProducto->toArray(), 'Red Producción Sub Producto guardado');
     }
 
@@ -83,6 +85,8 @@ class RedProduccionSubProductoAPIController extends AppBaseController
         $redProduccionSubProducto->fill($request->all());
         $redProduccionSubProducto->save();
 
+        $redProduccionSubProducto->rrhhUnidades()->sync($request->get('rrhh_unidades', []));
+
         return $this->sendResponse($redProduccionSubProducto->toArray(), 'RedProduccionSubProducto actualizado');
     }
 
@@ -101,7 +105,10 @@ class RedProduccionSubProductoAPIController extends AppBaseController
             return $this->sendError('Red Producción Sub Producto no encontrado');
         }
 
+        $redProduccionSubProducto->rrhhUnidades()->detach();
+
         $redProduccionSubProducto->delete();
+
 
         return $this->sendSuccess('Red Producción Sub Producto eliminado');
     }
