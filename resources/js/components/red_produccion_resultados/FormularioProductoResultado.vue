@@ -11,7 +11,7 @@
             data-bs-backdrop="static"
             data-bs-keyboard="false"
         >
-            <div class="modal-dialog ">
+            <div class="modal-dialog " style="max-width: 60%;">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 id="formModalLabel" class="modal-title">Nuevo Resultado</h5>
@@ -50,6 +50,15 @@
                                     placeholder="Ingrese la descripción"
                                 ></textarea>
                             </div>
+                            <div class="col-12 mb-1">
+                                <label class="form-label">Sub Programas</label>
+                                <DualListBox
+                                    :destination="form.sub_programas"
+                                    :source="subProgramas"
+                                    label="descripcion"
+                                    @onChangeList="onChangeList"
+                                />
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -75,6 +84,9 @@
 </template>
 
 <script>
+import DualListBox from "dual-listbox-vue";
+import "dual-listbox-vue/dist/dual-listbox.css";
+
 export default {
     name: "formulario-modal",
     props: {
@@ -88,23 +100,37 @@ export default {
             required: false
         }
     },
+    components: {
+        DualListBox
+    },
     data() {
         return {
             form: {
                 codigo: "",
                 nombre: "",
-                descripcion: ""
-            }
+                descripcion: "",
+                sub_programas: []
+
+            },
+            subProgramas: [],
+            subProgramasOriginales: []
         }
     },
     onMounted() {
         this.form = this.item
+    },
+    created() {
+        this.getSubProgramas()
     },
     methods: {
         async guardar() {
             esperar();
             try {
                 let respuesta;
+                this.form = {
+                    ...this.form,
+                    sub_programas: this.form.sub_programas.length ? this.form.sub_programas.map(sp => sp.id) : []
+                }
                 if (this.form.id) {
                     respuesta = await axios.put(route('api.red.produccion.resultados.update', this.form.id), this.form);
                 } else{
@@ -123,13 +149,33 @@ export default {
         cerrarModal() {
             $("#formulario-producto-resuelto").modal('hide');
             this.$emit('cerrarModal', false);
+            this.subProgramas = [...this.subProgramasOriginales];
+
         },
+        async getSubProgramas() {
+            try {
+                const respuesta = await axios.get(route('api.estructura.presupuestaria.subprogramas.index'));
+                this.subProgramas = respuesta.data.data;
+                this.subProgramasOriginales = respuesta.data.data;
+            } catch (error) {
+                notifyErrorApi(error);
+            }
+        },
+        onChangeList: function({ source, destination }) {
+            this.subProgramas = source;
+            this.form.sub_programas = destination;
+        }
 
     },
     watch: {
         mostrarModal(nuevoValor) {
             if (nuevoValor) {
-                this.form = this.item ? { ...this.item } : { nombre: "", descripcion: "" };
+                this.form = this.item ? { ...this.item } : { nombre: "", descripcion: "", codigo: "", sub_programas: [] };
+                if (this.form.sub_programas.length) {
+                    this.subProgramas = this.subProgramas.filter(sp => !this.form.sub_programas.some(fsp => fsp.id === sp.id));
+                } else {
+                    this.subProgramas = [...this.subProgramasOriginales];
+                }
                 $("#formulario-producto-resuelto").modal('show');
             }
         },

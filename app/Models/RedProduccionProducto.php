@@ -77,7 +77,12 @@ class RedProduccionProducto extends Model
 
     public function actividades(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(\App\Models\EstructuraPresupuestariaActividad::class, 'red_produccion_producto_actividad');
+        return $this->belongsToMany(\App\Models\EstructuraPresupuestariaActividad::class,
+            'red_produccion_producto_actividad',
+            'producto_id',
+            'actividad_id'
+
+        );
     }
 
     public function subProductos(): \Illuminate\Database\Eloquent\Relations\HasMany

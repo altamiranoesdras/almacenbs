@@ -72,8 +72,21 @@ class RedProduccionResultado extends Model
         return $this->hasMany(\App\Models\RedProduccionProducto::class, 'resultado_id');
     }
 
+//    public function subProgramas(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+//    {
+//        return $this->belongsToMany(\App\Models\EstructuraPresupuestariaSubprograma::class,
+//            'red_produccion_resultado_subprograma',
+//            'resultado_id',
+//            'subprograma_id'
+//        )->withoutPivot();
+//    }
     public function subProgramas(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(\App\Models\EstructuraPresupuestariaSubprograma::class, 'red_produccion_resultado_subprograma');
+        return $this->belongsToMany(
+            \App\Models\EstructuraPresupuestariaSubprograma::class,
+            'red_produccion_resultado_subprograma',
+            'resultado_id',
+            'subprograma_id'
+        );
     }
 }

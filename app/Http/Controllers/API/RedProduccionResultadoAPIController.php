@@ -30,7 +30,11 @@ class RedProduccionResultadoAPIController extends AppBaseController
             $query->limit($request->get('limit'));
         }
 
-        $redProduccionResultados = $query->with('productos.subproductos')
+        $redProduccionResultados = $query->with([
+            'productos.subproductos',
+            'subProgramas',
+            'productos.actividades',
+        ])
             ->get();
 
         return $this->sendResponse($redProduccionResultados->toArray(), 'Red Producción Resultados ');
@@ -46,8 +50,13 @@ class RedProduccionResultadoAPIController extends AppBaseController
 
 //        $input['codigo'] = $this->getCodigo();
 
+
         /** @var RedProduccionResultado $redProduccionResultado */
         $redProduccionResultado = RedProduccionResultado::create($input);
+
+        if($input['sub_programas']){
+            $redProduccionResultado->subProgramas()->sync($input['sub_programas']);
+        }
 
         return $this->sendResponse($redProduccionResultado->toArray(), 'Red Producción Resultado guardado');
     }
