@@ -346,7 +346,7 @@ class Compra extends Model
         /**
          * @var CompraDetalle $detalle
          */
-        foreach ($this->detalles as $index => $detalle) {
+        foreach ($this->agruparDetalles() as $index => $detalle) {
             $detalle->agregarKardex();
         }
 
