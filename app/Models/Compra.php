@@ -509,9 +509,7 @@ class Compra extends Model
 
         if ($this->detalles->count() > 0) {
 
-            $this->agruparDetalles();
-
-            foreach ($this->detalles as $index => $detalle) {
+            foreach ($this->agruparDetalles() as $index => $detalle) {
 
 
                 if ($detalle->item->esActivoFijo() && configuracion()->desglosarActivosFijos1h()) {
@@ -703,19 +701,18 @@ class Compra extends Model
 
     /**
      * Cre un colección de detalles agrupados por item_id.
-     *
-     * @return void
      */
-    public function agruparDetalles()
+    public function agruparDetalles(): \Illuminate\Support\Collection
     {
-        $detallesAgrupados = $this->detalles->groupBy('item_id');
-
-        $this->detalles = $detallesAgrupados->map(function ($detalles, $itemId) {
-            $detalle = $detalles->first();
-            $detalle->cantidad = $detalles->sum('cantidad');
-            return $detalle;
-        })->values();
-
+        return $this->detalles
+            ->groupBy('item_id')
+            ->map(function ($detalles, $itemId) {
+                $detalle = $detalles->first();
+                $detalle->cantidad = $detalles->sum('cantidad');
+                return $detalle;
+            })
+            ->values();
     }
+
 
 }
