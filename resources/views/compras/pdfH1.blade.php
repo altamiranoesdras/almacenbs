@@ -46,7 +46,7 @@
                 Fecha:
             </td>
             <td style="width:18%;">
-                <span style="margin-left: 0">{{ fechaLtn($compra->fecha_documento) }}</span>
+                <span style="margin-left: 0">{{ fechaLtn($compra->fecha_ingreso) }}</span>
             </td>
         </tr>
         <tr style="">
