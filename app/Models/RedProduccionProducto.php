@@ -15,9 +15,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RedProduccionSubProducto> $redProduccionSubProductos
- * @property-read int|null $red_produccion_sub_productos_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\EstructuraPresupuestariaActividad> $actividades
+ * @property-read int|null $actividades_count
  * @property-read \App\Models\RedProduccionResultado $resultado
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RedProduccionSubProducto> $subProductos
+ * @property-read int|null $sub_productos_count
  * @method static \Database\Factories\RedProduccionProductoFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionProducto newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionProducto newQuery()

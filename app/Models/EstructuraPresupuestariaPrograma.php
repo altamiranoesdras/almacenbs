@@ -14,8 +14,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\EstructuraPresupuestariaSubprograma> $estructuraPresupuestariaSubprogramas
- * @property-read int|null $estructura_presupuestaria_subprogramas_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\EstructuraPresupuestariaSubprograma> $subProgramas
+ * @property-read int|null $sub_programas_count
  * @method static \Database\Factories\EstructuraPresupuestariaProgramaFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaPrograma newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|EstructuraPresupuestariaPrograma newQuery()

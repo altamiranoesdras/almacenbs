@@ -46,6 +46,8 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read mixed $img
  * @property-read mixed $miniatura
  * @property-read mixed $rubrica
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Bitacora> $hitorialBitacoras
+ * @property-read int|null $hitorial_bitacoras_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ItemTraslado> $itemsTraslados
  * @property-read int|null $items_traslados_count
  * @property-read \App\Models\RrhhUnidad|null $jefeUnidad
@@ -476,6 +478,13 @@ class User extends Authenticatable implements  HasMedia
     public function scopeDeUnidad($query, $unidad_id)
     {
         return $query->where('unidad_id', $unidad_id);
+    }
+
+    public function hitorialBitacoras()
+    {
+        return $this->hasMany(\App\Models\Bitacora::class, 'usuario_id')
+            ->orderBy('created_at', 'desc');
+
     }
 
 }

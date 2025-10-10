@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\RedProduccionProducto $producto
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RrhhUnidad> $rrhhUnidades
+ * @property-read int|null $rrhh_unidades_count
  * @method static \Database\Factories\RedProduccionSubProductoFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionSubProducto newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionSubProducto newQuery()

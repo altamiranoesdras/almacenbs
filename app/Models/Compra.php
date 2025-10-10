@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Illuminate\Support\Carbon|null $fecha_ingreso Fecha de ingreso al sistema
  * @property string|null $serie
  * @property string|null $numero
- * @property int|null $recibo_de_caja
+ * @property string|null $recibo_de_caja
  * @property int $estado_id
  * @property int $usuario_crea
  * @property int|null $usuario_recibe

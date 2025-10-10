@@ -259,7 +259,7 @@
                                          id="bitacora"
                                          role="tabpanel"
                                          aria-labelledby="bitacora-tab">
-                                         @include('layouts.partials.bitacoras', ['bitacoras' => Auth::user()->bitacoras])
+                                         @include('layouts.partials.bitacoras', ['bitacoras' => Auth::user()->hitorialBitacoras])
                                     </div>
                                 </div>
                             </div>
