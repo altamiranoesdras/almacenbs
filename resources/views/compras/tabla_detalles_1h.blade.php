@@ -25,6 +25,7 @@
                        class="form-control form-control-sm"
                        placeholder="Series o descripción adicional"
                        name="textos_extras[{{$det->id}}]"
+                       required
                        value="{{$det->texto_extra ?? ''}}"
                 >
                 @else
