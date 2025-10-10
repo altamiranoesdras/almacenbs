@@ -59,12 +59,10 @@
                 </div>
             </div>
             <div class="modal-footer">
-                @if($compra->estado_id == \App\Models\CompraEstado::PROCESADO_PENDIENTE_RECIBIR)
+                @if($compra->estaPendienteRecibir())
                     <a href="{{route('compras.ingreso', $compra->id)}}">
                         <div class="btn btn-outline-success round">Ingresar</div>
                     </a>
-                @else
-                    <h4><span class="badge badge-info">{{ $compra->estado->nombre}}</span></h4>
                 @endif
 
             </div>

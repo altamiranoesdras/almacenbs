@@ -83,12 +83,11 @@ class ComprasSeeder extends Seeder
                 ->afterCreating(function (Compra $compra) {
                     // Procesar ingreso y generar 1h para cada compra
 
-                    if ($compra->estaRecibida()){
-                        $compra->procesaIngreso();
-                    }
+//                    if ($compra->estaRecibida()){
+//                        $compra->procesaIngreso();
+//                    }
 
                     if ($compra->estaOperado1h()){
-                        $compra->procesaIngreso();
                         sleep(1);
                         $compra->genera1h();
                         sleep(1);
@@ -96,7 +95,6 @@ class ComprasSeeder extends Seeder
                     }
 
                     if ($compra->estaAprobado1h()){
-                        $compra->procesaIngreso();
                         sleep(1);
                         $compra->genera1h();
                         sleep(1);
@@ -106,7 +104,6 @@ class ComprasSeeder extends Seeder
                     }
 
                     if ($compra->estaAutorizado1h()){
-                        $compra->procesaIngreso();
                         sleep(1);
                         $compra->genera1h();
                         sleep(1);
@@ -118,7 +115,6 @@ class ComprasSeeder extends Seeder
                     }
 
                     if($compra->estaAnulada()){
-                        $compra->procesaIngreso();
                         sleep(1);
                         $compra->genera1h();
                         sleep(1);

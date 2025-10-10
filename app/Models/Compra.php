@@ -335,6 +335,9 @@ class Compra extends Model
         $this->actualizaPreciosItem();
 
         $this->addBitacora("Ingreso de almacén ingresado");
+
+        $this->procesarKardex();
+
     }
 
     public function procesarKardex()
@@ -430,7 +433,7 @@ class Compra extends Model
     }
 
     //estaPendiente de recibir
-    public function estaPendienteRecibir()
+    public function estaPendienteRecibir(): bool
     {
         return in_array($this->estado_id,[
             CompraEstado::PROCESADO_PENDIENTE_RECIBIR,
@@ -547,7 +550,6 @@ class Compra extends Model
 
         }
 
-        $this->procesarKardex();
 
         // actualizar folio en envio fiscal
         $envioFiscal->siguienteFolio();
@@ -658,6 +660,9 @@ class Compra extends Model
         $this->addBitacora("Formulario 1H Autorizado, folio: ".$this->compra1h->folio,$comentario);
         $this->estado_id = CompraEstado::UNO_H_AUTORIZADO;
         $this->save();
+
+        $this->procesaIngreso();
+
     }
 
     //retornar a operador
