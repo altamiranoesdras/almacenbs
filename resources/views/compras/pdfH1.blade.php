@@ -211,9 +211,13 @@
                 &nbsp;
             </td>
             <td class="py-0 text-left " style="border-color: black;  text-align: center; padding: 2px; font-size: small" >
-                Factura <br>
+                {{$compra->tipo->nombre}} <br>
                 Serie: {{ $compra->serie ?? '' }}<br>
                 Número de DTE: {{ $compra->numero }}
+                @if($compra->esFacturaCambiaria())
+                    <br>
+                    Recibido de caja: {{ $compra->recibo_de_caja }}
+                @endif
             </td>
 
             <td class="py-0" style="border-color: black; width: 7.89%; text-align: center; padding: 5px; font-size: small" >
