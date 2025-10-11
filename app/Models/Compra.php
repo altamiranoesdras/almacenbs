@@ -169,7 +169,7 @@ class Compra extends Model
         'usuario_crea' => 'nullable',
         'usuario_recibe' => 'nullable',
         'observaciones' => 'nullable|string',
-        'orden_compra' => 'required|integer|digits_between:1,5',
+        'orden_compra' => 'required|integer',
         'unidad_solicita_id' => 'nullable|integer',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
