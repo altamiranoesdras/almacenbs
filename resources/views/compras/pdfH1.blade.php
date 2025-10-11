@@ -216,7 +216,7 @@
                 Número de DTE: {{ $compra->numero }}
                 @if($compra->esFacturaCambiaria())
                     <br>
-                    Recibido de caja: {{ $compra->recibo_de_caja }}
+                    Recibo de caja: {{ $compra->recibo_de_caja }}
                 @endif
             </td>
 
