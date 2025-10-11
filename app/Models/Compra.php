@@ -719,7 +719,7 @@ class Compra extends Model
             ->values();
     }
 
-    public function esFacturaCambiaria()
+    public function esFacturaCambiaria(): bool
     {
         return $this->tipo_id == CompraTipo::FACTURA_CAMBIARIA;
     }
