@@ -3,6 +3,7 @@
 @section('titulo_pagina', 'Operar Ingresos a Almacén')
 
 @include('layouts.plugins.select2')
+@include('layouts.plugins.alpinejs')
 
 @section('content')
 

@@ -1,3 +1,5 @@
+@include('layouts.plugins.alpinejs')
+
 {{-- Modal para anular compra --}}
 <div class="modal fade" id="modalAnularaIngresoAlmacen" tabindex="-1" aria-labelledby="tituloAnularIngreso" aria-hidden="true" data-bs-backdrop="static">
     <div class="modal-dialog modal-lg modal-dialog-centered">
