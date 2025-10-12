@@ -321,6 +321,11 @@ class Compra extends Model
     public function procesaIngreso()
     {
 
+        //para evitar doble ingreso de existencias
+        if ($this->tieneTransaccionesStock()) {
+            return;
+        }
+
         /**
          * @var CompraDetalle $detalle
          */
@@ -328,15 +333,9 @@ class Compra extends Model
             $detalle->ingreso();
         }
 
-        $this->estado_id = CompraEstado::INGRESADO;
-//        $this->fecha_ingreso = hoyDb();
-        $this->save();
-
         $this->actualizaPreciosItem();
 
-        $this->addBitacora("Ingreso de almacén ingresado");
-
-        $this->procesarKardex();
+        $this->addBitacora("Ingreso de existencias","Se suman las existencias de los detalles de la compra");
 
     }
 
@@ -349,6 +348,8 @@ class Compra extends Model
         foreach ($this->agruparDetalles() as $index => $detalle) {
             $detalle->agregarKardex();
         }
+
+        $this->addBitacora("Kardex procesado","Se procesó el kardex de los detalles de la compra");
 
     }
 
@@ -388,15 +389,28 @@ class Compra extends Model
         $this->estado_id = CompraEstado::ANULADO;
         $this->save();
 
+        if ($this->tieneTransaccionesStock()) {
+            /**
+             * @var CompraDetalle $detalle
+             */
+            foreach ($this->detalles as $detalle){
+                //si tiene transacciones de stock, las anula
+                $detalle->anular();
+            }
 
-        /**
-         * @var CompraDetalle $detalle
-         */
-        foreach ($this->detalles as $detalle){
-            $detalle->anular();
+            $this->addBitacora("Compra anulada","Se descontó existencias de los detalles de la compra");
+        }else {
+            $this->addBitacora("Compra anulada","No se descontó existencias de los detalles de la compra porque no tiene transacciones de stock asociadas");
         }
 
-        $this->addBitacora("Compra anulada");
+    }
+
+    public function tieneTransaccionesStock(): bool
+    {
+        return $this->detalles->filter(function ($detalle) {
+            return $detalle->transaccionesStock->count() > 0;
+        })->count() > 0;
+
     }
 
 
@@ -442,14 +456,8 @@ class Compra extends Model
 
     public function puedeAnular()
     {
-        return $this->estado_id != CompraEstado::ANULADO && in_array($this->estado_id,[
-                CompraEstado::INGRESADO,
-                CompraEstado::UNO_H_OPERADO,
-                CompraEstado::UNO_H_APROBADO,
-                CompraEstado::UNO_H_AUTORIZADO,
-                CompraEstado::RETORNO_POR_APROBADOR,
-                CompraEstado::RETORNO_POR_AUTORIZADOR,
-        ]);
+        //si no está anulado y tiene compra1h
+        return $this->estado_id != CompraEstado::ANULADO && $this->tiene1h();
     }
 
     public function puedeCancelar()
@@ -662,6 +670,9 @@ class Compra extends Model
         $this->save();
 
         $this->procesaIngreso();
+
+        $this->procesarKardex();
+
 
     }
 
