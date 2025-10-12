@@ -3,10 +3,12 @@
 @section('titulo_pagina', 'Buscar Ingresos a Almacén')
 
 @include('layouts.plugins.select2')
+@include('layouts.plugins.alpinejs')
+
 
 @section('content')
 
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
     <x-content-header titulo="Buscar Ingresos a Almacén">
         <a class="btn btn-success float-right"
            href="{{ route('compras.create') }}">
