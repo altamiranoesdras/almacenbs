@@ -2,6 +2,8 @@
 
 @section('titulo_pagina', 'Operar Ingreso Almacén')
 
+@include('layouts.plugins.alpinejs')
+
 @section('content')
     <x-content-header titulo="Operar Ingreso Almacén">
         <a class="btn btn-outline-secondary round"
