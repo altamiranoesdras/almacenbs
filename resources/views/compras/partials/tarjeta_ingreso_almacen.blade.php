@@ -72,11 +72,11 @@
                                 </div>
 
                                 <div class="col text-end">
-                                    @if($compra->estaPendienteRecibir())
-                                        <a href="{!! route('compras.ingreso',$compra->id) !!}" class="btn btn-success round ms-1">
-                                            <i class="fa-solid fa-cart-flatbed"></i> Ingresar
-                                        </a>
-                                    @endif
+{{--                                    @if($compra->estaPendienteRecibir())--}}
+{{--                                        <a href="{!! route('compras.ingreso',$compra->id) !!}" class="btn btn-success round ms-1">--}}
+{{--                                            <i class="fa-solid fa-cart-flatbed"></i> Ingresar--}}
+{{--                                        </a>--}}
+{{--                                    @endif--}}
 
                                     @can('Anular Ingreso de almacen')
                                         @if($compra->puedeAnular())
@@ -89,20 +89,17 @@
                                             </button>
                                         @endif
                                     @endcan
-                                </div>
-                            </div>
 
-                            @if($compra->puedeCancelar())
-                                <div class="row mt-2">
-                                    <div class="col-12 text-start">
-                                        <button type="button" class="btn btn-outline-warning btn-sm"
+                                    @if($compra->puedeCancelar())
+                                        <button type="button" class="btn btn-outline-warning round ms-1"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#modalCancelarIngresoAlmacen">
                                             <i class="fa fa-trash"></i> Eliminar ingreso a almacén
                                         </button>
-                                    </div>
+                                    @endif
                                 </div>
-                            @endif
+                            </div>
+
                         </div>
                     </form>
                 </div>

@@ -462,7 +462,8 @@ class Compra extends Model
 
     public function puedeCancelar()
     {
-        return $this->estado_id == CompraEstado::PROCESADO_PENDIENTE_RECIBIR;
+        //estado es diferente a cancelado y no tiene compra1h
+        return $this->estado_id != CompraEstado::CANCELADO && !$this->tiene1h();
     }
 
     public function getAnioAttribute()
@@ -638,6 +639,7 @@ class Compra extends Model
     public function puedeGestionar1h()
     {
         return in_array($this->estado_id,[
+            CompraEstado::PROCESADO_PENDIENTE_RECIBIR,
             CompraEstado::INGRESADO,
             CompraEstado::UNO_H_OPERADO,
             CompraEstado::UNO_H_APROBADO,

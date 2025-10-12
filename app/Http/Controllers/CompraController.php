@@ -208,7 +208,7 @@ class CompraController extends AppBaseController
 
         if ($request->procesar) {
             flash('Ingreso almacén procesado exitosamente.')->success();
-            return redirect(route('compras.edit', $compra->id));
+            return redirect(route('bandejas.compras1h.operador.gestionar', $compra->id));
 
         } else {
             flash('Ingreso almacén actualizado exitosamente.')->success();
