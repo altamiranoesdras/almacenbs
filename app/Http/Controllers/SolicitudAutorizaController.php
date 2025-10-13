@@ -41,7 +41,7 @@ class SolicitudAutorizaController extends Controller
 
             if ($request->retornar){
 
-                $this->retornar($solicitud,$request);
+                $solicitud->retornoPorAutorizador($request->motivo ?? '');
                 $msj="Solicitud retornada correctamente";
 
             }else{
@@ -71,53 +71,22 @@ class SolicitudAutorizaController extends Controller
     public function autorizar(Solicitud $solicitud,Request $request)
     {
 
-
         /**
          * @var SolicitudDetalle $detalle
          */
         foreach ($solicitud->detalles as $index => $detalle) {
-            $detalle->cantidad_autorizada = $request->cantidades_aprueba[$index];
+            $detalle->cantidad_autorizada = $request->cantidades_autoriza[$index];
             $detalle->save();
         }
 
-        $solicitud->estado_id = SolicitudEstado::APROBADA;
-        $solicitud->usuario_aprueba = auth()->user()->id;
-        $solicitud->fecha_aprueba = Carbon::now();
+        $solicitud->estado_id = SolicitudEstado::AUTORIZADA;
+        $solicitud->usuario_autoriza = auth()->user()->id;
+        $solicitud->fecha_autoriza = Carbon::now();
         $solicitud->save();
 
-
-
-        try {
-
-//                $this->enviarNotificacionDespechador();
-//                $solicitud->usuarioSolicita->notify(new RequisicionInformaAprobacionNotificacion());
-
-            event(new EventoCambioEstadoSolicitud($solicitud));
-        }catch (Exception $exception){
-
-        }
-//            Mail::send(new DespacharSolicitud($solicitud));
-
-        $solicitud->addBitacora("REQUISICIÓN APROBADA",'');
+        $solicitud->addBitacora("Requisición autorizada ",'');
     }
 
 
-    public function retornar(Solicitud $solicitud,Request $request)
-    {
 
-        $solicitud->estado_id = SolicitudEstado::INGRESADA;
-        $solicitud->usuario_autoriza = null;
-        $solicitud->fecha_autoriza = null;
-        $solicitud->save();
-
-        try {
-
-//            Mail::send(new DespacharSolicitud($solicitud));
-
-        }catch (Exception $exception){
-
-        }
-
-        $solicitud->addBitacora("REQUISICIÓN RETORNADA",$request->observacion);
-    }
 }

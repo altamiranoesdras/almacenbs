@@ -4,7 +4,7 @@
         <th>Producto</th>
         <th>Tu Stock</th>
         <th>Cantidad Solicitada</th>
-        <th>Cantidad Aprobada</th>
+        <th>Cantidad Autorizada</th>
         <th>Cantidad despachada</th>
         {{-- <th></th> --}}
     </tr>

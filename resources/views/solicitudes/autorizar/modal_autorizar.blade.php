@@ -9,7 +9,7 @@
             </div>
 
 
-            <form action="{{route('solicitudes.aprobar.store',$solicitud->id)}}" method="post" class="esperar">
+            <form action="{{route('solicitudes.autorizar.store',$solicitud->id)}}" method="post" class="esperar">
 
                 @csrf
 
@@ -26,36 +26,34 @@
                 </div>
 
 
-                <div class="modal-footer" style="display: block !important;">
-                    <div class="row">
-                        <div class="col-sm-6 text-left">
-
-
-                            <!-- Button trigger modal -->
-                            <span data-toggle="tooltip" title="Regresar para correción">
-
-                                <button type="button" class="btn btn-outline-warning"  data-toggle="modal"
-                                        data-target="#modalRegresar{{$solicitud->id}}">
-                                    <i class="fa fa-arrow-left"></i> Regresar
-                                </button>
-                            </span>
-
-                            <!-- Modal -->
-
-                        </div>
-
-                        <div class="col-sm-6 text-right">
-
-                            <button type="submit"  class="btn btn-outline-success">
-                                <i class="fa fa-check"></i> Aprobar
+                <div class="modal-footer">
+                    <div class="row w-100 g-2">
+                        <!-- Botón para retornar -->
+                        <div class="col-6">
+                            <button
+                                type="button"
+                                class="btn btn-outline-warning"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalRegresar{{ $solicitud->id }}"
+                            >
+                                <i class="fa fa-arrow-left me-1"></i>
+                                Retornar
                             </button>
                         </div>
 
-
+                        <!-- Botón para autorizar -->
+                        <div class="col-6">
+                            <button
+                                type="submit"
+                                class="btn btn-outline-success float-end"
+                            >
+                                <i class="fa fa-check me-1"></i>
+                                Autorizar
+                            </button>
+                        </div>
                     </div>
-
-
                 </div>
+
 
             </form>
         </div><!-- /.modal-content -->
@@ -73,7 +71,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{route('solicitudes.aprobar.store',$solicitud->id)}}" method="post" class="esperar">
+            <form action="{{route('solicitudes.autorizar.store',$solicitud->id)}}" method="post" class="esperar">
 
                 @csrf
                 <div class="modal-body">

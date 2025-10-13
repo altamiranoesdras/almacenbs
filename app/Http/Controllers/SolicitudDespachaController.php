@@ -34,7 +34,10 @@ class SolicitudDespachaController extends Controller
 
 
         $scope = new ScopeSolicitudDataTable();
-        $scope->estados = [SolicitudEstado::APROBADA];
+        $scope->estados = [
+//            SolicitudEstado::APROBADA,
+            SolicitudEstado::AUTORIZADA,
+        ];
 
         $solicitudeDataTable->addScope($scope);
 

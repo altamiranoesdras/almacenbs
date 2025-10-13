@@ -219,7 +219,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('mis/solicitudes', [SolicitudController::class,'user'])->name('solicitudes.usuario');
 
     Route::get('solicitudes/autorizar', [SolicitudAutorizaController::class,'index'])->name('solicitudes.autorizar');
-    Route::get('solicitudes/autorizar/{solicitud}', [SolicitudAutorizaController::class,'store'])->name('solicitudes.autorizar.store');
+    Route::post('solicitudes/autorizar/{solicitud}', [SolicitudAutorizaController::class,'store'])->name('solicitudes.autorizar.store');
 
     Route::get('solicitudes/aprobar', [SolicitudApruebaController::class,'index'])->name('solicitudes.aprobar');
     Route::post('solicitudes/aprobar/{solicitud}', [SolicitudApruebaController::class,'store'])->name('solicitudes.aprobar.store');

@@ -27,9 +27,7 @@
 
                 <div class="modal-footer" style="display: block !important;">
                     <div class="row">
-                        <div class="col-sm-6 text-left">
-
-
+                        <div class="col-6 ">
                             <!-- Button trigger modal -->
                             <span data-toggle="tooltip" title="Regresar para correción">
 
@@ -43,10 +41,10 @@
 
                         </div>
 
-                        <div class="col-sm-6 text-right">
+                        <div class="col-6">
 
                             {{--                    @if($solicitud->tieneStock())--}}
-                            <button type="submit"   class="btn btn-outline-success round">
+                            <button type="submit"   class="btn btn-outline-success round float-end">
                                 <i class="fa fa-check"></i> Despachar
                             </button>
                             {{--                    @else--}}

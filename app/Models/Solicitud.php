@@ -343,6 +343,11 @@ class Solicitud extends Model
         return $this->estado_id==SolicitudEstado::APROBADA;
     }
 
+    public function estaAutorizada()
+    {
+        return $this->estado_id==SolicitudEstado::AUTORIZADA;
+    }
+
 
     public function estaDespachada()
     {
@@ -361,6 +366,7 @@ class Solicitud extends Model
                 SolicitudEstado::TEMPORAL,
                 SolicitudEstado::INGRESADA,
                 SolicitudEstado::RETORNO_SOLICITADA,
+                SolicitudEstado::RETORNO_AUTORIZADA,
             ]);
     }
 
@@ -398,7 +404,7 @@ class Solicitud extends Model
             SolicitudEstado::AUTORIZADA,
             SolicitudEstado::DESPACHADA,
             SolicitudEstado::ANULADA,
-//            SolicitudEstado::CANCELADA,
+//            SolicitudEstado::RETORNO_AUTORIZADA,
         ]);
     }
 
@@ -590,4 +596,14 @@ class Solicitud extends Model
         return numALetrasConmoneda($this->total_detalles, $currency);
     }
 
+    public function retornoPorAutorizador($motivo='')
+    {
+
+        $this->estado_id = SolicitudEstado::RETORNO_AUTORIZADA;
+        $this->usuario_autoriza = null;
+        $this->fecha_autoriza = null;
+        $this->save();
+
+        $this->addBitacora("Requisición retornada por autorizador","Motivo: ".$motivo ?? '');
+    }
 }

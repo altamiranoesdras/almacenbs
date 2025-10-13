@@ -3,7 +3,7 @@
     <tr>
         <th>Producto</th>
         <th>Cantidad Solicitada</th>
-        <th>Cantidad Aprobada</th>
+        <th>Cantidad Autorizada</th>
         <th>Cantidad Despachada</th>
     </tr>
     </thead>
