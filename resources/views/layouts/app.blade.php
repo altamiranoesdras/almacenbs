@@ -110,9 +110,11 @@
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
         <div class="content-wrapper container-xxl p-0">
-
+            @can('access_option')
                 @yield('content')
-
+            @else
+                @include('layouts.partials.no_acces_to_option')
+            @endcan
         </div>
     </div>
     <!-- END: Content-->
