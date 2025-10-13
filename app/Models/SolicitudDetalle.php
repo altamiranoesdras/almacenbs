@@ -15,7 +15,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property int $solicitud_id
  * @property int $item_id
  * @property string $cantidad_solicitada
- * @property string $cantidad_autorizada
+ * @property string $cantidad_aprobada
+ * @property string $cantidad_autorizada Cantidad autorizada por el autorizador
  * @property string $cantidad_despachada
  * @property string|null $precio
  * @property string|null $fecha_vence
@@ -37,6 +38,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle query()
  * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereCantidadAprobada($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereCantidadAutorizada($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereCantidadDespachada($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereCantidadSolicitada($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SolicitudDetalle whereCreatedAt($value)

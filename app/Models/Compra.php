@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\HasBitacora;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -24,6 +25,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string|null $recibo_de_caja
  * @property int $estado_id
  * @property int $usuario_crea
+ * @property int|null $usuario_opera_id
+ * @property int|null $usuario_aprueba_id
+ * @property int|null $usuario_autoriza_id
  * @property int|null $usuario_recibe
  * @property string|null $orden_compra
  * @property string $descuento
@@ -50,7 +54,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read \App\Models\Proveedor|null $proveedor
  * @property-read \App\Models\CompraTipo|null $tipo
  * @property-read \App\Models\RrhhUnidad|null $unidadSolicitante
+ * @property-read \App\Models\User|null $usuarioAprueba
+ * @property-read \App\Models\User|null $usuarioAutoriza
  * @property-read \App\Models\User $usuarioCrea
+ * @property-read \App\Models\User|null $usuarioOpera
  * @property-read \App\Models\User|null $usuarioRecibe
  * @method static \Illuminate\Database\Eloquent\Builder|Compra delItem($item)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra delUser($user = null)
@@ -83,7 +90,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereTipoId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereUnidadSolicitaId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereUsuarioApruebaId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereUsuarioAutorizaId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereUsuarioCrea($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereUsuarioOperaId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereUsuarioRecibe($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Compra withoutTrashed()
@@ -110,6 +120,7 @@ class Compra extends Model
         'proveedor_id',
         'codigo',
         'correlativo',
+        'unidad_solicita_id',
         'fecha_documento',
         'fecha_ingreso',
         'serie',
@@ -117,13 +128,15 @@ class Compra extends Model
         'recibo_de_caja',
         'estado_id',
         'usuario_crea',
+        'usuario_opera_id',
+        'usuario_aprueba_id',
+        'usuario_autoriza_id',
         'usuario_recibe',
-        'observaciones',
         'orden_compra',
         'descuento',
         'folio_almacen',
         'folio_inventario',
-        'unidad_solicita_id',
+        'observaciones'
     ];
 
     /**
@@ -178,13 +191,26 @@ class Compra extends Model
 
     protected $appends = ['total_venta'];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     **/
-    public function usuarioCrea()
+    public function usuarioCrea(): BelongsTo
     {
         return $this->belongsTo(\App\Models\User::class, 'usuario_crea');
     }
+
+    public function usuarioOpera(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\User::class, 'usuario_opera_id');
+    }
+
+    public function usuarioAprueba(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\User::class, 'usuario_aprueba_id');
+    }
+
+    public function usuarioAutoriza(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\User::class, 'usuario_autoriza_id');
+    }
+
 
 
     /**
@@ -671,6 +697,7 @@ class Compra extends Model
     public function operar1h($comentario='')
     {
         $this->addBitacora("Formulario 1H Operado, folio: ".$this->compra1h->folio,$comentario);
+        $this->usuario_opera_id = usuarioAutenticado()->id;
         $this->estado_id = CompraEstado::UNO_H_OPERADO;
         $this->save();
     }
@@ -679,6 +706,7 @@ class Compra extends Model
     public function aprobar1h($comentario='')
     {
         $this->addBitacora("Formulario 1H Aprobado, folio: ".$this->compra1h->folio,$comentario);
+        $this->usuario_aprueba_id = usuarioAutenticado()->id;
         $this->estado_id = CompraEstado::UNO_H_APROBADO;
         $this->save();
     }
@@ -687,6 +715,7 @@ class Compra extends Model
     public function autorizar1h($comentario='')
     {
         $this->addBitacora("Formulario 1H Autorizado, folio: ".$this->compra1h->folio,$comentario);
+        $this->usuario_autoriza_id = usuarioAutenticado()->id;
         $this->estado_id = CompraEstado::UNO_H_AUTORIZADO;
         $this->save();
 
