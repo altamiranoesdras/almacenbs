@@ -41,9 +41,11 @@ Route::group(['prefix' => 'bandejas/compras1h', 'as' => 'bandejas.compras1h.'], 
     Route::post('operador/genera1h/{compra}', [Compra1hOperadorController::class,'genera1h'])->name('operador.genera1h');
     Route::post('operador/{compra}', [Compra1hOperadorController::class,'procesar'])->name('operador.procesar');
 
+    Route::post('aprobar/regresar/{compra}', [Compra1hAprobadorController::class,'regresar'])->name('aprobar.regresar');
     Route::get('aprobar/{compra}', [Compra1hAprobadorController::class,'gestionar'])->name('aprobar.gestionar');
     Route::post('aprobar/{compra}', [Compra1hAprobadorController::class,'procesar'])->name('aprobar.procesar');
 
+    Route::post('autorizar/regresar/{compra}', [Compra1hAutorizadorController::class,'regresar'])->name('autorizar.regresar');
     Route::get('autorizar/{compra}', [Compra1hAutorizadorController::class,'gestionar'])->name('autorizar.gestionar');
     Route::post('autorizar/{compra}', [Compra1hAutorizadorController::class,'procesar'])->name('autorizar.procesar');
 });

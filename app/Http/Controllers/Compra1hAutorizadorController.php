@@ -7,6 +7,7 @@ use App\DataTables\Scopes\ScopeCompraDataTable;
 use App\Models\Compra;
 use App\Models\CompraEstado;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Compra1hAutorizadorController extends Controller
 {
@@ -45,5 +46,36 @@ class Compra1hAutorizadorController extends Controller
         flash('Formulario 1H autorizado!')->success();
 
         return redirect()->route('bandejas.compras1h.autorizador');
+    }
+
+    /**
+     * @throws \Throwable
+     */
+    public function regresar(Compra $compra, Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $compra->estado_id = CompraEstado::RETORNO_POR_AUTORIZADOR;
+            $compra->save();
+
+            $compra->addBitacora('1H retornado por autorizador', "Motivo: ".$request->motivo ?? '');
+
+        } catch (\Exception $exception) {
+            DB::rollBack();
+
+            $msj = manejarException($exception);
+
+            flash()->warning($msj);
+
+            return back()->withInput();
+        }
+
+        DB::commit();
+
+        flash('1H retornado al aprobador!')->success();
+
+        return redirect()->route('bandejas.compras1h.aprobador');
+
     }
 }

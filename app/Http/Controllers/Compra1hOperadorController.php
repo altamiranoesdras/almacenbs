@@ -26,6 +26,7 @@ class Compra1hOperadorController extends Controller
         $scoper = new ScopeCompraDataTable();
         $scoper->estados = [
             CompraEstado::PROCESADO_PENDIENTE_RECIBIR,
+            CompraEstado::RETORNO_POR_APROBADOR,
             CompraEstado::INGRESADO
         ];
 
