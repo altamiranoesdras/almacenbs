@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property int $solicitud_id
  * @property int $item_id
  * @property string $cantidad_solicitada
- * @property string $cantidad_aprobada
+ * @property string $cantidad_autorizada
  * @property string $cantidad_despachada
  * @property string|null $precio
  * @property string|null $fecha_vence
@@ -72,7 +72,7 @@ class SolicitudDetalle extends Model
         'solicitud_id',
         'item_id',
         'cantidad_solicitada',
-        'cantidad_aprobada',
+        'cantidad_autorizada',
         'cantidad_despachada',
         'precio'
     ];

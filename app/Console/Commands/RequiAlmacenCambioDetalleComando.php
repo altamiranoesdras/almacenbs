@@ -100,7 +100,7 @@ class RequiAlmacenCambioDetalleComando extends Command
 
 
             $detalleCambiar->cantidad_solicitada = $nuevaCantidad;
-            $detalleCambiar->cantidad_aprobada = $nuevaCantidad;
+            $detalleCambiar->cantidad_autorizada = $nuevaCantidad;
             $detalleCambiar->cantidad_despachada = $nuevaCantidad;
             $detalleCambiar->item_id = $nuevoInsumo->id;
             $detalleCambiar->save();
@@ -145,7 +145,7 @@ class RequiAlmacenCambioDetalleComando extends Command
                 $detalle->id,
                 $detalle->item->text,
                 $detalle->cantidad_solicitada,
-                $detalle->cantidad_aprobada,
+                $detalle->cantidad_autorizada,
                 $detalle->cantidad_despachada,
             ];
         });

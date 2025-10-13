@@ -15,7 +15,7 @@
             <th>{{$det->item->stock_total}}</th>
             <td>{{$det->cantidad_solicitada}}</td>
             @if( $solicitud->estaAprobada())
-                <td> {{$det->cantidad_aprobada}}</td>
+                <td> {{$det->cantidad_autorizada}}</td>
             @else
                 <td>
                     <input type="number" name="cantidades_aprueba[]" step="any" class="form-control form-control-sm cantidades" required >

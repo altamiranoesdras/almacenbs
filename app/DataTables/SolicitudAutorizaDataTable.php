@@ -29,7 +29,7 @@ class SolicitudAutorizaDataTable extends DataTable
             })
             ->editColumn('codigo',function (Solicitud $solicitud){
 
-                return view('solicitudes.modal_show',compact('solicitud'))->render();
+                return view('solicitudes.autorizar.modal_autorizar',compact('solicitud'))->render();
 
             })
             ->editColumn('justificacion',function (Solicitud $solicitud){

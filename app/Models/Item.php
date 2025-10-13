@@ -763,7 +763,7 @@ class Item extends Model implements HasMedia
         return $this->solicitudDetalles
             ->where('solicitud.bodega_id',Bodega::PRINCIPAL)
             ->where('solicitud.estado_id',SolicitudEstado::APROBADA)
-            ->sum('cantidad_aprobada');
+            ->sum('cantidad_autorizada');
 
     }
 

@@ -558,7 +558,7 @@ class Solicitud extends Model
 
         //actualiza las cantidades despachadas, si son enviadas desde el formulario
         foreach ($this->detalles as $index => $detalle) {
-            $detalle->cantidad_despachada = request()->cantidades_despacha[$index] ?? $detalle->cantidad_aprobada;
+            $detalle->cantidad_despachada = request()->cantidades_despacha[$index] ?? $detalle->cantidad_autorizada;
             $detalle->save();
         }
 

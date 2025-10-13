@@ -6,6 +6,7 @@ use App\DataTables\Scopes\ScopeSolicitudDataTable;
 use App\DataTables\SolicitudAutorizaDataTable;
 use App\Events\EventoCambioEstadoSolicitud;
 use App\Models\Solicitud;
+use App\Models\SolicitudDetalle;
 use App\Models\SolicitudEstado;
 use Carbon\Carbon;
 use Exception;
@@ -71,12 +72,25 @@ class SolicitudAutorizaController extends Controller
     {
 
 
-        $solicitud->estado_id = SolicitudEstado::AUTORIZADA;
-        $solicitud->usuario_autoriza = auth()->user()->id;
-        $solicitud->fecha_autoriza = Carbon::now();
+        /**
+         * @var SolicitudDetalle $detalle
+         */
+        foreach ($solicitud->detalles as $index => $detalle) {
+            $detalle->cantidad_autorizada = $request->cantidades_aprueba[$index];
+            $detalle->save();
+        }
+
+        $solicitud->estado_id = SolicitudEstado::APROBADA;
+        $solicitud->usuario_aprueba = auth()->user()->id;
+        $solicitud->fecha_aprueba = Carbon::now();
         $solicitud->save();
 
+
+
         try {
+
+//                $this->enviarNotificacionDespechador();
+//                $solicitud->usuarioSolicita->notify(new RequisicionInformaAprobacionNotificacion());
 
             event(new EventoCambioEstadoSolicitud($solicitud));
         }catch (Exception $exception){
@@ -84,7 +98,7 @@ class SolicitudAutorizaController extends Controller
         }
 //            Mail::send(new DespacharSolicitud($solicitud));
 
-        $solicitud->addBitacora("REQUISICIÓN APROBADA",null);
+        $solicitud->addBitacora("REQUISICIÓN APROBADA",'');
     }
 
 

@@ -125,7 +125,7 @@ class SolicitudDespachaController extends Controller
          */
         foreach ($solicitud->detalles as $index => $detalle) {
 
-            $cantidad = $request->cantidades_despacha[$index] ?? $detalle->cantidad_aprobada;
+            $cantidad = $request->cantidades_despacha[$index] ?? $detalle->cantidad_autorizada;
 
 
             if ($cantidad > $detalle->item->stock_total){
@@ -134,7 +134,7 @@ class SolicitudDespachaController extends Controller
 
             }else{
 
-                if ($cantidad > $detalle->cantidad_aprobada){
+                if ($cantidad > $detalle->cantidad_autorizada){
                     $errores->push("No puede despachar mas de la cantidad aprobada par el insumo: ".$detalle->item->text);
                 }
             }

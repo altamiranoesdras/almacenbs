@@ -72,7 +72,7 @@ class ObtenerCodigoRequisicionPorCodigoKardex extends Command
                     $detalle->id,
                     $detalle->item->text,
                     $detalle->cantidad_solicitada,
-                    $detalle->cantidad_aprobada,
+                    $detalle->cantidad_autorizada,
                     $detalle->cantidad_despachada
                 ];
             }));

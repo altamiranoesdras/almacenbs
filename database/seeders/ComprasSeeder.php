@@ -160,7 +160,7 @@ class ComprasSeeder extends Seeder
                     'solicitud_id' => $solicitud->id,
                     'item_id' => $detalle->item_id,
                     'cantidad_solicitada' => $cantidad,
-                    'cantidad_aprobada' => $cantidad,
+                    'cantidad_autorizada' => $cantidad,
                     'cantidad_despachada' => $cantidad,
                     'precio' => $detalle->precio,
                 ]);

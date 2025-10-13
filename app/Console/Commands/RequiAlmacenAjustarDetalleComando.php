@@ -56,12 +56,12 @@ class RequiAlmacenAjustarDetalleComando extends Command
         if ($solicitud) {
             $this->info("Solicitud encontrada: " . $solicitud->id);
 
-            $this->table(['id', 'item', 'cantidad_solicitada', 'cantidad_aprobada', 'cantidad_despachada'], $solicitud->detalles->map(function ($detalle) {
+            $this->table(['id', 'item', 'cantidad_solicitada', 'cantidad_autorizada', 'cantidad_despachada'], $solicitud->detalles->map(function ($detalle) {
                 return [
                     'id' => $detalle->id,
                     'item' => $detalle->item->nombre,
                     'cantidad_solicitada' => $detalle->cantidad_solicitada,
-                    'cantidad_aprobada' => $detalle->cantidad_aprobada,
+                    'cantidad_autorizada' => $detalle->cantidad_autorizada,
                     'cantidad_desembolsada' => $detalle->cantidad_despachada,
                 ];
             }));
@@ -81,7 +81,7 @@ class RequiAlmacenAjustarDetalleComando extends Command
                 $diferencia = $cantidadAjuste - $cantidadDespachada;
 
                 $detalle->cantidad_solicitada = $cantidadAjuste;
-                $detalle->cantidad_aprobada = $cantidadAjuste;
+                $detalle->cantidad_autorizada = $cantidadAjuste;
                 $detalle->cantidad_despachada = $cantidadAjuste;
                 $detalle->save();
 
@@ -116,12 +116,12 @@ class RequiAlmacenAjustarDetalleComando extends Command
 
         $detalle->refresh();
         $this->info("Detalle : " );
-        $this->table(['id', 'item', 'cantidad_solicitada', 'cantidad_aprobada', 'cantidad_despachada'], [
+        $this->table(['id', 'item', 'cantidad_solicitada', 'cantidad_autorizada', 'cantidad_despachada'], [
             [
                 'id' => $detalle->id,
                 'item' => $detalle->item->nombre,
                 'cantidad_solicitada' => $detalle->cantidad_solicitada,
-                'cantidad_aprobada' => $detalle->cantidad_aprobada,
+                'cantidad_autorizada' => $detalle->cantidad_autorizada,
                 'cantidad_desembolsada' => $detalle->cantidad_despachada,
             ]
         ]);

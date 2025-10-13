@@ -16,12 +16,12 @@
             <td>{{$det->item->text}}</td>
             <th>{{$det->item->stock_total}}</th>
             <td>{{$det->cantidad_solicitada}}</td>
-            <td> {{$det->cantidad_aprobada}}</td>
+            <td> {{$det->cantidad_autorizada}}</td>
             @if( $solicitud->estaDespachada())
                 <td> {{$det->cantidad_despachada}}</td>
             @else
             <td>
-                <input type="number" name="cantidades_despacha[]" step="any" class="form-control form-control-sm" required value="{{ $det->cantidad_aprobada }}" >
+                <input type="number" name="cantidades_despacha[]" step="any" class="form-control form-control-sm" required value="{{ $det->cantidad_autorizada }}" >
             </td>
             @endif
         </tr>
@@ -31,7 +31,7 @@
         <td v-text="detalle.item.text"></td>
         <th v-text="detalle.item.stock_total"></th>
         <td v-text="detalle.cantidad_solicitada"></td>
-        <td v-text="detalle.cantidad_aprobada"></td>
+        <td v-text="detalle.cantidad_autorizada"></td>
         <td>
             <input type="number" name="cantidades_despacha[]" step="any" class="form-control form-control-sm" required v-model="detalle.cantidad_real">
         </td>
@@ -41,7 +41,7 @@
             </div>
         </td> --}}
     </tr>
-    
+
     </tbody>
     <tfoot>
     <tr>
@@ -69,7 +69,7 @@
             },
             methods: {
                 completar(detalle) {
-                    this.$set(detalle, 'cantidad_real', detalle.cantidad_aprobada);
+                    this.$set(detalle, 'cantidad_real', detalle.cantidad_autorizada);
                     console.log('completar', detalle);
                 }
             },

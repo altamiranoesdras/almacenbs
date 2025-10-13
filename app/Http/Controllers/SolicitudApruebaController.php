@@ -92,7 +92,7 @@ class SolicitudApruebaController extends Controller
          * @var SolicitudDetalle $detalle
          */
         foreach ($solicitud->detalles as $index => $detalle) {
-            $detalle->cantidad_aprobada = $request->cantidades_aprueba[$index];
+            $detalle->cantidad_autorizada = $request->cantidades_aprueba[$index];
             $detalle->save();
         }
 
