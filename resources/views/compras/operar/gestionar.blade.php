@@ -48,11 +48,50 @@
                                         <div class="row">
 
                                             <div class="col ">
-                                                <a href="{!! route('bandejas.compras1h.operador') !!}"
-                                                   class="btn btn-outline-secondary round me-1">
-                                                    <i class="fa fa-arrow-left"></i>
-                                                    Regresar
-                                                </a>
+
+
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-outline-secondary round me-1"
+                                                        data-bs-toggle="modal" data-bs-target="#ModalRegresarEdicion">
+                                                    Regresar para editar
+                                                </button>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="ModalRegresarEdicion" tabindex="-1" role="dialog"
+                                                     aria-labelledby="modelTitleId" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="modelTitleId">
+                                                                    Regresar para editar
+                                                                </h4>
+                                                                <button type="button" class="close"
+                                                                        data-bs-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Seguro que desea regresar este 1H para editarlo?
+
+                                                                <p class="text-danger">
+                                                                    Tenga en cuenta que sí ya agrego la descripción adicional para el 1h debera volver a agregarla
+                                                                </p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">
+                                                                    No, Cancelar
+                                                                </button>
+                                                                <button type="button" class="btn btn-primary">
+                                                                    <a href="{!! route('compras.edit',$compra->id) !!}"
+                                                                       class="text-white">
+                                                                        Sí, Regresar para editar
+                                                                    </a>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="col text-center">
                                                 <div class="btn-group">

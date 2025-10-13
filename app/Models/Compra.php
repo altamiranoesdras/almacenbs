@@ -519,8 +519,23 @@ class Compra extends Model
             'observaciones' => null
         ]);
 
+        // generar detalles de la compra1h
+        $this->generaDetalles1h($compra1h);
+
+        // actualizar folio en envio fiscal
+        $envioFiscal->siguienteFolio();
+
+        $this->addBitacora("Formulario 1H generado, folio: ".$compra1h->folio);
+
+    }
+
+    public function generaDetalles1h(Compra1h $compra1h): void
+    {
         if ($this->detalles->count() > 0) {
 
+            /**
+             * @var CompraDetalle $detalle
+             */
             foreach ($this->agruparDetalles() as $index => $detalle) {
 
 
@@ -529,7 +544,7 @@ class Compra extends Model
                     // crear un detalle por cada activo fijo
                     for ($i = 0; $i < $detalle->cantidad; $i++) {
 
-                        $compra1hDetalle = Compra1hDetalle::create([
+                        Compra1hDetalle::create([
                             '1h_id' => $compra1h->id,
                             'item_id' => $detalle->item_id,
                             'precio' => $detalle->precio,
@@ -543,7 +558,7 @@ class Compra extends Model
                 }
                 else{
 
-                    $compra1hDetalle = Compra1hDetalle::create([
+                    Compra1hDetalle::create([
                         '1h_id' => $compra1h->id,
                         'item_id' => $detalle->item_id,
                         'precio' => $detalle->precio,
@@ -558,12 +573,16 @@ class Compra extends Model
             }
 
         }
+    }
 
 
-        // actualizar folio en envio fiscal
-        $envioFiscal->siguienteFolio();
+    public function regenerar1h()
+    {
+        //eliminara los detalles de la compra1h
+        $this->compra1h->detalles()->delete();
 
-        $this->addBitacora("Formulario 1H generado, folio: ".$compra1h->folio);
+        //vuelve a generar los detalles de la compra1h
+        $this->generaDetalles1h($this->compra1h);
 
     }
 

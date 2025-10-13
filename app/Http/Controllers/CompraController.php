@@ -188,10 +188,20 @@ class CompraController extends AppBaseController
             return redirect(route('compras.index'));
         }
 
+        $procesar = $request->boolean('procesar') && $compra->esTemporal();
+        $reprocesar = $request->boolean('procesar') && !$compra->esTemporal();
+
+
         try {
             DB::beginTransaction();
 
-            $this->procesar($compra,$request);
+            if ($procesar) {
+                $msj = $this->procesar($compra,$request);
+            }elseif ($reprocesar){
+                $msj = $this->reprocesar($compra, $request);
+            } else{
+                $msj = $this->soloActualiza($compra, $request);
+            }
 
         } catch (Exception $exception) {
 
@@ -206,17 +216,17 @@ class CompraController extends AppBaseController
 
         DB::commit();
 
-        if ($request->procesar) {
-            flash('Ingreso almacén procesado exitosamente.')->success();
+        flash($msj)->success();
+
+        if ($procesar || $reprocesar) {
             return redirect(route('bandejas.compras1h.operador.gestionar', $compra->id));
-
         } else {
-            flash('Ingreso almacén actualizado exitosamente.')->success();
-            return redirect(route('compras.create'));
+            if ($compra->esTemporal()) {
+                return redirect(route('compras.create'));
+            }else {
+                return redirect(route('compras.edit', $compra->id));
+            }
         }
-
-
-
     }
 
     public function actualizarProcesada(Compra $compra,Request $request)
@@ -231,36 +241,47 @@ class CompraController extends AppBaseController
         return redirect(route('compras.edit', $compra->id));
     }
 
-    public function procesar(Compra $compra, UpdateCompraRequest $request): Compra
+    public function soloActualiza(Compra $compra, Request $request)
     {
-        $procesar         = (bool) $request->boolean('procesar');
-        $ingresoInmediato = (bool) $request->boolean('ingreso_inmediato');
+        // Solo actualiza los campos que vienen en el request
+        $compra->fill($request->all());
+        $compra->save();
 
-        // 1) Preparación de datos (solo si se procesa)
-        if ($procesar) {
-            $request->merge([
-                'estado_id'   => CompraEstado::PROCESADO_PENDIENTE_RECIBIR,
-                'codigo'      => $this->getCodigo(),
-                'correlativo' => $this->getCorrelativo(),
-            ]);
-        }
+        $compra->addBitacora('Ingreso almacén actualizado');
+
+        return "Ingreso almacén actualizado exitosamente.";
+    }
+
+    public function reprocesar(Compra $compra, Request $request)
+    {
+        // Solo actualiza los campos que vienen en el request
+        $compra->fill($request->all());
+        $compra->save();
+
+        $compra->regenerar1h();
+
+        $compra->addBitacora('Ingreso almacén reprocesado');
+
+        return "Ingreso almacén reprocesado exitosamente.";
+    }
+
+    public function procesar(Compra $compra, UpdateCompraRequest $request)
+    {
+
+        $request->merge([
+            'estado_id'   => CompraEstado::PROCESADO_PENDIENTE_RECIBIR,
+            'codigo'      => $this->getCodigo(),
+            'correlativo' => $this->getCorrelativo(),
+        ]);
 
         // 2) Persistencia
         $compra->fill($request->all());
         $compra->save();
 
         // 3) Bitácora
-        $compra->addBitacora($procesar
-            ? 'Ingreso almacén procesado'
-            : 'Ingreso almacén actualizado'
-        );
+        $compra->addBitacora('Ingreso almacén procesado');
 
-        // 4) Acciones posteriores
-        if ($ingresoInmediato) {
-            $compra->procesaIngreso();
-        }
-
-        return $compra;
+        return "Ingreso almacén procesado exitosamente.";
     }
 
 

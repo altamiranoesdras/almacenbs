@@ -297,10 +297,10 @@
 
                     <div class="d-grid col-sm-4 mb-1">
                         <a class="btn btn-outline-danger btn-block" data-bs-toggle="modal" href="#modal-cancel-compra">
-                                    <span data-toggle="tooltip" title="Cancelar compra">
-                                        <i class="fa fa-ban"></i>
-                                        Cancelar
-                                    </span>
+                            <span data-toggle="tooltip" title="Cancelar compra">
+                                <i class="fa fa-ban"></i>
+                                Cancelar
+                            </span>
                         </a>
                     </div>
 
@@ -321,24 +321,6 @@
 
                 </div>
 
-                <!-- Modal confirm -->
-                <div class="modal fade modal-info" id="modal-confirma-procesar">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">PROCESAR COMPRA!</h4>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                Seguro que desea continuar?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-bs-dismiss="modal">NO</button>
-                                <button type="submit" class="btn btn-primary" name="procesar" value="1">SI</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 @break
 
             @case('edit')
@@ -353,14 +335,14 @@
 {{--                        </a>--}}
 {{--                    </div>--}}
 
-                    <div class="d-grid col-sm-4 mb-1">
+                    <div class="d-grid col-sm-6 mb-1">
                         <button type="submit" class="btn btn-outline-primary btn-block" @click="esperar()">
                             <i class="fa fa-save"></i>
                             Guardar
                         </button>
                     </div>
 
-                    <div class="d-grid col-sm-4 mb-1">
+                    <div class="d-grid col-sm-6 mb-1">
                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                         <button type="button" class="btn btn-outline-success btn-block" @click="procesar()">
                             <i class="fa fa-check"></i>
@@ -377,9 +359,26 @@
         @endswitch
     </div>
 
+</div>
 
 
-
+<!-- Modal confirm -->
+<div class="modal fade modal-info" id="modal-confirma-procesar">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">PROCESAR COMPRA!</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Seguro que desea continuar?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-bs-dismiss="modal">NO</button>
+                <button type="submit" class="btn btn-primary" name="procesar" value="1">SI</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Modal cancel -->
