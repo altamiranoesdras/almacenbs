@@ -51,14 +51,12 @@ class SolicitudDespachaController extends Controller
     public function store(Solicitud $solicitud, Request $request)
     {
 
-
-
         try {
             DB::beginTransaction();
 
             if ($request->retornar){
 
-                $this->retornar($solicitud,$request);
+                $solicitud->retornoPorDespacho($request->motivo ?? '');
                 $msj="Solicitud retornada correctamente";
 
             }else{
@@ -97,21 +95,6 @@ class SolicitudDespachaController extends Controller
         return redirect(route('solicitudes.despachar'));
     }
 
-
-
-
-    public function retornar(Solicitud $solicitud,Request $request)
-    {
-
-        $solicitud->estado_id = SolicitudEstado::RETORNO_AUTORIZADA;
-        $solicitud->usuario_despacha = null;
-        $solicitud->fecha_despacha = null;
-        $solicitud->save();
-
-
-        $solicitud->addBitacora("Requisición de almacén retornada desde el despacho","Motivo: ".$request->motivo);
-
-    }
 
 
     /**
@@ -167,8 +150,7 @@ class SolicitudDespachaController extends Controller
 
         if ($itemsStockCritico->count() > 0){
 
-            $usuarios = User::role(Role::JEFE_ALMACEN)->get();
-
+            $usuarios = User::role(Role::ADMINISTRADOR_REQUISICION_ALMACEN)->get();
 
             foreach ($usuarios as $usuario) {
                 $usuario->notify(new StockCriticoNotificacion($itemsStockCritico));

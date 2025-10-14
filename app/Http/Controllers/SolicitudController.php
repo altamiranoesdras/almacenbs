@@ -50,9 +50,8 @@ class SolicitudController extends AppBaseController
             SolicitudEstado::DESPACHADA,
             SolicitudEstado::ANULADA,
             SolicitudEstado::CANCELADA,
-            SolicitudEstado::RETORNO_SOLICITADA,
-            SolicitudEstado::RETORNO_AUTORIZADA,
-            SolicitudEstado::RETORNO_APROBADA,
+            SolicitudEstado::RETORNO_POR_AUTORIZADOR,
+            SolicitudEstado::RETORNO_POR_DESPACHO,
         ];
 
         $scope->estados = request()->estados ?? $estadosIniciales;
@@ -71,9 +70,8 @@ class SolicitudController extends AppBaseController
             SolicitudEstado::AUTORIZADA,
             SolicitudEstado::APROBADA,
             SolicitudEstado::DESPACHADA,
-            SolicitudEstado::RETORNO_SOLICITADA,
-            SolicitudEstado::RETORNO_AUTORIZADA,
-            SolicitudEstado::RETORNO_APROBADA,
+            SolicitudEstado::RETORNO_POR_AUTORIZADOR,
+            SolicitudEstado::RETORNO_POR_DESPACHO,
         ];
 
         $scope = new ScopeSolicitudDataTable();

@@ -53,9 +53,8 @@ class SolicitudEstado extends Model
     const DESPACHADA =  6;
     const ANULADA =     7;
     const CANCELADA =   8;
-    const RETORNO_SOLICITADA  =   9;
-    const RETORNO_AUTORIZADA =   10;
-    const RETORNO_APROBADA =   11;
+    const RETORNO_POR_AUTORIZADOR  =   9;
+    const RETORNO_POR_DESPACHO =   10;
 
     protected $dates = ['deleted_at'];
 
@@ -104,8 +103,8 @@ class SolicitudEstado extends Model
             self::APROBADA,
             self::DESPACHADA,
             self::ANULADA,
-            self::RETORNO_SOLICITADA,
-            self::RETORNO_AUTORIZADA,
+            self::RETORNO_POR_AUTORIZADOR,
+            self::RETORNO_POR_DESPACHO,
         ]);
     }
 
@@ -119,9 +118,8 @@ class SolicitudEstado extends Model
                 return "primary";
             case self::DESPACHADA:
                 return "success";
-            case self::RETORNO_APROBADA:
-            case self::RETORNO_AUTORIZADA:
-            case self::RETORNO_SOLICITADA:
+            case self::RETORNO_POR_DESPACHO:
+            case self::RETORNO_POR_AUTORIZADOR:
                 return "warning";
             default:
                 return "secondary";

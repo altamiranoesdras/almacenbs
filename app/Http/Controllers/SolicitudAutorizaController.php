@@ -25,7 +25,7 @@ class SolicitudAutorizaController extends Controller
         $scope = new ScopeSolicitudDataTable();
         $scope->estados = [
             SolicitudEstado::SOLICITADA,
-            SolicitudEstado::RETORNO_AUTORIZADA,
+            SolicitudEstado::RETORNO_POR_DESPACHO,
         ];
 
 //        $scope->unidades = auth()->user()->unidad_id;

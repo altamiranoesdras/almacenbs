@@ -26,7 +26,7 @@ class SolicitudApruebaController extends Controller
     public function index(SolicitudApruebaDataTable $solicitudeDataTable)
     {
         $scope = new ScopeSolicitudDataTable();
-        $scope->estados = [SolicitudEstado::SOLICITADA,SolicitudEstado::AUTORIZADA,SolicitudEstado::RETORNO_APROBADA];
+        $scope->estados = [SolicitudEstado::SOLICITADA,SolicitudEstado::AUTORIZADA];
         $solicitudeDataTable->addScope($scope);
 
         return $solicitudeDataTable->render('solicitudes.aprobar.index');
@@ -121,7 +121,7 @@ class SolicitudApruebaController extends Controller
     public function retornar(Solicitud $solicitud,Request $request)
     {
 
-        $solicitud->estado_id = SolicitudEstado::RETORNO_SOLICITADA;
+        $solicitud->estado_id = SolicitudEstado::RETORNO_POR_AUTORIZADOR;
         $solicitud->usuario_aprueba = null;
         $solicitud->fecha_aprueba = null;
         $solicitud->save();

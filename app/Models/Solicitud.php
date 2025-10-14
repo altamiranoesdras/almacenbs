@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Request;
 use stdClass;
 
 /**
@@ -356,8 +357,7 @@ class Solicitud extends Model
         return in_array($this->estado_id,[
                 SolicitudEstado::TEMPORAL,
                 SolicitudEstado::INGRESADA,
-                SolicitudEstado::RETORNO_SOLICITADA,
-//                SolicitudEstado::RETORNO_AUTORIZADA,
+                SolicitudEstado::RETORNO_POR_AUTORIZADOR,
             ]);
     }
 
@@ -365,7 +365,7 @@ class Solicitud extends Model
     {
         return in_array($this->estado_id,[
             SolicitudEstado::INGRESADA,
-            SolicitudEstado::RETORNO_SOLICITADA,
+            SolicitudEstado::RETORNO_POR_AUTORIZADOR,
         ]);
     }
 
@@ -507,9 +507,8 @@ class Solicitud extends Model
     public function getMotivoRetornaAttribute()
     {
         $retornada = in_array($this->estado_id,[
-            SolicitudEstado::RETORNO_SOLICITADA,
-            SolicitudEstado::RETORNO_APROBADA,
-            SolicitudEstado::RETORNO_AUTORIZADA,
+            SolicitudEstado::RETORNO_POR_AUTORIZADOR,
+            SolicitudEstado::RETORNO_POR_DESPACHO,
         ]);
 
         if ($retornada){
@@ -590,11 +589,24 @@ class Solicitud extends Model
     public function retornoPorAutorizador($motivo='')
     {
 
-        $this->estado_id = SolicitudEstado::RETORNO_AUTORIZADA;
+        $this->estado_id = SolicitudEstado::RETORNO_POR_AUTORIZADOR;
         $this->usuario_autoriza = null;
         $this->fecha_autoriza = null;
         $this->save();
 
-        $this->addBitacora("Requisición retornada por autorizador","Motivo: ".$motivo ?? '');
+        $this->addBitacora("Requisición de almacén retornada por autorizador","Motivo: ".$motivo ?? '');
+    }
+
+    public function retornoPorDespacho($motivo='')
+    {
+
+        $this->estado_id = SolicitudEstado::RETORNO_POR_DESPACHO;
+        $this->usuario_despacha = null;
+        $this->fecha_despacha = null;
+        $this->save();
+
+
+        $this->addBitacora("Requisición de almacén retornada por despacho","Motivo: ".$motivo);
+
     }
 }
