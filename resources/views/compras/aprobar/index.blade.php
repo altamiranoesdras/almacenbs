@@ -33,37 +33,3 @@
     </div>
 @endsection
 
-@push('scripts')
-    <script>
-        $(function () {
-            $('#formFiltersDatatables').submit(function(e){
-                e.preventDefault();
-                table = window.LaravelDataTables["dataTableBuilder"];
-                table.draw();
-            });
-        })
-
-        vm = new Vue({
-            el: '#root',
-            mounted() {
-
-            },
-            created: function() {
-
-            },
-            data: {
-                unidades: @json(\App\Models\RrhhUnidad::areas()->solicitan()->get()),
-                unidadadSeleccionada: null
-            },
-            methods: {
-
-            },
-            computed: {
-
-            },
-            watch:{
-
-            }
-        });
-    </script>
-@endpush
