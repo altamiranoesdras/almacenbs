@@ -304,10 +304,19 @@ class ReportesAlmacenController extends AppBaseController
         $stock = $request->stock ?? null;
         $categoria_id = $request->categoria_id ?? null;
         $itemId = $request->item_id ?? null;
+        $stocks = null;
+        $items = null;
 
-        $query = Stock::with(['item'])->whereHas('item');
+        $query = Stock::with(['item','bodega','rrhhUnidad' => function ($q) {
+            $q->withoutAppends();
+        }])->whereHas('item');
 
-        $queryItmes = Item::with('stocks')->whereHas('stocks');
+        $queryItmes = Item::with(['stocks' => function ($q) {
+                $q->with(['rrhhUnidad' => function ($q) {
+                    $q->withoutAppends();
+                },'bodega']);
+            }])
+            ->whereHas('stocks');
 
 
 
@@ -363,15 +372,14 @@ class ReportesAlmacenController extends AppBaseController
             $queryItmes = $queryItmes->where('categoria_id',$categoria_id);
         }
 
-        $stocks = $query
+
+        if ($buscar){
+            $stocks = $query
 //            ->conIngresos()
-            ->get();
+                ->get();
 
-        $items = $queryItmes->get();
-
-//        dd($stocks->sum('cantidad'),$items->first()->toArray());
-
-
+            $items = $queryItmes->get();
+        }
 
         return view('reportes.stock.index_old',compact('stocks','items','renglon','bodega_id','stock','buscar'));
 

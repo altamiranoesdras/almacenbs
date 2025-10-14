@@ -45,7 +45,7 @@
                                     {!!
                                         Form::select(
                                             'item_id',
-                                            select(\App\Models\Item::whereHas('stocks'),'texto_kardex','id',null,null)
+                                            select(\App\Models\Item::whereHas('stocks')->withoutAppends(),'text','id',null,null)
                                             , request()->item_id ?? null
                                             , ['id'=>'items','class' => 'form-control','multiple','style'=>'width: 100%']
                                         )
@@ -122,31 +122,32 @@
                 @if($stocks )
                     <div class="row">
                         <div class="col-12 ">
-                            <div class="card card-primary card-outline card-outline-tabs">
+
+                            <div class="card card-primary card-outline">
                                 <div class="card-header p-0 border-bottom-0">
                                     <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill"
-                                               href="#custom-tabs-four-home" role="tab"
-                                               aria-controls="custom-tabs-four-home" aria-selected="true">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="custom-tabs-four-home-tab" data-bs-toggle="tab"
+                                                    data-bs-target="#custom-tabs-four-home" type="button" role="tab"
+                                                    aria-controls="custom-tabs-four-home" aria-selected="true">
                                                 Desglosado
-                                            </a>
+                                            </button>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill"
-                                               href="#custom-tabs-four-profile" role="tab"
-                                               aria-controls="custom-tabs-four-profile" aria-selected="false">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="custom-tabs-four-profile-tab" data-bs-toggle="tab"
+                                                    data-bs-target="#custom-tabs-four-profile" type="button" role="tab"
+                                                    aria-controls="custom-tabs-four-profile" aria-selected="false">
                                                 Unificado
-                                            </a>
+                                            </button>
                                         </li>
                                     </ul>
                                 </div>
+
                                 <div class="card-body">
                                     <div class="tab-content" id="custom-tabs-four-tabContent">
                                         <div class="tab-pane fade show active" id="custom-tabs-four-home"
                                              role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
-
-
+                                            <!-- Contenido Desglosado -->
                                             <form action="{{route('reportes.stock.actualizar')}}" method="post">
                                                 @csrf
                                                 @method('patch')
@@ -211,10 +212,10 @@
                                                             <th></th>
                                                             <th></th>
                                                             <th></th>
+                                                            <th></th>
                                                             <th>{{nf($stocks->sum('cantidad'))}}</th>
                                                             <th></th>
                                                             <th>{{ dvs().nfp($stocks->sum('sub_total'))}}</th>
-                                                            <th></th>
                                                         </tr>
                                                         </tfoot>
                                                     </table>
@@ -239,17 +240,17 @@
 
 
                                             </form>
-
-
                                         </div>
-                                        <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel"
-                                             aria-labelledby="custom-tabs-four-profile-tab">
+
+                                        <div class="tab-pane fade" id="custom-tabs-four-profile"
+                                             role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
+                                            <!-- Contenido Unificado -->
                                             <table
                                                 class="table table-bordered table-hover table-striped table-xtra-condensed"
                                                 id="tabla-unificado">
                                                 <thead>
                                                 <tr class="text-sm">
-                                                    {{--                                                <th>id</th>--}}
+                                                    <th>id</th>
                                                     <th>Bodega</th>
                                                     <th>Articulo</th>
                                                     <th>Código Insumo</th>
@@ -260,11 +261,14 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
+                                                @php
+                                                    $bodega= \App\Models\Bodega::find(request()->bodega_id)->nombre ?? "TODAS"
+                                                @endphp
 
                                                 @foreach($items ?? [] as $det)
                                                     <tr class="text-sm  ">
-                                                        {{--                                                    <td>{{$det->id}}</td>--}}
-                                                        <td>{{ \App\Models\Bodega::find(request()->bodega_id)->nombre ?? "TODAS" }}</td>
+                                                        <td>{{$det->id}}</td>
+                                                        <td>{{ $bodega }}</td>
                                                         <td>{{$det->texto_principal}}</td>
                                                         <td>{{$det->codigo_insumo}}</td>
                                                         <td>{{$det->codigo_presentacion}}</td>
@@ -288,6 +292,7 @@
                                                     <th></th>
                                                     <th></th>
                                                     <th></th>
+                                                    <th></th>
                                                     <th>
                                                         @if(request()->bodega_id)
                                                             {{nf($items->sum('stock_bodega'),0)}}
@@ -302,8 +307,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- /.card -->
                             </div>
+
                         </div>
 
                     </div>

@@ -61,6 +61,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereUnidadTipoId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad withoutAppends()
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad withoutTrashed()
  * @mixin \Eloquent
  */
@@ -122,6 +123,24 @@ class RrhhUnidad extends Model
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'
     ];
+
+    public static $withoutAppends = false;
+
+    public function scopeWithoutAppends($query)
+    {
+        self::$withoutAppends = true;
+
+        return $query;
+    }
+
+    protected function getArrayableAppends()
+    {
+        if (self::$withoutAppends){
+            return [];
+        }
+
+        return parent::getArrayableAppends();
+    }
 
     /**
      * @return BelongsTo
