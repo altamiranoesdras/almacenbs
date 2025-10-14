@@ -35,7 +35,7 @@ class SolicitudesTableSeeder extends Seeder
                     'estado_id' => SolicitudEstado::SOLICITADA,
                 ],
                 [
-                    'estado_id' => SolicitudEstado::APROBADA,
+                    'estado_id' => SolicitudEstado::AUTORIZADA,
                 ],
                 [
                     'estado_id' => SolicitudEstado::DESPACHADA,
