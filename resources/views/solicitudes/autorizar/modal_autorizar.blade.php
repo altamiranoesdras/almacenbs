@@ -5,7 +5,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Detalles de Requisición</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
 
 
@@ -15,14 +15,50 @@
 
                 <div class="modal-body text-uppercase">
                     <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-sm" style="font-size: 14px">
-                            @include('solicitudes.show_fields',['solicitude'=>$solicitud])
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            @include('solicitudes.aprobar.tabla_detalles',['solicitude'=>$solicitud])
+                        <div class="col-12">
+
+                            <div class="card card-primary card-outline card-outline-tabs">
+                                <div class="card-header p-0 border-bottom-0">
+                                    <ul class="nav nav-tabs" id="custom-tabs-four-tab{{$solicitud->id}}" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="custom-tabs-four-home-tab{{$solicitud->id}}" data-bs-toggle="pill" data-bs-target="#custom-tab-info{{$solicitud->id}}" type="button" role="tab" aria-controls="custom-tab-info{{$solicitud->id}}" aria-selected="true">
+                                                Info
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="custom-tabs-bitacora{{$solicitud->id}}-tab" data-bs-toggle="pill" data-bs-target="#custom-tabs-bitacora{{$solicitud->id}}" type="button" role="tab" aria-controls="custom-tabs-bitacora{{$solicitud->id}}" aria-selected="false">
+                                                Bitácora
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-body pb-0">
+                                    <div class="tab-content" id="custom-tabs-four-tabContent{{$solicitud->id}}">
+                                        <div class="tab-pane fade show active" id="custom-tab-info{{$solicitud->id}}" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab{{$solicitud->id}}">
+                                            <div class="row">
+                                                <div class="col-12 text-sm" style="font-size: 14px">
+                                                    @include('solicitudes.show_fields',['solicitude'=>$solicitud])
+                                                </div>
+
+                                                <div class="col-12">
+                                                    @include('solicitudes.aprobar.tabla_detalles',['solicitude'=>$solicitud])
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="custom-tabs-bitacora{{$solicitud->id}}" role="tabpanel" aria-labelledby="custom-tabs-bitacora{{$solicitud->id}}-tab">
+                                            <div class="row">
+                                                <div class="col">
+                                                    @include('layouts.partials.bitacoras',["bitacoras" => $solicitud->bitacoras->sortByDesc('created_at')])
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.card -->
+                            </div>
+
                         </div>
                     </div>
-
                 </div>
 
 
@@ -61,37 +97,53 @@
 </div><!-- /.modal -->
 
 
-<div class="modal fade" id="modalRegresar{{$solicitud->id}}" tabindex="-1" role="dialog"
-     aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="modalRegresar{{$solicitud->id}}" tabindex="-1" aria-labelledby="tituloRegresar{{$solicitud->id}}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
+
+            {{-- Encabezado --}}
             <div class="modal-header">
-                <h5 class="modal-title">Confirmar</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title" id="tituloRegresar{{$solicitud->id}}">
+                    Retornar a solicitante
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
-            <form action="{{route('solicitudes.autorizar.store',$solicitud->id)}}" method="post" class="esperar">
 
+            {{-- Formulario --}}
+            <form action="{{ route('solicitudes.autorizar.store', $solicitud->id) }}" method="POST" class="esperar">
                 @csrf
-                <div class="modal-body">
 
-                    <div class="form-group col-sm-12">
-                        {!! Form::label('motivo', 'Motivo de retorno:') !!}
-                        {!! Form::textarea('motivo', null, ['class' => 'form-control','rows' => 3]) !!}
+                <div class="modal-body">
+                    <div class="mb-3">
+                        {!! Form::label('motivo', 'Motivo de retorno:', ['class' => 'form-label fw-semibold']) !!}
+                        {!! Form::textarea('motivo', null, [
+                            'class' => 'form-control',
+                            'rows' => 3,
+                            'placeholder' => 'Describa brevemente el motivo del retorno...',
+                            'required' => true
+                        ]) !!}
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
-                        Cancelar
+
+                {{-- Pie del modal --}}
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        <i class="fa fa-times"></i> Cancelar
                     </button>
 
-                    <button type="submit" name="retornar" value="1" class="btn btn-outline-warning" data-toggle="tooltip" title="Sí regresar">
+                    <button
+                        type="submit"
+                        name="retornar"
+                        value="1"
+                        class="btn btn-outline-warning"
+                        title="Confirmar retorno a solicitante"
+                    >
                         <i class="fa fa-arrow-left"></i> Regresar
                     </button>
                 </div>
-
             </form>
+
         </div>
     </div>
 </div>
+

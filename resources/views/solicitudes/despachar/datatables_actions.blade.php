@@ -1,6 +1,6 @@
 @can('Ver Requisición')
     <button  type="button"
-             class='btn btn-icon rounded-circle btn-outline-primary'
+             class='btn btn-icon rounded-circle btn-outline-secondary'
              data-bs-toggle="modal"
              data-bs-target="#modal-detalles-{{ $id }}"
              title="Ver detalles"

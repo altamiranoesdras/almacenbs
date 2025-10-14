@@ -91,7 +91,6 @@ class SolicitudAutorizaDataTable extends DataTable
         return $model->newQuery()
 
             ->select('solicitudes.*')
-            ->where('solicitudes.estado_id', '<=', 3    )
             ->with(['detalles.item','usuarioSolicita','usuarioAutoriza','usuarioAprueba','usuarioDespacha','estado']);
     }
 

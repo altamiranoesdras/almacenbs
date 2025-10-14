@@ -23,8 +23,12 @@ class SolicitudAutorizaController extends Controller
     public function index(SolicitudAutorizaDataTable $solicitudeDataTable)
     {
         $scope = new ScopeSolicitudDataTable();
-        $scope->estados = SolicitudEstado::SOLICITADA;
-        $scope->unidades = auth()->user()->unidad_id;
+        $scope->estados = [
+            SolicitudEstado::SOLICITADA,
+            SolicitudEstado::RETORNO_AUTORIZADA,
+        ];
+
+//        $scope->unidades = auth()->user()->unidad_id;
 
         $solicitudeDataTable->addScope($scope);
 

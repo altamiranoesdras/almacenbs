@@ -1,6 +1,6 @@
 @can('Ver Requisición')
     <button  type="button"
-             class="btn btn-secondary btn-xs"
+             class='btn btn-icon rounded-circle btn-outline-secondary'
              data-bs-toggle="modal"
              data-bs-target="#modal-detalles-{{ $id }}"
              title="Ver detalles">
@@ -33,11 +33,11 @@
     </div>
 @endif
 
-@if($solicitud->puedeEditar())
-    @can('Editar Requisición')
-        <a href="{{ route('solicitudes.edit', $solicitud->id) }}" class='btn btn-icon btn-outline-info rounded-circle' data-toggle="tooltip" title="Editar">
-            <i class="fa fa-edit"></i>
-        </a>
-    @endcan
-@endif
+{{--@if($solicitud->puedeEditar())--}}
+{{--    @can('Editar Requisición')--}}
+{{--        <a href="{{ route('solicitudes.edit', $solicitud->id) }}" class='btn btn-icon btn-outline-info rounded-circle' data-toggle="tooltip" title="Editar">--}}
+{{--            <i class="fa fa-edit"></i>--}}
+{{--        </a>--}}
+{{--    @endcan--}}
+{{--@endif--}}
 

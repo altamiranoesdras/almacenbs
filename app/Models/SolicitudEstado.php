@@ -98,7 +98,15 @@ class SolicitudEstado extends Model
 
     public function scopePrincipales(Builder $q)
     {
-        $q->whereIn('id',[self::SOLICITADA,self::AUTORIZADA,self::APROBADA,self::DESPACHADA,self::ANULADA]);
+        $q->whereIn('id',[
+            self::SOLICITADA,
+            self::AUTORIZADA,
+            self::APROBADA,
+            self::DESPACHADA,
+            self::ANULADA,
+            self::RETORNO_SOLICITADA,
+            self::RETORNO_AUTORIZADA,
+        ]);
     }
 
     public function getColorAttribute()

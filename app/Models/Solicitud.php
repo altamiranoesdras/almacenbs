@@ -357,7 +357,7 @@ class Solicitud extends Model
                 SolicitudEstado::TEMPORAL,
                 SolicitudEstado::INGRESADA,
                 SolicitudEstado::RETORNO_SOLICITADA,
-                SolicitudEstado::RETORNO_AUTORIZADA,
+//                SolicitudEstado::RETORNO_AUTORIZADA,
             ]);
     }
 

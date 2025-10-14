@@ -94,7 +94,7 @@ class SolicitudDespachaController extends Controller
 
         flash($msj)->success()->important();
 
-        return redirect(route('solicitudes.despachoPdf',$solicitud->id));
+        return redirect(route('solicitudes.despachar'));
     }
 
 
@@ -103,13 +103,14 @@ class SolicitudDespachaController extends Controller
     public function retornar(Solicitud $solicitud,Request $request)
     {
 
-        $solicitud->estado_id = SolicitudEstado::RETORNO_APROBADA;
+        $solicitud->estado_id = SolicitudEstado::RETORNO_AUTORIZADA;
         $solicitud->usuario_despacha = null;
         $solicitud->fecha_despacha = null;
         $solicitud->save();
 
 
-        $solicitud->addBitacora("REQUISICIÓN RETORNADA","Motivo: ".$request->motivo);
+        $solicitud->addBitacora("Requisición de almacén retornada desde el despacho","Motivo: ".$request->motivo);
+
     }
 
 
