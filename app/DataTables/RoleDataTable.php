@@ -30,7 +30,8 @@ class RoleDataTable extends DataTable
 
             })->editColumn('permisos',function (Role $role){
 
-                return view('admin.roles.columna_permisos',compact('role'));
+                $id = $role->id;
+                return view('admin.roles.columna_permisos',compact('role','id'));
 
             })
             ->rawColumns(['action','permisos']);
@@ -64,7 +65,7 @@ class RoleDataTable extends DataTable
             ->language(['url' => asset('js/SpanishDataTables.json')])
             ->responsive(true)
             ->stateSave(false)
-            ->orderBy(1,'desc')
+            ->orderBy(0,'asc')
             ->dom('
                     <"card-header border-bottom p-1"
                         <"head-label">
@@ -116,8 +117,9 @@ class RoleDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            Column::make('id'),
             Column::make('name'),
-            Column::make('guard_name'),
+//            Column::make('guard_name'),
             Column::make('permisos')->searchable(false)->orderable(false),
             Column::computed('action')
                 ->exportable(false)
