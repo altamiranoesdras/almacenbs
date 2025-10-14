@@ -68,11 +68,11 @@
 
                         <div class="col-3 mb-1 ">
                             {!! Form::label('fecha_documento', 'Fecha Documento:') !!}
-                            {!! Form::date('fecha_documento', hoyDb(), ['class' => 'form-control']) !!}
+                            {!! Form::date('fecha_documento', $compra->fecha_documento ?? hoyDb(), ['class' => 'form-control']) !!}
                         </div>
                         <div class="col-3 mb-1 ">
                             {!! Form::label('fecha_ingreso', 'Fecha Ingreso:') !!}
-                            {!! Form::date('fecha_ingreso', hoyDb(), ['class' => 'form-control','readonly']) !!}
+                            {!! Form::date('fecha_ingreso', $compra->fecha_ingreso ?? hoyDb(), ['class' => 'form-control','readonly']) !!}
                         </div>
                         <div class="col-3 mb-1 ">
                             {!! Form::label('orden_compra', 'Orden Compra:') !!}
