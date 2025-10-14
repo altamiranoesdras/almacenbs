@@ -78,7 +78,7 @@
 {{--                                        </a>--}}
 {{--                                    @endif--}}
 
-                                    @can('Anular Ingreso de almacen')
+                                    @can('Anular Ingreso de almacén')
                                         @if($compra->puedeAnular())
                                             <button type="button"
                                                     class="btn btn-outline-danger round ms-1"

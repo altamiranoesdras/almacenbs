@@ -16,7 +16,7 @@
 
 @include('compras.partials.boton_imprimir')
 
-@can('Anular Ingreso de almacen')
+@can('Anular Ingreso de almacén')
     @if($compra->puedeAnular())
         <button  type="button"
             data-toggle="tooltip" title="Anular Ingreso"

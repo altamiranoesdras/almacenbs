@@ -79,7 +79,7 @@ class PermissionTableSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'Crear Compras']);
         Permission::firstOrCreate(['name' => 'Editar Compras']);
         Permission::firstOrCreate(['name' => 'Eliminar Compras']);
-        Permission::firstOrCreate(['name' => 'Anular Ingreso de almacen']);
+        Permission::firstOrCreate(['name' => 'Anular Ingreso de almacén']);
 
 
         Permission::firstOrCreate(['name' => 'Ver Categorías']);
