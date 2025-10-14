@@ -24,7 +24,7 @@
                 <div class="row">
                     <div class="col-sm-12 mb-1">
                         @include('user_despacha_users.show_fields')
-                        <a href="{{ route('userDespachaUsers.index') }}" class="btn btn-default">
+                        <a href="{{ route('userDespachaUsers.index') }}" class="btn btn-outline-secondary">
                         {{__('Back')}}
                         </a>
                     </div>

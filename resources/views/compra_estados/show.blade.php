@@ -24,7 +24,7 @@
                 <div class="row">
                     <div class="col-sm-12 mb-1">
                         @include('compra_estados.show_fields')
-                        <a href="{{ route('compraEstados.index') }}" class="btn btn-default">
+                        <a href="{{ route('compraEstados.index') }}" class="btn btn-outline-secondary">
                         {{__('Back')}}
                         </a>
                     </div>

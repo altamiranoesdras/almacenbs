@@ -24,7 +24,7 @@
                 <div class="row">
                     <div class="col-sm-12 mb-1">
                         @include('item_tipos.show_fields')
-                        <a href="{{ route('itemTipos.index') }}" class="btn btn-default">
+                        <a href="{{ route('itemTipos.index') }}" class="btn btn-outline-secondary">
                         {{__('Back')}}
                         </a>
                     </div>

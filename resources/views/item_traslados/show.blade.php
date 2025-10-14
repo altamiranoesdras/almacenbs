@@ -36,7 +36,7 @@
 
             <div class="row">
                 <div class="col-sm-12 mb-1">
-                <a href="{!! route('itemTraslados.index') !!}" class="btn btn-default">Regresar</a>
+                <a href="{!! route('itemTraslados.index') !!}" class="btn btn-outline-secondary">Regresar</a>
                 </div>
             </div>
         </div>

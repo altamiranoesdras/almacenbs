@@ -26,7 +26,7 @@
 
                         @include('activo_tarjetas.show_fields')
 
-                        <a href="{{ route('activoTarjetas.index') }}" class="btn btn-default">
+                        <a href="{{ route('activoTarjetas.index') }}" class="btn btn-outline-secondary">
                         {{__('Back')}}
                         </a>
                     </div>

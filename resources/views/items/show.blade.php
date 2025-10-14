@@ -43,7 +43,7 @@
 
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">
 
-                                    <a href="{!! route('items.index') !!}" class="btn btn-default">Regresar</a>
+                                    <a href="{!! route('items.index') !!}" class="btn btn-outline-secondary">Regresar</a>
                                 </div>
                             </div>
                         </div>

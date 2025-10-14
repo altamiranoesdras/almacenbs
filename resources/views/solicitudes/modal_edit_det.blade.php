@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="reset" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="reset" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
                     <button type="submit" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off" :disabled="loadingBtnUpdateDet">
                         <i  v-show="loadingBtnUpdateDet" class="fa fa-spinner fa-spin"></i> Guardar
                     </button>

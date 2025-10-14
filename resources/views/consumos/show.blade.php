@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="col-sm-12">
-                        <a href="{{ route('consumos.index') }}" class="btn btn-default">
+                        <a href="{{ route('consumos.index') }}" class="btn btn-outline-secondary">
                             {{__('Back')}}
                         </a>
                     </div>

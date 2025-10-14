@@ -204,7 +204,7 @@
                                         Seguro que desea continuar?
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
+                                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">NO</button>
                                         <button type="submit" class="btn btn-primary" name="procesar" value="1" onclick="esperar()">
                                             SI
                                         </button>
@@ -225,7 +225,7 @@
                                         Seguro que desea cancelar la consumo?
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
+                                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">NO</button>
                                         <a href="{{route('consumos.cancelar',$consumo->id)}}" class="btn btn-danger" onclick="esperar()">
                                             SI
                                         </a>

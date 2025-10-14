@@ -24,7 +24,7 @@
                 <div class="row">
                     <div class="col-sm-12 mb-1">
                         @include('rrhh_unidads.show_fields')
-                        <a href="{{ route('rrhhUnidades.index') }}" class="btn btn-default">
+                        <a href="{{ route('rrhhUnidades.index') }}" class="btn btn-outline-secondary">
                         {{__('Back')}}
                         </a>
                     </div>

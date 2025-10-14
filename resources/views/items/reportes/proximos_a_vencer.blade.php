@@ -6,7 +6,7 @@
 
     <!-- Content Header (Page header) -->
     <x-content-header titulo="Reporte Artículos Próximos A Vencer">
-        <a href="{{ route('home') }}" class="btn btn-default btn-sm">
+        <a href="{{ route('home') }}" class="btn btn-outline-secondary btn-sm">
             <i class="fa fa-home"></i> Inicio
         </a>
     </x-content-header>

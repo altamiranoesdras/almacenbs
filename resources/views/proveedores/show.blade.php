@@ -24,7 +24,7 @@
                 <div class="row">
                     <div class="col-sm-12 mb-1">
                         @include('proveedores.show_fields')
-                        <a href="{{ route('proveedores.index') }}" class="btn btn-default">
+                        <a href="{{ route('proveedores.index') }}" class="btn btn-outline-secondary">
                         {{__('Back')}}
                         </a>
                     </div>

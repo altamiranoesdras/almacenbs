@@ -24,7 +24,7 @@
                 <div class="row">
                     <div class="col-sm-12 mb-1">
                         @include('activo_solicitud_tipos.show_fields')
-                        <a href="{{ route('activoSolicitudTipos.index') }}" class="btn btn-default">
+                        <a href="{{ route('activoSolicitudTipos.index') }}" class="btn btn-outline-secondary">
                         {{__('Back')}}
                         </a>
                     </div>

@@ -49,7 +49,7 @@
                     <!-- Submit Field -->
                     <div class="col-sm-12 mb-1">
                         {!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-                        <a href="{!! route('items.index') !!}" class="btn btn-default">Cancelar</a>
+                        <a href="{!! route('items.index') !!}" class="btn btn-outline-secondary">Cancelar</a>
                     </div>
                     {!! Form::close() !!}
                 </div>

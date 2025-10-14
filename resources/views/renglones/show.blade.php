@@ -24,7 +24,7 @@
                 <div class="row">
                     <div class="col-sm-12 mb-1">
                         @include('renglones.show_fields')
-                        <a href="{{ route('renglones.index') }}" class="btn btn-default">
+                        <a href="{{ route('renglones.index') }}" class="btn btn-outline-secondary">
                         {{__('Back')}}
                         </a>
                     </div>

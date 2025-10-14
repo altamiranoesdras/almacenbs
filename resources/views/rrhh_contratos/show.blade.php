@@ -24,7 +24,7 @@
                 <div class="row">
                     <div class="col-sm-12 mb-1">
                         @include('rrhh_contratos.show_fields')
-                        <a href="{{ route('rrhhContratos.index') }}" class="btn btn-default">
+                        <a href="{{ route('rrhhContratos.index') }}" class="btn btn-outline-secondary">
                         {{__('Back')}}
                         </a>
                     </div>

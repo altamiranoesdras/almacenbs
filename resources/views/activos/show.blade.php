@@ -24,7 +24,7 @@
                 <div class="row">
                     <div class="col-sm-12 mb-1">
                         @include('activos.show_fields')
-                        <a href="{{ route('activos.index') }}" class="btn btn-default">
+                        <a href="{{ route('activos.index') }}" class="btn btn-outline-secondary">
                         {{__('Back')}}
                         </a>
                     </div>
