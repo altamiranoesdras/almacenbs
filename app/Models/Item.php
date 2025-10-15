@@ -56,6 +56,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property-read mixed $stock_bodega
  * @property-read void $stock_reservado
  * @property-read mixed $stock_total
+ * @property-read mixed $stock_unidad_almacen
  * @property-read mixed $text
  * @property-read mixed $texto_kardex
  * @property-read mixed $texto_libro_almacen
@@ -137,7 +138,17 @@ class Item extends Model implements HasMedia
 
     protected $dates = ['deleted_at'];
 
-    protected $appends= ['text','texto_libro_almacen',"texto_principal",'img','thumb','stock_total','stock_bodega','stock_reservado'];
+    protected $appends= [
+        'text',
+        'texto_libro_almacen',
+        "texto_principal",
+        'img',
+        'thumb',
+        'stock_total',
+        'stock_bodega',
+        'stock_reservado',
+        'stock_unidad_almacen'
+    ];
 
     protected $with = ['unimed','marca','stocks','media','presentacion','renglon'];
 
@@ -809,6 +820,18 @@ class Item extends Model implements HasMedia
     public function esActivoFijo()
     {
         return $this->tipo_id == ItemTipo::ACTIVO_FIJO;
+    }
+
+    public function getStockUnidadAlmacenAttribute()
+    {
+        $bodega = request()->bodega_id ?? usuarioAutenticado()->bodega_id ?? Bodega::PRINCIPAL;
+        $unidad = request()->unidad_id ?? usuarioAutenticado()->unidad_id ?? null;
+
+        $stock = $this->stocks->where('bodega_id',$bodega)
+            ->where('unidad_id',$unidad)
+            ->sum('cantidad');
+
+        return $stock > 0 ? $stock : 0;
     }
 
 }

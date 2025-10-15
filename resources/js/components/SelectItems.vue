@@ -25,7 +25,7 @@
           selectLabel="Presione enter para selecionar"
           selectedLabel="Seleccionado"
           deselectLabel="Presione enter para remover"
-      > 
+      >
 
 
 
@@ -205,9 +205,18 @@
                 return `${option.nombre}`
             },
             stockReal(option){
+
+                let stockBodega = parseFloat(option.stock_bodega) || 0;
+                let stockUnidad = parseFloat(option.stock_unidad_almacen) || 0;
+                let stockReservado = parseFloat(option.stock_reservado) || 0;
+
                 let stock = parseFloat(option.stock_bodega) - parseFloat(option.stock_reservado);
 
-                return stock;
+                if(this.solicitud){
+                    return stockUnidad - stockReservado;
+                }else {
+                    return stockBodega - stockReservado;
+                }
 
             },
             clear(){
