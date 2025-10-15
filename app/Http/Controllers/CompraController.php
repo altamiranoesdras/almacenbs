@@ -179,6 +179,15 @@ class CompraController extends AppBaseController
      */
     public function update(int $id, UpdateCompraRequest $request)
     {
+
+        //validar que no se pueda ingresar mismo serie y numero
+        $request->validate([
+            'numero' => 'required|unique:compras,numero,'.$id.',id,serie,'.$request->serie,
+        ],[
+            'numero.unique' => 'Ya existe un ingreso almacén con el mismo número y serie.',
+        ]);
+
+
         /** @var Compra $compra */
         $compra = Compra::find($id);
 
