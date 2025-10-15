@@ -11,19 +11,19 @@
         /* Imagen centrada en toda la página, sin afectar márgenes */
         .marca-anulado {
             position: fixed;
-            top: 50%;
-            left: 25%;
+            top: 30rem;
+            left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 0;
-            width: 50%;             /* ajusta el tamaño */
-            opacity: 0.25;          /* ajusta transparencia (usa 1 si la quieres opaca) */
+            z-index: 1;
+            width: 70%;             /* ajusta el tamaño */
+            opacity: 0.5;          /* ajusta transparencia (usa 1 si la quieres opaca) */
             pointer-events: none;
         }
 
         /* Asegura que el contenido quede por encima */
         body * {
             position: relative;
-            z-index: 1;
+            z-index: 0;
         }
 
         #tabla-detalles > tbody > tr > td {
@@ -34,8 +34,10 @@
 
 <body style="width: 100%; margin-right: 0px">
 
-<!-- Imagen centrada (no afecta estructura ni medidas del contenido) -->
-<img src="{{ public_path('img/anulado.png') }}" alt="ANULADO" class="marca-anulado">
+@if($compra->estaAnulada())
+    <!-- Imagen centrada (no afecta estructura ni medidas del contenido) -->
+    <img src="{{ public_path('img/anulado.png') }}" alt="ANULADO" class="marca-anulado">
+@endif
 
 <div>
         <span style="font-size: 1.4em">
