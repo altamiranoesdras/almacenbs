@@ -393,7 +393,7 @@
                 Seguro que desea cancelar la compra?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">NO</button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">NO</button>
                 <a href="{{route('compras.destroy',$compra->id)}}" class="btn btn-danger">
                     SI
                 </a>

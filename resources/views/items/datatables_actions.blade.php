@@ -40,7 +40,7 @@
             </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">No</button>
                     <button type="submit" class="btn btn-outline-danger">SI</button>
                 </div>
             {!! Form::close() !!}

@@ -200,7 +200,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">@lang('Delete log file')</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -208,7 +208,7 @@
                         <p>@lang('Are you sure you want to delete this log file: :date ?', ['date' => $log->date])</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-sm btn-secondary mr-auto" data-dismiss="modal">@lang('Cancel')</button>
+                        <button type="button" class="btn btn-sm btn-secondary mr-auto" data-bs-dismiss="modal">@lang('Cancel')</button>
                         <button type="submit" class="btn btn-sm btn-danger" data-loading-text="@lang('Loading')&hellip;">@lang('Delete')</button>
                     </div>
                 </div>

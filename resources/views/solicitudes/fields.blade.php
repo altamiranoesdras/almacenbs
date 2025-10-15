@@ -90,7 +90,7 @@
                 Seguro que desea cancelar la requisición?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">NO</button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">NO</button>
                 <a href="{{route('solicitudes.cancelar',$solicitud->id)}}" class="btn btn-danger">
                     SI
                 </a>

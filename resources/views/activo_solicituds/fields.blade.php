@@ -64,7 +64,7 @@
                 Seguro que desea continuar?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">NO</button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">NO</button>
                 <button type="submit" class="btn btn-primary" name="procesar" value="1"  id="btn-confirma-procesar" data-loading-text="<i class='fa fa-cog fa-spin fa-1x fa-fw'></i> Procesando">SI</button>
             </div>
         </div><!-- /.modal-content -->
@@ -83,7 +83,7 @@
                 Seguro que desea cancelar la solicitud?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">NO</button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">NO</button>
                 <a href="{{route('compras.destroy',$temporal->id)}}" class="btn btn-danger">
                     SI
                 </a>

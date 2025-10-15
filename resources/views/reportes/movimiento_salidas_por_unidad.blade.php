@@ -204,7 +204,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Detalles de Items - Solicitud #<span id="solicitudId"></span></h5>
-                            <button type="button" class="close" data-dismiss="modal">
+                            <button type="button" class="close" data-bs-dismiss="modal">
                                 <span>&times;</span>
                             </button>
                         </div>
