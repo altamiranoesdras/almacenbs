@@ -33,3 +33,5 @@ mix.js('resources/js/app.js', 'public/js')
 
     .copy('node_modules/jquery-ui/dist/jquery-ui.min.js','public/plugins/jquery-ui')
     .copy('node_modules/jquery-ui/dist/themes/base','public/plugins/jquery-ui/themes/base')
+
+    .version(); // <-- esto crea public/mix-manifest.json
