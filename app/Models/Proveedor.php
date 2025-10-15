@@ -95,7 +95,7 @@ class Proveedor extends Model
      * @var array
      */
     public static $rules = [
-        'nit' => 'nullable|string|max:10',
+        'nit' => 'required|string|max:20|unique:proveedores,nit',
         'nombre' => 'required|string|max:255',
         'razon_social' => 'nullable|string|max:255',
         'correo' => 'nullable|string|max:100',

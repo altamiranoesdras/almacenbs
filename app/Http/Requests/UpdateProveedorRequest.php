@@ -24,8 +24,14 @@ class UpdateProveedorRequest extends FormRequest
      */
     public function rules()
     {
+        // Copia las reglas base del modelo
         $rules = Proveedor::$rules;
-        
+
+        // Sobrescribe la regla de 'nit' para ignorar el registro actual
+        $rules['nit'] = 'required|string|max:20|unique:proveedores,nit,' . $this->proveedore;
+
         return $rules;
     }
+
+
 }
