@@ -137,12 +137,13 @@
 
                                 <h3 class="profile-username text-center">
                                     {{Auth::user()->name}}
+                                    <br>
                                     <small>{{auth()->user()->unidad->nombre}}</small>
                                 </h3>
 
                                 <p class="text-muted text-center">
                                     <a class="text-center" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
+                                        Cambiar contraseña
                                     </a>
                                 </p>
 
