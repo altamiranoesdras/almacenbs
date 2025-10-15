@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,6 +8,24 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 
     <style>
+        /* Imagen centrada en toda la página, sin afectar márgenes */
+        .marca-anulado {
+            position: fixed;
+            top: 50%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            width: 50%;             /* ajusta el tamaño */
+            opacity: 0.25;          /* ajusta transparencia (usa 1 si la quieres opaca) */
+            pointer-events: none;
+        }
+
+        /* Asegura que el contenido quede por encima */
+        body * {
+            position: relative;
+            z-index: 1;
+        }
+
         #tabla-detalles > tbody > tr > td {
             font-size: 12px;
         }
@@ -16,6 +33,9 @@
 </head>
 
 <body style="width: 100%; margin-right: 0px">
+
+<!-- Imagen centrada (no afecta estructura ni medidas del contenido) -->
+<img src="{{ public_path('img/anulado.png') }}" alt="ANULADO" class="marca-anulado">
 
 <div>
         <span style="font-size: 1.4em">

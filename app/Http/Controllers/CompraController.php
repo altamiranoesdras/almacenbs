@@ -454,24 +454,24 @@ class CompraController extends AppBaseController
     public function pdfH1(Compra $compra)
     {
 
-//        return $compra->compra1hs->first()->compra1hDetalles;
-//        return $compra->compra1hs->first();
         $pdf = App::make('snappy.pdf.wrapper');
 
         $view = view('compras.pdfH1', compact('compra'))->render();
 
+
         $pdf->loadHTML($view)
-           ->setOption('page-width', 217)
-           ->setOption('page-height', 278)
+            ->setOption('page-width', 217)
+            ->setOption('page-height', 278)
             ->setOrientation('portrait')
-            // ->setOption('footer-html',utf8_decode($footer))
             ->setOption('margin-top', 19)
-            ->setOption('margin-bottom',3)
-            ->setOption('margin-left',9)
-            ->setOption('margin-right',17);
-        // ->stream('report.pdf');
+            ->setOption('margin-bottom', 3)
+            ->setOption('margin-left', 9)
+            ->setOption('margin-right', 17)
+            ->setOption('enable-local-file-access', true)
+            ->setOption('no-background', false);
 
         return $pdf->inline('CompraH1-'.$compra->id. '_'. time().'.pdf');
+
     }
 
 //    public function pdfH1Digital(Compra $compra)
