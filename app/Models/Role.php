@@ -40,7 +40,7 @@ class Role extends \Spatie\Permission\Models\Role
     const SUPERADMIN =       2;
     const ADMIN =            3;
     const SOLICITANTE_REQUISICION_ALMACEN = 4;
-    const APROBADOR_REQUISICION_ALMACEN = 5;
+    const AUTORIZADOR_REQUISICION_ALMACEN = 5;
     const ADMINISTRADOR_REQUISICION_ALMACEN = 6;
 
     //Roles de Modulo de Compras

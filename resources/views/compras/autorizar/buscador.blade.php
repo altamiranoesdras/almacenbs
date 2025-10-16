@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('titulo_pagina', 'Autorizar Ingresos a Almacén')
+@section('titulo_pagina', 'Buscador ingresos autorizador')
 
 @include('layouts.plugins.select2')
 @include('layouts.plugins.alpinejs')
 
 @section('content')
 
-    <x-content-header titulo="Autorizar ingreso almacén" >
+    <x-content-header titulo="Buscador ingresos autorizador" >
 {{--        <a class="btn btn-success float-right"--}}
 {{--           href="{{ route('compras.create') }}">--}}
 {{--            <i class="fa fa-plus"></i>--}}

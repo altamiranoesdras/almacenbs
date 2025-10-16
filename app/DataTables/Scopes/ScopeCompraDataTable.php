@@ -20,6 +20,10 @@ class ScopeCompraDataTable implements DataTableScope
     public $between;
     public $orden_compra;
 
+    public $usuario_crea;
+    public $usuario_aprueba;
+    public $usuario_autoriza;
+
 
     public function __construct()
     {
@@ -34,6 +38,9 @@ class ScopeCompraDataTable implements DataTableScope
         $this->h1 = request()->h1 ?? null;
         $this->unidad_solicitante = request()->unidad_solicitante ?? null;
         $this->orden_compra = request()->orden_compra ?? null;
+        $this->usuario_crea = request()->usuario_crea ?? null;
+        $this->usuario_aprueba = request()->usuario_aprueba ?? null;
+        $this->usuario_autoriza = request()->usuario_autoriza ?? null;
 
     }
 
@@ -105,6 +112,30 @@ class ScopeCompraDataTable implements DataTableScope
 
         if ($this->orden_compra) {
             $query->where('orden_compra', 'like', "%$this->orden_compra%");
+        }
+
+        if ($this->usuario_crea) {
+            if(is_array($this->usuario_crea)){
+                $query->whereIn('usuario_crea_id', $this->usuario_crea);
+            }else {
+                $query->where('usuario_crea_id', $this->usuario_crea);
+            }
+        }
+
+        if ($this->usuario_aprueba) {
+            if(is_array($this->usuario_aprueba)){
+                $query->whereIn('usuario_aprueba_id', $this->usuario_aprueba);
+            }else {
+                $query->where('usuario_aprueba_id', $this->usuario_aprueba);
+            }
+        }
+
+        if ($this->usuario_autoriza) {
+            if(is_array($this->usuario_autoriza)){
+                $query->whereIn('usuario_autoriza_id', $this->usuario_autoriza);
+            }else {
+                $query->where('usuario_autoriza_id', $this->usuario_autoriza);
+            }
         }
 
         return $query;

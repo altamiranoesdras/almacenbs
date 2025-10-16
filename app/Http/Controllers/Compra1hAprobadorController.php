@@ -19,10 +19,31 @@ class Compra1hAprobadorController extends Controller
     public function index(CompraAprobarDataTable $dataTable)
     {
         $scope = new ScopeCompraDataTable();
-        $scope->estados = [CompraEstado::UNO_H_OPERADO];
+        $scope->estados = [
+            CompraEstado::UNO_H_OPERADO,
+            CompraEstado::RETORNO_POR_AUTORIZADOR,
+
+        ];
         $dataTable->addScope($scope);
 
         return $dataTable->render('compras.aprobar.index');
+    }
+
+    public function buscador(CompraAprobarDataTable $dataTable)
+    {
+        $scope = new ScopeCompraDataTable();
+        $scope->estados = [
+            CompraEstado::UNO_H_APROBADO,
+            CompraEstado::UNO_H_AUTORIZADO,
+            CompraEstado::RETORNO_POR_APROBADOR,
+            CompraEstado::ANULADO,
+        ];
+
+        $scope->usuario_aprueba = auth()->user()->id;
+        $dataTable->addScope($scope);
+
+        return $dataTable->render('compras.aprobar.buscador');
+
     }
 
     public function gestionar($id)
