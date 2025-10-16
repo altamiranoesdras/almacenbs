@@ -29,7 +29,7 @@
                 <!-- Campo -->
                 <div class="col-sm-4 mb-1">
 
-                    <div class="form-group col-sm-6">
+                    <div class="mb-3 col-sm-6">
                         <label for="activo">Incluir insumos vencidos::&nbsp;</label><br>
                         <input type="hidden" name="vencidos" :value="vencidos ? 1 : 0">
                         <toggle-button v-model="vencidos"

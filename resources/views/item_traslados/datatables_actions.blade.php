@@ -1,17 +1,17 @@
 
-<span data-toggle="tooltip" title="Ver" >
-    <button class='btn btn-icon btn-outline-secondary rounded-circle' data-bs-toggle="modal" data-target="#modalShowitemTraslados{{$id}}">
+<span data-bs-toggle="tooltip" title="Ver" >
+    <button class='btn btn-icon btn-outline-secondary rounded-circle' data-bs-toggle="modal" data-bs-target="#modalShowitemTraslados{{$id}}">
         <i class="fa fa-eye"></i>
     </button>
 </span>
 
-{{--<a href="{{ route('itemTraslados.edit', $id) }}" class='btn btn-icon btn-outline-info rounded-circle' data-toggle="tooltip" title="Editar">--}}
+{{--<a href="{{ route('itemTraslados.edit', $id) }}" class='btn btn-icon btn-outline-info rounded-circle' data-bs-toggle="tooltip" title="Editar">--}}
 {{--    <i class="fa fa-edit"></i>--}}
 {{--</a>--}}
 
 @can('anular traslado entre productos')
     @if($itemTraslado->puedeAnular() )
-        <a href="#" onclick="deleteItemDt(this)" data-id="{{$itemTraslado->id}}" data-toggle="tooltip" title="Anular Ingreso" class='btn btn-outline-danger btn-xs'>
+        <a href="#" onclick="deleteItemDt(this)" data-id="{{$itemTraslado->id}}" data-bs-toggle="tooltip" title="Anular Ingreso" class='btn btn-outline-danger btn-xs'>
             <i class="fa fa-undo-alt"></i>
         </a>
 
@@ -33,9 +33,7 @@
                 <h4 class="modal-title" id="modelTitleId">
                     Item Traslado
                 </h4>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 @include('item_traslados.show_fields',['itemTraslado' => $itemTraslado])

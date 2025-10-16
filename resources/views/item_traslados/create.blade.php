@@ -15,7 +15,7 @@
                     </h1>
                 </div><!-- /.col -->
                 <div class="col ">
-                    <a class="btn btn-outline-info float-right"
+                    <a class="btn btn-outline-info float-end"
                        href="{{route('itemTraslados.index')}}">
                         <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span class="d-none d-sm-inline">Listado Traslados</span>
                     </a>
@@ -42,8 +42,8 @@
                                 <br>
                                 <div class="row">
                                         <!-- Submit Field -->
-                                    <div class="col-sm-12 mb-1 text-right">
-                                        <a href="{!! route('itemTraslados.index') !!}" class="btn btn-outline-secondary mr-3">Cancelar</a>
+                                    <div class="col-sm-12 mb-1 text-end">
+                                        <a href="{!! route('itemTraslados.index') !!}" class="btn btn-outline-secondary me-3">Cancelar</a>
                                         <button type="submit" class="btn btn-outline-success ">Guardar</button>
                                     </div>
                                 </div>

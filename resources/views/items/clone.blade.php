@@ -17,7 +17,7 @@
                     <h1 class="m-0 text-dark">Clonar Insumo</h1>
                 </div><!-- /.col -->
                 <div class="col">
-                    <a class="btn btn-outline-info float-right" href="{!! route('home') !!}">
+                    <a class="btn btn-outline-info float-end" href="{!! route('home') !!}">
                         <i class="fa fa-arrow-left"></i>
                         <span class="d-none d-sm-inline">Regresar</span>
                     </a>

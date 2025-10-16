@@ -16,7 +16,7 @@
                     </h1>
                 </div><!-- /.col -->
                 <div class="col">
-                    <ol class="breadcrumb float-right">
+                    <ol class="breadcrumb float-end">
                         <li class="breadcrumb-item">
                             <a class="btn btn-outline-success round"
                                 href="{!! route('itemTraslados.create') !!}">

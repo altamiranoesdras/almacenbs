@@ -12,7 +12,7 @@
                     <h1>Renglons</h1>
                 </div>
                 <div class="col-sm-6">
-                    <ol class="breadcrumb float-right">
+                    <ol class="breadcrumb float-end">
                         <li class="breadcrumb-item">
                             <a class="btn btn-outline-success round"
                                 href="{!! route('renglones.create') !!}">

@@ -5,7 +5,7 @@
 @section('content')
 
     <x-content-header titulo="Proveedores">
-        <a class="btn btn-outline-secondary float-right" href="{{ route('proveedores.index') }}">
+        <a class="btn btn-outline-secondary float-end" href="{{ route('proveedores.index') }}">
             <i class="fa fa-arrow-left"></i>
             Regresar
         </a>
@@ -24,7 +24,7 @@
                         @include('proveedores.fields')
 
                         <!-- Submit Field -->
-                        <div class="col-sm-12 mb-1 text-right">
+                        <div class="col-sm-12 mb-1 text-end">
                             <a href="{!! route('proveedores.index') !!}" class="btn btn-outline-secondary round me-1">
                                 Cancelar
                             </a>

@@ -15,7 +15,7 @@
                     <h1 class="m-0 text-dark">Página en construcción</h1>
                 </div><!-- /.col -->
                 <div class="col">
-                    <ol class="breadcrumb float-right">
+                    <ol class="breadcrumb float-end">
                         <li class="breadcrumb-item">
 
                         </li>

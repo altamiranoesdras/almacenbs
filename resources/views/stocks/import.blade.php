@@ -12,7 +12,7 @@
                     <h1 class="m-0 text-dark">Importar existencias de bodegas</h1>
                 </div><!-- /.col -->
                 <div class="col">
-                    <ol class="breadcrumb float-right">
+                    <ol class="breadcrumb float-end">
                         <li class="breadcrumb-item">
 
                         </li>
@@ -81,15 +81,15 @@
 
 
                                     <!-- Submit Field -->
-                                    <div class="col-sm-12 mb-1 text-right">
+                                    <div class="col-sm-12 mb-1 text-end">
                                         <a href="{!! route('items.index') !!}" class="btn btn-outline-secondary round me-1">
                                             Cancelar
                                         </a>
 
 
                                         <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-outline-success ml-3" data-bs-toggle="modal"
-                                                data-target="#modelId">
+                                        <button type="button" class="btn btn-outline-success ms-3" data-bs-toggle="modal"
+                                                data-bs-target="#modelId">
                                             <i class="fa fa-file-import"></i>
                                             Importar
                                         </button>
@@ -106,10 +106,8 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title">Confirmar!</h5>
-                                                <button type="button" class="close" data-bs-dismiss="modal"
-                                                        aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
 

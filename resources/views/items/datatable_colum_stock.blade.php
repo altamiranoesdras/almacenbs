@@ -1,4 +1,4 @@
-<span data-toggle="tooltip" title="Click para ver el detalle de stock">
+<span data-bs-toggle="tooltip" title="Click para ver el detalle de stock">
     <a data-bs-toggle="modal" href="#detStock{{$item->id}}">{{nf($item->stocks->sum('cantidad'))}}</a>
 </span>
 <div class="modal fade" id="detStock{{$item->id}}">

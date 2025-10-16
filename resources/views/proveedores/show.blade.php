@@ -5,7 +5,7 @@
 @section('content')
 
     <x-content-header titulo="Proveedores">
-        <a class="btn btn-outline-secondary float-right" href="{{ route('proveedores.index') }}">
+        <a class="btn btn-outline-secondary float-end" href="{{ route('proveedores.index') }}">
             <i class="fa fa-arrow-left"></i>
             Regresar
         </a>

@@ -6,7 +6,7 @@
 
     <!-- Content Header (Page header) -->
     <x-content-header titulo="Nueva Unidad / Dependencia">
-        <a class="btn btn-outline-info float-right"
+        <a class="btn btn-outline-info float-end"
            href="{{route('rrhhUnidades.index')}}">
             <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span class="d-none d-sm-inline">{{__('List')}}</span>
         </a>

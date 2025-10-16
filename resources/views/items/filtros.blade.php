@@ -78,7 +78,7 @@
 {{--        <div class="col-sm-3 mb-1">--}}
 {{--            <label for="switch">Switch</label>--}}
 {{--            <br>--}}
-{{--            <input type="checkbox" data-toggle="toggle" data-size="normal" data-on="Si" data-off="No" data-style="ios"--}}
+{{--            <input type="checkbox" data-bs-toggle="toggle" data-size="normal" data-on="Si" data-off="No" data-style="ios"--}}
 {{--                   name="switch"--}}
 {{--                   value="1">--}}
 {{--        </div>--}}

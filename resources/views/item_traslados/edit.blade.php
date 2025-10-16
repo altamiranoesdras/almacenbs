@@ -15,7 +15,7 @@
                     </h1>
                 </div><!-- /.col -->
                 <div class="col">
-                    <a class="btn btn-outline-info float-right"
+                    <a class="btn btn-outline-info float-end"
                        href="{{route('itemTraslados.index')}}">
                         <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span class="d-none d-sm-inline">Listado</span>
                     </a>

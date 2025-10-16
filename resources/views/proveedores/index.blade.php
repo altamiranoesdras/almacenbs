@@ -7,7 +7,7 @@
     <!-- Content Header (Page header) -->
 
     <x-content-header titulo="Proveedores">
-        <a class="btn btn-primary float-right" href="{{ route('proveedores.create') }}">
+        <a class="btn btn-primary float-end" href="{{ route('proveedores.create') }}">
             <i class="fa fa-plus"></i>
             {{ __('Nuevo proveedor') }}
         </a>
