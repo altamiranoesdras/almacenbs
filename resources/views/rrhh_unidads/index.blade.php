@@ -97,7 +97,7 @@
 
             function toggleById(id, expand) {
                 const body = document.getElementById('children-' + id);
-                const btn  = document.querySelector('[data-bs-target="#children-' + id + '"]');
+                const btn  = document.querySelector('[data-target="#children-' + id + '"]');
                 if (!body || !btn) return;
                 const c = bootstrap.Collapse.getOrCreateInstance(body, { toggle:false });
                 expand ? c.show() : c.hide();
@@ -126,7 +126,7 @@
                 const state = getState();
                 document.querySelectorAll('.tree-children.collapse').forEach(el=>{
                     const id = el.id.replace('children-','');
-                    const btn = document.querySelector('[data-bs-target="#'+el.id+'"]');
+                    const btn = document.querySelector('[data-target="#'+el.id+'"]');
                     const open = state[id] ?? true; // por defecto abierto
                     const c = bootstrap.Collapse.getOrCreateInstance(el,{toggle:false});
                     open ? c.show() : c.hide();
