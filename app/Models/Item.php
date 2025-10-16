@@ -824,10 +824,9 @@ class Item extends Model implements HasMedia
 
     public function getStockUnidadAlmacenAttribute()
     {
-        $bodega = request()->bodega_id ?? usuarioAutenticado()->bodega_id ?? Bodega::PRINCIPAL;
         $unidad = request()->unidad_id ?? usuarioAutenticado()->unidad_id ?? null;
 
-        $stock = $this->stocks->where('bodega_id',$bodega)
+        $stock = $this->stocks->where('bodega_id',Bodega::PRINCIPAL)
             ->where('unidad_id',$unidad)
             ->sum('cantidad');
 
