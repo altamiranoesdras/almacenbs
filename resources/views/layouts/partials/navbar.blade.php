@@ -27,7 +27,7 @@
 
                 <li class="nav-item d-none d-lg-block">
                     <a class="nav-link" href="{{route('home')}}" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                       title="Email"><i class="ficon" data-feather="home"></i></a>
+                       title="Inicio"><i class="ficon" data-feather="home"></i></a>
                 </li>
 
                 @if($textoInfo)
