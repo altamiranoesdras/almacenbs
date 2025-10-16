@@ -1,18 +1,18 @@
 @can('Ver opcion menu')
-<a href="{{ route('dev.option.create', $id) }}" data-toggle="tooltip" title="Nueva" class='btn btn-icon btn-outline-success rounded-circle'>
+<a href="{{ route('dev.option.create', $id) }}" data-bs-toggle="tooltip" title="Nueva" class='btn btn-icon btn-outline-success rounded-circle'>
     <i class="fa fa-plus"></i>
 </a>
 @endcan
 
 
 @can('Editar opcion menu')
-<a href="{{ route('dev.options.edit', $id) }}" data-toggle="tooltip" title="Editar" class='btn btn-icon btn-outline-info rounded-circle'>
+<a href="{{ route('dev.options.edit', $id) }}" data-bs-toggle="tooltip" title="Editar" class='btn btn-icon btn-outline-info rounded-circle'>
     <i class="fa fa-edit"></i>
 </a>
 @endcan
 
 @can('Eliminar opcion menu')
-<a href="#" onclick="deleteItemDt(this)" data-id="{{$id}}" data-toggle="tooltip" title="Eliminar" class='btn btn-icon btn-outline-danger rounded-circle'>
+<a href="#" onclick="deleteItemDt(this)" data-id="{{$id}}" data-bs-toggle="tooltip" title="Eliminar" class='btn btn-icon btn-outline-danger rounded-circle'>
     <i class="fa fa-trash-alt"></i>
 </a>
 

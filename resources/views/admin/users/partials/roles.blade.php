@@ -1,6 +1,6 @@
 @forelse($user->roles as $rol)
-    <span class="badge badge-info">{{$rol->name}}</span>
+    <span class="badge text-bg-info">{{$rol->name}}</span>
 @empty
-    <span class="badge badge-default">Ninguno</span>
+    <span class="badge text-bg-default">Ninguno</span>
 @endforelse
 

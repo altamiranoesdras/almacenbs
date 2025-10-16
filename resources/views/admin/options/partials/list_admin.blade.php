@@ -11,7 +11,7 @@
                 <span class="toggle" role="button" aria-expanded="true"
                       aria-controls="{{ $childrenId }}"
                       data-bs-toggle="collapse"
-                      data-target="#{{ $childrenId }}">
+                      data-bs-target="#{{ $childrenId }}">
           <span class="plus">+</span><span class="minus">–</span>
         </span>
             @else

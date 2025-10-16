@@ -12,7 +12,7 @@
                     <h1 class="m-0 text-dark">Menu del usuario: {{$user->name}}</h1>
                 </div><!-- /.col -->
                 <div class="col">
-                    <a class="btn btn-outline-info float-right" href="{!! route('users.index') !!}">
+                    <a class="btn btn-outline-info float-end" href="{!! route('users.index') !!}">
                         <i class="fa fa-list"></i>
                         <span class="d-none d-sm-inline">Listado</span>
                     </a>
