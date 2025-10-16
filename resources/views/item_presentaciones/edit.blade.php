@@ -12,7 +12,7 @@
                     <h1>{{__('Edit Item Presentacion')}}</h1>
                 </div>
                 <div class="col">
-                    <a class="btn btn-outline-info float-right"
+                    <a class="btn btn-outline-info float-end"
                        href="{{route('itemPresentaciones.index')}}">
                         <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span class="d-none d-sm-inline">{{__('List')}}</span>
                     </a>
@@ -36,7 +36,7 @@
                             @include('item_presentaciones.fields')
 
                             <!-- Submit Field -->
-                            <div class="col-sm-12 mb-1 text-right">
+                            <div class="col-sm-12 mb-1 text-end">
                                 <a href="{!! route('itemPresentaciones.index') !!}" class="btn btn-outline-secondary round me-1">
                                     Cancelar
                                 </a>
