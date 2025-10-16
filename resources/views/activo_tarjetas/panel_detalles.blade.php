@@ -23,7 +23,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="modelTitleId" v-text="tituloModal"></h4>
-                        <button type="button" class="btn-btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form @submit.prevent="save()">
                         <div class="modal-body">
