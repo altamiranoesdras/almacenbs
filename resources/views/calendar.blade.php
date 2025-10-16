@@ -56,7 +56,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="btn-group" style="width: 100%; margin-bottom: 10px;">
-                                    <!--<button type="button" id="color-chooser-btn" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">Color <span class="caret"></span></button>-->
+                                    <!--<button type="button" id="color-chooser-btn" class="btn btn-info btn-block dropdown-toggle" data-bs-toggle="dropdown">Color <span class="caret"></span></button>-->
                                     <ul class="fc-color-picker" id="color-chooser">
                                         <li><a class="text-primary" href="#"><i class="fas fa-square"></i></a></li>
                                         <li><a class="text-warning" href="#"><i class="fas fa-square"></i></a></li>
@@ -69,7 +69,7 @@
                                 <div class="input-group">
                                     <input id="new-event" type="text" class="form-control" placeholder="Event Title">
 
-                                    <div class="input-group-append">
+                                    <div class="input-group">
                                         <button id="add-new-event" type="button" class="btn btn-primary">Add</button>
                                     </div>
                                     <!-- /btn-group -->

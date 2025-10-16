@@ -1,5 +1,5 @@
 <div class="d-flex align-items-center" x-data>
-    <form class="mr-2"
+    <form class="me-2"
           x-on:submit.prevent="
                 $refs.exportBtn.disabled = true;
                 var oTable = LaravelDataTables['{{ $tableId }}'];

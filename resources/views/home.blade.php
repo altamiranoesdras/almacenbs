@@ -20,7 +20,7 @@
             </div>
             <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
                 <div class="mb-1 breadcrumb-right">
-                    <button class="btn btn-outline-primary float-right" :class="{'btn-outline-success' : editando}" @click="editando=!editando">
+                    <button class="btn btn-outline-primary float-end" :class="{'btn-outline-success' : editando}" @click="editando=!editando">
                         <i class="fa fa-edit" v-if="!editando"></i>
                         <i class="fa fa-save" v-if="editando"></i>
                         <span class="d-none d-sm-inline" v-if="!editando">
