@@ -126,31 +126,6 @@
                         <i class="fa fa-user"></i>
                         {{__('Profile')}}
                     </a>
-                    <a class="dropdown-item" href="{{route('profile')}}">
-                        <i class="fa fa-inbox"></i>
-                        {{__('Inbox')}}
-                    </a>
-                    <a class="dropdown-item" href="{{route('profile')}}">
-                        <i class="fa fa-tasks"></i>
-                        {{__('Task')}}
-                    </a>
-                    <a class="dropdown-item" href="{{route('profile')}}">
-                        <i class="fa fa-message"></i>
-                        {{__('Chats')}}
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{route('profile')}}">
-                        <i class="fa fa-cog"></i>
-                        {{__('Settings')}}
-                    </a>
-                    <a class="dropdown-item" href="{{route('profile')}}">
-                        <i class="fa fa-credit-card"></i>
-                        {{__('Pricing')}}
-                    </a>
-{{--                    <a class="dropdown-item" href="{{route('profile')}}">--}}
-{{--                        <i class="fa fa-info-circle"></i>--}}
-{{--                        {{__('FAQ')}}--}}
-{{--                    </a>--}}
                     <a class="dropdown-item" href="{{route('logout')}}"
                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                     >
