@@ -600,7 +600,7 @@ class Item extends Model implements HasMedia
             /**
              * @var CompraDetalle $det
              */
-            if ($det->compra->estado_id==CompraEstado::INGRESADO){
+            if ($det->compra->estado_id==CompraEstado::UNO_H_AUTORIZADO){
                 return $det;
             }
         });
