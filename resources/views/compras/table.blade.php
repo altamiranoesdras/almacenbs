@@ -17,7 +17,7 @@
                 $(this).find('tbody').addClass('small');
                 $(this).find('thead').addClass('small');
 
-                $('[data-toggle="tooltip"]').tooltip();
+                $('[data-bs-toggle="tooltip"]').tooltip();
 
 
                 var totalRegistros= dt.ajax.json().count_rows;
