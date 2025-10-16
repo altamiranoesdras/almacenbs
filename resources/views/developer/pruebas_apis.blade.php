@@ -15,7 +15,7 @@
         <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
             <div class="mb-1 breadcrumb-right">
                 <div class="dropdown">
-                    <a class="btn btn-primary float-right"
+                    <a class="btn btn-primary float-end"
                        href="{{ url()->previous() }}">
                         Regresar
                     </a>
@@ -39,7 +39,7 @@
                                     <multiselect v-model="metodoSeleccionado"
                                                  :options="metodos"
                                                  :multiple="false"
-                                                 :close-on-select="true"
+                                                 :btn-close-on-select="true"
                                                  placeholder="Seleccione uno..."
                                                  label="nombre"
                                                  track-by="valor">
@@ -51,7 +51,7 @@
 
                                     <div class="input-group">
 
-                                        <div class="input-group-prepend">
+                                        <div class="input-group">
                                                 <span class="input-group-text" id="basic-addon1">
                                                     {{ url('/') }}/
                                                 </span>
@@ -59,7 +59,7 @@
 
                                         <input type="text" v-model="uri" class="form-control" placeholder="ej: api/users">
 
-                                        <span class="input-group-append">
+                                        <span class="input-group">
                                             <button class="btn btn-success" type="submit">
                                                 <i class="fa fa-play"></i>
                                                  Probar
