@@ -6,7 +6,7 @@
                     Activos o Bienes
                 </h5>
             </div>
-            <div class="col-sm-6 text-right">
+            <div class="col-sm-6 text-end">
                 <button type="button" class="btn btn-success btn-sm" @click="crearItem()">
                     <i class="fa fa-plus"></i> Nuevo activo
                 </button>
@@ -23,9 +23,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="modelTitleId" v-text="tituloModal"></h4>
-                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <button type="button" class="btn-btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form @submit.prevent="save()">
                         <div class="modal-body">
@@ -224,7 +222,7 @@
                 this.editedItem = Object.assign({}, this.defaultItem);
                 $('#modal_form_tarjeta_detalle').modal('show');
             },
-            close () {
+            btn-close () {
                 $('#modal_form_tarjeta_detalle').modal('hide');
                 this.loading = false;
                 this.editedItem = Object.assign({});
@@ -274,7 +272,7 @@
                     iziTs(res.data.message);
                     this.getDetalles();
 
-                    this.close();
+                    this.btn-close();
 
                 }catch (e) {
                     notifyErrorApi(e);

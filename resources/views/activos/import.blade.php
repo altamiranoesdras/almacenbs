@@ -12,7 +12,7 @@
                     <h1 class="m-0 text-dark">Importar Activos</h1>
                 </div><!-- /.col -->
                 <div class="col">
-                    <ol class="breadcrumb float-right">
+                    <ol class="breadcrumb float-end">
                         <li class="breadcrumb-item">
 
                         </li>
@@ -81,7 +81,7 @@
 
 
                                     <!-- Submit Field -->
-                                    <div class="col-sm-12 mb-1 text-right">
+                                    <div class="col-sm-12 mb-1 text-end">
                                         <a href="{!! route('items.index') !!}" class="btn btn-outline-secondary round me-1">
                                             Cancelar
                                         </a>

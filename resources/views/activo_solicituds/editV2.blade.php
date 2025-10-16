@@ -15,7 +15,7 @@
                     </h1>
                 </div><!-- /.col -->
                 <div class="col">
-                    <a class="btn btn-outline-info float-right"
+                    <a class="btn btn-outline-info float-end"
                        href="{{route('activoSolicitudes.index')}}">
                         <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span
                             class="d-none d-sm-inline">Listado</span>
@@ -37,7 +37,7 @@
                         <div class="card-header p-0 border-bottom-0">
                             <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="tab-compra" data-toggle="pill"
+                                    <a class="nav-link active" id="tab-compra" data-bs-toggle="pill"
                                        href="#custom-tabs-four-home" role="tab"
                                        aria-controls="custom-tabs-four-home" aria-selected="true">
                                         Solicitud Activos
@@ -58,13 +58,13 @@
                                             @include('activo_solicituds.tabla_detalles',['detalles'=>$activoSolicitud->detalles])
                                         </div>
 
-                                        <div class="col-sm-12 mb-1 text-right">
+                                        <div class="col-sm-12 mb-1 text-end">
                                             <a href="{!! route('activoSolicitudes.index') !!}" class="btn btn-outline-secondary round me-1">Regresar</a>
 
                                             @can('anular ingreso de solicitud activos')
                                                 @if($activoSolicitud->estado_id != \App\Models\ActivoSolicitudEstado::ANULADA && $activoSolicitud->estado_id == \App\Models\ActivoSolicitudEstado::INGRESADA )
                                                     <a href="#" onclick="deleteItemDt(this)" data-id="{{$activoSolicitud->id}}"
-                                                       data-toggle="tooltip" title="Anular Ingreso"
+                                                       data-bs-toggle="tooltip" title="Anular Ingreso"
                                                        class='btn btn-outline-danger'>
                                                         Anular Ingreso <i class="fa fa-undo-alt"></i>
                                                     </a>
@@ -81,9 +81,9 @@
 {{--                                            @can('cancelar solicitud de compra')--}}
 {{--                                                @if($compra->estado_id == \App\Models\CompraEstado::CREADA )--}}
 {{--                                                    --}}{{--<a href="#modal-delete-{{$compra->id}}" data-bs-toggle="modal" class='btn btn-icon btn-flat-danger rounded-circle'>--}}
-{{--                                                    --}}{{--<i class="far fa-trash-alt" data-toggle="tooltip" title="Eliminar Solicitud de Compra"></i>--}}
+{{--                                                    --}}{{--<i class="far fa-trash-alt" data-bs-toggle="tooltip" title="Eliminar Solicitud de Compra"></i>--}}
 {{--                                                    --}}{{--</a>--}}
-{{--                                                    <span data-toggle="tooltip" title="Cancelar Solicitud de Compra">--}}
+{{--                                                    <span data-bs-toggle="tooltip" title="Cancelar Solicitud de Compra">--}}
 {{--                                                        <a href="#modal-delete-{{$compra->id}}" data-bs-toggle="modal" class='btn btn-outline-warning'>--}}
 {{--                                                            Cancelar Solicitud de Compra <i class="fas fa-ban"></i>--}}
 {{--                                                        </a>--}}

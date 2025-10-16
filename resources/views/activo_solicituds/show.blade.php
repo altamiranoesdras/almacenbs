@@ -33,7 +33,7 @@
                         <div class="card-header p-0 border-bottom-0">
                             <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="tab-compra" data-toggle="pill"
+                                    <a class="nav-link active" id="tab-compra" data-bs-toggle="pill"
                                        href="#custom-tabs-four-home" role="tab"
                                        aria-controls="custom-tabs-four-home" aria-selected="true">
                                         Solicitud Activos
@@ -54,7 +54,7 @@
                                             @include('activo_solicituds.tabla_detalles',['detalles'=>$activoSolicitud->detalles])
                                         </div>
 
-                                        <div class="col-sm-12 mb-1 text-right">
+                                        <div class="col-sm-12 mb-1 text-end">
                                             <a href="{!! route('activoSolicitudes.index') !!}" class="btn btn-outline-secondary round me-1">Regresar</a>
 
                                         </div>

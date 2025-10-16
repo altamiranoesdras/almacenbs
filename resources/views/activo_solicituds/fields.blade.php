@@ -1,11 +1,11 @@
 <ul class="list-group">
-    <li class="list-group-item pb-0 pl-2 pr-2">
+    <li class="list-group-item pb-0 ps-2 pe-2">
         <div class="col-sm-12 mb-1">
             <select-colaborador v-model="colaborador_origen" label="Colaborador Origen" :name="'colaborador_origen'"></select-colaborador>
         </div>
     </li>
 
-    <li class="list-group-item pb-0 pl-2 pr-2">
+    <li class="list-group-item pb-0 ps-2 pe-2">
         <div class="col-sm-12 mb-1">
             <select-colaborador v-model="colaborador_destino" label="Colaborador Destino" :name="'colaborador_destino'"></select-colaborador>
         </div>
@@ -29,7 +29,7 @@
         </div>
     </li>
 
-    <li class="list-group-item pb-0 pl-2 pr-2">
+    <li class="list-group-item pb-0 ps-2 pe-2">
 
         <div class="row">
 
@@ -42,7 +42,7 @@
             </div>
             <div class="col-sm-4 mb-1">
                 <a class="btn btn-outline-danger pull-right btn-block" data-bs-toggle="modal" href="#modal-cancel-compra">
-                    <span data-toggle="tooltip" title="Cancelar compra">Cancelar</span>
+                    <span data-bs-toggle="tooltip" title="Cancelar compra">Cancelar</span>
                 </a>
             </div>
         </div>
@@ -58,7 +58,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">PROCESAR SOLICITUD ACTIVOS!</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 Seguro que desea continuar?
@@ -76,7 +76,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 <h4 class="modal-title">Cancelar Solicitud Activos!</h4>
             </div>
             <div class="modal-body">
