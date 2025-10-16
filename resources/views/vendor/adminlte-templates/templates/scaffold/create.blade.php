@@ -18,7 +18,7 @@
         <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
             <div class="mb-1 breadcrumb-right">
                 <div class="dropdown">
-                    <a class="btn btn-outline-secondary float-right"
+                    <a class="btn btn-outline-secondary float-end"
                        href="@{{ url()->previous() }}"
                     >
                         <i class="fa fa-arrow-left"></i>

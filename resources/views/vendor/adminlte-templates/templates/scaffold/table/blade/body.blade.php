@@ -37,7 +37,7 @@
     </div>
 
     <div class="card-footer clearfix">
-        <div class="float-right">
+        <div class="float-end">
             {!! $paginate !!}
         </div>
     </div>
