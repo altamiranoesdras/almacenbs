@@ -9,13 +9,12 @@
     {!! $dataTable->scripts() !!}
     <script>
         $(function () {
-            var dt = window.LaravelDataTables["dataTableBuilder"];
+            var dt = LaravelDataTables["dataTableBuilder"];
 
             //Cuando dibuja la tabla
             dt.on( 'draw.dt', function () {
-                //para agregar código adicional al dibujar la tabla
+                $('[data-bs-toggle="tooltip"]').tooltip();
             });
-
         })
     </script>
 @endpush

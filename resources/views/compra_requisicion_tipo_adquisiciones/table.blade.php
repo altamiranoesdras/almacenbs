@@ -13,7 +13,7 @@
 
             //Cuando dibuja la tabla
             dt.on( 'draw.dt', function () {
-                //para agregar código adicional al dibujar la tabla
+                $('[data-bs-toggle="tooltip"]').tooltip();
             });
 
         })

@@ -12,7 +12,7 @@
                     <h1>{{__('New Compra1H')}}</h1>
                 </div>
                 <div class="col ">
-                    <a class="btn btn-outline-info float-right"
+                    <a class="btn btn-outline-info float-end"
                        href="{{route('compra1hs.index')}}">
                         <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<span class="d-none d-sm-inline">{{__('List')}}</span>
                     </a>
@@ -34,7 +34,7 @@
                             @include('compra1hs.fields')
 
                             <!-- Submit Field -->
-                            <div class="col-sm-12 mb-1 text-right">
+                            <div class="col-sm-12 mb-1 text-end">
                                 <a href="{!! route('compra1hs.index') !!}" class="btn btn-outline-secondary round me-1">
                                     Cancelar
                                 </a>
