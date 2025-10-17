@@ -11,6 +11,7 @@ use App\Models\Compra1h;
 use App\Models\CompraEstado;
 use App\Models\Item;
 use App\Models\Proveedor;
+use App\Rules\UniqueNumeroSerieNoAnulada;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -182,9 +183,12 @@ class CompraController extends AppBaseController
 
         //validar que no se pueda ingresar mismo serie y numero
         $request->validate([
-            'numero' => 'required|unique:compras,numero,'.$id.',id,serie,'.$request->serie,
-        ],[
-            'numero.unique' => 'Ya existe un ingreso almacén con el mismo número y serie.',
+            'numero' => [
+                new UniqueNumeroSerieNoAnulada(
+                    ignoreId: $id,
+                    serie: $request->serie
+                ),
+            ],
         ]);
 
 

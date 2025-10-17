@@ -305,7 +305,7 @@
                     </div>
 
                     <div class="d-grid col-sm-4 mb-1">
-                        <button type="submit" class="btn btn-outline-primary btn-block" @click="esperar()">
+                        <button type="submit" class="btn btn-outline-primary btn-block">
                             <i class="fa fa-save"></i>
                             Guardar
                         </button>
