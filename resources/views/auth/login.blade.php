@@ -42,7 +42,7 @@
 
                                 @include('layouts.partials.request_errors')
 
-                                <form class="auth-login-form mt-2" action="{{route('login')}}" method="POST">
+                                <form class="auth-login-form mt-2 esperar" action="{{route('login')}}" method="POST">
                                     @csrf
 
                                     <div class="mb-1">
@@ -82,7 +82,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <button class="btn btn-primary w-100" tabindex="4">
+                                    <button type="submit" class="btn btn-primary w-100" tabindex="4" >
                                         {{__("Sign in")}}
                                     </button>
                                 </form>
