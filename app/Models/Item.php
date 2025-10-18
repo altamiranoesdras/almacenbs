@@ -595,12 +595,8 @@ class Item extends Model implements HasMedia
     public function getEntradasStock()
     {
         $ingresos = $this->compraDetalles->filter(function ($det){
-
-
-            /**
-             * @var CompraDetalle $det
-             */
-            if ($det->compra->estado_id==CompraEstado::UNO_H_AUTORIZADO){
+            //si el detalle de compra tiene transacciones de stock y la compra no esta anulada
+            if ($det->compra && $det->compra->tieneTransaccionesStock() && !$det->compra->estaAnulada()){
                 return $det;
             }
         });
@@ -612,8 +608,8 @@ class Item extends Model implements HasMedia
     {
 
         $egresos = $this->solicitudDetalles->filter(function (SolicitudDetalle $det){
-
-            if ($det->solicitud && $det->solicitud->estado_id!=SolicitudEstado::ANULADA){
+            //si el detalle de solicitud tiene transacciones de stock y la solicitud no esta anulada
+            if ($det->solicitud && $det->solicitud->tieneTransaccionesStock() && !$det->solicitud->estaAnulada()){
                 return $det;
             }
         });

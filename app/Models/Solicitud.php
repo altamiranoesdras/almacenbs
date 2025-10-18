@@ -609,4 +609,16 @@ class Solicitud extends Model
         $this->addBitacora("Requisición de almacén retornada por despacho","Motivo: ".$motivo);
 
     }
+    /**
+     * Verifica si la solicitud tiene transacciones de stock asociadas.
+     *
+     * @return bool
+     */
+    public function tieneTransaccionesStock(): bool
+    {
+        return $this->detalles->filter(function ($detalle) {
+                return $detalle->transaccionesStock->count() > 0;
+            })->count() > 0;
+
+    }
 }
