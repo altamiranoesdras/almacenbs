@@ -230,6 +230,7 @@ class CompraDetalle extends Model
     public function agregarKardex()
     {
         $this->kardex()->create([
+            'categoria_id' => $this->item->categoria_id,
             'item_id' => $this->item->id,
             'cantidad' => $this->cantidad,
             'tipo' => Kardex::TIPO_INGRESO,

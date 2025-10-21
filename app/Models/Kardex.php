@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property int $id
  * @property int $item_id
+ * @property int|null $categoria_id
  * @property int $model_id
  * @property string $model_type
  * @property int|null $folio
@@ -56,6 +57,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Kardex query()
  * @method static Builder|Kardex whereAl($value)
  * @method static Builder|Kardex whereCantidad($value)
+ * @method static Builder|Kardex whereCategoriaId($value)
  * @method static Builder|Kardex whereCodigo($value)
  * @method static Builder|Kardex whereCodigoInsumo($value)
  * @method static Builder|Kardex whereCreatedAt($value)
@@ -111,6 +113,7 @@ class Kardex extends Model
 
     public $fillable = [
         'item_id',
+        'categoria_id',
         'model_id',
         'model_type',
         'folio',
@@ -302,14 +305,16 @@ class Kardex extends Model
     {
 
 
-        $maximoFolio = self::max('folio');//whereRaw('year(created_at) ='.Carbon::now()->year)->
+        //el maximo folio de la categoria
+        $maximoFolio = self::where('categoria_id',$this->categoria_id)
+            ->max('folio');
 
-        $folioItem = self::delItem($this->item_id)
-            //->whereRaw('year(created_at) ='.Carbon::now()->year)
+        $folioItem = self::query()
+            ->where('item_id',$this->item_id)
             ->max('folio');
 
 
-        //si ele item no tiene folio
+        //si el item no tiene folio
         if (!$folioItem){
 
             if (!$maximoFolio){
@@ -321,17 +326,17 @@ class Kardex extends Model
         }else{
 
             //cantidad de registros con el mimsmo folio y mismo item
-            $cantidad = self::delItem($this->item_id)->where('folio',$folioItem)->get()->count();
+            $cantidad = self::query()
+                ->where('item_id',$this->item_id)
+                ->where('folio',$folioItem)
+                ->get()
+                ->count();
 
             //si la cantidad de registros es mayor o igual al maximo de lineas por kardex o la variable forzar es verdadera
             if ($cantidad >= config('app.max_lineas_kardex',8) || $forzar){
                 $folioItem = $maximoFolio+1;
             }
         }
-
-        $txt = "Item: ".$this->item_id." Folio: ".$folioItem. " Max: ".$maximoFolio;
-
-//        dump($txt);
 
 
         return $folioItem;

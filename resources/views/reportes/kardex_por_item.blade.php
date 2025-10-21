@@ -84,7 +84,7 @@
                             <div class="card ">
                                 <div class="card-body">
                                     <h3 class="text-info">
-                                        {{ $item->text }}
+                                        {{ $item->text }} - {{ $item->categoria->nombre }}
                                     </h3>
 
                                         @php

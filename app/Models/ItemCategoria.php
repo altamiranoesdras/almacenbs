@@ -48,7 +48,13 @@ class ItemCategoria extends Model
 
     protected $dates = ['deleted_at'];
 
-
+    const ALIMENTOS = 1;
+    const FARMACIA = 2;
+    const FERRETERIA = 3;
+    const LIBRERIA = 4;
+    const LIMPIEZA = 5;
+    const MOBILIARIO_Y_EQUIPO = 6;
+    const ROPERIA_Y_VARIOS = 7;
 
     public $fillable = [
         'nombre',

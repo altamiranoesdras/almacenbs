@@ -717,7 +717,8 @@ class Item extends Model implements HasMedia
 
             if ($cantidad > 0){
                 $stock->kardex()->create([
-                    'item_id' => $stock->item_id,
+                    'item_id' => $this->id,
+                    'categoria_id' => $this->categoria_id,
                     'cantidad' => $stock->cantidad,
                     'tipo' => Kardex::TIPO_INGRESO,
                     'codigo' => null,

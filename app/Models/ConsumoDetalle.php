@@ -167,15 +167,6 @@ class ConsumoDetalle extends Model
                 break;
         }
 
-//        $this->kardex()->create([
-//            'item_id' => $this->item->id,
-//            'cantidad' => $this->cantidad,
-//            'tipo' => Kardex::TIPO_SALIDA,
-//            'codigo' => $this->consumo->codigo,
-//            'responsable' => $this->consumo->unidad->nombre,
-//            'usuario_id' => auth()->user()->id ?? User::PRINCIPAL
-//        ]);
-
         return $stocks;
 
     }

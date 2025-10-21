@@ -189,6 +189,7 @@ class SolicitudDetalle extends Model
 
 
                 $this->kardex()->create([
+                    'categoria_id' => $this->item->categoria_id,
                     'item_id' => $this->item->id,
                     'cantidad' => $rebajado,
                     'precio_movimiento' => $stock->precio_compra,
