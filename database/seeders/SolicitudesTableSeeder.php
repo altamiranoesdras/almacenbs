@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Bitacora;
 use App\Models\Solicitud;
 use App\Models\SolicitudDetalle;
 use App\Models\SolicitudEstado;
+use App\Models\StockTransaccion;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Sequence;
@@ -26,6 +28,8 @@ class SolicitudesTableSeeder extends Seeder
 
         Solicitud::truncate();
         SolicitudDetalle::truncate();
+        Bitacora::where('model_type', Solicitud::class)->forceDelete();
+        StockTransaccion::where('model_type', SolicitudDetalle::class)->forceDelete();
 
 
         Solicitud::factory()

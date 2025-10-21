@@ -26,7 +26,9 @@ class SolicitudDetalleFactory extends Factory
         /**
          * @var Item $item
          */
-        $item = Item::limit(2)->get()->random();
+        $item = Item::limit(2)->whereHas('stocks', function ($query) {
+            $query->where('cantidad', '>', 0);
+        })->inRandomOrder()->first();
 
         $cantidadSolicitada = rand(5,10);
         $cantidadDespachada = $cantidadSolicitada - rand(0,2);
@@ -35,6 +37,7 @@ class SolicitudDetalleFactory extends Factory
             'solicitud_id' => Solicitud::all()->random()->id,
             'item_id' => $item->id,
             'cantidad_solicitada' => $cantidadSolicitada,
+            'cantidad_autorizada' => $cantidadSolicitada,
             'cantidad_despachada' => $cantidadDespachada,
             'precio' => $item->precio_compra,
             'observaciones' => $this->faker->text(100),

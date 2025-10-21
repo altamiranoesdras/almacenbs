@@ -83,25 +83,22 @@ class SolicitudFactory extends Factory
 
             $solicitud->fecha_solicita = $fechaSolicita;
 
-            if ($solicitud->estaAprobada()) {
-                $solicitud->aprobar($fechaAprueba);
-            }
 
             if ($solicitud->estaAutoizada()) {
-                $solicitud->aprobar($fechaAprueba);
                 $solicitud->autorizar($fechaAutoriza);
             }
 
             if ($solicitud->estaDespachada()) {
-                $solicitud->aprobar($fechaAprueba);
                 $solicitud->autorizar($fechaAutoriza);
+                sleep(1); // Simula un pequeño retraso para evitar conflictos de tiempo
                 $solicitud->despachar($fechaDespacha);
             }
 
             if ($solicitud->estaAnulada()) {
-                $solicitud->aprobar($fechaAprueba);
                 $solicitud->autorizar($fechaAutoriza);
+                sleep(1); // Simula un pequeño retraso para evitar conflictos de tiempo
                 $solicitud->despachar($fechaDespacha);
+                sleep(1); // Simula un pequeño retraso para evitar conflictos de tiempo
                 $solicitud->anular();
             }
 
