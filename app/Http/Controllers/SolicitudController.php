@@ -340,7 +340,7 @@ class SolicitudController extends AppBaseController
         DB::commit();
 
 
-        flash()->success('Listo! solicitud anulada.');
+        flash()->success('Listo! requisición de almacén anulada.');
 
         return redirect(route('solicitudes.index'));
     }
