@@ -403,6 +403,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('pruebas', function () {
         return view('pruebas');
     })->name('pruebas');
+
+    Route::resource('regiones', App\Http\Controllers\RegionController::class);
 });
 
 
