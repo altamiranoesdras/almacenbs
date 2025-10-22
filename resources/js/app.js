@@ -39,9 +39,9 @@ const MultiselectEs = {
     extends: Multiselect,
     props: {
         // Textos de accesibilidad y placeholders
-        selectLabel:   { type: String, default: 'Presiona Enter para seleccionar' },
+        selectLabel:   { type: String, default: 'Enter para seleccionar' },
         selectedLabel: { type: String, default: 'Seleccionado' },
-        deselectLabel: { type: String, default: 'Presiona Enter para quitar' },
+        deselectLabel: { type: String, default: 'Enter para quitar' },
         placeholder:   { type: String, default: 'Selecciona una opción' },
 
         // Mensajes de lista vacía / sin resultados

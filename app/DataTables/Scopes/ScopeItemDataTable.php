@@ -2,6 +2,7 @@
 
 namespace App\DataTables\Scopes;
 
+use App\Models\ItemCategoria;
 use Yajra\DataTables\Contracts\DataTableScope;
 
 class ScopeItemDataTable implements DataTableScope
@@ -123,11 +124,25 @@ class ScopeItemDataTable implements DataTableScope
         }
 
         if($this->categorias){
+
+
             if (is_array($this->categorias)){
-                $query->whereIn('categoria_id', $this->categorias);
+
+                //si el array de categorías contiene la categoría SIN_CATEGORIA
+                if (in_array(ItemCategoria::SIN_CATEGORIA, $this->categorias)){
+                    $query->whereNull('categoria_id');
+                }else{
+                    $query->whereIn('categoria_id', $this->categorias);
+                }
+
             }else{
-                $query->where('categoria_id', $this->categorias);
+                if ($this->categorias === ItemCategoria::SIN_CATEGORIA){
+                    $query->whereNull('categoria_id');
+                }else{
+                    $query->where('categoria_id', $this->categorias);
+                }
             }
+
         }
 
         if($this->precio_venta){
