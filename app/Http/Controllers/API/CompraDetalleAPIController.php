@@ -54,6 +54,13 @@ class CompraDetalleAPIController extends AppBaseController
      */
     public function store(CreateCompraDetalleAPIRequest $request)
     {
+        
+        $request->validate([
+            'item.categoria_id' => 'required'
+        ],[
+            'item.categoria_id.required' => 'El Producto no tiene categoría asignada'
+        ]);
+
         $input = $request->all();
 
         /** @var CompraDetalle $compraDetalle */

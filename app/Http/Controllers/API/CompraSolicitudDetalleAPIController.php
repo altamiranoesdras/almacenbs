@@ -45,6 +45,12 @@ class CompraSolicitudDetalleAPIController extends AppBaseController
     public function store(CreateCompraSolicitudDetalleAPIRequest $request): JsonResponse
     {
 
+        $request->validate([
+            'item.categoria_id' => 'required'
+        ],[
+            'item.categoria_id.required' => 'El Producto no tiene categoría asignada'
+        ]);
+
         $request->merge([
             'precio_venta' => $request->get('precio_venta') ?? 0,
         ]);
