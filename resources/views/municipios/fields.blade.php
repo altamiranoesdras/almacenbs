@@ -13,7 +13,14 @@
 
 
 <!-- Departamento Id Field -->
-<div class="col-sm-6 mb-1">
-    {!! Form::label('departamento_id', 'Departamento Id:') !!}
-    {!! Form::number('departamento_id', null, ['class' => 'form-control']) !!}
+<div class="form-group col-sm-6">
+    {!! Form::label('departamento_id','Departamento:') !!}
+    {!!
+        Form::select(
+            'departamento_id',
+            select(\App\Models\Departamento::class)
+            , null
+            , ['id'=>'departamentos','class' => 'form-control','style'=>'width: 100%']
+        )
+    !!}
 </div>

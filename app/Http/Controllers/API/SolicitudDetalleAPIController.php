@@ -54,6 +54,7 @@ class SolicitudDetalleAPIController extends AppBaseController
      */
     public function store(CreateSolicitudDetalleAPIRequest $request)
     {
+
         $input = $request->all();
 
         /** @var SolicitudDetalle $solicitudDetalle */

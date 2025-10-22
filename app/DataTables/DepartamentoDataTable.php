@@ -40,7 +40,9 @@ class DepartamentoDataTable extends DataTable
      */
     public function query(Departamento $model)
     {
-        return $model->newQuery()->select($model->getTable().'.*');
+        return $model->newQuery()
+            ->select($model->getTable().'.*')
+            ->with(['region']);
     }
 
     /**
@@ -113,7 +115,11 @@ class DepartamentoDataTable extends DataTable
         return [
             Column::make('codigo'),
             Column::make('nombre'),
-            Column::make('region_id'),
+            Column::make('region')
+                ->data('region.nombre')
+                ->title('Región')
+                ->searchable(true)
+                ->orderable(true),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

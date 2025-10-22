@@ -40,7 +40,9 @@ class MunicipioDataTable extends DataTable
      */
     public function query(Municipio $model)
     {
-        return $model->newQuery()->select($model->getTable().'.*');
+        return $model->newQuery()
+            ->select($model->getTable().'.*')
+            ->with(['departamento']);
     }
 
     /**
@@ -113,7 +115,11 @@ class MunicipioDataTable extends DataTable
         return [
             Column::make('codigo'),
             Column::make('nombre'),
-            Column::make('departamento_id'),
+            Column::make('departamento')
+                ->data('departamento.nombre')
+                ->title('Departamento')
+                ->searchable(true)
+                ->orderable(true),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

@@ -13,7 +13,14 @@
 
 
 <!-- Region Id Field -->
-<div class="col-sm-6 mb-1">
-    {!! Form::label('region_id', 'Region Id:') !!}
-    {!! Form::number('region_id', null, ['class' => 'form-control']) !!}
+<div class="form-group col-sm-6">
+    {!! Form::label('region_id','Región:') !!}
+    {!!
+        Form::select(
+            'region_id',
+            select(\App\Models\Region::class)
+            , null
+            , ['id'=>'regions','class' => 'form-control','style'=>'width: 100%']
+        )
+    !!}
 </div>
