@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\API;
 
+use Response;
+use App\Models\Item;
+use Illuminate\Http\Request;
+use App\Models\CompraDetalle;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreateCompraDetalleAPIRequest;
 use App\Http\Requests\API\UpdateCompraDetalleAPIRequest;
-use App\Models\CompraDetalle;
-use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use Response;
-use Illuminate\Validation\Rule;
 
 /**
  * Class CompraDetalleController
@@ -56,17 +57,10 @@ class CompraDetalleAPIController extends AppBaseController
     public function store(CreateCompraDetalleAPIRequest $request)
     {
         
-        $request->validate([
-            'item_id' => [
-                'required',
-                'integer',
-                Rule::exists('items', 'id')
-                ->whereNotNull('categoria_id')
-            ],
-            [
-                'item_id.exists' => 'El Producto no tiene categoría asignada o no existe.',
-            ]
-        ]);
+        $item = Item::find($request->get('item_id'));
+        if($item->categoria_id == null ){
+            return $this->sendError('No se puede agregar insumos sin Catecoria');
+        }
 
         $input = $request->all();
 

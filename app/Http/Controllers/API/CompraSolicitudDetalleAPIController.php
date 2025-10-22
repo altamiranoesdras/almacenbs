@@ -9,6 +9,7 @@ use App\Models\CompraSolicitudDetalle;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreateCompraSolicitudDetalleAPIRequest;
 use App\Http\Requests\API\UpdateCompraSolicitudDetalleAPIRequest;
+use App\Models\Item;
 
 /**
  * Class CompraSolicitudDetalleAPIController
@@ -46,17 +47,10 @@ class CompraSolicitudDetalleAPIController extends AppBaseController
     public function store(CreateCompraSolicitudDetalleAPIRequest $request): JsonResponse
     {
 
-        $request->validate([
-            'item_id' => [
-                'required',
-                'integer',
-                Rule::exists('items', 'id')
-                ->whereNotNull('categoria_id')
-            ],
-            [
-                'item_id.exists' => 'El Producto no tiene categoría asignada o no existe.',
-            ]
-        ]);
+        $item = Item::find($request->get('item_id'));
+        if($item->categoria_id == null ){
+            return $this->sendError('No se puede agregar insumos sin Catecoria');
+        }
 
         $request->merge([
             'precio_venta' => $request->get('precio_venta') ?? 0,
