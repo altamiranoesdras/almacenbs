@@ -7,6 +7,7 @@ use App\DataTables\Scopes\ScopeCompraDataTable;
 use App\Models\Compra;
 use App\Models\CompraEstado;
 use App\Notifications\IngresoAlmacen\IngresoAlmacenEnviadoNotificaction;
+use App\Notifications\IngresoAlmacen\IngresoAlmacenRetornadoNotificaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -61,6 +62,9 @@ class Compra1hAutorizadorController extends Controller
 
             $compra->estado_id = CompraEstado::RETORNO_POR_AUTORIZADOR;
             $compra->save();
+
+            $usuarioAprueba = $compra->usuarioAprueba;
+            $usuarioAprueba->notify(new IngresoAlmacenRetornadoNotificaction($compra, route('bandejas.compras1h.aprobador')));
 
             $compra->addBitacora('1H retornado por autorizador', "Motivo: ".$request->motivo ?? '');
 

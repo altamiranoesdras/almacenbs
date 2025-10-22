@@ -9,6 +9,7 @@ use App\Models\CompraEstado;
 use App\Models\Role;
 use App\Models\User;
 use App\Notifications\IngresoAlmacen\IngresoAlmacenEnviadoNotificaction;
+use App\Notifications\IngresoAlmacen\IngresoAlmacenRetornadoNotificaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Notification;
@@ -91,6 +92,9 @@ class Compra1hAprobadorController extends Controller
 
             $compra->estado_id = CompraEstado::RETORNO_POR_APROBADOR;
             $compra->save();
+
+            $usuarioOpera = $compra->usuarioOpera;
+            $usuarioOpera->notify(new IngresoAlmacenRetornadoNotificaction($compra, route('bandejas.compras1h.operador')));
 
             $compra->addBitacora('1H retornado por aprobador', "Motivo: ".$request->motivo ?? '');
 
