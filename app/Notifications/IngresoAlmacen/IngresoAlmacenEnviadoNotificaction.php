@@ -13,12 +13,13 @@ class IngresoAlmacenEnviadoNotificaction extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct($compra)
+    public function __construct($compra, $url)
     {
         /**
          * @var \App\Models\Compra $compra
          */
         $this->compra = $compra;
+        $this->url = $url;
     }
 
     /**
@@ -79,7 +80,7 @@ class IngresoAlmacenEnviadoNotificaction extends Notification
             "titulo" => "Nuevo ingreso en almacén #{$compra->numero_h}",
             "texto" => "La compra con factura **{$compra->serie}-{$compra->numero_factura}**, creada por **{$compra->usuarioCrea->name}**, ha cambiado su estado a **{$compra->estado->nombre}**.",
             "imagen" => $compra->usuarioCrea->profile_photo_url ?? null,
-            "url" => route('bandejas.compras1h.operador'),
+            "url" => $this->url,
         ];
     }
 

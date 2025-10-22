@@ -118,7 +118,7 @@ class Compra1hAprobadorController extends Controller
             $query->where('id', Role::AUTORIZADOR_DE_INGRESOS_ALMACEN_1H);
         })->get();
 
-        Notification::send($usuariosAutorizadores, new IngresoAlmacenEnviadoNotificaction($compra));
+        Notification::send($usuariosAutorizadores, new IngresoAlmacenEnviadoNotificaction($compra, route('bandejas.compras1h.autorizador')));
 
     }
 }

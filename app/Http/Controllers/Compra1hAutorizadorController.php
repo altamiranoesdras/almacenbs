@@ -6,6 +6,7 @@ use App\DataTables\CompraAutorizarDataTable;
 use App\DataTables\Scopes\ScopeCompraDataTable;
 use App\Models\Compra;
 use App\Models\CompraEstado;
+use App\Notifications\IngresoAlmacen\IngresoAlmacenEnviadoNotificaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -43,6 +44,8 @@ class Compra1hAutorizadorController extends Controller
     {
         $compra->autorizar1h($request->observaciones ?? '');
 
+        $this->notificarCompraFueAutorizada($compra);
+
         flash('Formulario 1H autorizado!')->success();
 
         return redirect()->route('bandejas.compras1h.autorizador');
@@ -77,5 +80,14 @@ class Compra1hAutorizadorController extends Controller
 
         return redirect()->route('bandejas.compras1h.aprobador');
 
+    }
+
+    public function notificarCompraFueAutorizada(Compra $compra)
+    {
+        $operador = $compra->usuarioOpera;
+        $aprobador = $compra->usuarioAprueba;
+
+        $operador->notify(new IngresoAlmacenEnviadoNotificaction($compra, route('bandejas.compras1h.operador')));
+        $aprobador->notify(new IngresoAlmacenEnviadoNotificaction($compra, route('bandejas.compras1h.aprobador')));
     }
 }
