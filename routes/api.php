@@ -290,10 +290,18 @@ Route::group(['as'=>'api.'], function () {
 
         Route::resource('regiones', App\Http\Controllers\API\RegionAPIController::class)
             ->except(['create', 'edit']);
+
+
+        Route::resource('departamentos', App\Http\Controllers\API\DepartamentoAPIController::class)
+            ->except(['create', 'edit']);
+
+        Route::resource('municipios', App\Http\Controllers\API\MunicipioAPIController::class)
+            ->except(['create', 'edit']);
     });
 
 
 });
+
 
 
 
