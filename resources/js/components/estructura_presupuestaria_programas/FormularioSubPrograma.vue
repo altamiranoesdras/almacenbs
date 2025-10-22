@@ -1,76 +1,3 @@
-<script>
-export default {
-    name: "formulario-programa",
-    props: {
-        mostrarModal: {
-            type: Boolean,
-            default: false
-        },
-        programaId: {
-            type: Number,
-            default: null
-        },
-        item: {
-            type: Object,
-            default: null
-        }
-    },
-    data() {
-        return {
-            form: {
-                nombre: "",
-                descripcion: ""
-            }
-        }
-    },
-    methods: {
-        async guardar() {
-            if(!this.form.nombre) {
-                iziTi("El nombre es obligatorio", "warning");
-                return;
-            }
-            if(!this.form.descripcion) {
-                iziTi("La descripción es obligatoria", "warning");
-                return;
-            }
-            try {
-                let respuesta;
-                if(this.form.id){
-                    respuesta = await axios.put(route('api.estructura.presupuestaria.subprogramas.update', this.form.id), this.form);
-                } else {
-                    respuesta = await axios.post(route('api.estructura.presupuestaria.subprogramas.store'), {
-                        ...this.form,
-                        programa_id: this.programaId
-                    });
-                }
-
-                iziTs(respuesta.data.message);
-                this.cerrarModal();
-                this.$emit('registro-guardado', respuesta.data.resultado);
-            }
-            catch (error) {
-                notifyErrorApi(error);
-            }
-        },
-        cerrarModal() {
-            $("#formulario-sub-programa").modal('hide');
-            this.$emit('cerrarModal', false);
-        }
-    },
-    watch: {
-        mostrarModal(nuevoValor) {
-            if (nuevoValor) {
-                this.form = this.item ? { ...this.item } : { nombre: "", descripcion: "" };
-                $("#formulario-sub-programa").modal('show');
-            }
-        },
-
-    }
-
-}
-
-</script>
-
 <template>
     <div>
         <!-- Modal -->
@@ -92,8 +19,17 @@ export default {
                         ></button>
                     </div>
                     <div class="modal-body">
-                        <div class="mb-3">
-
+                        <div class="col-12 mb-1">
+                            <label class="form-label">Código</label>
+                            <input
+                                v-model="form.codigo"
+                                class="form-control"
+                                placeholder="Ingrese el nombre"
+                                type="text"
+                            />
+                        </div>
+                        <div class="col-12 mb-1">
+                            <label class="form-label">Nombre</label>
                             <input
                                 v-model="form.nombre"
                                 class="form-control"
@@ -101,7 +37,7 @@ export default {
                                 type="text"
                             />
                         </div>
-                        <div class="mb-3">
+                        <div class="col-12 mb-1">
                             <label class="form-label">Descripción</label>
                             <textarea
                                 v-model="form.descripcion"
@@ -131,6 +67,74 @@ export default {
         </div>
     </div>
 </template>
+
+<script>
+export default {
+    name: "formulario-programa",
+    props: {
+        mostrarModal: {
+            type: Boolean,
+            default: false
+        },
+        programaId: {
+            type: Number,
+            default: null
+        },
+        item: {
+            type: Object,
+            default: null
+        }
+    },
+    data() {
+        return {
+            form: {
+                codigo: "",
+                nombre: "",
+                descripcion: ""
+            }
+        }
+    },
+    methods: {
+        async guardar() {
+            esperar();
+            try {
+                let respuesta;
+                if(this.form.id){
+                    respuesta = await axios.put(route('api.estructura.presupuestaria.subprogramas.update', this.form.id), this.form);
+                } else {
+                    respuesta = await axios.post(route('api.estructura.presupuestaria.subprogramas.store'), {
+                        ...this.form,
+                        programa_id: this.programaId
+                    });
+                }
+
+                iziTs(respuesta.data.message);
+                this.cerrarModal();
+                this.$emit('registro-guardado', respuesta.data.resultado);
+            }
+            catch (error) {
+                notifyErrorApi(error);
+            }
+            finEspera();
+        },
+        cerrarModal() {
+            $("#formulario-sub-programa").modal('hide');
+            this.$emit('cerrarModal', false);
+        }
+    },
+    watch: {
+        mostrarModal(nuevoValor) {
+            if (nuevoValor) {
+                this.form = this.item ? { ...this.item } : { codigo: "",nombre: "", descripcion: "" };
+                $("#formulario-sub-programa").modal('show');
+            }
+        },
+
+    }
+
+}
+
+</script>
 
 <style scoped>
 /* estilos opcionales */
