@@ -6,8 +6,12 @@ use App\DataTables\CompraAprobarDataTable;
 use App\DataTables\Scopes\ScopeCompraDataTable;
 use App\Models\Compra;
 use App\Models\CompraEstado;
+use App\Models\Role;
+use App\Models\User;
+use App\Notifications\IngresoAlmacen\IngresoAlmacenEnviadoNotificaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Notification;
 
 class Compra1hAprobadorController extends Controller
 {
@@ -69,6 +73,8 @@ class Compra1hAprobadorController extends Controller
 
         $compra->aprobar1h($request->observaciones ?? '');
 
+        $this->notificarCompraFueAprobada($compra);
+
         flash('Formulario 1H aprobado!')->success();
 
         return redirect()->route('bandejas.compras1h.aprobador');
@@ -103,6 +109,16 @@ class Compra1hAprobadorController extends Controller
         flash('1H retornado al operador!')->success();
 
         return redirect()->route('bandejas.compras1h.aprobador');
+
+    }
+
+    public function notificarCompraFueAprobada($compra)
+    {
+        $usuariosAutorizadores = User::whereHas('roles', function ($query) {
+            $query->where('id', Role::AUTORIZADOR_DE_INGRESOS_ALMACEN_1H);
+        })->get();
+
+        Notification::send($usuariosAutorizadores, new IngresoAlmacenEnviadoNotificaction($compra));
 
     }
 }

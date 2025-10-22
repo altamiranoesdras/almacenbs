@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\CompraAprobarDataTable;
 use App\DataTables\CompraOperarDataTable;
 use App\DataTables\Scopes\ScopeCompraDataTable;
 use App\Models\Compra;
 use App\Models\Compra1h;
 use App\Models\CompraEstado;
+use App\Models\Role;
+use App\Models\User;
+use App\Notifications\IngresoAlmacen\IngresoAlmacenEnviadoNotificaction;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Notification;
 
 class Compra1hOperadorController extends Controller
 {
@@ -107,6 +110,7 @@ class Compra1hOperadorController extends Controller
 
             if ($request->has('enviarAprobacion')) {
                 $compra->operar1h();
+                $this->notificarCompraFueAprobada($compra);
                 $mnj = '1H enviado a aprobación con éxito.';
             } else {
                 $mnj = '1H actualizado con éxito.';
@@ -136,6 +140,16 @@ class Compra1hOperadorController extends Controller
 
             return redirect(route('bandejas.compras1h.operador.gestionar', $compra->id));
         }
+
+    }
+
+    public function notificarCompraFueAprobada(Compra $compra): void
+    {
+        $usuariosAprobadores = User::whereHas('roles', function ($query) {
+            $query->where('id', Role::APROBADOR_DE_INGRESOS_ALMACEN_1H);
+        })->get();
+
+        Notification::send($usuariosAprobadores, new IngresoAlmacenEnviadoNotificaction($compra));
 
     }
 
