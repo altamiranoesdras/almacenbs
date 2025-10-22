@@ -8,6 +8,7 @@ use App\Models\CompraDetalle;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use Illuminate\Validation\Rule;
 
 /**
  * Class CompraDetalleController
@@ -56,9 +57,15 @@ class CompraDetalleAPIController extends AppBaseController
     {
         
         $request->validate([
-            'item.categoria_id' => 'required'
-        ],[
-            'item.categoria_id.required' => 'El Producto no tiene categoría asignada'
+            'item_id' => [
+                'required',
+                'integer',
+                Rule::exists('items', 'id')
+                ->whereNotNull('categoria_id')
+            ],
+            [
+                'item_id.exists' => 'El Producto no tiene categoría asignada o no existe.',
+            ]
         ]);
 
         $input = $request->all();

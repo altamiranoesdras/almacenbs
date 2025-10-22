@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\API;
 
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Http\JsonResponse;
+use App\Models\CompraSolicitudDetalle;
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreateCompraSolicitudDetalleAPIRequest;
 use App\Http\Requests\API\UpdateCompraSolicitudDetalleAPIRequest;
-use App\Models\CompraSolicitudDetalle;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
 
 /**
  * Class CompraSolicitudDetalleAPIController
@@ -46,9 +47,15 @@ class CompraSolicitudDetalleAPIController extends AppBaseController
     {
 
         $request->validate([
-            'item.categoria_id' => 'required'
-        ],[
-            'item.categoria_id.required' => 'El Producto no tiene categoría asignada'
+            'item_id' => [
+                'required',
+                'integer',
+                Rule::exists('items', 'id')
+                ->whereNotNull('categoria_id')
+            ],
+            [
+                'item_id.exists' => 'El Producto no tiene categoría asignada o no existe.',
+            ]
         ]);
 
         $request->merge([
