@@ -29,6 +29,11 @@ class EstructuraPresupuestariaActividadAPIController extends AppBaseController
         if ($request->get('limit')) {
             $query->limit($request->get('limit'));
         }
+        if ($request->get('subprograma_id')) {
+            $query->whereHas('proyecto', function ($q) use ($request) {
+                $q->where('subprograma_id', $request->get('subprograma_id'));
+            });
+        }
 
         $estructuraPresupuestariaActividads = $query->get();
 

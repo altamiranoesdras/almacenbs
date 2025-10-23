@@ -103,6 +103,10 @@ export default {
             type: Number,
             default: null
         },
+        subProgramaId: {
+            type: Number,
+            default: null
+        },
         item: {
             type: Object,
             default: () => ({}),
@@ -151,7 +155,8 @@ export default {
         },
         async getActividades() {
             try {
-                const respuesta = await axios.get(route('api.estructura.presupuestaria.actividades.index'));
+                console.log('Subprograma ID:', this.subProgramaId);
+                const respuesta = await axios.get(route('api.estructura.presupuestaria.actividades.index', { subprograma_id: this.subProgramaId }));
                 this.actividades = respuesta.data.data;
                 this.actividadesOriginales = respuesta.data.data;
             } catch (error) {
@@ -168,11 +173,12 @@ export default {
         // }
     },
     created() {
-        this.getActividades();
+        // this.getActividades();
     },
     watch: {
         mostrarModal(nuevoValor) {
             if (nuevoValor) {
+                this.getActividades()
                 this.form = this.item ? { ...this.item } : { nombre: "", descripcion: "", codigo: "", actividad: null };
                 // if (this.form.actividades.length) {
                 //     this.actividades = this.actividades.filter(sp => !this.form.actividades.some(fsp => fsp.id === sp.id));

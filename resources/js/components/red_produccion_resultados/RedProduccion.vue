@@ -18,6 +18,7 @@ export default {
             mostrarModalSubProducto: false,
 
             resultadoSeleccionadoId: null,
+            subProgramaId: null,
             productoSeleccionadoId: null,
 
             resultadoSeleccionado: null,
@@ -43,9 +44,10 @@ export default {
         agregarResultado() {
             this.mostrarModalResultado = true;
         },
-        agregarProducto(resultadoId) {
+        agregarProducto(resultadoId, subProgramaId) {
             this.mostrarModalProducto = true;
             this.resultadoSeleccionadoId = resultadoId;
+            this.subProgramaId = subProgramaId;
         },
         agregarSubProducto(productoId) {
             this.mostrarModalSubProducto = true;
@@ -217,7 +219,7 @@ export default {
 
                                 <button
                                     class="btn btn-outline-primary btn-sm mt-2"
-                                    @click="agregarProducto(item.id)"
+                                    @click="agregarProducto(item.id, item.subprograma_id)"
                                 >
                                     <i class="fa fa-plus"></i> Agregar Producto
                                 </button>
@@ -237,6 +239,7 @@ export default {
         <FormularioProducto
             :mostrar-modal="mostrarModalProducto"
             :resultado-id="resultadoSeleccionadoId"
+            :sub-programa-id="subProgramaId"
             :item="productoSeleccionado"
             @registro-guardado="getResultados"
             @cerrarModal="cerrarFormularioProducto"
