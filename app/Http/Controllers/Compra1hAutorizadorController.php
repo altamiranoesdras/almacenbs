@@ -91,6 +91,9 @@ class Compra1hAutorizadorController extends Controller
         $operador = $compra->usuarioOpera;
         $aprobador = $compra->usuarioAprueba;
 
+        $operador->refresh();
+        $aprobador->refresh();
+
         $operador->notify(new IngresoAlmacenEnviadoNotificaction($compra, route('bandejas.compras1h.operador')));
         $aprobador->notify(new IngresoAlmacenEnviadoNotificaction($compra, route('bandejas.compras1h.aprobador')));
     }

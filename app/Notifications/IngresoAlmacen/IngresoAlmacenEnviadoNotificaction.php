@@ -2,13 +2,12 @@
 
 namespace App\Notifications\IngresoAlmacen;
 
-use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
 class IngresoAlmacenEnviadoNotificaction extends Notification
 {
-    use Queueable;
+//    use Queueable;
 
     /**
      * Create a new notification instance.
