@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -77,7 +79,7 @@ class RedProduccionProducto extends Model
 
     ];
 
-    public function resultado(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function resultado(): BelongsTo
     {
         return $this->belongsTo(\App\Models\RedProduccionResultado::class, 'resultado_id');
     }
@@ -92,13 +94,16 @@ class RedProduccionProducto extends Model
 //        );
 //    }
 
-    public function subProductos(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function subProductos(): HasMany
     {
         return $this->hasMany(\App\Models\RedProduccionSubProducto::class, 'producto_id');
     }
 
-    public function actividad(): HasOne
+    public function actividad(): BelongsTo
     {
-        return $this->hasOne(\App\Models\EstructuraPresupuestariaActividad::class, 'id', 'actividad_id');
+        return $this->belongsTo(
+            \App\Models\EstructuraPresupuestariaActividad::class,
+            'actividad_id'
+        );
     }
 }

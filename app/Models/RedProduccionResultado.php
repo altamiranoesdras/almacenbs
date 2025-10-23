@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -93,10 +95,13 @@ class RedProduccionResultado extends Model
         );
     }
 
-    public function subPrograma(): HasOne
+    public function subPrograma(): BelongsTo
     {
-        return $this->hasOne(EstructuraPresupuestariaSubprograma::class, 'id', 'subprograma_id');
-
+        return $this->belongsTo(
+            \App\Models\EstructuraPresupuestariaSubprograma::class,
+            'subprograma_id',
+            'id'
+        );
     }
 
 }
