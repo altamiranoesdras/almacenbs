@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -45,7 +46,8 @@ class RedProduccionResultado extends Model
     public $fillable = [
         'codigo',
         'nombre',
-        'descripcion'
+        'descripcion',
+        'subprograma_id'
     ];
 
     protected $casts = [
@@ -58,6 +60,7 @@ class RedProduccionResultado extends Model
         'codigo' => 'required|string|max:255',
         'nombre' => 'required|string|max:255',
         'descripcion' => 'nullable|string|max:65535',
+        'subprograma_id' => 'required|integer',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'
@@ -89,4 +92,11 @@ class RedProduccionResultado extends Model
             'subprograma_id'
         );
     }
+
+    public function subPrograma(): HasOne
+    {
+        return $this->hasOne(EstructuraPresupuestariaSubprograma::class, 'id', 'subprograma_id');
+
+    }
+
 }

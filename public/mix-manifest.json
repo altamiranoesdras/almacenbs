@@ -1,6 +1,6 @@
 {
-    "/js/app.js": "/js/app.js?id=b54616366b12140235f66683ca1841a6",
-    "/css/app.css": "/css/app.css?id=cddf8489103ffbd7d3c2d43635883748",
+    "/js/app.js": "/js/app.js?id=e0cdbaf0ceec51bafd95dd4285038338",
+    "/css/app.css": "/css/app.css?id=6231f4761e9837c6f4d1babf16a12802",
     "/plugins/datatables/js/dataTables.bootstrap5.min.js": "/plugins/datatables/js/dataTables.bootstrap5.min.js?id=b7ad479859d53884e9e3f06c7474bd79",
     "/plugins/datatables/js/buttons.bootstrap5.min.js": "/plugins/datatables/js/buttons.bootstrap5.min.js?id=0e8f43be9697f5c89290a14ee67a4761",
     "/plugins/datatables/js/responsive.bootstrap5.min.js": "/plugins/datatables/js/responsive.bootstrap5.min.js?id=50b64e1ce46da860f16617a70ef56994",
@@ -16,14 +16,14 @@
     "/plugins/bootstrap-fileinput/themes/bs5/theme.min.js": "/plugins/bootstrap-fileinput/themes/bs5/theme.min.js?id=c8fcea961229cced9276b5533e850364",
     "/plugins/bootstrap-fileinput/themes/fa/theme.js": "/plugins/bootstrap-fileinput/themes/fa/theme.js?id=811875091f4ead8f8257bc486746e2c3",
     "/plugins/bootstrap-fileinput/themes/fa/theme.min.js": "/plugins/bootstrap-fileinput/themes/fa/theme.min.js?id=dcb5a4adc2d45ca4511a15924ab3638a",
-    "/plugins/jquery-ui/jquery-ui.min.js": "/plugins/jquery-ui/jquery-ui.min.js?id=12c28b31a1369383b3549abf958b01fe",
-    "/plugins/jquery-ui/themes/base/images/ui-icons_444444_256x240.png": "/plugins/jquery-ui/themes/base/images/ui-icons_444444_256x240.png?id=0ecf8ab0dced19f0386c88e684254c42",
-    "/plugins/jquery-ui/themes/base/images/ui-icons_555555_256x240.png": "/plugins/jquery-ui/themes/base/images/ui-icons_555555_256x240.png?id=76658759242d261aa4aa4a2b32baf587",
-    "/plugins/jquery-ui/themes/base/images/ui-icons_777620_256x240.png": "/plugins/jquery-ui/themes/base/images/ui-icons_777620_256x240.png?id=4b88b36209f2dc05c8eb0fc67a10baef",
-    "/plugins/jquery-ui/themes/base/images/ui-icons_777777_256x240.png": "/plugins/jquery-ui/themes/base/images/ui-icons_777777_256x240.png?id=c620e71d9c973dbcd7eea4c5303d6749",
-    "/plugins/jquery-ui/themes/base/images/ui-icons_cc0000_256x240.png": "/plugins/jquery-ui/themes/base/images/ui-icons_cc0000_256x240.png?id=174a600219bbf783c65c44c0fdcd92cb",
-    "/plugins/jquery-ui/themes/base/images/ui-icons_ffffff_256x240.png": "/plugins/jquery-ui/themes/base/images/ui-icons_ffffff_256x240.png?id=ce3b95a7d2205cdb39cbf7c182ed745a",
-    "/plugins/jquery-ui/themes/base/jquery-ui.css": "/plugins/jquery-ui/themes/base/jquery-ui.css?id=d241c7998f13fc0fac643a112ed95316",
-    "/plugins/jquery-ui/themes/base/jquery-ui.min.css": "/plugins/jquery-ui/themes/base/jquery-ui.min.css?id=52409099a61f675a2f13446ed7be02e8",
-    "/plugins/jquery-ui/themes/base/theme.css": "/plugins/jquery-ui/themes/base/theme.css?id=b36a025984dab1c59bc84acf4ab8c911"
+    "/plugins/jquery-ui/jquery-ui.min.js": "/plugins/jquery-ui/jquery-ui.min.js?id=1e2047978946a1d271356d0b557a84a3",
+    "/plugins/jquery-ui/themes/base/images/ui-icons_444444_256x240.png": "/plugins/jquery-ui/themes/base/images/ui-icons_444444_256x240.png?id=8daf6b0b920c84602bf0b2695dde272c",
+    "/plugins/jquery-ui/themes/base/images/ui-icons_555555_256x240.png": "/plugins/jquery-ui/themes/base/images/ui-icons_555555_256x240.png?id=4257903f2617f4d2b2fb42f3e2410435",
+    "/plugins/jquery-ui/themes/base/images/ui-icons_777620_256x240.png": "/plugins/jquery-ui/themes/base/images/ui-icons_777620_256x240.png?id=bdc85899c3eb6dfcf71c35bb1f93370f",
+    "/plugins/jquery-ui/themes/base/images/ui-icons_777777_256x240.png": "/plugins/jquery-ui/themes/base/images/ui-icons_777777_256x240.png?id=3abee579d473885c299115c8001bad78",
+    "/plugins/jquery-ui/themes/base/images/ui-icons_cc0000_256x240.png": "/plugins/jquery-ui/themes/base/images/ui-icons_cc0000_256x240.png?id=258efffac553634a48a4152ec59a0d27",
+    "/plugins/jquery-ui/themes/base/images/ui-icons_ffffff_256x240.png": "/plugins/jquery-ui/themes/base/images/ui-icons_ffffff_256x240.png?id=b49ae2aef4480aa1f8027faa733ea289",
+    "/plugins/jquery-ui/themes/base/jquery-ui.css": "/plugins/jquery-ui/themes/base/jquery-ui.css?id=d933811bd3d6e357ad39601d152ce3ff",
+    "/plugins/jquery-ui/themes/base/jquery-ui.min.css": "/plugins/jquery-ui/themes/base/jquery-ui.min.css?id=938109d2b5f9778c8d9eec5884ed0a64",
+    "/plugins/jquery-ui/themes/base/theme.css": "/plugins/jquery-ui/themes/base/theme.css?id=baf950aa71f6bc1f2a6f8b35d6cf8bdd"
 }

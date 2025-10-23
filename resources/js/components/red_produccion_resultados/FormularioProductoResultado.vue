@@ -51,13 +51,23 @@
                                 ></textarea>
                             </div>
                             <div class="col-12 mb-1">
-                                <label class="form-label">Sub Programas</label>
-                                <DualListBox
-                                    :destination="form.sub_programas"
-                                    :source="subProgramas"
+                                <label class="form-label">Sub Programa</label>
+<!--                                <DualListBox-->
+<!--                                    :destination="form.sub_programas"-->
+<!--                                    :source="subProgramas"-->
+<!--                                    label="nombre"-->
+<!--                                    @onChangeList="onChangeList"-->
+<!--                                />-->
+                                <multiselect
+                                    v-model="form.sub_programa"
+                                    :multiple="false"
+                                    :options="subProgramas"
+                                    :preselect-first="false"
                                     label="nombre"
-                                    @onChangeList="onChangeList"
-                                />
+                                    placeholder="Seleccione los sub programas"
+                                    track-by="id"
+                                >
+                                </multiselect>
                             </div>
                         </div>
                     </div>
@@ -109,7 +119,7 @@ export default {
                 codigo: "",
                 nombre: "",
                 descripcion: "",
-                sub_programas: []
+                sub_programa: null
 
             },
             subProgramas: [],
@@ -129,8 +139,8 @@ export default {
                 let respuesta;
                 this.form = {
                     ...this.form,
-                    sub_programas: this.form.sub_programas.length ? this.form.sub_programas.map(sp => sp.id) : []
-                }
+                    subprograma_id: this.form?.sub_programa?.id
+                };
                 if (this.form.id) {
                     respuesta = await axios.put(route('api.red.produccion.resultados.update', this.form.id), this.form);
                 } else{
@@ -162,21 +172,16 @@ export default {
                 notifyErrorApi(error);
             }
         },
-        onChangeList: function({ source, destination }) {
-            this.subProgramas = source;
-            this.form.sub_programas = destination;
-        }
+        // onChangeList: function({ source, destination }) {
+        //     this.subProgramas = source;
+        //     this.form.sub_programas = destination;
+        // }
 
     },
     watch: {
         mostrarModal(nuevoValor) {
             if (nuevoValor) {
-                this.form = this.item ? { ...this.item } : { nombre: "", descripcion: "", codigo: "", sub_programas: [] };
-                if (this.form.sub_programas.length) {
-                    this.subProgramas = this.subProgramas.filter(sp => !this.form.sub_programas.some(fsp => fsp.id === sp.id));
-                } else {
-                    this.subProgramas = [...this.subProgramasOriginales];
-                }
+                this.form = this.item ? { ...this.item } : { nombre: "", descripcion: "", codigo: "", sub_programa: [] };
                 $("#formulario-producto-resuelto").modal('show');
             }
         },

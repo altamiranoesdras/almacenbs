@@ -32,7 +32,8 @@ class RedProduccionResultadoAPIController extends AppBaseController
 
         $redProduccionResultados = $query->with([
             'productos.subproductos.rrhhUnidades',
-            'subProgramas',
+            'subPrograma',
+//            'subProgramas',
             'productos.actividades',
         ])
             ->get();
@@ -54,9 +55,9 @@ class RedProduccionResultadoAPIController extends AppBaseController
         /** @var RedProduccionResultado $redProduccionResultado */
         $redProduccionResultado = RedProduccionResultado::create($input);
 
-        if($input['sub_programas']){
-            $redProduccionResultado->subProgramas()->sync($input['sub_programas']);
-        }
+//        if($input['sub_programas']){
+//            $redProduccionResultado->subProgramas()->sync($input['sub_programas']);
+//        }
 
         return $this->sendResponse($redProduccionResultado->toArray(), 'Red Producción Resultado guardado');
     }

@@ -2,10 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\Conexiones\SSH;
 use App\Conexiones\SFTP;
+use App\Conexiones\SSH;
 use App\Traits\ComandosTrait;
 use Carbon\Carbon;
+use Config;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -221,19 +222,64 @@ class MigrarDBaLocalComando extends Command
             return;
         }
 
-
         $this->line("Desconectando de la base de datos...");
-        config(['database.connections.mysql.database' => null]); // Temporarily unset database
+        Config::set('database.connections.mysql.database', null);
+
         $this->line("Borrando base de datos...");
         DB::statement('DROP DATABASE IF EXISTS ' . $this->nombreBaseDatos);
+
         $this->line("Creando base de datos...");
         DB::statement('CREATE DATABASE ' . $this->nombreBaseDatos);
 
+        // Volvemos a conectar a la base de datos recién creada
+        Config::set('database.connections.mysql.database', $this->nombreBaseDatos);
+        DB::reconnect('mysql');
+
         $this->line("Importando datos desde archivo $nombreArchivo...");
-        exec("mysql --user=\"root\" --password=\"\"  ".$this->nombreBaseDatos." < ".$rutaBackup);
 
-        $this->info('✓✓');
+        // --- Inicio de la lógica robusta ---
 
+        // 1. Obtenemos la ruta al ejecutable de mysql desde .env
+        // ¡Aquí es donde lee tu nueva ruta de DBngin!
+        $mysqlPath = env('MYSQL_CLI_PATH', 'mysql');
+
+        // 2. Obtenemos las credenciales desde la configuración de Laravel
+        $dbConfig = config('database.connections.mysql');
+
+        $username = escapeshellarg($dbConfig['username']);
+        $password = $dbConfig['password'];
+        $database = escapeshellarg($this->nombreBaseDatos);
+        $host = escapeshellarg($dbConfig['host']);
+        $port = escapeshellarg($dbConfig['port']);
+
+        // 3. Construimos el argumento de la contraseña de forma segura
+        $passwordArg = '';
+        if (!empty($password)) {
+            $passwordArg = "--password=" . escapeshellarg($password);
+        }
+        // (En macOS/Linux con DBngin, si la contraseña está vacía,
+        // no enviar el argumento --password es lo correcto)
+
+        // 4. Escapamos la ruta del archivo de backup
+        $rutaBackupEscapada = escapeshellarg($rutaBackup);
+
+        // 5. Construimos y ejecutamos el comando completo
+        $command = "$mysqlPath -h $host -P $port -u $username $passwordArg $database < $rutaBackupEscapada";
+
+        // exec() para ejecutar el comando
+        exec($command, $output, $return_var);
+
+        // 6. Manejo de errores
+        if ($return_var !== 0) {
+            $this->error('¡Error! Ocurrió un problema durante la importación de MySQL.');
+            $this->error('Comando ejecutado: ' . $command);
+            $this->error('Salida de error: ' . implode("\n", $output));
+            return;
+        }
+
+        // --- Fin de la lógica robusta ---
+
+        $this->info('✓✓ Base de datos restaurada con éxito.');
     }
 
     public function eliminarBackUpsLocas()
