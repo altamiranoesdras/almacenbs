@@ -55,6 +55,7 @@ export default {
         async eliminarPrograma(id) {
             let respuesta = await realizarPregunta("¿Estás seguro de eliminar este Programa?");
             if (!respuesta) return;
+            esperar();
             try {
                 let res = await axios.delete(route('api.estructura.presupuestaria.programas.destroy', id));
                 await this.getResultados();
@@ -62,6 +63,7 @@ export default {
             } catch (e) {
                 notifyErrorApi(e);
             }
+            finEspera();
         },
 
         // SubPrograma
@@ -76,6 +78,7 @@ export default {
         async eliminarSubPrograma(id) {
             let respuesta = await realizarPregunta("¿Estás seguro de eliminar este SubPrograma?");
             if (!respuesta) return;
+            esperar();
             try {
                 let res = await axios.delete(route('api.estructura.presupuestaria.subprogramas.destroy', id));
                 await this.getResultados();
@@ -83,6 +86,7 @@ export default {
             } catch (e) {
                 notifyErrorApi(e);
             }
+            finEspera();
         },
 
         // Proyecto
@@ -97,6 +101,7 @@ export default {
         async eliminarProyecto(id) {
             let respuesta = await realizarPregunta("¿Estás seguro de eliminar este Proyecto?");
             if (!respuesta) return;
+            esperar();
             try {
                 let res = await axios.delete(route('api.estructura.presupuestaria.proyectos.destroy', id));
                 await this.getResultados();
@@ -104,6 +109,7 @@ export default {
             } catch (e) {
                 notifyErrorApi(e);
             }
+            finEspera();
         },
 
         //Actividad
@@ -118,6 +124,7 @@ export default {
         async eliminarActividad(id) {
             let respuesta = await realizarPregunta("¿Estás seguro de eliminar esta Actividad?");
             if (!respuesta) return;
+            esperar();
             try {
                 let res = await axios.delete(route('api.estructura.presupuestaria.actividades.destroy', id));
                 await this.getResultados();
@@ -125,6 +132,7 @@ export default {
             } catch (e) {
                 notifyErrorApi(e);
             }
+            finEspera();
         },
 
 
@@ -294,6 +302,7 @@ export default {
                                                         >
                                                             <div>
                                                                 <i class="fa fa-check-circle text-info me-2"></i>
+                                                                <b>{{ actividad.codigo }}</b> -
                                                                 {{ actividad.nombre }}
                                                             </div>
                                                             <div class="btn-group btn-group-sm">

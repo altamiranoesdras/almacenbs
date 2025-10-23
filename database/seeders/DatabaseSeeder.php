@@ -35,6 +35,10 @@ class DatabaseSeeder extends Seeder
 
         DB::table('media')->truncate();
 
+        // Seed geographic data first
+        $this->call(RegionsTableSeeder::class);
+        $this->call(DepartamentosTableSeeder::class);
+        $this->call(MunicipiosTableSeeder::class);
 
         $this->call(RrhhUnidadTiposSeeder::class);
         $this->call(RrhhUnidadesTableSeeder::class);

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\API;
 
+use Response;
+use App\Models\Item;
+use Illuminate\Http\Request;
+use App\Models\CompraDetalle;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreateCompraDetalleAPIRequest;
 use App\Http\Requests\API\UpdateCompraDetalleAPIRequest;
-use App\Models\CompraDetalle;
-use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use Response;
 
 /**
  * Class CompraDetalleController
@@ -54,6 +56,12 @@ class CompraDetalleAPIController extends AppBaseController
      */
     public function store(CreateCompraDetalleAPIRequest $request)
     {
+        
+        $item = Item::find($request->get('item_id'));
+        if($item->categoria_id == null ){
+            return $this->sendError('No se puede agregar insumos sin Catecoria');
+        }
+
         $input = $request->all();
 
         /** @var CompraDetalle $compraDetalle */

@@ -48,6 +48,7 @@ class ItemCategoria extends Model
 
     protected $dates = ['deleted_at'];
 
+    const SIN_CATEGORIA = 'SC';
     const ALIMENTOS = 1;
     const FARMACIA = 2;
     const FERRETERIA = 3;

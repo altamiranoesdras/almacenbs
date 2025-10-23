@@ -80,7 +80,12 @@ class ItemCategoriaController extends AppBaseController
             return redirect(route('itemCategorias.index'));
         }
 
-        return view('item_categorias.show')->with('itemCategoria', $itemCategoria);
+        $folios = \App\Models\Kardex::where('categoria_id', $itemCategoria->id)
+            ->get()
+            ->groupBy('folio');
+
+
+        return view('item_categorias.show', compact('itemCategoria', 'folios'));
     }
 
     /**

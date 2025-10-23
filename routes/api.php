@@ -16,9 +16,14 @@ use App\Http\Controllers\API\CompraDetalleAPIController;
 use App\Http\Controllers\API\CompraEstadoAPIController;
 use App\Http\Controllers\API\CompraTipoAPIController;
 use App\Http\Controllers\API\DenominacionAPIController;
+use App\Http\Controllers\API\DepartamentoAPIController;
 use App\Http\Controllers\API\DivisaAPIController;
 use App\Http\Controllers\API\EnvioFiscalAPIController;
 use App\Http\Controllers\API\EquivalenciaAPIController;
+use App\Http\Controllers\API\EstructuraPresupuestariaActividadAPIController;
+use App\Http\Controllers\API\EstructuraPresupuestariaProgramaAPIController;
+use App\Http\Controllers\API\EstructuraPresupuestariaProyectoAPIController;
+use App\Http\Controllers\API\EstructuraPresupuestariaSubprogramaAPIController;
 use App\Http\Controllers\API\ItemAPIController;
 use App\Http\Controllers\API\ItemCategoriaAPIController;
 use App\Http\Controllers\API\ItemTipoAPIController;
@@ -27,9 +32,11 @@ use App\Http\Controllers\API\ItemTrasladoEstadoAPIController;
 use App\Http\Controllers\API\KardexAPIController;
 use App\Http\Controllers\API\MagnitudAPIController;
 use App\Http\Controllers\API\MarcaAPIController;
+use App\Http\Controllers\API\MunicipioAPIController;
 use App\Http\Controllers\API\OptionAPIController;
 use App\Http\Controllers\API\PermissionAPIController;
 use App\Http\Controllers\API\ProveedorAPIController;
+use App\Http\Controllers\API\RegionAPIController;
 use App\Http\Controllers\API\RenglonAPIController;
 use App\Http\Controllers\API\RoleAPIController;
 use App\Http\Controllers\API\RrhhPuestoAPIController;
@@ -272,24 +279,37 @@ Route::group(['as'=>'api.'], function () {
         });
 
         Route::group(['prefix' => 'estructura-presupuestaria','as' =>'estructura.presupuestaria.'], function () {
-            Route::resource('programas', App\Http\Controllers\Api\EstructuraPresupuestariaProgramaAPIController::class)
+            Route::resource('programas', EstructuraPresupuestariaProgramaAPIController::class)
                 ->except(['create', 'edit']);
 
 
-            Route::resource('subprogramas', App\Http\Controllers\API\EstructuraPresupuestariaSubprogramaAPIController::class)
+            Route::resource('subprogramas', EstructuraPresupuestariaSubprogramaAPIController::class)
                 ->except(['create', 'edit']);
 
-            Route::resource('proyectos', App\Http\Controllers\API\EstructuraPresupuestariaProyectoAPIController::class)
+            Route::resource('proyectos', EstructuraPresupuestariaProyectoAPIController::class)
                 ->except(['create', 'edit']);
 
-            Route::resource('actividades', App\Http\Controllers\API\EstructuraPresupuestariaActividadAPIController::class)
+            Route::resource('actividades', EstructuraPresupuestariaActividadAPIController::class)
                 ->except(['create', 'edit']);
         });
 
+
+
+        Route::resource('regiones', RegionAPIController::class)
+            ->except(['create', 'edit']);
+
+
+        Route::resource('departamentos', DepartamentoAPIController::class)
+            ->except(['create', 'edit']);
+
+        Route::resource('municipios', MunicipioAPIController::class)
+            ->except(['create', 'edit']);
     });
 
 
 });
+
+
 
 
 

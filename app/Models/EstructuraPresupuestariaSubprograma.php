@@ -86,4 +86,16 @@ class EstructuraPresupuestariaSubprograma extends Model
     {
         return $this->belongsToMany(\App\Models\RedProduccionResultado::class, 'red_produccion_resultado_subprograma');
     }
+
+    public function actividades(): \Illuminate\Database\Eloquent\Relations\HasManyThrough
+    {
+        return $this->hasManyThrough(
+            \App\Models\EstructuraPresupuestariaActividad::class,
+            \App\Models\EstructuraPresupuestariaProyecto::class,
+            'subprograma_id', // Foreign key on proyectos table
+            'proyecto_id', // Foreign key on actividades table
+            'id', // Local key on subprogramas table
+            'id' // Local key on proyectos table
+        );
+    }
 }
