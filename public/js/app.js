@@ -9589,18 +9589,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var dual_listbox_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! dual-listbox-vue */ "./node_modules/dual-listbox-vue/dist/dual-listbox.umd.js");
 /* harmony import */ var dual_listbox_vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(dual_listbox_vue__WEBPACK_IMPORTED_MODULE_1__);
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -9613,6 +9601,15 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -9723,7 +9720,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         codigo: "",
         nombre: "",
         descripcion: "",
-        actividades: []
+        actividad: []
       },
       actividadesOriginales: [],
       actividades: []
@@ -9734,7 +9731,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var respuesta;
+        var _this$form, _this$form$actividad, respuesta;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -9742,9 +9740,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 esperar();
                 _context.prev = 1;
                 _this.form = _objectSpread(_objectSpread({}, _this.form), {}, {
-                  actividades: _this.form.actividades.length ? _this.form.actividades.map(function (sp) {
-                    return sp.id;
-                  }) : []
+                  actividad_id: (_this$form = _this.form) === null || _this$form === void 0 ? void 0 : (_this$form$actividad = _this$form.actividad) === null || _this$form$actividad === void 0 ? void 0 : _this$form$actividad.id
                 });
 
                 if (!_this.form.id) {
@@ -9831,38 +9827,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     cerrarModal: function cerrarModal() {
       $("#modalProducto").modal('hide');
       this.$emit('cerrarModal', false);
-    },
-    onChangeList: function onChangeList(_ref) {
-      var source = _ref.source,
-          destination = _ref.destination;
-      this.actividades = source;
-      this.form.actividades = destination;
-    }
+    } // onChangeList: function({ source, destination }) {
+    //     this.actividades = source;
+    //     this.form.actividades = destination;
+    // }
+
   },
   created: function created() {
     this.getActividades();
   },
   watch: {
     mostrarModal: function mostrarModal(nuevoValor) {
-      var _this3 = this;
-
       if (nuevoValor) {
         this.form = this.item ? _objectSpread({}, this.item) : {
           nombre: "",
           descripcion: "",
           codigo: "",
-          actividades: []
-        };
-
-        if (this.form.actividades.length) {
-          this.actividades = this.actividades.filter(function (sp) {
-            return !_this3.form.actividades.some(function (fsp) {
-              return fsp.id === sp.id;
-            });
-          });
-        } else {
-          this.actividades = _toConsumableArray(this.actividadesOriginales);
-        }
+          actividad: null
+        }; // if (this.form.actividades.length) {
+        //     this.actividades = this.actividades.filter(sp => !this.form.actividades.some(fsp => fsp.id === sp.id));
+        // } else {
+        //     this.actividades = [...this.actividadesOriginales];
+        // }
 
         $("#modalProducto").modal('show');
       }
@@ -13913,7 +13899,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* estilos opcionales */\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* estilos opcionales */\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -59218,16 +59204,24 @@ var render = function () {
                     { staticClass: "col-12 mb-1" },
                     [
                       _c("label", { staticClass: "form-label" }, [
-                        _vm._v("actividades"),
+                        _vm._v("Actividad:"),
                       ]),
                       _vm._v(" "),
-                      _c("DualListBox", {
+                      _c("multiselect", {
                         attrs: {
-                          destination: _vm.form.actividades,
-                          source: _vm.actividades,
+                          multiple: false,
+                          options: _vm.actividades,
+                          placeholder: "Seleccione una o más actividades",
                           label: "nombre",
+                          "track-by": "id",
                         },
-                        on: { onChangeList: _vm.onChangeList },
+                        model: {
+                          value: _vm.form.actividad,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.form, "actividad", $$v)
+                          },
+                          expression: "form.actividad",
+                        },
                       }),
                     ],
                     1
@@ -59245,7 +59239,7 @@ var render = function () {
                   },
                   [
                     _vm._v(
-                      "\n                        Cancelar\n                    "
+                      "\n                            Cancelar\n                        "
                     ),
                   ]
                 ),

@@ -34,7 +34,7 @@ class RedProduccionResultadoAPIController extends AppBaseController
             'productos.subproductos.rrhhUnidades',
             'subPrograma',
 //            'subProgramas',
-            'productos.actividades',
+            'productos.actividad',
         ])
             ->get();
 

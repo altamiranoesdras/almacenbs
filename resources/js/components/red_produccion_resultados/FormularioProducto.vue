@@ -47,13 +47,22 @@
                                 ></textarea>
                             </div>
                             <div class="col-12 mb-1">
-                                <label class="form-label">actividades</label>
-                                <DualListBox
-                                    :destination="form.actividades"
-                                    :source="actividades"
+                                <label class="form-label">Actividad:</label>
+<!--                                <DualListBox-->
+<!--                                    :destination="form.actividades"-->
+<!--                                    :source="actividades"-->
+<!--                                    label="nombre"-->
+<!--                                    @onChangeList="onChangeList"-->
+<!--                                />-->
+                                <multiselect
+                                    v-model="form.actividad"
+                                    :multiple="false"
+                                    :options="actividades"
+                                    placeholder="Seleccione una o más actividades"
                                     label="nombre"
-                                    @onChangeList="onChangeList"
-                                />
+                                    track-by="id"
+                                >
+                                </multiselect>
                             </div>
                         </div>
                     </div>
@@ -106,7 +115,7 @@ export default {
                 codigo: "",
                 nombre: "",
                 descripcion: "",
-                actividades: []
+                actividad: []
             },
             actividadesOriginales: [],
             actividades: []
@@ -119,7 +128,7 @@ export default {
                 let respuesta;
                 this.form = {
                     ...this.form,
-                    actividades: this.form.actividades.length ? this.form.actividades.map(sp => sp.id) : []
+                    actividad_id: this.form?.actividad?.id
                 }
                 if(this.form.id){
                     respuesta = await axios.put(route('api.red.produccion.productos.update', this.form.id), this.form);
@@ -153,10 +162,10 @@ export default {
             $("#modalProducto").modal('hide');
             this.$emit('cerrarModal', false);
         },
-        onChangeList: function({ source, destination }) {
-            this.actividades = source;
-            this.form.actividades = destination;
-        }
+        // onChangeList: function({ source, destination }) {
+        //     this.actividades = source;
+        //     this.form.actividades = destination;
+        // }
     },
     created() {
         this.getActividades();
@@ -164,12 +173,12 @@ export default {
     watch: {
         mostrarModal(nuevoValor) {
             if (nuevoValor) {
-                this.form = this.item ? { ...this.item } : { nombre: "", descripcion: "", codigo: "", actividades: [] };
-                if (this.form.actividades.length) {
-                    this.actividades = this.actividades.filter(sp => !this.form.actividades.some(fsp => fsp.id === sp.id));
-                } else {
-                    this.actividades = [...this.actividadesOriginales];
-                }
+                this.form = this.item ? { ...this.item } : { nombre: "", descripcion: "", codigo: "", actividad: null };
+                // if (this.form.actividades.length) {
+                //     this.actividades = this.actividades.filter(sp => !this.form.actividades.some(fsp => fsp.id === sp.id));
+                // } else {
+                //     this.actividades = [...this.actividadesOriginales];
+                // }
                 $("#modalProducto").modal('show');
             }
         },
