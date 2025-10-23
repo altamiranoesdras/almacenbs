@@ -110,7 +110,7 @@ class Compra1hOperadorController extends Controller
 
             if ($request->has('enviarAprobacion')) {
                 $compra->operar1h();
-                $this->notificarCompraFueAprobada($compra);
+                $this->notificarCompraFueOperada($compra);
                 $mnj = '1H enviado a aprobación con éxito.';
             } else {
                 $mnj = '1H actualizado con éxito.';
@@ -143,7 +143,7 @@ class Compra1hOperadorController extends Controller
 
     }
 
-    public function notificarCompraFueAprobada(Compra $compra): void
+    public function notificarCompraFueOperada(Compra $compra): void
     {
         $usuariosAprobadores = User::whereHas('roles', function ($query) {
             $query->where('id', Role::APROBADOR_DE_INGRESOS_ALMACEN_1H);

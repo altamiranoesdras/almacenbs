@@ -29,7 +29,7 @@ class IngresoAlmacenEnviadoNotificaction extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['database'];
+        return ['database', 'mail'];
     }
 
     /**
@@ -62,7 +62,7 @@ class IngresoAlmacenEnviadoNotificaction extends Notification
             ->line("**Creado por:** {$compra->usuarioCrea->name}")
             ->line('')
             ->line("Este mismo recientemente ha cambiado al estado: **{$compra->estado->nombre}**, favor darle el respectivo seguimiento.")
-            ->action('Ir a la bandeja', route('bandejas.compras1h.operador'))
+            ->action('Ir a la bandeja', $this->url)
             ->line('Gracias por tu atención.');
     }
 
