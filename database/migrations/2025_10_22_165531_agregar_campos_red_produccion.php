@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::table('red_produccion_resultados', function (Blueprint $table) {
             //foranea de estructura_presupuestaria_subprogramas
             $table->foreignId('subprograma_id')
+                ->after('descripcion')
                 ->nullable()
                 ->constrained('estructura_presupuestaria_subprogramas')
                 ->nullOnDelete();
@@ -23,6 +24,7 @@ return new class extends Migration
         Schema::table('red_produccion_productos', function (Blueprint $table) {
             //foranea de estructura_presupuestaria_subprogramas
             $table->foreignId('actividad_id')
+                ->after('descripcion')
                 ->nullable()
                 ->constrained('estructura_presupuestaria_actividades')
                 ->nullOnDelete();
