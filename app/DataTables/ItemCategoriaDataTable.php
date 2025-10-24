@@ -34,6 +34,10 @@ class ItemCategoriaDataTable extends DataTable
                  //return view('item_categorias.modal_detalles',compact('itemCategoria'))->render();
 
              })
+            ->editColumn('ultimo_folio',function (ItemCategoria $itemCategoria){
+
+                return $itemCategoria->kardexs()->max('folio') ?? 0;
+            })
             ->rawColumns(['action','id']);
 
     }
@@ -46,7 +50,9 @@ class ItemCategoriaDataTable extends DataTable
      */
     public function query(ItemCategoria $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()
+            ->select($model->getTable().'.*')
+            ->with(['kardexs']);
     }
 
     /**
@@ -121,6 +127,9 @@ class ItemCategoriaDataTable extends DataTable
             Column::make('id'),
             Column::make('nombre'),
             Column::make('descripcion'),
+            Column::make('ultimo_folio')
+                ->searchable(false)
+                ->orderable(false),
             Column::computed('action')
                             ->exportable(false)
                             ->printable(false)

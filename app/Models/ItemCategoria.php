@@ -101,4 +101,9 @@ class ItemCategoria extends Model
     {
         return $this->hasMany(\App\Models\Item::class, 'categoria_id');
     }
+
+    public function kardexs()
+    {
+        return $this->hasMany(\App\Models\Kardex::class, 'categoria_id');
+    }
 }
