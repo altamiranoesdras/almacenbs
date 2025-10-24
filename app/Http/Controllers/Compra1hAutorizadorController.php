@@ -29,20 +29,17 @@ class Compra1hAutorizadorController extends Controller
 
         $compra = Compra::with([
                 'proveedor',
-                'detalles.item' => function ($query) {
-                    $query->withOutAppends();
-                },
-                'estado',
-                'compra1h.detalles.item' => function ($query) {
-                    $query->withOutAppends()
-                    ->withTrashed();
-                },
                 'detalles' => function($q){
                     $q->with('item',function ($q){
                         $q->withoutAppends()
                             ->withTrashed();
                     });
                 },
+                'estado',
+                'compra1h.detalles.item' => function ($query) {
+                    $query->withOutAppends()
+                    ->withTrashed();
+                }
             ])
             ->where('id', $id)
             ->firstOrFail();
