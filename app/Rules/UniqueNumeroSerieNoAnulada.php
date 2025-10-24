@@ -4,6 +4,7 @@ namespace App\Rules;
 
 use App\Models\Compra;
 use App\Models\CompraEstado;
+use App\Models\CompraTipo;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
@@ -12,12 +13,18 @@ class UniqueNumeroSerieNoAnulada implements ValidationRule
     public function __construct(
         protected ?int $ignoreId = null,
         protected ?string $serie = null,
+        protected ?int $tipo = null
     ) {}
 
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
+
+        // si el tipo es ACTA, no validar unicidad
+        if ($this->tipo == CompraTipo::ACTA) {
+            return;
+        }
+
         if (!$this->serie) {
-            $fail('La serie es obligatoria para validar la unicidad.');
             return;
         }
 

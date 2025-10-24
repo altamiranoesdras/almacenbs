@@ -38,8 +38,7 @@
                             <label for="serie" >Serie</label>
                             <input type="text" name="serie" class="form-control" placeholder="Serie"
                                    v-model="serie"
-                                   @input="serie = serie.toUpperCase()"
-                                   required>
+                                   @input="serie = serie.toUpperCase()">
                         </div>
 
                         <div class="col-3" v-show="esFactura || esFacturaCambiaria">

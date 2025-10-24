@@ -185,12 +185,26 @@ class CompraController extends AppBaseController
 
         //validar que no se pueda ingresar mismo serie y numero
         $request->validate([
+            'serie' => [
+                'nullable',
+                'string',
+                Rule::requiredIf(function () use ($request) {
+                    $tipoId = (int) $request->input('tipo_id');
+                    return $tipoId === (int) CompraTipo::FACTURA_CAMBIARIA || $tipoId === (int) CompraTipo::FACTURA;
+                }),
+            ],
             'numero' => [
                 new UniqueNumeroSerieNoAnulada(
                     ignoreId: $id,
-                    serie: $request->serie
+                    serie: $request->serie,
+                    tipo: $request->tipo_id
                 ),
+                Rule::requiredIf(function () use ($request) {
+                    $tipoId = (int) $request->input('tipo_id');
+                    return $tipoId === (int) CompraTipo::FACTURA_CAMBIARIA || $tipoId === (int) CompraTipo::FACTURA;
+                }),
             ],
+
             // cuando NO es acta, requerir orden_compra
             'orden_compra' => [
                 'nullable',   // permite null cuando no aplique la condición
