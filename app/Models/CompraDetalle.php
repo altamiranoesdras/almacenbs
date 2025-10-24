@@ -227,8 +227,16 @@ class CompraDetalle extends Model
         return $stock;
     }
 
-    public function agregarKardex()
+    /**
+     * @throws \Exception
+     */
+    public function agregarKardex(): void
     {
+        if(!$this->item->categoria_id) {
+            //lanzar excepcion si no tiene categoria
+            throw new \Exception('El item no tiene categoría asignada. No se puede agregar al kardex.');
+        }
+
         $this->kardex()->create([
             'categoria_id' => $this->item->categoria_id,
             'item_id' => $this->item->id,
@@ -241,7 +249,7 @@ class CompraDetalle extends Model
         ]);
     }
 
-    public function anular()
+    public function anular(): void
     {
         $this->kardex()->delete();
         /**
@@ -254,7 +262,7 @@ class CompraDetalle extends Model
         }
     }
 
-    public function getFechaVenceLatinaAttribute()
+    public function getFechaVenceLatinaAttribute(): ?string
     {
         if(!$this->fecha_vence) return null;
 
