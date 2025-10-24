@@ -6,8 +6,8 @@ use App\DataTables\Scopes\ScopeCompraSolicitudDataTable;
 use App\DataTables\SolicitudesCompra\SolicitudCompraUnificarTable;
 use App\Http\Controllers\Controller;
 use App\Models\CompraRequisicion\CompraRequisicion;
-use App\Models\CompraRequisicionEstado;
 use App\Models\CompraRequisicionDetalle;
+use App\Models\CompraRequisicionEstado;
 use App\Models\CompraSolicitud;
 use App\Models\CompraSolicitudEstado;
 use App\Models\User;
@@ -64,7 +64,8 @@ class CompraSolicitudConsolidarController extends Controller
 
             foreach ($solicitudes as $solicitud) {
 
-                $solicitud->asignarARequisicion($requisicion->id);
+//                $solicitud->asignarARequisicion($requisicion->id);
+                $requisicion->compraSolicitudes()->attach($solicitud->id);
 
                 foreach ($solicitud->detalles as $detalle) {
                     $detallesRequisicion->push( new CompraRequisicionDetalle(
