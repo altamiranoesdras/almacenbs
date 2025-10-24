@@ -34,8 +34,31 @@ import EstructuraPresupuestaria from "./components/estructura_presupuestaria_pro
 //Pruebas
 import Pruebas from "./components/Pruebas.vue";
 
-// register globally
-Vue.component('multiselect', Multiselect);
+// Traducción global para vue-multiselect (Vue 2)
+const MultiselectEs = {
+    extends: Multiselect,
+    props: {
+        // Textos de accesibilidad y placeholders
+        selectLabel:   { type: String, default: 'Enter para seleccionar' },
+        selectedLabel: { type: String, default: 'Seleccionado' },
+        deselectLabel: { type: String, default: 'Enter para quitar' },
+        placeholder:   { type: String, default: 'Selecciona una opción' },
+
+        // Mensajes de lista vacía / sin resultados
+        // En vue-multiselect v2 suelen ser 'noOptions' y 'noResult'
+        noOptions:     { type: String, default: 'No hay opciones disponibles' },
+        noResult:      { type: String, default: 'No se encontraron resultados' },
+
+        // Texto cuando hay muchos seleccionados (ej. “y 3 más”)
+        limitText: {
+            type: Function,
+            default: (count) => `y ${count} más`
+        }
+    }
+}
+
+// Registrar el wrapper como el componente global por defecto
+Vue.component('multiselect', MultiselectEs)
 
 
 Vue.use(ToggleButton);

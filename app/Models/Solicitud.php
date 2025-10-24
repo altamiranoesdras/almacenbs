@@ -459,7 +459,7 @@ class Solicitud extends Model
     {
 
 
-        if ($this->estaDespachada()){
+        if ($this->tieneTransaccionesStock()){
 
             /**
              * @var SolicitudDetalle $detalle
@@ -467,12 +467,15 @@ class Solicitud extends Model
             foreach ($this->detalles as $detalle){
                 $detalle->anular();
             }
+
+            $this->addBitacora("REQUISICIÓN ANULADA","Se anula la requisición y se revierten las existencias de los insumos solicitados.");
+        }else {
+            //si no tiene transacciones de stock
+            $this->addBitacora("REQUISICIÓN ANULADA SIN TRANSACCIONES DE STOCK","Las existencias no se modifican porque no hay transacciones de stock asociadas a esta requisición.");
         }
 
         $this->estado_id = SolicitudEstado::ANULADA;
         $this->save();
-
-        $this->addBitacora("REQUISICIÓN ANULADA","");
 
 
     }

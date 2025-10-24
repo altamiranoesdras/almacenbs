@@ -476,7 +476,9 @@ class Item extends Model implements HasMedia
 
         }else{
 
-            $texto = "CI: ".$this->codigo_insumo." CP: ".$this->codigo_presentacion." ".$this->nombre;
+            $texto = "CI: ".$this->codigo_insumo." CP: ".$this->codigo_presentacion." ".$this->nombre.
+                ($presentacion ? " - ".$presentacion : '').
+                ($unidad ? " - ".$unidad : '');
         }
         return str_limit($texto,100,'');
     }

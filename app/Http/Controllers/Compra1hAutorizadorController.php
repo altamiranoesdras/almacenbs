@@ -45,7 +45,7 @@ class Compra1hAutorizadorController extends Controller
     {
         $compra->autorizar1h($request->observaciones ?? '');
 
-        $this->notificarCompraFueAutorizada($compra);
+//        $this->notificarCompraFueAutorizada($compra);
 
         flash('Formulario 1H autorizado!')->success();
 
@@ -91,10 +91,15 @@ class Compra1hAutorizadorController extends Controller
         $operador = $compra->usuarioOpera;
         $aprobador = $compra->usuarioAprueba;
 
-        $operador->refresh();
-        $aprobador->refresh();
+        if ($operador){
+            $operador->refresh();
+            $operador->notify(new IngresoAlmacenEnviadoNotificaction($compra, route('bandejas.compras1h.operador')));
+        }
 
-        $operador->notify(new IngresoAlmacenEnviadoNotificaction($compra, route('bandejas.compras1h.operador')));
-        $aprobador->notify(new IngresoAlmacenEnviadoNotificaction($compra, route('bandejas.compras1h.aprobador')));
+        if ($aprobador) {
+            $aprobador->refresh();
+            $aprobador->notify(new IngresoAlmacenEnviadoNotificaction($compra, route('bandejas.compras1h.aprobador')));
+        }
+
     }
 }

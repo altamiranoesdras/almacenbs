@@ -48,7 +48,7 @@ class EstructuraPresupuestariaActividadAPIController extends AppBaseController
     {
         $input = $request->all();
 
-        $input['codigo'] = $this->getCodigo();
+//        $input['codigo'] = $this->getCodigo();
 
         /** @var EstructuraPresupuestariaActividad $estructuraPresupuestariaActividad */
         $estructuraPresupuestariaActividad = EstructuraPresupuestariaActividad::create($input);

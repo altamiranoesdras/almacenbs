@@ -38,8 +38,7 @@
                             <label for="serie" >Serie</label>
                             <input type="text" name="serie" class="form-control" placeholder="Serie"
                                    v-model="serie"
-                                   @input="serie = serie.toUpperCase()"
-                                   required>
+                                   @input="serie = serie.toUpperCase()">
                         </div>
 
                         <div class="col-3" v-show="esFactura || esFacturaCambiaria">
@@ -50,6 +49,12 @@
                         <div class="col-3 mb-1" v-show="esFacturaCambiaria">
                             <label for="recibo_de_caja" >Recibo de caja</label>
                             {!! Form::text('recibo_de_caja', null, ['class' => 'form-control','placeholder'=>'Recibo de caja']) !!}
+                        </div>
+
+
+                        <div class="col-3 mb-1" v-show="esActa">
+                            <label for="recibo_de_caja" >Número Acta</label>
+                            {!! Form::text('numero_acta', null, ['class' => 'form-control','placeholder'=>'Número Acta']) !!}
                         </div>
 
                         {{--<div class="col-sm-7 mb-1 py-0 m-0">
@@ -74,9 +79,9 @@
                             {!! Form::label('fecha_ingreso', 'Fecha Ingreso:') !!}
                             {!! Form::date('fecha_ingreso', $compra->fecha_ingreso ?? hoyDb(), ['class' => 'form-control','readonly']) !!}
                         </div>
-                        <div class="col-3 mb-1 ">
+                        <div class="col-3 mb-1 " v-show="esFactura || esFacturaCambiaria">
                             {!! Form::label('orden_compra', 'Orden Compra:') !!}
-                            {!! Form::number('orden_compra', null, ['class' => 'form-control', 'required']) !!}
+                            {!! Form::number('orden_compra', null, ['class' => 'form-control']) !!}
                         </div>
 
 
@@ -381,27 +386,6 @@
     </div>
 </div>
 
-<!-- Modal cancel -->
-<div class="modal fade modal-warning" id="modal-cancel-compra">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <h4 class="modal-title">Cancelar compra!</h4>
-            </div>
-            <div class="modal-body">
-                Seguro que desea cancelar la compra?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">NO</button>
-                <a href="{{route('compras.destroy',$compra->id)}}" class="btn btn-danger">
-                    SI
-                </a>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
 
 @push('scripts')
     <!--    Scripts compras
@@ -439,10 +423,10 @@
                 loading: false,
                 idEliminando: '',
                 ingreso_inmediato: false,
-                proveedor: @json($compra->proveedor ?? Proveedor::find(old('proveedor_id')) ?? null),
-                tipo: @json($compra->tipo ?? CompraTipo::find(old('tipo_id')) ?? CompraTipo::find(CompraTipo::FACTURA)),
-                serie: @json($compra->serie ?? old('serie') ?? ''),
-                descuento: @json($compra->descuento ?? old('descuento') ?? 0),
+                proveedor: @json(Proveedor::find(old('proveedor_id')) ?? $compra->proveedor ?? null),
+                tipo: @json(CompraTipo::find(old('tipo_id')) ?? $compra->tipo  ?? CompraTipo::getTipoFactura()),
+                serie: @json(old('serie') ?? $compra->serie ?? ''),
+                descuento: @json(old('descuento') ?? $compra->descuento ?? 0),
             },
             methods: {
 
@@ -652,6 +636,13 @@
 
                     return false;
                 },
+                esActa(){
+                    if (this.tipo){
+                        return this.tipo.id== @json(\App\Models\CompraTipo::ACTA)
+                    }
+
+                    return false;
+                }
 
             },
             watch:{

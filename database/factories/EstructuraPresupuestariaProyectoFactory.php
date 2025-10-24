@@ -23,15 +23,12 @@ class EstructuraPresupuestariaProyectoFactory extends Factory
      */
     public function definition()
     {
-        $estructuraPresupuestariaSubprograma = EstructuraPresupuestariaSubprograma::first();
-        if (!$estructuraPresupuestariaSubprograma) {
-            $estructuraPresupuestariaSubprograma = EstructuraPresupuestariaSubprograma::factory()->create();
-        }
+
 
         return [
-            'subprograma_id' => $this->faker->word,
-            'codigo' => $this->faker->text($this->faker->numberBetween(5, 255)),
-            'nombre' => $this->faker->text($this->faker->numberBetween(5, 255)),
+            'subprograma_id' => EstructuraPresupuestariaSubprograma::all()->random()->id,
+            'codigo' => $this->faker->unique()->numerify('####'),
+            'nombre' => $this->faker->sentence($this->faker->numberBetween(1, 3)),
             'descripcion' => $this->faker->text($this->faker->numberBetween(5, 65535)),
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s'),

@@ -6,6 +6,7 @@ use App\Models\Item;
 use App\Models\ItemCategoria;
 use App\Models\Kardex;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class RegistrarKardexIniciales extends Command
@@ -49,14 +50,15 @@ class RegistrarKardexIniciales extends Command
 
             $stockInicial = $insumo->stocks->first();
 
-            $stockInicial->kardex()->create([
+            $stockInicial->kardex()->forceCreate([
                 'item_id' => $stockInicial->item_id,
                 'categoria_id' => $insumo->categoria_id,
                 'cantidad' => $insumo->stock_total,
                 'tipo' => Kardex::TIPO_INGRESO,
                 'codigo' => null,
                 'responsable' => 'Existencia inicial según acta Administrativa 007-2025, de fecha 30 de septiembre',
-                'usuario_id' => auth()->user()->id ?? User::PRINCIPAL
+                'usuario_id' => auth()->user()->id ?? User::PRINCIPAL,
+                'created_at' => Carbon::now()->startOfMonth()
             ]);
 
         }

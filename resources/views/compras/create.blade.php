@@ -34,6 +34,36 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Cancelar Compra -->
+    <div class="modal fade" id="modal-cancel-compra" tabindex="-1" aria-labelledby="modalCancelCompraLabel" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content border-warning">
+                <div class="modal-header text-dark">
+                    <h5 class="modal-title" id="modalCancelCompraLabel">
+                        <i class="fa fa-exclamation-triangle text-warning"></i>
+                        Cancelar compra
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Está seguro de que desea cancelar la compra?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">No</button>
+                    <form action="{{ route('compras.destroy', $temporal->id) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fa fa-trash"></i>
+                            Sí, cancelar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 

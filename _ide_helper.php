@@ -21107,6 +21107,9 @@ namespace App\Console\Commands {
      */        class AnonimizarNombresUsuarios {
             }
             /**
+     */        class CambiarStockInicialCommand {
+            }
+            /**
      */        class CompararStockCalculadoStockAlmacenado {
             }
             /**
@@ -21158,6 +21161,9 @@ namespace App\Console\Commands {
      */        class ObtenerCodigoRequisicionPorCodigoKardex {
             }
             /**
+     */        class RegistrarKardexIniciales {
+            }
+            /**
      */        class ReingresarDetalleCompra {
             }
             /**
@@ -21168,6 +21174,9 @@ namespace App\Console\Commands {
             }
             /**
      */        class VaciarStockBodega {
+            }
+            /**
+     */        class ValidarComprasCommand {
             }
             /**
      */        class ValidarFoliosRepetidosKardexComando {

@@ -121,6 +121,9 @@ class SolicitudEstado extends Model
             case self::RETORNO_POR_DESPACHO:
             case self::RETORNO_POR_AUTORIZADOR:
                 return "warning";
+            case self::ANULADA:
+            case self::CANCELADA:
+                return "danger";
             default:
                 return "secondary";
         }

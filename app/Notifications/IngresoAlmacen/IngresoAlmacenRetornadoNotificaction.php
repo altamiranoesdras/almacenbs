@@ -2,6 +2,7 @@
 
 namespace App\Notifications\IngresoAlmacen;
 
+use App\Models\Compra;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -9,14 +10,14 @@ class IngresoAlmacenRetornadoNotificaction extends Notification
 {
 //    use Queueable;
 
+
+    public Compra $compra;
+
     /**
      * Create a new notification instance.
      */
-    public function __construct($compra, $url)
+    public function __construct(Compra $compra, $url)
     {
-        /**
-         * @var \App\Models\Compra $compra
-         */
         $this->compra = $compra;
         $this->url = $url;
     }
@@ -55,9 +56,9 @@ class IngresoAlmacenRetornadoNotificaction extends Notification
             ->line($usuario->name)
             ->line('')
             ->line('Te informamos que se retornó el ingreso almacén:')
-            ->line("**Número de 1H:** {$compra->compra1h->id}")
+            ->line("**Número de 1H:** {$compra->compra1h->folio}")
             ->line("**Factura serie:** {$compra->serie}")
-            ->line("**Factura número:** {$compra->numero_factura}")
+            ->line("**Factura número:** {$compra->numero}")
             ->line("**Creado por:** {$compra->usuarioCrea->name}")
             ->line('')
             ->line("Este mismo recientemente ha cambiado al estado: **{$compra->estado->nombre}**, favor darle el respectivo seguimiento.")
@@ -75,9 +76,9 @@ class IngresoAlmacenRetornadoNotificaction extends Notification
         $compra = $this->compra;
 
         return [
-            "titulo" => "Ingreso en almacén #{$compra->numero_h}",
-            "texto" => "La compra con factura **{$compra->serie}-{$compra->numero_factura}**, creada por **{$compra->usuarioCrea->name}**, ha cambiado su estado a **{$compra->estado->nombre}**.",
-            "imagen" => $compra->usuarioCrea->profile_photo_url ?? null,
+            "titulo" => "Ingreso en almacén #{$compra->compra1h->folio} retornado",
+            "texto" => "La compra con factura **{$compra->serie}-{$compra->numero}**, creada por **{$compra->usuarioCrea->name}**, ha cambiado su estado a **{$compra->estado->nombre}**.",
+            "imagen" => $compra->usuarioCrea->img ?? null,
             "url" => $this->url
         ];
     }

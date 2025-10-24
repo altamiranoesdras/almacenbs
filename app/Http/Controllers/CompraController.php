@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateCompraRequest;
 use App\Models\Compra;
 use App\Models\Compra1h;
 use App\Models\CompraEstado;
+use App\Models\CompraTipo;
 use App\Models\Item;
 use App\Models\Proveedor;
 use App\Rules\UniqueNumeroSerieNoAnulada;
@@ -22,6 +23,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use Response;
 use Throwable;
 
@@ -183,11 +185,58 @@ class CompraController extends AppBaseController
 
         //validar que no se pueda ingresar mismo serie y numero
         $request->validate([
+            'serie' => [
+                'nullable',
+                'string',
+                Rule::requiredIf(function () use ($request) {
+                    $tipoId = (int) $request->input('tipo_id');
+                    return $tipoId === (int) CompraTipo::FACTURA_CAMBIARIA || $tipoId === (int) CompraTipo::FACTURA;
+                }),
+            ],
             'numero' => [
+                'nullable',
+                'string',
+                Rule::requiredIf(function () use ($request) {
+                    $tipoId = (int) $request->input('tipo_id');
+                    return $tipoId === (int) CompraTipo::FACTURA_CAMBIARIA || $tipoId === (int) CompraTipo::FACTURA;
+                }),
                 new UniqueNumeroSerieNoAnulada(
                     ignoreId: $id,
-                    serie: $request->serie
+                    serie: $request->serie,
+                    tipo: $request->tipo_id
                 ),
+            ],
+
+            // cuando NO es acta, requerir orden_compra
+            'orden_compra' => [
+                'nullable',   // permite null cuando no aplique la condición
+                'integer',
+                Rule::requiredIf(function () use ($request) {
+                    // Asegúrate que el valor a comparar sea el correcto
+                    // Si tipo_id viene como string, casteamos a int por seguridad
+                    $tipoId = (int) $request->input('tipo_id');
+                    return $tipoId !== (int) CompraTipo::ACTA;
+                }),
+            ],
+            'numero_acta' => [
+                'nullable',
+                'string',
+                Rule::requiredIf(function () use ($request) {
+                    // Asegúrate que el valor a comparar sea el correcto
+                    // Si tipo_id viene como string, casteamos a int por seguridad
+                    $tipoId = (int) $request->input('tipo_id');
+                    return $tipoId === (int) CompraTipo::ACTA;
+                }),
+            ],
+            'recibo_de_caja' => [
+                'nullable',
+                'string',
+                Rule::requiredIf(function () use ($request) {
+                    // Asegúrate que el valor a comparar sea el correcto
+                    // Si tipo_id viene como string, casteamos a int por seguridad
+                    $tipoId = (int) $request->input('tipo_id');
+                    return $tipoId === (int) CompraTipo::FACTURA_CAMBIARIA;
+                }),
             ],
         ]);
 
@@ -318,6 +367,7 @@ class CompraController extends AppBaseController
             return redirect(route('compras.index'));
         }
 
+        $compra->detalles()->delete();
         $compra->delete();
 
         flash()->success('Ingreso almacén eliminado exitosamente.');

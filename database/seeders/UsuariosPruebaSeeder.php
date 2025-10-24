@@ -17,11 +17,26 @@ class UsuariosPruebaSeeder extends Seeder
     public function run(): void
     {
 
+        deshabilitaLlavesForaneas();
+
+        User::whereIn('username', [
+            'requirente1',
+            'autorizador1',
+            'despachador'
+        ])->forceDelete();
+
+        $unidadConStock = RrhhUnidad::whereHas('stocks', function ($query) {
+            $query->where('cantidad', '>', 0);
+        })->first();
+
+        $bodegaConStock = Bodega::where('id','!=', Bodega::PRINCIPAL)->first();
 
         User::factory(1)->create([
             "username" => "requirente1",
             "name" => "Solicitante Requisición Almacén",
             "password" => bcrypt("123"),
+            'unidad_id' => $unidadConStock->id,
+            'bodega_id' => $bodegaConStock->id,
         ])->each(function (User $user){
             $user->syncRoles(Role::SOLICITANTE_REQUISICION_ALMACEN);
 
@@ -39,6 +54,8 @@ class UsuariosPruebaSeeder extends Seeder
             "username" => "autorizador1",
             "name" => "Autorizador Requisiciones Almacén",
             "password" => bcrypt("123"),
+            'unidad_id' => $unidadConStock->id,
+            'bodega_id' => $bodegaConStock->id,
         ])->each(function (User $user) {
             $user->syncRoles(Role::AUTORIZADOR_REQUISICION_ALMACEN);
 

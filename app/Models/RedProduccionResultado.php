@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -12,11 +14,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $codigo
  * @property string $nombre
  * @property string|null $descripcion
+ * @property int|null $subprograma_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RedProduccionProducto> $productos
  * @property-read int|null $productos_count
+ * @property-read \App\Models\EstructuraPresupuestariaSubprograma|null $subPrograma
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\EstructuraPresupuestariaSubprograma> $subProgramas
  * @property-read int|null $sub_programas_count
  * @method static \Database\Factories\RedProduccionResultadoFactory factory($count = null, $state = [])
@@ -30,6 +34,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionResultado whereDescripcion($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionResultado whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionResultado whereNombre($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionResultado whereSubprogramaId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionResultado whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionResultado withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionResultado withoutTrashed()
@@ -93,10 +98,13 @@ class RedProduccionResultado extends Model
         );
     }
 
-    public function subPrograma(): HasOne
+    public function subPrograma(): BelongsTo
     {
-        return $this->hasOne(EstructuraPresupuestariaSubprograma::class, 'id', 'subprograma_id');
-
+        return $this->belongsTo(
+            \App\Models\EstructuraPresupuestariaSubprograma::class,
+            'subprograma_id',
+            'id'
+        );
     }
 
 }

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -13,11 +15,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $codigo
  * @property string $nombre
  * @property string|null $descripcion
+ * @property int|null $actividad_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\EstructuraPresupuestariaActividad> $actividades
- * @property-read int|null $actividades_count
+ * @property-read \App\Models\EstructuraPresupuestariaActividad|null $actividad
  * @property-read \App\Models\RedProduccionResultado $resultado
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RedProduccionSubProducto> $subProductos
  * @property-read int|null $sub_productos_count
@@ -26,6 +28,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionProducto newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionProducto onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionProducto query()
+ * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionProducto whereActividadId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionProducto whereCodigo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionProducto whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionProducto whereDeletedAt($value)
@@ -77,7 +80,7 @@ class RedProduccionProducto extends Model
 
     ];
 
-    public function resultado(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function resultado(): BelongsTo
     {
         return $this->belongsTo(\App\Models\RedProduccionResultado::class, 'resultado_id');
     }
@@ -92,13 +95,16 @@ class RedProduccionProducto extends Model
 //        );
 //    }
 
-    public function subProductos(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function subProductos(): HasMany
     {
         return $this->hasMany(\App\Models\RedProduccionSubProducto::class, 'producto_id');
     }
 
-    public function actividad(): HasOne
+    public function actividad(): BelongsTo
     {
-        return $this->hasOne(\App\Models\EstructuraPresupuestariaActividad::class, 'id', 'actividad_id');
+        return $this->belongsTo(
+            \App\Models\EstructuraPresupuestariaActividad::class,
+            'actividad_id'
+        );
     }
 }

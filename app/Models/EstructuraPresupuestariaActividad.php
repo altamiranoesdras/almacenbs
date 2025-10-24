@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -15,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read mixed $partida_parcial
  * @property-read \App\Models\EstructuraPresupuestariaProyecto $proyecto
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RedProduccionProducto> $redProduccionProductos
  * @property-read int|null $red_produccion_productos_count
@@ -43,6 +46,11 @@ class EstructuraPresupuestariaActividad extends Model
 
     public $table = 'estructura_presupuestaria_actividades';
 
+
+    protected $appends = [
+        'partida_parcial'
+    ];
+
     public $fillable = [
         'proyecto_id',
         'codigo',
@@ -70,13 +78,22 @@ class EstructuraPresupuestariaActividad extends Model
 
     ];
 
-    public function proyecto(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function proyecto(): BelongsTo
     {
         return $this->belongsTo(\App\Models\EstructuraPresupuestariaProyecto::class, 'proyecto_id');
     }
 
-    public function redProduccionProductos(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function redProduccionProductos(): BelongsToMany
     {
         return $this->belongsToMany(\App\Models\RedProduccionProducto::class, 'red_produccion_producto_actividad');
+    }
+
+    public function getPartidaParcialAttribute()
+    {
+        return $this->proyecto->subprograma->programa->codigo . '-' .
+            $this->proyecto->subprograma->codigo . '-' .
+            $this->proyecto->codigo . '-' .
+            $this->codigo;
+
     }
 }
