@@ -52,7 +52,10 @@ class ItemCategoriaDataTable extends DataTable
     {
         return $model->newQuery()
             ->select($model->getTable().'.*')
-            ->with(['kardexs']);
+            ->with(['kardexs' => function ($query) {
+                $query->select('id', 'categoria_id', 'folio')
+                    ->withoutAppends();
+            }]);
     }
 
     /**
@@ -128,6 +131,7 @@ class ItemCategoriaDataTable extends DataTable
             Column::make('nombre'),
             Column::make('descripcion'),
             Column::make('ultimo_folio')
+                ->title('Último Folio Kardex')
                 ->searchable(false)
                 ->orderable(false),
             Column::computed('action')
