@@ -34,7 +34,14 @@ class Compra1hAutorizadorController extends Controller
                 },
                 'estado',
                 'compra1h.detalles.item' => function ($query) {
-                    $query->withOutAppends();
+                    $query->withOutAppends()
+                    ->withTrashed();
+                },
+                'detalles' => function($q){
+                    $q->with('item',function ($q){
+                        $q->withoutAppends()
+                            ->withTrashed();
+                    });
                 },
             ])
             ->where('id', $id)

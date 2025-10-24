@@ -19,7 +19,13 @@
             <td>{{nf($det->item->id)}}</td>
             <td>{{nf($det->cantidad)}}</td>
             <td>
-                {{$det->item->texto_principal}}
+                @if($det->item->deleted_at)
+                    <del>
+                        {{$det->item->texto_principal}}
+                    </del>
+                @else
+                    {{$det->item->texto_principal}}
+                @endif
                 @if($editable ?? true)
                 <input type="text"
                        class="form-control form-control-sm"
