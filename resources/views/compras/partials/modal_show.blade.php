@@ -1,5 +1,5 @@
 <div class="modal fade" id="modal-detalles-{{$compra->id}}" tabindex='-1'>
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content " style="color: #0A0A0A">
             <div class="modal-header">
                 <h5 class="modal-title">Detalles del ingreso</h5>

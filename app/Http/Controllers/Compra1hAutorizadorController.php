@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\DataTables\CompraAutorizarDataTable;
 use App\DataTables\Scopes\ScopeCompraDataTable;
+use App\Exceptions\InsumosSinCategriaException;
 use App\Models\Compra;
 use App\Models\CompraEstado;
 use App\Notifications\IngresoAlmacen\IngresoAlmacenEnviadoNotificaction;
 use App\Notifications\IngresoAlmacen\IngresoAlmacenRetornadoNotificaction;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -43,9 +45,30 @@ class Compra1hAutorizadorController extends Controller
 
     public function procesar(Compra $compra, Request $request)
     {
-        $compra->autorizar1h($request->observaciones ?? '');
 
-//        $this->notificarCompraFueAutorizada($compra);
+        try {
+            DB::beginTransaction();
+
+            $compra->autorizar1h($request->observaciones ?? '');
+
+            //$this->notificarCompraFueAutorizada($compra);
+
+        }catch ( InsumosSinCategriaException $exception) {
+            DB::rollBack();
+
+            flash()->warning($exception->getMessage());
+
+            return back()->withInput();
+        }
+        catch (Exception $exception) {
+            DB::rollBack();
+
+            $msj = manejarException($exception);
+            flash()->warning($msj);
+            return back()->withInput();
+        }
+
+        DB::commit();
 
         flash('Formulario 1H autorizado!')->success();
 
