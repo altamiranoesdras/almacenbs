@@ -92,6 +92,8 @@ class RrhhUnidad extends Model
         'unidad_tipo_id',
         'unidad_padre_id',
         'jefe_id',
+        'departamento_id',
+        'municipio_id',
         'activa',
         'solicita',
     ];
