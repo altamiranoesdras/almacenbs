@@ -48,7 +48,8 @@ class EstructuraPresupuestariaActividad extends Model
 
 
     protected $appends = [
-        'partida_parcial'
+        'partida_parcial',
+        'texto'
     ];
 
     public $fillable = [
@@ -95,5 +96,10 @@ class EstructuraPresupuestariaActividad extends Model
             $this->proyecto->codigo . '-' .
             $this->codigo;
 
+    }
+
+    public function getTextoAttribute()
+    {
+        return $this->codigo . ' - ' . $this->nombre;
     }
 }

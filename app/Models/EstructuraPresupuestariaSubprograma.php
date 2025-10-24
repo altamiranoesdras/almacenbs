@@ -47,6 +47,8 @@ class EstructuraPresupuestariaSubprograma extends Model
 
     public $table = 'estructura_presupuestaria_subprogramas';
 
+    protected $appends = ['texto'];
+
     public $fillable = [
         'programa_id',
         'codigo',
@@ -99,5 +101,10 @@ class EstructuraPresupuestariaSubprograma extends Model
             'id', // Local key on subprogramas table
             'id' // Local key on proyectos table
         );
+    }
+
+    public function getTextoAttribute()
+    {
+        return $this->codigo . ' - ' . $this->nombre;
     }
 }
