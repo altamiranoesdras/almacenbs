@@ -83,13 +83,11 @@ class Compra1hAutorizadorController extends Controller
         try {
             DB::beginTransaction();
 
-            $compra->estado_id = CompraEstado::RETORNO_POR_AUTORIZADOR;
-            $compra->save();
+            $compra->retornarAAprobador1h($request->motivo ?? '');
 
-            $usuarioAprueba = $compra->usuarioAprueba;
-            $usuarioAprueba->notify(new IngresoAlmacenRetornadoNotificaction($compra, route('bandejas.compras1h.aprobador')));
-
-            $compra->addBitacora('1H retornado por autorizador', "Motivo: ".$request->motivo ?? '');
+            if ($usuarioAprueba = $compra->usuarioAprueba){
+                $usuarioAprueba->notify(new IngresoAlmacenRetornadoNotificaction($compra, route('bandejas.compras1h.aprobador')));
+            }
 
         } catch (\Exception $exception) {
             DB::rollBack();
@@ -105,7 +103,7 @@ class Compra1hAutorizadorController extends Controller
 
         flash('1H retornado al aprobador!')->success();
 
-        return redirect()->route('bandejas.compras1h.aprobador');
+        return redirect()->route('bandejas.compras1h.autorizador');
 
     }
 
