@@ -6,6 +6,8 @@
             aria-hidden="true"
             class="modal fade"
             tabindex="-1"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
         >
             <div class="modal-dialog" style="max-width: 60%;">
                 <div class="modal-content">
@@ -155,7 +157,6 @@ export default {
         },
         async getActividades() {
             try {
-                console.log('Subprograma ID:', this.subProgramaId);
                 const respuesta = await axios.get(route('api.estructura.presupuestaria.actividades.index', { subprograma_id: this.subProgramaId }));
                 this.actividades = respuesta.data.data;
                 this.actividadesOriginales = respuesta.data.data;

@@ -8,6 +8,8 @@
             aria-hidden="true"
             class="modal fade"
             tabindex="-1"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
         >
             <div class="modal-dialog" style="max-width: 60%;">
                 <div class="modal-content">
