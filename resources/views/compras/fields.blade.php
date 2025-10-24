@@ -386,27 +386,6 @@
     </div>
 </div>
 
-<!-- Modal cancel -->
-<div class="modal fade modal-warning" id="modal-cancel-compra">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <h4 class="modal-title">Cancelar compra!</h4>
-            </div>
-            <div class="modal-body">
-                Seguro que desea cancelar la compra?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">NO</button>
-                <a href="{{route('compras.destroy',$compra->id)}}" class="btn btn-danger">
-                    SI
-                </a>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
 
 @push('scripts')
     <!--    Scripts compras
@@ -444,10 +423,10 @@
                 loading: false,
                 idEliminando: '',
                 ingreso_inmediato: false,
-                proveedor: @json($compra->proveedor ?? Proveedor::find(old('proveedor_id')) ?? null),
-                tipo: @json(CompraTipo::find(old('tipo_id')) ?? $compra->tipo  ?? CompraTipo::find(CompraTipo::FACTURA)),
-                serie: @json($compra->serie ?? old('serie') ?? ''),
-                descuento: @json($compra->descuento ?? old('descuento') ?? 0),
+                proveedor: @json(Proveedor::find(old('proveedor_id')) ?? $compra->proveedor ?? null),
+                tipo: @json(CompraTipo::find(old('tipo_id')) ?? $compra->tipo  ?? CompraTipo::getTipoFactura()),
+                serie: @json(old('serie') ?? $compra->serie ?? ''),
+                descuento: @json(old('descuento') ?? $compra->descuento ?? 0),
             },
             methods: {
 

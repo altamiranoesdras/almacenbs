@@ -194,15 +194,17 @@ class CompraController extends AppBaseController
                 }),
             ],
             'numero' => [
+                'nullable',
+                'string',
+                Rule::requiredIf(function () use ($request) {
+                    $tipoId = (int) $request->input('tipo_id');
+                    return $tipoId === (int) CompraTipo::FACTURA_CAMBIARIA || $tipoId === (int) CompraTipo::FACTURA;
+                }),
                 new UniqueNumeroSerieNoAnulada(
                     ignoreId: $id,
                     serie: $request->serie,
                     tipo: $request->tipo_id
                 ),
-                Rule::requiredIf(function () use ($request) {
-                    $tipoId = (int) $request->input('tipo_id');
-                    return $tipoId === (int) CompraTipo::FACTURA_CAMBIARIA || $tipoId === (int) CompraTipo::FACTURA;
-                }),
             ],
 
             // cuando NO es acta, requerir orden_compra
@@ -365,6 +367,7 @@ class CompraController extends AppBaseController
             return redirect(route('compras.index'));
         }
 
+        $compra->detalles()->delete();
         $compra->delete();
 
         flash()->success('Ingreso almacén eliminado exitosamente.');

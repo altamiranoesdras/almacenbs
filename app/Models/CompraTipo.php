@@ -83,4 +83,9 @@ class CompraTipo extends Model
     {
         return $this->hasMany(\App\Models\Compra::class, 'tipo_id');
     }
+
+    public static function getTipoFactura(): Model|CompraTipo|null
+    {
+        return self::find(self::FACTURA);
+    }
 }

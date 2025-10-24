@@ -24,6 +24,7 @@ class UniqueNumeroSerieNoAnulada implements ValidationRule
             return;
         }
 
+        // si no se ha definido la serie, no validar unicidad
         if (!$this->serie) {
             return;
         }
@@ -32,10 +33,7 @@ class UniqueNumeroSerieNoAnulada implements ValidationRule
             ->where('numero', $value)
             ->where('serie', $this->serie)
             // considerar solo las compras NO anuladas
-            ->where(function ($q) {
-                $q->whereNull('estado_id')
-                    ->orWhere('estado_id', '!=', CompraEstado::ANULADO);
-            })
+            ->where('estado_id', '!=', CompraEstado::ANULADO)
             ->when($this->ignoreId, fn ($q) => $q->where('id', '!=', $this->ignoreId))
             ->exists();
 
