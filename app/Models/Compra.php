@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string|null $serie
  * @property string|null $numero
  * @property string|null $recibo_de_caja
+ * @property string|null $numero_acta
  * @property int $estado_id
  * @property int $usuario_crea
  * @property int|null $usuario_opera_id
@@ -82,6 +83,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereFolioInventario($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereNumero($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra whereNumeroActa($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereObservaciones($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereOrdenCompra($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra whereProveedorId($value)
@@ -126,6 +128,7 @@ class Compra extends Model
         'serie',
         'numero',
         'recibo_de_caja',
+        'numero_acta',
         'estado_id',
         'usuario_crea',
         'usuario_opera_id',
@@ -182,7 +185,6 @@ class Compra extends Model
         'usuario_crea' => 'nullable',
         'usuario_recibe' => 'nullable',
         'observaciones' => 'nullable|string',
-        'orden_compra' => 'required|integer',
         'unidad_solicita_id' => 'nullable|integer',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
@@ -785,5 +787,9 @@ class Compra extends Model
         return $this->tipo_id == CompraTipo::FACTURA_CAMBIARIA;
     }
 
+    public function esActa(): bool
+    {
+        return $this->tipo_id == CompraTipo::ACTA;
+    }
 
 }

@@ -15,11 +15,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $codigo
  * @property string $nombre
  * @property string|null $descripcion
+ * @property int|null $actividad_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\EstructuraPresupuestariaActividad> $actividades
- * @property-read int|null $actividades_count
+ * @property-read \App\Models\EstructuraPresupuestariaActividad|null $actividad
  * @property-read \App\Models\RedProduccionResultado $resultado
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RedProduccionSubProducto> $subProductos
  * @property-read int|null $sub_productos_count
@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionProducto newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionProducto onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionProducto query()
+ * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionProducto whereActividadId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionProducto whereCodigo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionProducto whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionProducto whereDeletedAt($value)

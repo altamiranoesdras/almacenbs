@@ -52,6 +52,12 @@
                             {!! Form::text('recibo_de_caja', null, ['class' => 'form-control','placeholder'=>'Recibo de caja']) !!}
                         </div>
 
+
+                        <div class="col-3 mb-1" v-show="esActa">
+                            <label for="recibo_de_caja" >Número Acta</label>
+                            {!! Form::text('numero_acta', null, ['class' => 'form-control','placeholder'=>'Número Acta']) !!}
+                        </div>
+
                         {{--<div class="col-sm-7 mb-1 py-0 m-0">
                             Ingreso inmediato
                             <input type="hidden" name="ingreso_inmediato" :value="ingreso_inmediato ? 1 : 0">
@@ -74,9 +80,9 @@
                             {!! Form::label('fecha_ingreso', 'Fecha Ingreso:') !!}
                             {!! Form::date('fecha_ingreso', $compra->fecha_ingreso ?? hoyDb(), ['class' => 'form-control','readonly']) !!}
                         </div>
-                        <div class="col-3 mb-1 ">
+                        <div class="col-3 mb-1 " v-show="esFactura || esFacturaCambiaria">
                             {!! Form::label('orden_compra', 'Orden Compra:') !!}
-                            {!! Form::number('orden_compra', null, ['class' => 'form-control', 'required']) !!}
+                            {!! Form::number('orden_compra', null, ['class' => 'form-control']) !!}
                         </div>
 
 
@@ -440,7 +446,7 @@
                 idEliminando: '',
                 ingreso_inmediato: false,
                 proveedor: @json($compra->proveedor ?? Proveedor::find(old('proveedor_id')) ?? null),
-                tipo: @json($compra->tipo ?? CompraTipo::find(old('tipo_id')) ?? CompraTipo::find(CompraTipo::FACTURA)),
+                tipo: @json(CompraTipo::find(old('tipo_id')) ?? $compra->tipo  ?? CompraTipo::find(CompraTipo::FACTURA)),
                 serie: @json($compra->serie ?? old('serie') ?? ''),
                 descuento: @json($compra->descuento ?? old('descuento') ?? 0),
             },
@@ -652,6 +658,13 @@
 
                     return false;
                 },
+                esActa(){
+                    if (this.tipo){
+                        return this.tipo.id== @json(\App\Models\CompraTipo::ACTA)
+                    }
+
+                    return false;
+                }
 
             },
             watch:{
