@@ -72,9 +72,11 @@ export default {
         },
 
         // Producto
-        editarProducto(producto) {
+        editarProducto(producto, subProgramaId) {
+            console.log('asignado el valor a subProgramaId:', subProgramaId);
             this.productoSeleccionado = producto;
             this.mostrarModalProducto = true;
+            this.subProgramaId = subProgramaId;
         },
         async eliminarProducto(id) {
             let respuesta = await realizarPregunta("¿Estás seguro de eliminar este Producto?");
@@ -110,6 +112,7 @@ export default {
         cerrarFormularioProducto() {
             this.mostrarModalProducto = false;
             this.productoSeleccionado = null;
+            this.subProgramaId = null;
         },
         cerrarFormularioSubProducto() {
             this.mostrarModalSubProducto = false;
@@ -181,7 +184,7 @@ export default {
                                                 <button class="btn btn-outline-primary btn-sm me-1" @click="agregarSubProducto(producto.id)">
                                                     <i class="fa fa-plus"></i> SubProducto
                                                 </button>
-                                                <button class="btn btn-sm btn-warning me-1" @click="editarProducto(producto)">
+                                                <button class="btn btn-sm btn-warning me-1" @click="editarProducto(producto, item.subprograma_id)">
                                                     <i class="fa fa-edit"></i>
                                                 </button>
                                                 <button class="btn btn-sm btn-danger" @click="eliminarProducto(producto.id)">

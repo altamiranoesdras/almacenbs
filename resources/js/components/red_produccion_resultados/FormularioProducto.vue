@@ -156,8 +156,9 @@ export default {
             finEspera();
         },
         async getActividades() {
+            console.log('Obteniendo actividades para el subprograma ID:', this.subProgramaId);
             try {
-                const respuesta = await axios.get(route('api.estructura.presupuestaria.actividades.index', { subprograma_id: this.subProgramaId }));
+                const respuesta = await axios.get(route('api.estructura.presupuestaria.actividades.index', { subprograma_id: this.subProgramaId ?? -1 }));
                 this.actividades = respuesta.data.data;
                 this.actividadesOriginales = respuesta.data.data;
             } catch (error) {
