@@ -236,7 +236,13 @@
                             <td colspan="7"><span class="help-block text-center">No se ha agregado ningún artículo</span></td>
                         </tr>
                         <tr v-for="detalle in detalles" class="text-sm">
-                            <td v-text="detalle.item.text"></td>
+                            <td >
+                                <span v-if="detalle.item.deleted_at">
+                                    <del v-text="detalle.item.text"></del>
+                                </span>
+                                <span v-else v-text="detalle.item.text"></span>
+
+                            </td>
                             <td v-text="getNombre(detalle)"></td>
 
                             <td v-text="dvs + nfp(detalle.precio)"></td>
