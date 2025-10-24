@@ -63,7 +63,7 @@
                                     :multiple="false"
                                     :options="subProgramas"
                                     :preselect-first="false"
-                                    label="nombre"
+                                    label="texto"
                                     placeholder="Seleccione los sub programas"
                                     track-by="id"
                                 >

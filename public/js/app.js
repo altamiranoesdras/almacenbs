@@ -59659,7 +59659,7 @@ var render = function () {
                           multiple: false,
                           options: _vm.actividades,
                           placeholder: "Seleccione una o más actividades",
-                          label: "nombre",
+                          label: "texto",
                           "track-by": "id",
                         },
                         model: {
@@ -59869,7 +59869,7 @@ var render = function () {
                           multiple: false,
                           options: _vm.subProgramas,
                           "preselect-first": false,
-                          label: "nombre",
+                          label: "texto",
                           placeholder: "Seleccione los sub programas",
                           "track-by": "id",
                         },

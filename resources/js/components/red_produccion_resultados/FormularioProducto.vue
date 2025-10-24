@@ -61,7 +61,7 @@
                                     :multiple="false"
                                     :options="actividades"
                                     placeholder="Seleccione una o más actividades"
-                                    label="nombre"
+                                    label="texto"
                                     track-by="id"
                                 >
                                 </multiselect>
