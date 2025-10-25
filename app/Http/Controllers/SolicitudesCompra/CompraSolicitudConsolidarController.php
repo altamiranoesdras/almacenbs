@@ -64,7 +64,6 @@ class CompraSolicitudConsolidarController extends Controller
 
             foreach ($solicitudes as $solicitud) {
 
-//                $solicitud->asignarARequisicion($requisicion->id);
                 $requisicion->compraSolicitudes()->attach($solicitud->id);
 
                 foreach ($solicitud->detalles as $detalle) {
