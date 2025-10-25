@@ -23,12 +23,14 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('compra_requisicion_detalles', function (Blueprint $table) {
-            $table->unsignedBigInteger('solicitud_detalle_id')->index('fk_compra_requisicion_detalles_compra_solicitud_detalles1_idx');
+            $table->unsignedBigInteger('solicitud_detalle_id')
+                ->nullable()
+                ->index('fk_compra_requisicion_detalles_compra_solicitud_detalles1_idx');
 
-            $table->foreign('solicitud_detalle_id')
+            $table->foreign('solicitud_detalle_id', 'fk_compra_requisicion_detalles_compra_solicitud_detalles1')
                 ->references('id')
                 ->on('compra_solicitud_detalles')
-                ->onDelete('set null');
+                ->onDelete('cascade');
         });
     }
 };

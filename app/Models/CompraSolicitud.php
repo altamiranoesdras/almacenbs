@@ -7,6 +7,7 @@ use App\Traits\TieneCodigo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 
 /**
  * @property int $id
@@ -183,12 +184,25 @@ class CompraSolicitud extends Model
             'requisicion_id'
         );
     }
-    public function asignaARequisicion($idRequisicion)
+
+    public function asignaARequisicion($idRequisicion): void
     {
         $this->requisiciones()->sync([$idRequisicion]);
 
         $this->estado_id = CompraSolicitudEstado::ASIGNADA_A_REQUISICION;
         $this->save();
 
+    }
+
+    public function agruparDetalles(): Collection
+    {
+        return $this->detalles
+            ->groupBy('item_id')
+            ->map(function ($detalles, $itemId) {
+                $detalle = $detalles->first();
+                $detalle->cantidad = $detalles->sum('cantidad');
+                return $detalle;
+            })
+            ->values();
     }
 }

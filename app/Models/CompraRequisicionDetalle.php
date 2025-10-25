@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -50,7 +51,6 @@ class CompraRequisicionDetalle extends Model
 
     public $fillable = [
         'requisicion_id',
-        'solicitud_detalle_id',
         'item_id',
         'cantidad',
         'precio_estimado',
@@ -65,7 +65,6 @@ class CompraRequisicionDetalle extends Model
 
     public static $rules = [
         'requisicion_id' => 'required',
-        'solicitud_detalle_id' => 'required',
         'item_id' => 'required',
         'cantidad' => 'required|numeric',
         'precio_estimado' => 'required|numeric',
@@ -84,11 +83,6 @@ class CompraRequisicionDetalle extends Model
         return $this->belongsTo(\App\Models\CompraRequisicion\CompraRequisicion::class, 'requisicion_id');
     }
 
-    public function solicitudDetalle(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        return $this->belongsTo(\App\Models\CompraSolicitudDetalle::class, 'solicitud_detalle_id');
-    }
-
     public function item(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(\App\Models\Item::class, 'item_id');
@@ -97,6 +91,17 @@ class CompraRequisicionDetalle extends Model
     public function getSubTotalAttribute()
     {
         return $this->cantidad * $this->precio_estimado;
+
+    }
+
+    public function solicitudDetalles(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            CompraSolicitudDetalle::class,
+            'compra_solicitud_detalle_has_requisicion_detalle',
+            'requisicion_detalle_id',
+            'compra_solicitud_detalle_id'
+        );
 
     }
 }

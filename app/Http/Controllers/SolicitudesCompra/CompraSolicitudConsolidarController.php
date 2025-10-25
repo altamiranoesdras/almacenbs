@@ -6,7 +6,6 @@ use App\DataTables\Scopes\ScopeCompraSolicitudDataTable;
 use App\DataTables\SolicitudesCompra\SolicitudCompraUnificarTable;
 use App\Http\Controllers\Controller;
 use App\Models\CompraRequisicion\CompraRequisicion;
-use App\Models\CompraRequisicionDetalle;
 use App\Models\CompraRequisicionEstado;
 use App\Models\CompraSolicitud;
 use App\Models\CompraSolicitudEstado;
@@ -60,32 +59,39 @@ class CompraSolicitudConsolidarController extends Controller
                 ->whereIn('id', $solicitudIds)
                 ->get();
 
-            $detallesRequisicion = collect();
+            $totalDetalles = collect();
 
             foreach ($solicitudes as $solicitud) {
-
                 $requisicion->compraSolicitudes()->attach($solicitud->id);
-
-                foreach ($solicitud->detalles as $detalle) {
-                    $detallesRequisicion->push( new CompraRequisicionDetalle(
-                        [
-                            'item_id' => $detalle->item_id,
-                            'cantidad' => $detalle->cantidad,
-                            'precio_estimado' => $detalle->precio_estimado,
-                            'solicitud_detalle_id' => $detalle->id,
-                        ]
-                    ));
-                }
+                $totalDetalles = $totalDetalles->merge($solicitud->agruparDetalles());
             }
 
-            $requisicion->detalles()->saveMany($detallesRequisicion);
+            $detallesAgrupados = $totalDetalles->groupBy('item_id');
 
+            $detallesConsolidados = $detallesAgrupados->map(function ($grupoDeDetalles) use ($requisicion) {
+                $representante = $grupoDeDetalles->first();
+                $representante->cantidad = $grupoDeDetalles->sum('cantidad');
+                return [
+                    'id'               => null,
+                    'requisicion_id'   => $requisicion->id,
+                    'item_id'          => $representante->item_id,
+                    'cantidad'         => $grupoDeDetalles->sum('cantidad'),
+                    'precio_estimado'  => $representante->precio_estimado,
+                    'observaciones'    => $representanteOriginal->observaciones ?? null,
+                ];
+            })->values();
+
+            $detalleRequisicion = $requisicion->detalles()->createMany($detallesConsolidados->toArray());
+
+            foreach ($detallesAgrupados as $itemId => $detalles) {
+                $detalleRequisicion->where('item_id', $itemId)->first()
+                    ->solicitudDetalles()
+                    ->attach($detalles->pluck('solicitud_id')->toArray());
+            }
 
         } catch (\Throwable $e) {
             return redirect()->back()->withErrors(['error' => 'Error al consolidar las solicitudes: ' . $e->getMessage()]);
         }
-
-
 
         return redirect()->route('compra.requisiciones.edit', $requisicion->id)
             ->with('success', 'Solicitudes consolidadas en la requisición exitosamente.');
