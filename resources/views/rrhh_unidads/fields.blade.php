@@ -27,7 +27,7 @@
             Form::select(
                 'unidad_tipo_id',
                 select(\App\Models\RrhhUnidadTipo::class)
-                , $rrhhUnidad->unidad_tipo_id ?? []
+                , $rrhhUnidad?->unidad_tipo_id ?? []
                 , ['id'=>'tipo_id','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
             )
         !!}
@@ -39,10 +39,10 @@
         {!!
             Form::select(
                 'jefe_id',
-                select(\App\Models\User::deUnidad($rrhhUnidad->id), 'name'),
+                select(\App\Models\User::deUnidad($rrhhUnidad?->id), 'name'),
 
 
-                old('jefe_id', $rrhhUnidad->jefe_id ?? []),
+                old('jefe_id', $rrhhUnidad?->jefe_id ?? []),
                 ['id'=>'jefe_id', 'class' => 'form-control select2-simple', 'multiple', 'style'=>'width: 100%']
             )
         !!}
@@ -81,7 +81,7 @@
                        name="activa"
                        id="activa"
                        value="si"
-                    {{ old('activa', $rrhhUnidad->activa ?? '') === 'si' ? 'checked' : '' }} />
+                    {{ old('activa', $rrhhUnidad?->activa ?? '') === 'si' ? 'checked' : '' }} />
                 <label class="form-check-label" for="activa">
                     <span class="switch-icon-left"><i data-feather="check"></i></span>
                     <span class="switch-icon-right"><i data-feather="x"></i></span>
@@ -101,7 +101,7 @@
                        name="solicita"
                        id="solicita"
                        value="si"
-                    {{ old('solicita', $rrhhUnidad->solicita ?? '') === 'si' ? 'checked' : '' }} />
+                    {{ old('solicita', $rrhhUnidad?->solicita ?? '') === 'si' ? 'checked' : '' }} />
                 <label class="form-check-label" for="solicita">
                     <span class="switch-icon-left"><i data-feather="check"></i></span>
                     <span class="switch-icon-right"><i data-feather="x"></i></span>
@@ -124,14 +124,26 @@
             },
             mounted() {
                 this.getDepartamentos();
+                if({!! old('departamento_id', $rrhhUnidad?->departamento_id ?? 'null') !!}) {
+                    this.departamentoSeleccionado = this.departamentos.find(dep => dep.id === {!! old('departamento_id', $rrhhUnidad?->departamento_id ?? 'null') !!});
+                }
+                if({!! old('municipio_id', $rrhhUnidad?->municipio_id ?? 'null') !!}) {
+                    this.municipioSeleccionado = this.municipios.find(mun => mun.id === {!! old('municipio_id', $rrhhUnidad?->municipio_id ?? 'null') !!});
+                }
             },
             methods: {
                 async getDepartamentos() {
                     try {
                         let res = await axios.get(route('api.departamentos.index', {con_municipios: 1}));
                         this.departamentos = res.data.data;
+                        this.asignarValorACampos()
                     } catch (e) {
                         console.error(e);
+                    }
+                },
+                asignarValorACampos() {
+                    if({!! old('departamento_id', $rrhhUnidad?->departamento_id ?? 'null') !!}) {
+                        this.departamentoSeleccionado = this.departamentos.find(dep => dep.id === {!! old('departamento_id', $rrhhUnidad?->departamento_id ?? 'null') !!});
                     }
                 }
             },
@@ -142,6 +154,9 @@
                     let departamento = this.departamentos.find(dep => dep.id === newVal?.id);
                     if (departamento) {
                         this.municipios = departamento.municipios;
+                        if({!! old('municipio_id', $rrhhUnidad?->municipio_id ?? 'null') !!}) {
+                            this.municipioSeleccionado = this.municipios.find(mun => mun.id === {!! old('municipio_id', $rrhhUnidad?->municipio_id ?? 'null') !!});
+                        }
                     }
                 }
             }
