@@ -72,7 +72,7 @@ class Municipio extends Model
         return $this->belongsTo(\App\Models\Departamento::class, 'departamento_id');
     }
 
-    public function getTextoAttributo()
+    public function getTextoAttribute()
     {
         return $this->codigo . ' - ' . $this->nombre;
     }

@@ -79,7 +79,7 @@ class Departamento extends Model
         return $this->hasMany(\App\Models\Municipio::class, 'departamento_id');
     }
 
-    public function getTextoAttributo()
+    public function getTextoAttribute()
     {
         return $this->codigo . ' - ' . $this->nombre;
     }

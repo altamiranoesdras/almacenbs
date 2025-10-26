@@ -53,7 +53,7 @@
         <multiselect
             v-model="departamentoSeleccionado"
             :options="departamentos"
-            label="nombre"
+            label="texto"
             placeholder="Seleccione uno..."
         />
     </div>
@@ -63,7 +63,7 @@
         <multiselect
             v-model="municipioSeleccionado"
             :options="municipios"
-            label="nombre"
+            label="texto"
             placeholder="Seleccione uno..."
             :disabled="municipios.length === 0 || municipios === null"
         />
