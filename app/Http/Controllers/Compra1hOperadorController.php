@@ -42,14 +42,18 @@ class Compra1hOperadorController extends Controller
     {
         $compra = Compra::with([
             'proveedor',
-            'detalles.item' => function ($query) {
-                $query->withOutAppends();
+            'detalles' => function($q){
+                $q->with('item',function ($q){
+                    $q->withoutAppends()
+                        ->withTrashed();
+                });
             },
             'estado',
             'compra1h.detalles.item' => function ($query) {
-                $query->withOutAppends();
-            },
-        ])
+                    $query->withOutAppends()
+                        ->withTrashed();
+                }
+            ])
             ->where('id', $id)
             ->firstOrFail();
 

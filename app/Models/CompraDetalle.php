@@ -227,7 +227,8 @@ class CompraDetalle extends Model
         return $stock;
     }
 
-    public function agregarKardex()
+
+    public function agregarKardex(): void
     {
         $this->kardex()->create([
             'categoria_id' => $this->item->categoria_id,
@@ -241,7 +242,7 @@ class CompraDetalle extends Model
         ]);
     }
 
-    public function anular()
+    public function anular(): void
     {
         $this->kardex()->delete();
         /**
@@ -254,7 +255,7 @@ class CompraDetalle extends Model
         }
     }
 
-    public function getFechaVenceLatinaAttribute()
+    public function getFechaVenceLatinaAttribute(): ?string
     {
         if(!$this->fecha_vence) return null;
 

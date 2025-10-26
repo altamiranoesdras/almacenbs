@@ -6,6 +6,7 @@ use App\Traits\HasBitacora;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -109,6 +110,24 @@ class Kardex extends Model
         });
     }
 
+    public static $withoutAppends = false;
+
+    public function scopeWithoutAppends($query)
+    {
+        self::$withoutAppends = true;
+
+        return $query;
+    }
+
+    protected function getArrayableAppends()
+    {
+        if (self::$withoutAppends){
+            return [];
+        }
+
+        return parent::getArrayableAppends();
+    }
+
 
 
     public $fillable = [
@@ -177,7 +196,7 @@ class Kardex extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      **/
     public function item()
     {
@@ -185,7 +204,7 @@ class Kardex extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      **/
     public function usuario()
     {
@@ -367,4 +386,9 @@ class Kardex extends Model
     }
 
 
+    public function categoria(): BelongsTo
+    {
+        return $this->belongsTo(ItemCategoria::class, 'categoria_id');
+
+    }
 }

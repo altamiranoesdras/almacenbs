@@ -75,11 +75,39 @@ class MigrarDBaLocalComando extends Command
     public function handle(): int
     {
 
+        //cuenta los archivos que estan en el directorio de descarga
+        $archivosDescarga = File::files($this->directorioDescarga);
+
+
+        if (count($archivosDescarga) > 0) {
+
+            $arrayOpciones = [];
+            //itera la carpeta y muestra los archivos y muestra su ruta completa
+            foreach ($archivosDescarga as $archivo) {
+                $arrayOpciones[] = $archivo->getRealPath();
+            }
+
+            $arrayOpciones = array_merge(['Ninguno'], $arrayOpciones);
+
+            $bakupSeleccionado = $this->choice('Selecciona un archivo de backup para restaurar', $arrayOpciones,0);
+
+
+            if ($bakupSeleccionado != 'Ninguno') {
+                $this->fechaBackup = basename($bakupSeleccionado, '.zip');
+                $this->extraerArchivos();
+                $this->restaurarBasesDatos();
+                return 0;
+            }
+
+        }
+
+
         //pregunta con opciones
         $ejecuta = $this->askWithCompletion('¿Ejecutar copia de bases de datos en producción (si/no)?', ['si', 'no'], 'si');
         $descargaYextrae = $this->askWithCompletion("¿Descargar y extraer archivo de respaldo (si/no)?", ['si', 'no'], 'si');
         $restaura = $this->askWithCompletion("¿Restaurar bases de datos (si/no)?", ['si', 'no'], 'si');
-        $elimina = $this->askWithCompletion("¿Eliminar backup locale (si/no)?", ['si', 'no'], 'si');
+        $elimina = $this->askWithCompletion("¿Eliminar backup locale (si/no)?", ['si', 'no'], 'no');
+
 
         if ($ejecuta=="si"){
             $this->ejecutaScriptEnServidor();

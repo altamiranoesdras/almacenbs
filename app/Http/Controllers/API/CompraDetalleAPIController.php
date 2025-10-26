@@ -27,7 +27,12 @@ class CompraDetalleAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $query = CompraDetalle::with(['item','unidadSolicitante']);
+        $query = CompraDetalle::with([
+            'item' => function ($query) {
+                $query->withTrashed();
+            },
+            'unidadSolicitante'
+        ]);
 
         if ($request->get('skip')) {
             $query->skip($request->get('skip'));
@@ -56,7 +61,7 @@ class CompraDetalleAPIController extends AppBaseController
      */
     public function store(CreateCompraDetalleAPIRequest $request)
     {
-        
+
         $item = Item::find($request->get('item_id'));
         if($item->categoria_id == null ){
             return $this->sendError('No se puede agregar insumos sin Catecoria');

@@ -84,7 +84,7 @@
                             <div class="card ">
                                 <div class="card-body">
                                     <h3 class="text-info">
-                                        {{ $item->text }} - {{ $item->categoria->nombre ?? 'Sin categoría' }}
+                                        {{ $item->text }} - {{ $datalles->first()->categoria->nombre ?? 'Sin categoría' }}
                                     </h3>
 
                                         @php

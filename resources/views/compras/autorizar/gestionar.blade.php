@@ -48,11 +48,12 @@
                                         <div class="row">
 
                                             <div class="col ">
-                                                <a href="{!! route('bandejas.compras1h.operador') !!}"
-                                                   class="btn btn-outline-secondary round me-1">
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-outline-secondary round me-1"
+                                                        data-bs-toggle="modal" data-bs-target="#modalRegresarAprobador">
                                                     <i class="fa fa-arrow-left"></i>
-                                                    Regresar
-                                                </a>
+                                                    Regresar a Aprobador
+                                                </button>
                                             </div>
                                             <div class="col text-center">
                                                 <div class="btn-group">
@@ -135,6 +136,52 @@
                 </div>
             </div>
             <!-- /.col-md-6 -->
+        </div>
+
+        <!-- Modal Regresar a Operador -->
+        <div class="modal fade" id="modalRegresarAprobador" tabindex="-1" role="dialog"
+             aria-labelledby="modelTitleId" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modelTitleId">
+                            Regresar a Aprobador
+                        </h4>
+                        <button type="button" class="btn-close"
+                                data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="{{route('bandejas.compras1h.autorizar.regresar',$compra->id)}}"
+                          method="post" class="esperar">
+                        @csrf
+                        <div class="modal-body">
+
+                            <div class="row">
+                                <!--campo motivo-->
+
+                                <div class="col">
+                                    <label for="motivo">Motivo</label>
+                                    <textarea name="motivo" id="motivo" class="form-control"
+                                              rows="3" required></textarea>
+                                </div>
+                            </div>
+
+                            <p class="text-center">
+                                El aprobador podrá corregir los errores y volver a enviar el formulario 1H para su autorización.
+                            </p>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary"
+                                    data-bs-dismiss="modal">
+                                Cancelar
+                            </button>
+                            <button type="submit" class="btn btn-outline-success">
+                                Regresar a Aprobador
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 

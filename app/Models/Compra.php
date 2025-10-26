@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Exceptions\InsumosSinCategriaException;
 use App\Traits\HasBitacora;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -367,8 +369,18 @@ class Compra extends Model
 
     }
 
-    public function procesarKardex()
+    /**
+     * @throws \Exception
+     * Procesa el kardex de los detalles de la compra.
+     * Valida que todos los insumos tengan categoría asignada antes de procesar el kardex.
+     * Si algún insumo no tiene categoría, lanza una excepción con un mensaje descriptivo.
+     * Luego, agrupa los detalles por item_id y agrega el kardex para cada detalle.
+     * Finalmente, agrega una bitácora indicando que el kardex fue procesado.
+     */
+    public function procesarKardex(): void
     {
+
+        $this->validaInsumosSinCategoria();
 
         /**
          * @var CompraDetalle $detalle
@@ -378,6 +390,23 @@ class Compra extends Model
         }
 
         $this->addBitacora("Kardex procesado","Se procesó el kardex de los detalles de la compra");
+
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function validaInsumosSinCategoria(): bool
+    {
+        $detallesSinCategoria = $this->agruparDetalles()->filter(function (CompraDetalle $detalle) {
+            return $detalle->item->categoria_id == null;
+        })->count();
+
+        if ($detallesSinCategoria > 0) {
+            throw new InsumosSinCategriaException("{$detallesSinCategoria} Insumos no tiene categoría asignada. No se puede procesar el kardex.");
+        }
+
+        return true;
 
     }
 
@@ -683,7 +712,7 @@ class Compra extends Model
     }
 
     //puede gestionar 1h
-    public function puedeGestionar1h()
+    public function puedeGestionar1h(): bool
     {
         return in_array($this->estado_id,[
             CompraEstado::PROCESADO_PENDIENTE_RECIBIR,
@@ -696,7 +725,7 @@ class Compra extends Model
         ]);
     }
 
-    public function operar1h($comentario='')
+    public function operar1h($comentario=''): void
     {
         $this->addBitacora("Formulario 1H Operado, folio: ".$this->compra1h->folio,$comentario);
         $this->usuario_opera_id = usuarioAutenticado()->id;
@@ -705,7 +734,7 @@ class Compra extends Model
     }
 
     //aprobar 1h
-    public function aprobar1h($comentario='')
+    public function aprobar1h($comentario=''): void
     {
         $this->addBitacora("Formulario 1H Aprobado, folio: ".$this->compra1h->folio,$comentario);
         $this->usuario_aprueba_id = usuarioAutenticado()->id;
@@ -714,7 +743,11 @@ class Compra extends Model
     }
 
     //autorizar 1h
-    public function autorizar1h($comentario='')
+
+    /**
+     * @throws \Exception
+     */
+    public function autorizar1h($comentario=''): void
     {
         $this->addBitacora("Formulario 1H Autorizado, folio: ".$this->compra1h->folio,$comentario);
         $this->usuario_autoriza_id = usuarioAutenticado()->id;
@@ -722,14 +755,12 @@ class Compra extends Model
         $this->save();
 
         $this->procesaIngreso();
-
         $this->procesarKardex();
-
 
     }
 
     //retornar a operador
-    public function retornarAOperador1h($comentario='')
+    public function retornarAOperador1h($comentario=''): void
     {
         $this->addBitacora("Formulario 1H retornado a Operador, folio: ".$this->compra1h->folio,$comentario);
         $this->estado_id = CompraEstado::RETORNO_POR_APROBADOR;
@@ -737,14 +768,14 @@ class Compra extends Model
     }
 
     //retornar a aprobador
-    public function retornarAAprobador1h($comentario='')
+    public function retornarAAprobador1h($comentario=''): void
     {
         $this->addBitacora("Formulario 1H retornado a Aprobador, folio: ".$this->compra1h->folio,$comentario);
         $this->estado_id = CompraEstado::RETORNO_POR_AUTORIZADOR;
         $this->save();
     }
 
-    public function puedeImprimir1h()
+    public function puedeImprimir1h(): bool
     {
         return in_array($this->estado_id,[
             CompraEstado::UNO_H_OPERADO,
@@ -756,21 +787,23 @@ class Compra extends Model
 
     }
 
-    public function estaAnulada()
+    public function estaAnulada(): bool
     {
         return $this->estado_id==CompraEstado::ANULADO;
     }
 
-    public function esTemporal()
+    public function esTemporal(): bool
     {
         return $this->estado_id == CompraEstado::TEMPORAL;
 
     }
 
     /**
-     * Cre un colección de detalles agrupados por item_id.
+     * Crea una colección de detalles de compra agrupados por item_id.
+     *
+     * @return Collection<int, CompraDetalle>  Colección de modelos CompraDetalle agrupados
      */
-    public function agruparDetalles(): \Illuminate\Support\Collection
+    public function agruparDetalles(): Collection
     {
         return $this->detalles
             ->groupBy('item_id')

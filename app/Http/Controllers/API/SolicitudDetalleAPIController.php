@@ -55,6 +55,11 @@ class SolicitudDetalleAPIController extends AppBaseController
     public function store(CreateSolicitudDetalleAPIRequest $request)
     {
 
+        $item = Item::find($request->get('item_id'));
+        if($item->categoria_id == null ){
+            return $this->sendError('No se puede agregar insumos sin Catecoria');
+        }
+
         $input = $request->all();
 
         /** @var SolicitudDetalle $solicitudDetalle */
