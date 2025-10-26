@@ -63,6 +63,9 @@ class CompraSolicitudConsolidarController extends Controller
 
             foreach ($solicitudes as $solicitud) {
                 $requisicion->compraSolicitudes()->attach($solicitud->id);
+                $solicitud->update([
+                    'estado_id' => CompraSolicitudEstado::ASIGNADA_A_REQUISICION,
+                ]);
                 $totalDetalles = $totalDetalles->merge($solicitud->agruparDetalles());
             }
 
@@ -70,9 +73,7 @@ class CompraSolicitudConsolidarController extends Controller
 
             $detallesConsolidados = $detallesAgrupados->map(function ($grupoDeDetalles) use ($requisicion) {
                 $representante = $grupoDeDetalles->first();
-                $representante->cantidad = $grupoDeDetalles->sum('cantidad');
                 return [
-                    'id'               => null,
                     'requisicion_id'   => $requisicion->id,
                     'item_id'          => $representante->item_id,
                     'cantidad'         => $grupoDeDetalles->sum('cantidad'),
@@ -81,20 +82,23 @@ class CompraSolicitudConsolidarController extends Controller
                 ];
             })->values();
 
-            $detalleRequisicion = $requisicion->detalles()->createMany($detallesConsolidados->toArray());
+            $detalleRequisicion = $requisicion->detalles()
+                ->createMany($detallesConsolidados->toArray());
 
             foreach ($detallesAgrupados as $itemId => $detalles) {
+
                 $detalleRequisicion->where('item_id', $itemId)->first()
                     ->solicitudDetalles()
-                    ->attach($detalles->pluck('solicitud_id')->toArray());
+                    ->attach($detalles->pluck('id')->toArray());
             }
 
         } catch (\Throwable $e) {
             return redirect()->back()->withErrors(['error' => 'Error al consolidar las solicitudes: ' . $e->getMessage()]);
         }
 
-        return redirect()->route('compra.requisiciones.edit', $requisicion->id)
-            ->with('success', 'Solicitudes consolidadas en la requisición exitosamente.');
+        flash()->success('Solicitudes consolidadas en la requisición exitosamente.');
+
+        return redirect()->route('compra.requisiciones.edit', $requisicion->id);
 
     }
 
