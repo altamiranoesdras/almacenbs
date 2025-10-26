@@ -5,7 +5,8 @@
         <div class="mb-3">
             <b>{{isset($parent) && $parent->id ? $parent->text : "Ninguna"}}</b>
             <input type="hidden" name="unidad_padre_id" value="{{$parent->id ?? ""}}">
-
+            <input type="hidden" name="municipio_id" :value="municipioSeleccionado?.id">
+            <input type="hidden" name="departamento_id" :value="departamentoSeleccionado?.id">
         </div>
     </div>
 
@@ -39,6 +40,8 @@
             Form::select(
                 'jefe_id',
                 select(\App\Models\User::deUnidad($rrhhUnidad->id), 'name'),
+
+
                 old('jefe_id', $rrhhUnidad->jefe_id ?? []),
                 ['id'=>'jefe_id', 'class' => 'form-control select2-simple', 'multiple', 'style'=>'width: 100%']
             )
@@ -53,7 +56,6 @@
             label="nombre"
             placeholder="Seleccione uno..."
         />
-        <input type="hidden" name="departamentoSeleccionado" :value="departamentoSeleccionado">
     </div>
 
     <div class="col-sm-6 mb-1">
@@ -65,7 +67,6 @@
             placeholder="Seleccione uno..."
             :disabled="municipios.length === 0 || municipios === null"
         />
-        <input type="hidden" name="municipioSeleccionado" :value="municipioSeleccionado">
     </div>
 
 
