@@ -41,6 +41,10 @@ class Departamento extends Model
 
     public $table = 'departamentos';
 
+    protected $appends = [
+        'texto'
+    ];
+
     public $fillable = [
         'codigo',
         'nombre',
@@ -73,5 +77,10 @@ class Departamento extends Model
     public function municipios(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(\App\Models\Municipio::class, 'departamento_id');
+    }
+
+    public function getTextoAttributo()
+    {
+        return $this->codigo . ' - ' . $this->nombre;
     }
 }
