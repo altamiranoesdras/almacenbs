@@ -47,10 +47,10 @@ class CompraSolicitudDetalleAPIController extends AppBaseController
     public function store(CreateCompraSolicitudDetalleAPIRequest $request): JsonResponse
     {
 
-        $item = Item::find($request->get('item_id'));
-        if($item->categoria_id == null ){
-            return $this->sendError('No se puede agregar insumos sin Catecoria');
-        }
+//        $item = Item::find($request->get('item_id'));
+//        if($item->categoria_id == null ){
+//            return $this->sendError('No se puede agregar insumos sin Catecoria');
+//        }
 
         $request->merge([
             'precio_venta' => $request->get('precio_venta') ?? 0,
