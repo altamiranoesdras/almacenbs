@@ -22,9 +22,8 @@
                 {!! Form::model($rrhhUnidad, ['route' => ['rrhhUnidades.update', $rrhhUnidad->id], 'method' => 'patch','class' => 'esperar']) !!}
 
                 <div class="card-body">
-                    <div class="row">
-                        @include('rrhh_unidads.fields')
-                    </div>
+
+                    @include('rrhh_unidads.fields')
 
                 </div>
                 <div class="card-footer">

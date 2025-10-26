@@ -2,9 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Compra;
-use App\Models\User;
-use App\Notifications\IngresoAlmacen\IngresoAlmacenEnviadoNotificaction;
+use App\Models\Departamento;
 use Illuminate\Console\Command;
 
 class PruebasCommand extends Command
@@ -28,10 +26,7 @@ class PruebasCommand extends Command
      */
     public function handle()
     {
-        $user = User::find(1);
-
-        $compra = Compra::find(4);
-
-        $user->notify(new IngresoAlmacenEnviadoNotificaction($compra));
+        $departamentos = Departamento::with('municipios')->get();
+        dd($departamentos->toArray());
     }
 }

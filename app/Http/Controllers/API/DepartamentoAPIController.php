@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreateDepartamentoAPIRequest;
 use App\Http\Requests\API\UpdateDepartamentoAPIRequest;
 use App\Models\Departamento;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
 
 /**
  * Class DepartamentoAPIController
@@ -27,6 +27,9 @@ class DepartamentoAPIController extends AppBaseController
         }
         if ($request->get('limit')) {
             $query->limit($request->get('limit'));
+        }
+        if ($request->get('con_municipios')) {
+            $query->with('municipios');
         }
 
         $departamentos = $query->get();

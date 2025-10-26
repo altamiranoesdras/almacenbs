@@ -20,12 +20,7 @@
                 {!! Form::open(['route' => 'rrhhUnidades.store','class' => 'esperar']) !!}
 
                 <div class="card-body">
-                        <div class="row">
-
-                            @include('rrhh_unidads.fields')
-
-
-                        </div>
+                    @include('rrhh_unidads.fields')
                 </div>
                 <div class="card-footer">
                     <div class="col-sm-12 mb-1 text-end">
