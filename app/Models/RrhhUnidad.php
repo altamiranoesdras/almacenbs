@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -25,6 +27,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Bodega|null $bodega
  * @property-read \Illuminate\Database\Eloquent\Collection<int, RrhhUnidad> $children
  * @property-read int|null $children_count
  * @property-read mixed $nombre_con_padre
@@ -41,32 +44,32 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read \App\Models\RrhhUnidadTipo $tipo
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $usuarios
  * @property-read int|null $usuarios_count
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad areas()
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad conStock()
+ * @method static Builder|RrhhUnidad areas()
+ * @method static Builder|RrhhUnidad conStock()
  * @method static \Database\Factories\RrhhUnidadFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad padres()
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad query()
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad solicitan()
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereActiva($value)
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereCentroId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereCodigo($value)
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereDepartamentoId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereJefeId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereMunicipioId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereNombre($value)
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereSolicita($value)
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereUnidadPadreId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereUnidadTipoId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad withTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad withoutAppends()
- * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad withoutTrashed()
+ * @method static Builder|RrhhUnidad newModelQuery()
+ * @method static Builder|RrhhUnidad newQuery()
+ * @method static Builder|RrhhUnidad onlyTrashed()
+ * @method static Builder|RrhhUnidad padres()
+ * @method static Builder|RrhhUnidad query()
+ * @method static Builder|RrhhUnidad solicitan()
+ * @method static Builder|RrhhUnidad whereActiva($value)
+ * @method static Builder|RrhhUnidad whereCentroId($value)
+ * @method static Builder|RrhhUnidad whereCodigo($value)
+ * @method static Builder|RrhhUnidad whereCreatedAt($value)
+ * @method static Builder|RrhhUnidad whereDeletedAt($value)
+ * @method static Builder|RrhhUnidad whereDepartamentoId($value)
+ * @method static Builder|RrhhUnidad whereId($value)
+ * @method static Builder|RrhhUnidad whereJefeId($value)
+ * @method static Builder|RrhhUnidad whereMunicipioId($value)
+ * @method static Builder|RrhhUnidad whereNombre($value)
+ * @method static Builder|RrhhUnidad whereSolicita($value)
+ * @method static Builder|RrhhUnidad whereUnidadPadreId($value)
+ * @method static Builder|RrhhUnidad whereUnidadTipoId($value)
+ * @method static Builder|RrhhUnidad whereUpdatedAt($value)
+ * @method static Builder|RrhhUnidad withTrashed()
+ * @method static Builder|RrhhUnidad withoutAppends()
+ * @method static Builder|RrhhUnidad withoutTrashed()
  * @mixin \Eloquent
  */
 class RrhhUnidad extends Model
@@ -298,6 +301,11 @@ class RrhhUnidad extends Model
     {
         return $this->whereHas('stocks');
 
+    }
+
+    public function bodega(): HasOne|Builder|RrhhUnidad
+    {
+        return $this->hasOne(Bodega::class, 'rrhh_unidade_id', 'id');
     }
 
 }
