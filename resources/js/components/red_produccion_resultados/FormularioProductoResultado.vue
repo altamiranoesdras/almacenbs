@@ -14,7 +14,10 @@
             <div class="modal-dialog " style="max-width: 60%;">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 id="formModalLabel" class="modal-title">Nuevo Resultado</h5>
+                        <h5 id="formModalLabel" class="modal-title"
+                            v-text="form.id ? 'Actualizar Resuelto' : 'Nuevo Resuelto'">
+
+                        </h5>
                         <button
                             aria-label="Cerrar"
                             class="btn-close"

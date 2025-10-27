@@ -49,6 +49,10 @@ class RedProduccionProducto extends Model
 
     public $table = 'red_produccion_productos';
 
+    protected $appends = [
+        'partida_parcial'
+    ];
+
     public $fillable = [
         'resultado_id',
         'codigo',
@@ -106,5 +110,10 @@ class RedProduccionProducto extends Model
             \App\Models\EstructuraPresupuestariaActividad::class,
             'actividad_id'
         );
+    }
+
+    public function getPartidaParcialAttribute()
+    {
+        return $this->actividad->partida_parcial ?? '';
     }
 }

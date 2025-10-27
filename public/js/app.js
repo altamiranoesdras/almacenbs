@@ -13470,8 +13470,11 @@ var render = function render() {
     staticClass: "modal-title",
     attrs: {
       id: "formModalLabel"
+    },
+    domProps: {
+      textContent: _vm._s(_vm.form.id ? "Actualizar Producto" : "Nuevo Producto")
     }
-  }, [_vm._v("Nuevo Producto")]), _vm._v(" "), _c("button", {
+  }), _vm._v(" "), _c("button", {
     staticClass: "btn-close",
     attrs: {
       "aria-label": "Cerrar",
@@ -13643,8 +13646,11 @@ var render = function render() {
     staticClass: "modal-title",
     attrs: {
       id: "formModalLabel"
+    },
+    domProps: {
+      textContent: _vm._s(_vm.form.id ? "Actualizar Resuelto" : "Nuevo Resuelto")
     }
-  }, [_vm._v("Nuevo Resultado")]), _vm._v(" "), _c("button", {
+  }), _vm._v(" "), _c("button", {
     staticClass: "btn-close",
     attrs: {
       "aria-label": "Cerrar",
@@ -13821,8 +13827,11 @@ var render = function render() {
     staticClass: "modal-title",
     attrs: {
       id: "formModalLabel"
+    },
+    domProps: {
+      textContent: _vm._s(_vm.form.id ? "Actualizar Sub Producto" : "Nuevo Sub Producto")
     }
-  }, [_vm._v("Nuevo SubProducto")]), _vm._v(" "), _c("button", {
+  }), _vm._v(" "), _c("button", {
     staticClass: "btn-close",
     attrs: {
       "aria-label": "Cerrar",
@@ -14070,11 +14079,11 @@ var render = function render() {
         staticClass: "text-truncate"
       }, [_c("span", {
         staticClass: "code"
-      }, [_vm._v(_vm._s(producto.codigo))]), _vm._v(" "), _c("span", {
+      }, [_vm._v("\n                                        " + _vm._s(producto.codigo) + "\n                                    ")]), _vm._v(" "), _c("span", {
         staticClass: "name"
-      }, [_vm._v(_vm._s(producto.nombre))])]), _vm._v(" "), _c("small", {
+      }, [_vm._v("\n                                        " + _vm._s(producto.nombre) + "\n\n                                    ")])]), _vm._v(" "), _c("small", {
         staticClass: "muted"
-      }, [_vm._v("Producto")])]), _vm._v(" "), _c("div", {
+      }, [_vm._v("\n                                    Producto -\n                                ")]), _vm._v("\n                                Partida parcial: " + _vm._s(producto.actividad ? producto.actividad.partida_parcial : "") + "\n                            ")]), _vm._v(" "), _c("div", {
         staticClass: "tree-actions"
       }, [_c("button", {
         staticClass: "btn btn-outline-success btn-sm",

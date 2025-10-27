@@ -204,10 +204,18 @@ export default {
 
                                 <div class="tree-label">
                                     <div class="text-truncate">
-                                        <span class="code">{{ producto.codigo }}</span>
-                                        <span class="name">{{ producto.nombre }}</span>
+                                        <span class="code">
+                                            {{ producto.codigo }}
+                                        </span>
+                                        <span class="name">
+                                            {{ producto.nombre }}
+
+                                        </span>
                                     </div>
-                                    <small class="muted">Producto</small>
+                                    <small class="muted">
+                                        Producto -
+                                    </small>
+                                    Partida parcial: {{ producto.actividad ? producto.actividad.partida_parcial : '' }}
                                 </div>
 
                                 <div class="tree-actions">
