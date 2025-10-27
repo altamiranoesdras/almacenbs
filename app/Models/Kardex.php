@@ -38,6 +38,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Bitacora> $bitacoras
  * @property-read int|null $bitacoras_count
+ * @property-read \App\Models\ItemCategoria|null $categoria
  * @property-read mixed $concepto
  * @property-read mixed $fecha_ordena
  * @property-read mixed $fecha_ordena_timestamp
@@ -80,6 +81,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Kardex whereUpdatedAt($value)
  * @method static Builder|Kardex whereUsuarioId($value)
  * @method static Builder|Kardex withTrashed()
+ * @method static Builder|Kardex withoutAppends()
  * @method static Builder|Kardex withoutTrashed()
  * @mixin \Eloquent
  */

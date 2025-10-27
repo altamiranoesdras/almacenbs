@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $unidad_tipo_id
  * @property int|null $unidad_padre_id
  * @property int|null $jefe_id
+ * @property int|null $departamento_id
+ * @property int|null $municipio_id
  * @property string $activa
  * @property string $solicita
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -53,8 +55,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereCodigo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereDepartamentoId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereJefeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereMunicipioId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereNombre($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereSolicita($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RrhhUnidad whereUnidadPadreId($value)

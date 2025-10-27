@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\Departamento|null $departamento
+ * @property-read mixed $texto
  * @method static \Database\Factories\MunicipioFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Municipio newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Municipio newQuery()

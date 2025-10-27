@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * Class Bodega
  *
  * @property int $id
+ * @property int|null $rrhh_unidade_id
  * @property string $nombre
  * @property string|null $direccion
  * @property string|null $telefono
@@ -31,6 +32,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Bodega whereDireccion($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Bodega whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Bodega whereNombre($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bodega whereRrhhUnidadeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Bodega whereTelefono($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Bodega whereUnidadId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Bodega whereUpdatedAt($value)
@@ -63,6 +65,7 @@ class Bodega extends Model
     public $fillable = [
         'unidad_id',
         'nombre',
+        'rrhh_unidade_id',
         'direccion',
         'telefono'
     ];

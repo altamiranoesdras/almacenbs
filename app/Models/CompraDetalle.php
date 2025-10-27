@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\Compra $compra
  * @property-read mixed $codigo
- * @property-read mixed $fecha_vence_latina
+ * @property-read string|null $fecha_vence_latina
  * @property-read mixed $responsable
  * @property-read mixed $sub_total
  * @property-read \App\Models\Item $item

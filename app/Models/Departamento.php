@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read mixed $texto
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Municipio> $municipios
  * @property-read int|null $municipios_count
  * @property-read \App\Models\Region|null $region

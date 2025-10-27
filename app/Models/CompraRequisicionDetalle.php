@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * @property int $id
  * @property int $requisicion_id
- * @property int $solicitud_detalle_id
  * @property int $item_id
  * @property string $cantidad
  * @property string $precio_estimado
@@ -21,7 +20,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read mixed $sub_total
  * @property-read \App\Models\Item $item
  * @property-read \App\Models\CompraRequisicion\CompraRequisicion $requisicion
- * @property-read \App\Models\CompraSolicitudDetalle $solicitudDetalle
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraSolicitudDetalle> $solicitudDetalles
+ * @property-read int|null $solicitud_detalles_count
  * @method static \Database\Factories\CompraRequisicionDetalleFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle newQuery()
@@ -35,7 +35,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle whereObservaciones($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle wherePrecioEstimado($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle whereRequisicionId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle whereSolicitudDetalleId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle withoutTrashed()

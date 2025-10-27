@@ -19,6 +19,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read int|null $item1s_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Item> $items
  * @property-read int|null $items_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Kardex> $kardexs
+ * @property-read int|null $kardexs_count
  * @method static \Database\Factories\ItemCategoriaFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|ItemCategoria newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ItemCategoria newQuery()

@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read mixed $partida_parcial
+ * @property-read mixed $texto
  * @property-read \App\Models\EstructuraPresupuestariaProyecto $proyecto
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RedProduccionProducto> $redProduccionProductos
  * @property-read int|null $red_produccion_productos_count

@@ -40,12 +40,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Bitacora> $bitacoras
+ * @property-read Collection<int, \App\Models\Bitacora> $bitacoras
  * @property-read int|null $bitacoras_count
  * @property-read \App\Models\Compra1h|null $compra1h
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Compra1h> $compra1hs
+ * @property-read Collection<int, \App\Models\Compra1h> $compra1hs
  * @property-read int|null $compra1hs_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraDetalle> $detalles
+ * @property-read Collection<int, \App\Models\CompraDetalle> $detalles
  * @property-read int|null $detalles_count
  * @property-read \App\Models\CompraEstado $estado
  * @property-read mixed $anio

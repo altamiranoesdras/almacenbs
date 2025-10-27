@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\EstructuraPresupuestariaActividad|null $actividad
+ * @property-read mixed $partida_parcial
  * @property-read \App\Models\RedProduccionResultado $resultado
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RedProduccionSubProducto> $subProductos
  * @property-read int|null $sub_productos_count

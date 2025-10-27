@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\EstructuraPresupuestariaActividad> $actividades
  * @property-read int|null $actividades_count
+ * @property-read mixed $texto
  * @property-read \App\Models\EstructuraPresupuestariaPrograma $programa
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\EstructuraPresupuestariaProyecto> $proyectos
  * @property-read int|null $proyectos_count
