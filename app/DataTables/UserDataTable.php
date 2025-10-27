@@ -36,6 +36,9 @@ class UserDataTable extends DataTable
             ->editColumn('unidad.nombre',function (User $user){
                 return $user->unidad->nombre_con_padre ?? 'Sin unidad';
             })
+            ->editColumn('bodega.nombre',function (User $user){
+                return $user->bodega->nombre ?? 'Sin bodega';
+            })
             ->editColumn('roles',function (User $user){
 
                 return view('admin.users.partials.roles',compact('user'));
