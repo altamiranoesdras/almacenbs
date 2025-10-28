@@ -34,7 +34,7 @@ return new class extends Migration
         Schema::create('estructura_presupuestaria_proyectos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('subprograma_id')->constrained('estructura_presupuestaria_subprogramas')->onDelete('cascade');
-            $table->string('codigo')->unique();
+            $table->string('codigo');
             $table->string('nombre');
             $table->text('descripcion')->nullable();
             $table->timestamps();
@@ -44,7 +44,7 @@ return new class extends Migration
         Schema::create('estructura_presupuestaria_actividades', function (Blueprint $table) {
             $table->id();
             $table->foreignId('proyecto_id')->constrained('estructura_presupuestaria_proyectos')->onDelete('cascade');
-            $table->string('codigo')->unique();
+            $table->string('codigo');
             $table->string('nombre');
             $table->text('descripcion')->nullable();
             $table->timestamps();
