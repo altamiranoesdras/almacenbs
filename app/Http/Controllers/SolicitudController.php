@@ -515,9 +515,7 @@ class SolicitudController extends AppBaseController
 
             $usuario = $solicitud->unidad->jefe ?? null;
 
-            if (!$usuario) {
-                $usuario->notify(new RequisicionSolicitidaNotificacion());
-            }
+            $usuario?->notify(new RequisicionSolicitidaNotificacion());
 
         }
 
