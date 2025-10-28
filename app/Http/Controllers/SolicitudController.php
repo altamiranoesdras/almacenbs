@@ -234,10 +234,15 @@ class SolicitudController extends AppBaseController
     public function procesar(Solicitud $solicitud,UpdateSolicitudRequest $request){
 
 
+        if (!$solicitud->codigo){
+            $request->merge([
+                'codigo' => $this->getCodigo(),
+                'correlativo' => $this->getCorrelativo(),
+            ]);
+        }
 
         $request->merge([
-            'codigo' => $this->getCodigo(),
-            'correlativo' => $this->getCorrelativo(),
+
             'unidad_id' => auth()->user()->unidad_id ?? RrhhUnidad::PRINCIPAL,
             'bodega_id' => auth()->user()->bodega_id ?? Bodega::PRINCIPAL,
             'usuario_solicita' => $request->usuario_solicita,
