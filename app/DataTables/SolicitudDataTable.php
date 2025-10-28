@@ -73,6 +73,11 @@ class SolicitudDataTable extends DataTable
 
 
             })
+            ->editColumn('total',function (Solicitud $solicitud){
+
+                return dvs().nfp($solicitud->total_detalles,2);
+
+            })
             ->rawColumns(['action','folio','estado.nombre']);
     }
 
@@ -226,6 +231,13 @@ class SolicitudDataTable extends DataTable
             Column::make('fecha_despacha')
                 ->name('fecha_despacha')
                 ->data('fecha_despacha'),
+
+            Column::make('total')
+                ->name('total')
+                ->data('total')
+                ->title('Total')
+                ->searchable(false)
+                ->orderable(false),
 
             Column::make('estado')
                 ->name('estado.nombre')
