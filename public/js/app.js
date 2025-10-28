@@ -14000,9 +14000,7 @@ var render = function render() {
       "class": _vm.isExpanded("R", resultado.id) ? "fa fa-folder-open text-warning" : "fa fa-folder text-warning"
     }), _vm._v(" "), _c("div", {
       staticClass: "tree-label"
-    }, [_c("div", {
-      staticClass: "text-truncate"
-    }, [_c("span", {
+    }, [_c("div", [_c("span", {
       staticClass: "code"
     }, [_vm._v(_vm._s(resultado.codigo))]), _vm._v(" "), _c("span", {
       staticClass: "name"

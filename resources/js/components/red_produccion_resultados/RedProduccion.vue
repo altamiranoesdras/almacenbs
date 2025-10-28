@@ -161,7 +161,7 @@ export default {
                     <i :class="isExpanded('R', resultado.id) ? 'fa fa-folder-open text-warning' : 'fa fa-folder text-warning'"></i>
 
                     <div class="tree-label">
-                        <div class="text-truncate">
+                        <div >
                             <span class="code">{{ resultado.codigo }}</span>
                             <span class="name">{{ resultado.nombre }}</span>
                         </div>
