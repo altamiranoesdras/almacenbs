@@ -1,4 +1,4 @@
-{{$solicitud->codigo}}
+{{$solicitud->correlativo}}
 
 {{--Modal de solicitud--}}
 <div class="modal fade" id="modal-detalles-{{$solicitud->id}}" tabindex="-1" aria-hidden="true">
