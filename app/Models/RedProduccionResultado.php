@@ -63,7 +63,7 @@ class RedProduccionResultado extends Model
 
     public static $rules = [
         'codigo' => 'required|string|max:255',
-        'nombre' => 'required|string|max:255',
+        'nombre' => 'required|string|max:65535',
         'descripcion' => 'nullable|string|max:65535',
         'subprograma_id' => 'required|integer',
         'created_at' => 'nullable',
