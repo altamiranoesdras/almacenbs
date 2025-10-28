@@ -191,7 +191,7 @@ class SolicitudController extends AppBaseController
             try {
                 DB::beginTransaction();
 
-                $this->enviarNotificacion();
+                $this->enviarNotificacion($solicitud);
 
                 $this->procesar($solicitud,$request);
 
@@ -506,18 +506,19 @@ class SolicitudController extends AppBaseController
 
 
     }
-    public function enviarNotificacion()
+
+    public function enviarNotificacion(Solicitud $solicitud)
     {
 
+        //TODO: el correo debe llegar al jefe de la unidad que solicita la requisición
         if(entornoEstaEnProduccion()){
 
-            $usuarios = User::all()->filter(function (User $user) {
-                return $user->can('Aprobar Requisición') && $user->id > 3;
-            });
+            $usuario = $solicitud->unidad->jefe ?? null;
 
-            foreach ($usuarios as $usuario) {
+            if (!$usuario) {
                 $usuario->notify(new RequisicionSolicitidaNotificacion());
             }
+
         }
 
     }
