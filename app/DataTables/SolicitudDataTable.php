@@ -27,7 +27,7 @@ class SolicitudDataTable extends DataTable
                 return view('solicitudes.datatables_actions',compact('solicitud','id'));
 
             })
-            ->editColumn('codigo',function (Solicitud $solicitud){
+            ->editColumn('folio',function (Solicitud $solicitud){
 
                 return view('solicitudes.modal_show',compact('solicitud'))->render();
 
@@ -73,7 +73,7 @@ class SolicitudDataTable extends DataTable
 
 
             })
-            ->rawColumns(['action','codigo','estado.nombre']);
+            ->rawColumns(['action','folio','estado.nombre']);
     }
 
     /**
@@ -188,7 +188,7 @@ class SolicitudDataTable extends DataTable
         return [
             Column::make('folio')
                 ->name('correlativo')
-                ->data('correlativo')
+                ->data('folio')
                 ->title('Folio'),
             Column::make('justificacion_tabla')
                 ->title('Justificación')
