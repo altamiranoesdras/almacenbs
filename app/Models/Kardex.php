@@ -380,7 +380,7 @@ class Kardex extends Model
         }
 
         if ($this->model instanceof SolicitudDetalle){
-            return $this->model->solicitud->unidad->nombre;
+            return $this->model->solicitud->unidad->nombre .' - R '.$this->model->solicitud->correlativo;
         }
 
         return $this->responsable;
