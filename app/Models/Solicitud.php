@@ -438,19 +438,30 @@ class Solicitud extends Model
 
     }
 
-    public function ingreso()
+    /**
+     * @throws \Exception
+     */
+    public function ingreso(): void
     {
 
-        $bodega = $this->bodega_id ?? null;
+        $bodega = $this->unidad->bodega->id ?? null;
 
-        if ($bodega && $bodega != Bodega::PRINCIPAL) {
-            /**
-             * @var SolicitudDetalle $detalle
-             */
-            foreach ($this->detalles as $detalle) {
+        if(!$bodega) {
+            throw new \Exception("No se puede realizar el ingreso a la unidad solicitante porque no tiene una bodega asignada.");
+        }
 
-                $detalle->ingreso($bodega);
-            }
+        if($bodega == Bodega::PRINCIPAL) {
+            // No ingresa stock a la bodega principal
+            throw new \Exception("No se pueden despachar requisiciones a la bodega principal.");
+        }
+
+
+        /**
+         * @var SolicitudDetalle $detalle
+         */
+        foreach ($this->detalles as $detalle) {
+
+            $detalle->ingreso($bodega);
         }
 
     }
