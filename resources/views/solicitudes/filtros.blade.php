@@ -23,7 +23,7 @@
         </div>
 
         <div class="col-sm-4 mb-1">
-            <label for="tipos">Departamento:</label>
+            <label for="tipos">Unidad Solicita:</label>
             <multiselect v-model="unidades_seleccionados" :options="unidades" label="nombre" :multiple="true" track-by="id" placeholder="Seleccione uno..." >
             </multiselect>
             <input type="hidden" name="unidades[]" v-for="unidad in unidades_seleccionados" :value="unidad.id">
@@ -98,7 +98,7 @@
                 estados: @json(\App\Models\SolicitudEstado::principales()->get() ?? []),
 
                 unidades_seleccionados: [],
-                unidades: @json(\App\Models\RrhhUnidad::with(['usuarios'])->get() ?? []),
+                unidades: @json(\App\Models\RrhhUnidad::with(['usuarios'])->areas()->solicitan()->get() ?? []),
 
                 usuarios_seleccionados: [],
                 usuarios: @json(\App\Models\User::all() ?? []),

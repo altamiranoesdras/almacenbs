@@ -9,7 +9,6 @@
 @endcan
 
 @if($solicitud->puedeImprimir())
-<div class="col text-center">
     <div class="btn-group">
         <button type="button"
                 class="btn btn-outline-primary round dropdown-toggle"
@@ -30,7 +29,6 @@
             </li>
         </ul>
     </div>
-</div>
 @endif
 
 @if($solicitud->puedeEditar())

@@ -32,7 +32,7 @@ class SolicitudDataTable extends DataTable
                 return view('solicitudes.modal_show',compact('solicitud'))->render();
 
             })
-            ->editColumn('justificacion',function (Solicitud $solicitud){
+            ->editColumn('justificacion_tabla',function (Solicitud $solicitud){
 
                 return str_limit($solicitud->justificacion,30);
 
@@ -65,11 +65,6 @@ class SolicitudDataTable extends DataTable
                     return fechaHoraLtn($solicitud->fecha_despacha);
                 }
             })
-            ->editColumn('bodega.nombre',function (Solicitud $solicitud){
-
-                return $solicitud->bodega->nombre ?? '';
-
-            })
             ->editColumn('estado.nombre',function (Solicitud $solicitud){
 
                 $color = $solicitud->estado->color;
@@ -93,13 +88,32 @@ class SolicitudDataTable extends DataTable
             ->select('solicitudes.*')
             ->with([
                 'detalles.item' => function($q){
-                    $q->withoutAppends();
+                    $q->with(['categoria'])
+                        ->withoutAppends();
                 },
-                'usuarioSolicita',
-                'usuarioAutoriza',
-                'usuarioAprueba',
-                'usuarioDespacha',
-                'estado'
+                'usuarioSolicita' => function($q){
+                    $q->without(['options'])
+                        ->select(['id','name']);
+                },
+                'usuarioAutoriza' => function($q){
+                    $q->without(['options'])
+                        ->select(['id','name']);
+                },
+                'usuarioDespacha' => function($q){
+                    $q->without(['options'])
+                        ->select(['id','name']);
+                },
+                'estado',
+                'bitacoras' => function($q){
+                    $q->with([
+                        'usuario' => function($q){
+                            $q
+                                ->without(['options'])
+                                ->with(['puesto','media']);
+                        }
+                    ]);
+                },
+                'unidad'
             ]);
     }
 
@@ -172,8 +186,21 @@ class SolicitudDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('codigo'),
-            Column::make('justificacion'),
+            Column::make('folio')
+                ->name('correlativo')
+                ->data('correlativo')
+                ->title('Folio'),
+            Column::make('justificacion_tabla')
+                ->title('Justificación')
+                ->searchable(false)
+                ->orderable(false)
+                ->exportable(false),
+
+            Column::make('justificacion_exporta')
+                ->name('justificacion')
+                ->data('justificacion')
+                ->title('Justificación')
+                ->visible(false),
 
             Column::make('fecha_solicita')
                 ->name('fecha_solicita')
@@ -188,8 +215,8 @@ class SolicitudDataTable extends DataTable
 //                ->data('usuario_autoriza.name'),
 
             Column::make('usuario_aprueba')
-                ->name('usuarioAprueba.name')
-                ->data('usuario_aprueba.name'),
+                ->name('usuarioAutoriza.name')
+                ->data('usuario_autoriza.name'),
 
             Column::make('usuario_despacha')
                 ->name('usuarioDespacha.name')
@@ -207,7 +234,7 @@ class SolicitudDataTable extends DataTable
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width('15%')
+                ->width('17%')
                 ->addClass('text-center'),
         ];
     }
