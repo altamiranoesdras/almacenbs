@@ -56,7 +56,15 @@ class CompraBandejasTableSeeder extends Seeder
             CompraRequisicionEstado::APROBADA,
         ]);
 
+        $bandejaSupervisor = CompraBandeja::create([
+            'rol_id' => Role::SUPERVISOR_COMPRAS,
+            'nombre' => 'Supervisor de Compras',
+            'descripcion' => 'Verifica los datos de la requisición de compra antes de generar la orden de compra.',
+        ]);
 
-
+        $bandejaSupervisor->estados()->attach([
+            CompraRequisicionEstado::AUTORIZADA,
+            CompraRequisicionEstado::ASIGNACION_REQUISICIONES,
+        ]);
     }
 }

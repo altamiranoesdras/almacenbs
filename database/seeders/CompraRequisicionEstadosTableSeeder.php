@@ -58,6 +58,7 @@ class CompraRequisicionEstadosTableSeeder extends Seeder
             ['nombre' => 'ORDEN DE COMPRA GENERADA'],
             ['nombre' => 'FINALIZADA'],
             ['nombre' => 'CANCELADA'],
+            ['nombre' => 'ASIGNACION DE REQUISICIONES'],
         ];
 
         foreach ($estados as $estado) {
