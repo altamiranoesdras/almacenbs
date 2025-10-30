@@ -19,15 +19,10 @@
 
     <!-- Unidad Field -->
     <div class="col-sm-6 mb-1">
-        {!! Form::label('unidad_id','Unidad:') !!}
-        {!!
-            Form::select(
-                'unidad_id',
-                select(\App\Models\RrhhUnidad::areas(), 'nombre_con_padre')
-                , $user->unidad_id ?? []
-                , ['id'=>'unidads','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
-            )
-        !!}
+        <label for="tipos">Unidad:</label>
+        <multiselect v-model="unidad_seleccionada" :options="unidades" label="text" track-by="id" placeholder="Seleccione uno..." >
+        </multiselect>
+        <input type="hidden" name="unidad_id" :value="unidad_seleccionada ? unidad_seleccionada.id : null">
     </div>
 
     <!-- Puesto Field -->
@@ -46,14 +41,8 @@
     <!-- bodega Field -->
     <div class="col-sm-6 mb-1">
         {!! Form::label('bodega_id','Bodega:') !!}
-        {!!
-            Form::select(
-                'bodega_id',
-                select(\App\Models\Bodega::class)
-                , $user->bodega_id ?? []
-                , ['id'=>'bodegas','class' => 'form-control select2-simple','multiple','style'=>'width: 100%']
-            )
-        !!}
+        <input type="text" class="form-control" name="bodega" id="bodega" :value="bodega ? bodega.nombre : ''" readonly>
+        <input type="hidden" name="bodega_id"  :value="bodega ? bodega.id : null">
     </div>
 
 
@@ -112,24 +101,22 @@
     </div>
 
 
-    <div class="col-sm-12 mb-1">
-
-        <div class="card card-outline card-success">
-            <div class="card-header">
-                <h3 class="card-title">Opciones del menu</h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-                <div class="col-sm-12 mb-1">
-                    <div id="jstree-ajax"></div>
-                    <div id="event_result"></div>
-                    <input type="hidden" name="options" id="options">
-                </div>
-            </div>
-            <!-- /.card-body -->
-        </div>
-
-    </div>
+{{--    <div class="col-sm-12 mb-1">--}}
+{{--        <div class="card card-outline card-success">--}}
+{{--            <div class="card-header">--}}
+{{--                <h3 class="card-title">Opciones del menu</h3>--}}
+{{--            </div>--}}
+{{--            <!-- /.card-header -->--}}
+{{--            <div class="card-body">--}}
+{{--                <div class="col-sm-12 mb-1">--}}
+{{--                    <div id="jstree-ajax"></div>--}}
+{{--                    <div id="event_result"></div>--}}
+{{--                    <input type="hidden" name="options" id="options">--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <!-- /.card-body -->--}}
+{{--        </div>--}}
+{{--    </div>--}}
 </div>
 
 @push('scripts')
@@ -138,7 +125,7 @@
         el: '#campos_usuario',
         name: '#campos_usuario',
         created() {
-
+            this.bodega = this.unidad_seleccionada ? this.unidad_seleccionada.bodega : null;
         },
         data: {
             roles : @json(\App\Models\Role::whereNotIn('id',isset($user) ? $user->roles->pluck('id') :  [])->get()),
@@ -146,9 +133,23 @@
 
             permisos : @json(\App\Models\Permission::whereNotIn('id',isset($user) ? $user->permissions->pluck('id') :  [])->get()),
             permisos_asignados : @json($user->permissions ?? []),
+
+            unidades : @json(\App\Models\RrhhUnidad::with('bodega')->areas()->solicitan()->get()),
+            unidad_seleccionada: @json(\App\Models\RrhhUnidad::with('bodega')->find(old('unidad_id', $user->unidad_id ?? null))),
+
+            bodega: null,
         },
         methods: {
 
+        },
+        watch: {
+            unidad_seleccionada(newValue) {
+                if (newValue) {
+                    this.bodega = newValue.bodega;
+                } else {
+                    this.bodega = null;
+                }
+            }
         }
     });
 </script>

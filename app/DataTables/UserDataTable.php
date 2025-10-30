@@ -34,7 +34,7 @@ class UserDataTable extends DataTable
                     return $user->puesto->nombre ?? 'Sin puesto';
                 })
             ->editColumn('unidad.nombre',function (User $user){
-                return $user->unidad->nombre_con_padre ?? 'Sin unidad';
+                return $user->unidad->text ?? 'Sin unidad';
             })
             ->editColumn('bodega.nombre',function (User $user){
                 return $user->bodega->nombre ?? 'Sin bodega';
