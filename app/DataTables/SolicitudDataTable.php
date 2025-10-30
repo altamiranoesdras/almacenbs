@@ -192,7 +192,7 @@ class SolicitudDataTable extends DataTable
     {
         return [
             Column::make('folio')
-                ->name('correlativo')
+                ->name('folio')
                 ->data('folio')
                 ->title('Folio'),
             Column::make('justificacion_tabla')

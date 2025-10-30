@@ -19,6 +19,7 @@ use stdClass;
  * @property int $id
  * @property string|null $codigo
  * @property int|null $correlativo
+ * @property int|null $folio Folio de la solicitud para el envío fiscal
  * @property string|null $justificacion
  * @property string|null $observaciones
  * @property int|null $unidad_id
@@ -87,6 +88,7 @@ use stdClass;
  * @method static Builder|Solicitud whereFirmaAprueba($value)
  * @method static Builder|Solicitud whereFirmaAutoriza($value)
  * @method static Builder|Solicitud whereFirmaRequiere($value)
+ * @method static Builder|Solicitud whereFolio($value)
  * @method static Builder|Solicitud whereId($value)
  * @method static Builder|Solicitud whereJustificacion($value)
  * @method static Builder|Solicitud whereObservaciones($value)
@@ -129,6 +131,7 @@ class Solicitud extends Model
     public $fillable = [
         'codigo',
         'correlativo',
+        'folio',
         'justificacion',
         'unidad_id',
         'bodega_id',

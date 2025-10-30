@@ -6,6 +6,32 @@ use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\SoftDeletes;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * @property int $id
+ * @property string $codigo_fuente
+ * @property string|null $codigo_organismo
+ * @property string|null $correlativo
+ * @property string $nombre
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @method static \Database\Factories\FinanciamientoFuentFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|FinanciamientoFuent newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|FinanciamientoFuent newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|FinanciamientoFuent onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|FinanciamientoFuent query()
+ * @method static \Illuminate\Database\Eloquent\Builder|FinanciamientoFuent whereCodigoFuente($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FinanciamientoFuent whereCodigoOrganismo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FinanciamientoFuent whereCorrelativo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FinanciamientoFuent whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FinanciamientoFuent whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FinanciamientoFuent whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FinanciamientoFuent whereNombre($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FinanciamientoFuent whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FinanciamientoFuent withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|FinanciamientoFuent withoutTrashed()
+ * @mixin \Eloquent
+ */
 class FinanciamientoFuent extends Model
 {
 

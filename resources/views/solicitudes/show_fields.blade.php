@@ -6,20 +6,30 @@
             <div><strong>{{ $solicitude->id }}</strong></div>
         </div>
 
-        <div class="mb-2">
-            <label for="codigo">Código:</label>
-            <div><strong>{{ $solicitude->codigo }}</strong></div>
-        </div>
+
 
         <div class="mb-2">
-            <label for="departamento">Departamento solicita:</label>
+            <label for="departamento">Unidad solicita:</label>
             <div><strong>{{ $solicitude->unidad->nombre ?? '' }}</strong></div>
         </div>
 
         <div class="mb-2">
-            <label for="fecha_solicita">Fecha solicita:</label>
-            <div><strong>{{ fechaLtn($solicitude->fecha_solicita) }}</strong></div>
+            <label for="solicitante">Usuario Solicita:</label>
+            <div><strong>{{ $solicitude->usuarioSolicita->name ?? '' }}</strong></div>
         </div>
+
+        <div class="mb-2">
+            <label for="solicitante">Usuario Autoriza:</label>
+            <div><strong>{{ $solicitude->usuarioAutoriza->name ?? '-' }}</strong></div>
+        </div>
+
+
+        <div class="mb-2">
+            <label for="usuario_despacha">Usuario despacha:</label>
+            <div><strong>{{ $solicitude->usuarioDespacha->name ?? '-' }}</strong></div>
+        </div>
+
+
 
     </div>
 
@@ -33,21 +43,25 @@
         </div>
 
         <div class="mb-2">
-            <label for="solicitante">Solicitante:</label>
-            <div><strong>{{ $solicitude->usuarioSolicita->name ?? '' }}</strong></div>
+            <label for="folio" >Folio:</label>
+            <div><strong class="text-danger">{{ $solicitude->folio }}</strong></div>
         </div>
 
-        @if ($solicitude->estaDespachada())
-            <div class="mb-2">
-                <label for="usuario_despacha">Usuario que despacha:</label>
-                <div><strong>{{ $solicitude->usuarioDespacha->name ?? '' }}</strong></div>
-            </div>
+        <div class="mb-2">
+            <label for="fecha_solicita">Fecha solicita:</label>
+            <div><strong>{{ $solicitude->fecha_solicita ? fechaLtn($solicitude->fecha_solicita) : "-" }}</strong></div>
+        </div>
 
-            <div class="mb-2">
-                <label for="fecha_despacha">Despachada el:</label>
-                <div><strong>{{ fechaLtn($solicitude->fecha_despacha) }}</strong></div>
-            </div>
-        @endif
+        <div class="mb-2">
+            <label for="fecha_solicita">Fecha Autorización:</label>
+            <div><strong>{{ $solicitude->fecha_autoriza ? fechaLtn($solicitude->fecha_autoriza) : '-' }}</strong></div>
+        </div>
+
+
+        <div class="mb-2">
+            <label for="fecha_despacha">Fecha Despachada:</label>
+            <div><strong>{{ $solicitude->fecha_despacha ? fechaLtn($solicitude->fecha_despacha) : '-' }}</strong></div>
+        </div>
 
         @if (!empty($solicitude->motivo_retorna))
             <div class="mb-2">
@@ -58,7 +72,7 @@
 
     </div>
 
-    <div class="col-12 mt-3">
+    <div class="col-12 mt-1 mb-1">
         <label for="justificacion">Justificación:</label>
         <div><strong>{{ $solicitude->justificacion }}</strong></div>
     </div>
