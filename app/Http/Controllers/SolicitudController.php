@@ -238,7 +238,7 @@ class SolicitudController extends AppBaseController
             $request->merge([
                 'codigo' => $this->getCodigo(),
                 'correlativo' => $this->getCorrelativo(),
-                'folio' => $this->getCodigo(4),
+                'folio' => $this->getCorrelativo(),
             ]);
         }
 
