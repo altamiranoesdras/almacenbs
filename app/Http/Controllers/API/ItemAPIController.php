@@ -25,7 +25,9 @@ class ItemAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $query = Item::conDetSolicitudesAprobadas()->with('stocks')->limit(100);
+        $query = Item::conDetSolicitudesAprobadas()
+            ->with('stocks')
+            ->limit(100);
 
         if ($request->get('skip')) {
             $query->skip($request->get('skip'));
@@ -33,6 +35,14 @@ class ItemAPIController extends AppBaseController
         if ($request->get('limit')) {
             $query->limit($request->get('limit'));
         }
+
+        if ($request->con_stock) {
+            $query->whereHas('stocks', function ($q) {
+                $q->where('cantidad', '>', 0);
+            });
+        }
+
+
         if ($request->search){
             $search = str_replace(" ","%",$request->search);
 
