@@ -139,7 +139,7 @@ class SolicitudDataTable extends DataTable
             ->language(['url' => asset('js/SpanishDataTables.json')])
             ->responsive(true)
             ->stateSave(false)
-            ->orderBy(1,'desc')
+            ->orderBy(0,'desc')
             ->dom('
                     <"card-header border-bottom p-1"
                         <"head-label">
@@ -191,6 +191,10 @@ class SolicitudDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            Column::make('id')
+                ->name('id')
+                ->data('id')
+                ->title('Id'),
             Column::make('folio')
                 ->name('folio')
                 ->data('folio')
