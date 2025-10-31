@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Item;
+use App\Models\ItemCategoria;
 use App\Models\ItemPresentacion;
 use App\Models\ItemTipo;
 use App\Models\Renglon;
@@ -107,7 +108,7 @@ class InsumosImportarDesdeCsvCommand extends Command
                 $nombrePresentacion = $fila['NOMBRE DE LA PRESENTACIÓN'] ?? null;
                 $cantidadYUnidad = $fila['CANTIDAD Y UNIDAD DE MEDIDA DE LA PRESENTACIÓN'] ?? null;
                 $codigoPresentacion = $fila['CÓDIGO DE PRESENTACIÓN'] ?? null;
-
+                $categoria = ItemCategoria::inRandomOrder()->first();
                 $renglon = $renglones->where('numero', $codigoRenglon)->first() ?? null;
                 $presentacion = $presentaciones->where('nombre', $nombrePresentacion)->first() ?? null;
                 $unimed = $unidades->where('nombre', $cantidadYUnidad)->first() ?? null;

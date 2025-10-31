@@ -3134,7 +3134,8 @@ class RrhhUnidadesTableSeeder extends Seeder
 
         //bodega principal central
         Bodega::create([
-            'nombre' => 'Bodega Principal Central'
+            'unidad_id' => 1,
+            'nombre' => 'Bodega Principal Central',
         ]);
 
         foreach (RrhhUnidad::areas()->solicitan()->get() as $unidad) {

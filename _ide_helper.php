@@ -21107,10 +21107,19 @@ namespace App\Console\Commands {
      */        class AnonimizarNombresUsuarios {
             }
             /**
+     */        class AsociarBodegasUsuarios {
+            }
+            /**
+     */        class AsociarBodegaUnidadCommand {
+            }
+            /**
      */        class CambiarStockInicialCommand {
             }
             /**
      */        class CompararStockCalculadoStockAlmacenado {
+            }
+            /**
+     */        class CompraReingresarKardexSinCategoria {
             }
             /**
      */        class EnviarEmailPerecederos {
@@ -21152,6 +21161,9 @@ namespace App\Console\Commands {
      */        class InsumosImportCommand {
             }
             /**
+     */        class LlenarFoliosRequisicionesAlmacen {
+            }
+            /**
      */        class MigrarDBaLocalComando {
             }
             /**
@@ -21159,6 +21171,9 @@ namespace App\Console\Commands {
             }
             /**
      */        class ObtenerCodigoRequisicionPorCodigoKardex {
+            }
+            /**
+     */        class PruebasCommand {
             }
             /**
      */        class RegistrarKardexIniciales {

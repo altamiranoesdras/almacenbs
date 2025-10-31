@@ -129,23 +129,16 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Detalle de Movimientos</h3>
-                            <div class="card-tools">
-                                <button class="btn btn-success btn-sm" onclick="exportToExcel()">
-                                    <i class="fa fa-file-excel"></i> Exportar Excel
-                                </button>
-                                <button class="btn btn-danger btn-sm" onclick="exportToPDF()">
-                                    <i class="fa fa-file-pdf"></i> Exportar PDF
-                                </button>
-                            </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped" id="reportTable">
+                                <table class="table table-bordered table-striped" id="tabla-reporte-tipo">
                                     <thead>
                                         <tr>
                                             <th>ID Operación</th>
                                             <th>Tipo</th>
                                             <th>Código Insumo</th>
+                                            <th>Código Presentación</th>
                                             <th>Nombre Insumo</th>
                                             <th>Presentación</th>
                                             <th>Cantidad</th>
@@ -160,12 +153,13 @@
                                                 <td>{{ $movimiento->id }}</td>
                                                 <td>
                                                     @if($movimiento->tipo === 'ingreso')
-                                                        <span class="badge badge-success">INGRESO</span>
+                                                        <span >INGRESO</span>
                                                     @else
-                                                        <span class="badge badge-danger">SALIDA</span>
+                                                        <span >SALIDA</span>
                                                     @endif
                                                 </td>
                                                 <td>{{ $movimiento->item->codigo_insumo ?? 'N/A' }}</td>
+                                                <td>{{ $movimiento->item->codigo_presentacion ?? 'N/A' }}</td>
                                                 <td>{{ $movimiento->item->nombre ?? 'N/A' }}</td>
                                                 <td>{{ $movimiento->item->presentacion->nombre ?? 'N/A' }}</td>
                                                 <td class="text-right">{{ number_format($movimiento->cantidad, 2) }}</td>
@@ -186,35 +180,64 @@
 @endsection
 
 @push('scripts')
-<script>
-    $(document).ready(function() {
-        $('#reportTable').DataTable({
-            "responsive": true,
-            "autoWidth": false,
-            "ordering": true,
-            "paging": true,
-            "searching": true,
-            "info": true,
-            "language": {
-                "url": "{{ asset('js/SpanishDataTables.json') }}"
-            },
-            "columnDefs": [
-                {
-                    "targets": [5],
-                    "className": "text-right"
+    <script>
+        new Vue({
+                el: '#root',
+                name: 'root',
+                created() {
+
+                },
+                mounted() {
+                    cargarDatatable();
+                },
+                data: {
+
+                    
+
+                },
+                methods: {
+
+                },
+                computed:{
+
+                },
+                watch:{
+
                 }
-            ]
-        });
-    });
+            });
 
-    function exportToExcel() {
-        // Implementar exportación a Excel
-        alert('Función de exportación a Excel - Por implementar');
-    }
-
-    function exportToPDF() {
-        // Implementar exportación a PDF
-        alert('Función de exportación a PDF - Por implementar');
-    }
-</script>
+        function cargarDatatable() {
+            $('#tabla-reporte-tipo').DataTable({
+                dom: 'Brtip',
+                paginate: false,
+                ordering: true,
+                language: {
+                    "url": "{{asset('js/SpanishDataTables.json')}}"
+                },
+                buttons: [
+                    {
+                        extend: 'copy',
+                        'text': '<i class="fa fa-copy"></i> <span class="d-none d-sm-inline">Copiar</span>'
+                    },
+                    {
+                        extend: 'csv',
+                        'text': '<i class="fa fa-file-excel"></i> <span class="d-none d-sm-inline">CSV</span>'
+                    },
+                    {
+                        extend: 'excel',
+                        'text': '<i class="fa fa-file-excel"></i> <span class="d-none d-sm-inline">Excel</span>'
+                    },
+                    {
+                        extend: 'pdf',
+                        'text': '<i class="fa fa-file-pdf"></i> <span class="d-none d-sm-inline">PDF</span>'
+                    },
+                    {
+                        extend: 'print',
+                        'text': '<i class="fa fa-print"></i> <span class="d-none d-sm-inline">Imprimir</span>'
+                    },
+                ],
+                "order": []
+            });
+        }
+    </script>
 @endpush
