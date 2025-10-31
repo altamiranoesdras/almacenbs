@@ -500,7 +500,7 @@ class ReportesAlmacenController extends AppBaseController
     // Reporte 2: Existencia por Unidad Solicitante
     public function misExistencias(Request $request)
     {
-        $unidades_seleccionadas = auth()->user()->rrhhUnidad ? [auth()->user()->rrhhUnidad->id] : [29];
+        $unidades_seleccionadas = auth()->user()->rrhhUnidad ? [auth()->user()->rrhhUnidad->id] : [];
         $fecha_desde = $request->fecha_desde ?? null;
         $fecha_hasta = $request->fecha_hasta ?? null;
 
