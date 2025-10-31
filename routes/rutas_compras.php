@@ -4,6 +4,7 @@
 use App\Http\Controllers\CompraRequisicion\CompraRequisicionAprobarController;
 use App\Http\Controllers\CompraRequisicion\CompraRequisicionAutorizarController;
 use App\Http\Controllers\CompraRequisicion\CompraRequisicionController;
+use App\Http\Controllers\CompraRequisicion\CompraRequisicionSupervisorController;
 use App\Http\Controllers\CompraRequisicion\CompraRequisicionUsuarioController;
 use App\Http\Controllers\CompraSolicitudController;
 use App\Http\Controllers\CompraSolicitudEstadoController;
@@ -38,6 +39,11 @@ Route::prefix('compra')->name('compra.')->group(function () {
         Route::get('autorizar', [CompraRequisicionAutorizarController::class, 'index'])->name('autorizar');
         Route::get('autorizar/seguimiento/{requisicion}', [CompraRequisicionAutorizarController::class, 'seguimiento'])->name('autorizar.seguimiento');
         Route::patch('autorizar/store/{requisicion}', [CompraRequisicionAutorizarController::class, 'autorizar'])->name('autorizar.store');
+
+        Route::get('supervisor', [CompraRequisicionSupervisorController::class, 'index'])->name('supervisor');
+        Route::get('supervisor/seguimiento/{requisicion}', [CompraRequisicionSupervisorController::class, 'seguimiento'])->name('supervisor.seguimiento');
+        Route::patch('supervisor/seguimiento/procesar/{requisicion}', [CompraRequisicionSupervisorController::class, 'procesar'])->name('supervisor.seguimiento.procesar');
+        Route::post('supervisor/seguimiento/retornar/{requisicion}', [CompraRequisicionSupervisorController::class, 'retornar'])->name('supervisor.seguimiento.retornar');
 
         Route::get('requisiciones', [CompraRequisicionController::class, 'index'])->name('index');
         Route::get('requisiciones/create', [CompraRequisicionController::class, 'create'])->name('create');

@@ -34,6 +34,7 @@
             <div class="col-12">
 
                 @include('layouts.partials.request_errors')
+                @include('compra_requisiciones.componentes.tarjeta_compra_requisicion', ['requisicion' => $requisicion])
 
                 <div class="card">
 
@@ -41,8 +42,8 @@
 
                     <div class="card-body">
                         <div class="row">
-                            @include('compra_requisiciones.show_fields')
-                            @include('compra_requisiciones.tabla_detalles_requisicion')
+{{--                            @include('compra_requisiciones.show_fields')--}}
+{{--                            @include('compra_requisiciones.tabla_detalles_requisicion')--}}
                         </div>
                         <div class="row">
                             <div class="col-12 mb-1">

@@ -2,6 +2,7 @@
 
 namespace App\Models\CompraRequisicion;
 
+use App\Models\CompraRequisicionEstado;
 use App\Models\CompraSolicitud;
 use App\Traits\HasBitacora;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,10 +11,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use phpDocumentor\Reflection\Types\Boolean;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use App\Models\CompraRequisicionEstado;
+
 /**
  * @property int $id
  * @property int|null $tipo_concurso_id
@@ -299,6 +299,40 @@ class CompraRequisicion extends Model implements HasMedia
     public function puedeAutorizarse(): bool
     {
         return $this->estado_id == CompraRequisicionEstado::APROBADA && $this->tiene_firma_autorizador;
+    }
+
+    //TODO: Esta función debe de completarse.
+    public function puedeAprobarSupervisor(): bool
+    {
+        return $this->estado_id == CompraRequisicionEstado::AUTORIZADA || $this->estado_id == CompraRequisicionEstado::ASIGNACION_REQUISICIONES;
+    }
+
+    //TODO: Esta función debe de completarse.
+    public function supervisorVistoBueno($comentario = null): void
+    {
+        if ($this->estado_id == CompraRequisicionEstado::AUTORIZADA) {
+            $this->estado_id = CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_PRESUPUESTOS;
+        } else {
+            $this->estado_id = CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_COMPRAS;
+        }
+
+        $this->save();
+
+        $this->addBitacora("REQUISICIÓN DE COMPRA APROBADA POR SUPERVISOR", $comentario);
+    }
+
+    public function supervisorRetornar($comentario = null): void
+    {
+        if ($this->estado_id == CompraRequisicionEstado::AUTORIZADA) {
+            $this->estado_id = CompraRequisicionEstado::RETORNADA_POR_SUPERVISOR_A_AUTORIZADOR;
+        } else {
+            $this->estado_id = CompraRequisicionEstado::RETORNADA_POR_SUPERVISOR_A_ANALISTA_DE_PRESUPUESTO;
+        }
+
+        $this->save();
+
+        $this->addBitacora("REQUISICIÓN DE COMPRA RETORNADA POR SUPERVISOR", $comentario);
+
     }
 
 
