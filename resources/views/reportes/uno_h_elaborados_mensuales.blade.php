@@ -121,18 +121,10 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Detalle de 1-H</h3>
-                            <div class="card-tools">
-                                <button class="btn btn-success btn-sm" onclick="exportToExcel()">
-                                    <i class="fa fa-file-excel"></i> Exportar Excel
-                                </button>
-                                <button class="btn btn-danger btn-sm" onclick="exportToPDF()">
-                                    <i class="fa fa-file-pdf"></i> Exportar PDF
-                                </button>
-                            </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped" id="reportTable">
+                                <table class="table table-bordered table-striped" id="tabla-reporte-1h-mensual">
                                     <thead>
                                         <tr>
                                             <th>ID 1-H</th>
@@ -154,12 +146,12 @@
                                                 <td>{{ $compra1h->compra->proveedor->nombre ?? 'N/A' }}</td>
                                                 <td>
                                                     @if($compra1h->del == 0 && $compra1h->al == 0)
-                                                        <span class="badge badge-success">Utilizado</span>
+                                                        <span >Utilizado</span>
                                                     @else
-                                                        <span class="badge badge-warning">Anulado</span>
+                                                        <span >Anulado</span>
                                                     @endif
                                                 </td>
-                                                <td class="text-right">${{ number_format($compra1h->compra->total ?? 0, 2) }}</td>
+                                                <td class="text-right">Q.{{ number_format($compra1h->compra->total ?? 0, 2) }}</td>
                                                 <td>{{ $compra1h->observaciones ?? 'N/A' }}</td>
                                                 <td>
                                                     <a href="#" class="btn btn-sm btn-info" title="Ver Detalle">
@@ -180,35 +172,64 @@
 @endsection
 
 @push('scripts')
-<script>
-    $(document).ready(function() {
-        $('#reportTable').DataTable({
-            "responsive": true,
-            "autoWidth": false,
-            "ordering": true,
-            "paging": true,
-            "searching": true,
-            "info": true,
-            "language": {
-                "url": "{{ asset('js/SpanishDataTables.json') }}"
-            },
-            "columnDefs": [
-                {
-                    "targets": [5],
-                    "className": "text-right"
+    <script>
+        new Vue({
+                el: '#root',
+                name: 'root',
+                created() {
+
+                },
+                mounted() {
+                    cargarDatatable();
+                },
+                data: {
+
+                    
+
+                },
+                methods: {
+
+                },
+                computed:{
+
+                },
+                watch:{
+
                 }
-            ]
-        });
-    });
+            });
 
-    function exportToExcel() {
-        // Implementar exportación a Excel
-        alert('Función de exportación a Excel - Por implementar');
-    }
-
-    function exportToPDF() {
-        // Implementar exportación a PDF
-        alert('Función de exportación a PDF - Por implementar');
-    }
-</script>
+        function cargarDatatable() {
+            $('#tabla-reporte-1h-mensual').DataTable({
+                dom: 'Brtip',
+                paginate: false,
+                ordering: true,
+                language: {
+                    "url": "{{asset('js/SpanishDataTables.json')}}"
+                },
+                buttons: [
+                    {
+                        extend: 'copy',
+                        'text': '<i class="fa fa-copy"></i> <span class="d-none d-sm-inline">Copiar</span>'
+                    },
+                    {
+                        extend: 'csv',
+                        'text': '<i class="fa fa-file-excel"></i> <span class="d-none d-sm-inline">CSV</span>'
+                    },
+                    {
+                        extend: 'excel',
+                        'text': '<i class="fa fa-file-excel"></i> <span class="d-none d-sm-inline">Excel</span>'
+                    },
+                    {
+                        extend: 'pdf',
+                        'text': '<i class="fa fa-file-pdf"></i> <span class="d-none d-sm-inline">PDF</span>'
+                    },
+                    {
+                        extend: 'print',
+                        'text': '<i class="fa fa-print"></i> <span class="d-none d-sm-inline">Imprimir</span>'
+                    },
+                ],
+                "order": []
+            });
+        }
+    </script>
 @endpush
