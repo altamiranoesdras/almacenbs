@@ -38,7 +38,7 @@
                 @include('compra_requisiciones.componentes.tarjeta_compra_requisicion', ['requisicion' => $requisicion])
 
                 <div class="card">
-                    {!! Form::model($requisicion, ['url' => route('compra.requisiciones.autorizar.store', $requisicion->id), 'method' => 'patch','class' => 'esperar']) !!}
+                    {!! Form::model($requisicion, ['url' => route('compra.requisiciones.supervisor.seguimiento.procesar', $requisicion->id), 'method' => 'patch','class' => 'esperar']) !!}
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 mb-1">
