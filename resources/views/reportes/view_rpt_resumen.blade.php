@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('htmlheader_title')
+@section('titulo_pagina')
     Resumen financiero
 @endsection
 

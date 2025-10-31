@@ -4,7 +4,7 @@
 @include('layouts.plugins.select2')
 @include('layouts.plugins.datatables_reportes')
 
-@section('htmlheader_title')
+@section('titulo_pagina')
     EXISTENCIA POR INSUMO
 @endsection
 
@@ -44,7 +44,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            
+
                                             <tr v-for="item in items">
                                                 <td><span v-text="item.id"></span></td>
                                                 <td><span v-text="item.codigo_insumo"></span></td>
@@ -55,7 +55,7 @@
                                                     <span v-text="item.stock_total.toLocaleString('es-ES')"></span>
                                                 </td>
                                             </tr>
-                                            
+
                                         </tbody>
                                     </table>
                                 </div>
