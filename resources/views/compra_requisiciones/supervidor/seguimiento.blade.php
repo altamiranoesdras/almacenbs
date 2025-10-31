@@ -41,32 +41,31 @@
                     {!! Form::model($requisicion, ['url' => route('compra.requisiciones.autorizar.store', $requisicion->id), 'method' => 'patch','class' => 'esperar']) !!}
                     <div class="card-body">
                         <div class="row">
-                            {{--                            <div class="col-12 mb-1">--}}
-                            {{--                                JUSTIFICACIÓN DE LA COMPRA--}}
-                            {{--                                <textarea--}}
-                            {{--                                    name="justificacion"--}}
-                            {{--                                    id="justificacion"--}}
-                            {{--                                    v-model="justificacion"--}}
-                            {{--                                    class="form-control"--}}
-                            {{--                                    rows="2"--}}
-                            {{--                                    placeholder="Justificación de la compra"--}}
-                            {{--                                ></textarea>--}}
-                            {{--                            </div>--}}
+                            <div class="col-12 mb-1">
+                                Comentario:
+                                <textarea
+                                    name="comentario"
+                                    class="form-control"
+                                    rows="2"
+                                    placeholder="Justificación de la compra"
+                                ></textarea>
+                            </div>
                         </div>
 
                         <div class="card-footer">
                             <div class="row mb1">
 
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-outline-danger round" data-bs-toggle="modal"
+                                    <button type="button" class="btn btn-outline-secondary round" data-bs-toggle="modal"
                                             data-target="#modalAnular">
-                                        <i class="fa fa-ban"></i> Anular
+                                        <i class="fa fa-undo"></i>
+                                        Retornar
                                     </button>
                                 </div>
 
 
-                                <div class="col-sm-3 text-center">
+                                <div class="col-sm-4 text-center">
 
                                     @if(!$requisicion->tiene_firma_autorizador)
                                         <button type="button" class="btn btn-outline-info round" @click="firmar()">
@@ -82,20 +81,13 @@
 
                                 </div>
 
-                                <div class="col-sm-3 text-center">
-
-                                    <button type="submit" class="btn btn-outline-success round">
-                                        <i class="fa fa-save"></i> Guardar
-                                    </button>
-                                </div>
-
-                                @if($requisicion->puedeAutorizarse())
-                                    <div class="col-sm-3 text-end">
+                                @if($requisicion->puedeAprobarSupervisor())
+                                    <div class="col-sm-4 text-end">
                                         <button type="button" data-bs-toggle="modal"
                                                 data-bs-target="#modal-confirma-procesar"
-                                                class="btn btn-outline-primary round">
+                                                class="btn btn-success round">
                                             <i class="fa fa-paper-plane"></i>
-                                            Autorizar y Enviar
+                                            Aprobar y Enviar
                                         </button>
                                     </div>
                                 @endif
