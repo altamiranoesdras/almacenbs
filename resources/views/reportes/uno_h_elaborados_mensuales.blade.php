@@ -103,7 +103,7 @@
                                         <span class="info-box-icon bg-info"><i class="fa fa-dollar-sign"></i></span>
                                         <div class="info-box-content">
                                             <span class="info-box-text">Monto Total</span>
-                                            <span class="info-box-number">${{ number_format($compras1h->sum(function($compra1h) {
+                                            <span class="info-box-number">Q.{{ number_format($compras1h->sum(function($compra1h) {
                                                 return $compra1h->compra->total ?? 0;
                                             }), 2) }}</span>
                                         </div>
