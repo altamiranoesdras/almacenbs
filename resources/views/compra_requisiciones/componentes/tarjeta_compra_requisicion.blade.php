@@ -2,7 +2,7 @@
     <div class="card">
         <!-- Header -->
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="card-title mb-0">Requisición Compra</h5>
+            <h5 class="card-title mb-0">Detalles Requisición Compra</h5>
             <div class="heading-elements">
                 <a data-bs-toggle="collapse" href="#collapseIngresoAlmacen" role="button"
                    aria-expanded="{{ $abierta ?? false }}" aria-controls="collapseIngresoAlmacen">
@@ -55,7 +55,7 @@
                         <div class="row">
                             <div class="col-12">
                                 @include('compra_requisiciones.componentes.show_fields')
-                                @include('compra_requisiciones.componentes.tabla_detalles_requisicion')
+                                @include('compra_requisiciones.componentes.tabla_detalles_requisicion', ['campos' => $camposDeTabla ?? null])
                             </div>
                         </div>
                     </div>
