@@ -3,7 +3,7 @@
 @include('layouts.plugins.select2')
 @include('layouts.plugins.datatables_reportes')
 
-@section('htmlheader_title')
+@section('titulo_pagina')
     REPORTE MOVIMIENTO DE SALIDAS POR UNIDAD Y SUBSECRETARÍA
 @endsection
 

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('htmlheader_title')
+@section('titulo_pagina')
     Reporte de Compras por día
 @endsection
 

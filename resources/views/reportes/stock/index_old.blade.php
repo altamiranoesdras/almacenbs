@@ -5,7 +5,7 @@
 @section('titulo_pagina', "Reporte Stock")
 
 
-@section('htmlheader_title')
+@section('titulo_pagina')
     Reporte Stock
 @endsection
 

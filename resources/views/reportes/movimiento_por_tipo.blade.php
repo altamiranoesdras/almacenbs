@@ -3,7 +3,7 @@
 @include('layouts.plugins.select2')
 @include('layouts.plugins.datatables_reportes')
 
-@section('htmlheader_title')
+@section('titulo_pagina')
     REPORTE DE MOVIMIENTO POR TIPO
 @endsection
 
@@ -73,55 +73,68 @@
             </div>
 
             <!-- Resumen -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Resumen de Movimientos</h3>
+            <div class="row g-3 mb-2">
+                <!-- Ingresos -->
+                <div class="col-md-3 col-sm-6">
+                    <div class="card shadow-sm border-0 h-100">
+                        <div class="card-body d-flex align-items-center py-1">
+                            <div class="avatar bg-success bg-opacity-10 rounded-2 p-2 me-2">
+                                <i class="fa-solid fa-arrow-up text-success fs-5"></i>
+                            </div>
+                            <div>
+                                <div class="text-muted small">Ingresos</div>
+                                <div class="fw-semibold fs-6">{{ $movimientos->where('tipo', 'ingreso')->count() }}</div>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="info-box">
-                                        <span class="info-box-icon bg-success"><i class="fa fa-arrow-up"></i></span>
-                                        <div class="info-box-content">
-                                            <span class="info-box-text">Ingresos</span>
-                                            <span class="info-box-number">{{ $movimientos->where('tipo', 'ingreso')->count() }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="info-box">
-                                        <span class="info-box-icon bg-danger"><i class="fa fa-arrow-down"></i></span>
-                                        <div class="info-box-content">
-                                            <span class="info-box-text">Salidas</span>
-                                            <span class="info-box-number">{{ $movimientos->where('tipo', 'salida')->count() }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="info-box">
-                                        <span class="info-box-icon bg-info"><i class="fa fa-exchange"></i></span>
-                                        <div class="info-box-content">
-                                            <span class="info-box-text">Total Movimientos</span>
-                                            <span class="info-box-number">{{ $movimientos->count() }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="info-box">
-                                        <span class="info-box-icon bg-warning"><i class="fa fa-chart-bar"></i></span>
-                                        <div class="info-box-content">
-                                            <span class="info-box-text">Cantidad Total</span>
-                                            <span class="info-box-number">{{ number_format($movimientos->sum('cantidad'), 2) }}</span>
-                                        </div>
-                                    </div>
-                                </div>
+                    </div>
+                </div>
+
+                <!-- Salidas -->
+                <div class="col-md-3 col-sm-6">
+                    <div class="card shadow-sm border-0 h-100">
+                        <div class="card-body d-flex align-items-center py-1">
+                            <div class="avatar bg-danger bg-opacity-10 rounded-2 p-2 me-2">
+                                <i class="fa-solid fa-arrow-down text-danger fs-5"></i>
+                            </div>
+                            <div>
+                                <div class="text-muted small">Salidas</div>
+                                <div class="fw-semibold fs-6">{{ $movimientos->where('tipo', 'salida')->count() }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Movimientos -->
+                <div class="col-md-3 col-sm-6">
+                    <div class="card shadow-sm border-0 h-100">
+                        <div class="card-body d-flex align-items-center py-1">
+                            <div class="avatar bg-info bg-opacity-10 rounded-2 p-2 me-2">
+                                <i class="fa-solid fa-exchange-alt text-info fs-5"></i>
+                            </div>
+                            <div>
+                                <div class="text-muted small">Total Movimientos</div>
+                                <div class="fw-semibold fs-6">{{ $movimientos->count() }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cantidad Total -->
+                <div class="col-md-3 col-sm-6">
+                    <div class="card shadow-sm border-0 h-100">
+                        <div class="card-body d-flex align-items-center py-1">
+                            <div class="avatar bg-warning bg-opacity-10 rounded-2 p-2 me-2">
+                                <i class="fa-solid fa-chart-bar text-warning fs-5"></i>
+                            </div>
+                            <div>
+                                <div class="text-muted small">Cantidad Total</div>
+                                <div class="fw-semibold fs-6">{{ number_format($movimientos->sum('cantidad'), 2) }}</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
 
             <!-- Tabla de Resultados -->
             <div class="row">
@@ -192,7 +205,7 @@
                 },
                 data: {
 
-                    
+
 
                 },
                 methods: {

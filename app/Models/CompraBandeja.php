@@ -64,6 +64,7 @@ class CompraBandeja extends Model
     const SOLICITANTE_COMPRAS = 1;
     const APROBADOR_DE_COMPRAS = 2;
     const AUTORIZADOR_DE_COMPRAS = 3;
+    const SUPERVISOR_COMPRAS = 4;
 
 
     public static $messages = [

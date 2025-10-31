@@ -59,6 +59,9 @@ class CompraRequisicionEstado extends Model
     const ORDEN_DE_COMPRA_GENERADA               = 15;
     const FINALIZADA                             = 16;
     const CANCELADA                              = 17;
+    const ASIGNACION_REQUISICIONES               = 18;
+    const RETORNADA_POR_SUPERVISOR_A_AUTORIZADOR               = 19;
+    const RETORNADA_POR_SUPERVISOR_A_ANALISTA_DE_PRESUPUESTO               = 20;
 
 
     public $fillable = [

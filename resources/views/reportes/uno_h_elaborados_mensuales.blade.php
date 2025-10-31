@@ -3,7 +3,7 @@
 @include('layouts.plugins.select2')
 @include('layouts.plugins.datatables_reportes')
 
-@section('htmlheader_title')
+@section('titulo_pagina')
     1-H ELABORADOS MENSUALES
 @endsection
 
@@ -184,7 +184,7 @@
                 },
                 data: {
 
-                    
+
 
                 },
                 methods: {
