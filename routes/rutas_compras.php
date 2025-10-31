@@ -41,6 +41,7 @@ Route::prefix('compra')->name('compra.')->group(function () {
         Route::patch('autorizar/store/{requisicion}', [CompraRequisicionAutorizarController::class, 'autorizar'])->name('autorizar.store');
 
         Route::get('supervisor', [CompraRequisicionSupervisorController::class, 'index'])->name('supervisor');
+        Route::get('supervisor/seguimiento/{requisicion}', [CompraRequisicionSupervisorController::class, 'seguimiento'])->name('supervisor.seguimiento');
 
 
         Route::get('requisiciones', [CompraRequisicionController::class, 'index'])->name('index');

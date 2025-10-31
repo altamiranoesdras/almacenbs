@@ -6,7 +6,10 @@
 @endphp
 
 <div class="table-responsive mb-3">
-    <table class="table table-bordered table-sm align-middle" id="tablaDetalle" style="margin-bottom: 2px; width:100%;">
+    <table
+        class="table table-bordered table-hover table-xtra-condensed"
+        id="tablaDetalle" style="margin-bottom: 2px; width:100%;"
+    >
         <thead class="small table-light">
         <tr class="text-center fw-bold">
             <td>CANTIDAD</td>
