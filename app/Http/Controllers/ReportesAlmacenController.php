@@ -497,6 +497,27 @@ class ReportesAlmacenController extends AppBaseController
         return view('reportes.existencia_por_unidad_solicitante', compact('stocks', 'unidades_seleccionadas', 'fecha_desde', 'fecha_hasta'));
     }
 
+    // Reporte 2: Existencia por Unidad Solicitante
+    public function misExistencias(Request $request)
+    {
+        $unidades_seleccionadas = auth()->user()->rrhhUnidad ? [auth()->user()->rrhhUnidad->id] : [];
+        $fecha_desde = $request->fecha_desde ?? null;
+        $fecha_hasta = $request->fecha_hasta ?? null;
+
+        $stocks = collect();
+
+        if(count($unidades_seleccionadas) > 0){
+
+            $query = Stock::whereHas('item')
+                ->where('bodega_id', Bodega::PRINCIPAL)
+                ->whereIn('unidad_id', $unidades_seleccionadas);
+
+            $stocks = $query->get();
+        }
+
+        return view('reportes.mis_existencias_por_unidad_solicitante', compact('stocks', 'unidades_seleccionadas', 'fecha_desde', 'fecha_hasta'));
+    }
+
     // Reporte 3: Existencia por Subsecretaría
     public function existenciaPorSubsecretaria(Request $request)
     {
