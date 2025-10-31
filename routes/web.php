@@ -267,9 +267,10 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('reportes/existencia-insumos', [ReportesAlmacenController::class,'existenciaInsumos'])->name('reportes.existencia.insumos');
 
     // Nuevas rutas para los 12 reportes
+
+    Route::get('reportes/existencia-por-unidad-solicitante', [ReportesAlmacenController::class,'existenciaPorUnidadSolicitante'])->name('reportes.existencia.unidad.solicitante');
+    
     Route::get('reportes/mis-existencias', [ReportesAlmacenController::class,'misExistencias'])->name('reportes.mis.existencias');
-
-
     Route::get('reportes/existencia-por-subsecretaria', [ReportesAlmacenController::class,'existenciaPorSubsecretaria'])->name('reportes.existencia.subsecretaria');
     Route::get('reportes/existencia-periodicas', [ReportesAlmacenController::class,'existenciaPeriodicas'])->name('reportes.existencia.periodicas');
     Route::get('reportes/ingresos-egresos-diarios', [ReportesAlmacenController::class,'ingresosEgresosDiarios'])->name('reportes.ingresos.egresos.diarios');
