@@ -5,7 +5,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 10.48.29.
+ * Generated for Laravel 10.49.1.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -20311,6 +20311,34 @@ namespace Spatie\LaravelIgnition\Facades {
             }
     }
 
+namespace Spatie\SignalAwareCommand\Facades {
+            /**
+     * @see \Spatie\SignalAwareCommand\Signal
+     */        class Signal {
+                    /**
+         * @static
+         */        public static function handle($signal, $callable)
+        {
+                        /** @var \Spatie\SignalAwareCommand\Signal $instance */
+                        return $instance->handle($signal, $callable);
+        }
+                    /**
+         * @static
+         */        public static function executeSignalHandlers($signal, $command)
+        {
+                        /** @var \Spatie\SignalAwareCommand\Signal $instance */
+                        return $instance->executeSignalHandlers($signal, $command);
+        }
+                    /**
+         * @static
+         */        public static function clearHandlers($signal = null)
+        {
+                        /** @var \Spatie\SignalAwareCommand\Signal $instance */
+                        return $instance->clearHandlers($signal);
+        }
+            }
+    }
+
 namespace Yajra\DataTables\Facades {
             /**
      * @mixin \Yajra\DataTables\DataTables
@@ -21473,6 +21501,30 @@ namespace NunoMaduro\Collision\Adapters\Laravel\Commands {
             }
     }
 
+namespace Spatie\Backup\Commands {
+            /**
+     */        class BackupCommand {
+            }
+            /**
+     */        class BaseCommand {
+            }
+            /**
+     */        class CleanupCommand {
+            }
+            /**
+     */        class ListCommand {
+            }
+            /**
+     */        class MonitorCommand {
+            }
+    }
+
+namespace Spatie\SignalAwareCommand {
+            /**
+     */        class SignalAwareCommand {
+            }
+    }
+
 namespace Spatie\Permission\Commands {
             /**
      */        class CacheReset {
@@ -21488,6 +21540,9 @@ namespace Spatie\Permission\Commands {
             }
             /**
      */        class UpgradeForTeams {
+            }
+            /**
+     */        class AssignRole {
             }
     }
 
@@ -25292,6 +25347,7 @@ namespace  {
             class Livewire extends \Livewire\Livewire {}
             class Excel extends \Maatwebsite\Excel\Facades\Excel {}
             class Flare extends \Spatie\LaravelIgnition\Facades\Flare {}
+            class Signal extends \Spatie\SignalAwareCommand\Facades\Signal {}
             class DataTables extends \Yajra\DataTables\Facades\DataTables {}
             class Iseed extends \Orangehill\Iseed\Facades\Iseed {}
     }

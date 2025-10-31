@@ -500,7 +500,7 @@ class ReportesAlmacenController extends AppBaseController
     // Reporte 2: Existencia por Unidad Solicitante
     public function misExistencias(Request $request)
     {
-        $unidades_seleccionadas = auth()->user()->rrhhUnidad ? [auth()->user()->rrhhUnidad->id] : [];
+        $unidades_seleccionadas = auth()->user()->rrhhUnidad ? [auth()->user()->rrhhUnidad->id] : [29];
         $fecha_desde = $request->fecha_desde ?? null;
         $fecha_hasta = $request->fecha_hasta ?? null;
 
@@ -510,10 +510,14 @@ class ReportesAlmacenController extends AppBaseController
 
             $query = Stock::whereHas('item')
                 ->where('bodega_id', Bodega::PRINCIPAL)
-                ->whereIn('unidad_id', $unidades_seleccionadas);
+                ->whereIn('unidad_id', $unidades_seleccionadas)
+                ->where('cantidad', '>', 0)
+                ;
 
             $stocks = $query->get();
         }
+
+        // dd($stocks->toArray());
 
         return view('reportes.mis_existencias_por_unidad_solicitante', compact('stocks', 'unidades_seleccionadas', 'fecha_desde', 'fecha_hasta'));
     }

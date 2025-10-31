@@ -79,10 +79,9 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive" >
-                            <table class="table table-bordered table-striped" id="tabla-reporte-existencia">
+                            <table class="table table-bordered table-striped" id="tabla-reporte-existencias">
                                 <thead>
                                     <tr>
-                                        <th>Unidad Solicitante</th>
                                         <th>Código Insumo</th>
                                         <th>Código Presentación</th>
                                         <th>Nombre Insumo</th>
@@ -98,7 +97,6 @@
                                             $ultima_solicitud = $stock->item->solicitudDetalles->sortByDesc('created_at')->first();
                                         @endphp
                                         <tr>
-                                            <td>{{ $stock->rrhhUnidad->nombre ?? 'N/A' }}</td>
                                             <td>{{ $stock->item->codigo_insumo}}</td>
                                             <td>{{ $stock->item->codigo_presentacion }}</td>
                                             <td>{{ $stock->item->nombre }}</td>
@@ -108,9 +106,7 @@
                                             <td>{{ $ultima_solicitud ? $ultima_solicitud->solicitud->created_at->format('d/m/Y') : 'N/A' }}</td>
                                         </tr>
                                     @empty
-                                        <tr>
-                                            <td colspan="8" class="text-center">No se encontraron resultados</td>
-                                        </tr>
+                                        
                                     @endforelse
                                 </tbody>
                             </table>
@@ -151,12 +147,13 @@
             });
 
         function cargarDatatable() {
-            $('#tabla-reporte-existencia').DataTable({
+            $('#tabla-reporte-existencias').DataTable({
                 dom: 'Brtip',
                 paginate: false,
                 ordering: true,
                 language: {
-                    "url": "{{asset('js/SpanishDataTables.json')}}"
+                    "url": "{{asset('js/SpanishDataTables.json')}}",
+                    "emptyTable": "No se encontraron resultados",
                 },
                 buttons: [
                     {
