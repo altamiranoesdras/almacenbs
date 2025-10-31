@@ -57,8 +57,9 @@
 
                                 <div class="col-sm-4">
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-outline-secondary round" data-bs-toggle="modal"
-                                            data-target="#modalAnular">
+                                    <button type="button" class="btn btn-outline-secondary round me-1"
+                                            data-bs-toggle="modal" data-bs-target="#modalRetornar"
+                                    >
                                         <i class="fa fa-undo"></i>
                                         Retornar
                                     </button>
@@ -233,6 +234,53 @@
 
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalRetornar" tabindex="-1" role="dialog"
+             aria-labelledby="modelTitleId" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modelTitleId">
+                            Retornar Requisición
+                        </h4>
+                        <button type="button" class="btn-close"
+                                data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="{{route('compra.requisiciones.supervisor.seguimiento.retornar',$requisicion->id)}}"
+                          method="post" class="esperar">
+                        @csrf
+                        <div class="modal-body">
+
+                            <div class="row">
+                                <!--campo motivo-->
+
+                                <div class="col">
+                                    <label for="motivo">Motivo:</label>
+                                    <textarea
+                                        name="comentario"
+                                        id="motivo"
+                                        class="form-control"
+                                        rows="3"
+                                        required
+                                    >
+                                    </textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary"
+                                    data-bs-dismiss="modal">
+                                Cancelar
+                            </button>
+                            <button type="submit" class="btn btn-outline-success">
+                                Retornar
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

@@ -43,7 +43,7 @@ Route::prefix('compra')->name('compra.')->group(function () {
         Route::get('supervisor', [CompraRequisicionSupervisorController::class, 'index'])->name('supervisor');
         Route::get('supervisor/seguimiento/{requisicion}', [CompraRequisicionSupervisorController::class, 'seguimiento'])->name('supervisor.seguimiento');
         Route::patch('supervisor/seguimiento/procesar/{requisicion}', [CompraRequisicionSupervisorController::class, 'procesar'])->name('supervisor.seguimiento.procesar');
-
+        Route::post('supervisor/seguimiento/retornar/{requisicion}', [CompraRequisicionSupervisorController::class, 'retornar'])->name('supervisor.seguimiento.retornar');
 
         Route::get('requisiciones', [CompraRequisicionController::class, 'index'])->name('index');
         Route::get('requisiciones/create', [CompraRequisicionController::class, 'create'])->name('create');

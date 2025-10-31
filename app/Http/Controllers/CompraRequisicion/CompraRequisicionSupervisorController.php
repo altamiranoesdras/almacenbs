@@ -33,11 +33,21 @@ class CompraRequisicionSupervisorController extends Controller
 
     public function procesar(CompraRequisicion $requisicion, Request $request)
     {
-        $requisicion->vistoBuenoSupervisor($request->comentario ?? null);
+        $requisicion->supervisorVistoBueno($request->comentario ?? null);
 
         return redirect()
             ->route('compra.requisiciones.supervisor')
             ->with('success', 'La requisición ha sido procesada con éxito.');
+
+    }
+
+    public function retornar(CompraRequisicion $requisicion, Request $request)
+    {
+        $requisicion->supervisorRetornar($request->comentario ?? null);
+
+        return redirect()
+            ->route('compra.requisiciones.supervisor')
+            ->with('success', 'La requisición ha sido retornada con éxito.');
 
     }
 }

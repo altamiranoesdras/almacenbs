@@ -308,7 +308,7 @@ class CompraRequisicion extends Model implements HasMedia
     }
 
     //TODO: Esta función debe de completarse.
-    public function vistoBuenoSupervisor($comentario = null): void
+    public function supervisorVistoBueno($comentario = null): void
     {
         if ($this->estado_id == CompraRequisicionEstado::AUTORIZADA) {
             $this->estado_id = CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_PRESUPUESTOS;
@@ -319,6 +319,20 @@ class CompraRequisicion extends Model implements HasMedia
         $this->save();
 
         $this->addBitacora("REQUISICIÓN DE COMPRA APROBADA POR SUPERVISOR", $comentario);
+    }
+
+    public function supervisorRetornar($comentario = null): void
+    {
+        if ($this->estado_id == CompraRequisicionEstado::AUTORIZADA) {
+            $this->estado_id = CompraRequisicionEstado::RETORNADA_POR_SUPERVISOR_A_AUTORIZADOR;
+        } else {
+            $this->estado_id = CompraRequisicionEstado::RETORNADA_POR_SUPERVISOR_A_ANALISTA_DE_PRESUPUESTO;
+        }
+
+        $this->save();
+
+        $this->addBitacora("REQUISICIÓN DE COMPRA RETORNADA POR SUPERVISOR", $comentario);
+
     }
 
 
