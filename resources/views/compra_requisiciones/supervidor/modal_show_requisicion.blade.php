@@ -10,11 +10,13 @@
                                                                              ])
             <div class="modal-footer" style="display: block !important;">
                 <div class="row">
-                    <div class="col-sm-6 text-left">
-                        <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
-                                data-target="#modalRegresar{{$requisicion->id}}"
+                    <div class="col-sm-12 text-right">
+                        <button type="button" class="btn btn-outline-secondary"
+                                data-bs-dismiss="modal"
+                                data-target="#modal-detalles-{{$requisicion->id}}"
                         >
-                            <i class="fa fa-arrow-left"></i> Regresar
+                            <i class="fa fa-times"></i>
+                            Cerrar
                         </button>
                     </div>
                 </div>
