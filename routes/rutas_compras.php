@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\CompraRequisicion\CompraRequisicionAnalistaPresupuestoController;
 use App\Http\Controllers\CompraRequisicion\CompraRequisicionAprobarController;
 use App\Http\Controllers\CompraRequisicion\CompraRequisicionAutorizarController;
 use App\Http\Controllers\CompraRequisicion\CompraRequisicionController;
@@ -44,6 +45,11 @@ Route::prefix('compra')->name('compra.')->group(function () {
         Route::get('supervisor/seguimiento/{requisicion}', [CompraRequisicionSupervisorController::class, 'seguimiento'])->name('supervisor.seguimiento');
         Route::patch('supervisor/seguimiento/procesar/{requisicion}', [CompraRequisicionSupervisorController::class, 'procesar'])->name('supervisor.seguimiento.procesar');
         Route::post('supervisor/seguimiento/retornar/{requisicion}', [CompraRequisicionSupervisorController::class, 'retornar'])->name('supervisor.seguimiento.retornar');
+
+        Route::get('analista/presupuesto', [CompraRequisicionAnalistaPresupuestoController::class, 'index'])->name('analista.presupuesto');
+        Route::get('analista/presupuesto/{requisicion}', [CompraRequisicionAnalistaPresupuestoController::class, 'seguimiento'])->name('analista.presupuesto.seguimiento');
+        Route::patch('analista/presupuesto/procesar/{requisicion}', [CompraRequisicionAnalistaPresupuestoController::class, 'procesar'])->name('analista.presupuesto.seguimiento.procesar');
+        Route::post('analista/presupuesto/retornar/{requisicion}', [CompraRequisicionAnalistaPresupuestoController::class, 'retornar'])->name('analista.presupuesto.seguimiento.retornar');
 
         Route::get('requisiciones', [CompraRequisicionController::class, 'index'])->name('index');
         Route::get('requisiciones/create', [CompraRequisicionController::class, 'create'])->name('create');
