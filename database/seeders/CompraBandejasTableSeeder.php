@@ -79,5 +79,15 @@ class CompraBandejasTableSeeder extends Seeder
             CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_PRESUPUESTOS,
             CompraRequisicionEstado::RETORNADA_POR_SUPERVISOR_A_ANALISTA_DE_PRESUPUESTO,
         ]);
+
+        $bandejaAnalistaCompras = CompraBandeja::create([
+            'rol_id' => Role::ANALISTA_COMPRAS,
+            'nombre' => 'Analista de Compras',
+            'descripcion' => 'Analiza la requisición de compra desde el punto de vista de compras.',
+        ]);
+
+        $bandejaAnalistaCompras->estados()->attach([
+            CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_COMPRAS,
+        ]);
     }
 }
