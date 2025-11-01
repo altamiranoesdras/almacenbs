@@ -26,7 +26,9 @@ class CompraRequisicionAnalistaCompraController extends Controller
     }
     public function seguimiento(CompraRequisicion $requisicion)
     {
-        return view('compra_requisiciones.analista_compras.seguimiento', compact('requisicion'));
+        return view('pagina_en_construccion');
+
+//        return view('compra_requisiciones.analista_compras.seguimiento', compact('requisicion'));
     }
 
 }

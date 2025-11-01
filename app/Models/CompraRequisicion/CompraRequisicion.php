@@ -310,7 +310,9 @@ class CompraRequisicion extends Model implements HasMedia
     //TODO: Esta función debe de completarse.
     public function supervisorVistoBueno($comentario = ''): void
     {
-        if ($this->estado_id == CompraRequisicionEstado::AUTORIZADA) {
+        if ($this->estado_id == CompraRequisicionEstado::AUTORIZADA ||
+            $this->estado_id == CompraRequisicionEstado::RETORNADA_POR_ANALISTA_DE_PRESUPUESTO_A_SUPERVISOR)
+        {
             $this->estado_id = CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_PRESUPUESTOS;
         } else {
             $this->estado_id = CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_COMPRAS;

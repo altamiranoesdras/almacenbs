@@ -82,7 +82,6 @@
 
                                 </div>
 
-                                @if($requisicion->puedeAprobarSupervisor())
                                     <div class="col-sm-4 text-end">
                                         <button type="button" data-bs-toggle="modal"
                                                 data-bs-target="#modal-confirma-procesar"
@@ -91,7 +90,6 @@
                                             Aprobar y Enviar
                                         </button>
                                     </div>
-                                @endif
 
                             </div>
                             <div class="modal fade modal-info" id="modal-confirma-procesar">
