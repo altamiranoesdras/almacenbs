@@ -18,7 +18,7 @@
             <div class="mb-1 breadcrumb-right">
                 <div class="dropdown">
                     <a class="btn btn-outline-secondary float-right"
-                       href="{{ route('compra.requisiciones.autorizar') }}"
+                       href="{{ route('compra.requisiciones.analista.presupuesto') }}"
                     >
                         <i class="fa fa-arrow-left"></i>
                         Regresar
@@ -38,7 +38,7 @@
                 @include('compra_requisiciones.componentes.tarjeta_compra_requisicion', ['requisicion' => $requisicion])
 
                 <div class="card">
-                    {!! Form::model($requisicion, ['url' => route('compra.requisiciones.supervisor.seguimiento.procesar', $requisicion->id), 'method' => 'patch','class' => 'esperar']) !!}
+                    {!! Form::model($requisicion, ['url' => route('compra.requisiciones.analista.presupuesto.seguimiento.procesar', $requisicion->id), 'method' => 'patch','class' => 'esperar']) !!}
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 mb-1">
@@ -68,17 +68,17 @@
 
                                 <div class="col-sm-4 text-center">
 
-                                    @if(!$requisicion->tiene_firma_autorizador)
-                                        <button type="button" class="btn btn-outline-info round" @click="firmar()">
-                                            Firmar
-                                        </button>
-                                    @else
+{{--                                    @if(!$requisicion->tiene_firma_autorizador)--}}
+{{--                                        <button type="button" class="btn btn-outline-info round" @click="firmar()">--}}
+{{--                                            Firmar--}}
+{{--                                        </button>--}}
+{{--                                    @else--}}
 
-                                        <button type="button" class="btn btn-outline-info round" data-bs-toggle="modal"
-                                                data-bs-target="#modalImprimir">
-                                            Ver PDF Firmado
-                                        </button>
-                                    @endif
+{{--                                        <button type="button" class="btn btn-outline-info round" data-bs-toggle="modal"--}}
+{{--                                                data-bs-target="#modalImprimir">--}}
+{{--                                            Ver PDF Firmado--}}
+{{--                                        </button>--}}
+{{--                                    @endif--}}
 
                                 </div>
 
@@ -247,7 +247,7 @@
                         <button type="button" class="btn-close"
                                 data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="{{route('compra.requisiciones.supervisor.seguimiento.retornar',$requisicion->id)}}"
+                    <form action="{{route('compra.requisiciones.analista.presupuesto.seguimiento.retornar',$requisicion->id)}}"
                           method="post" class="esperar">
                         @csrf
                         <div class="modal-body">

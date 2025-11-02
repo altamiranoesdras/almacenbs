@@ -308,9 +308,11 @@ class CompraRequisicion extends Model implements HasMedia
     }
 
     //TODO: Esta función debe de completarse.
-    public function supervisorVistoBueno($comentario = null): void
+    public function supervisorVistoBueno($comentario = ''): void
     {
-        if ($this->estado_id == CompraRequisicionEstado::AUTORIZADA) {
+        if ($this->estado_id == CompraRequisicionEstado::AUTORIZADA ||
+            $this->estado_id == CompraRequisicionEstado::RETORNADA_POR_ANALISTA_DE_PRESUPUESTO_A_SUPERVISOR)
+        {
             $this->estado_id = CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_PRESUPUESTOS;
         } else {
             $this->estado_id = CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_COMPRAS;
@@ -321,7 +323,7 @@ class CompraRequisicion extends Model implements HasMedia
         $this->addBitacora("REQUISICIÓN DE COMPRA APROBADA POR SUPERVISOR", $comentario);
     }
 
-    public function supervisorRetornar($comentario = null): void
+    public function supervisorRetornar($comentario = ''): void
     {
         if ($this->estado_id == CompraRequisicionEstado::AUTORIZADA) {
             $this->estado_id = CompraRequisicionEstado::RETORNADA_POR_SUPERVISOR_A_AUTORIZADOR;
@@ -333,6 +335,23 @@ class CompraRequisicion extends Model implements HasMedia
 
         $this->addBitacora("REQUISICIÓN DE COMPRA RETORNADA POR SUPERVISOR", $comentario);
 
+    }
+
+    public function analistaPresupuestoVistoBueno($comentario = ''): void
+    {
+        $this->estado_id = CompraRequisicionEstado::ASIGNACION_REQUISICIONES;
+        $this->save();
+
+        $this->addBitacora("REQUISICIÓN DE COMPRA APROBADA POR ANALISTA DE PRESUPUESTO", $comentario);
+
+    }
+
+    public function analistaPresupuestoRetorna($comentario=''): void
+    {
+        $this->estado_id = CompraRequisicionEstado::RETORNADA_POR_ANALISTA_DE_PRESUPUESTO_A_SUPERVISOR;
+        $this->save();
+
+        $this->addBitacora("REQUISICIÓN DE COMPRA RETORNADA POR ANALISTA DE PRESUPUESTO", $comentario);
     }
 
 
