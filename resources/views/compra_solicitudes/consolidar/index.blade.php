@@ -54,12 +54,12 @@
 
                                 <div class="col-sm-3 mb-1">
                                     {!! Form::label('del', 'Del:') !!}
-                                    {!! Form::date('del', iniMesDb(), ['class' => 'form-control ']) !!}
+                                    {!! Form::date('del', null, ['class' => 'form-control ']) !!}
                                 </div>
 
                                 <div class="col-sm-3 mb-1">
                                     {!! Form::label('al', 'Al:') !!}
-                                    {!! Form::date('al', hoyDb(), ['class' => 'form-control ']) !!}
+                                    {!! Form::date('al', null, ['class' => 'form-control ']) !!}
                                 </div>
 
                                 <div class="col-sm-6 mb-1">

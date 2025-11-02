@@ -2,8 +2,10 @@
 
 namespace App\Models\CompraRequisicion;
 
+use App\FirmaElectronica\FirmaElectronica;
 use App\Models\CompraRequisicionEstado;
 use App\Models\CompraSolicitud;
+use App\Models\User;
 use App\Traits\HasBitacora;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,8 +13,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Storage;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileCannotBeAdded;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * @property int $id
@@ -53,7 +62,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraRequisicionDetalle> $detalles
  * @property-read int|null $detalles_count
  * @property-read CompraRequisicionEstado $estado
- * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, Media> $media
  * @property-read int|null $media_count
  * @property-read \App\Models\Proveedor|null $proveedorAdjudicado
  * @property-read \App\Models\CompraRequisicionTipoAdquisicion|null $tipoAdquisicion
@@ -375,5 +384,112 @@ class CompraRequisicion extends Model implements HasMedia
         return $this->estado_id != CompraRequisicionEstado::CANCELADA;
     }
 
+    public function generarPdfUpload(): UploadedFile
+    {
+        // 1) Generar el PDF con Snappy (wkhtmltopdf)
+        $pdf = App::make('snappy.pdf.wrapper');
+
+        $requisicion = $this;
+
+        $view = view('compra_requisiciones.pdfs.requisicion_pdf', compact('requisicion'))->render();
+
+        $pdf->loadHTML($view)
+            ->setOption('page-width', 279)   // mm
+            ->setOption('page-height', 216)  // mm
+            ->setOrientation('landscape')
+            ->setOption('margin-top', 8)
+            ->setOption('margin-bottom', 10)
+            ->setOption('margin-left', 10)
+            ->setOption('margin-right', 15);
+
+        // 2) Guardar el PDF en storage/app/public/firmas/pdfs
+        $disk = 'public';
+        $folderPdf = 'requisiciones/generadas';              // carpeta para PDFs generados (previos a la firma)
+        $filename = 'Requisicion_' . $this->id . '_' . time() . '.pdf';
+        $relativePdfPath = $folderPdf . '/' . $filename;
+
+        $binary = $pdf->output();
+        Storage::disk($disk)->put($relativePdfPath, $binary);
+
+        // 3) Envolver el archivo como UploadedFile para pasarlo al firmador
+        $absolutePdfPath = Storage::disk($disk)->path($relativePdfPath);
+        $uploaded = new UploadedFile(
+            $absolutePdfPath,
+            $filename,
+            'application/pdf',
+            null,
+            true // test mode (no mueve/elimina el archivo fuente)
+        );
+
+        return $uploaded;
+    }
+
+    public function firmar(User $usuario,string $contrasenaFirma, UploadedFile $uploaded): Media
+    {
+        $x = 0;
+        $y = 280;
+
+        foreach ($this->detalles as $index => $detalle) {
+            if($index > 15) {
+                $y -= 13;
+            }
+        }
+
+        // 4) Firmar usando tu mismo builder
+        $rutaArchivoFirmado = (new FirmaElectronica())
+            ->respuestaRuta()
+            ->setDisco('public')                                            // dónde guardará el documento firmado
+            ->setDirectorio('requisiciones/firmadas')                           // carpeta de salida de firmados (pública)
+            ->setCorreo($usuario->email)                         // credenciales del proveedor de firma
+            ->setClaveFirma($contrasenaFirma)                  // credenciales del proveedor de firma
+            ->setRubricaUsuario(auth()->user()->rubrica ?? null)    // o la rúbrica del usuario
+            ->setInicioX($x)                                        // coordenadas opcionales
+            ->setInicioY($y)                                        // coordenadas opcionales
+            ->setAncho(200)
+            ->setAlto(35)
+            ->setLugar('Guatemala, Guatemala')                      // opcional
+            ->setTipoSolicitud('PDF')                               // opcional
+            ->setConcepto('Requisición de compra')             // opcional
+            ->setDocumento($uploaded)                                   // ← el PDF recién creado
+            ->firmarDocumento();
+
+
+        $media = $this
+            ->addMediaFromDisk($rutaArchivoFirmado, 'public') // ruta del archivo firmado
+            ->toMediaCollection(CompraRequisicion::COLLECTION_REQUISICION_COMPRA);
+
+        return $media;
+    }
+
+    /**
+     * @throws FileCannotBeAdded
+     * @throws FileDoesNotExist
+     * @throws FileIsTooBig
+     */
+    public function firmaSolicitante($contrasenaFirma): Media
+    {
+
+        $this->tiene_firma_solicitante = true;
+        $this->save();
+
+        $this->addBitacora("REQUISICIÓN DE COMPRA FIRMADA POR SOLICITANTE", "");
+
+
+        $uploaded = $this->generarPdfUpload();
+
+        if (config('firma-electronica.simular_firma')) {
+            // Simula la firma con el PDF generado
+            return $this
+                ->addMediaFromUrl($uploaded->getRealPath(), 'public') // Simula la firma con el PDF generado
+                ->toMediaCollection(CompraRequisicion::COLLECTION_REQUISICION_COMPRA);
+        }
+
+        return $this->firmar(
+            usuarioAutenticado(),
+            $contrasenaFirma,
+            $uploaded
+        );
+
+    }
 
 }

@@ -44,7 +44,7 @@ class CompraSolicitudsTableSeeder extends Seeder
             ->create()
             ->each(function ($compraSolicitud) {
                 CompraSolicitudDetalle::factory()
-                    ->count(rand(3,8))->create([
+                    ->count(rand(1,3))->create([
                         'solicitud_id' => $compraSolicitud->id,
                     ]);
             });

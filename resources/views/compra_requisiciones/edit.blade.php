@@ -34,7 +34,8 @@
             <div class="col-12">
 
                 @include('layouts.partials.request_errors')
-                @include('compra_requisiciones.componentes.tarjeta_compra_requisicion', ['requisicion' => $requisicion])
+
+                @include('compra_requisiciones.componentes.tarjeta_compra_requisicion', ['requisicion' => $requisicion,'abierta' => true])
 
                 <div class="card">
 

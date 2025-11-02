@@ -11,11 +11,13 @@ use App\Http\Requests\Update\CompraRequisicion\UpdateCompraRequisicionRequest;
 use App\Models\CompraRequisicion\CompraRequisicion;
 use App\Models\CompraRequisicionEstado;
 use App\Models\CompraSolicitudEstado;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class CompraRequisicionController extends AppBaseController
 {
@@ -187,6 +189,7 @@ class CompraRequisicionController extends AppBaseController
 
     /**
      * Genera el PDF de la requisición, lo firma electrónicamente y lo asocia al modelo.
+     * @throws Exception|Throwable
      */
     public function solicitanteFirmarEImprimir(CompraRequisicion $requisicion, Request $request)
     {
@@ -202,79 +205,24 @@ class CompraRequisicionController extends AppBaseController
             'password_firma'  => ['required','string'],
         ]);
 
-        // 1) Generar el PDF con Snappy (wkhtmltopdf)
-        $pdf = App::make('snappy.pdf.wrapper');
 
-        $view = view('compra_requisiciones.pdfs.requisicion_pdf', compact('requisicion'))->render();
+        try {
+            DB::beginTransaction();
 
-        $pdf->loadHTML($view)
-            ->setOption('page-width', 279)   // mm
-            ->setOption('page-height', 216)  // mm
-            ->setOrientation('landscape')
-            ->setOption('margin-top', 8)
-            ->setOption('margin-bottom', 10)
-            ->setOption('margin-left', 10)
-            ->setOption('margin-right', 15);
+                $media = $requisicion->firmaSolicitante($request->password_firma);
 
-        // 2) Guardar el PDF en storage/app/public/firmas/pdfs
-        $disk = 'public';
-        $folderPdf = 'requisiciones/generadas';              // carpeta para PDFs generados (previos a la firma)
-        $filename = 'Requisicion_' . $requisicion->id . '_' . time() . '.pdf';
-        $relativePdfPath = $folderPdf . '/' . $filename;
+        } catch (Exception $exception) {
+            DB::rollBack();
 
-        $binary = $pdf->output();
-        Storage::disk($disk)->put($relativePdfPath, $binary);
-
-        // 3) Envolver el archivo como UploadedFile para pasarlo al firmador
-        $absolutePdfPath = Storage::disk($disk)->path($relativePdfPath);
-        $uploaded = new UploadedFile(
-            $absolutePdfPath,
-            $filename,
-            'application/pdf',
-            null,
-            true // test mode (no mueve/elimina el archivo fuente)
-        );
-
-        $x = 0;
-        $y = 280;
-
-        foreach ($requisicion->detalles as $index => $detalle) {
-            if($index > 15) {
-                $y -= 13;
-            }
+            throw new Exception($exception);
         }
 
-        // 4) Firmar usando tu mismo builder
-        $rutaArchivoFirmado = (new FirmaElectronica())
-            ->respuestaRuta()
-            ->setDisco($disk)                                            // dónde guardará el documento firmado
-            ->setDirectorio('requisiciones/firmadas')                           // carpeta de salida de firmados (pública)
-            ->setCorreo($request->usuario_firma)                         // credenciales del proveedor de firma
-            ->setClaveFirma($request->password_firma)
-            ->setRubricaUsuario(auth()->user()->rubrica ?? null)    // o la rúbrica del usuario
-            ->setInicioX($x)                                        // coordenadas opcionales
-            ->setInicioY($y)                                        // coordenadas opcionales
-            ->setAncho(200)
-            ->setAlto(35)
-            ->setLugar('Guatemala, Guatemala')                      // opcional
-            ->setTipoSolicitud('PDF')                               // opcional
-            ->setConcepto('Requisición de compra')             // opcional
-            ->setDocumento($uploaded)                                   // ← el PDF recién creado
-            ->firmarDocumento();
+        DB::commit();
 
-        $requisicion->update([
-            'tiene_firma_solicitante' => true,
-            'justificacion' => $request->justificacion,
-        ]);
-
-        $media = $requisicion
-            ->addMediaFromDisk($rutaArchivoFirmado, $disk)
-            ->toMediaCollection(CompraRequisicion::COLLECTION_REQUISICION_COMPRA);
 
         return redirect()->back()
             ->with('success', 'PDF generado y firmado correctamente.')
             ->with('rutaArchivoFirmado', $media->getUrl());
 
-        // 4) Asociar el documento
     }
 }
