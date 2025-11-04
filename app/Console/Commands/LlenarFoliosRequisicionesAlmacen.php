@@ -73,6 +73,8 @@ class LlenarFoliosRequisicionesAlmacen extends Command
 
             $solicitud->folio = $folio;
             $solicitud->fecha_solicita = $fechaCarbon;
+            $solicitud->fecha_autoriza = $fechaCarbon;
+            $solicitud->fecha_despacha = $fechaCarbon;
             $solicitud->save();
 
         }
