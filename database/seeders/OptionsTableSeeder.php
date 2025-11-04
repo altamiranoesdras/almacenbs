@@ -1580,7 +1580,8 @@ class OptionsTableSeeder extends Seeder
     public function generarColores()
     {
 
-        $opciones = Option::all();
+        $opciones = Option::whereNull('color')->get();
+
         $colores =[
             'primary',
 //            'secondary',
@@ -1595,6 +1596,8 @@ class OptionsTableSeeder extends Seeder
             $opcion->color = $colorAleatorio;
             $opcion->save();
         }
+
+        dump($opciones->count() . ' opciones actualizadas con colores aleatorios.');
 
     }
 
