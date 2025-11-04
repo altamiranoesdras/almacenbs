@@ -1574,7 +1574,7 @@ class OptionsTableSeeder extends Seeder
                 'id' => 95,
                 'option_id' => 50,
                 'nombre' => 'Puestos',
-                'ruta' => 'admin.rrhhPuestos.index',
+                'ruta' => 'rrhhPuestos.index',
                 'descripcion' => NULL,
                 'icono_l' => 'fa-circle-notch',
                 'icono_r' => NULL,
