@@ -52,6 +52,8 @@ class EnviarEnlaceUsuariosCommand extends Command
 //            ->whereIn('id',[1,2,3])
             ->get();
 
+        $this->line("Enviando notificaciones a " . $usuarios->count() . " usuarios...");
+
         foreach ($usuarios as $usuario) {
             try {
                 $usuario->notify(new EnviarEnlaceNotificacion());

@@ -77,6 +77,10 @@ class LlenarFoliosRequisicionesAlmacen extends Command
             $solicitud->fecha_despacha = $fechaCarbon;
             $solicitud->save();
 
+            foreach ($solicitud->detalles as $detalle) {
+                $detalle->kardex()->update(['created_at' => $fechaCarbon,]);
+            }
+
         }
 
         $this->fin();
