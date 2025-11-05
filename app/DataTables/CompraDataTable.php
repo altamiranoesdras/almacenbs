@@ -79,14 +79,27 @@ class CompraDataTable extends DataTable
                 'detalles' => function($q){
                     $q->with('item',function ($q){
                         $q->withoutAppends()
+                            ->with(['categoria'])
                             ->withTrashed();
-                    });
+                    })->with('unidadSolicitante');
                 },
                 'tipo',
-                'usuarioCrea',
+                'usuarioCrea' => function($q){
+                    $q->without(['options'])
+                        ->select(['id','name']);
+                },
                 'estado',
                 'proveedor',
-                'compra1h'
+                'compra1h',
+                'bitacoras' => function($q){
+                    $q->with([
+                        'usuario' => function($q){
+                            $q
+                                ->without(['options'])
+                                ->with(['puesto','media']);
+                        }
+                    ]);
+                },
             ]);
 
 //        $user = Auth::user();
@@ -118,7 +131,7 @@ class CompraDataTable extends DataTable
             ->language(['url' => asset('js/SpanishDataTables.json')])
             ->responsive(true)
             ->stateSave(false)
-            ->orderBy(1,'desc')
+            ->orderBy(0,'desc')
             ->dom('
                     <"card-header border-bottom p-1"
                         <"head-label">
@@ -201,7 +214,7 @@ class CompraDataTable extends DataTable
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width('15%')
+                ->width('17%')
                 ->addClass('text-center'),
         ];
     }

@@ -66,7 +66,7 @@ class CompraController extends AppBaseController
         }
 
         if ($request->item_id){
-            $item = Item::find($request->item_id);
+            $item = Item::withoutAppends()->find($request->item_id);
             $marca_nombre = $item->marca->nombre ?? null;
             $subtitulo .=  "<br> Artículo: ".$item->nombre.' / '.$marca_nombre;
         }

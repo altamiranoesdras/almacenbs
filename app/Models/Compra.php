@@ -473,7 +473,7 @@ class Compra extends Model
 
     public function tiene1h()
     {
-        return $this->compra1hs->count() > 0;
+        return $this->compra1h != null;
     }
 
     public function estaRecibida()
