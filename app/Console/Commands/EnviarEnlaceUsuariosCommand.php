@@ -53,7 +53,12 @@ class EnviarEnlaceUsuariosCommand extends Command
             ->get();
 
         foreach ($usuarios as $usuario) {
-            $usuario->notify(new EnviarEnlaceNotificacion());
+            try {
+                $usuario->notify(new EnviarEnlaceNotificacion());
+            } catch (\Exception $e) {
+                $this->error("Error al enviar notificación a {$usuario->name}: {$e->getMessage()}");
+                continue;
+            }
         }
 
         $this->fin();
