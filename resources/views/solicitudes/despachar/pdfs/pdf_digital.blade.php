@@ -3,7 +3,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>REQUISICIÓN DE ALMACEN</title>
+    <title>REQUISICIÓN DE ALMACÉN</title>
     <style>
         body {
             font-family: DejaVu Sans, sans-serif;
@@ -51,17 +51,21 @@
                 </div>
                 <div style="display: table-cell; width: 80%; vertical-align: middle;">
                     <h2 style="color: #1B244B">SECRETARÍA DE BIENESTAR SOCIAL DE LA PRESIDENCIA DE LA REPÚBLICA</h2>
-                    <h3 style="color: #1B244B">DEPARTAMENTO DE ALMACEN</h3>
+                    <h3 style="color: #1B244B">DEPARTAMENTO DE ALMACÉN</h3>
                     <h3 style="color: #1B244B">32 Calle 9-34 Zona 11, Las Charcas</h3>
                     <h3 style="color: #1B244B">NIT: 3377881</h3>
                 </div>
                 <div style="display: table-cell; width: 10%; vertical-align: middle;">
                     <img src="{{ asset('img/logos/Logo_CGC_FT.png') }}" alt="Logo" style="width: 100px;">
-                    <h4>{{ $solicitud->correlativo }}</h4>
+                    <h4>
+                        Correlativo CGC No {{ $solicitud->folio }}
+                        <br>
+                        Electrónico
+                    </h4>
                 </div>
             </div>
             <div style="width: 100%">
-                <h2 style="color: #1B244B">REQUISICION DE ALMACEN</h2>
+                <h2 style="color: #1B244B">REQUISICIÓN DE ALMACÉN</h2>
             </div>
         </td>
     </tr>
@@ -71,7 +75,7 @@
 <table style="margin-top: 15px; width: 100%; border-collapse: collapse; border: 1px solid #00008f; padding: 10px;">
     <tr>
         <td class="left" style="height: 5px; width: 100%; border: none; padding: 10px">
-            <strong>SIRVASE ENTREGAR A: </strong>{{$solicitud->usuarioSolicita->name ?? ''}}<br>
+            <strong>SÍRVASE ENTREGAR A: </strong>{{$solicitud->usuarioSolicita->name ?? ''}}<br>
         </td>
     </tr>
     <tr>
@@ -85,7 +89,7 @@
 <table style="margin-top: 18px; width: 100%; border-collapse: collapse; border: 1px solid rgba(2,24,98,0.86);">
     <tr class="section-title" style="border-bottom: 1px solid black; background: #1B244B; color: white">
         <td style="border: none; padding: 7px;">RENGLÓN</td>
-        <td style="border: none; padding: 7px;">DESCRIPCION</td>
+        <td style="border: none; padding: 7px;">DESCRIPCIÓN</td>
         <td style="border: none; padding: 7px;">UNIDAD DE MEDIDA</td>
         <td style="border: none; padding: 7px;">VALOR UNITARIO</td>
         <td style="border: none; padding: 7px;">VALOR TOTAL</td>
