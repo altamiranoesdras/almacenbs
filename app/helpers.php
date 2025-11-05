@@ -193,6 +193,11 @@ function fechaLtn(string $fecha=null){
     return $fecha ? Carbon::parse($fecha)->format('d/m/Y') : '';
 }
 
+function fechaLtnGn(string $fecha=null){
+
+    return $fecha ? Carbon::parse($fecha)->format('d-m-Y') : '';
+}
+
 
 function rutaOpcion($opcion){
     try{

@@ -234,11 +234,14 @@ class SolicitudController extends AppBaseController
     public function procesar(Solicitud $solicitud,UpdateSolicitudRequest $request){
 
 
-        if (!$solicitud->codigo){
+        //si la solicitud no tiene folio, se genera uno
+        if (!$solicitud->folio){
+
+            $solicitud->generaFolio();
+
             $request->merge([
                 'codigo' => $this->getCodigo(),
                 'correlativo' => $this->getCorrelativo(),
-                'folio' => $this->getCorrelativo(),
             ]);
         }
 
@@ -526,5 +529,6 @@ class SolicitudController extends AppBaseController
         }
 
     }
+
 
 }

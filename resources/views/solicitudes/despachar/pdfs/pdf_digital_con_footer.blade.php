@@ -152,8 +152,9 @@
             <td class="left" colspan="4" style="border: none">OBSERVACIONES:</td>
         </tr>
         <tr>
-            <td class="left" colspan="4" style="height: 55px; width: 100%">
-                {{$solicitud->observaciones ?? ''}}
+            <td colspan="4"
+                style="height: 55px; width: 100%; text-align: left; vertical-align: top; font-size: 8px;">
+                {{ $solicitud->justificacion ?? '' }}
             </td>
         </tr>
     </table>
@@ -201,10 +202,10 @@
         <tr>
             <td style="width: 15%; border: none; text-align: center;"></td>
             <td style="width: 70%; border: none; text-align: center;">
-                Autorizado según Resolución de la Contraloría General de Cuentas No. F.O. {{ $envioFiscal->numero_cuenta }}  Gestión: {{ $envioFiscal->numero_gestion }} de
-                fecha {{ fechaLtn($envioFiscal->fecha_gestion) }}, correlativo {{ $envioFiscal->correlativo }} de
-                fecha {{ fechaLtn($envioFiscal->fecha)  }}, Envío fiscal {{ $envioFiscal->folio }} de fecha {{fechaLtn($envioFiscal->fecha)}},
-                Autorizado del {{ nfp($envioFiscal->correlativo_del, 0) }} al {{ nfp($envioFiscal->correlativo_al, 0) }} Serie {{ $envioFiscal->serie }}, Libro
+                Autorizado según Resolución de la Contraloría General de Cuentas No. F.O. {{ $envioFiscal->numero_resolucion }}  Gestión: {{ $envioFiscal->numero_gestion }} de
+                fecha {{ fechaLtnGn($envioFiscal->fecha_gestion) }}, correlativo {{ $envioFiscal->correlativo_resolucion }} de
+                fecha {{ fechaLtnGn($envioFiscal->fecha_correlativo_resolucion)  }}, Envío fiscal {{ $envioFiscal->serie_envio }} de fecha {{fechaLtnGn($envioFiscal->fecha_envio)}},
+                Autorizado del {{ nfp($envioFiscal->correlativo_del, 0) }} al {{ nfp($envioFiscal->correlativo_al, 0) }} Sin Serie, Libro
                 {{ $envioFiscal->libro }} Folio {{ $envioFiscal->folio }} SECRETARÍA DE
                 BIENESTAR SOCIAL DE LA PRESIDENCIA DE LA REPÚBLICA NIT 3377881
             </td>

@@ -67,6 +67,10 @@ class EnvioFiscal extends Model
 
     public $table = 'envios_fiscales';
 
+    const TABLA_COMPRAS = 'compras';
+    const TABLA_SOLICITUDES = 'solicitudes';
+
+
     public $fillable = [
         'nombre_tabla',
         'numero_resolucion',

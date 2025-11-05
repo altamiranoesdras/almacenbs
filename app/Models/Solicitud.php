@@ -194,7 +194,7 @@ class Solicitud extends Model
     public static $rules = [
         'codigo' => 'nullable|string|max:255',
         'correlativo' => 'nullable|integer',
-        'justificacion' => 'required|string|max:350',
+        'justificacion' => 'required|string',
         'unidad_id' => 'nullable',
         'usuario_crea' => 'nullable',
         'usuario_solicita' => 'nullable',
@@ -636,6 +636,24 @@ class Solicitud extends Model
         return $this->detalles->filter(function ($detalle) {
                 return $detalle->transaccionesStock->count() > 0;
             })->count() > 0;
+
+    }
+
+    public function generaFolio($folio=null): void
+    {
+
+        $envioFiscal = EnvioFiscal::where('nombre_tabla', EnvioFiscal::TABLA_SOLICITUDES)
+            ->where('activo', 'si')
+            ->first();
+
+        $folio = $folio ?? $envioFiscal->correlativo_actual;
+
+        $this->folio = $folio;
+        $this->envio_fiscal_id = $envioFiscal->id;
+        $this->save();
+
+        // actualizar folio en envio fiscal
+        $envioFiscal->siguienteFolio();
 
     }
 }
