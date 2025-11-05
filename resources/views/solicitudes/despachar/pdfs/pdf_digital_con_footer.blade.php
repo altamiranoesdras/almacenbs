@@ -128,7 +128,7 @@
     </tr>
     @foreach ($solicitud->detalles as $detalle)
         <tr>
-            <td >{{ $detalle->cantidad_despachada ?? '' }}</td>
+            <td >{{ nf($detalle->cantidad_despachada,0) ?? '' }}</td>
             <td class="left" >
                 {{ $detalle->item->texto_requisicion ?? '' }}
             </td>
@@ -138,7 +138,7 @@
         </tr>
     @endforeach
 
-    @for ($i = count($solicitud->detalles); $i < 20; $i++)
+    @for ($i = count($solicitud->detalles); $i < 19; $i++)
         <tr>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
