@@ -509,7 +509,9 @@ class SolicitudController extends AppBaseController
             ->setOption('margin-top', 10)
             ->setOption('margin-bottom', 10)
             ->setOption('margin-left', 15)
-            ->setOption('margin-right', 15);
+            ->setOption('margin-right', 15)
+            ->setOption('enable-local-file-access', true)
+            ->setOption('no-background', false);
 
         return $pdf->inline('Despacho '.$solicitud->id. '_'. time().'.pdf');
 

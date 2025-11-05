@@ -5,6 +5,17 @@
     <meta charset="UTF-8">
     <title>REQUISICIÓN DE ALMACÉN</title>
     <style>
+        /* Imagen centrada en toda la página, sin afectar márgenes */
+        .marca-anulado {
+            position: fixed;
+            top: 20rem;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            width: 70%;             /* ajusta el tamaño */
+            opacity: 0.5;          /* ajusta transparencia (usa 1 si la quieres opaca) */
+            pointer-events: none;
+        }
         body {
             font-family: DejaVu Sans, sans-serif;
             font-size: 11px;
@@ -58,7 +69,10 @@
     </style>
 </head>
 <body>
-
+@if($solicitud->estaAnulada())
+    <!-- Imagen centrada (no afecta estructura ni medidas del contenido) -->
+    <img src="{{ public_path('img/anulado.png') }}" alt="ANULADO" class="marca-anulado">
+@endif
 <!-- Encabezado institucional -->
 <table class="no-border">
     <tr>
