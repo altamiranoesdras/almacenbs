@@ -53,7 +53,7 @@ class EnviarEnlaceNotificacion extends Notification
                     ->from(env('MAIL_USERNAME'),config('app.name'))
                     ->line('A continuación se te proporcionan tus credenciales para usar el sistema de almacén')
                     ->line('Usuario: '.($user->username ?? "username"))
-                    ->line('Contraseña: 123456')
+                    ->line('Contraseña: 123')
                     ->action('Ingresar al sistema', route('login'))
                     ->salutation('Gracias por usar nuestra aplicación!');
     }

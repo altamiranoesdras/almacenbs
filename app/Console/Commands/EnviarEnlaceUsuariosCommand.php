@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Imports\EnviarEnlaceUsuarios;
+use App\Models\User;
+use App\Notifications\EnviarEnlaceNotificacion;
 use App\Traits\ComandosTrait;
 use Illuminate\Console\Command;
 
@@ -45,12 +47,16 @@ class EnviarEnlaceUsuariosCommand extends Command
 
         $this->inicio();
 
-        $importable = new EnviarEnlaceUsuarios();
+        $usuarios = User::query()
+            ->whereNotNull('email')
+//            ->whereIn('id',[1,2,3])
+            ->get();
 
-        $importable->import(  storage_path('imports/Listado de usuarios SEIC.xlsx'));
+        foreach ($usuarios as $usuario) {
+            $usuario->notify(new EnviarEnlaceNotificacion());
+        }
 
-
-        $this->fin($importable->errores);
+        $this->fin();
 
     }
 }
