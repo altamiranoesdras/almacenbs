@@ -307,7 +307,9 @@ class CompraRequisicion extends Model implements HasMedia
 
     public function puedeAutorizarse(): bool
     {
-        return $this->estado_id == CompraRequisicionEstado::APROBADA && $this->tiene_firma_autorizador;
+        return $this->estado_id == CompraRequisicionEstado::APROBADA
+            || $this->estado_id == CompraRequisicionEstado::RETORNADA_POR_SUPERVISOR_A_AUTORIZADOR
+            && $this->tiene_firma_autorizador;
     }
 
     //TODO: Esta función debe de completarse.
