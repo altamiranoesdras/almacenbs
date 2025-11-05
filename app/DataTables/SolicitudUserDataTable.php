@@ -30,7 +30,7 @@ class SolicitudUserDataTable extends DataTable
             ->editColumn('usuario_despacha',function (Solicitud $solicitud){
                 return $solicitud->usuarioSolicita->name ?? null;
             })
-            ->editColumn('codigo',function (Solicitud $solicitud){
+            ->editColumn('folio',function (Solicitud $solicitud){
 
                 return view('solicitudes.modal_show',compact('solicitud'))->render();
 
@@ -73,7 +73,7 @@ class SolicitudUserDataTable extends DataTable
                 return fechaHoraLtn($solicitud->fecha_despacha);
 
             })
-            ->rawColumns(['action','codigo','estado.nombre']);
+            ->rawColumns(['action','folio','estado.nombre']);
     }
 
     /**
@@ -169,7 +169,7 @@ class SolicitudUserDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('codigo'),
+            Column::make('folio'),
             Column::make('justificacion'),
 
             Column::make('fecha_solicita')

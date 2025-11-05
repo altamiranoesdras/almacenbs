@@ -38,10 +38,11 @@ class SolicitudFactory extends Factory
 
 
         return [
+            'folio' => $this->faker->unique()->numerify('####'),
             'codigo' => $this->faker->word,
             'correlativo' => $this->faker->randomDigitNotNull,
             'justificacion' => $this->faker->text,
-            'unidad_id' => RrhhUnidad::all()->random()->id,
+            'unidad_id' => RrhhUnidad::areas()->solicitan()->where('id','!=', RrhhUnidad::ALMACEN)->inRandomOrder()->first()->id,
             'observaciones' => $this->faker->paragraph,
 
             'usuario_crea' => $userRandom->id,

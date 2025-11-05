@@ -1,7 +1,7 @@
 <table class="table table-bordered table-hover table-xtra-condensed" id="table-detalles-{{ $solicitud->id }}">
     <thead>
     <tr>
-        <th>Producto</th>
+        <th>Insumo</th>
         <th>Tu Stock</th>
         <th>Cantidad Solicitada</th>
         <th>Cantidad Autorizada</th>
@@ -11,7 +11,7 @@
     </thead>
     <tbody>
 
-    {{-- @foreach($solicitud->detalles as $det)
+    @foreach($solicitud->detalles as $det)
         <tr>
             <td>{{$det->item->text}}</td>
             <th>{{$det->item->stock_total}}</th>
@@ -25,22 +25,22 @@
             </td>
             @endif
         </tr>
-    @endforeach --}}
+    @endforeach
 
-    <tr v-for="detalle in detalles">
-        <td v-text="detalle.item.text"></td>
-        <th v-text="detalle.item.stock_total"></th>
-        <td v-text="detalle.cantidad_solicitada"></td>
-        <td v-text="detalle.cantidad_autorizada"></td>
-        <td>
-            <input type="number" name="cantidades_despacha[]" step="any" class="form-control form-control-sm" required v-model="detalle.cantidad_real">
-        </td>
-        {{-- <td>
-            <div class="btn btn-primary" @click="completar(detalle)">
-                ok
-            </div>
-        </td> --}}
-    </tr>
+{{--    <tr v-for="detalle in detalles">--}}
+{{--        <td v-text="detalle.item.text"></td>--}}
+{{--        <th v-text="detalle.item.stock_total"></th>--}}
+{{--        <td v-text="detalle.cantidad_solicitada"></td>--}}
+{{--        <td v-text="detalle.cantidad_autorizada"></td>--}}
+{{--        <td>--}}
+{{--            <input type="number" name="cantidades_despacha[]" step="any" class="form-control form-control-sm" required v-model="detalle.cantidad_real">--}}
+{{--        </td>--}}
+{{--        --}}{{-- <td>--}}
+{{--            <div class="btn btn-primary" @click="completar(detalle)">--}}
+{{--                ok--}}
+{{--            </div>--}}
+{{--        </td> --}}
+{{--    </tr>--}}
 
     </tbody>
     <tfoot>
@@ -56,30 +56,30 @@
 
 
 {{-- @push('scripts') --}}
-    <script >
-        new Vue({
-            el: '#table-detalles-{{ $solicitud->id }}',
-            created() {
-                this.detalles.forEach(det => {
-                    det.cantidad_real = 0;
-                });
-            },
-            data: {
-                detalles: @json($solicitud->detalles)
-            },
-            methods: {
-                completar(detalle) {
-                    this.$set(detalle, 'cantidad_real', detalle.cantidad_autorizada);
-                    console.log('completar', detalle);
-                }
-            },
-            computed:{
+{{--    <script >--}}
+{{--        new Vue({--}}
+{{--            el: '#table-detalles-{{ $solicitud->id }}',--}}
+{{--            created() {--}}
+{{--                this.detalles.forEach(det => {--}}
+{{--                    det.cantidad_real = 0;--}}
+{{--                });--}}
+{{--            },--}}
+{{--            data: {--}}
+{{--                detalles: @json($solicitud->detalles)--}}
+{{--            },--}}
+{{--            methods: {--}}
+{{--                completar(detalle) {--}}
+{{--                    this.$set(detalle, 'cantidad_real', detalle.cantidad_autorizada);--}}
+{{--                    console.log('completar', detalle);--}}
+{{--                }--}}
+{{--            },--}}
+{{--            computed:{--}}
 
-            },
-            watch:{
+{{--            },--}}
+{{--            watch:{--}}
 
-            }
-        });
-    </script>
+{{--            }--}}
+{{--        });--}}
+{{--    </script>--}}
 {{-- @endpush --}}
 

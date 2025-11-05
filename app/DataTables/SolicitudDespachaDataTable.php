@@ -27,7 +27,7 @@ class SolicitudDespachaDataTable extends DataTable
                 return view('solicitudes.despachar.datatables_actions',compact('solicitud','id'));
 
             })
-            ->editColumn('codigo',function (Solicitud $solicitud){
+            ->editColumn('folio',function (Solicitud $solicitud){
 
                 return view('solicitudes.despachar.modal_despachar',compact('solicitud'))->render();
 
@@ -65,12 +65,20 @@ class SolicitudDespachaDataTable extends DataTable
                     return fechaHoraLtn($solicitud->fecha_despacha);
                 }
             })
+            ->editColumn('estado.nombre',function (Solicitud $solicitud){
+
+                $color = $solicitud->estado->color;
+
+                return "<span class='badge bg-$color'>{$solicitud->estado->nombre}</span>";
+
+
+            })
             ->editColumn('bodega.nombre',function (Solicitud $solicitud){
 
                 return $solicitud->bodega->nombre ?? '';
 
             })
-            ->rawColumns(['action','codigo']);
+            ->rawColumns(['action','folio', 'estado.nombre']);
     }
 
     /**
@@ -83,7 +91,35 @@ class SolicitudDespachaDataTable extends DataTable
     {
         return $model->newQuery()
             ->select('solicitudes.*')
-            ->with(['detalles.item','unidad','usuarioSolicita','usuarioAutoriza','usuarioAprueba','usuarioDespacha','estado','bitacoras']);
+            ->with([
+                'detalles.item' => function($q){
+                    $q->with(['categoria'])
+                        ->withoutAppends();
+                },
+                'usuarioSolicita' => function($q){
+                    $q->without(['options'])
+                        ->select(['id','name']);
+                },
+                'usuarioAutoriza' => function($q){
+                    $q->without(['options'])
+                        ->select(['id','name']);
+                },
+                'usuarioDespacha' => function($q){
+                    $q->without(['options'])
+                        ->select(['id','name']);
+                },
+                'estado',
+                'bitacoras' => function($q){
+                    $q->with([
+                        'usuario' => function($q){
+                            $q
+                                ->without(['options'])
+                                ->with(['puesto','media']);
+                        }
+                    ]);
+                },
+                'unidad'
+            ]);
     }
 
     /**
@@ -155,7 +191,7 @@ class SolicitudDespachaDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('codigo'),
+            Column::make('folio'),
             Column::make('justificacion'),
 
             Column::make('fecha_solicita')
@@ -166,24 +202,24 @@ class SolicitudDespachaDataTable extends DataTable
                 ->name('usuarioSolicita.name')
                 ->data('usuario_solicita.name'),
 
-//            Column::make('usuario_autoriza')
-//                ->name('usuarioAutoriza.name')
-//                ->data('usuario_autoriza.name'),
+            Column::make('usuario_autoriza')
+                ->name('usuarioAutoriza.name')
+                ->data('usuario_autoriza.name'),
 
-            Column::make('usuario_aprueba')
-                ->name('usuarioAprueba.name')
-                ->data('usuario_aprueba.name'),
+//            Column::make('usuario_aprueba')
+//                ->name('usuarioAprueba.name')
+//                ->data('usuario_aprueba.name'),
 
 //
 //
-//            Column::make('estado')
-//                ->name('estado.nombre')
-//                ->data('estado.nombre'),
+            Column::make('estado')
+                ->name('estado.nombre')
+                ->data('estado.nombre'),
 
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width('15%')
+                ->width('17%')
                 ->addClass('text-center'),
         ];
     }

@@ -1,7 +1,7 @@
 <table class="table table-bordered table-hover table-xtra-condensed">
     <thead>
     <tr>
-        <th>Producto</th>
+        <th>Insumo</th>
         <th>Categoría</th>
         <th>Tu Stock</th>
         <th>Cantidad Solicitada</th>

@@ -27,7 +27,7 @@ class SolicitudAutorizaDataTable extends DataTable
                 return view('solicitudes.autorizar.datatables_actions',compact('solicitud','id'));
 
             })
-            ->editColumn('codigo',function (Solicitud $solicitud){
+            ->editColumn('folio',function (Solicitud $solicitud){
 
                 return view('solicitudes.autorizar.modal_autorizar',compact('solicitud'))->render();
 
@@ -77,7 +77,7 @@ class SolicitudAutorizaDataTable extends DataTable
                 return "<span class='badge bg-$color'>{$solicitud->estado->nombre}</span>";
 
             })
-            ->rawColumns(['action','codigo', 'estado.nombre']);
+            ->rawColumns(['action','folio', 'estado.nombre']);
     }
 
     /**
@@ -91,7 +91,35 @@ class SolicitudAutorizaDataTable extends DataTable
         return $model->newQuery()
 
             ->select('solicitudes.*')
-            ->with(['detalles.item','usuarioSolicita','usuarioAutoriza','usuarioAprueba','usuarioDespacha','estado']);
+            ->with([
+                'detalles.item' => function($q){
+                    $q->with(['categoria'])
+                        ->withoutAppends();
+                },
+                'usuarioSolicita' => function($q){
+                    $q->without(['options'])
+                        ->select(['id','name']);
+                },
+                'usuarioAutoriza' => function($q){
+                    $q->without(['options'])
+                        ->select(['id','name']);
+                },
+                'usuarioDespacha' => function($q){
+                    $q->without(['options'])
+                        ->select(['id','name']);
+                },
+                'estado',
+                'bitacoras' => function($q){
+                    $q->with([
+                        'usuario' => function($q){
+                            $q
+                                ->without(['options'])
+                                ->with(['puesto','media']);
+                        }
+                    ]);
+                },
+                'unidad'
+            ]);
     }
 
     /**
@@ -163,7 +191,10 @@ class SolicitudAutorizaDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('codigo'),
+            Column::make('folio')
+                ->name('folio')
+                ->data('folio')
+                ->title('Folio'),
             Column::make('justificacion'),
 
             Column::make('fecha_solicita')
@@ -198,7 +229,7 @@ class SolicitudAutorizaDataTable extends DataTable
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width('15%')
+                ->width('17%')
                 ->addClass('text-center'),
         ];
     }
