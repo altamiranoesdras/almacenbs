@@ -101,22 +101,22 @@
     </div>
 
 
-{{--    <div class="col-sm-12 mb-1">--}}
-{{--        <div class="card card-outline card-success">--}}
-{{--            <div class="card-header">--}}
-{{--                <h3 class="card-title">Opciones del menu</h3>--}}
-{{--            </div>--}}
-{{--            <!-- /.card-header -->--}}
-{{--            <div class="card-body">--}}
-{{--                <div class="col-sm-12 mb-1">--}}
-{{--                    <div id="jstree-ajax"></div>--}}
-{{--                    <div id="event_result"></div>--}}
-{{--                    <input type="hidden" name="options" id="options">--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <!-- /.card-body -->--}}
-{{--        </div>--}}
-{{--    </div>--}}
+    <div class="col-sm-12 mb-1">
+        <div class="card card-outline card-success">
+            <div class="card-header">
+                <h3 class="card-title">Opciones del menu</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="col-sm-12 mb-1">
+                    <div id="jstree-ajax"></div>
+                    <div id="event_result"></div>
+                    <input type="hidden" name="options" id="options">
+                </div>
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </div>
 </div>
 
 @push('scripts')
