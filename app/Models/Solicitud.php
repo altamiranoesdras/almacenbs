@@ -656,4 +656,27 @@ class Solicitud extends Model
         $envioFiscal->siguienteFolio();
 
     }
+
+    /**
+     * @return \Illuminate\Support\Collection<int, StockTransaccion>
+     */
+    public function stockEgresos(): \Illuminate\Support\Collection
+    {
+        return $this->detalles->flatMap(function ($detalle) {
+            return $detalle->transaccionesStock->filter(function ($transaccion) {
+                return $transaccion->tipo == StockTransaccion::EGRESO;
+            });
+        });
+
+    }
+
+    public function stockIngresos(): \Illuminate\Support\Collection
+    {
+        return $this->detalles->flatMap(function ($detalle) {
+            return $detalle->transaccionesStock->filter(function ($transaccion) {
+                return $transaccion->tipo == StockTransaccion::INGRESO;
+            });
+        });
+    }
+
 }

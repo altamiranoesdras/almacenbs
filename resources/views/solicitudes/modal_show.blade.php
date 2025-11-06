@@ -38,6 +38,8 @@
 
                                             <div class="col-12">
                                                 @include('solicitudes.tabla_detalles',['solicitude'=>$solicitud])
+
+{{--                                                @include('solicitudes.tabla_transacciones_stock',['solicitude'=>$solicitud])--}}
                                             </div>
                                         </div>
                                     </div>
