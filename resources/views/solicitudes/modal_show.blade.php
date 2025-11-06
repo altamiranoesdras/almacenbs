@@ -39,7 +39,9 @@
                                             <div class="col-12">
                                                 @include('solicitudes.tabla_detalles',['solicitude'=>$solicitud])
 
-{{--                                                @include('solicitudes.tabla_transacciones_stock',['solicitude'=>$solicitud])--}}
+                                                @can('Puede ver detalle egreso requisición almacén')
+                                                    @include('solicitudes.tabla_transacciones_stock',['solicitude'=>$solicitud])
+                                                @endcan
                                             </div>
                                         </div>
                                     </div>

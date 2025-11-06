@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string $precio_costo
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read mixed $sub_total
  * @property-read \App\Models\Stock $stock
  * @method static \Database\Factories\StockTransaccionFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|StockTransaccion newModelQuery()
@@ -112,5 +113,10 @@ class StockTransaccion extends Model
         }
 
         $this->stock->save();
+    }
+
+    public function getSubTotalAttribute()
+    {
+        return $this->cantidad * $this->stock->precio_compra;
     }
 }
