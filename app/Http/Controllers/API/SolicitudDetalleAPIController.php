@@ -50,14 +50,22 @@ class SolicitudDetalleAPIController extends AppBaseController
      *
      * @param CreateSolicitudDetalleAPIRequest $request
      *
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(CreateSolicitudDetalleAPIRequest $request)
     {
 
         $item = Item::find($request->get('item_id'));
         if($item->categoria_id == null ){
-            return $this->sendError('No se puede agregar insumos sin Catecoria');
+            return $this->sendError('No se puede agregar insumos sin categoría');
+        }
+
+        if ($item->stock_unidad_almacen < $request->cantidad_solicitada) {
+            return $this->sendError('No puedes pedir más del stock de tu unidad');
+        }
+
+        if ($request->cantidad_solicitada <= 0) {
+            return $this->sendError('La cantidad solicitada debe ser mayor a cero');
         }
 
         $input = $request->all();

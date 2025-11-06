@@ -180,9 +180,15 @@
 
                     try{
 
-                        let conStock = this.solicitud ? 1 : 0;
+                        let paraSolicitud = this.solicitud ? 1 : 0;
 
-                        let data= { params: {search: query,tienda: this.tienda , con_stock : conStock} };
+                        let data= {
+                            params: {
+                                search: query,
+                                tienda: this.tienda ,
+                                para_solicitud : paraSolicitud,
+                            }
+                        };
 
                         const res = await axios.get(this.api,data);
                         this.items = res.data.data;

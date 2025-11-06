@@ -4818,7 +4818,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
     asyncFind: function asyncFind(query) {
       var _this = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var conStock, data, res, _t;
+        var paraSolicitud, data, res, _t;
         return _regenerator().w(function (_context) {
           while (1) switch (_context.p = _context.n) {
             case 0:
@@ -4828,12 +4828,12 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
               }
               _this.isLoading = true;
               _context.p = 1;
-              conStock = _this.solicitud ? 1 : 0;
+              paraSolicitud = _this.solicitud ? 1 : 0;
               data = {
                 params: {
                   search: query,
                   tienda: _this.tienda,
-                  con_stock: conStock
+                  para_solicitud: paraSolicitud
                 }
               };
               _context.n = 2;

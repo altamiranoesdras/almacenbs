@@ -36,9 +36,10 @@ class ItemAPIController extends AppBaseController
             $query->limit($request->get('limit'));
         }
 
-        if ($request->con_stock) {
+        if ($request->para_solicitud==1) {
             $query->whereHas('stocks', function ($q) {
-                $q->where('cantidad', '>', 0);
+                $q->where('cantidad', '>', 0)
+                    ->where('unidad_id', usuarioAutenticado()->unidad_id);
             });
         }
 

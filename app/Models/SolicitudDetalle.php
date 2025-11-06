@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Exceptions\InsumoSinStockDeUnidadException;
 use App\Traits\UseStockTransaccion;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -134,6 +135,9 @@ class SolicitudDetalle extends Model
     }
 
 
+    /**
+     * @throws InsumoSinStockDeUnidadException
+     */
     public function egreso()
     {
 
@@ -153,17 +157,9 @@ class SolicitudDetalle extends Model
             ->sortBy('id');
 
 
-        /**
-         * @var Stock $primerStock
-         */
-
-        $primerStock = $stocks->first();
-
-        /**
-         * @var Stock $ultimoStock
-         */
-
-        $ultimoStock = $stocks->last();
+        if ($stocks->count() == 0) {
+            throw new InsumoSinStockDeUnidadException('No hay stock disponible para el item: ' . $this->item->nombre . ' en la bodega: ' . Bodega::PRINCIPAL . ' y unidad: ' . $this->solicitud->unidad->nombre);
+        }
 
 
 
@@ -208,9 +204,7 @@ class SolicitudDetalle extends Model
                 break;
         }
 
-//        $this->precio = $primerStock->precio_compra;
         $this->save();
-
 
         return $stocks;
 
