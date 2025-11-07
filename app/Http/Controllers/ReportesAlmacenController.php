@@ -500,26 +500,35 @@ class ReportesAlmacenController extends AppBaseController
     // Reporte 2: Existencia por Unidad Solicitante
     public function misExistencias(Request $request)
     {
-        $unidades_seleccionadas = auth()->user()->rrhhUnidad ? [auth()->user()->rrhhUnidad->id] : [];
-        $fecha_desde = $request->fecha_desde ?? null;
-        $fecha_hasta = $request->fecha_hasta ?? null;
+        $unidad = usuarioAutenticado()->unidad ?? null;
+        $bodegaUnidad = usuarioAutenticado()->bodega ?? null;
 
-        $stocks = collect();
+        if (!$unidad || !$bodegaUnidad) {
+            flash('No se encontró la unidad o bodega asociada al usuario.')->error();
+            return redirect()->back();
+        }
 
-        if(count($unidades_seleccionadas) > 0){
+        $existenciasEnBodegaCentral = collect();
+        $existenciasEnBodegaDeUnidad = collect();
+
+        if($unidad){
 
             $query = Stock::whereHas('item')
                 ->where('bodega_id', Bodega::PRINCIPAL)
-                ->whereIn('unidad_id', $unidades_seleccionadas)
-                ->where('cantidad', '>', 0)
-                ;
+                ->where('unidad_id', $unidad->id);
+//                ->where('cantidad', '>', 0);
 
-            $stocks = $query->get();
+            $existenciasEnBodegaCentral = $query->get();
+
+            $queryUnidad = Stock::whereHas('item')
+                ->where('bodega_id', $bodegaUnidad->id);
+//                ->where('cantidad', '>', 0);
+
+            $existenciasEnBodegaDeUnidad = $queryUnidad->get();
         }
 
-        // dd($stocks->toArray());
 
-        return view('reportes.mis_existencias_por_unidad_solicitante', compact('stocks', 'unidades_seleccionadas', 'fecha_desde', 'fecha_hasta'));
+        return view('reportes.mis_existencias_por_unidad_solicitante', compact('existenciasEnBodegaCentral', 'existenciasEnBodegaDeUnidad', 'unidad', 'bodegaUnidad'));
     }
 
     // Reporte 3: Existencia por Subsecretaría

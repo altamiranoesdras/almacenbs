@@ -22,54 +22,6 @@
 
         @include('layouts.partials.request_errors')
 
-        <!-- Filtros -->
-        {{-- <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Filtros</h3>
-                    </div>
-                    <div class="card-body">
-                        {!! Form::open(['route' => 'reportes.mis.existencias', 'method' => 'get']) !!}
-                        <div class="row">
-                            <div class="col-md-12 mb-1">
-                                <div class="form-group" >
-                                    <label for="tipos">Unidad Solicitante:</label>
-                                    <multiselect v-model="unidades_seleccionadas" :options="rr_hh_unidades" label="text" :multiple="true" track-by="id" placeholder="Seleccione uno..." >
-                                    </multiselect>
-                                    <input type="hidden" name="unidades_seleccionadas[]" v-for="unidad in unidades_seleccionadas" :value="unidad.id">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    {!! Form::label('fecha_desde', 'Fecha Desde') !!}
-                                    {!! Form::date('fecha_desde', $fecha_desde, ['class' => 'form-control']) !!}
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    {!! Form::label('fecha_hasta', 'Fecha Hasta') !!}
-                                    {!! Form::date('fecha_hasta', $fecha_hasta, ['class' => 'form-control']) !!}
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12 mb-1 text-end">
-                                <label>&nbsp;</label>
-                                <button type="submit" class="btn btn-primary btn-block">
-                                    <i class="fa fa-search"></i> Filtrar
-                                </button>
-                            </div>
-                        </div>
-
-                        {!! Form::close() !!}
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-
         <!-- Tabla de Resultados -->
         <div class="row">
             <div class="col-lg-12">
@@ -78,39 +30,93 @@
                         <h3 class="card-title">Resultados</h3>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive" >
-                            <table class="table table-bordered table-striped" id="tabla-reporte-existencias">
-                                <thead>
-                                    <tr>
-                                        <th>Código Insumo</th>
-                                        <th>Código Presentación</th>
-                                        <th>Nombre Insumo</th>
-                                        <th>Presentación</th>
-                                        <th>Unidad Medida</th>
-                                        <th>Existencia</th>
-                                        <th>Última Solicitud</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse($stocks as $stock)
-                                        @php
-                                            $ultima_solicitud = $stock->item->solicitudDetalles->sortByDesc('created_at')->first();
-                                        @endphp
+
+                        <!--pestañas "En Bodega Central" y "En mi Unidad "-->
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="en-bodega-central-tab" data-bs-toggle="tab" data-bs-target="#en-bodega-central" type="button" role="tab" aria-controls="en-bodega-central" aria-selected="true">
+                                    En Bodega Central
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="en-mi-unidad-tab" data-bs-toggle="tab" data-bs-target="#en-mi-unidad" type="button" role="tab" aria-controls="en-mi-unidad" aria-selected="false">
+                                    En mi Unidad
+                                </button>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="en-bodega-central" role="tabpanel" aria-labelledby="en-bodega-central-tab">
+                                <p class="mt-3">Listado de insumos disponibles en la bodega central.</p>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped align-middle" id="tabla-existencias-bodega-central">
+                                        <thead class="table-light">
                                         <tr>
-                                            <td>{{ $stock->item->codigo_insumo}}</td>
-                                            <td>{{ $stock->item->codigo_presentacion }}</td>
-                                            <td>{{ $stock->item->nombre }}</td>
-                                            <td>{{ $stock->item->presentacion->nombre ?? 'N/A' }}</td>
-                                            <td>{{ $stock->item->unimed->nombre ?? 'N/A' }}</td>
-                                            <td class="text-right">{{ number_format($stock->cantidad, 2) }}</td>
-                                            <td>{{ $ultima_solicitud ? $ultima_solicitud->solicitud->created_at->format('d/m/Y') : 'N/A' }}</td>
+                                            <th>Código Insumo</th>
+                                            <th>Código Presentación</th>
+                                            <th>Nombre Insumo</th>
+                                            <th>Presentación</th>
+                                            <th>Unidad Medida</th>
+                                            <th class="text-end">Existencia</th>
                                         </tr>
-                                    @empty
-                                        
-                                    @endforelse
-                                </tbody>
-                            </table>
+                                        </thead>
+                                        <tbody>
+                                        @forelse($existenciasEnBodegaCentral as $stock)
+                                            <tr>
+                                                <td>{{ $stock->item->codigo_insumo }}</td>
+                                                <td>{{ $stock->item->codigo_presentacion }}</td>
+                                                <td>{{ $stock->item->nombre }}</td>
+                                                <td>{{ $stock->item->presentacion->nombre ?? 'Sin Presentación' }}</td>
+                                                <td>{{ $stock->item->unimed->nombre ?? 'Sin Unidad' }}</td>
+                                                <td class="text-end">{{ nf($stock->cantidad, 0) }}</td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="6" class="text-center">No se encontraron resultados</td>
+                                            </tr>
+                                        @endforelse
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="en-mi-unidad" role="tabpanel" aria-labelledby="en-mi-unidad-tab">
+                                <p class="mt-3">Listado de insumos disponibles en mi unidad.</p>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped align-middle" id="tabla-existencias-unidad">
+                                        <thead class="table-light">
+                                        <tr>
+                                            <th>Código Insumo</th>
+                                            <th>Código Presentación</th>
+                                            <th>Nombre Insumo</th>
+                                            <th>Presentación</th>
+                                            <th>Unidad Medida</th>
+                                            <th class="text-end">Existencia</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @forelse($existenciasEnBodegaDeUnidad as $stock)
+                                            <tr>
+                                                <td>{{ $stock->item->codigo_insumo }}</td>
+                                                <td>{{ $stock->item->codigo_presentacion }}</td>
+                                                <td>{{ $stock->item->nombre }}</td>
+                                                <td>{{ $stock->item->presentacion->nombre ?? 'Sin Presentación' }}</td>
+                                                <td>{{ $stock->item->unimed->nombre ?? 'Sin Unidad' }}</td>
+                                                <td class="text-end">{{ nf($stock->cantidad, 0) }}</td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="6" class="text-center">No se encontraron resultados</td>
+                                            </tr>
+                                        @endforelse
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
+
+
+
                     </div>
                 </div>
             </div>
@@ -121,33 +127,8 @@
 
 @push('scripts')
     <script>
-        new Vue({
-                el: '#root',
-                name: 'root',
-                created() {
-
-                },
-                mounted() {
-                    cargarDatatable();
-                },
-                data: {
-
-                    
-
-                },
-                methods: {
-
-                },
-                computed:{
-
-                },
-                watch:{
-
-                }
-            });
-
-        function cargarDatatable() {
-            $('#tabla-reporte-existencias').DataTable({
+        $(function () {
+            $('#tabla-existencias-bodega-central').DataTable({
                 dom: 'Brtip',
                 paginate: false,
                 ordering: true,
@@ -179,6 +160,39 @@
                 ],
                 "order": []
             });
-        }
+
+            $('#tabla-existencias-unidad').DataTable({
+                dom: 'Brtip',
+                paginate: false,
+                ordering: true,
+                language: {
+                    "url": "{{asset('js/SpanishDataTables.json')}}",
+                    "emptyTable": "No se encontraron resultados",
+                },
+                buttons: [
+                    {
+                        extend: 'copy',
+                        'text': '<i class="fa fa-copy"></i> <span class="d-none d-sm-inline">Copiar</span>'
+                    },
+                    {
+                        extend: 'csv',
+                        'text': '<i class="fa fa-file-excel"></i> <span class="d-none d-sm-inline">CSV</span>'
+                    },
+                    {
+                        extend: 'excel',
+                        'text': '<i class="fa fa-file-excel"></i> <span class="d-none d-sm-inline">Excel</span>'
+                    },
+                    {
+                        extend: 'pdf',
+                        'text': '<i class="fa fa-file-pdf"></i> <span class="d-none d-sm-inline">PDF</span>'
+                    },
+                    {
+                        extend: 'print',
+                        'text': '<i class="fa fa-print"></i> <span class="d-none d-sm-inline">Imprimir</span>'
+                    },
+                ],
+                "order": []
+            });
+        })
     </script>
 @endpush
