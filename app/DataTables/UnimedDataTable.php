@@ -84,7 +84,7 @@ class UnimedDataTable extends DataTable
 
                 Button::make('reset')
                     ->addClass('btn btn-outline-secondary')
-                    ->text('<i class="fa fa-undo"></i> <span class="d-none d-sm-inline">Reiniciar</span>'),
+                    ->text('<i class="fa fa-undo"></i> <span class="d-none d-sm-inline">Refrescar</span>'),
 
                 Button::make('export')
                     ->extend('collection')
