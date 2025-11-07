@@ -42,12 +42,21 @@
                     <div class="card-body">
                         <ul class="nav nav-tabs mb-0" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="en-bodega-central-tab" data-bs-toggle="tab" data-bs-target="#en-bodega-central" type="button" role="tab">En Bodega Central</button>
+                                <button class="nav-link active rounded-top border" id="en-bodega-central-tab"
+                                        data-bs-toggle="tab" data-bs-target="#en-bodega-central"
+                                        type="button" role="tab">
+                                    En Bodega Central
+                                </button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="en-mi-unidad-tab" data-bs-toggle="tab" data-bs-target="#en-mi-unidad" type="button" role="tab">En mi Unidad</button>
+                                <button class="nav-link rounded-top border" id="en-mi-unidad-tab"
+                                        data-bs-toggle="tab" data-bs-target="#en-mi-unidad"
+                                        type="button" role="tab">
+                                    En mi Unidad
+                                </button>
                             </li>
                         </ul>
+
 
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active border" id="en-bodega-central" role="tabpanel">
