@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="card-body">
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <ul class="nav nav-tabs mb-0" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="en-bodega-central-tab" data-bs-toggle="tab" data-bs-target="#en-bodega-central" type="button" role="tab">En Bodega Central</button>
                             </li>
@@ -50,8 +50,8 @@
                         </ul>
 
                         <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="en-bodega-central" role="tabpanel">
-                                <p class="mt-3">Listado de insumos disponibles en la bodega central.</p>
+                            <div class="tab-pane fade show active border" id="en-bodega-central" role="tabpanel">
+                                <p class="p-1 mb-0">Listado de insumos disponibles en la bodega central.</p>
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped align-middle" id="tabla-existencias-bodega-central">
                                         <thead class="table-light">
@@ -84,38 +84,36 @@
                                 </div>
                             </div>
 
-                            <div class="tab-pane fade" id="en-mi-unidad" role="tabpanel">
-                                <p class="mt-3">Listado de insumos disponibles en mi unidad.</p>
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-striped align-middle" id="tabla-existencias-unidad">
-                                        <thead class="table-light">
+                            <div class="tab-pane fade border" id="en-mi-unidad" role="tabpanel">
+                                <p class="p-1 mb-0">Listado de insumos disponibles en mi unidad.</p>
+                                <table class="table table-bordered table-striped align-middle" id="tabla-existencias-unidad">
+                                    <thead class="table-light">
+                                    <tr>
+                                        <th>Código Insumo</th>
+                                        <th>Código Presentación</th>
+                                        <th>Nombre Insumo</th>
+                                        <th>Presentación</th>
+                                        <th>Unidad Medida</th>
+                                        <th class="text-end">Existencia</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @forelse($existenciasEnBodegaDeUnidad as $stock)
                                         <tr>
-                                            <th>Código Insumo</th>
-                                            <th>Código Presentación</th>
-                                            <th>Nombre Insumo</th>
-                                            <th>Presentación</th>
-                                            <th>Unidad Medida</th>
-                                            <th class="text-end">Existencia</th>
+                                            <td>{{ $stock->item->codigo_insumo }}</td>
+                                            <td>{{ $stock->item->codigo_presentacion }}</td>
+                                            <td>{{ $stock->item->nombre }}</td>
+                                            <td>{{ $stock->item->presentacion->nombre ?? 'Sin Presentación' }}</td>
+                                            <td>{{ $stock->item->unimed->nombre ?? 'Sin Unidad' }}</td>
+                                            <td class="text-end">{{ nf($stock->cantidad, 0) }}</td>
                                         </tr>
-                                        </thead>
-                                        <tbody>
-                                        @forelse($existenciasEnBodegaDeUnidad as $stock)
-                                            <tr>
-                                                <td>{{ $stock->item->codigo_insumo }}</td>
-                                                <td>{{ $stock->item->codigo_presentacion }}</td>
-                                                <td>{{ $stock->item->nombre }}</td>
-                                                <td>{{ $stock->item->presentacion->nombre ?? 'Sin Presentación' }}</td>
-                                                <td>{{ $stock->item->unimed->nombre ?? 'Sin Unidad' }}</td>
-                                                <td class="text-end">{{ nf($stock->cantidad, 0) }}</td>
-                                            </tr>
-                                        @empty
-                                            <tr>
-                                                <td colspan="6" class="text-center">No se encontraron resultados</td>
-                                            </tr>
-                                        @endforelse
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    @empty
+                                        <tr>
+                                            <td colspan="6" class="text-center">No se encontraron resultados</td>
+                                        </tr>
+                                    @endforelse
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 
@@ -132,7 +130,16 @@
         $(function () {
             const tablas = [
                 $('#tabla-existencias-bodega-central').DataTable({
-                    dom: 'Brtip',
+                    dom: `
+                    <"d-flex justify-content-between align-items-center mx-0 row"
+                        <"col-sm-12 col-md-6 dt-action-buttons text-start"B>
+                        <"col-sm-12 col-md-6 text-end"f>
+                    >
+                    t
+                    <"d-flex justify-content-between mx-0 row"
+                        <"col-sm-12"i>
+                    >
+                    `,
                     paginate: false,
                     ordering: true,
                     language: { url: "{{asset('js/SpanishDataTables.json')}}", emptyTable: "No se encontraron resultados" },
@@ -144,8 +151,18 @@
                     ],
                     order: []
                 }),
+
                 $('#tabla-existencias-unidad').DataTable({
-                    dom: 'Brtip',
+                    dom: `
+                    <"d-flex justify-content-between align-items-center mx-0 row"
+                        <"col-sm-12 col-md-6 dt-action-buttons text-start"B>
+                        <"col-sm-12 col-md-6 text-end"f>
+                    >
+                    t
+                    <"d-flex justify-content-between mx-0 row"
+                        <"col-sm-12"i>
+                    >
+                    `,
                     paginate: false,
                     ordering: true,
                     language: { url: "{{asset('js/SpanishDataTables.json')}}", emptyTable: "No se encontraron resultados" },
