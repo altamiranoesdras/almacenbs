@@ -5,9 +5,6 @@
 
 @section('titulo_pagina','MIS EXISTENCIAS')
 
-
-
-
 @section('content')
     <x-content-header titulo="MIS EXISTENCIAS">
         <a class="btn btn-outline-secondary round"
@@ -17,36 +14,43 @@
         </a>
     </x-content-header>
 
-    <!-- Main content -->
     <div class="content-body" id="root">
 
         @include('layouts.partials.request_errors')
 
-        <!-- Tabla de Resultados -->
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Resultados</h3>
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h3 class="card-title mb-0">Resultados</h3>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input filtro-existencias" type="radio" name="filtroExistencias" id="filtro-todos" value="todos" checked>
+                                <label class="form-check-label" for="filtro-todos">Todos</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input filtro-existencias" type="radio" name="filtroExistencias" id="filtro-con" value="con">
+                                <label class="form-check-label" for="filtro-con">Con existencias</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input filtro-existencias" type="radio" name="filtroExistencias" id="filtro-sin" value="sin">
+                                <label class="form-check-label" for="filtro-sin">Sin existencias</label>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
 
-                        <!--pestañas "En Bodega Central" y "En mi Unidad "-->
+                    <div class="card-body">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="en-bodega-central-tab" data-bs-toggle="tab" data-bs-target="#en-bodega-central" type="button" role="tab" aria-controls="en-bodega-central" aria-selected="true">
-                                    En Bodega Central
-                                </button>
+                                <button class="nav-link active" id="en-bodega-central-tab" data-bs-toggle="tab" data-bs-target="#en-bodega-central" type="button" role="tab">En Bodega Central</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="en-mi-unidad-tab" data-bs-toggle="tab" data-bs-target="#en-mi-unidad" type="button" role="tab" aria-controls="en-mi-unidad" aria-selected="false">
-                                    En mi Unidad
-                                </button>
+                                <button class="nav-link" id="en-mi-unidad-tab" data-bs-toggle="tab" data-bs-target="#en-mi-unidad" type="button" role="tab">En mi Unidad</button>
                             </li>
                         </ul>
 
                         <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="en-bodega-central" role="tabpanel" aria-labelledby="en-bodega-central-tab">
+                            <div class="tab-pane fade show active" id="en-bodega-central" role="tabpanel">
                                 <p class="mt-3">Listado de insumos disponibles en la bodega central.</p>
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped align-middle" id="tabla-existencias-bodega-central">
@@ -80,7 +84,7 @@
                                 </div>
                             </div>
 
-                            <div class="tab-pane fade" id="en-mi-unidad" role="tabpanel" aria-labelledby="en-mi-unidad-tab">
+                            <div class="tab-pane fade" id="en-mi-unidad" role="tabpanel">
                                 <p class="mt-3">Listado de insumos disponibles en mi unidad.</p>
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped align-middle" id="tabla-existencias-unidad">
@@ -115,8 +119,6 @@
                             </div>
                         </div>
 
-
-
                     </div>
                 </div>
             </div>
@@ -128,71 +130,53 @@
 @push('scripts')
     <script>
         $(function () {
-            $('#tabla-existencias-bodega-central').DataTable({
-                dom: 'Brtip',
-                paginate: false,
-                ordering: true,
-                language: {
-                    "url": "{{asset('js/SpanishDataTables.json')}}",
-                    "emptyTable": "No se encontraron resultados",
-                },
-                buttons: [
-                    {
-                        extend: 'copy',
-                        'text': '<i class="fa fa-copy"></i> <span class="d-none d-sm-inline">Copiar</span>'
-                    },
-                    {
-                        extend: 'csv',
-                        'text': '<i class="fa fa-file-excel"></i> <span class="d-none d-sm-inline">CSV</span>'
-                    },
-                    {
-                        extend: 'excel',
-                        'text': '<i class="fa fa-file-excel"></i> <span class="d-none d-sm-inline">Excel</span>'
-                    },
-                    {
-                        extend: 'pdf',
-                        'text': '<i class="fa fa-file-pdf"></i> <span class="d-none d-sm-inline">PDF</span>'
-                    },
-                    {
-                        extend: 'print',
-                        'text': '<i class="fa fa-print"></i> <span class="d-none d-sm-inline">Imprimir</span>'
-                    },
-                ],
-                "order": []
-            });
+            const tablas = [
+                $('#tabla-existencias-bodega-central').DataTable({
+                    dom: 'Brtip',
+                    paginate: false,
+                    ordering: true,
+                    language: { url: "{{asset('js/SpanishDataTables.json')}}", emptyTable: "No se encontraron resultados" },
+                    buttons: [
+                        { extend: 'copy', text: '<i class="fa fa-copy"></i> Copiar' },
+                        { extend: 'excel', text: '<i class="fa fa-file-excel"></i> Excel' },
+                        { extend: 'pdf', text: '<i class="fa fa-file-pdf"></i> PDF' },
+                        { extend: 'print', text: '<i class="fa fa-print"></i> Imprimir' }
+                    ],
+                    order: []
+                }),
+                $('#tabla-existencias-unidad').DataTable({
+                    dom: 'Brtip',
+                    paginate: false,
+                    ordering: true,
+                    language: { url: "{{asset('js/SpanishDataTables.json')}}", emptyTable: "No se encontraron resultados" },
+                    buttons: [
+                        { extend: 'copy', text: '<i class="fa fa-copy"></i> Copiar' },
+                        { extend: 'excel', text: '<i class="fa fa-file-excel"></i> Excel' },
+                        { extend: 'pdf', text: '<i class="fa fa-file-pdf"></i> PDF' },
+                        { extend: 'print', text: '<i class="fa fa-print"></i> Imprimir' }
+                    ],
+                    order: []
+                })
+            ];
 
-            $('#tabla-existencias-unidad').DataTable({
-                dom: 'Brtip',
-                paginate: false,
-                ordering: true,
-                language: {
-                    "url": "{{asset('js/SpanishDataTables.json')}}",
-                    "emptyTable": "No se encontraron resultados",
-                },
-                buttons: [
-                    {
-                        extend: 'copy',
-                        'text': '<i class="fa fa-copy"></i> <span class="d-none d-sm-inline">Copiar</span>'
-                    },
-                    {
-                        extend: 'csv',
-                        'text': '<i class="fa fa-file-excel"></i> <span class="d-none d-sm-inline">CSV</span>'
-                    },
-                    {
-                        extend: 'excel',
-                        'text': '<i class="fa fa-file-excel"></i> <span class="d-none d-sm-inline">Excel</span>'
-                    },
-                    {
-                        extend: 'pdf',
-                        'text': '<i class="fa fa-file-pdf"></i> <span class="d-none d-sm-inline">PDF</span>'
-                    },
-                    {
-                        extend: 'print',
-                        'text': '<i class="fa fa-print"></i> <span class="d-none d-sm-inline">Imprimir</span>'
-                    },
-                ],
-                "order": []
+            // Filtro por existencia
+            $('.filtro-existencias').on('change', function () {
+                const filtro = $(this).val();
+
+                tablas.forEach(tabla => {
+                    tabla.rows().every(function () {
+                        const cantidad = parseFloat($(this.node()).find('td:last').text().replace(/,/g, '')) || 0;
+
+                        if (filtro === 'con' && cantidad <= 0) {
+                            $(this.node()).hide();
+                        } else if (filtro === 'sin' && cantidad > 0) {
+                            $(this.node()).hide();
+                        } else {
+                            $(this.node()).show();
+                        }
+                    });
+                });
             });
-        })
+        });
     </script>
 @endpush
