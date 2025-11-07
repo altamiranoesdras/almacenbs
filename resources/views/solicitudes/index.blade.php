@@ -4,6 +4,8 @@
 	Requisiciones
 @endsection
 
+@include('layouts.plugins.select2')
+
 @section('content')
 
     <x-content-header titulo="Requisiciones">

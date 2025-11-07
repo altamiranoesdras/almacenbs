@@ -14,6 +14,18 @@
             <input type="date" class="form-control" name="al_solicita">
         </div>
 
+        <div class="col-sm-8 mb-1">
+            {!! Form::label('item_id','Insumo:') !!}
+            {!!
+                Form::select(
+                    'items',
+                    select(\App\Models\Item::whereHas('solicitudDetalles')->withoutAppends(),'text','id',null,null)
+                    , request()->item_id ?? null
+                    , ['id'=>'items','class' => 'form-control','multiple','style'=>'width: 100%']
+                )
+            !!}
+        </div>
+
 
         <div class="col-sm-4 mb-1">
             <label for="tipos">Estado:</label>
@@ -83,6 +95,13 @@
                 table = window.LaravelDataTables["dataTableBuilder"];
 
                 table.draw();
+            });
+
+            $("#items").select2({
+                placeholder: 'Seleccione uno...',
+                language: "es",
+                maximumSelectionLength: 1,
+                allowClear: true
             });
         })
 
