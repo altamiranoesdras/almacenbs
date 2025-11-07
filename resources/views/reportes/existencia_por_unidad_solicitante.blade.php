@@ -94,18 +94,15 @@
                                 </thead>
                                 <tbody>
                                     @forelse($stocks as $stock)
-                                        @php
-                                            $ultima_solicitud = $stock->item->solicitudDetalles->sortByDesc('created_at')->first();
-                                        @endphp
                                         <tr>
-                                            <td>{{ $stock->rrhhUnidad->nombre ?? 'N/A' }}</td>
+                                            <td>{{ $stock->rrhhUnidad->text ?? 'N/A' }}</td>
                                             <td>{{ $stock->item->codigo_insumo}}</td>
                                             <td>{{ $stock->item->codigo_presentacion }}</td>
                                             <td>{{ $stock->item->nombre }}</td>
                                             <td>{{ $stock->item->presentacion->nombre ?? 'N/A' }}</td>
                                             <td>{{ $stock->item->unimed->nombre ?? 'N/A' }}</td>
                                             <td class="text-right">{{ number_format($stock->cantidad, 2) }}</td>
-                                            <td>{{ $ultima_solicitud ? $ultima_solicitud->solicitud->created_at->format('d/m/Y') : 'N/A' }}</td>
+                                            <td>{{ $stock->item->ultimaSolicitud ? $stock->item->ultimaSolicitud->created_at->format('d/m/Y') : 'N/A' }}</td>
                                         </tr>
                                     @empty
                                         <tr>

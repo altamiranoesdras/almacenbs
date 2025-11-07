@@ -832,4 +832,14 @@ class Item extends Model implements HasMedia
         return $stock > 0 ? $stock : 0;
     }
 
+    public function ultimaSolicitud()
+    {
+        return $this->hasOne(SolicitudDetalle::class, 'item_id')
+            ->whereHas('solicitud', function ($q) {
+                $q->where('estado_id', SolicitudEstado::DESPACHADA);
+            })
+            ->latest();
+
+    }
+
 }

@@ -488,6 +488,11 @@ class ReportesAlmacenController extends AppBaseController
         if(count($unidades_seleccionadas) > 0){
 
             $query = Stock::whereHas('item')
+                ->with(['item' => function($query) {
+                    $query->withOutAppends()
+                        ->with(['unimed', 'presentacion','ultimaSolicitud']);
+                }])
+                ->with(['rrhhUnidad'])
                 ->where('bodega_id', Bodega::PRINCIPAL)
                 ->whereIn('unidad_id', $unidades_seleccionadas);
 
