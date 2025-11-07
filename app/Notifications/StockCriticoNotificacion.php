@@ -59,7 +59,7 @@ class StockCriticoNotificacion extends Notification
                     ->from(env('MAIL_USERNAME'),config('app.name'))
                     ->line('Se ha alcanzado el stock crítico para los siguientes artículos')
                     ->line($items)
-                    ->action('Reporte Stock Critico', route('reportes.stock'))
+                    ->action('Reporte Existencias Criticas', route('reportes.stock'))
                     ->salutation('Gracias por usar nuestra aplicación!');
     }
 

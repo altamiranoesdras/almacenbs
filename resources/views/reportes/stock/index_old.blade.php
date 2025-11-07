@@ -2,11 +2,11 @@
 
 @include('layouts.xtra_condensed_css')
 @include('layouts.plugins.datatables_reportes')
-@section('titulo_pagina', "Reporte Stock")
+@section('titulo_pagina', "Reporte Existencias")
 
 
 @section('titulo_pagina')
-    Reporte Stock
+    Reporte Existencias
 @endsection
 
 @section('content')
@@ -15,7 +15,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
-                    <h1 class="m-0 text-dark">Reporte Stock</h1>
+                    <h1 class="m-0 text-dark">Reporte Existencias</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->

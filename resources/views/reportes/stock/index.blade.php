@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('titulo_pagina',__('Reporte Stock'))
+@section('titulo_pagina',__('Reporte Existencias'))
 
 @section('content')
 
@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Reporte Stock</h1>
+                    <h1>Reporte Existencias</h1>
                 </div>
                 <div class="col-sm-6">
 
