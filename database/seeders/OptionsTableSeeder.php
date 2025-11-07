@@ -1613,7 +1613,9 @@ class OptionsTableSeeder extends Seeder
     public function generarColores()
     {
 
-        $opciones = Option::whereNull('color')->get();
+        $opciones = Option::whereNull('color')
+            ->orWhereIn('color', ['0', '1', '2', '3', '4', '5'])
+            ->get();
 
         $colores =[
             'primary',
