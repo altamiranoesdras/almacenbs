@@ -500,35 +500,37 @@ class ReportesAlmacenController extends AppBaseController
     // Reporte 2: Existencia por Unidad Solicitante
     public function misExistencias(Request $request)
     {
-        $unidad = usuarioAutenticado()->unidad ?? null;
-        $bodegaUnidad = usuarioAutenticado()->bodega ?? null;
+        $usuario = usuarioAutenticado();
 
-        if (!$unidad || !$bodegaUnidad) {
+        if (!$usuario->unidad_id || !$usuario->bodega_id) {
             flash('No se encontró la unidad o bodega asociada al usuario.')->error();
             return redirect()->back();
         }
 
-        $existenciasEnBodegaCentral = collect();
-        $existenciasEnBodegaDeUnidad = collect();
 
-        if($unidad){
-
-            $query = Stock::whereHas('item')
-                ->where('bodega_id', Bodega::PRINCIPAL)
-                ->where('unidad_id', $unidad->id);
+        $query = Stock::whereHas('item')
+            ->with(['item' => function($query) {
+                $query->withOutAppends()
+                    ->with(['unimed', 'presentacion']);
+            }])
+            ->where('bodega_id', Bodega::PRINCIPAL)
+            ->where('unidad_id', $usuario->unidad_id);
 //                ->where('cantidad', '>', 0);
 
-            $existenciasEnBodegaCentral = $query->get();
+        $existenciasEnBodegaCentral = $query->get();
 
-            $queryUnidad = Stock::whereHas('item')
-                ->where('bodega_id', $bodegaUnidad->id);
+        $queryUnidad = Stock::whereHas('item')
+            ->with(['item' => function($query) {
+                $query->withOutAppends()
+                    ->with(['unimed', 'presentacion']);
+            }])
+            ->where('bodega_id', $usuario->bodega_id);
 //                ->where('cantidad', '>', 0);
 
-            $existenciasEnBodegaDeUnidad = $queryUnidad->get();
-        }
+        $existenciasEnBodegaDeUnidad = $queryUnidad->get();
 
 
-        return view('reportes.mis_existencias_por_unidad_solicitante', compact('existenciasEnBodegaCentral', 'existenciasEnBodegaDeUnidad', 'unidad', 'bodegaUnidad'));
+        return view('reportes.mis_existencias_por_unidad_solicitante', compact('existenciasEnBodegaCentral', 'existenciasEnBodegaDeUnidad'));
     }
 
     // Reporte 3: Existencia por Subsecretaría
