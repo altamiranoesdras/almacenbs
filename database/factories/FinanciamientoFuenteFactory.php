@@ -22,7 +22,7 @@ class FinanciamientoFuenteFactory extends Factory
      */
     public function definition()
     {
-        
+
         return [
             'codigo_fuente' => $this->faker->text($this->faker->numberBetween(5, 255)),
             'codigo_organismo' => $this->faker->text($this->faker->numberBetween(5, 255)),
@@ -30,7 +30,6 @@ class FinanciamientoFuenteFactory extends Factory
             'nombre' => $this->faker->text($this->faker->numberBetween(5, 255)),
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s'),
-            'deleted_at' => $this->faker->date('Y-m-d H:i:s')
         ];
     }
 }

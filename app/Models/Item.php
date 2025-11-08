@@ -83,6 +83,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Stock> $stocks
  * @property-read int|null $stocks_count
  * @property-read \App\Models\ItemTipo $tipo
+ * @property-read \App\Models\SolicitudDetalle|null $ultimaSolicitud
  * @property-read \App\Models\Unimed|null $unimed
  * @method static Builder|Item conDetSolicitudesAprobadas()
  * @method static Builder|Item conIngresos()
