@@ -89,9 +89,9 @@ class RrhhUnidad extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $appends = ['text','nombre_con_padre'];
+    protected $appends = ['text', 'nombre_con_padre'];
 
-    protected $with = ['tipo','parent'];
+    protected $with = ['tipo', 'parent'];
 
     public $fillable = [
         'nombre',
@@ -146,7 +146,7 @@ class RrhhUnidad extends Model
 
     protected function getArrayableAppends()
     {
-        if (self::$withoutAppends){
+        if (self::$withoutAppends) {
             return [];
         }
 
@@ -187,12 +187,13 @@ class RrhhUnidad extends Model
 
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(RrhhUnidad::class,'unidad_padre_id','id')
+        return $this->belongsTo(RrhhUnidad::class, 'unidad_padre_id', 'id')
             ->with('parent');
     }
+
     public function children(): HasMany
     {
-        return $this->hasMany(RrhhUnidad::class,'unidad_padre_id','id')
+        return $this->hasMany(RrhhUnidad::class, 'unidad_padre_id', 'id')
             ->with('children');
     }
 
@@ -208,7 +209,7 @@ class RrhhUnidad extends Model
 
     public function hasChildren(): bool
     {
-        return $this->children->count()>0;
+        return $this->children->count() > 0;
     }
 
     public function tipo(): BelongsTo
@@ -226,14 +227,14 @@ class RrhhUnidad extends Model
     public function getNombreConPadresAttribute()
     {
 
-        return $this->nombreConPadres().' ('.$this->tipo->nombre.')';
+        return $this->nombreConPadres() . ' (' . $this->tipo->nombre . ')';
 
     }
 
     public function nombreConPadres()
     {
-        if($this->parent){
-            return $this->parent->nombreConPadres().' > '.$this->nombre;
+        if ($this->parent) {
+            return $this->parent->nombreConPadres() . ' > ' . $this->nombre;
         }
         return $this->nombre;
 
@@ -241,8 +242,8 @@ class RrhhUnidad extends Model
 
     public function getNombreConPadreAttribute()
     {
-        if($this->parent){
-            return $this->parent->nombre.' > '.$this->text;
+        if ($this->parent) {
+            return $this->parent->nombre . ' > ' . $this->text;
         }
         return $this->text;
 
@@ -250,7 +251,7 @@ class RrhhUnidad extends Model
 
     public function scopeAreas($query)
     {
-        return $query->where('unidad_tipo_id',  RrhhUnidadTipo::AREA);
+        return $query->where('unidad_tipo_id', RrhhUnidadTipo::AREA);
     }
 
     public function scopeSolicitan($query)
@@ -266,11 +267,11 @@ class RrhhUnidad extends Model
     public function buscarPadre(int $tipoId = RrhhUnidadTipo::DIRECCION): ?RrhhUnidad
     {
         //si no tiene padre, no hay dirección
-        if(!$this->parent){
+        if (!$this->parent) {
             return null;
         }
         //si el padre es del tipo buscado, devolverlo
-        if($this->parent->unidad_tipo_id == $tipoId){
+        if ($this->parent->unidad_tipo_id == $tipoId) {
             return $this->parent;
         }
         //si no, seguir buscando hacia arriba
@@ -306,6 +307,17 @@ class RrhhUnidad extends Model
     public function bodega(): HasOne|Builder|RrhhUnidad
     {
         return $this->hasOne(Bodega::class, 'rrhh_unidade_id', 'id');
+    }
+
+    public function subProductos()
+    {
+        return $this->belongsToMany(
+            RedProduccionSubProducto::class,
+            'red_produccion_subproducto_rrhh_unidad',
+        'rrhh_unidad_id',
+        'subproducto_id'
+        );
+
     }
 
 }
