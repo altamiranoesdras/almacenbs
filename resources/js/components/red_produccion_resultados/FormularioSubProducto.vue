@@ -58,7 +58,7 @@
                                 <DualListBox
                                     :destination="form.rrhh_unidades"
                                     :source="unidades"
-                                    label="nombre"
+                                    label="text"
                                     @onChangeList="onChangeList"
                                 />
                             </div>
@@ -148,7 +148,13 @@ export default {
         },
         async getUnidades() {
             try {
-                const respuesta = await axios.get(route('api.rrhh_unidades.index'));
+                const parametros = {
+                    params: {
+                        tipo_area: 1
+                    }
+                };
+
+                const respuesta = await axios.get(route('api.rrhh_unidades.index'), parametros);
                 this.unidadesOriginales = respuesta.data.data;
                 this.unidades = respuesta.data.data;
             } catch (error) {

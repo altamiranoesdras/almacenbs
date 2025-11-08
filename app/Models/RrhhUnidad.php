@@ -41,6 +41,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read int|null $solicitudes_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Stock> $stocks
  * @property-read int|null $stocks_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RedProduccionSubProducto> $subProductos
+ * @property-read int|null $sub_productos_count
  * @property-read \App\Models\RrhhUnidadTipo $tipo
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $usuarios
  * @property-read int|null $usuarios_count

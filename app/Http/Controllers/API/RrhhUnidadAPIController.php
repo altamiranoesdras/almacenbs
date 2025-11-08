@@ -34,6 +34,10 @@ class RrhhUnidadAPIController extends AppBaseController
             $query->limit($request->get('limit'));
         }
 
+        if($request->tipo_area) {
+            $query->areas();
+        }
+
         $rrhhUnidads = $query->get();
 
         return $this->sendResponse($rrhhUnidads->toArray(), 'Rrhh Unidads retrieved successfully');

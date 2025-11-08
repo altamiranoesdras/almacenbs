@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $item_id
  * @property int $cantidad
  * @property string $precio_estimado
+ * @property int|null $sub_producto_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -32,6 +33,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle whereItemId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle wherePrecioEstimado($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle whereSolicitudId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle whereSubProductoId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle withoutTrashed()

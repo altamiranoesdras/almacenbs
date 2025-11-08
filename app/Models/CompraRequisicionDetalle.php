@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $item_id
  * @property string $cantidad
  * @property string $precio_estimado
+ * @property int|null $sub_producto_id
+ * @property int|null $financiamiento_fuente_id
  * @property string|null $observaciones
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -30,11 +32,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle whereCantidad($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle whereFinanciamientoFuenteId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle whereItemId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle whereObservaciones($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle wherePrecioEstimado($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle whereRequisicionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle whereSubProductoId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle withoutTrashed()

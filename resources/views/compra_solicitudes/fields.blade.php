@@ -24,6 +24,16 @@
                             </select-items>
                         </div>
 
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
+                            <label for="sub_producto_seleccionado">Sub Productos</label>
+                            <multiselect
+                                v-model="sub_producto_seleccionado"
+                                :options="subproductos"
+                                label="texto"
+                                :track-by="'id'">
+                            </multiselect>
+                        </div>
+
 
                         <div class="col-12 col-sm-3 col-md-3 col-lg-6 mb-1">
                             <div class="input-group">
@@ -105,7 +115,7 @@
                                 <td v-text="detalle.item.renglon ? detalle.item.renglon.numero : 'Sin renglon'"></td>
                                 <td v-text="detalle.item.codigo_insumo"></td>
                                 <td v-text="detalle.item.nombre"></td>
-                                <td v-text="detalle.item.descripcion"></td>
+                                <td v-html="detalle.item.descripcion"></td>
                                 <td v-text="detalle.item.presentacion ? detalle.item.presentacion.nombre : 'Sin unidad'"></td>
                                 <td v-text="detalle.item.unimed ? detalle.item.unimed.nombre : 'Sin unidad'"></td>
                                 <td v-text="detalle.item.codigo_presentacion"></td>
@@ -355,7 +365,10 @@
                 idEliminando: '',
                 idEditando: '',
                 recibido: 0,
-                descuento: 0
+                descuento: 0,
+
+                sub_producto_seleccionado: null,
+                subproductos: @json(\App\Models\RedProduccionSubProducto::deUnidad()->get() ?? []),
             },
             methods: {
 

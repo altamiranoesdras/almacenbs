@@ -15,9 +15,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read mixed $texto
  * @property-read \App\Models\RedProduccionProducto $producto
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RrhhUnidad> $rrhhUnidades
  * @property-read int|null $rrhh_unidades_count
+ * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionSubProducto deUnidad()
  * @method static \Database\Factories\RedProduccionSubProductoFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionSubProducto newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|RedProduccionSubProducto newQuery()
@@ -42,6 +44,10 @@ class RedProduccionSubProducto extends Model
     use HasFactory;
 
     public $table = 'red_produccion_sub_productos';
+
+    protected $appends = [
+        'texto'
+    ];
 
     public $fillable = [
         'producto_id',
@@ -81,5 +87,18 @@ class RedProduccionSubProducto extends Model
             'red_produccion_subproducto_rrhh_unidad',
             'subproducto_id',
             'rrhh_unidad_id');
+    }
+
+    public function getTextoAttribute()
+    {
+        return $this->codigo . ' - ' . $this->nombre;
+    }
+
+    public function scopeDeUnidad()
+    {
+        return $this->whereHas('rrhhUnidades', function ($query) {
+            $query->where('rrhh_unidades.id', usuarioAutenticado()->unidad_id);
+        });
+
     }
 }
