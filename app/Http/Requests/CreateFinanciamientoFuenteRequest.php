@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Models\FinanciamientoFuent;
+use App\Models\FinanciamientoFuente;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateFinanciamientoFuentRequest extends FormRequest
+class CreateFinanciamientoFuenteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,11 @@ class CreateFinanciamientoFuentRequest extends FormRequest
      */
     public function rules()
     {
-        return FinanciamientoFuent::$rules;
+        return FinanciamientoFuente::$rules;
     }
 
     public function messages()
     {
-        return FinanciamientoFuent::$messages;
+        return FinanciamientoFuente::$messages;
     }
 }

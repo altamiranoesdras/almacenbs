@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\API;
 
-use App\Models\FinanciamientoFuent;
+use App\Models\FinanciamientoFuente;
 use InfyOm\Generator\Request\APIRequest;
 
-class CreateFinanciamientoFuentAPIRequest extends APIRequest
+class CreateFinanciamientoFuenteAPIRequest extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,6 +24,6 @@ class CreateFinanciamientoFuentAPIRequest extends APIRequest
      */
     public function rules()
     {
-        return FinanciamientoFuent::$rules;
+        return FinanciamientoFuente::$rules;
     }
 }

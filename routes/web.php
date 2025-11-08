@@ -269,7 +269,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     // Nuevas rutas para los 12 reportes
 
     Route::get('reportes/existencia-por-unidad-solicitante', [ReportesAlmacenController::class,'existenciaPorUnidadSolicitante'])->name('reportes.existencia.unidad.solicitante');
-    
+
     Route::get('reportes/mis-existencias', [ReportesAlmacenController::class,'misExistencias'])->name('reportes.mis.existencias');
     Route::get('reportes/existencia-por-subsecretaria', [ReportesAlmacenController::class,'existenciaPorSubsecretaria'])->name('reportes.existencia.subsecretaria');
     Route::get('reportes/existencia-periodicas', [ReportesAlmacenController::class,'existenciaPeriodicas'])->name('reportes.existencia.periodicas');
@@ -411,7 +411,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     Route::resource('departamentos', App\Http\Controllers\DepartamentoController::class);
     Route::resource('municipios', App\Http\Controllers\MunicipioController::class);
-    Route::resource('financiamientoFuentes', App\Http\Controllers\FinanciamientoFuentController::class);
+    Route::resource('financiamientoFuentes', App\Http\Controllers\FinanciamientoFuenteController::class);
 });
 
 

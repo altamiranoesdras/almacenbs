@@ -2,18 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\FinanciamientoFuent;
+use App\Models\FinanciamientoFuente;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 
-class FinanciamientoFuentFactory extends Factory
+class FinanciamientoFuenteFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = FinanciamientoFuent::class;
+    protected $model = FinanciamientoFuente::class;
 
     /**
      * Define the model's default state.
@@ -30,7 +30,7 @@ class FinanciamientoFuentFactory extends Factory
             'nombre' => $this->faker->text($this->faker->numberBetween(5, 255)),
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s'),
-            'deleted_at' => null
+            'deleted_at' => $this->faker->date('Y-m-d H:i:s')
         ];
     }
 }

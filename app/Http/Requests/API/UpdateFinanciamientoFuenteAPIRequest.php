@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\API;
 
-use App\Models\FinanciamientoFuent;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Models\FinanciamientoFuente;
+use InfyOm\Generator\Request\APIRequest;
 
-class UpdateFinanciamientoFuentRequest extends FormRequest
+class UpdateFinanciamientoFuenteAPIRequest extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,13 +24,8 @@ class UpdateFinanciamientoFuentRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = FinanciamientoFuent::$rules;
+        $rules = FinanciamientoFuente::$rules;
         
         return $rules;
-    }
-
-    public function messages()
-    {
-        return FinanciamientoFuent::$messages;
     }
 }

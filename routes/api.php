@@ -305,7 +305,7 @@ Route::group(['as'=>'api.'], function () {
         Route::resource('municipios', MunicipioAPIController::class)
             ->except(['create', 'edit']);
 
-        Route::resource('financiamiento-fuentes', App\Http\Controllers\API\FinanciamientoFuentAPIController::class)
+        Route::resource('financiamiento-fuentes', App\Http\Controllers\API\FinanciamientoFuenteAPIController::class)
             ->except(['create', 'edit']);
     });
 

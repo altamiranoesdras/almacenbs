@@ -2,12 +2,12 @@
 
 namespace App\DataTables;
 
-use App\Models\FinanciamientoFuent;
+use App\Models\FinanciamientoFuente;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Services\DataTable;
 
-class FinanciamientoFuentDataTable extends DataTable
+class FinanciamientoFuenteDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -20,13 +20,13 @@ class FinanciamientoFuentDataTable extends DataTable
 
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', function(FinanciamientoFuent $financiamientoFuent){
-                $id = $financiamientoFuent->id;
-                return view('financiamiento_fuentes.datatables_actions',compact('financiamientoFuent','id'));
+            ->addColumn('action', function(FinanciamientoFuente $financiamientoFuente){
+                $id = $financiamientoFuente->id;
+                return view('financiamiento_fuentes.datatables_actions',compact('financiamientoFuente','id'));
             })
-            ->editColumn('id',function (FinanciamientoFuent $financiamientoFuent){
+            ->editColumn('id',function (FinanciamientoFuente $financiamientoFuente){
 
-                return $financiamientoFuent->id;
+                return $financiamientoFuente->id;
 
             })
             ->rawColumns(['action']);
@@ -35,10 +35,10 @@ class FinanciamientoFuentDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\FinanciamientoFuent $model
+     * @param \App\Models\FinanciamientoFuente $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(FinanciamientoFuent $model)
+    public function query(FinanciamientoFuente $model)
     {
         return $model->newQuery()->select($model->getTable().'.*');
     }
@@ -80,7 +80,7 @@ class FinanciamientoFuentDataTable extends DataTable
 
                     Button::make('reset')
                         ->addClass('btn btn-outline-secondary')
-                        ->text('<i class="fa fa-undo"></i> <span class="d-none d-sm-inline">Refrescar</span>'),
+                        ->text('<i class="fa fa-undo"></i> <span class="d-none d-sm-inline">Reiniciar</span>'),
 
                     Button::make('export')
                         ->extend('collection')
@@ -130,6 +130,6 @@ class FinanciamientoFuentDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'financiamiento_fuents_datatable_' . time();
+        return 'financiamiento_fuentes_datatable_' . time();
     }
 }

@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class FinanciamientoFuentsTableSeeder extends Seeder
+class FinanciamientoFuentesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

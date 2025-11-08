@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('titulo_pagina', 'Financiamiento Fuent')
+@section('titulo_pagina', 'Financiamiento Fuente')
 
 @section('content')
 
@@ -9,8 +9,8 @@
             <div class="row breadcrumbs-top">
                 <div class="col-12">
                     <h2 class="content-header-title float-start mb-0">
-                        Financiamiento Fuent detalle
-                    </h2>
+                                                    Financiamiento Fuente detalle
+                                            </h2>
                 </div>
             </div>
         </div>

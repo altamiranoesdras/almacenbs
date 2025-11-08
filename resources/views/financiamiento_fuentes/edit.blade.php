@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('titulo_pagina', 'Editar Financiamiento Fuent' )
+@section('titulo_pagina', 'Editar Financiamiento Fuente' )
 
 @section('content')
 
@@ -9,8 +9,8 @@
             <div class="row breadcrumbs-top">
                 <div class="col-12">
                     <h2 class="content-header-title float-start mb-0">
-                        Editar Financiamiento Fuent
-                    </h2>
+                                                    Editar Financiamiento Fuente
+                                            </h2>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
 
                 <div class="card">
 
-                    {!! Form::model($financiamientoFuent, ['route' => ['financiamientoFuentes.update', $financiamientoFuent->id], 'method' => 'patch','class' => 'esperar']) !!}
+                    {!! Form::model($financiamientoFuente, ['route' => ['financiamientoFuentes.update', $financiamientoFuente->id], 'method' => 'patch','class' => 'esperar']) !!}
 
                     <div class="card-body">
                         <div class="row">
