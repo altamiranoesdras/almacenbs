@@ -34,7 +34,9 @@ class LlenarFoliosRequisicionesAlmacen extends Command
     {
         $this->inicio();
 
-        $conteoPorEstado = Solicitud::all()
+        $conteoPorEstado = Solicitud::query()
+            ->whereIn('id',[216,225,226,227,228,229,230,231,232])
+            ->get()
             ->groupBy('estado.nombre')
             ->map(function ($group) {
                 return $group->count();
@@ -50,7 +52,7 @@ class LlenarFoliosRequisicionesAlmacen extends Command
         $todasLasSolicitudes = Solicitud::query()
             ->where('estado_id', '!=', SolicitudEstado::TEMPORAL)
             ->whereNotNull('justificacion')
-//            ->whereId(5)
+            ->whereIn('id',[216,225,226,227,228,229,230,231,232])
             ->get();
 
         $this->line("Inicio de extracción de folios y fecha de la justificación de las solicitudes de requisiciones de almacén.");
@@ -82,6 +84,9 @@ class LlenarFoliosRequisicionesAlmacen extends Command
             }
 
         }
+        $this->line("---");
+
+        $this->line("Se procesó un total de " . $todasLasSolicitudes->count() . " solicitudes.");
 
         $this->fin();
 
