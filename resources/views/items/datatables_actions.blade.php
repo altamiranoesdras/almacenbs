@@ -1,5 +1,5 @@
 
-@can('Crear Artículos')
+@can('Crear insumos')
 <a href="{{ route('items.show', $item->id) }}" class='btn btn-icon btn-outline-secondary rounded-circle' data-bs-toggle="tooltip" title="Ver">
     <i class="fa fa-eye"></i>
 </a>
@@ -9,14 +9,14 @@
 {{--    <i class="fa fa-clone"></i>--}}
 {{--</a>--}}
 
-@can('Editar Artículos')
+@can('Editar insumos')
     <a href="{{ route('items.edit', $item->id) }}" class='btn btn-icon btn-outline-info rounded-circle' data-bs-toggle="tooltip" title="Editar">
     <i class="fa fa-edit"></i>
 </a>
 @endcan
 
 
-@can('Eliminar Artículos')
+@can('Eliminar insumos')
 <span data-bs-toggle="tooltip" title="Eliminar">
     <a href="#modal-delete-{{$item->id}}" data-bs-toggle="modal" data-keyboard="true" class='btn btn-icon btn-outline-danger rounded-circle'>
         <i class="fa fa-trash-alt"></i>

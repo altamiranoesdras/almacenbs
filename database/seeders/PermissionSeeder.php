@@ -155,7 +155,9 @@ class PermissionSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'Editar Estructura Presupuestaria Programas']);
         Permission::firstOrCreate(['name' => 'Eliminar Estructura Presupuestaria Programas']);
 
-
+        Permission::firstOrCreate(['name' => 'Editar insumos']);
+        Permission::firstOrCreate(['name' => 'Crear insumos']);
+        Permission::firstOrCreate(['name' => 'Eliminar insumos']);
 
     }
 }

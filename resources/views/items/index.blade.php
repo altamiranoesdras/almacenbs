@@ -18,17 +18,19 @@
         <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
             <div class="mb-1 breadcrumb-right">
                 <div class="dropdown">
+                    @can('Crear insumos')
                     <a class="btn btn-primary float-end"
                        href="{{ route('items.create') }}">
                         Agregar
                     </a>
+                    @endcan
                 </div>
             </div>
         </div>
     </div>
 
     <div class="content-body">
-        
+
 
         <div class="card border-info">
         <div class="card-header d-flex justify-content-between align-items-center">
