@@ -58,7 +58,7 @@ class ReiniciarKardex extends Command
             ->get();
 
 
-        $this->line("Reiniciando kardex de " . $stocksIniciales->count() . " stocks iniciales");
+        $this->line("Reingresando " . $stocksIniciales->count() . " stocks iniciales");
 
         $this->barraProcesoIniciar($stocksIniciales->count());
 
@@ -87,7 +87,6 @@ class ReiniciarKardex extends Command
      */
     public function procesarIngresosYegresos()
     {
-        $this->line("Reiniciando kardex de ingresos");
 
         $ingresos = Compra::autorizadas()
 //                ->whereHas('detalles.item', function ($query) {
@@ -99,6 +98,9 @@ class ReiniciarKardex extends Command
 //                $query->where('id',  438);
 //            })
             ->get();
+
+        $this->line("\n\nReingresando movimientos: " . $ingresos->count() . " ingresos y " . $egresos->count() . " egresos");
+
 
         $ingresoEgresos = $ingresos
             ->concat($egresos)          // une sin sobrescribir
