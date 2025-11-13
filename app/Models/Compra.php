@@ -50,6 +50,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read \App\Models\CompraEstado $estado
  * @property-read mixed $anio
  * @property-read mixed $color_estado
+ * @property-read mixed $fecha_ordena_kardex
  * @property-read mixed $mes
  * @property-read mixed $sub_total
  * @property-read mixed $total
@@ -62,6 +63,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read \App\Models\User $usuarioCrea
  * @property-read \App\Models\User|null $usuarioOpera
  * @property-read \App\Models\User|null $usuarioRecibe
+ * @method static \Illuminate\Database\Eloquent\Builder|Compra autorizadas()
  * @method static \Illuminate\Database\Eloquent\Builder|Compra delItem($item)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra delUser($user = null)
  * @method static \Illuminate\Database\Eloquent\Builder|Compra delUsuarioCrea($user = null)
@@ -377,7 +379,7 @@ class Compra extends Model
      * Luego, agrupa los detalles por item_id y agrega el kardex para cada detalle.
      * Finalmente, agrega una bitácora indicando que el kardex fue procesado.
      */
-    public function procesarKardex(): void
+    public function procesarKardex($bitacora=true): void
     {
 
         $this->validaInsumosSinCategoria();
@@ -389,7 +391,9 @@ class Compra extends Model
             $detalle->agregarKardex();
         }
 
-        $this->addBitacora("Kardex procesado","Se procesó el kardex de los detalles de la compra");
+        if ($bitacora){
+            $this->addBitacora("Kardex procesado","Se procesó el kardex de los detalles de la compra");
+        }
 
     }
 
@@ -438,6 +442,11 @@ class Compra extends Model
     public function scopeNoAnuladas($q)
     {
         $q->where('estado_id','!=',CompraEstado::ANULADO);
+    }
+
+    public function scopeAutorizadas()
+    {
+        return $this->where('estado_id', CompraEstado::UNO_H_AUTORIZADO);
     }
 
 
@@ -823,6 +832,18 @@ class Compra extends Model
     public function esActa(): bool
     {
         return $this->tipo_id == CompraTipo::ACTA;
+    }
+
+    public function getFechaOrdenaKardexAttribute()
+    {
+        // Si la fecha de ingreso es nula, se usa la fecha del documento
+        if ($this->fecha_ingreso == null) {
+            return $this->fecha_documento;
+        }
+
+        // Si la fecha de ingreso es válida, se usa esa
+        return $this->fecha_ingreso;
+
     }
 
 }

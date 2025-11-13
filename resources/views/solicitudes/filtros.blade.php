@@ -50,9 +50,14 @@
 
 
         <div class="col-sm-2 mb-1">
-            <label for="codigo">Código</label>
-            <input type="text" class="form-control" name="codigo" value="">
+            <label for="folio">Folio</label>
+            <input type="text" class="form-control" name="folio" value="">
         </div>
+
+{{--        <div class="col-sm-2 mb-1">--}}
+{{--            <label for="codigo">Código</label>--}}
+{{--            <input type="text" class="form-control" name="codigo" value="">--}}
+{{--        </div>--}}
 
 
 {{--        <div class="col-sm-2 mb-1">--}}

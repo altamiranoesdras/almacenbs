@@ -51,6 +51,7 @@ use stdClass;
  * @property-read int|null $detalles_count
  * @property-read \App\Models\EnvioFiscal|null $envioFiscal
  * @property-read \App\Models\SolicitudEstado $estado
+ * @property-read mixed $fecha_ordena_kardex
  * @property-read mixed $motivo_retorna
  * @property-read float $total_detalles
  * @property-read string $total_letras
@@ -64,9 +65,11 @@ use stdClass;
  * @method static Builder|Solicitud autorizadas()
  * @method static Builder|Solicitud deUnidad($unidad = null)
  * @method static Builder|Solicitud delUsuarioCrea($user = null)
+ * @method static Builder|Solicitud despachadas()
  * @method static \Database\Factories\SolicitudFactory factory($count = null, $state = [])
  * @method static Builder|Solicitud newModelQuery()
  * @method static Builder|Solicitud newQuery()
+ * @method static Builder|Solicitud noAnuladas()
  * @method static Builder|Solicitud onlyTrashed()
  * @method static Builder|Solicitud query()
  * @method static Builder|Solicitud solicitadas()
@@ -514,6 +517,16 @@ class Solicitud extends Model
     public function scopeAprobadas(Builder $q)
     {
         $q->where('estado_id',SolicitudEstado::APROBADA);
+    }
+
+    public function scopeNoAnuladas($q)
+    {
+        $q->where('estado_id','!=',SolicitudEstado::ANULADA);
+    }
+
+    public function scopeDespachadas()
+    {
+        return $this->where('estado_id', SolicitudEstado::DESPACHADA);
     }
 
     public function ultimaBitacora()

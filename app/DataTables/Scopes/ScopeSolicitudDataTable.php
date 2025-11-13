@@ -33,6 +33,7 @@ class ScopeSolicitudDataTable implements DataTableScope
 
     public $estados;
     public $items;
+    public $folio;
 
     public function __construct()
     {
@@ -59,6 +60,7 @@ class ScopeSolicitudDataTable implements DataTableScope
 
         $this->estados = request()->estados ?? null;
         $this->items = request()->items ?? null;
+        $this->folio = request()->folio ?? null;
     }
 
 
@@ -71,6 +73,9 @@ class ScopeSolicitudDataTable implements DataTableScope
     public function apply($query)
     {
 
+        if ($this->folio) {
+            $query->where('folio', 'like', "%$this->folio%");
+        }
 
         if($this->codigo){
             $query->where('codigo','like',"%$this->codigo%");

@@ -44,7 +44,7 @@ trait UseStockTransaccion
             'stock_id' => $stockId,
             'tipo' => $tipo,
             'cantidad' => $cantidad,
-            'precio_costo' => isNull($precioCosto) ? 0 : $precioCosto
+            'precio_costo' => $precioCosto ?? 0,
         ]);
 
         $model = $this->getModel();

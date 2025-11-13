@@ -257,7 +257,7 @@ class SolicitudDetalle extends Model
         return $stock;
     }
 
-    public function anular()
+    public function anular(): void
     {
         $this->kardex()->delete();
 
@@ -271,9 +271,32 @@ class SolicitudDetalle extends Model
         }
     }
 
-    public function getSubTotalAttribute()
+    public function getSubTotalAttribute(): float|int
     {
         return $this->cantidad_despachada * $this->precio;
 
+    }
+
+    public function agregarKardex(): void
+    {
+
+        $gresosTransacciones = $this->transaccionesStock
+            ->where('tipo', StockTransaccion::EGRESO);
+
+        //iterar transacciones de stock y crear kardex por cada una
+        foreach ($gresosTransacciones as $transaccion) {
+            $this->kardex()->create([
+                'categoria_id' => $this->item->categoria_id,
+                'item_id' => $this->item->id,
+                'cantidad' => $transaccion->cantidad,
+                'precio_movimiento' => $transaccion->stock->precio_compra,
+                'precio_existencia' => $transaccion->stock->precio_compra,
+                'tipo' => Kardex::TIPO_SALIDA,
+                'codigo' => '',
+                'responsable' => $this->solicitud->unidad->nombre,
+                'usuario_id' => auth()->user()->id ?? User::PRINCIPAL,
+                'folio_siguiente' => '',
+            ]);
+        }
     }
 }
