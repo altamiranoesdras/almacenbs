@@ -175,7 +175,7 @@
                                     return {
                                         columns: [
                                             {
-                                                text: `Generado el: ${fecha}`,
+                                                text: `Fecha y hora de emisión: ${fecha}`,
                                                 alignment: 'left',
                                                 fontSize: 9,
                                                 margin: [40, 0]
@@ -200,7 +200,7 @@
                                 // Footer en impresión
                                 $(win.document.body).append(`
                 <div style="position:fixed; bottom:20px; width:100%; text-align:right; font-size:12px;">
-                    Impreso el: ${fecha}
+                    Fecha y hora de emisión: ${fecha}
                 </div>
             `);
                             }
@@ -246,7 +246,7 @@
                                     return {
                                         columns: [
                                             {
-                                                text: `Generado el: ${fecha}`,
+                                                text: `Fecha y hora de emisión: ${fecha}`,
                                                 alignment: 'left',
                                                 fontSize: 9,
                                                 margin: [40, 0]
@@ -271,7 +271,7 @@
                                 // Footer en impresión
                                 $(win.document.body).append(`
                 <div style="position:fixed; bottom:20px; width:100%; text-align:right; font-size:12px;">
-                    Impreso el: ${fecha}
+                    Fecha y hora de emisión: ${fecha}
                 </div>
             `);
                             }
