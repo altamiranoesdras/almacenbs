@@ -178,7 +178,9 @@
                                                                     <span>{{ nfp($det->precio) }}</span>
                                                                 </td>
                                                                 <td>
-                                                                    <span>{{ $saldo }}</span>
+                                                                    <span class="{{$loop->last ? 'fw-bold' : ''}}">
+                                                                        {{ nf($saldo, 0) }}
+                                                                    </span>
                                                                 </td>
                                                                 <td>
                                                                     {{ $det->ingreso ? nf($det->precio * $det->ingreso) : '' }}
