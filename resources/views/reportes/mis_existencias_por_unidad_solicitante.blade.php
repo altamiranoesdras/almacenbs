@@ -153,10 +153,58 @@
                     ordering: true,
                     language: { url: "{{asset('js/SpanishDataTables.json')}}", emptyTable: "No se encontraron resultados" },
                     buttons: [
-                        { extend: 'copy', text: '<i class="fa fa-copy"></i> Copiar' },
-                        { extend: 'excel', text: '<i class="fa fa-file-excel"></i> Excel' },
-                        { extend: 'pdf', text: '<i class="fa fa-file-pdf"></i> PDF' },
-                        { extend: 'print', text: '<i class="fa fa-print"></i> Imprimir' }
+                        {
+                            extend: 'copy',
+                            text: '<i class="fa fa-copy"></i> Copiar'
+                        },
+                        {
+                            extend: 'excel',
+                            text: '<i class="fa fa-file-excel"></i> Excel'
+                        },
+                        {
+                            extend: 'pdf',
+                            text: '<i class="fa fa-file-pdf"></i> PDF',
+                            customize: function (doc) {
+                                const fecha = new Date().toLocaleString('es-GT');
+
+                                // Márgenes para permitir footer
+                                doc.pageMargins = [40, 40, 40, 60];
+
+                                // Footer del PDF
+                                doc.footer = function (currentPage, pageCount) {
+                                    return {
+                                        columns: [
+                                            {
+                                                text: `Generado el: ${fecha}`,
+                                                alignment: 'left',
+                                                fontSize: 9,
+                                                margin: [40, 0]
+                                            },
+                                            {
+                                                text: `Página ${currentPage} de ${pageCount}`,
+                                                alignment: 'right',
+                                                fontSize: 9,
+                                                margin: [0, 0, 40, 0]
+                                            }
+                                        ]
+                                    };
+                                };
+                            }
+                        },
+                        {
+                            extend: 'print',
+                            text: '<i class="fa fa-print"></i> Imprimir',
+                            customize: function (win) {
+                                const fecha = new Date().toLocaleString('es-GT');
+
+                                // Footer en impresión
+                                $(win.document.body).append(`
+                <div style="position:fixed; bottom:20px; width:100%; text-align:right; font-size:12px;">
+                    Impreso el: ${fecha}
+                </div>
+            `);
+                            }
+                        }
                     ],
                     order: []
                 }),
@@ -176,10 +224,58 @@
                     ordering: true,
                     language: { url: "{{asset('js/SpanishDataTables.json')}}", emptyTable: "No se encontraron resultados" },
                     buttons: [
-                        { extend: 'copy', text: '<i class="fa fa-copy"></i> Copiar' },
-                        { extend: 'excel', text: '<i class="fa fa-file-excel"></i> Excel' },
-                        { extend: 'pdf', text: '<i class="fa fa-file-pdf"></i> PDF' },
-                        { extend: 'print', text: '<i class="fa fa-print"></i> Imprimir' }
+                        {
+                            extend: 'copy',
+                            text: '<i class="fa fa-copy"></i> Copiar'
+                        },
+                        {
+                            extend: 'excel',
+                            text: '<i class="fa fa-file-excel"></i> Excel'
+                        },
+                        {
+                            extend: 'pdf',
+                            text: '<i class="fa fa-file-pdf"></i> PDF',
+                            customize: function (doc) {
+                                const fecha = new Date().toLocaleString('es-GT');
+
+                                // Márgenes para permitir footer
+                                doc.pageMargins = [40, 40, 40, 60];
+
+                                // Footer del PDF
+                                doc.footer = function (currentPage, pageCount) {
+                                    return {
+                                        columns: [
+                                            {
+                                                text: `Generado el: ${fecha}`,
+                                                alignment: 'left',
+                                                fontSize: 9,
+                                                margin: [40, 0]
+                                            },
+                                            {
+                                                text: `Página ${currentPage} de ${pageCount}`,
+                                                alignment: 'right',
+                                                fontSize: 9,
+                                                margin: [0, 0, 40, 0]
+                                            }
+                                        ]
+                                    };
+                                };
+                            }
+                        },
+                        {
+                            extend: 'print',
+                            text: '<i class="fa fa-print"></i> Imprimir',
+                            customize: function (win) {
+                                const fecha = new Date().toLocaleString('es-GT');
+
+                                // Footer en impresión
+                                $(win.document.body).append(`
+                <div style="position:fixed; bottom:20px; width:100%; text-align:right; font-size:12px;">
+                    Impreso el: ${fecha}
+                </div>
+            `);
+                            }
+                        }
                     ],
                     order: []
                 })
