@@ -6,7 +6,11 @@ use App\DataTables\RrhhUnidadDataTable;
 use App\Http\Requests\CreateRrhhUnidadRequest;
 use App\Http\Requests\UpdateRrhhUnidadRequest;
 use App\Models\RrhhUnidad;
+use Exception;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Response;
+use Throwable;
 
 class RrhhUnidadController extends AppBaseController
 {
@@ -47,7 +51,8 @@ class RrhhUnidadController extends AppBaseController
      *
      * @param CreateRrhhUnidadRequest $request
      *
-     * @return Response
+     * @return RedirectResponse
+     * @throws Throwable
      */
     public function store(CreateRrhhUnidadRequest $request)
     {
@@ -57,8 +62,23 @@ class RrhhUnidadController extends AppBaseController
         ]);
 
         $input = $request->all();
-        /** @var RrhhUnidad $rrhhUnidad */
-        $rrhhUnidad = RrhhUnidad::create($input);
+
+        try {
+            DB::beginTransaction();
+
+            RrhhUnidad::create($input);
+
+        } catch (Exception $exception) {
+            DB::rollBack();
+
+            $msj = manejarException($exception);
+            flash()->error($msj);
+
+            return redirect()->back()->withInput($input);
+        }
+
+        DB::commit();
+
 
         flash()->success('Unidad guardada exitosamente.');
 
@@ -112,10 +132,11 @@ class RrhhUnidadController extends AppBaseController
     /**
      * Update the specified Unidad in storage.
      *
-     * @param  int              $id
+     * @param int $id
      * @param UpdateRrhhUnidadRequest $request
      *
-     * @return Response
+     * @return RedirectResponse
+     * @throws Throwable
      */
     public function update($id, UpdateRrhhUnidadRequest $request)
     {
@@ -133,8 +154,22 @@ class RrhhUnidadController extends AppBaseController
             return redirect(route('rrhhUnidades.index'));
         }
 
-        $rrhhUnidad->fill($request->all());
-        $rrhhUnidad->save();
+        try {
+            DB::beginTransaction();
+
+            $rrhhUnidad->fill($request->all());
+            $rrhhUnidad->save();
+
+        } catch (Exception $exception) {
+            DB::rollBack();
+
+            $msj = manejarException($exception);
+            flash()->error($msj);
+
+            return redirect()->back()->withInput($request->all());
+        }
+
+        DB::commit();
 
         flash()->success('Unidad actualizada con éxito.');
 

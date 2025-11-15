@@ -89,6 +89,22 @@ class RrhhUnidad extends Model
     const ALMACEN = 31;
 
 
+    protected static function booted(): void
+    {
+
+        // Después de crear: crear bodega por defecto
+        static::created(function (RrhhUnidad $unidad) {
+            $unidad->crearBodega();
+        });
+
+        // Después de actualizar: sincronizar algunos datos con la bodega
+        static::saving(function (RrhhUnidad $unidad) {
+            $unidad->crearBodega();
+        });
+    }
+
+
+
     protected $dates = ['deleted_at'];
 
     protected $appends = ['text', 'nombre_con_padre'];
@@ -319,6 +335,27 @@ class RrhhUnidad extends Model
         'rrhh_unidad_id',
         'subproducto_id'
         );
+
+    }
+
+    public function esArea()
+    {
+        return $this->unidad_tipo_id == RrhhUnidadTipo::AREA;
+    }
+
+    public function crearBodega()
+    {
+        // si ya tiene bodega, no hacer nada
+        if ($this->bodega) {
+            return;
+        }
+
+        if ($this->esArea() && $this->solicita == 'si') {
+
+            $this->bodega()->create([
+                'nombre' => 'Bodega ' . $this->nombre,
+            ]);
+        }
 
     }
 
