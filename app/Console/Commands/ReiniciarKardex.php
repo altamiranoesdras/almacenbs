@@ -51,7 +51,8 @@ class ReiniciarKardex extends Command
     {
         $stocksIniciales = Stock::query()
             ->where('bodega_id', Bodega::PRINCIPAL)
-            ->where('id','<=', 384)
+            ->whereDate('fecha_ing', "2025-10-06")
+//            ->where('id','<=', 384)
 //            ->whereHas('item', function ($query) {
 //                $query->where('id',  438);
 //            })
@@ -64,18 +65,7 @@ class ReiniciarKardex extends Command
 
         foreach ($stocksIniciales as $stock) {
             $this->barraProcesoAvanzar();
-            $stock->kardex()->create([
-                'categoria_id' => $stock->item->categoria_id,
-                'item_id' => $stock->item_id,
-                'cantidad' => $stock->cantidad_inicial,
-                'precio_existencia' => $stock->precio_compra,
-                'precio_movimiento' => $stock->precio_compra,
-                'tipo' => Kardex::TIPO_INGRESO,
-                'codigo' => '',
-                'responsable' => 'Existencia inicial según acta Administrativa 007-2025, de fecha 30 de septiembre',
-                'usuario_id' => 1, // Usuario principal
-                'folio_siguiente' => '',
-            ]);
+            $stock->agregaKardex('Existencia inicial según acta Administrativa 007-2025, de fecha 30 de septiembre');
         }
 
         $this->barraProcesoFin();

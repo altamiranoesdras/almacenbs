@@ -269,4 +269,25 @@ class Stock extends Model
     {
         return $this->belongsTo(\App\Models\RrhhUnidad::class, 'unidad_id');
     }
+
+    public function agregaKardex($responsable = 'STOCK INICIAL')
+    {
+        if ($this->kardex) {
+            $this->kardex->increment('cantidad', $this->cantidad);
+        } else {
+            $this->kardex()->create([
+                'categoria_id' => $this->item->categoria_id,
+                'item_id' => $this->item_id,
+                'cantidad' => $this->cantidad_inicial,
+                'precio_existencia' => $this->precio_compra,
+                'precio_movimiento' => $this->precio_compra,
+                'tipo' => Kardex::TIPO_INGRESO,
+                'codigo' => '',
+                'responsable' => $responsable,
+                'usuario_id' => usuarioAutenticado()->id, // Usuario principal
+                'folio_siguiente' => '',
+            ]);
+        }
+
+    }
 }
