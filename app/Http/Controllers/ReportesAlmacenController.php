@@ -757,4 +757,17 @@ class ReportesAlmacenController extends AppBaseController
 
         return view('reportes.movimiento_salidas_por_unidad', compact('solicitudes', 'unidades', 'subsecretarias', 'unidad_id', 'subsecretaria_id', 'fecha_desde', 'fecha_hasta'));
     }
+
+    public function comparaKardexStock()
+    {
+        $insumos = Item::query()
+            ->withoutAppends()
+            ->with(['stocks','kardexs','unimed'])
+            ->whereHas('stocks')
+            ->whereHas('kardexs')
+            ->get();
+
+        return view('reportes.compara_kardex_stock',compact('insumos'));
+
+    }
 }

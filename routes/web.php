@@ -84,6 +84,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
         Route::get('/pagina/mantenimiento', [HomeAdminController::class,'paginaMantenimiento'])->name('mantenimiento-pagina');
 
+        //compara kardex_stock
+        Route::get('/compara-kardex-stock', [ReportesAlmacenController::class,'comparaKardexStock'])->name('compara.kardex.stock');
     });
 
     Route::group(['prefix' => 'dev','as' => 'dev.'],function (){
