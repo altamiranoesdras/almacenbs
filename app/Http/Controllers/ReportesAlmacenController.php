@@ -299,7 +299,7 @@ class ReportesAlmacenController extends AppBaseController
     public function stock(StockDataTable $dataTable,Request $request)
     {
         $renglon = $request->renglon ?? null;
-        $bodega_id = $request->bodega_id ?? null;
+        $bodega_id = $request->bodega_id ?? Bodega::PRINCIPAL;
         $buscar = $request->buscar ?? null;
         $stock = $request->stock ?? null;
         $categoria_id = $request->categoria_id ?? null;
@@ -361,6 +361,7 @@ class ReportesAlmacenController extends AppBaseController
 
             $queryItmes = $queryItmes->whereHas('stocks',function ($q){
                 $q->where('cantidad','0');
+
             });
         }
 

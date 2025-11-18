@@ -105,7 +105,7 @@
 </div>
 <!-- link a sotcks -->
 <div class="mb-3 mt-3">
-    <a href="{{ route('reportes.stock'). '?item_id=' . $item->id.'&buscar=1' }}" class="btn btn-outline-primary btn-sm" target="_blank">
+    <a href="{{ route('reportes.stock'). '?item_id=' . $item->id.'&buscar=1&bodega_id=1' }}" class="btn btn-outline-primary btn-sm" target="_blank">
         <i class="fa fa-list"></i> Ver Stocks
     </a>
 </div>

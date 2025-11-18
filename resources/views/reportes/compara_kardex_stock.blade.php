@@ -68,6 +68,7 @@
                                     <th class="text-end">Stock Bodega Principal</th>
                                     <th class="text-center">Cuadra</th>
                                     <th class="text-end">Diferencia</th>
+                                    <th class="text-end">Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -94,6 +95,14 @@
                                             @endif
                                         </td>
                                         <td class="text-end">{{ number_format($diferencia, 2) }}</td>
+                                        <td class="text-end">
+                                            <a href="{{ route('items.show', $insumo->id) }}"
+                                               class="btn btn-sm btn-outline-secondary"
+                                               target="_blank"
+                                               title="Ver detalle del insumo">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
