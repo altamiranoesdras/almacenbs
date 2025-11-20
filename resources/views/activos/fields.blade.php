@@ -201,7 +201,7 @@
 
                 $("#imagen").fileinput({
                     initialPreview: @json(isset($activo) ? $activo->img : ''),
-                    theme: "fa",
+                    theme: "fa6",
                     maxFileCount: 1,
                     maxFileSize: 15000,
                     overwriteInitial: true, // append files to initial preview

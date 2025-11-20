@@ -2,6 +2,8 @@
 
 @section('titulo_pagina', 'Crear Ayuda Video')
 
+@include('layouts.plugins.bootstrap_fileinput')
+
 @section('content')
 
 
@@ -37,7 +39,7 @@
                 @include('layouts.partials.request_errors')
 
                 <div class="card">
-                    {!! Form::open(['route' => 'ayudaVideos.store','class' => 'esperar']) !!}
+                    {!! Form::open(['route' => 'ayudaVideos.store','class' => 'esperar','enctype' => 'multipart/form-data']) !!}
 
                     <div class="card-body">
 

@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read mixed $referencia
  * @property-read mixed $sub_total
+ * @property-read Model|\Eloquent $model
  * @property-read \App\Models\Stock $stock
  * @method static \Database\Factories\StockTransaccionFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|StockTransaccion newModelQuery()

@@ -7,7 +7,9 @@ use App\Http\Requests\CreateAyudaVideoRequest;
 use App\Http\Requests\UpdateAyudaVideoRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Models\AyudaVideo;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AyudaVideoController extends AppBaseController
 {
@@ -38,13 +40,32 @@ class AyudaVideoController extends AppBaseController
 
     /**
      * Store a newly created AyudaVideo in storage.
+     * @throws \Throwable
      */
     public function store(CreateAyudaVideoRequest $request)
     {
         $input = $request->all();
 
-        /** @var AyudaVideo $ayudaVideo */
-        $ayudaVideo = AyudaVideo::create($input);
+        try {
+            DB::beginTransaction();
+
+
+            /** @var AyudaVideo $ayudaVideo */
+            $ayudaVideo = AyudaVideo::create($input);
+
+            if ($request->hasFile('video')) {
+                $ayudaVideo->addMedia($request->file('video'))->toMediaCollection('videos');
+            }
+
+        } catch (Exception $exception) {
+            DB::rollBack();
+
+            $msj = manejarException($exception);
+            flash()->error($msj);
+            return redirect()->back()->withInput($input);
+        }
+
+        DB::commit();
 
         flash()->success('Ayuda Video guardado.');
 
@@ -99,8 +120,34 @@ class AyudaVideoController extends AppBaseController
             return redirect(route('ayudaVideos.index'));
         }
 
-        $ayudaVideo->fill($request->all());
-        $ayudaVideo->save();
+
+
+        try {
+            DB::beginTransaction();
+
+
+            $ayudaVideo->fill($request->all());
+            $ayudaVideo->save();
+
+            if ($request->hasFile('video')) {
+                // Eliminar el video anterior si existe
+                if ($ayudaVideo->getFirstMedia('videos')) {
+                    $ayudaVideo->getFirstMedia('videos')->delete();
+                }
+                // Agregar el nuevo video
+                $ayudaVideo->addMedia($request->file('video'))->toMediaCollection('videos');
+            }
+
+        } catch (Exception $exception) {
+            DB::rollBack();
+
+            $msj = manejarException($exception);
+            flash()->error($msj);
+            return redirect()->back()->withInput($input);
+        }
+
+        DB::commit();
+
 
         flash()->success('Ayuda Video actualizado.');
 

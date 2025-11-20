@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('titulo_pagina', 'Editar Ayuda Video' )
+@include('layouts.plugins.bootstrap_fileinput')
 
 @section('content')
 
@@ -37,7 +38,7 @@
 
                 <div class="card">
 
-                    {!! Form::model($ayudaVideo, ['route' => ['ayudaVideos.update', $ayudaVideo->id], 'method' => 'patch','class' => 'esperar']) !!}
+                    {!! Form::model($ayudaVideo, ['route' => ['ayudaVideos.update', $ayudaVideo->id], 'method' => 'patch','class' => 'esperar','enctype' => 'multipart/form-data']) !!}
 
                     <div class="card-body">
                         <div class="row">

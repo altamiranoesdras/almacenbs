@@ -254,6 +254,36 @@
                     console.log( error );
                 } );
             console.log('Instancia vue montada');
+            const initialPreview = [];
+            const initialPreviewConfig = [];
+
+            @if(isset($item) && $item->img)
+            initialPreview.push("{{ asset($item->img) }}");
+
+            initialPreviewConfig.push({
+                type: "image",
+                filetype: "image/png",
+                caption: "Imagen actual",
+                key: 1,
+                url: false
+            });
+            @endif
+
+            $("#imagen").fileinput({
+                theme: "fa6",
+                allowedFileExtensions: ["jpg", "jpeg", "png", "gif"],
+                showUpload: false,
+                showRemove: true,
+                maxFileSize: 5000,
+                maxFilesNum: 1,
+                previewFileType: "image",
+                initialPreviewAsData: true,
+                initialPreview: initialPreview,
+                initialPreviewConfig: initialPreviewConfig,
+                previewSettings: {
+                    video: { width: "100%", height: "260px" }
+                }
+            });
         },
         created() {
             console.log('Instancia vue creada');

@@ -161,7 +161,7 @@
             showUpload: false,
             showBrowse: true,
             showRemove: true,
-            theme: "fa",
+            theme: "fa6",
             browseOnZoneClick: true,
             allowedFileExtensions: ["xls", "xlsx"],
         });
