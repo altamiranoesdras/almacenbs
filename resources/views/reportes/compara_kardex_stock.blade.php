@@ -96,11 +96,17 @@
                                         </td>
                                         <td class="text-end">{{ number_format($diferencia, 2) }}</td>
                                         <td class="text-end">
-                                            <a href="{{ route('items.show', $insumo->id) }}"
-                                               class="btn btn-sm btn-outline-secondary"
+                                            <a href="{{ route('reportes.kardex'). '?item_id=' . $insumo->id."&buscar=1" }}"
+                                               class="btn btn-sm btn-outline-success me-1"
                                                target="_blank"
-                                               title="Ver detalle del insumo">
-                                                <i class="fa fa-eye"></i>
+                                               title="Kardex">
+                                                <i class="fa fa-file-alt"></i>
+                                            </a>
+                                            <a href="{{ route('reportes.stock'). '?item_id=' . $insumo->id."&buscar=1" }}"
+                                               class="btn btn-sm btn-outline-info"
+                                               target="_blank"
+                                               title="Stock">
+                                                <i class="fa fa-boxes"></i>
                                             </a>
                                         </td>
                                     </tr>
