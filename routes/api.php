@@ -307,10 +307,15 @@ Route::group(['as'=>'api.'], function () {
 
         Route::resource('financiamiento-fuentes', App\Http\Controllers\API\FinanciamientoFuenteAPIController::class)
             ->except(['create', 'edit']);
+
+        Route::resource('ayuda-videos', App\Http\Controllers\API\AyudaVideoAPIController::class)
+            ->except(['create', 'edit']);
     });
 
 
 });
+
+
 
 
 

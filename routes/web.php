@@ -414,6 +414,9 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::resource('departamentos', App\Http\Controllers\DepartamentoController::class);
     Route::resource('municipios', App\Http\Controllers\MunicipioController::class);
     Route::resource('financiamientoFuentes', App\Http\Controllers\FinanciamientoFuenteController::class);
+
+    Route::resource('ayudaVideos', App\Http\Controllers\AyudaVideoController::class);
+
 });
 
 
@@ -431,6 +434,7 @@ Route::group(['prefix' => ''], function () {
 
 
 });
+
 
 
 
