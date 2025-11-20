@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -35,32 +37,34 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read \App\Models\RrhhUnidad|null $rrhhUnidad
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\StockTransaccion> $transaccion
  * @property-read int|null $transaccion_count
- * @method static \Illuminate\Database\Eloquent\Builder|Stock conIngresos()
- * @method static \Illuminate\Database\Eloquent\Builder|Stock conStock()
- * @method static \Illuminate\Database\Eloquent\Builder|Stock deBodega($bodega = null)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\StockTransaccion> $transcciones
+ * @property-read int|null $transcciones_count
+ * @method static Builder|Stock conIngresos()
+ * @method static Builder|Stock conStock()
+ * @method static Builder|Stock deBodega($bodega = null)
  * @method static \Database\Factories\StockFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|Stock newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Stock newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Stock onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Stock quedanMeses($meses, $vencidos = false)
- * @method static \Illuminate\Database\Eloquent\Builder|Stock query()
- * @method static \Illuminate\Database\Eloquent\Builder|Stock vencidos()
- * @method static \Illuminate\Database\Eloquent\Builder|Stock whereBodegaId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Stock whereCantidad($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Stock whereCantidadInicial($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Stock whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Stock whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Stock whereFechaIng($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Stock whereFechaVence($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Stock whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Stock whereItemId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Stock whereLote($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Stock whereOrdenSalida($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Stock wherePrecioCompra($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Stock whereUnidadId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Stock whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Stock withTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Stock withoutTrashed()
+ * @method static Builder|Stock newModelQuery()
+ * @method static Builder|Stock newQuery()
+ * @method static Builder|Stock onlyTrashed()
+ * @method static Builder|Stock quedanMeses($meses, $vencidos = false)
+ * @method static Builder|Stock query()
+ * @method static Builder|Stock vencidos()
+ * @method static Builder|Stock whereBodegaId($value)
+ * @method static Builder|Stock whereCantidad($value)
+ * @method static Builder|Stock whereCantidadInicial($value)
+ * @method static Builder|Stock whereCreatedAt($value)
+ * @method static Builder|Stock whereDeletedAt($value)
+ * @method static Builder|Stock whereFechaIng($value)
+ * @method static Builder|Stock whereFechaVence($value)
+ * @method static Builder|Stock whereId($value)
+ * @method static Builder|Stock whereItemId($value)
+ * @method static Builder|Stock whereLote($value)
+ * @method static Builder|Stock whereOrdenSalida($value)
+ * @method static Builder|Stock wherePrecioCompra($value)
+ * @method static Builder|Stock whereUnidadId($value)
+ * @method static Builder|Stock whereUpdatedAt($value)
+ * @method static Builder|Stock withTrashed()
+ * @method static Builder|Stock withoutTrashed()
  * @mixin \Eloquent
  */
 class Stock extends Model
@@ -140,11 +144,17 @@ class Stock extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      **/
     public function transaccion()
     {
-        return $this->hasMany(\App\Models\StockTransaccion::class, 'stock_id');
+        return $this->hasMany(StockTransaccion::class, 'stock_id');
+    }
+
+    public function transcciones(): Stock|Builder|HasMany
+    {
+        return $this->hasMany(StockTransaccion::class, 'stock_id');
+
     }
 
     public function kardex()

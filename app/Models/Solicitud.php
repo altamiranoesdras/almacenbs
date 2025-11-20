@@ -51,7 +51,6 @@ use stdClass;
  * @property-read int|null $detalles_count
  * @property-read \App\Models\EnvioFiscal|null $envioFiscal
  * @property-read \App\Models\SolicitudEstado $estado
- * @property-read mixed $fecha_ordena_kardex
  * @property-read mixed $motivo_retorna
  * @property-read float $total_detalles
  * @property-read string $total_letras

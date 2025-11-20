@@ -155,7 +155,7 @@
                                                     id="tabla-desglosado">
                                                     <thead>
                                                     <tr class="text-sm">
-                                                        {{--                                                <th>id</th>--}}
+                                                                                                        <th>id</th>
                                                         <th>Bodega</th>
                                                         <th>Articulo</th>
                                                         <th>Código Insumo</th>
@@ -171,13 +171,21 @@
                                                         <th data-toggle="tooltip" title="Sub Total Compras">
                                                             SubTotal
                                                         </th>
+                                                        @can('Ver transacciones de stock')
+                                                            <th>Transacciones</th>
+                                                        @endcan
                                                     </tr>
                                                     </thead>
                                                     <tbody>
 
+                                                    @php
+                                                        /**
+                                                        * @var \App\Models\Stock[] $stocks
+                                                         */
+                                                    @endphp
                                                     @foreach($stocks as $det)
                                                         <tr class="text-sm  ">
-                                                            {{--                                                    <td>{{$det->id}}</td>--}}
+                                                                                                                <td>{{$det->id}}</td>
                                                             <td>{{$det->bodega->nombre}}</td>
                                                             <td>{{$det->item->texto_principal}}</td>
                                                             <td>{{$det->item->codigo_insumo}}</td>
@@ -196,22 +204,82 @@
                                                             <td>{{nf($det->cantidad,0)}}</td>
                                                             <td>{{ dvs().nfp($det->precio_compra)}}</td>
                                                             <td>{{ dvs().nfp($det->sub_total)}}</td>
+                                                            @can('Ver transacciones de stock')
+                                                                <td>
+                                                                    <!-- Button trigger modal -->
+                                                                    <button type="button" class="btn btn-outline-info btn-sm"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#modalTransaciones{{$det->id}}">
+                                                                        <i class="fa fa-list"></i>
+                                                                        Trx
+                                                                    </button>
+
+                                                                    <!-- Modal -->
+                                                                    <div class="modal fade" id="modalTransaciones{{$det->id}}" tabindex="-1" aria-labelledby="modelTitleId{{$det->id}}" aria-hidden="true">
+                                                                        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                                                                            <div class="modal-content shadow rounded-3">
+
+                                                                                <!-- Header -->
+                                                                                <div class="modal-header">
+                                                                                    <h4 class="modal-title" id="modelTitleId">Transacciones de Stock</h4>
+                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                                                                </div>
+
+                                                                                <!-- Body -->
+                                                                                <div class="modal-body">
+                                                                                    <div class="table-responsive">
+                                                                                        <table class="table table-bordered table-hover table-striped align-middle">
+                                                                                            <thead class="table-light">
+                                                                                            <tr class="text-sm">
+                                                                                                <th>ID</th>
+                                                                                                <th>Tipo</th>
+                                                                                                <th>Cantidad</th>
+                                                                                                <th>Modelo</th>
+                                                                                                <th>Referencia</th>
+                                                                                            </tr>
+                                                                                            </thead>
+                                                                                            <tbody>
+                                                                                            @foreach($det->transcciones as $trx)
+                                                                                                <tr class="text-sm">
+                                                                                                    <td>{{ $trx->id }}</td>
+                                                                                                    <td>{{ $trx->tipo }}</td>
+                                                                                                    <td>{{ nf($trx->cantidad,0) }}</td>
+                                                                                                    <td>{{ $trx->model_type }}</td>
+                                                                                                    <td>{{ $trx->referencia }}</td>
+                                                                                                </tr>
+                                                                                            @endforeach
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <!-- Footer -->
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                                                                        Cerrar
+                                                                                    </button>
+                                                                                    <button type="button" class="btn btn-primary">
+                                                                                        Guardar
+                                                                                    </button>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </td>
+                                                            @endcan
                                                         </tr>
                                                     @endforeach
                                                     </tbody>
                                                     <tfoot>
                                                     <tr class="text-sm">
-                                                        <th>Total</th>
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th></th>
+                                                        <th colspan="9">Total</th>
+
                                                         <th>{{nf($stocks->sum('cantidad'))}}</th>
                                                         <th></th>
                                                         <th>{{ dvs().nfp($stocks->sum('sub_total'))}}</th>
+                                                        <th></th>
                                                     </tr>
                                                     </tfoot>
                                                 </table>

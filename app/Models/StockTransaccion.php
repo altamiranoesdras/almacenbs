@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -18,6 +19,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string $precio_costo
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read mixed $referencia
  * @property-read mixed $sub_total
  * @property-read \App\Models\Stock $stock
  * @method static \Database\Factories\StockTransaccionFactory factory($count = null, $state = [])
@@ -115,8 +117,28 @@ class StockTransaccion extends Model
         $this->stock->save();
     }
 
+    public function model(): MorphTo
+    {
+        return $this->morphTo();
+    }
+
     public function getSubTotalAttribute()
     {
         return $this->cantidad * $this->stock->precio_compra;
     }
+
+    public function getReferenciaAttribute()
+    {
+
+        if($this->model instanceof \App\Models\CompraDetalle) {
+            return $this->model->compra->codigo;
+        }
+        if($this->model instanceof \App\Models\SolicitudDetalle) {
+            return $this->model->solicitud->codigo;
+        }
+
+        return null;
+
+    }
+
 }
