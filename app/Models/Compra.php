@@ -816,10 +816,20 @@ class Compra extends Model
     {
         return $this->detalles
             ->groupBy('item_id')
-            ->map(function ($detalles, $itemId) {
-                $detalle = $detalles->first();
-                $detalle->cantidad = $detalles->sum('cantidad');
-                return $detalle;
+            ->map(function ($detalles) {
+                /** @var CompraDetalle $detalleOriginal */
+                $detalleOriginal = $detalles->first();
+
+                // Clonamos el modelo para NO tocar el original
+                $detalleAgrupado = clone $detalleOriginal;
+
+                // Sumamos cantidades de todos los detalles de ese item
+                $detalleAgrupado->cantidad = $detalles->sum('cantidad');
+
+                // (Opcional) si quieres tener referencia a TODOS los ids originales
+                $detalleAgrupado->detalle_ids = $detalles->pluck('id');
+
+                return $detalleAgrupado;
             })
             ->values();
     }
