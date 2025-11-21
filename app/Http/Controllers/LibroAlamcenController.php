@@ -41,7 +41,9 @@ class LibroAlamcenController extends Controller
         list($anio,$mes) = explode("-", $request->get('mes'));
 
 
-        $listadoCompras = Compra::with([
+        $listadoCompras = Compra::query()
+            ->autorizadas()
+            ->with([
                 'proveedor',
                 'detalles' => function($queryDetalles){
                     $queryDetalles->with('item')->whereHas('item');
@@ -50,8 +52,7 @@ class LibroAlamcenController extends Controller
             ->whereHas('detalles',function ($queryDetalles){
                 $queryDetalles->whereHas('item');
             })
-            ->whereNotNull('folio_almacen')
-            ->where('estado_id', CompraEstado::INGRESADO)
+//            ->whereNotNull('folio_almacen')
             ->whereMonth('fecha_documento', '=', $mes)
             ->whereYear('fecha_documento', '=', $anio)
             ->orderBy('fecha_ingreso')
