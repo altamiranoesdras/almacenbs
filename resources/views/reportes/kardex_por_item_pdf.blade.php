@@ -54,11 +54,11 @@
                 UNIDAD DE MEDIDA: {{ $primerDetalle->item->unimed->nombre ?? '' }}
             </td>
         </tr>
-        <tr style="font-size: 12px; text-align: left;">
-            <td colspan="2">
-                COORDINACION: OFICINAS CENTRALES, CENTROS Y PROGRAMAS DE LA S.B.S.
-            </td>
-        </tr>
+{{--        <tr style="font-size: 12px; text-align: left;">--}}
+{{--            <td colspan="2">--}}
+{{--                COORDINACION: OFICINAS CENTRALES, CENTROS Y PROGRAMAS DE LA S.B.S.--}}
+{{--            </td>--}}
+{{--        </tr>--}}
     </table>
 
 
