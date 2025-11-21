@@ -16,9 +16,11 @@
 @endcan
 
 @can('Editar Compra Requisicions')
-    <a href="{{ route('compra.requisiciones.edit', $id) }}" data-toggle="tooltip" title="Editar" class='btn btn-icon btn-outline-warning rounded-circle'>
-        <i class="fa fa-edit"></i>
-    </a>
+    @if($compraRequisicion->puedeEditar())
+        <a href="{{ route('compra.requisiciones.edit', $id) }}" data-toggle="tooltip" title="Editar" class='btn btn-icon btn-outline-warning rounded-circle'>
+            <i class="fa fa-edit"></i>
+        </a>
+    @endif
 @endcan
 
 @can('Eliminar Compra Requisicions')
