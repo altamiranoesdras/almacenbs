@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Database\Factories\StockTransaccionFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|StockTransaccion newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|StockTransaccion newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|StockTransaccion noAnuladas()
  * @method static \Illuminate\Database\Eloquent\Builder|StockTransaccion query()
  * @method static \Illuminate\Database\Eloquent\Builder|StockTransaccion whereCantidad($value)
  * @method static \Illuminate\Database\Eloquent\Builder|StockTransaccion whereCreatedAt($value)
@@ -144,6 +145,18 @@ class StockTransaccion extends Model
 
         return null;
 
+    }
+
+    public function scopeNoAnuladas()
+    {
+        return $this->whereDoesntHave('model', function ($query) {
+            if ($this->model instanceof \App\Models\CompraDetalle) {
+                $query->where('estado_id', \App\Models\CompraEstado::ANULADO);
+            }
+            if ($this->model instanceof \App\Models\SolicitudDetalle) {
+                $query->where('estado_id', \App\Models\SolicitudEstado::ANULADA);
+            }
+        });
     }
 
 }

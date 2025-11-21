@@ -253,11 +253,12 @@
                                                                                             </tbody>
                                                                                             <tfoot>
                                                                                             <tr class="text-sm">
-                                                                                                <th colspan="2">Total</th>
+                                                                                                <th colspan="3">Total</th>
                                                                                                 <th>{{ nf($det->transcciones->sum('cantidad'),0) }}</th>
                                                                                                 <th>{{ dvs().nfp($det->transcciones->sum('stock.precio_compra')) }}</th>
                                                                                                 <th colspan="1"></th>
                                                                                             </tr>
+                                                                                            </tfoot>
                                                                                         </table>
                                                                                     </div>
                                                                                 </div>
