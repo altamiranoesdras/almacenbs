@@ -336,7 +336,7 @@
                                             </thead>
                                             <tbody>
                                             @php
-                                                $bodega= \App\Models\Bodega::find(request()->bodega_id)->nombre ?? "TODAS"
+                                                $bodega= \App\Models\Bodega::find(request()->bodega_id ?? \App\Models\Bodega::PRINCIPAL)->nombre
                                             @endphp
 
                                             @foreach($items ?? [] as $det)
@@ -349,11 +349,11 @@
                                                     <td>{{$det->renglon->numero ?? ''}}</td>
                                                     <td>{{$det->unimed->nombre ?? ''}}</td>
                                                     <td>
-                                                        @if(request()->bodega_id)
+{{--                                                        @if(request()->bodega_id)--}}
                                                             {{nf($det->stock_bodega,0)}}
-                                                        @else
-                                                            {{nf($det->stocks->sum('cantidad'),0)}}
-                                                        @endif
+{{--                                                        @else--}}
+{{--                                                            {{nf($det->stocks->sum('cantidad'),0)}}--}}
+{{--                                                        @endif--}}
                                                     </td>
                                                 </tr>
                                             @endforeach
