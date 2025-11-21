@@ -88,7 +88,7 @@ class CompraDetalle extends Model
         'id' => 'integer',
         'compra_id' => 'integer',
         'item_id' => 'integer',
-        'cantidad' => 'decimal:2',
+        'cantidad' => 'decimal:4',
         'precio' => 'decimal:4',
         'descuento' => 'decimal:4',
         'fecha_vence' => 'date:Y-m-d',
