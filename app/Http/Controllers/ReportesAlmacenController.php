@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Compra1h;
+use App\Models\CompraEstado;
 use DB;
 use Exception;
 use App\Models\Item;
@@ -618,10 +620,32 @@ class ReportesAlmacenController extends AppBaseController
 
         $compras1h = \App\Models\Compra1h::with(['compra.proveedor', 'compra.detalles.item'])
             ->whereBetween('fecha_procesa', [$fecha_desde, $fecha_hasta])
+            ->whereHas('compra', function($q) {
+                $q->whereIn('estado_id', [
+                    CompraEstado::UNO_H_AUTORIZADO,
+                    CompraEstado::ANULADO
+                ]);
+            })
             ->orderBy('fecha_procesa', 'desc')
             ->get();
 
-        return view('reportes.uno_h_elaborados_mensuales', compact('compras1h', 'fecha_desde', 'fecha_hasta'));
+        $conteoAnuladas = $compras1h->where('compra.estado_id', CompraEstado::ANULADO)->count();
+        $conteoAutorizadas = $compras1h->where('compra.estado_id', CompraEstado::UNO_H_AUTORIZADO)->count();
+
+        $montoTotal = $compras1h->sum(function(Compra1h $compra1h) {
+            return $compra1h->compra->estaAutorizado1h() ? $compra1h->compra->total : 0;
+        });
+
+        return view('reportes.uno_h_elaborados_mensuales',
+            compact(
+                'compras1h',
+                'fecha_desde',
+                'fecha_hasta',
+                'conteoAutorizadas',
+                'conteoAnuladas',
+                'montoTotal'
+            )
+        );
     }
 
     // Reporte 7: Reporte de Antigüedad de Inventario (Existencias)

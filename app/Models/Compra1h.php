@@ -29,6 +29,7 @@ use stdClass;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Compra1hDetalle> $detalles
  * @property-read int|null $detalles_count
  * @property-read \App\Models\EnvioFiscal $envioFiscal
+ * @property-read mixed $estado_utilizado
  * @property-read mixed $sub_total
  * @property-read mixed $total
  * @property-read mixed $total_letras
@@ -193,5 +194,19 @@ class Compra1h extends Model
         $totalTexto = numALetrasConmoneda($this->total, $currency);
 
         return $totalTexto;
+    }
+
+    public function getEstadoUtilizadoAttribute()
+    {
+
+        switch ($this->compra->estado_id) {
+            case CompraEstado::UNO_H_AUTORIZADO:
+                return "Utilizado";
+            case CompraEstado::ANULADO:
+                return "Anulado";
+            default:
+                return "Desconocido";
+        }
+
     }
 }

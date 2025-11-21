@@ -75,7 +75,7 @@
                                     <div class="info-box">
                                         <span class="info-box-icon bg-primary"><i class="fa fa-file-alt"></i></span>
                                         <div class="info-box-content">
-                                            <span class="info-box-text">Total 1-H</span>
+                                            <span class="info-box-text">Total: </span>
                                             <span class="info-box-number">{{ $compras1h->count() }}</span>
                                         </div>
                                     </div>
@@ -84,8 +84,8 @@
                                     <div class="info-box">
                                         <span class="info-box-icon bg-success"><i class="fa fa-check"></i></span>
                                         <div class="info-box-content">
-                                            <span class="info-box-text">Utilizados</span>
-                                            <span class="info-box-number">{{ $compras1h->where('del', 0)->where('al', 0)->count() }}</span>
+                                            <span class="info-box-text">Utilizados: </span>
+                                            <span class="info-box-number">{{ $conteoAutorizadas }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -93,8 +93,8 @@
                                     <div class="info-box">
                                         <span class="info-box-icon bg-warning"><i class="fa fa-times"></i></span>
                                         <div class="info-box-content">
-                                            <span class="info-box-text">Anulados</span>
-                                            <span class="info-box-number">{{ $compras1h->where('del', '!=', 0)->count() }}</span>
+                                            <span class="info-box-text">Anulados: </span>
+                                            <span class="info-box-number">{{ $conteoAnuladas }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -103,7 +103,7 @@
                                         <span class="info-box-icon bg-info"><i class="fa fa-dollar-sign"></i></span>
                                         <div class="info-box-content">
                                             <span class="info-box-text">Monto Total</span>
-                                            <span class="info-box-number">Q.{{ number_format($compras1h->sum(function($compra1h) {
+                                            <span class="info-box-number">Q.{{ nfp($compras1h->sum(function($compra1h) {
                                                 return $compra1h->compra->total ?? 0;
                                             }), 2) }}</span>
                                         </div>
@@ -125,38 +125,41 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped" id="tabla-reporte-1h-mensual">
+
+
+
                                     <thead>
                                         <tr>
-                                            <th>ID 1-H</th>
-                                            <th>Folio</th>
-                                            <th>Fecha de Emisión</th>
-                                            <th>Proveedor</th>
-                                            <th>Estado</th>
-                                            <th>Monto Total</th>
-                                            <th>Observaciones</th>
-                                            <th>Acciones</th>
-                                        </tr>
+                                            <th>NO. DE FOLIO</th>
+                                            <th>FECHA</th>
+                                            <th>PROVEEDOR</th>
+                                            <th>NO. DE SERIE Y FACTURA</th>
+                                            <th>MONTO</th>
+                                            <th>CATEGORÍA</th>
+                                            <th>ESTADO</th>
                                     </thead>
                                     <tbody>
                                         @foreach($compras1h as $compra1h)
                                             <tr>
-                                                <td>{{ $compra1h->id }}</td>
                                                 <td>{{ $compra1h->folio }}</td>
-                                                <td>{{ $compra1h->fecha_procesa->format('d/m/Y') }}</td>
+                                                <td>{{ $compra1h->compra->fecha_ingreso->format('d/m/Y') }}</td>
                                                 <td>{{ $compra1h->compra->proveedor->nombre ?? 'N/A' }}</td>
                                                 <td>
-                                                    @if($compra1h->del == 0 && $compra1h->al == 0)
-                                                        <span >Utilizado</span>
+                                                    {{$compra1h->compra->serie ?? 'N/A'}} -
+                                                    {{$compra1h->compra->numero ?? 'N/A'}}
+                                                </td>
+                                                <td class="text-right">
+                                                    @if($compra1h->compra->estaAnulada())
+                                                        0
                                                     @else
-                                                        <span >Anulado</span>
+                                                    Q.{{ number_format($compra1h->compra->total ?? 0, 2) }}
                                                     @endif
                                                 </td>
-                                                <td class="text-right">Q.{{ number_format($compra1h->compra->total ?? 0, 2) }}</td>
-                                                <td>{{ $compra1h->observaciones ?? 'N/A' }}</td>
                                                 <td>
-                                                    <a href="#" class="btn btn-sm btn-info" title="Ver Detalle">
-                                                        <i class="fa fa-eye"></i>
-                                                    </a>
+                                                    {{ $compra1h->compra->detalles->first()->item->categoria->nombre ?? 'N/A' }}
+                                                </td>
+                                                <td>
+                                                    {{$compra1h->estado_utilizado}}
                                                 </td>
                                             </tr>
                                         @endforeach
