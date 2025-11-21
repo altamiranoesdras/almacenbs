@@ -330,6 +330,8 @@ class Kardex extends Model
         $maximoFolio = self::where('categoria_id',$this->categoria_id)
             ->max('folio');
 
+
+
         $folioItem = self::query()
             ->where('item_id',$this->item_id)
             ->max('folio');
@@ -339,7 +341,22 @@ class Kardex extends Model
         if (!$folioItem){
 
             if (!$maximoFolio){
-                $folioItem = 1;
+
+                switch ($this->item->categoria_id) {
+                    case ItemCategoria::FERRETERIA:
+                        $folioItem = 527;
+                        break;
+                    case ItemCategoria::LIBRERIA:
+                        $folioItem = 1411;
+                        break;
+                    case ItemCategoria::ROPERIA_Y_VARIOS:
+                        $folioItem = 1545;
+                        break;
+                    default:
+                        $folioItem = 1;
+                }
+
+
             }else{
                 $folioItem = $maximoFolio + 1;
             }
