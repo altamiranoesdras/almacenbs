@@ -300,7 +300,7 @@
     <div class="content" style="text-align: center;">
 
         <img src="https://fritomania.cl/cliente/images/logo_nuevo.png" alt="">
-        <p style="text-align: center; background-color: #9d1414; color: #ffffff; padding: 5%; font-weight: bold; font-size: 24px;">Alerta Stock crítico</p>
+        <p style="text-align: center; background-color: #9d1414; color: #ffffff; padding: 5%; font-weight: bold; font-size: 24px;">Alerta Existencia crítico</p>
         <p>Lugar: {{$tienda->nombre}}</p>
         <p>Se ha alcanzado el stock crítico para los siguientes artículos</p>
         <div class="container-fluid">
@@ -314,7 +314,7 @@
                                     <tr>
                                         <th>Código</th>
                                         <th>Artículo</th>
-                                        <th>Stock alcanzado</th>
+                                        <th>Existencia alcanzado</th>
                                     </tr>
                                 </thead>
                                 <tbody>

@@ -30,7 +30,7 @@
                         <h3 class="card-title">
                             <strong>Artículos</strong>
                             <small class="text-muted text-md">
-                                (<i class="fas fa-cubes"></i>Stock)
+                                (<i class="fas fa-cubes"></i>Existencia)
                             </small>
                         </h3>
                         <div class="card-tools pull-right">

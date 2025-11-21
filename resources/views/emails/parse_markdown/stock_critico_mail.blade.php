@@ -4,7 +4,7 @@
         <th>Código Insumo</th>
         <th>Código Presentación</th>
         <th>Nombre Insumo</th>
-        <th>Stock Actual</th>
+        <th>Existencia Actual</th>
     </tr>
     </thead>
     <tbody>

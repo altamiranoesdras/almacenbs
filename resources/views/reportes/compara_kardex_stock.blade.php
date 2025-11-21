@@ -3,10 +3,10 @@
 @include('layouts.plugins.select2')
 @include('layouts.plugins.datatables_reportes')
 
-@section('titulo_pagina','Comparación de Kardex y Stock')
+@section('titulo_pagina','Comparación de Kardex y Existencia')
 
 @section('content')
-    <x-content-header titulo="Comparación de Kardex y Stock">
+    <x-content-header titulo="Comparación de Kardex y Existencia">
         <a class="btn btn-outline-secondary round"
            href="{!! route('home') !!}">
             <i class="fa fa-arrow-left"></i>
@@ -65,7 +65,7 @@
                                     <th>Nombre</th>
                                     <th>Unidad Medida</th>
                                     <th class="text-end">Saldo Kardex</th>
-                                    <th class="text-end">Stock Bodega Principal</th>
+                                    <th class="text-end">Existencia Bodega Principal</th>
                                     <th class="text-center">Cuadra</th>
                                     <th class="text-end">Diferencia</th>
                                     <th class="text-end">Acciones</th>
@@ -105,7 +105,7 @@
                                             <a href="{{ route('reportes.stock'). '?item_id=' . $insumo->id."&buscar=1" }}"
                                                class="btn btn-sm btn-outline-info"
                                                target="_blank"
-                                               title="Stock">
+                                               title="Existencia">
                                                 <i class="fa fa-boxes"></i>
                                             </a>
                                         </td>

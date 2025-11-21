@@ -116,8 +116,8 @@
                 <h5 class="card-title mb-0">
                     Insumos / Detalles
                     <small class="text-muted text-md">
-                        (<i class="fas fa-cubes"></i>Stock)
-                        (<i class="fas fa-archive"></i>Ubicacion)
+                        (<i class="fas fa-cubes"></i>Existencia)
+                        (<i class="fas fa-archive"></i>Ubicación)
                     </small>
                 </h5>
                 <div class="heading-elements">

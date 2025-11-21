@@ -83,12 +83,12 @@
 
             <!-- Precio Compra Field -->
             <div class="col-sm-4 mb-1">
-                {!! Form::label('stock_minimo', 'Stock mínimo:') !!}
+                {!! Form::label('stock_minimo', 'Existencia mínima:') !!}
                 {!! Form::number('stock_minimo', null, ['class' => 'form-control','step'=>".01"]) !!}
             </div>
 
             <div class="col-sm-4 mb-1">
-                {!! Form::label('stock_maximo', 'Stock maximo:') !!}
+                {!! Form::label('stock_maximo', 'Existencia maxima:') !!}
                 {!! Form::number('stock_maximo', null, ['class' => 'form-control','step'=>".01"]) !!}
             </div>
         </div>

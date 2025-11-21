@@ -69,13 +69,13 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="stock" id="radio_stock1"
                                            value="con_stock" {{ $stock=='con_stock'  ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="radio_stock1">Con Stock</label>
+                                    <label class="form-check-label" for="radio_stock1">Con Existencia</label>
                                 </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="stock" id="radio_stock2"
                                            value="sin_stock" {{ $stock=='sin_stock'  ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="radio_stock2">Sin Stock</label>
+                                    <label class="form-check-label" for="radio_stock2">Sin Existencia</label>
                                 </div>
 
                                 <div class="form-check">
@@ -164,7 +164,7 @@
                                                         <th>U/M</th>
                                                         <th>Unidad Solicita</th>
                                                         <th>Fecha Vence</th>
-                                                        <th>Stock</th>
+                                                        <th>Existencia</th>
                                                         <th data-toggle="tooltip" title="Precio de Compra Unitario">
                                                             Precio C/U
                                                         </th>
@@ -221,7 +221,7 @@
 
                                                                                 <!-- Header -->
                                                                                 <div class="modal-header">
-                                                                                    <h4 class="modal-title" id="modelTitleId">Transacciones de Stock</h4>
+                                                                                    <h4 class="modal-title" id="modelTitleId">Transacciones de Existencia</h4>
                                                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                                                                                 </div>
 
@@ -331,7 +331,7 @@
                                                 <th>Código Presentación</th>
                                                 <th>Renglón</th>
                                                 <th>U/M</th>
-                                                <th>Stock</th>
+                                                <th>Existencia</th>
                                             </tr>
                                             </thead>
                                             <tbody>

@@ -38,7 +38,7 @@
                                 <h3 class="card-title">
                                     <strong>Activos</strong>
                                     <small class="text-muted text-md">
-                                        (<i class="fas fa-cubes"></i>Stock)
+                                        (<i class="fas fa-cubes"></i>Existencia)
                                         (<i class="fas fa-archive"></i>Ubicacion)
                                     </small>
                                 </h3>

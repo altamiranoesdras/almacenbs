@@ -48,9 +48,9 @@
     {!! $item->precio_promedio !!}
 </div>
 
-<!-- Stock Field -->
+<!-- Existencia Field -->
 <div class="mb-3">
-    {!! Form::label('stock', 'Stock:') !!}
+    {!! Form::label('stock', 'Existencia:') !!}
     {!! $item->stock_total !!} ({{ $item->stock_reservado }} reservados)
 </div>
 
@@ -106,6 +106,6 @@
 <!-- link a sotcks -->
 <div class="mb-3 mt-3">
     <a href="{{ route('reportes.stock'). '?item_id=' . $item->id.'&buscar=1&bodega_id=1' }}" class="btn btn-outline-primary btn-sm" target="_blank">
-        <i class="fa fa-list"></i> Ver Stocks
+        <i class="fa fa-list"></i> Ver Existencias
     </a>
 </div>

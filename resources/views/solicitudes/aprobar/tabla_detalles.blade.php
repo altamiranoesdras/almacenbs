@@ -3,7 +3,7 @@
     <tr>
         <th>Insumo</th>
         <th>Categoría</th>
-        <th>Tu Stock</th>
+        <th>Tu Existencia</th>
         <th>Cantidad Solicitada</th>
         <th>Cantidad Autorizada</th>
     </tr>

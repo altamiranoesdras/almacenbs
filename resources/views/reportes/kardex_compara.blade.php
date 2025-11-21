@@ -41,12 +41,12 @@
                                             <th>Categoría</th>
                                             <th>Articulo</th>
                                             <th>U/M</th>
-                                            <th>Stock Inicial</th>
+                                            <th>Existencia Inicial</th>
                                             <th>Entradas</th>
                                             <th>Salidas</th>
-                                            <th>Stock Kardex</th>
-                                            <th>Stock Tabla</th>
-                                            <th>Stock Calculado</th>
+                                            <th>Existencia Kardex</th>
+                                            <th>Existencia Tabla</th>
+                                            <th>Existencia Calculado</th>
                                             <th>Diferencia</th>
                                         </tr>
                                         </thead>
