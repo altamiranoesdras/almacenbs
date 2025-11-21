@@ -51,6 +51,7 @@ use stdClass;
  * @property-read int|null $detalles_count
  * @property-read \App\Models\EnvioFiscal|null $envioFiscal
  * @property-read \App\Models\SolicitudEstado $estado
+ * @property-read string $categoria
  * @property-read mixed $motivo_retorna
  * @property-read float $total_detalles
  * @property-read string $total_letras
@@ -689,6 +690,21 @@ class Solicitud extends Model
                 return $transaccion->tipo == StockTransaccion::INGRESO;
             });
         });
+    }
+
+    /**
+     * Devuelve la categoría del item del primer detalle.
+     * @return string
+     */
+    public function getCategoriaAttribute()
+    {
+        $detalle = $this->detalles->first();
+
+        if ($detalle) {
+            return $detalle->item->categoria->nombre ?? 'Sin categoría';
+        }
+
+        return 'Sin categoría';
     }
 
 }

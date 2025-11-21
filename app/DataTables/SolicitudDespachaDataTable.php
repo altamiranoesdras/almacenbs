@@ -73,6 +73,11 @@ class SolicitudDespachaDataTable extends DataTable
 
 
             })
+            ->editColumn('categoria',function (Solicitud $solicitud){
+
+                return $solicitud->categoria ?? '';
+
+            })
             ->editColumn('bodega.nombre',function (Solicitud $solicitud){
 
                 return $solicitud->bodega->nombre ?? '';
@@ -197,6 +202,10 @@ class SolicitudDespachaDataTable extends DataTable
             Column::make('fecha_solicita')
                 ->name('fecha_solicita')
                 ->data('fecha_solicita'),
+
+            Column::make('categoria')
+                ->searchable(false)
+                ->orderable(false),
 
             Column::make('usuario_solicita')
                 ->name('usuarioSolicita.name')

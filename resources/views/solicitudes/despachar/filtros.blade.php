@@ -5,7 +5,14 @@
             <label for="codigo">Código</label>
             <input type="text" class="form-control" name="codigo" value="">
         </div>
-        
+
+        <div class="col-sm-3 mb-1">
+            <label for="categoria">Categoría</label>
+            <multiselect v-model="categoria_seleccionada" :options="categorias" label="nombre" track-by="id" placeholder="Seleccione una categoría...">
+            </multiselect>
+            <input type="hidden" name="categoria" :value="categoria_seleccionada ? categoria_seleccionada.id : null">
+        </div>
+
         <div class="col-sm-3 mb-1">
             <label for="tipos">Usuario Solicita:</label>
             <multiselect v-model="usuarios_seleccionados" :options="usuarios" label="name" :multiple="true" track-by="id" placeholder="Seleccione uno..." >
@@ -22,7 +29,7 @@
             <label for="al">AL:</label>
             <input type="date" class="form-control" name="al_solicita">
         </div>
-        
+
         <div class="col-sm-3 mb-1 ">
             <label for="">&nbsp;</label>
             <div>
@@ -65,6 +72,8 @@
                 estados: @json(\App\Models\SolicitudEstado::whereIn('id', [2, 3])->get() ?? []),
                 usuarios_seleccionados: [],
                 usuarios: @json(\App\Models\User::all() ?? []),
+                categoria_seleccionada: null,
+                categorias: @json(\App\Models\ItemCategoria::all() ?? []),
             },
             methods: {
 

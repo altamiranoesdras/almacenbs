@@ -34,6 +34,7 @@ class ScopeSolicitudDataTable implements DataTableScope
     public $estados;
     public $items;
     public $folio;
+    public $categoria;
 
     public function __construct()
     {
@@ -61,6 +62,7 @@ class ScopeSolicitudDataTable implements DataTableScope
         $this->estados = request()->estados ?? null;
         $this->items = request()->items ?? null;
         $this->folio = request()->folio ?? null;
+        $this->categoria = request()->categoria ?? null;
     }
 
 
@@ -143,6 +145,12 @@ class ScopeSolicitudDataTable implements DataTableScope
             }else{
                 $query->where('estado_id', $this->estados);
             }
+        }
+
+        if($this->categoria){
+            $query->whereHas('detalles.item', function ($queryDetalles) {
+                $queryDetalles->where('categoria_id', $this->categoria);
+            });
         }
 
         if ($this->del_solicita && $this->al_solicita){
