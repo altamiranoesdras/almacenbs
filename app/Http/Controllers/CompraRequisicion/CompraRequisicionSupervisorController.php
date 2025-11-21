@@ -7,7 +7,9 @@ use App\DataTables\Scopes\ScopeCompraRequisicion;
 use App\Http\Controllers\Controller;
 use App\Models\CompraBandeja;
 use App\Models\CompraRequisicion\CompraRequisicion;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CompraRequisicionSupervisorController extends Controller
 {
@@ -31,9 +33,26 @@ class CompraRequisicionSupervisorController extends Controller
         return view('compra_requisiciones.supervidor.seguimiento', compact('requisicion'));
     }
 
+    /**
+     * @throws \Throwable
+     */
     public function procesar(CompraRequisicion $requisicion, Request $request)
     {
-        $requisicion->supervisorVistoBueno($request->comentario ?? null);
+
+        try {
+            DB::beginTransaction();
+
+            $requisicion->supervisorVistoBueno($request->comentario ?? null);
+
+        } catch (Exception $exception) {
+            DB::rollBack();
+
+            $msj = manejarException($exception);
+            flash($msj)->error();
+            return redirect()->route('compra.requisiciones.supervisor');
+        }
+
+        DB::commit();
 
         return redirect()
             ->route('compra.requisiciones.supervisor')

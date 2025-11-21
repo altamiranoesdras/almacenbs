@@ -307,7 +307,9 @@ class CompraRequisicion extends Model implements HasMedia
 
     public function puedeAutorizarse(): bool
     {
-        return $this->estado_id == CompraRequisicionEstado::APROBADA && $this->tiene_firma_autorizador;
+        return $this->estado_id == CompraRequisicionEstado::APROBADA
+            || $this->estado_id == CompraRequisicionEstado::RETORNADA_POR_SUPERVISOR_A_AUTORIZADOR
+            && $this->tiene_firma_autorizador;
     }
 
     //TODO: Esta función debe de completarse.
@@ -317,8 +319,10 @@ class CompraRequisicion extends Model implements HasMedia
     }
 
     //TODO: Esta función debe de completarse.
-    public function supervisorVistoBueno($comentario = ''): void
+    public function supervisorVistoBueno($comentario =null): void
     {
+        $comentario = $comentario ?? '';
+
         if ($this->estado_id == CompraRequisicionEstado::AUTORIZADA ||
             $this->estado_id == CompraRequisicionEstado::RETORNADA_POR_ANALISTA_DE_PRESUPUESTO_A_SUPERVISOR)
         {
@@ -477,10 +481,63 @@ class CompraRequisicion extends Model implements HasMedia
 
         $uploaded = $this->generarPdfUpload();
 
+
         if (config('firma-electronica.simular_firma')) {
             // Simula la firma con el PDF generado
+//            return $this
+//                ->addMediaFromUrl($uploaded->getRealPath(), 'public') // Simula la firma con el PDF generado
+//                ->toMediaCollection(CompraRequisicion::COLLECTION_REQUISICION_COMPRA);
             return $this
-                ->addMediaFromUrl($uploaded->getRealPath(), 'public') // Simula la firma con el PDF generado
+                ->addMedia($uploaded)
+                ->toMediaCollection(CompraRequisicion::COLLECTION_REQUISICION_COMPRA);
+        }
+
+
+        return $this->firmar(
+            usuarioAutenticado(),
+            $contrasenaFirma,
+            $uploaded
+        );
+
+    }
+
+    public function firmaOperador($contrasenaFirma): Media
+    {
+
+        $this->tiene_firma_aprobador = true;
+        $this->save();
+
+        $this->addBitacora("REQUISICIÓN DE COMPRA FIRMADA POR APROBADOR", "");
+
+        $uploaded = $this->generarPdfUpload();
+
+        if (config('firma-electronica.simular_firma')) {
+            return $this
+                ->addMedia($uploaded)
+                ->toMediaCollection(CompraRequisicion::COLLECTION_REQUISICION_COMPRA);
+        }
+
+        return $this->firmar(
+            usuarioAutenticado(),
+            $contrasenaFirma,
+            $uploaded
+        );
+
+    }
+
+    public function firmaAutorizador($contrasenaFirma): Media
+    {
+
+        $this->tiene_firma_autorizador = true;
+        $this->save();
+
+        $this->addBitacora("REQUISICIÓN DE COMPRA FIRMADA POR AUTORIZADOR", "");
+
+        $uploaded = $this->generarPdfUpload();
+
+        if (config('firma-electronica.simular_firma')) {
+            return $this
+                ->addMedia($uploaded)
                 ->toMediaCollection(CompraRequisicion::COLLECTION_REQUISICION_COMPRA);
         }
 

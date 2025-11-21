@@ -18,7 +18,7 @@
             <div class="mb-1 breadcrumb-right">
                 <div class="dropdown">
                     <a class="btn btn-outline-secondary float-right"
-                       href="{{ route('compra.requisiciones.autorizar') }}"
+                       href="{{ route('compra.requisiciones.supervisor') }}"
                     >
                         <i class="fa fa-arrow-left"></i>
                         Regresar

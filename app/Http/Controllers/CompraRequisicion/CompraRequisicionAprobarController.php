@@ -4,12 +4,12 @@ namespace App\Http\Controllers\CompraRequisicion;
 
 use App\DataTables\CompraRequisicion\CompraRequisicionAprobarDataTable;
 use App\DataTables\Scopes\ScopeCompraRequisicion;
-use App\FirmaElectronica\FirmaElectronica;
 use App\Http\Controllers\Controller;
 use App\Models\CompraBandeja;
 use App\Models\CompraRequisicion\CompraRequisicion;
+use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
 
 class CompraRequisicionAprobarController extends Controller
 {
@@ -48,59 +48,21 @@ class CompraRequisicionAprobarController extends Controller
             'password_firma'  => ['required','string'],
         ]);
 
-        $media = $requisicion
-            ->getMedia(CompraRequisicion::COLLECTION_REQUISICION_COMPRA)
-            ->last();
+        try {
+            DB::beginTransaction();
 
-        $uploaded = new UploadedFile(
-            $media->getPath(),
-            'requisicion.pdf',
-            'application/pdf',
-            null,
-            true // test mode (no mueve/elimina el archivo fuente)
-        );
+            $media = $requisicion->firmaOperador($request->password_firma);
+            DB::commit();
 
-        $y = 280;
-        $disk = 'public';
+        } catch (Exception $exception) {
+            DB::rollBack();
 
-        foreach ($requisicion->detalles as $index => $detalle) {
-            if($index > 15) {
-                $y -= 13;
-            }
+            throw new Exception($exception);
         }
-
-        // 4) Firmar usando tu mismo builder
-        $rutaArchivoFirmado = (new FirmaElectronica())
-            ->respuestaRuta()
-            ->setDisco($disk)                                            // dónde guardará el documento firmado
-            ->setDirectorio('requisiciones/firmadas')                           // carpeta de salida de firmados (pública)
-            ->setCorreo($request->usuario_firma)                         // credenciales del proveedor de firma
-            ->setClaveFirma($request->password_firma)
-            ->setRubricaUsuario(auth()->user()->rubrica ?? null)    // o la rúbrica del usuario
-            ->setInicioX(150)                                        // coordenadas opcionales
-            ->setInicioY($y)                                        // coordenadas opcionales
-            ->setAncho(200)
-            ->setAlto(35)
-            ->setLugar('Guatemala, Guatemala')                      // opcional
-            ->setTipoSolicitud('PDF')                               // opcional
-            ->setConcepto('Requisición de compra')             // opcional
-            ->setDocumento($uploaded)                                   // ← el PDF recién creado
-            ->firmarDocumento();
-
-        $requisicion->update([
-            'tiene_firma_aprobador' => true,
-        ]);
-
-        $media = $requisicion
-            ->addMediaFromDisk($rutaArchivoFirmado, $disk)
-            ->toMediaCollection(CompraRequisicion::COLLECTION_REQUISICION_COMPRA);
-
 
         return redirect()->back()
             ->with('success', 'PDF generado y firmado correctamente.')
             ->with('rutaArchivoFirmado', $media->getUrl());
-
-        // 4) Asociar el documento
     }
 
     public function aprobar(CompraRequisicion $requisicion)
