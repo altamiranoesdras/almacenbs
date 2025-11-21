@@ -132,10 +132,14 @@ class StockTransaccion extends Model
     {
 
         if($this->model instanceof \App\Models\CompraDetalle) {
-            return $this->model->compra->codigo;
+            $codigo = $this->model->compra->compra1h->folio;
+            $estado = $this->model->compra->estado->nombre;
+            return "Compra: ".$codigo." - ".$estado;
         }
         if($this->model instanceof \App\Models\SolicitudDetalle) {
-            return $this->model->solicitud->codigo;
+            $codigo = $this->model->solicitud->folio;
+            $estado = $this->model->solicitud->estado->nombre;
+            return "Solicitud: ".$codigo." - ".$estado;
         }
 
         return null;

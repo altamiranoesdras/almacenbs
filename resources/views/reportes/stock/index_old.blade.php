@@ -216,7 +216,7 @@
 
                                                                     <!-- Modal -->
                                                                     <div class="modal fade" id="modalTransaciones{{$det->id}}" tabindex="-1" aria-labelledby="modelTitleId{{$det->id}}" aria-hidden="true">
-                                                                        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                                                                        <div class="modal-dialog modal-xl modal-dialog-scrollable">
                                                                             <div class="modal-content shadow rounded-3">
 
                                                                                 <!-- Header -->
@@ -231,24 +231,33 @@
                                                                                         <table class="table table-bordered table-hover table-striped align-middle">
                                                                                             <thead class="table-light">
                                                                                             <tr class="text-sm">
+                                                                                                <th>No</th>
                                                                                                 <th>ID</th>
                                                                                                 <th>Tipo</th>
                                                                                                 <th>Cantidad</th>
-                                                                                                <th>Modelo</th>
+                                                                                                <th>Precio</th>
                                                                                                 <th>Referencia</th>
                                                                                             </tr>
                                                                                             </thead>
                                                                                             <tbody>
-                                                                                            @foreach($det->transcciones as $trx)
+                                                                                            @foreach($det->transcciones as $i => $trx)
                                                                                                 <tr class="text-sm">
+                                                                                                    <td>{{ $i+1 }}</td>
                                                                                                     <td>{{ $trx->id }}</td>
                                                                                                     <td>{{ $trx->tipo }}</td>
                                                                                                     <td>{{ nf($trx->cantidad,0) }}</td>
-                                                                                                    <td>{{ $trx->model_type }}</td>
+                                                                                                    <td>{{ dvs().nfp($trx->stock->precio_compra) }}</td>
                                                                                                     <td>{{ $trx->referencia }}</td>
                                                                                                 </tr>
                                                                                             @endforeach
                                                                                             </tbody>
+                                                                                            <tfoot>
+                                                                                            <tr class="text-sm">
+                                                                                                <th colspan="2">Total</th>
+                                                                                                <th>{{ nf($det->transcciones->sum('cantidad'),0) }}</th>
+                                                                                                <th>{{ dvs().nfp($det->transcciones->sum('stock.precio_compra')) }}</th>
+                                                                                                <th colspan="1"></th>
+                                                                                            </tr>
                                                                                         </table>
                                                                                     </div>
                                                                                 </div>
