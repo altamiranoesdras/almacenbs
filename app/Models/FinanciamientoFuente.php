@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read string $texto
  * @method static \Database\Factories\FinanciamientoFuenteFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|FinanciamientoFuente newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|FinanciamientoFuente newQuery()
@@ -39,6 +40,8 @@ class FinanciamientoFuente extends Model
     use HasFactory;
 
     public $table = 'financiamiento_fuentes';
+
+    protected $appends = ['texto'];
 
     public $fillable = [
         'codigo_fuente',
@@ -68,5 +71,9 @@ class FinanciamientoFuente extends Model
 
     ];
 
-    
+    public function getTextoAttribute(): string
+    {
+        return $this->codigo_fuente . ' - ' . $this->nombre;
+    }
+
 }

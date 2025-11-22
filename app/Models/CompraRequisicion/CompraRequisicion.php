@@ -40,7 +40,7 @@ use Throwable;
  * @property int|null $tipo_concurso_id
  * @property int|null $tipo_adquisicion_id
  * @property int|null $correlativo
- * @property string|null $codigo ID interno de gestión, p. ej. G-2025-001
+ * @property string|null $codigo ID interno de gestión, p.ej. G-2025-001
  * @property string|null $codigo_consolidacion Código de lote interno, p.ej. L-2025-001
  * @property string|null $npg Número de Publicación (Compra Menor)
  * @property string|null $nog Número de Operación (Licitación Abreviada)
@@ -77,10 +77,9 @@ use Throwable;
  * @property-read MediaCollection<int, Media> $media
  * @property-read int|null $media_count
  * @property-read Proveedor|null $proveedorAdjudicado
- * @property-read CompraRequisicionTipoAdquisicion|null $tipoAdquisicion
  * @property-read CompraRequisicionTipoConcurso|null $tipoConcurso
  * @property-read RrhhUnidad $unidad
- * @method static CompraRequisicionFactory factory($count = null, $state = [])
+ * @method static \Database\Factories\CompraRequisicion\CompraRequisicionFactory factory($count = null, $state = [])
  * @method static Builder|CompraRequisicion newModelQuery()
  * @method static Builder|CompraRequisicion newQuery()
  * @method static Builder|CompraRequisicion onlyTrashed()
@@ -358,12 +357,12 @@ class CompraRequisicion extends Model implements HasMedia
 
     }
 
-    public function analistaPresupuestoVistoBueno($comentario = ''): void
+    public function analistaPresupuestoVistoBueno($comentario = null): void
     {
         $this->estado_id = CompraRequisicionEstado::ASIGNACION_REQUISICIONES;
         $this->save();
 
-        $this->addBitacora("REQUISICIÓN DE COMPRA APROBADA POR ANALISTA DE PRESUPUESTO", $comentario);
+        $this->addBitacora("REQUISICIÓN DE COMPRA APROBADA POR ANALISTA DE PRESUPUESTO", $comentario ?? '');
 
     }
 
