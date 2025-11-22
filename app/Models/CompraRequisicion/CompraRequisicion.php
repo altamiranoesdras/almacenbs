@@ -3,10 +3,20 @@
 namespace App\Models\CompraRequisicion;
 
 use App\FirmaElectronica\FirmaElectronica;
+use App\Models\Bitacora;
+use App\Models\CompraRequisicionDetalle;
 use App\Models\CompraRequisicionEstado;
+use App\Models\CompraRequisicionTipoAdquisicion;
+use App\Models\CompraRequisicionTipoConcurso;
 use App\Models\CompraSolicitud;
+use App\Models\Proveedor;
+use App\Models\RrhhUnidad;
 use App\Models\User;
 use App\Traits\HasBitacora;
+use Database\Factories\CompraRequisicion\CompraRequisicionFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -14,21 +24,23 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Exceptions\FileCannotBeAdded;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
+use Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Throwable;
 
 /**
  * @property int $id
  * @property int|null $tipo_concurso_id
  * @property int|null $tipo_adquisicion_id
  * @property int|null $correlativo
- * @property string|null $codigo ID interno de gestión, p.ej. G-2025-001
+ * @property string|null $codigo ID interno de gestión, p. ej. G-2025-001
  * @property string|null $codigo_consolidacion Código de lote interno, p.ej. L-2025-001
  * @property string|null $npg Número de Publicación (Compra Menor)
  * @property string|null $nog Número de Operación (Licitación Abreviada)
@@ -45,68 +57,68 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property string|null $partidas
  * @property string|null $observaciones
  * @property string|null $justificacion
- * @property \Illuminate\Support\Carbon|null $fecha_solicita
- * @property \Illuminate\Support\Carbon|null $fecha_aprueba
+ * @property Carbon|null $fecha_solicita
+ * @property Carbon|null $fecha_aprueba
  * @property int|null $usuario_solicita_id
- * @property \Illuminate\Support\Carbon|null $fecha_autoriza
+ * @property Carbon|null $fecha_autoriza
  * @property bool|null $tiene_firma_solicitante
  * @property bool|null $tiene_firma_aprobador
  * @property bool|null $tiene_firma_autorizador
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Bitacora> $bitacoras
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property-read Collection<int, Bitacora> $bitacoras
  * @property-read int|null $bitacoras_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, CompraSolicitud> $compraSolicitudes
+ * @property-read Collection<int, CompraSolicitud> $compraSolicitudes
  * @property-read int|null $compra_solicitudes_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraRequisicionDetalle> $detalles
+ * @property-read Collection<int, CompraRequisicionDetalle> $detalles
  * @property-read int|null $detalles_count
  * @property-read CompraRequisicionEstado $estado
- * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, Media> $media
+ * @property-read MediaCollection<int, Media> $media
  * @property-read int|null $media_count
- * @property-read \App\Models\Proveedor|null $proveedorAdjudicado
- * @property-read \App\Models\CompraRequisicionTipoAdquisicion|null $tipoAdquisicion
- * @property-read \App\Models\CompraRequisicionTipoConcurso|null $tipoConcurso
- * @property-read \App\Models\RrhhUnidad $unidad
- * @method static \Database\Factories\CompraRequisicion\CompraRequisicionFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion query()
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereCodigo($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereCodigoConsolidacion($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereCorrelativo($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereEstadoId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereFechaAprueba($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereFechaAutoriza($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereFechaSolicita($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereJustificacion($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereNog($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereNpg($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereNumeroAdjudicacion($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereObservaciones($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion wherePartidas($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereProveedorAdjudicado($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereSubproductos($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereTieneFirmaAprobador($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereTieneFirmaAutorizador($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereTieneFirmaSolicitante($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereTipoAdquisicionId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereTipoConcursoId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereUnidadId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereUsuarioAnalistaId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereUsuarioApruebaId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereUsuarioAsignaId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereUsuarioAutorizaId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereUsuarioCreaId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion whereUsuarioSolicitaId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion withTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicion withoutTrashed()
- * @mixin \Eloquent
+ * @property-read Proveedor|null $proveedorAdjudicado
+ * @property-read CompraRequisicionTipoAdquisicion|null $tipoAdquisicion
+ * @property-read CompraRequisicionTipoConcurso|null $tipoConcurso
+ * @property-read RrhhUnidad $unidad
+ * @method static CompraRequisicionFactory factory($count = null, $state = [])
+ * @method static Builder|CompraRequisicion newModelQuery()
+ * @method static Builder|CompraRequisicion newQuery()
+ * @method static Builder|CompraRequisicion onlyTrashed()
+ * @method static Builder|CompraRequisicion query()
+ * @method static Builder|CompraRequisicion whereCodigo($value)
+ * @method static Builder|CompraRequisicion whereCodigoConsolidacion($value)
+ * @method static Builder|CompraRequisicion whereCorrelativo($value)
+ * @method static Builder|CompraRequisicion whereCreatedAt($value)
+ * @method static Builder|CompraRequisicion whereDeletedAt($value)
+ * @method static Builder|CompraRequisicion whereEstadoId($value)
+ * @method static Builder|CompraRequisicion whereFechaAprueba($value)
+ * @method static Builder|CompraRequisicion whereFechaAutoriza($value)
+ * @method static Builder|CompraRequisicion whereFechaSolicita($value)
+ * @method static Builder|CompraRequisicion whereId($value)
+ * @method static Builder|CompraRequisicion whereJustificacion($value)
+ * @method static Builder|CompraRequisicion whereNog($value)
+ * @method static Builder|CompraRequisicion whereNpg($value)
+ * @method static Builder|CompraRequisicion whereNumeroAdjudicacion($value)
+ * @method static Builder|CompraRequisicion whereObservaciones($value)
+ * @method static Builder|CompraRequisicion wherePartidas($value)
+ * @method static Builder|CompraRequisicion whereProveedorAdjudicado($value)
+ * @method static Builder|CompraRequisicion whereSubproductos($value)
+ * @method static Builder|CompraRequisicion whereTieneFirmaAprobador($value)
+ * @method static Builder|CompraRequisicion whereTieneFirmaAutorizador($value)
+ * @method static Builder|CompraRequisicion whereTieneFirmaSolicitante($value)
+ * @method static Builder|CompraRequisicion whereTipoAdquisicionId($value)
+ * @method static Builder|CompraRequisicion whereTipoConcursoId($value)
+ * @method static Builder|CompraRequisicion whereUnidadId($value)
+ * @method static Builder|CompraRequisicion whereUpdatedAt($value)
+ * @method static Builder|CompraRequisicion whereUsuarioAnalistaId($value)
+ * @method static Builder|CompraRequisicion whereUsuarioApruebaId($value)
+ * @method static Builder|CompraRequisicion whereUsuarioAsignaId($value)
+ * @method static Builder|CompraRequisicion whereUsuarioAutorizaId($value)
+ * @method static Builder|CompraRequisicion whereUsuarioCreaId($value)
+ * @method static Builder|CompraRequisicion whereUsuarioSolicitaId($value)
+ * @method static Builder|CompraRequisicion withTrashed()
+ * @method static Builder|CompraRequisicion withoutTrashed()
+ * @mixin Eloquent
  */
 class CompraRequisicion extends Model implements HasMedia
 {
@@ -166,7 +178,7 @@ class CompraRequisicion extends Model implements HasMedia
         'tiene_firma_autorizador' => 'boolean',
     ];
 
-    public static $rules = [
+    public static array $rules = [
         'tipo_concurso_id' => 'nullable',
         'tipo_adquisicion_id' => 'nullable',
         'correlativo' => 'nullable',
@@ -192,13 +204,13 @@ class CompraRequisicion extends Model implements HasMedia
         'tiene_firma_autorizador' => 'nullable|boolean',
     ];
 
-    public static $messages = [
+    public static array $messages = [
 
     ];
 
     const COLLECTION_REQUISICION_COMPRA = 'requisicion_compra';
 
-    protected static function booted()
+    protected static function booted(): void
     {
         /**
          * Genera el código de la requisición al momento de crearla.
@@ -208,35 +220,30 @@ class CompraRequisicion extends Model implements HasMedia
         static::created(function ($requisicion) {
             $year = now()->year;
             $numero = str_pad($requisicion->id, 3, '0', STR_PAD_LEFT);
-            $requisicion->codigo = "G-{$year}-{$numero}";
-            $requisicion->codigo_consolidacion = "L-{$year}-{$numero}";
+            $requisicion->codigo = "G-$year-$numero";
+            $requisicion->codigo_consolidacion = "L-$year-$numero";
             $requisicion->save();
         });
     }
 
-    public function tipoAdquisicion(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function tipoConcurso(): BelongsTo
     {
-        return $this->belongsTo(\App\Models\CompraRequisicionTipoAdquisicion::class, 'tipo_adquisicion_id');
-    }
-
-    public function tipoConcurso(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        return $this->belongsTo(\App\Models\CompraRequisicionTipoConcurso::class, 'tipo_concurso_id');
+        return $this->belongsTo(CompraRequisicionTipoConcurso::class, 'tipo_concurso_id');
     }
 
     public function unidad(): BelongsTo
     {
-        return $this->belongsTo(\App\Models\RrhhUnidad::class, 'unidad_id');
+        return $this->belongsTo(RrhhUnidad::class, 'unidad_id');
     }
 
-    public function proveedorAdjudicado(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function proveedorAdjudicado(): BelongsTo
     {
-        return $this->belongsTo(\App\Models\Proveedor::class, 'proveedor_adjudicado');
+        return $this->belongsTo(Proveedor::class, 'proveedor_adjudicado');
     }
 
-    public function estado(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function estado(): BelongsTo
     {
-        return $this->belongsTo(\App\Models\CompraRequisicionEstado::class, 'estado_id');
+        return $this->belongsTo(CompraRequisicionEstado::class, 'estado_id');
     }
 
 //    public function compraOrdenes(): \Illuminate\Database\Eloquent\Relations\HasMany
@@ -246,7 +253,7 @@ class CompraRequisicion extends Model implements HasMedia
 
     public function detalles(): HasMany
     {
-        return $this->hasMany(\App\Models\CompraRequisicionDetalle::class, 'requisicion_id');
+        return $this->hasMany(CompraRequisicionDetalle::class, 'requisicion_id');
     }
 
 //    public function compraSolicitudes(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -272,7 +279,7 @@ class CompraRequisicion extends Model implements HasMedia
         $this->usuario_solicita_id = usuarioAutenticado()->id;
         $this->save();
 
-        $this->addBitacora("REQUISICIÓN DE COMPRA SOLICITADA","");
+        $this->addBitacora("REQUISICIÓN DE COMPRA SOLICITADA");
     }
 
     public function aprobar(): void
@@ -282,7 +289,7 @@ class CompraRequisicion extends Model implements HasMedia
         $this->usuario_aprueba_id = usuarioAutenticado()->id;
         $this->save();
 
-        $this->addBitacora("REQUISICIÓN DE COMPRA APROBADA","");
+        $this->addBitacora("REQUISICIÓN DE COMPRA APROBADA");
     }
 
     public function autorizar(): void
@@ -292,7 +299,7 @@ class CompraRequisicion extends Model implements HasMedia
         $this->usuario_autoriza_id = usuarioAutenticado()->id;
         $this->save();
 
-        $this->addBitacora("REQUISICIÓN DE COMPRA AUTORIZADA","");
+        $this->addBitacora("REQUISICIÓN DE COMPRA AUTORIZADA");
     }
 
     public function puedeSolicitarse(): bool
@@ -376,18 +383,19 @@ class CompraRequisicion extends Model implements HasMedia
 
     }
 
-    public function puedeEditar()
+    public function puedeEditar(): bool
     {
-        return in_array($this->estado_id, [
-            CompraRequisicionEstado::CREADA,
-        ]);
+        return $this->estado_id == CompraRequisicionEstado::CREADA;
     }
 
-    public function puedeAnular()
+    public function puedeAnular(): bool
     {
         return $this->estado_id != CompraRequisicionEstado::CANCELADA;
     }
 
+    /**
+     * @throws Throwable
+     */
     public function generarPdfUpload(): UploadedFile
     {
         // 1) Generar el PDF con Snappy (wkhtmltopdf)
@@ -408,7 +416,7 @@ class CompraRequisicion extends Model implements HasMedia
 
         // 2) Guardar el PDF en storage/app/public/firmas/pdfs
         $disk = 'public';
-        $folderPdf = 'requisiciones/generadas';              // carpeta para PDFs generados (previos a la firma)
+        $folderPdf = 'requisiciones/generadas';              // carpeta para PDF generados (previos a la firma)
         $filename = 'Requisicion_' . $this->id . '_' . time() . '.pdf';
         $relativePdfPath = $folderPdf . '/' . $filename;
 
@@ -417,18 +425,20 @@ class CompraRequisicion extends Model implements HasMedia
 
         // 3) Envolver el archivo como UploadedFile para pasarlo al firmador
         $absolutePdfPath = Storage::disk($disk)->path($relativePdfPath);
-        $uploaded = new UploadedFile(
+        return new UploadedFile(
             $absolutePdfPath,
             $filename,
             'application/pdf',
             null,
             true // test mode (no mueve/elimina el archivo fuente)
         );
-
-        return $uploaded;
     }
 
-    public function firmar(User $usuario,string $contrasenaFirma, UploadedFile $uploaded): Media
+    /**
+     * @throws FileDoesNotExist
+     * @throws FileIsTooBig
+     */
+    public function firmar(User $usuario, string $contrasenaFirma, UploadedFile $uploaded): Media
     {
         $x = 0;
         $y = 280;
@@ -458,17 +468,16 @@ class CompraRequisicion extends Model implements HasMedia
             ->firmarDocumento();
 
 
-        $media = $this
-            ->addMediaFromDisk($rutaArchivoFirmado, 'public') // ruta del archivo firmado
+        return $this->addMediaFromDisk($rutaArchivoFirmado, 'public') // ruta del archivo firmado
             ->toMediaCollection(CompraRequisicion::COLLECTION_REQUISICION_COMPRA);
-
-        return $media;
     }
 
     /**
-     * @throws FileCannotBeAdded
+     * @param $contrasenaFirma
+     * @return Media
      * @throws FileDoesNotExist
      * @throws FileIsTooBig
+     * @throws Throwable
      */
     public function firmaSolicitante($contrasenaFirma): Media
     {
@@ -476,17 +485,13 @@ class CompraRequisicion extends Model implements HasMedia
         $this->tiene_firma_solicitante = true;
         $this->save();
 
-        $this->addBitacora("REQUISICIÓN DE COMPRA FIRMADA POR SOLICITANTE", "");
+        $this->addBitacora("REQUISICIÓN DE COMPRA FIRMADA POR SOLICITANTE");
 
 
         $uploaded = $this->generarPdfUpload();
 
 
         if (config('firma-electronica.simular_firma')) {
-            // Simula la firma con el PDF generado
-//            return $this
-//                ->addMediaFromUrl($uploaded->getRealPath(), 'public') // Simula la firma con el PDF generado
-//                ->toMediaCollection(CompraRequisicion::COLLECTION_REQUISICION_COMPRA);
             return $this
                 ->addMedia($uploaded)
                 ->toMediaCollection(CompraRequisicion::COLLECTION_REQUISICION_COMPRA);
@@ -501,13 +506,18 @@ class CompraRequisicion extends Model implements HasMedia
 
     }
 
+    /**
+     * @throws Throwable
+     * @throws FileDoesNotExist
+     * @throws FileIsTooBig
+     */
     public function firmaOperador($contrasenaFirma): Media
     {
 
         $this->tiene_firma_aprobador = true;
         $this->save();
 
-        $this->addBitacora("REQUISICIÓN DE COMPRA FIRMADA POR APROBADOR", "");
+        $this->addBitacora("REQUISICIÓN DE COMPRA FIRMADA POR APROBADOR");
 
         $uploaded = $this->generarPdfUpload();
 
@@ -525,13 +535,18 @@ class CompraRequisicion extends Model implements HasMedia
 
     }
 
+    /**
+     * @throws Throwable
+     * @throws FileDoesNotExist
+     * @throws FileIsTooBig
+     */
     public function firmaAutorizador($contrasenaFirma): Media
     {
 
         $this->tiene_firma_autorizador = true;
         $this->save();
 
-        $this->addBitacora("REQUISICIÓN DE COMPRA FIRMADA POR AUTORIZADOR", "");
+        $this->addBitacora("REQUISICIÓN DE COMPRA FIRMADA POR AUTORIZADOR");
 
         $uploaded = $this->generarPdfUpload();
 
