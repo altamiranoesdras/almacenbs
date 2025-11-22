@@ -5,14 +5,14 @@
             <h5 class="card-title mb-0">Detalles Requisición Compra</h5>
             <div class="heading-elements">
                 <a data-bs-toggle="collapse" href="#collapseIngresoAlmacen" role="button"
-                   aria-expanded="{{ $abierta ?? false }}" aria-controls="collapseIngresoAlmacen">
-                    <i data-feather="chevron-{{ ($abierta ?? false) ? 'up' : 'down' }}"></i>
+                   aria-expanded="{{ $abierta ?? true }}" aria-controls="collapseIngresoAlmacen">
+                    <i data-feather="chevron-{{ ($abierta ?? true) ? 'up' : 'down' }}"></i>
                 </a>
             </div>
         </div>
 
         <!-- Collapsible Content -->
-        <div id="collapseIngresoAlmacen" class="collapse {{ ($abierta ?? false) ? 'show' : '' }}">
+        <div id="collapseIngresoAlmacen" class="collapse {{ ($abierta ?? true) ? 'show' : '' }}">
 
             <div class="col-sm-12">
                 <ul class="nav nav-tabs" role="tablist">
