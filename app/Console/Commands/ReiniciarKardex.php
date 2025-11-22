@@ -42,7 +42,7 @@ class ReiniciarKardex extends Command
 
         $this->procesarStocksIniciales();
 
-        $this->procesarIngresosYegresos();
+//        $this->procesarIngresosYegresos();
 
         $this->fin();
     }
@@ -65,7 +65,7 @@ class ReiniciarKardex extends Command
 
         foreach ($stocksIniciales as $stock) {
             $this->barraProcesoAvanzar();
-            $stock->agregaKardex('Existencia inicial según acta Administrativa 007-2025, de fecha 30 de septiembre');
+            $stock->agregaKardex('Existencia inicial según acta Administrativa 007-2025, de fecha 30 de septiembre','2025-07-30');
         }
 
         $this->barraProcesoFin();

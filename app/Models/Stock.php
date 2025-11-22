@@ -280,12 +280,14 @@ class Stock extends Model
         return $this->belongsTo(\App\Models\RrhhUnidad::class, 'unidad_id');
     }
 
-    public function agregaKardex($responsable = 'STOCK INICIAL')
+    public function agregaKardex($responsable = 'STOCK INICIAL',$fecha=null)
     {
         if ($this->kardex) {
             $this->kardex->increment('cantidad', $this->cantidad);
+            $this->kardex->created_at = $fecha ?? now();
+            $this->kardex->save();
         } else {
-            $this->kardex()->create([
+            $this->kardex()->forceCreate([
                 'categoria_id' => $this->item->categoria_id,
                 'item_id' => $this->item_id,
                 'cantidad' => $this->cantidad_inicial,
@@ -296,6 +298,7 @@ class Stock extends Model
                 'responsable' => $responsable,
                 'usuario_id' => usuarioAutenticado()->id, // Usuario principal
                 'folio_siguiente' => '',
+                'created_at' => $fecha ?? now(),
             ]);
         }
 
