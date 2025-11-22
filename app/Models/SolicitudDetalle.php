@@ -277,7 +277,7 @@ class SolicitudDetalle extends Model
 
     }
 
-    public function agregarKardex(): void
+    public function agregarKardex($fecha=null): void
     {
 
         $gresosTransacciones = $this->transaccionesStock
@@ -285,7 +285,7 @@ class SolicitudDetalle extends Model
 
         //iterar transacciones de stock y crear kardex por cada una
         foreach ($gresosTransacciones as $transaccion) {
-            $this->kardex()->create([
+            $this->kardex()->forceCreate([
                 'categoria_id' => $this->item->categoria_id,
                 'item_id' => $this->item->id,
                 'cantidad' => $transaccion->cantidad,
@@ -296,6 +296,7 @@ class SolicitudDetalle extends Model
                 'responsable' => $this->solicitud->unidad->nombre,
                 'usuario_id' => auth()->user()->id ?? User::PRINCIPAL,
                 'folio_siguiente' => '',
+                'created_at' => $fecha ?? now(),
             ]);
         }
     }

@@ -228,9 +228,9 @@ class CompraDetalle extends Model
     }
 
 
-    public function agregarKardex(): void
+    public function agregarKardex($fecha=null): void
     {
-        $this->kardex()->create([
+        $this->kardex()->forceCreate([
             'categoria_id' => $this->item->categoria_id,
             'item_id' => $this->item->id,
             'cantidad' => $this->cantidad,
@@ -239,6 +239,7 @@ class CompraDetalle extends Model
             'responsable' => $this->compra->proveedor->nombre,
             'usuario_id' => auth()->user()->id ?? User::PRINCIPAL,
             'folio_siguiente' => '',
+            'created_at' => $fecha ?? now(),
         ]);
     }
 

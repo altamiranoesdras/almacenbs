@@ -42,7 +42,7 @@ class ReiniciarKardex extends Command
 
         $this->procesarStocksIniciales();
 
-//        $this->procesarIngresosYegresos();
+        $this->procesarIngresosYegresos();
 
         $this->fin();
     }
@@ -104,11 +104,13 @@ class ReiniciarKardex extends Command
             $this->barraProcesoAvanzar();
 
             if ($movimiento instanceof Compra) {
-                $movimiento->procesarKardex(false);
+                foreach ($movimiento->agruparDetalles() as $index => $detalle) {
+                    $detalle->agregarKardex($movimiento->fecha_ingreso);
+                }
             } elseif ($movimiento instanceof Solicitud) {
 
                 foreach ($movimiento->detalles as $detalle) {
-                    $detalle->agregarKardex();
+                    $detalle->agregarKardex($movimiento->fecha_despacha);
                 }
 
             } else {
