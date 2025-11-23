@@ -7,9 +7,10 @@ use App\DataTables\Scopes\ScopeCompraRequisicion;
 use App\Http\Controllers\Controller;
 use App\Models\CompraBandeja;
 use App\Models\CompraRequisicion\CompraRequisicion;
-use Exception;
+use App\Models\CompraRequisicionEstado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class CompraRequisicionSupervisorController extends Controller
 {
@@ -33,34 +34,39 @@ class CompraRequisicionSupervisorController extends Controller
         return view('compra_requisiciones.supervidor.seguimiento', compact('requisicion'));
     }
 
-    /**
-     * @throws \Throwable
-     */
     public function procesar(CompraRequisicion $requisicion, Request $request)
     {
 
+        if($requisicion->estado_id == CompraRequisicionEstado::ASIGNACION_REQUISICIONES && !$request->input('usuario_analista_id')){
+            return redirect()
+                ->back()
+                ->withErrors(['error' => 'Debe seleccionar un analista de compras para continuar.'])
+                ->withInput();
+        }
+
         try {
             DB::beginTransaction();
+            $requisicion->supervisorVistoBueno(
+                comentario: $request->input('comentario'),
+                usuario_analista_id: $request->input('usuario_analista_id')
+            );
 
-            $requisicion->supervisorVistoBueno($request->comentario ?? null);
+            DB::commit();
 
-            $requisicion->usuario_analista_id = $request->usuario_analista_id;
-            $requisicion->save();
+            return redirect()
+                ->route('compra.requisiciones.supervisor')
+                ->with('success', 'La requisición ha sido procesada con éxito.');
 
-        } catch (Exception $exception) {
+        } catch (Throwable $exception) {
             DB::rollBack();
 
             $msj = manejarException($exception);
-            flash($msj)->error();
-            return redirect()->route('compra.requisiciones.supervisor');
+
+            return redirect()
+                ->route('compra.requisiciones.supervisor')
+                ->withErrors(['error' => $msj])
+                ->withInput();
         }
-
-        DB::commit();
-
-        return redirect()
-            ->route('compra.requisiciones.supervisor')
-            ->with('success', 'La requisición ha sido procesada con éxito.');
-
     }
 
     public function retornar(CompraRequisicion $requisicion, Request $request)

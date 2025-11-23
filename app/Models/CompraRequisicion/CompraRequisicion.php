@@ -324,7 +324,13 @@ class CompraRequisicion extends Model implements HasMedia
     }
 
     //TODO: Esta función debe de completarse.
-    public function supervisorVistoBueno($comentario =null): void
+
+    /**
+     * @param $comentario
+     * @param  int  $usuario_analista_id
+     * @return void
+     */
+    public function supervisorVistoBueno($comentario = null, int $usuario_analista_id = null): void
     {
         $comentario = $comentario ?? '';
 
@@ -334,6 +340,8 @@ class CompraRequisicion extends Model implements HasMedia
             $this->estado_id = CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_PRESUPUESTOS;
         } else {
             $this->estado_id = CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_COMPRAS;
+            $this->usuario_analista_id = $usuario_analista_id;
+
         }
 
         $this->save();
