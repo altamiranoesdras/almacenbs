@@ -57,7 +57,8 @@ class CompraRequisicionDetalle extends Model
         'item_id',
         'cantidad',
         'precio_estimado',
-        'observaciones'
+        'observaciones',
+        'financiamiento_fuente_id'
     ];
 
     protected $casts = [

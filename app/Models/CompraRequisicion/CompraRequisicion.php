@@ -6,14 +6,12 @@ use App\FirmaElectronica\FirmaElectronica;
 use App\Models\Bitacora;
 use App\Models\CompraRequisicionDetalle;
 use App\Models\CompraRequisicionEstado;
-use App\Models\CompraRequisicionTipoAdquisicion;
 use App\Models\CompraRequisicionTipoConcurso;
 use App\Models\CompraSolicitud;
 use App\Models\Proveedor;
 use App\Models\RrhhUnidad;
 use App\Models\User;
 use App\Traits\HasBitacora;
-use Database\Factories\CompraRequisicion\CompraRequisicionFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -357,7 +355,7 @@ class CompraRequisicion extends Model implements HasMedia
 
     }
 
-    public function analistaPresupuestoVistoBueno($comentario = null): void
+    public function analistaPresupuestoVistoBueno($comentario = ''): void
     {
         $this->estado_id = CompraRequisicionEstado::ASIGNACION_REQUISICIONES;
         $this->save();

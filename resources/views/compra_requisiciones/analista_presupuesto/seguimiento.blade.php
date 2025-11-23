@@ -34,11 +34,109 @@
             <div class="col-12">
 
                 @include('layouts.partials.request_errors')
+                {!! Form::model($requisicion, ['url' => route('compra.requisiciones.analista.presupuesto.seguimiento.procesar', $requisicion->id), 'method' => 'patch','class' => 'esperar']) !!}
 
-                @include('compra_requisiciones.componentes.tarjeta_compra_requisicion', ['requisicion' => $requisicion])
+                {{--                @include('compra_requisiciones.componentes.tarjeta_compra_requisicion', ['requisicion' => $requisicion])--}}
+                <x-compra_requisicion.tarjeta_compra_requisicion
+                    :requisicion="$requisicion"
+                >
+                    @php
+
+                        $detalles = $requisicion->detalles ?? collect();
+                        $Q = $Q ?? 'Q';
+                        $total = $detalles->sum('sub_total');
+                        $totalItems = $detalles->count();
+                    @endphp
+
+                    <div class="table-responsive mb-1">
+                        <table class="table table-bordered table-hover table-xtra-condensed" id="tablaDetalle"
+                               style="margin-bottom: 2px; width:100%;">
+                            <thead class="small table-light">
+                            <tr class="text-center fw-bold">
+                                <td>FUENTE FINANCIAMIENTO</td>
+                                <td>NOMBRE</td>
+                                <td>CANTIDAD</td>
+                                <td>RENGLÓN</td>
+                                <td>CÓDIGO DE INSUMO</td>
+                                <td>DESCRIPCIÓN</td>
+                                <td>NOMBRE DE LA PRESENTACIÓN</td>
+                                <td>UNIDAD DE MEDIDA</td>
+                                <td>COD. PRESENTACIÓN</td>
+                                <td>MONTO ESTIMADO</td>
+                                <td>SubTotal</td>
+                            </tr>
+                            </thead>
+
+                            <tbody class="small">
+                            @if($detalles->isEmpty())
+                                <tr class="text-center">
+                                    <td colspan="10">
+                                        <span class="text-muted">No se ha agregado ningún artículo</span>
+                                    </td>
+                                </tr>
+                            @else
+                                @foreach($detalles as $detalle)
+                                    <tr>
+                                        <td style="width: 200px">
+                                            <div>
+                                                <multiselect
+                                                    v-model="fuenteFinanciamientoSeleccionada[{{$detalle->id}}]"
+                                                    :options="fuentesFinanciamientos"
+                                                    label="texto"
+                                                    placeholder="Seleccione uno..."
+                                                />
+                                            </div>
+
+                                            {{--                                            <h1>hola</h1>--}}
+                                            <input
+                                                type="text"
+                                                name="fuentes_financiamiento[{{$detalle->id}}]"
+                                                :value="fuenteFinanciamientoSeleccionada[{{$detalle->id}}]?.id"
+                                            >
+                                        </td>
+                                        <td>{{ $detalle->item?->nombre }}</td>
+                                        <td>{{ number_format($detalle->cantidad ?? 0, 0) }}</td>
+                                        <td>{{ $detalle->item?->renglon?->numero ?? 'Sin renglón' }}</td>
+                                        <td>{{ $detalle->item?->codigo_insumo }}</td>
+                                        <td>{{ $detalle->item?->descripcion }}</td>
+                                        <td>{{ $detalle->item?->presentacion?->nombre ?? 'Sin presentación' }}</td>
+                                        <td>{{ $detalle->item?->unimed?->nombre ?? 'Sin unidad' }}</td>
+                                        <td>{{ $detalle->item?->codigo_presentacion }}</td>
+                                        <td class="text-end">
+                                            {{ $Q }} {{ number_format($detalle->precio_estimado ?? 0, 2) }}
+                                        </td>
+                                        <td class="text-end">
+                                            {{ $Q }} {{ number_format($detalle->sub_total ?? 0, 2) }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                            </tbody>
+                            <tfoot class="small">
+                            <tr>
+                                {{-- Colspan fijo: 10 columnas totales - 1 = 9 --}}
+                                <td colspan="9">
+                                    <b class="float-end">Total monto</b>
+                                </td>
+                                <td class="text-end">
+                                    <b>{{ $Q }} {{ number_format($total, 2) }}</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="9">
+                                    <b class="float-end">Total insumos</b>
+                                </td>
+                                <td class="text-end">
+                                    <b>{{ number_format($totalItems, 0) }}</b>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    {{--                    </x-slot>--}}
+                </x-compra_requisicion.tarjeta_compra_requisicion>
 
                 <div class="card">
-                    {!! Form::model($requisicion, ['url' => route('compra.requisiciones.analista.presupuesto.seguimiento.procesar', $requisicion->id), 'method' => 'patch','class' => 'esperar']) !!}
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 mb-1">
@@ -65,31 +163,14 @@
                                     </button>
                                 </div>
 
-
-                                <div class="col-sm-4 text-center">
-
-{{--                                    @if(!$requisicion->tiene_firma_autorizador)--}}
-{{--                                        <button type="button" class="btn btn-outline-info round" @click="firmar()">--}}
-{{--                                            Firmar--}}
-{{--                                        </button>--}}
-{{--                                    @else--}}
-
-{{--                                        <button type="button" class="btn btn-outline-info round" data-bs-toggle="modal"--}}
-{{--                                                data-bs-target="#modalImprimir">--}}
-{{--                                            Ver PDF Firmado--}}
-{{--                                        </button>--}}
-{{--                                    @endif--}}
-
+                                <div class="col-sm-4 text-end">
+                                    <button type="button" data-bs-toggle="modal"
+                                            data-bs-target="#modal-confirma-procesar"
+                                            class="btn btn-success round">
+                                        <i class="fa fa-paper-plane"></i>
+                                        Aprobar y Enviar
+                                    </button>
                                 </div>
-
-                                    <div class="col-sm-4 text-end">
-                                        <button type="button" data-bs-toggle="modal"
-                                                data-bs-target="#modal-confirma-procesar"
-                                                class="btn btn-success round">
-                                            <i class="fa fa-paper-plane"></i>
-                                            Aprobar y Enviar
-                                        </button>
-                                    </div>
 
                             </div>
                             <div class="modal fade modal-info" id="modal-confirma-procesar">
@@ -112,109 +193,14 @@
                                         </div>
                                     </div><!-- /.modal-content -->
                                 </div><!-- /.modal-dialog -->
-                            </div><!-- /.modal -->
-                        </div>
-
-                        {!! Form::close() !!}
-
-                        <div class="modal fade" id="modalFirmar" tabindex="-1" role="dialog"
-                             aria-labelledby="modelTitleId" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <form
-                                    action="{{ route('compra.requisiciones.autorizador.firmar.imprimir',$requisicion->id ?? 0) }}"
-                                    method="POST" class="esperar">
-                                    @csrf
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title" id="modelTitleId">
-                                                Credenciales de firma
-                                            </h4>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                {{-- Usuario --}}
-                                                <div class="col-12 mb-1">
-                                                    <label for="usuario_firma" class="form-label">Usuario</label>
-                                                    <input class="form-control" type="text" name="usuario_firma"
-                                                           id="usuario_firma"
-                                                           value="{{ auth()->user()->email }}">
-                                                </div>
-
-                                                {{-- Contraseña de firma --}}
-                                                <div class="col-12 mb-1">
-                                                    <label for="password_firma" class="form-label">Contraseña
-                                                        Firma</label>
-                                                    <input class="form-control" type="password" name="password_firma"
-                                                           id="password_firma"
-                                                           placeholder="******" required>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                Cerrar
-                                            </button>
-                                            <button
-                                                type="submit"
-                                                class="btn btn-outline-primary round" target="_blank">
-                                                <i class="fa fa-print"></i> Firmar e imprimir
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                </form>
-
-                            </div>
-                        </div>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="modalImprimir" tabindex="-1" role="dialog"
-                             aria-labelledby="modelTitleId"
-                             aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <form
-                                    action="{{ route('compra.requisiciones.autorizador.firmar.imprimir',$requisicion->id ?? 0) }}"
-                                    method="POST" class="esperar">
-                                    @csrf
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title" id="modelTitleId">
-                                                Imprimir Requisición Firmada
-                                            </h4>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                <div class="col-12 mb-1">
-                                                    La requisición ya fue firmada por el solicitante.
-                                                    <br>
-                                                    Puede imprimir el documento firmado.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                Cerrar
-                                            </button>
-                                            <button
-                                                type="submit"
-                                                class="btn btn-outline-primary round" target="_blank">
-                                                <i class="fa fa-print"></i> Imprimir
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                </form>
                             </div>
                         </div>
 
                     </div>
                 </div>
-            </div>
+                {!! Form::close() !!}
 
+            </div>
         </div>
 
         <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
@@ -247,8 +233,9 @@
                         <button type="button" class="btn-close"
                                 data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="{{route('compra.requisiciones.analista.presupuesto.seguimiento.retornar',$requisicion->id)}}"
-                          method="post" class="esperar">
+                    <form
+                        action="{{route('compra.requisiciones.analista.presupuesto.seguimiento.retornar',$requisicion->id)}}"
+                        method="post" class="esperar">
                         @csrf
                         <div class="modal-body">
 
@@ -282,34 +269,50 @@
                 </div>
             </div>
         </div>
-        @endsection
+    </div>
+@endsection
 
-        @push('scripts')
-            <script>
-                @if(session('rutaArchivoFirmado'))
-                var myModal = new bootstrap.Modal(document.getElementById('pdfModal'));
-                myModal.show();
-                @endif
+@push('scripts')
+    <script>
+        @if(session('rutaArchivoFirmado'))
+        var myModal = new bootstrap.Modal(document.getElementById('pdfModal'));
+        myModal.show();
+        @endif
 
-                new Vue({
-                    el: '#editarRequisicion',
-                    name: 'editarRequisicion',
-                    mounted() {
-                        console.log('Instancia vue montada');
-                    },
-                    created() {
-                        console.log('Instancia vue creada');
-                    },
-                    data: {
-                        justificacion: @json($requisicion->justificacion ?? ''),
-                    },
-                    methods: {
-                        firmar() {
+        new Vue({
+            el: '#editarRequisicion',
+            name: 'editarRequisicion',
+            mounted() {
+                console.log('Instancia vue montada');
+            },
+            created() {
+                this.getFuentesFinanciemiento();
+            },
+            data: {
+                justificacion: @json($requisicion->justificacion ?? ''),
+                fuenteFinanciamientoSeleccionada: [],
+                fuentesFinanciamientos: [],
+            },
+            methods: {
+                firmar() {
 
-                            var myModal = new bootstrap.Modal(document.getElementById('modalFirmar'));
-                            myModal.show();
-                        }
+                    var myModal = new bootstrap.Modal(document.getElementById('modalFirmar'));
+                    myModal.show();
+                },
+                async getFuentesFinanciemiento() {
+                    try {
+                        let response = await axios.get('{{ route('api.financiamiento-fuentes.index') }}');
+                        this.fuentesFinanciamientos = response.data.data;
+                    } catch (error) {
+                        notifyErrorApi(error);
                     }
-                });
-            </script>
-    @endpush
+                }
+            },
+            watched: {
+                fuenteFinanciamientoSeleccionada(newValue) {
+                    console.log('Justificación actualizada:', newValue);
+                }
+            }
+        });
+    </script>
+@endpush

@@ -7,7 +7,10 @@ use App\DataTables\Scopes\ScopeCompraRequisicion;
 use App\Http\Controllers\Controller;
 use App\Models\CompraBandeja;
 use App\Models\CompraRequisicion\CompraRequisicion;
+use DB;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use Throwable;
 
 class CompraRequisicionAnalistaPresupuestoController extends Controller
 {
@@ -33,12 +36,36 @@ class CompraRequisicionAnalistaPresupuestoController extends Controller
 
     public function procesar(CompraRequisicion $requisicion, Request $request)
     {
-        $requisicion->analistaPresupuestoVistoBueno($request->comentario);
+        $idsRequeridos = $requisicion->detalles->modelKeys();
+        $datosRecibidos = $request->input('fuentes_financiamiento', []);
+
+        throw_if(
+            count(array_diff($idsRequeridos, array_keys($datosRecibidos))) > 0,
+            ValidationException::withMessages([
+                'fuentes_financiamiento' => 'Faltan fuentes de financiamiento para algunos detalles.',
+            ])
+        );
+
+        try {
+            DB::transaction(function () use ($requisicion, $request, $datosRecibidos) {
+                $requisicion->analistaPresupuestoVistoBueno($request->comentario);
+                foreach ($requisicion->detalles as $detalle) {
+                    $detalle->update([
+                        'financiamiento_fuente_id' => (int) $datosRecibidos[$detalle->id],
+                    ]);
+                }
+            });
+
+        } catch (Throwable $e) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors(['error' => 'Error al procesar: ' . $e->getMessage()]);
+        }
 
         return redirect()
             ->route('compra.requisiciones.analista.presupuesto')
             ->with('success', 'La requisición ha sido procesada con éxito.');
-
     }
 
     public function retornar(CompraRequisicion $requisicion, Request $request)
