@@ -22,13 +22,15 @@ class ScopeCompraRequisicion implements DataTableScope
     public $unidad_id;
     public $estado_id;
     public $codigo_consolidacion;
+    public $usuario_analista_id;
 
     public function __construct(
         $usuario_crea = null,
         $bandeja = null,
         $unidad_id = null,
         $estado_id = null,
-        $codigo_consolidacion = null
+        $codigo_consolidacion = null,
+        $usuario_analista_id = null
 
     ) {
         $req = request();
@@ -37,6 +39,7 @@ class ScopeCompraRequisicion implements DataTableScope
         $this->unidad_id               = $unidad_id    ?? $req->input('unidad_id') ?? null;
         $this->estado_id               = $estado_id    ?? $req->input('estado_id') ?? null;
         $this->codigo_consolidacion    = $codigo_consolidacion    ?? $req->input('codigo_consolidacion') ?? null;
+        $this->usuario_analista_id    = $usuario_analista_id    ?? $req->input('usuario_analista_id') ?? null;
     }
 
     /**
@@ -78,6 +81,14 @@ class ScopeCompraRequisicion implements DataTableScope
 
         if($this->codigo_consolidacion){
             $query->where('codigo_consolidacion', 'like', '%'.$this->codigo_consolidacion.'%');
+        }
+
+        if($this->usuario_analista_id){
+            if(is_array($this->usuario_analista_id)){
+                $query->whereIn('usuario_analista_id', $this->usuario_analista_id);
+            }else {
+                $query->where('usuario_analista_id', $this->usuario_analista_id);
+            }
         }
 
         return $query;

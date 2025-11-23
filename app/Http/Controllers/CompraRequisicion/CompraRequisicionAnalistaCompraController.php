@@ -18,6 +18,7 @@ class CompraRequisicionAnalistaCompraController extends Controller
         $scope = new ScopeCompraRequisicion();
 
         $scope->bandeja = $bandeja;
+        $scope->usuario_analista_id = usuarioAutenticado()->id;
 
         $dataTable->addScope($scope);
 
