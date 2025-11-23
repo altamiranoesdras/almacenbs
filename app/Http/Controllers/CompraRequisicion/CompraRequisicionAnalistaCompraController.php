@@ -36,6 +36,7 @@ class CompraRequisicionAnalistaCompraController extends Controller
     {
         $request->validate([
             'tipo_proceso_id' => 'required|integer',
+            'tipo_adquisicion_id' => 'required|integer',
             'numero_npg' => 'nullable|string',
             'numero_nog' => 'nullable|string',
             'concurso_id' => 'required|integer',

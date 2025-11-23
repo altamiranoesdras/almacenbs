@@ -388,6 +388,7 @@ class CompraRequisicion extends Model implements HasMedia
 
         $this->update([
             'tipo_proceso_id' => $datos->tipo_proceso_id,
+            'tipo_adquisicion_id' => $datos->tipo_adquisicion_id,
             'npg' => $datos->numero_npg,
             'nog' => $datos->numero_nog,
             'tipo_concurso_id' => $datos->concurso_id,

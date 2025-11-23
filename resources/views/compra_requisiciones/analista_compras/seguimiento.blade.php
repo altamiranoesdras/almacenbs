@@ -59,7 +59,7 @@
                                     type="text"
                                     class="form-control"
                                     name="numero_nog"
-                                    value="{{ $requisicion->numero_nog ?? old('numero_nog') }}"
+                                    value="{{ $requisicion->nog ?? old('numero_nog') }}"
                                 />
                             </div>
                             <div
@@ -71,11 +71,22 @@
                                     type="text"
                                     class="form-control"
                                     name="numero_npg"
+                                    value="{{ $requisicion->npg ?? old('numero_npg') }}"
                                 />
                             </div>
 
                             <div class="col-6 mb-1">
-                                <label for="justificacion" class="form-label">Tipo Concurso:</label>
+                                <label for="concurso" class="form-label">Tipo Adquisición:</label>
+                                <multiselect
+                                    v-model="tipoAdquisicionSeleccionado"
+                                    :options="tipoAdquisiciones"
+                                    label="nombre"
+                                    placeholder="Seleccione uno..."
+                                />
+                            </div>
+
+                            <div class="col-6 mb-1">
+                                <label for="concurso" class="form-label">Tipo Concurso:</label>
                                 <multiselect
                                     v-model="tiposConcursoSeleccionado"
                                     :options="tiposConcursos"
@@ -117,6 +128,7 @@
                             <input type="hidden" name="proveedor_id" :value="proveedorSeleccionado ? proveedorSeleccionado.id : ''">
                             <input type="hidden" name="tipo_proceso_id" :value="tiposProcesoSeleccionado ? tiposProcesoSeleccionado.id : ''">
                             <input type="hidden" name="concurso_id" :value="tiposConcursoSeleccionado ? tiposConcursoSeleccionado.id : ''">
+                            <input type="hidden" name="tipo_adquisicion_id" :value="tipoAdquisicionSeleccionado ? tipoAdquisicionSeleccionado.id : ''">
 
 
                         </div>
@@ -367,6 +379,7 @@
                         await this.getTipoProcesos()
                         await this.getTipoConcursos()
                         await this.getProveedores()
+                        await this.getTipoAdquisiciones()
                         await this.obtenerDatos()
                     },
                     created() {
@@ -380,6 +393,8 @@
                         tiposConcursoSeleccionado : null,
                         proveedores : [],
                         proveedorSeleccionado : null,
+                        tipoAdquisiciones : [],
+                        tipoAdquisicionSeleccionado : null,
 
                     },
                     methods: {
@@ -412,10 +427,19 @@
                                 notifyErrorApi(error);
                             }
                         },
+                        async getTipoAdquisiciones() {
+                            try {
+                                let response = await axios.get('{{ route('api.requisicion_tipo_adquisiciones.index') }}');
+                                this.tipoAdquisiciones = response.data.data;
+                            } catch (error) {
+                                notifyErrorApi(error);
+                            }
+                        },
                         obtenerDatos() {
                             let tipo_proceso_id = @json(old('tipo_proceso_id', $requisicion->tipo_proceso_id));
                             let proveedorActualId = @json(old('proveedor_id', $requisicion->proveedor_adjudicado));
                             let tipoConsursoId = @json(old('concurso_id', $requisicion->tipo_concurso_id));
+                            let tipoAdquisicionId = @json(old('tipo_adquisicion_id', $requisicion->tipo_adquisicion_id));
 
                             if(tipo_proceso_id) {
                                 this.tiposProcesoSeleccionado = this.tiposProcesos.find(tipo => tipo.id === parseInt(tipo_proceso_id));
@@ -425,6 +449,9 @@
                             }
                             if(tipoConsursoId){
                                 this.tiposConcursoSeleccionado = this.tiposConcursos.find(tipo => tipo.id === parseInt(tipoConsursoId));
+                            }
+                            if(tipoAdquisicionId) {
+                                this.tipoAdquisicionSeleccionado = this.tipoAdquisiciones.find(tipo => tipo.id === parseInt(tipoAdquisicionId));
                             }
                         }
                     }
