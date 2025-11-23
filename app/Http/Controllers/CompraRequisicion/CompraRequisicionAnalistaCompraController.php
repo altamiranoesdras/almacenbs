@@ -35,7 +35,7 @@ class CompraRequisicionAnalistaCompraController extends Controller
     public function procesar(CompraRequisicion $requisicion, Request $request)
     {
         $request->validate([
-//            'tipo_proceso_id' => 'required|integer',
+            'tipo_proceso_id' => 'required|integer',
             'numero_npg' => 'nullable|string',
             'numero_nog' => 'nullable|string',
             'concurso_id' => 'required|integer',

@@ -115,7 +115,7 @@
                             </div>
 
                             <input type="hidden" name="proveedor_id" :value="proveedorSeleccionado ? proveedorSeleccionado.id : ''">
-                            <input type="hidden" name="proceso_id" :value="tiposProcesoSeleccionado ? tiposProcesoSeleccionado.id : ''">
+                            <input type="hidden" name="tipo_proceso_id" :value="tiposProcesoSeleccionado ? tiposProcesoSeleccionado.id : ''">
                             <input type="hidden" name="concurso_id" :value="tiposConcursoSeleccionado ? tiposConcursoSeleccionado.id : ''">
 
 
@@ -413,7 +413,7 @@
                             }
                         },
                         obtenerDatos() {
-                            let tipo_proceso_id = @json(old('proceso_id', $requisicion->tipo_proceso_id));
+                            let tipo_proceso_id = @json(old('tipo_proceso_id', $requisicion->tipo_proceso_id));
                             let proveedorActualId = @json(old('proveedor_id', $requisicion->proveedor_adjudicado));
                             let tipoConsursoId = @json(old('concurso_id', $requisicion->tipo_concurso_id));
 

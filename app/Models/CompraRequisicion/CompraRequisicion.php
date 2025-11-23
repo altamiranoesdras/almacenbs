@@ -115,6 +115,8 @@ use Throwable;
  * @method static Builder|CompraRequisicion whereUsuarioSolicitaId($value)
  * @method static Builder|CompraRequisicion withTrashed()
  * @method static Builder|CompraRequisicion withoutTrashed()
+ * @property int|null $tipo_proceso_id
+ * @method static Builder|CompraRequisicion whereTipoProcesoId($value)
  * @mixin Eloquent
  */
 class CompraRequisicion extends Model implements HasMedia
@@ -129,6 +131,7 @@ class CompraRequisicion extends Model implements HasMedia
 
     public $fillable = [
         'tipo_concurso_id',
+        'tipo_proceso_id',
         'tipo_adquisicion_id',
         'correlativo',
         'codigo',
@@ -384,7 +387,7 @@ class CompraRequisicion extends Model implements HasMedia
     {
 
         $this->update([
-            //Pendiente el tipo de concurso
+            'tipo_proceso_id' => $datos->tipo_proceso_id,
             'npg' => $datos->numero_npg,
             'nog' => $datos->numero_nog,
             'tipo_concurso_id' => $datos->concurso_id,
