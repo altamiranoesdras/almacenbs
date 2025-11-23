@@ -41,6 +41,49 @@
                     {!! Form::model($requisicion, ['url' => route('compra.requisiciones.analista.presupuesto.seguimiento.procesar', $requisicion->id), 'method' => 'patch','class' => 'esperar']) !!}
                     <div class="card-body">
                         <div class="row">
+                            <div class="col-6 mb-1">
+                                <label for="justificacion" class="form-label">Tipo de Proceso:</label>
+                                <multiselect
+                                    v-model="tiposProcesoSeleccionado"
+                                    :options="tiposProcesos"
+                                    label="nombre"
+                                    placeholder="Seleccione uno..."
+                                />
+                            </div>
+                            <div
+                                v-if="tiposProcesoSeleccionado?.id == {{\App\Models\CompraRequisicionProcesoTipo::NOG}}"
+                                class="col-6 mb-1"
+                            >
+                                <label for="justificacion" class="form-label">Numero NOG:</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    name="numero_nog"
+                                />
+                            </div>
+                            <div
+                                v-if="tiposProcesoSeleccionado?.id == {{\App\Models\CompraRequisicionProcesoTipo::NPG}}"
+                                class="col-6 mb-1"
+                            >
+                                <label for="justificacion" class="form-label">Numero NPG:</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    name="numero_npg"
+                                />
+                            </div>
+
+{{--                            <div class="col-6 mb-1">--}}
+{{--                                <label for="justificacion" class="form-label">Tipo Concurso:</label>--}}
+{{--                                <multiselect--}}
+{{--                                    v-model="tiposProcesoSeleccionado"--}}
+{{--                                    :options="tiposProcesos"--}}
+{{--                                    label="nombre"--}}
+{{--                                    placeholder="Seleccione uno..."--}}
+{{--                                />--}}
+{{--                            </div>--}}
+
+
                             <div class="col-12 mb-1">
                                 Comentario:
                                 <textarea
@@ -295,20 +338,41 @@
                     el: '#editarRequisicion',
                     name: 'editarRequisicion',
                     mounted() {
-                        console.log('Instancia vue montada');
+                        this.getTipoProcesos()
                     },
                     created() {
-                        console.log('Instancia vue creada');
+
                     },
                     data: {
                         justificacion: @json($requisicion->justificacion ?? ''),
+                        tiposProcesos : [],
+                        tiposProcesoSeleccionado : null,
+
                     },
                     methods: {
                         firmar() {
 
                             var myModal = new bootstrap.Modal(document.getElementById('modalFirmar'));
                             myModal.show();
-                        }
+                        },
+                        async getTipoProcesos() {
+                            try {
+                                let response = await axios.get('{{ route('api.compra_requisicion_proceso_tipos.index') }}');
+                                this.tiposProcesos = response.data.data;
+                                console.log(this.tiposProcesos);
+                            } catch (error) {
+                                notifyErrorApi(error);
+                            }
+                        },
+                        {{--async getTipoConcursos() {--}}
+                        {{--    try {--}}
+                        {{--        let response = await axios.get('{{ route('api.compra') }}');--}}
+                        {{--        this.tiposProcesos = response.data.data;--}}
+                        {{--        console.log(this.tiposProcesos);--}}
+                        {{--    } catch (error) {--}}
+                        {{--        notifyErrorApi(error);--}}
+                        {{--    }--}}
+                        {{--},--}}
                     }
                 });
             </script>

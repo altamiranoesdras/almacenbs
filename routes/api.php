@@ -14,6 +14,7 @@ use App\Http\Controllers\API\Compra1hDetalleAPIController;
 use App\Http\Controllers\API\CompraAPIController;
 use App\Http\Controllers\API\CompraDetalleAPIController;
 use App\Http\Controllers\API\CompraEstadoAPIController;
+use App\Http\Controllers\API\CompraRequisicionProcesoTipoApiController;
 use App\Http\Controllers\API\CompraTipoAPIController;
 use App\Http\Controllers\API\DenominacionAPIController;
 use App\Http\Controllers\API\DepartamentoAPIController;
@@ -68,7 +69,7 @@ Route::group(['as'=>'api.'], function () {
         Route::post('user/remove/shortcut/{user}', [UserAPIController::class,'removeShortcut'])->name('users.remove_shortcut');
         Route::resource('users', UserAPIController::class);
 
-
+        Route::resource('compra_requisicion_proceso_tipos', CompraRequisicionProcesoTipoApiController::class);
         Route::resource('compra_estados', CompraEstadoAPIController::class);
 
 

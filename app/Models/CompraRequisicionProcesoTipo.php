@@ -56,6 +56,9 @@ class CompraRequisicionProcesoTipo extends Model
         'deleted_at' => 'nullable'
     ];
 
+    const NOG = 1;
+    const NPG = 2;
+
     public static $messages = [
 
     ];
