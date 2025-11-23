@@ -7,6 +7,7 @@ use App\DataTables\Scopes\ScopeCompraRequisicion;
 use App\Http\Controllers\Controller;
 use App\Models\CompraBandeja;
 use App\Models\CompraRequisicion\CompraRequisicion;
+use Illuminate\Http\Request;
 
 class CompraRequisicionAnalistaCompraController extends Controller
 {
@@ -27,9 +28,24 @@ class CompraRequisicionAnalistaCompraController extends Controller
     }
     public function seguimiento(CompraRequisicion $requisicion)
     {
-//        return view('pagina_en_construccion');
 
         return view('compra_requisiciones.analista_compras.seguimiento', compact('requisicion'));
+    }
+
+    public function procesar(CompraRequisicion $requisicion, Request $request)
+    {
+        $request->validate([
+//            'tipo_proceso_id' => 'required|integer',
+            'numero_npg' => 'nullable|string',
+            'numero_nog' => 'nullable|string',
+            'concurso_id' => 'required|integer',
+            'proveedor_id' => 'required|integer',
+            'numero_adjudicacion' => 'required|string',
+        ]);
+
+        $requisicion->analistaComprasProcesar($request);
+
+        return redirect()->route('compra.requisiciones.analista.compras')->with('success', 'La requisición ha sido procesada correctamente.');
     }
 
 }

@@ -380,6 +380,20 @@ class CompraRequisicion extends Model implements HasMedia
         $this->addBitacora("REQUISICIÓN DE COMPRA RETORNADA POR ANALISTA DE PRESUPUESTO", $comentario);
     }
 
+    public function analistaComprasProcesar($datos, $comentario=''): void
+    {
+        $this->update([
+            //Pendiente el tipo de concurso
+            'npg' => $datos->numero_npg,
+            'nog' => $datos->numero_nog,
+            'tipo_concurso_id' => $datos->consurso_id,
+            'proveedor_adjudicado' => $datos->proveedor_id,
+            'numero_adjudicacion' => $datos->numero_adjudicacion,
+        ]);
+
+        $this->addBitacora("REQUISICIÓN DE COMPRA PROCESADA POR ANALISTA DE COMPRAS", $comentario);
+
+    }
 
     public function getLastMediaUrl(string $collection = 'default', string $conversion = ''): ?string
     {

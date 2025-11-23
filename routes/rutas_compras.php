@@ -54,6 +54,7 @@ Route::prefix('compra')->name('compra.')->group(function () {
 
         Route::get('analista/compras', [CompraRequisicionAnalistaCompraController::class, 'index'])->name('analista.compras');
         Route::get('analista/compras/{requisicion}', [CompraRequisicionAnalistaCompraController::class, 'seguimiento'])->name('analista.compras.seguimiento');
+        Route::patch('analista/compras/procesar/{requisicion}', [CompraRequisicionAnalistaCompraController::class, 'procesar'])->name('analista.compras.seguimiento.procesar');
 
         Route::get('requisiciones', [CompraRequisicionController::class, 'index'])->name('index');
         Route::get('requisiciones/create', [CompraRequisicionController::class, 'create'])->name('create');

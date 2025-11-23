@@ -38,17 +38,17 @@
                 @include('compra_requisiciones.componentes.tarjeta_compra_requisicion', ['requisicion' => $requisicion])
 
                 <div class="card">
-                    {!! Form::model($requisicion, ['url' => route('compra.requisiciones.analista.presupuesto.seguimiento.procesar', $requisicion->id), 'method' => 'patch','class' => 'esperar']) !!}
+                    {!! Form::model($requisicion, ['url' => route('compra.requisiciones.analista.compras.seguimiento.procesar', $requisicion->id), 'method' => 'patch','class' => 'esperar']) !!}
                     <div class="card-body">
                         <div class="row">
                             <div class="col-6 mb-1">
                                 <label for="justificacion" class="form-label">Tipo de Proceso:</label>
                                 <multiselect
-                                    v-model="tiposProcesoSeleccionado"
-                                    :options="tiposProcesos"
-                                    label="nombre"
-                                    placeholder="Seleccione uno..."
-                                />
+                                        v-model="tiposProcesoSeleccionado"
+                                        :options="tiposProcesos"
+                                        label="nombre"
+                                        placeholder="Seleccione uno..."
+                        />
                             </div>
                             <div
                                 v-if="tiposProcesoSeleccionado?.id == {{\App\Models\CompraRequisicionProcesoTipo::NOG}}"
@@ -59,6 +59,7 @@
                                     type="text"
                                     class="form-control"
                                     name="numero_nog"
+                                    value="{{ $requisicion->numero_nog ?? old('numero_nog') }}"
                                 />
                             </div>
                             <div
@@ -99,6 +100,7 @@
                                     type="text"
                                     class="form-control"
                                     name="numero_adjudicacion"
+                                    value="{{ $requisicion->numero_adjudicacion ?? old('numero_adjudicacion') }}"
                                 />
                             </div>
 
@@ -111,6 +113,12 @@
                                     placeholder="Justificación de la compra"
                                 ></textarea>
                             </div>
+
+                            <input type="hidden" name="proveedor_id" :value="proveedorSeleccionado ? proveedorSeleccionado.id : ''">
+                            <input type="hidden" name="proceso_id" :value="tiposProcesoSeleccionado ? tiposProcesoSeleccionado.id : ''">
+                            <input type="hidden" name="concurso_id" :value="tiposConcursoSeleccionado ? tiposConcursoSeleccionado.id : ''">
+
+
                         </div>
 
                         <div class="card-footer">
@@ -355,10 +363,11 @@
                 new Vue({
                     el: '#editarRequisicion',
                     name: 'editarRequisicion',
-                    mounted() {
-                        this.getTipoProcesos()
-                        this.getTipoConcursos()
-                        this.getProveedores()
+                    async mounted() {
+                        await this.getTipoProcesos()
+                        await this.getTipoConcursos()
+                        await this.getProveedores()
+                        await this.obtenerDatos()
                     },
                     created() {
 
@@ -403,6 +412,21 @@
                                 notifyErrorApi(error);
                             }
                         },
+                        obtenerDatos() {
+                            let tipo_proceso_id = @json(old('proceso_id', $requisicion->tipo_proceso_id));
+                            let proveedorActualId = @json(old('proveedor_id', $requisicion->proveedor_adjudicado));
+                            let tipoConsursoId = @json(old('concurso_id', $requisicion->tipo_concurso_id));
+
+                            if(tipo_proceso_id) {
+                                this.tiposProcesoSeleccionado = this.tiposProcesos.find(tipo => tipo.id === parseInt(tipo_proceso_id));
+                            }
+                            if(proveedorActualId != null){
+                                this.proveedorSeleccionado = this.proveedores.find(proveedor => proveedor.id === parseInt(proveedorActualId));
+                            }
+                            if(tipoConsursoId){
+                                this.tiposConcursoSeleccionado = this.tiposConcursos.find(tipo => tipo.id === parseInt(tipoConsursoId));
+                            }
+                        }
                     }
                 });
             </script>
