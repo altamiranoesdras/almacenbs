@@ -382,11 +382,12 @@ class CompraRequisicion extends Model implements HasMedia
 
     public function analistaComprasProcesar($datos, $comentario=''): void
     {
+
         $this->update([
             //Pendiente el tipo de concurso
             'npg' => $datos->numero_npg,
             'nog' => $datos->numero_nog,
-            'tipo_concurso_id' => $datos->consurso_id,
+            'tipo_concurso_id' => $datos->concurso_id,
             'proveedor_adjudicado' => $datos->proveedor_id,
             'numero_adjudicacion' => $datos->numero_adjudicacion,
         ]);
