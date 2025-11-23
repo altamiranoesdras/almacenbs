@@ -386,15 +386,22 @@ class CompraRequisicion extends Model implements HasMedia
     public function analistaComprasProcesar($datos, $comentario=''): void
     {
 
-        $this->update([
-            'tipo_proceso_id' => $datos->tipo_proceso_id,
-            'tipo_adquisicion_id' => $datos->tipo_adquisicion_id,
-            'npg' => $datos->numero_npg,
-            'nog' => $datos->numero_nog,
-            'tipo_concurso_id' => $datos->concurso_id,
-            'proveedor_adjudicado' => $datos->proveedor_id,
-            'numero_adjudicacion' => $datos->numero_adjudicacion,
-        ]);
+        if($this->estado_id == CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_COMPRAS) {
+            $this->update([
+                'tipo_proceso_id' => $datos->tipo_proceso_id,
+                'tipo_adquisicion_id' => $datos->tipo_adquisicion_id,
+                'npg' => $datos->numero_npg,
+                'nog' => $datos->numero_nog,
+                'tipo_concurso_id' => $datos->concurso_id,
+                'proveedor_adjudicado' => $datos->proveedor_id,
+                'numero_adjudicacion' => $datos->numero_adjudicacion,
+                'estado_id' => CompraRequisicionEstado::INICIO_DE_GESTION,
+            ]);
+        }else if ($this->estado_id == CompraRequisicionEstado::INICIO_DE_GESTION) {
+            $this->update([
+                'estado_id' => CompraRequisicionEstado::ORDEN_DE_COMPRA_GENERADA,
+            ]);
+        }
 
         $this->addBitacora("REQUISICIÓN DE COMPRA PROCESADA POR ANALISTA DE COMPRAS", $comentario);
 

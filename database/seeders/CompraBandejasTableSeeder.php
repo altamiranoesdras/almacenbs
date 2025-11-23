@@ -88,6 +88,7 @@ class CompraBandejasTableSeeder extends Seeder
 
         $bandejaAnalistaCompras->estados()->attach([
             CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_COMPRAS,
+            CompraRequisicionEstado::INICIO_DE_GESTION,
         ]);
     }
 }

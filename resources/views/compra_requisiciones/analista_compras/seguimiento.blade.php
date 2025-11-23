@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('titulo_pagina', 'Autorizar Compra Requisición' )
+@include('layouts.plugins.bootstrap_fileinput')
 
 @section('content')
 
@@ -44,11 +45,12 @@
                             <div class="col-6 mb-1">
                                 <label for="justificacion" class="form-label">Tipo de Proceso:</label>
                                 <multiselect
-                                        v-model="tiposProcesoSeleccionado"
-                                        :options="tiposProcesos"
-                                        label="nombre"
-                                        placeholder="Seleccione uno..."
-                        />
+                                    v-model="tiposProcesoSeleccionado"
+                                    label="nombre"
+                                    placeholder="Seleccione uno..."
+                                    :options="tiposProcesos"
+                                    :disabled="deshAbilitarCampos"
+                                />
                             </div>
                             <div
                                 v-if="tiposProcesoSeleccionado?.id == {{\App\Models\CompraRequisicionProcesoTipo::NOG}}"
@@ -60,6 +62,7 @@
                                     class="form-control"
                                     name="numero_nog"
                                     value="{{ $requisicion->nog ?? old('numero_nog') }}"
+                                    :disabled="deshAbilitarCampos"
                                 />
                             </div>
                             <div
@@ -72,9 +75,9 @@
                                     class="form-control"
                                     name="numero_npg"
                                     value="{{ $requisicion->npg ?? old('numero_npg') }}"
+                                    :disabled="deshAbilitarCampos"
                                 />
                             </div>
-
                             <div class="col-6 mb-1">
                                 <label for="concurso" class="form-label">Tipo Adquisición:</label>
                                 <multiselect
@@ -82,9 +85,9 @@
                                     :options="tipoAdquisiciones"
                                     label="nombre"
                                     placeholder="Seleccione uno..."
+                                    :disabled="deshAbilitarCampos"
                                 />
                             </div>
-
                             <div class="col-6 mb-1">
                                 <label for="concurso" class="form-label">Tipo Concurso:</label>
                                 <multiselect
@@ -92,9 +95,9 @@
                                     :options="tiposConcursos"
                                     label="nombre"
                                     placeholder="Seleccione uno..."
+                                    :disabled="deshAbilitarCampos"
                                 />
                             </div>
-
                             <div class="col-6 mb-1">
                                 <label for="justificacion" class="form-label">Proveedor:</label>
                                 <multiselect
@@ -102,9 +105,9 @@
                                     :options="proveedores"
                                     label="nombre"
                                     placeholder="Seleccione uno..."
+                                    :disabled="deshAbilitarCampos"
                                 />
                             </div>
-
                             <div class="col-6 mb-1">
                                 <label for="numero_adjudicacion" class="form-label">Numero Adjudicación:</label>
                                 <input
@@ -112,8 +115,28 @@
                                     class="form-control"
                                     name="numero_adjudicacion"
                                     value="{{ $requisicion->numero_adjudicacion ?? old('numero_adjudicacion') }}"
+                                    :disabled="deshAbilitarCampos"
                                 />
                             </div>
+
+
+                            @if($requisicion->estado_id == \App\Models\CompraRequisicionEstado::INICIO_DE_GESTION)
+                                <div class="col-6 mb-1">
+                                    <label for="numero_orden" class="form-label">Numero Adjudicación:</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        name="numero_orden"
+                                        value="{{ $requisicion->numero_orden ?? old('numero_orden') }}"
+                                    />
+                                </div>
+
+                                <div class="col-6 mb-1">
+                                    <label for="numero_orden" class="form-label">Orden de compra:</label>
+                                    <input type="file" name="orden_compra" class="form-control" id="orden_compra">
+                                </div>
+                            @endif
+
 
                             <div class="col-12 mb-1">
                                 Comentario:
@@ -125,10 +148,14 @@
                                 ></textarea>
                             </div>
 
-                            <input type="hidden" name="proveedor_id" :value="proveedorSeleccionado ? proveedorSeleccionado.id : ''">
-                            <input type="hidden" name="tipo_proceso_id" :value="tiposProcesoSeleccionado ? tiposProcesoSeleccionado.id : ''">
-                            <input type="hidden" name="concurso_id" :value="tiposConcursoSeleccionado ? tiposConcursoSeleccionado.id : ''">
-                            <input type="hidden" name="tipo_adquisicion_id" :value="tipoAdquisicionSeleccionado ? tipoAdquisicionSeleccionado.id : ''">
+                            <input type="hidden" name="proveedor_id"
+                                   :value="proveedorSeleccionado ? proveedorSeleccionado.id : ''">
+                            <input type="hidden" name="tipo_proceso_id"
+                                   :value="tiposProcesoSeleccionado ? tiposProcesoSeleccionado.id : ''">
+                            <input type="hidden" name="concurso_id"
+                                   :value="tiposConcursoSeleccionado ? tiposConcursoSeleccionado.id : ''">
+                            <input type="hidden" name="tipo_adquisicion_id"
+                                   :value="tipoAdquisicionSeleccionado ? tipoAdquisicionSeleccionado.id : ''">
 
 
                         </div>
@@ -149,28 +176,40 @@
 
                                 <div class="col-sm-4 text-center">
 
-{{--                                    @if(!$requisicion->tiene_firma_autorizador)--}}
-{{--                                        <button type="button" class="btn btn-outline-info round" @click="firmar()">--}}
-{{--                                            Firmar--}}
-{{--                                        </button>--}}
-{{--                                    @else--}}
+                                    {{--                                    @if(!$requisicion->tiene_firma_autorizador)--}}
+                                    {{--                                        <button type="button" class="btn btn-outline-info round" @click="firmar()">--}}
+                                    {{--                                            Firmar--}}
+                                    {{--                                        </button>--}}
+                                    {{--                                    @else--}}
 
-{{--                                        <button type="button" class="btn btn-outline-info round" data-bs-toggle="modal"--}}
-{{--                                                data-bs-target="#modalImprimir">--}}
-{{--                                            Ver PDF Firmado--}}
-{{--                                        </button>--}}
-{{--                                    @endif--}}
+                                    {{--                                        <button type="button" class="btn btn-outline-info round" data-bs-toggle="modal"--}}
+                                    {{--                                                data-bs-target="#modalImprimir">--}}
+                                    {{--                                            Ver PDF Firmado--}}
+                                    {{--                                        </button>--}}
+                                    {{--                                    @endif--}}
 
                                 </div>
 
-                                    <div class="col-sm-4 text-end">
+                                <div class="col-sm-4 text-end">
+                                    @if($requisicion->estado_id == \App\Models\CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_COMPRAS)
                                         <button type="button" data-bs-toggle="modal"
                                                 data-bs-target="#modal-confirma-procesar"
                                                 class="btn btn-success round">
                                             <i class="fa fa-paper-plane"></i>
-                                            Aprobar y Enviar
+                                            Iniciar Proceso
                                         </button>
-                                    </div>
+                                    @endif
+
+                                    @if($requisicion->estado_id == \App\Models\CompraRequisicionEstado::INICIO_DE_GESTION)
+                                        <button type="button" data-bs-toggle="modal"
+                                                data-bs-target="#modal-confirma-procesar"
+                                                class="btn btn-success round">
+                                            <i class="fa fa-paper-plane"></i>
+                                            Enviar a Almacén
+                                        </button>
+                                    @endif
+
+                                </div>
 
                             </div>
                             <div class="modal fade modal-info" id="modal-confirma-procesar">
@@ -198,59 +237,6 @@
 
                         {!! Form::close() !!}
 
-                        <div class="modal fade" id="modalFirmar" tabindex="-1" role="dialog"
-                             aria-labelledby="modelTitleId" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <form
-                                    action="{{ route('compra.requisiciones.autorizador.firmar.imprimir',$requisicion->id ?? 0) }}"
-                                    method="POST" class="esperar">
-                                    @csrf
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title" id="modelTitleId">
-                                                Credenciales de firma
-                                            </h4>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                {{-- Usuario --}}
-                                                <div class="col-12 mb-1">
-                                                    <label for="usuario_firma" class="form-label">Usuario</label>
-                                                    <input class="form-control" type="text" name="usuario_firma"
-                                                           id="usuario_firma"
-                                                           value="{{ auth()->user()->email }}">
-                                                </div>
-
-                                                {{-- Contraseña de firma --}}
-                                                <div class="col-12 mb-1">
-                                                    <label for="password_firma" class="form-label">Contraseña
-                                                        Firma</label>
-                                                    <input class="form-control" type="password" name="password_firma"
-                                                           id="password_firma"
-                                                           placeholder="******" required>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                Cerrar
-                                            </button>
-                                            <button
-                                                type="submit"
-                                                class="btn btn-outline-primary round" target="_blank">
-                                                <i class="fa fa-print"></i> Firmar e imprimir
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                </form>
-
-                            </div>
-                        </div>
-
-                        <!-- Modal -->
                         <div class="modal fade" id="modalImprimir" tabindex="-1" role="dialog"
                              aria-labelledby="modelTitleId"
                              aria-hidden="true">
@@ -328,8 +314,9 @@
                         <button type="button" class="btn-close"
                                 data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="{{route('compra.requisiciones.analista.presupuesto.seguimiento.retornar',$requisicion->id)}}"
-                          method="post" class="esperar">
+                    <form
+                        action="{{route('compra.requisiciones.analista.presupuesto.seguimiento.retornar',$requisicion->id)}}"
+                        method="post" class="esperar">
                         @csrf
                         <div class="modal-body">
 
@@ -387,14 +374,15 @@
                     },
                     data: {
                         justificacion: @json($requisicion->justificacion ?? ''),
-                        tiposProcesos : [],
-                        tiposProcesoSeleccionado : null,
-                        tiposConcursos : [],
-                        tiposConcursoSeleccionado : null,
-                        proveedores : [],
-                        proveedorSeleccionado : null,
-                        tipoAdquisiciones : [],
-                        tipoAdquisicionSeleccionado : null,
+                        tiposProcesos: [],
+                        tiposProcesoSeleccionado: null,
+                        tiposConcursos: [],
+                        tiposConcursoSeleccionado: null,
+                        proveedores: [],
+                        proveedorSeleccionado: null,
+                        tipoAdquisiciones: [],
+                        tipoAdquisicionSeleccionado: null,
+                        deshAbilitarCampos: @json($requisicion->estado_id != \App\Models\CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_COMPRAS),
 
                     },
                     methods: {
@@ -441,20 +429,38 @@
                             let tipoConsursoId = @json(old('concurso_id', $requisicion->tipo_concurso_id));
                             let tipoAdquisicionId = @json(old('tipo_adquisicion_id', $requisicion->tipo_adquisicion_id));
 
-                            if(tipo_proceso_id) {
+                            if (tipo_proceso_id) {
                                 this.tiposProcesoSeleccionado = this.tiposProcesos.find(tipo => tipo.id === parseInt(tipo_proceso_id));
                             }
-                            if(proveedorActualId != null){
+                            if (proveedorActualId != null) {
                                 this.proveedorSeleccionado = this.proveedores.find(proveedor => proveedor.id === parseInt(proveedorActualId));
                             }
-                            if(tipoConsursoId){
+                            if (tipoConsursoId) {
                                 this.tiposConcursoSeleccionado = this.tiposConcursos.find(tipo => tipo.id === parseInt(tipoConsursoId));
                             }
-                            if(tipoAdquisicionId) {
+                            if (tipoAdquisicionId) {
                                 this.tipoAdquisicionSeleccionado = this.tipoAdquisiciones.find(tipo => tipo.id === parseInt(tipoAdquisicionId));
                             }
                         }
                     }
+                });
+                $(function () {
+                    $("#orden_compra").fileinput({
+                        language: "es",
+                        initialPreview: @json(getLogo()),
+                        dropZoneEnabled: true,
+                        maxFileCount: 1,
+                        maxFileSize: 2000,
+                        showUpload: false,
+                        initialPreviewAsData: true,
+                        showBrowse: true,
+                        showRemove: true,
+                        theme: "fa6",
+                        browseOnZoneClick: true,
+                        allowedPreviewTypes: ["image"],
+                        allowedFileTypes: ["image"],
+                        initialPreviewFileType: 'image',
+                    });
                 });
             </script>
     @endpush
