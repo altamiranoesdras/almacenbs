@@ -87,9 +87,8 @@
                                                 />
                                             </div>
 
-                                            {{--                                            <h1>hola</h1>--}}
                                             <input
-                                                type="text"
+                                                type="hidden"
                                                 name="fuentes_financiamiento[{{$detalle->id}}]"
                                                 :value="fuenteFinanciamientoSeleccionada[{{$detalle->id}}]?.id"
                                             >
@@ -115,7 +114,7 @@
                             <tfoot class="small">
                             <tr>
                                 {{-- Colspan fijo: 10 columnas totales - 1 = 9 --}}
-                                <td colspan="9">
+                                <td colspan="10">
                                     <b class="float-end">Total monto</b>
                                 </td>
                                 <td class="text-end">
@@ -123,7 +122,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="9">
+                                <td colspan="10">
                                     <b class="float-end">Total insumos</b>
                                 </td>
                                 <td class="text-end">
@@ -154,7 +153,6 @@
                             <div class="row mb1">
 
                                 <div class="col-sm-4">
-                                    <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-outline-secondary round me-1"
                                             data-bs-toggle="modal" data-bs-target="#modalRetornar"
                                     >
@@ -163,7 +161,7 @@
                                     </button>
                                 </div>
 
-                                <div class="col-sm-4 text-end">
+                                <div class="col-sm-8 text-end">
                                     <button type="button" data-bs-toggle="modal"
                                             data-bs-target="#modal-confirma-procesar"
                                             class="btn btn-success round">
@@ -282,9 +280,6 @@
         new Vue({
             el: '#editarRequisicion',
             name: 'editarRequisicion',
-            mounted() {
-                console.log('Instancia vue montada');
-            },
             created() {
                 this.getFuentesFinanciemiento();
             },
@@ -292,6 +287,7 @@
                 justificacion: @json($requisicion->justificacion ?? ''),
                 fuenteFinanciamientoSeleccionada: [],
                 fuentesFinanciamientos: [],
+                requisicionDetalles: @json($requisicion->detalles ?? []),
             },
             methods: {
                 firmar() {
@@ -303,16 +299,38 @@
                     try {
                         let response = await axios.get('{{ route('api.financiamiento-fuentes.index') }}');
                         this.fuentesFinanciamientos = response.data.data;
+                        this.obtenerFuenteFinanciamiento()
                     } catch (error) {
                         notifyErrorApi(error);
                     }
+                },
+                {{--obtenerFuenteFinanciamiento() {--}}
+                {{--    let olds = @json(old('fuentes_financiamiento'));--}}
+                {{--    this.requisicionDetalles.forEach(detalle => {--}}
+                {{--        let fuenteId = detalle.financiamiento_fuente_id;--}}
+                {{--        let fuente = this.fuentesFinanciamientos.find(f => f.id === fuenteId);--}}
+                {{--        this.fuenteFinanciamientoSeleccionada[detalle.id] = fuente || null;--}}
+                {{--    });--}}
+                {{--}--}}
+                obtenerFuenteFinanciamiento() {
+                    let olds = @json(old('fuentes_financiamiento', []));
+                    let estamosCorrigiendo = olds && Object.keys(olds).length > 0;
+
+                    this.requisicionDetalles.forEach(detalle => {
+                        let targetId;
+
+                        if (estamosCorrigiendo) {
+                            targetId = olds[detalle.id];
+                        } else {
+                            targetId = detalle.financiamiento_fuente_id;
+                        }
+
+                        let fuente = this.fuentesFinanciamientos.find(f => f.id == targetId);
+
+                        this.fuenteFinanciamientoSeleccionada[detalle.id] = fuente || null;
+                    });
                 }
             },
-            watched: {
-                fuenteFinanciamientoSeleccionada(newValue) {
-                    console.log('Justificación actualizada:', newValue);
-                }
-            }
         });
     </script>
 @endpush

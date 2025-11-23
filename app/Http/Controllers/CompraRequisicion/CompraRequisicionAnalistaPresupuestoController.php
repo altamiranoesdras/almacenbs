@@ -37,21 +37,25 @@ class CompraRequisicionAnalistaPresupuestoController extends Controller
     public function procesar(CompraRequisicion $requisicion, Request $request)
     {
         $idsRequeridos = $requisicion->detalles->modelKeys();
-        $datosRecibidos = $request->input('fuentes_financiamiento', []);
+        $rawDatos = $request->input('fuentes_financiamiento', []);
+
+        $datosValidos = array_filter($rawDatos, function($valor) {
+            return !empty($valor) && $valor !== 'null';
+        });
 
         throw_if(
-            count(array_diff($idsRequeridos, array_keys($datosRecibidos))) > 0,
+            count(array_diff($idsRequeridos, array_keys($datosValidos))) > 0,
             ValidationException::withMessages([
                 'fuentes_financiamiento' => 'Faltan fuentes de financiamiento para algunos detalles.',
             ])
         );
 
         try {
-            DB::transaction(function () use ($requisicion, $request, $datosRecibidos) {
+            DB::transaction(function () use ($requisicion, $request, $datosValidos) {
                 $requisicion->analistaPresupuestoVistoBueno($request->comentario);
                 foreach ($requisicion->detalles as $detalle) {
                     $detalle->update([
-                        'financiamiento_fuente_id' => (int) $datosRecibidos[$detalle->id],
+                        'financiamiento_fuente_id' => (int) $datosValidos[$detalle->id],
                     ]);
                 }
             });
