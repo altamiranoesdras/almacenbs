@@ -44,6 +44,9 @@ class CompraRequisicionSupervisorController extends Controller
 
             $requisicion->supervisorVistoBueno($request->comentario ?? null);
 
+            $requisicion->usuario_analista_id = $request->usuario_analista_id;
+            $requisicion->save();
+
         } catch (Exception $exception) {
             DB::rollBack();
 

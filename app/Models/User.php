@@ -487,4 +487,12 @@ class User extends Authenticatable implements  HasMedia
 
     }
 
+    public function scopeAnalistasDePresupuesto(): \Illuminate\Database\Eloquent\Builder
+    {
+        return $this->whereHas('roles', function ($q) {
+            $q->whereId(Role::ANALISTA_PRESUPUESTO);
+        });
+
+    }
+
 }

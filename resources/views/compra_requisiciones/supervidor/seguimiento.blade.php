@@ -41,7 +41,18 @@
                     {!! Form::model($requisicion, ['url' => route('compra.requisiciones.supervisor.seguimiento.procesar', $requisicion->id), 'method' => 'patch','class' => 'esperar']) !!}
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-12 mb-1">
+                            <div class="form-group col-sm-6 mb-2">
+                                {!! Form::label('usuario_analista_id','Analista de Presupuesto:') !!}
+                                {!!
+                                    Form::select(
+                                        'usuario_analista_id',
+                                        select(\App\Models\User::analistasDePresupuesto(), 'name')
+                                        , null
+                                        , ['id'=>'usuario_analista_id','class' => 'form-control','style'=>'width: 100%']
+                                    )
+                                !!}
+                            </div>
+                            <div class="col-12 mb-1 form-group">
                                 Comentario:
                                 <textarea
                                     name="comentario"
