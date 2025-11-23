@@ -73,16 +73,34 @@
                                 />
                             </div>
 
-{{--                            <div class="col-6 mb-1">--}}
-{{--                                <label for="justificacion" class="form-label">Tipo Concurso:</label>--}}
-{{--                                <multiselect--}}
-{{--                                    v-model="tiposProcesoSeleccionado"--}}
-{{--                                    :options="tiposProcesos"--}}
-{{--                                    label="nombre"--}}
-{{--                                    placeholder="Seleccione uno..."--}}
-{{--                                />--}}
-{{--                            </div>--}}
+                            <div class="col-6 mb-1">
+                                <label for="justificacion" class="form-label">Tipo Concurso:</label>
+                                <multiselect
+                                    v-model="tiposConcursoSeleccionado"
+                                    :options="tiposConcursos"
+                                    label="nombre"
+                                    placeholder="Seleccione uno..."
+                                />
+                            </div>
 
+                            <div class="col-6 mb-1">
+                                <label for="justificacion" class="form-label">Proveedor:</label>
+                                <multiselect
+                                    v-model="proveedorSeleccionado"
+                                    :options="proveedores"
+                                    label="nombre"
+                                    placeholder="Seleccione uno..."
+                                />
+                            </div>
+
+                            <div class="col-6 mb-1">
+                                <label for="numero_adjudicacion" class="form-label">Numero Adjudicación:</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    name="numero_adjudicacion"
+                                />
+                            </div>
 
                             <div class="col-12 mb-1">
                                 Comentario:
@@ -339,6 +357,8 @@
                     name: 'editarRequisicion',
                     mounted() {
                         this.getTipoProcesos()
+                        this.getTipoConcursos()
+                        this.getProveedores()
                     },
                     created() {
 
@@ -347,6 +367,10 @@
                         justificacion: @json($requisicion->justificacion ?? ''),
                         tiposProcesos : [],
                         tiposProcesoSeleccionado : null,
+                        tiposConcursos : [],
+                        tiposConcursoSeleccionado : null,
+                        proveedores : [],
+                        proveedorSeleccionado : null,
 
                     },
                     methods: {
@@ -359,20 +383,26 @@
                             try {
                                 let response = await axios.get('{{ route('api.compra_requisicion_proceso_tipos.index') }}');
                                 this.tiposProcesos = response.data.data;
-                                console.log(this.tiposProcesos);
                             } catch (error) {
                                 notifyErrorApi(error);
                             }
                         },
-                        {{--async getTipoConcursos() {--}}
-                        {{--    try {--}}
-                        {{--        let response = await axios.get('{{ route('api.compra') }}');--}}
-                        {{--        this.tiposProcesos = response.data.data;--}}
-                        {{--        console.log(this.tiposProcesos);--}}
-                        {{--    } catch (error) {--}}
-                        {{--        notifyErrorApi(error);--}}
-                        {{--    }--}}
-                        {{--},--}}
+                        async getTipoConcursos() {
+                            try {
+                                let response = await axios.get('{{ route('api.compra_requisicion_tipo_concursos.index') }}');
+                                this.tiposConcursos = response.data.data;
+                            } catch (error) {
+                                notifyErrorApi(error);
+                            }
+                        },
+                        async getProveedores() {
+                            try {
+                                let response = await axios.get('{{ route('api.proveedores.index') }}');
+                                this.proveedores = response.data.data;
+                            } catch (error) {
+                                notifyErrorApi(error);
+                            }
+                        },
                     }
                 });
             </script>
