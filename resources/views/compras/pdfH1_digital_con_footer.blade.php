@@ -145,7 +145,6 @@
 <table class="table table-sm" id="tablaDetalles">
     <thead>
         <tr style="border-right: 1px black solid ">
-            {{--        <td style="border: none; padding: 7px;">Numero</td>--}}
             <th width="5%">RENGLÓN</th>
             <th width="65%">DESCRIPCION DEL PRODUCTO</th>
             <th width="10%">CANTIDAD</th>
@@ -156,8 +155,7 @@
 
     <tbody>
     @foreach ($compra->compra1h->detalles as $index => $detalle)
-        <tr class="border-0">
-            {{--            <td style="border: none;">{{ $index ?? '' }}</td>--}}
+        <tr class="p-0 border-0 " style="font-size: 8px">
             <td class="text-center">{{ $detalle->item->renglon->numero ?? '' }}</td>
             <td class="text-start" >
                 {{mb_strtoupper($detalle->text)}}
@@ -168,7 +166,7 @@
         </tr>
     @endforeach
 
-    @for ($i = count($compra->compra1h->detalles); $i < 19; $i++)
+    @for ($i = count($compra->compra1h->detalles); $i < 20; $i++)
         <tr class="border-0">
             <td >&nbsp;</td>
             <td >&nbsp;</td>
@@ -181,35 +179,33 @@
     </tbody>
 
     <tfoot style="border: 1px white solid; border-top: 1px black solid">
-    <tr>
-        <th class="text-start" colspan="3" >
+    <tr style="font-size: 10px; padding: 0">
+        <th class="pb-0 text-start" colspan="3" >
             TOTAL EN LETRAS: {{$compra->compra1h->total_letras ?? ''}}
         </th>
-        <th class="text-start" >
+        <th class="pb-0 text-start" >
             SUBTOTAL
         </th>
-        <th class="text-end" >
+        <th class="pb-0 text-end" >
             {{dvs() .nfp($compra->compra1h->sub_total) ?? ''}}
         </th>
-
     </tr>
-    <tr >
-        <th colspan="3">
-        </th>
-        <th class="text-start" >
+    <tr style="font-size: 10px; padding: 0">
+        <th colspan="3"></th>
+        <th class="pb-0 text-start" >
             DESCUENTO:
         </th>
-        <th class="text-end" >
-            {{dvs() .nfp($compra->compra1h->descuento ?? $compra->descuento) ?? ''}}
+        <th class="pb-0 text-end" >
+            {{dvs() .nfp($compra->descuento) ?? ''}}
         </th>
     </tr>
-    <tr>
+    <tr style="font-size: 10px; padding: 0">
         <th colspan="3">
         </th>
-        <th class="text-start"  >
+        <th class="pb-0 text-start"  >
             TOTAL:
         </th>
-        <th class="text-end" >
+        <th class="pb-0 text-end" >
             {{dvs() .nfp($compra->compra1h->total) ?? ''}}
         </th>
     </tr>
@@ -219,12 +215,12 @@
 <footer>
 
     <!-- Justificación -->
-    <table style="margin-top: 15px; width: 100%">
+    <table style="margin-top: 10px; width: 100%">
         <tr>
             <td class="left" colspan="4" style="border-top: 1px white solid; border-left: 1px white solid; border-right: 1px white solid;">OBSERVACIONES:</td>
         </tr>
         <tr>
-            <td class="left" colspan="4" style="height: 6rem; width: 100%">
+            <td class="left" colspan="4" style="height: 3rem; width: 100%; font-size: 10px; vertical-align: top">
                 {{$compra->compra1h->observaciones ?? ''}}
             </td>
         </tr>
