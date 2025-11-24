@@ -16,6 +16,10 @@ return new class extends Migration
                 ->nullable()
                 ->after('tipo_concurso_id');
 
+            $table->string('numero_compra', 100)
+                ->nullable()
+                ->after('tipo_proceso_id');
+
             $table->foreign('tipo_proceso_id')
                 ->references('id')
                 ->on('compra_requisicion_proceso_tipos')
@@ -31,6 +35,7 @@ return new class extends Migration
         Schema::table('compra_requisiciones', function (Blueprint $table) {
             $table->dropForeign(['tipo_proceso_id']);
             $table->dropColumn('tipo_proceso_id');
+            $table->dropColumn('numero_compra');
         });
     }
 };

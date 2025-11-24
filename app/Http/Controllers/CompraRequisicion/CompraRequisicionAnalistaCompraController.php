@@ -5,9 +5,11 @@ namespace App\Http\Controllers\CompraRequisicion;
 use App\DataTables\CompraRequisicion\CompraRequisicionAnalistaCompraDataTable;
 use App\DataTables\Scopes\ScopeCompraRequisicion;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CompraRequisicionAnalistaCompraRequest;
 use App\Models\CompraBandeja;
 use App\Models\CompraRequisicion\CompraRequisicion;
-use Illuminate\Http\Request;
+use App\Models\CompraRequisicionEstado;
+use DB;
 
 class CompraRequisicionAnalistaCompraController extends Controller
 {
@@ -32,19 +34,26 @@ class CompraRequisicionAnalistaCompraController extends Controller
         return view('compra_requisiciones.analista_compras.seguimiento', compact('requisicion'));
     }
 
-    public function procesar(CompraRequisicion $requisicion, Request $request)
+    public function procesar(CompraRequisicion $requisicion, CompraRequisicionAnalistaCompraRequest $request)
     {
-        $request->validate([
-            'tipo_proceso_id' => 'required|integer',
-            'tipo_adquisicion_id' => 'required|integer',
-            'numero_npg' => 'nullable|string',
-            'numero_nog' => 'nullable|string',
-            'concurso_id' => 'required|integer',
-            'proveedor_id' => 'required|integer',
-            'numero_adjudicacion' => 'required|string',
-        ]);
+        if ($requisicion->estado_id == CompraRequisicionEstado::INICIO_DE_GESTION) {
+            $request->validate([
+                'numero_compra'       => 'required|string',
+                'archivo_compra'      => 'required|file',
+            ]);
+        }
 
-        $requisicion->analistaComprasProcesar($request);
+        try {
+            DB::beginTransaction();
+            $requisicion->addMedia($request->file('archivo_compra'))
+                ->toMediaCollection('Orden de Compra');
+
+            $requisicion->analistaComprasProcesar($request);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
+        }
 
         return redirect()->route('compra.requisiciones.analista.compras')->with('success', 'La requisición ha sido procesada correctamente.');
     }

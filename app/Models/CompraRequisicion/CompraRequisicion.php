@@ -399,6 +399,7 @@ class CompraRequisicion extends Model implements HasMedia
             ]);
         }else if ($this->estado_id == CompraRequisicionEstado::INICIO_DE_GESTION) {
             $this->update([
+                'numero_compra' => $datos->numero_compra,
                 'estado_id' => CompraRequisicionEstado::ORDEN_DE_COMPRA_GENERADA,
             ]);
         }
