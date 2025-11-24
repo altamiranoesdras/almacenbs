@@ -345,7 +345,7 @@ class CompraRequisicion extends Model implements HasMedia
         } else {
             $this->estado_id = CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_COMPRAS;
             $this->usuario_analista_id = $usuario_analista_id;
-
+            $this->usuario_asigna_id = usuarioAutenticado()->id;
         }
 
         $this->save();
