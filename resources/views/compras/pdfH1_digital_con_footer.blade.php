@@ -261,7 +261,7 @@
             <td style="width: 15%; border: none; text-align: center;"></td>
         </tr>
         <tr style="height: 40px">
-            <td  colspan="3" style="width: 100%; border: none; text-align: center; color: #cd0303; font-weight: bold; vertical-align: middle;">
+            <td  colspan="3" style="width: 100%; border: none; text-align: center; color: #cd0303; font-weight: bold; vertical-align: middle;font-size: 10px;">
                 <h3>{{ $textoFooter }}</h3>
             </td>
         </tr>
