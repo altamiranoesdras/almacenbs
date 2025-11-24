@@ -214,13 +214,13 @@
 </table>
 <footer>
 
-    <!-- Justificación -->
-    <table style="margin-top: 10px; width: 100%">
+    <!-- observaciones -->
+    <table style="margin-top: 10px; width: 100%" id="observaciones">
         <tr>
             <td class="left" colspan="4" style="border-top: 1px white solid; border-left: 1px white solid; border-right: 1px white solid;">OBSERVACIONES:</td>
         </tr>
         <tr>
-            <td class="left" colspan="4" style="height: 3rem; width: 100%; font-size: 10px; vertical-align: top">
+            <td class="left" colspan="4" style="height: 3rem; width: 100%; font-size: 10px; vertical-align: top; border: solid 1px;">
                 {{$compra->compra1h->observaciones ?? ''}}
             </td>
         </tr>
