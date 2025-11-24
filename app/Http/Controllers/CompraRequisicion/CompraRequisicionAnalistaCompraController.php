@@ -38,15 +38,14 @@ class CompraRequisicionAnalistaCompraController extends Controller
     {
         if ($requisicion->estado_id == CompraRequisicionEstado::INICIO_DE_GESTION) {
             $request->validate([
-                'numero_compra'       => 'required|string',
-                'archivo_compra'      => 'required|file',
+                'numero_orden_compra'       => 'required|string',
+                'orden_compra'              => 'required|file',
             ]);
+
         }
 
         try {
             DB::beginTransaction();
-            $requisicion->addMedia($request->file('archivo_compra'))
-                ->toMediaCollection('Orden de Compra');
 
             $requisicion->analistaComprasProcesar($request);
             DB::commit();

@@ -133,6 +133,7 @@ class CompraRequisicion extends Model implements HasMedia
         'tipo_concurso_id',
         'tipo_proceso_id',
         'tipo_adquisicion_id',
+        'numero_orden_compra',
         'correlativo',
         'codigo',
         'codigo_consolidacion',
@@ -157,7 +158,7 @@ class CompraRequisicion extends Model implements HasMedia
         'fecha_autoriza',
         'tiene_firma_solicitante',
         'tiene_firma_aprobador',
-        'tiene_firma_autorizador'
+        'tiene_firma_autorizador',
     ];
 
     protected $casts = [
@@ -399,9 +400,11 @@ class CompraRequisicion extends Model implements HasMedia
             ]);
         }else if ($this->estado_id == CompraRequisicionEstado::INICIO_DE_GESTION) {
             $this->update([
-                'numero_compra' => $datos->numero_compra,
+                'numero_orden_compra' => $datos->numero_orden_compra,
                 'estado_id' => CompraRequisicionEstado::ORDEN_DE_COMPRA_GENERADA,
             ]);
+            $this->addMedia($datos->orden_compra)
+                ->toMediaCollection('Orden de Compra');
         }
 
         $this->addBitacora("REQUISICIÓN DE COMPRA PROCESADA POR ANALISTA DE COMPRAS", $comentario);

@@ -39,7 +39,7 @@
                 @include('compra_requisiciones.componentes.tarjeta_compra_requisicion', ['requisicion' => $requisicion])
 
                 <div class="card">
-                    {!! Form::model($requisicion, ['url' => route('compra.requisiciones.analista.compras.seguimiento.procesar', $requisicion->id), 'method' => 'patch','class' => 'esperar']) !!}
+                    {!! Form::model($requisicion, ['url' => route('compra.requisiciones.analista.compras.seguimiento.procesar', $requisicion->id), 'method' => 'patch','class' => 'esperar', 'files' => true ]) !!}
                     <div class="card-body">
                         <div class="row">
                             <div class="col-6 mb-1">
@@ -62,7 +62,7 @@
                                     class="form-control"
                                     name="numero_nog"
                                     value="{{ $requisicion->nog ?? old('numero_nog') }}"
-                                    :disabled="deshAbilitarCampos"
+                                    :readonly="deshAbilitarCampos"
                                 />
                             </div>
                             <div
@@ -75,7 +75,7 @@
                                     class="form-control"
                                     name="numero_npg"
                                     value="{{ $requisicion->npg ?? old('numero_npg') }}"
-                                    :disabled="deshAbilitarCampos"
+                                    :readonly="deshAbilitarCampos"
                                 />
                             </div>
                             <div class="col-6 mb-1">
@@ -115,24 +115,24 @@
                                     class="form-control"
                                     name="numero_adjudicacion"
                                     value="{{ $requisicion->numero_adjudicacion ?? old('numero_adjudicacion') }}"
-                                    :disabled="deshAbilitarCampos"
+                                    :readonly="deshAbilitarCampos"
                                 />
                             </div>
 
 
                             @if($requisicion->estado_id == \App\Models\CompraRequisicionEstado::INICIO_DE_GESTION)
                                 <div class="col-6 mb-1">
-                                    <label for="numero_orden" class="form-label">Numero Adjudicación:</label>
+                                    <label for="numero_orden" class="form-label">Orden de Compra:</label>
                                     <input
                                         type="text"
                                         class="form-control"
-                                        name="numero_orden"
+                                        name="numero_orden_compra"
                                         value="{{ $requisicion->numero_orden ?? old('numero_orden') }}"
                                     />
                                 </div>
 
                                 <div class="col-6 mb-1">
-                                    <label for="numero_orden" class="form-label">Orden de compra:</label>
+                                    <label for="numero_orden" class="form-label">Orden de compra: (PDF)</label>
                                     <input type="file" name="orden_compra" class="form-control" id="orden_compra">
                                 </div>
                             @endif
@@ -447,19 +447,19 @@
                 $(function () {
                     $("#orden_compra").fileinput({
                         language: "es",
-                        initialPreview: @json(getLogo()),
+                        initialPreview: @json(($url = $requisicion->getFirstMediaUrl('Orden de Compra')) ? [$url] : []),
                         dropZoneEnabled: true,
                         maxFileCount: 1,
                         maxFileSize: 2000,
                         showUpload: false,
                         initialPreviewAsData: true,
                         showBrowse: true,
-                        showRemove: true,
+                        showRemove: false,
                         theme: "fa6",
                         browseOnZoneClick: true,
-                        allowedPreviewTypes: ["image"],
-                        allowedFileTypes: ["image"],
-                        initialPreviewFileType: 'image',
+                        allowedPreviewTypes: ["pdf"],
+                        allowedFileTypes: ["pdf"],
+                        initialPreviewFileType: 'pdf',
                     });
                 });
             </script>

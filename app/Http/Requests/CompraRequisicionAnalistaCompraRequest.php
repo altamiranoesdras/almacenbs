@@ -29,8 +29,8 @@ class CompraRequisicionAnalistaCompraRequest extends FormRequest
             'concurso_id'         => 'required|integer',
             'proveedor_id'        => 'required|integer',
             'numero_adjudicacion' => 'required|string',
-            'numero_compra'       => 'nullable|string',
-            'archivo_compra'      => 'nullable|file',
+            'numero_orden_compra'       => 'nullable|string',
+            'orden_compra'      => 'nullable|file',
         ];
     }
 }

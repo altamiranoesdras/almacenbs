@@ -16,7 +16,7 @@ return new class extends Migration
                 ->nullable()
                 ->after('tipo_concurso_id');
 
-            $table->string('numero_compra', 100)
+            $table->string('numero_orden_compra', 100)
                 ->nullable()
                 ->after('tipo_proceso_id');
 
