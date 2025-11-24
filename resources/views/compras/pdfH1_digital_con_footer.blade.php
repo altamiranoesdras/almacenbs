@@ -260,9 +260,9 @@
             </td>
             <td style="width: 15%; border: none; text-align: center;"></td>
         </tr>
-        <tr style="height: 40px">
-            <td  colspan="3" style="width: 100%; border: none; text-align: center; color: #cd0303; font-weight: bold; vertical-align: middle;font-size: 10px;">
-                <h5>{{ $textoFooter }}</h5>
+        <tr>
+            <td  colspan="3" style="padding-top: 1.5rem;width: 100%; border: none; text-align: center; color: #cd0303; font-weight: bold; vertical-align: middle;font-size: 12px;">
+                {{ $textoFooter }}
             </td>
         </tr>
     </table>
