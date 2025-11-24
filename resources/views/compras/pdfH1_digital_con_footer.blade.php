@@ -262,7 +262,7 @@
         </tr>
         <tr style="height: 40px">
             <td  colspan="3" style="width: 100%; border: none; text-align: center; color: #cd0303; font-weight: bold; vertical-align: middle;font-size: 10px;">
-                <h3>{{ $textoFooter }}</h3>
+                <h5>{{ $textoFooter }}</h5>
             </td>
         </tr>
     </table>
