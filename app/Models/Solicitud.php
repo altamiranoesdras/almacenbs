@@ -52,6 +52,7 @@ use stdClass;
  * @property-read \App\Models\EnvioFiscal|null $envioFiscal
  * @property-read \App\Models\SolicitudEstado $estado
  * @property-read string $categoria
+ * @property-read mixed $fecha_ordena_kardex
  * @property-read mixed $motivo_retorna
  * @property-read float $total_detalles
  * @property-read string $total_letras
@@ -696,7 +697,7 @@ class Solicitud extends Model
      * Devuelve la categoría del item del primer detalle.
      * @return string
      */
-    public function getCategoriaAttribute()
+    public function getCategoriaAttribute(): string
     {
         $detalle = $this->detalles->first();
 
@@ -705,6 +706,11 @@ class Solicitud extends Model
         }
 
         return 'Sin categoría';
+    }
+
+    public function getFechaOrdenaKardexAttribute(): ?\Illuminate\Support\Carbon
+    {
+        return $this->fecha_despacha ?? null;
     }
 
 }
