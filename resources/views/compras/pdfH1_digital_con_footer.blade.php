@@ -160,7 +160,7 @@
             {{--            <td style="border: none;">{{ $index ?? '' }}</td>--}}
             <td class="text-center">{{ $detalle->item->renglon->numero ?? '' }}</td>
             <td class="text-start" >
-                {{ $detalle->item->texto_principal ?? '' }}
+                {{mb_strtoupper($detalle->text)}}
             </td>
             <td class="text-center">{{ (int)$detalle->cantidad }}</td>
             <td class="text-end">{{ dvs() .nfp($detalle->precio) ?? '' }}</td>
@@ -251,7 +251,7 @@
         </tr>
     </table>
 
-    <table style="margin-top: 50px; width: 100%;border-collapse: collapse; font-size: 10px; border-color: white" >
+    <table style="margin-top: 35px; width: 100%;border-collapse: collapse; font-size: 10px; border-color: white" >
         <tr>
             <td style="width: 15%; border: none; text-align: center;"></td>
             <td style="width: 70%; border: none; text-align: center;">

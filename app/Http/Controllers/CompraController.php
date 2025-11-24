@@ -596,7 +596,7 @@ class CompraController extends AppBaseController
             ->setOption('page-height', 278)
             ->setOrientation('portrait')
             ->setOption('margin-top', 10)
-            ->setOption('margin-bottom', 10)
+            ->setOption('margin-bottom', 5)
             ->setOption('margin-left', 15)
             ->setOption('margin-right', 15)
             ->setOption('enable-local-file-access', true)
