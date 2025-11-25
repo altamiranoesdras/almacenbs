@@ -27,7 +27,7 @@ class CompraSolicitudDetalleFactory extends Factory
 
         return [
             'solicitud_id' => CompraSolicitud::all()->random()->id,
-            'item_id' => Item::all()->random()->id,
+            'item_id' => Item::whereIn('id', [2416,158,1197,2543,3294])->inRandomOrder()->first()->id,
             'cantidad' => $this->faker->numberBetween(1,150),
             'precio_estimado' => $this->faker->numberBetween(500, 3000),
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
