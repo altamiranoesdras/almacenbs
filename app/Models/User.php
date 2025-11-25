@@ -86,6 +86,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $usersSolicita
  * @property-read int|null $users_solicita_count
  * @method static \Illuminate\Database\Eloquent\Builder|User admins()
+ * @method static \Illuminate\Database\Eloquent\Builder|User analistasDeCompras()
  * @method static \Illuminate\Database\Eloquent\Builder|User deUnidad($unidad_id)
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|User jefes()
@@ -117,7 +118,6 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Eloquent\Builder|User withoutPermission($permissions)
  * @method static \Illuminate\Database\Eloquent\Builder|User withoutRole($roles, $guard = null)
  * @method static \Illuminate\Database\Eloquent\Builder|User withoutTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|User analistasDeCompras()
  * @mixin \Eloquent
  */
 class User extends Authenticatable implements  HasMedia

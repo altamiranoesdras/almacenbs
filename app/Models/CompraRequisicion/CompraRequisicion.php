@@ -115,8 +115,6 @@ use Throwable;
  * @method static Builder|CompraRequisicion whereUsuarioSolicitaId($value)
  * @method static Builder|CompraRequisicion withTrashed()
  * @method static Builder|CompraRequisicion withoutTrashed()
- * @property int|null $tipo_proceso_id
- * @method static Builder|CompraRequisicion whereTipoProcesoId($value)
  * @mixin Eloquent
  */
 class CompraRequisicion extends Model implements HasMedia
@@ -597,6 +595,24 @@ class CompraRequisicion extends Model implements HasMedia
             $contrasenaFirma,
             $uploaded
         );
+
+    }
+
+    public function obtenerPartidas()
+    {
+        $partidas = [];
+
+        $solicitudes = $this->compraSolicitudes;
+
+
+        foreach ($solicitudes as $solicitud) {
+            foreach ($solicitud->detalles as $detalle) {
+                $partidas[] = $detalle->subProducto->producto->partida_parcial ?? null;
+            }
+        }
+
+
+        return $partidas;
 
     }
 

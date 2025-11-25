@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read mixed $sub_total
  * @property-read \App\Models\Item $item
  * @property-read \App\Models\CompraSolicitud $solicitud
+ * @property-read \App\Models\RedProduccionSubProducto|null $subProducto
  * @method static \Database\Factories\CompraSolicitudDetalleFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle newQuery()
@@ -99,5 +100,10 @@ class CompraSolicitudDetalle extends Model
     {
         return $this->cantidad * $this->precio_estimado;
 
+    }
+
+    public function subProducto()
+    {
+        return $this->belongsTo(RedProduccionSubProducto::class, 'sub_producto_id');
     }
 }

@@ -52,7 +52,7 @@ use stdClass;
  * @property-read \App\Models\EnvioFiscal|null $envioFiscal
  * @property-read \App\Models\SolicitudEstado $estado
  * @property-read string $categoria
- * @property-read mixed $fecha_ordena_kardex
+ * @property-read \Illuminate\Support\Carbon|null $fecha_ordena_kardex
  * @property-read mixed $motivo_retorna
  * @property-read float $total_detalles
  * @property-read string $total_letras

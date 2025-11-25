@@ -31,6 +31,10 @@ class CompraRequisicionSupervisorController extends Controller
 
     public function seguimiento(CompraRequisicion $requisicion)
     {
+
+
+        dd($requisicion->obtenerPartidas());
+
         return view('compra_requisiciones.supervidor.seguimiento', compact('requisicion'));
     }
 
