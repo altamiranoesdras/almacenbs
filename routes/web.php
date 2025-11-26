@@ -365,6 +365,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
         Route::post('firmar-documento', [FirmaElectronicaController::class, 'firmarDocumento'])->name('firmar.documento');
     });
 
+    //desactivar envio fiscal
+    Route::post('envioFiscales/desactivar/{envioFiscal}', [EnvioFiscalController::class, 'desactivar'])->name('envioFiscales.desactivar');
     Route::resource('envioFiscales', App\Http\Controllers\EnvioFiscalController::class);
 
 

@@ -42,12 +42,15 @@ class EnvioFiscalController extends AppBaseController
     public function store(CreateEnvioFiscalRequest $request)
     {
 
-        $input = $request->all();
+        $request->merge([
+            'correlativo_inicial' => $request->correlativo_del,
+            'correlativo_actual' => $request->correlativo_del,
+        ]);
 
         /** @var EnvioFiscal $envioFiscal */
-        $envioFiscal = EnvioFiscal::create($input);
+        $envioFiscal = EnvioFiscal::create($request->all());
 
-        flash()->success('Envio Fiscal guardado.');
+        flash()->success('Envío Fiscal guardado.');
 
         return redirect(route('envioFiscales.index'));
     }
@@ -61,7 +64,7 @@ class EnvioFiscalController extends AppBaseController
         $envioFiscal = EnvioFiscal::find($id);
 
         if (empty($envioFiscal)) {
-            flash()->error('Envio Fiscal no encontrado');
+            flash()->error('Envío Fiscal no encontrado');
 
             return redirect(route('envioFiscales.index'));
         }
@@ -78,7 +81,7 @@ class EnvioFiscalController extends AppBaseController
         $envioFiscal = EnvioFiscal::find($id);
 
         if (empty($envioFiscal)) {
-            flash()->error('Envio Fiscal no encontrado');
+            flash()->error('Envío Fiscal no encontrado');
 
             return redirect(route('envioFiscales.index'));
         }
@@ -96,7 +99,7 @@ class EnvioFiscalController extends AppBaseController
         $envioFiscal = EnvioFiscal::find($id);
 
         if (empty($envioFiscal)) {
-            flash()->error('Envio Fiscal no encontrado');
+            flash()->error('Envío Fiscal no encontrado');
 
             return redirect(route('envioFiscales.index'));
         }
@@ -104,7 +107,7 @@ class EnvioFiscalController extends AppBaseController
         $envioFiscal->fill($request->all());
         $envioFiscal->save();
 
-        flash()->success('Envio Fiscal actualizado.');
+        flash()->success('Envío Fiscal actualizado.');
 
         return redirect(route('envioFiscales.index'));
     }
@@ -120,15 +123,35 @@ class EnvioFiscalController extends AppBaseController
         $envioFiscal = EnvioFiscal::find($id);
 
         if (empty($envioFiscal)) {
-            flash()->error('Envio Fiscal no encontrado');
+            flash()->error('Envío Fiscal no encontrado');
 
             return redirect(route('envioFiscales.index'));
         }
 
         $envioFiscal->delete();
 
-        flash()->success('Envio Fiscal eliminado.');
+        flash()->success('Envío Fiscal eliminado.');
 
         return redirect(route('envioFiscales.index'));
+    }
+
+    public function desactivar(EnvioFiscal $envioFiscal)
+    {
+
+        if (empty($envioFiscal)) {
+            flash()->error('Envío Fiscal no encontrado');
+
+            return redirect(route('envioFiscales.index'));
+        }
+
+        if ($envioFiscal->puedeDesactivar()) {
+            $envioFiscal->desactivar();
+            flash()->success('Envío Fiscal desactivado.');
+        } else {
+            flash()->error('No se puede desactivar el Envío Fiscal, ya que aun no ha llegado al final del rango de correlativos.');
+        }
+
+        return redirect(route('envioFiscales.index'));
+
     }
 }
