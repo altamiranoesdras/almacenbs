@@ -19,6 +19,15 @@ class UsuariosPruebaSeeder extends Seeder
 
         deshabilitaLlavesForaneas();
 
+        $this->requisAlmacen();
+
+
+
+    }
+
+    public function requisAlmacen()
+    {
+
         User::whereIn('username', [
             'requirente1',
             'autorizador1',
@@ -26,8 +35,8 @@ class UsuariosPruebaSeeder extends Seeder
         ])->forceDelete();
 
         $unidadConStock = RrhhUnidad::whereHas('stocks', function ($query) {
-                $query->where('cantidad', '>', 0);
-            })
+            $query->where('cantidad', '>', 0);
+        })
             ->where('id',29) // Servicios Generales
             ->first();
 
@@ -88,6 +97,77 @@ class UsuariosPruebaSeeder extends Seeder
             $user->shortcuts()->sync($opciones);
 
         });
+
+    }
+
+
+    public function requisCompras()
+    {
+
+
+        $unidadConStock = RrhhUnidad::areas()->solicitan()->whereHas('subProductos')->get();
+
+
+        $usuarios = [
+            'solicitante1' => [
+                'name' => 'Solicitante Requisición Compras',
+                'role' => Role::SOLICITANTE_REQUISICION_COMPRAS,
+                'unidad_id' => $unidadConStock->random()->id,
+                'options' => [
+                    Option::NUEVA_SOLICITUD_DE_COMPRA,
+                    Option::MIS_SOLICITUDES_DE_COMPRAS,
+                ],
+            ],
+            'supervisor1' => [
+                'name' => 'Supervisor Requisiciones Compras',
+                'role' => Role::SUPERVISOR_COMPRAS,
+                'unidad_id' => RrhhUnidad::DEPTO_COMPRAS,
+                'options' => [
+                    Option::BUSCADOR_REQUISICIONES_COMPRA,
+                    Option::APROBAR_REQUISICION_COMPRA,
+                ],
+            ],
+            'analista1' => [
+                'name' => 'Analista Requisiciones Compras',
+                'role' => Role::ANALISTA_COMPRAS,
+                'unidad_id' => RrhhUnidad::DEPTO_COMPRAS,
+                'options' => [
+                    Option::BUSCADOR_REQUISICIONES_COMPRA,
+                    Option::APROBAR_REQUISICION_COMPRA,
+                ],
+            ],
+            'presupuesto1' => [
+                'name' => 'Analista Presupuesto',
+                'role' => Role::ANALISTA_PRESUPUESTO,
+                'options' => [
+                    Option::BUSCADOR_REQUISICIONES_COMPRA,
+                    Option::APROBAR_REQUISICION_COMPRA,
+                ],
+            ],
+            'aprobador1' => [
+                'name' => 'Aprobador Requisiciones Compras',
+                'role' => Role::APROBADOR_REQUISICION_COMPRAS,
+                'options' => [
+                    Option::APROBAR_REQUISICION_COMPRA,
+                    Option::BUSCADOR_REQUISICIONES_COMPRA,
+                ],
+            ],
+            'autorizador2' => [
+                'name' => 'Autorizador Requisiciones Compras',
+                'role' => Role::AUTORIZADOR_REQUISICION_COMPRAS,
+                'options' => [
+                    Option::AUTORIZAR_REQUISICION_COMPRA,
+                    Option::BUSCADOR_REQUISICIONES_COMPRA,
+                ],
+            ],
+        ];
+
+        User::whereIn('username', [
+            'solicitante1',
+            'aprobador1',
+            'autorizador2',
+        ])->forceDelete();
+
 
 
     }

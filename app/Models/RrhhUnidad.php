@@ -88,6 +88,8 @@ class RrhhUnidad extends Model
     const PRINCIPAL = 1;
     const ALMACEN = 31;
 
+    const DEPTO_COMPRAS = 27;
+
 
     protected static function booted(): void
     {
