@@ -114,6 +114,7 @@ class UsuariosPruebaSeeder extends Seeder
                 'name' => 'Solicitante Requisición Compras',
                 'role' => Role::SOLICITANTE_REQUISICION_COMPRAS,
                 'unidad_id' => $unidad->id,
+                'bodega_id' => $unidad->bodega->id,
                 'options' => [
                     Option::NUEVA_SOLICITUD_DE_COMPRA,
                     Option::MIS_SOLICITUDES_DE_COMPRAS,
@@ -141,6 +142,7 @@ class UsuariosPruebaSeeder extends Seeder
                 'name' => 'Supervisor Requisiciones Compras',
                 'role' => Role::SUPERVISOR_COMPRAS,
                 'unidad_id' => RrhhUnidad::DEPTO_COMPRAS,
+                'bodega_id' => RrhhUnidad::find(RrhhUnidad::DEPTO_COMPRAS)->bodega->id,
                 'options' => [
                     Option::BUSCADOR_REQUISICIONES_COMPRA,
                     Option::APROBAR_REQUISICION_COMPRA,
@@ -150,6 +152,7 @@ class UsuariosPruebaSeeder extends Seeder
                 'name' => 'Analista Requisiciones Compras',
                 'role' => Role::ANALISTA_COMPRAS,
                 'unidad_id' => RrhhUnidad::DEPTO_COMPRAS,
+                'bodega_id' => RrhhUnidad::find(RrhhUnidad::DEPTO_COMPRAS)->bodega->id,
                 'options' => [
                     Option::BUSCADOR_REQUISICIONES_COMPRA,
                     Option::APROBAR_REQUISICION_COMPRA,
@@ -159,6 +162,7 @@ class UsuariosPruebaSeeder extends Seeder
                 'name' => 'Analista Presupuesto',
                 'role' => Role::ANALISTA_PRESUPUESTO,
                 'unidad_id' => RrhhUnidad::DEPTO_PRESUPUESTOS,
+                'bodega_id' => RrhhUnidad::find(RrhhUnidad::DEPTO_PRESUPUESTOS)->bodega->id,
                 'options' => [
                     Option::BUSCADOR_REQUISICIONES_COMPRA,
                     Option::APROBAR_REQUISICION_COMPRA,
