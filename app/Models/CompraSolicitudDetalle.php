@@ -68,6 +68,7 @@ class CompraSolicitudDetalle extends Model
         'item_id' => 'required',
         'cantidad' => 'required',
         'precio_estimado' => 'required|numeric',
+        'sub_producto_id' => 'required|integer',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'
@@ -79,6 +80,8 @@ class CompraSolicitudDetalle extends Model
         'cantidad.integer' => 'La cantidad debe ser un entero',
         'precio_estimado.required' => 'El precio de compra es requerido',
         'precio_estimado.numeric' => 'El precio de compra debe ser un número',
+        'sub_producto_id.required' => 'El subproducto es requerido',
+        'sub_producto_id.integer' => 'El subproducto debe ser un entero',
     ];
 
     public function solicitud(): \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -112,8 +112,11 @@
                     <div class="user-nav d-sm-flex d-none">
                         <span class="user-name fw-bolder">
                             {{auth()->user()->name}}
-                        </span><span class="user-status">
-                            {{auth()->user()->maxRol()->name ?? 'Rol'}}
+                        </span>
+                        <span class="user-status">
+                            {{auth()->user()->unidad->nombre_tipo ?? 'Unidad'}}
+
+{{--                            {{auth()->user()->maxRol()->name ?? 'Rol'}}--}}
                         </span>
                     </div>
                     <span class="avatar">

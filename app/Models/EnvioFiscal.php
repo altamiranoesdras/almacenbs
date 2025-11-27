@@ -30,6 +30,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Compra1h> $compra1hs
  * @property-read int|null $compra1hs_count
  * @property-read mixed $nombre
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Solicitud> $solicitudes
+ * @property-read int|null $solicitudes_count
  * @method static \Database\Factories\EnvioFiscalFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal newQuery()

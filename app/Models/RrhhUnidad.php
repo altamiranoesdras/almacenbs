@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read int|null $children_count
  * @property-read mixed $nombre_con_padre
  * @property-read mixed $nombre_con_padres
+ * @property-read mixed $nombre_tipo
  * @property-read string $text
  * @property-read \App\Models\User|null $jefe
  * @property-read RrhhUnidad|null $parent
@@ -366,6 +367,11 @@ class RrhhUnidad extends Model
             ]);
         }
 
+    }
+
+    public function getNombreTipoAttribute()
+    {
+        return $this->nombre . ' (' . $this->tipo->nombre . ')';
     }
 
 }
