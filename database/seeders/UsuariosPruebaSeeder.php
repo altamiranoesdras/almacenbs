@@ -21,7 +21,7 @@ class UsuariosPruebaSeeder extends Seeder
 
         $this->requisAlmacen();
 
-
+        $this->requisCompras();
 
     }
 
@@ -105,17 +105,36 @@ class UsuariosPruebaSeeder extends Seeder
     {
 
 
-        $unidadConStock = RrhhUnidad::areas()->solicitan()->whereHas('subProductos')->get();
+        $unidad = RrhhUnidad::areas()->solicitan()->whereHas('subProductos')->inRandomOrder()
+            ->first();
 
 
         $usuarios = [
             'solicitante1' => [
                 'name' => 'Solicitante Requisición Compras',
                 'role' => Role::SOLICITANTE_REQUISICION_COMPRAS,
-                'unidad_id' => $unidadConStock->random()->id,
+                'unidad_id' => $unidad->id,
                 'options' => [
                     Option::NUEVA_SOLICITUD_DE_COMPRA,
                     Option::MIS_SOLICITUDES_DE_COMPRAS,
+                ],
+            ],
+            'aprobador1' => [
+                'name' => 'Aprobador Requisiciones Compras',
+                'role' => Role::APROBADOR_REQUISICION_COMPRAS,
+                'unidad_id' => $unidad->departamentoPadre()->id,
+                'options' => [
+                    Option::APROBAR_REQUISICION_COMPRA,
+                    Option::BUSCADOR_REQUISICIONES_COMPRA,
+                ],
+            ],
+            'autorizador2' => [
+                'name' => 'Autorizador Requisiciones Compras',
+                'role' => Role::AUTORIZADOR_REQUISICION_COMPRAS,
+                'unidad_id' => $unidad->direccionPadre()->id,
+                'options' => [
+                    Option::AUTORIZAR_REQUISICION_COMPRA,
+                    Option::BUSCADOR_REQUISICIONES_COMPRA,
                 ],
             ],
             'supervisor1' => [
@@ -139,35 +158,30 @@ class UsuariosPruebaSeeder extends Seeder
             'presupuesto1' => [
                 'name' => 'Analista Presupuesto',
                 'role' => Role::ANALISTA_PRESUPUESTO,
+                'unidad_id' => RrhhUnidad::DEPTO_PRESUPUESTOS,
                 'options' => [
                     Option::BUSCADOR_REQUISICIONES_COMPRA,
                     Option::APROBAR_REQUISICION_COMPRA,
                 ],
             ],
-            'aprobador1' => [
-                'name' => 'Aprobador Requisiciones Compras',
-                'role' => Role::APROBADOR_REQUISICION_COMPRAS,
-                'options' => [
-                    Option::APROBAR_REQUISICION_COMPRA,
-                    Option::BUSCADOR_REQUISICIONES_COMPRA,
-                ],
-            ],
-            'autorizador2' => [
-                'name' => 'Autorizador Requisiciones Compras',
-                'role' => Role::AUTORIZADOR_REQUISICION_COMPRAS,
-                'options' => [
-                    Option::AUTORIZAR_REQUISICION_COMPRA,
-                    Option::BUSCADOR_REQUISICIONES_COMPRA,
-                ],
-            ],
+
         ];
 
-        User::whereIn('username', [
-            'solicitante1',
-            'aprobador1',
-            'autorizador2',
-        ])->forceDelete();
+        // Elimina usuarios de prueba anteriores
+        User::whereIn('username', array_keys($usuarios))->forceDelete();
 
+        foreach ($usuarios as $username => $data) {
+            User::factory(1)->create([
+                'username' => $username,
+                'name' => $data['name'],
+                'password' => bcrypt('123'),
+                'unidad_id' => $data['unidad_id'],
+            ])->each(function (User $user) use ($data) {
+                $user->syncRoles($data['role']);
+                $user->options()->sync($data['options']);
+                $user->shortcuts()->sync($data['options']);
+            });
+        }
 
 
     }

@@ -90,6 +90,8 @@ class RrhhUnidad extends Model
 
     const DEPTO_COMPRAS = 27;
 
+    const DEPTO_PRESUPUESTOS = 37;
+
 
     protected static function booted(): void
     {
@@ -296,6 +298,11 @@ class RrhhUnidad extends Model
         }
         //si no, seguir buscando hacia arriba
         return $this->parent->buscarPadre($tipoId);
+    }
+
+    public function departamentoPadre(): ?RrhhUnidad
+    {
+        return $this->buscarPadre(RrhhUnidadTipo::DEPARTAMENTO);
     }
 
     public function direccionPadre(): ?RrhhUnidad
