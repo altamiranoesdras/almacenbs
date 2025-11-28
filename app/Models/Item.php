@@ -143,6 +143,7 @@ class Item extends Model implements HasMedia
         'text',
         'texto_libro_almacen',
         "texto_principal",
+        'texto_requisicion_compra',
         'img',
         'thumb',
         'stock_total',
@@ -493,6 +494,12 @@ class Item extends Model implements HasMedia
 
 //        return $this->nombre."-".$presentacion." - ".$unidad;
         return $this->nombre;
+    }
+
+    public function getTextoRequisicionCompraAttribute()
+    {
+
+        return $this->nombre." - ".$this->descripcion;
     }
 
 

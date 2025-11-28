@@ -56,7 +56,8 @@ class CompraSolicitudDetalle extends Model
         'solicitud_id',
         'item_id',
         'cantidad',
-        'precio_estimado'
+        'precio_estimado',
+        'sub_producto_id',
     ];
 
     protected $casts = [

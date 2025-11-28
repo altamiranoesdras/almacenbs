@@ -14,7 +14,7 @@
             <div class="card-body">
 
                     <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
+                        <div class="col-12 mb-3">
                             <select-items
                                 api="{{route('api.items.index')}}"
                                 tienda="{{session('tienda')}}"
@@ -24,49 +24,47 @@
                             </select-items>
                         </div>
 
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
+                        <div class="col-6 mb-3">
                             <label for="sub_producto_seleccionado">Sub Productos</label>
                             <multiselect
                                 v-model="sub_producto_seleccionado"
                                 :options="subproductos"
                                 label="texto"
+                                ref="selector_subproductos"
                                 :track-by="'id'">
                             </multiselect>
                         </div>
 
 
-                        <div class="col-12 col-sm-3 col-md-3 col-lg-6 mb-1">
-                            <div class="input-group">
-                                <span class="input-group-text" data-toggle="tooltip" title="Cantidad">Cantidad</span>
-                                <input
-                                    v-model="editedItem.cantidad"
-                                    type="number"
-                                    min="0" step="any"
-                                    class="form-control"
-                                    ref="cantidad"
-                                    @keydown.enter.prevent="siguienteCampo('precio_estimado')"
-                                >
-                            </div>
+                        <div class="col-2 mb-1">
+                            <label for="cantidad">Cantidad</label>
+                            <input
+                                v-model="editedItem.cantidad"
+                                type="number"
+                                min="0" step="any"
+                                class="form-control"
+                                ref="cantidad"
+                                @keydown.enter.prevent="siguienteCampo('precio_estimado')"
+                            >
                         </div>
 
-                        <div class=" col-12 col-sm-5 col-md-5 col-lg-6 mb-1">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        Monto Estimado {{dvs()}}
-                                    </span>
-                                </div>
+                        <div class=" col-2 mb-1">
+                            <label for="precio_estimado">Precio Estimado</label>
 
+                            <input
+                                v-model="editedItem.precio_estimado"
+                                type="number"
+                                min="0" step="any"
+                                ref="precio_estimado"
+                                class="form-control"
+                                placeholder="Monto Estimado"
+                                @keydown.enter.prevent="siguienteCampo('agregar')"
+                            >
+                        </div>
 
-                                <input
-                                    v-model="editedItem.precio_estimado"
-                                    type="number"
-                                    min="0" step="any"
-                                    ref="precio_estimado"
-                                    class="form-control"
-                                    placeholder="Monto Estimado"
-                                    @keydown.enter.prevent="siguienteCampo('agregar')"
-                                >
+                        <div class=" col-2 mb-1">
+                            <label for="agregar">&nbsp;</label>
+                            <div>
                                 <button type="button" ref="agregar" class="btn btn-outline-success waves-effect"
                                         @click.prevent="save" :disabled="loading" data-toggle="tooltip"
                                         title="Doble enter para agregar">
@@ -79,9 +77,11 @@
 
                                     Agregar
                                 </button>
-                            </div><!-- /input-group -->
+                            </div>
 
                         </div>
+
+
                     </div>
 
 
@@ -90,11 +90,11 @@
                                style="margin-bottom: 2px">
                             <thead class="small table-light">
                             <tr class="text-sm" align="center" style="font-weight: bold">
+                                <td width="5%">Sub Producto</td>
                                 <td width="5%">CANTIDAD</td>
                                 <td width="5%">RENGLÓN</td>
                                 <td width="5%">CÓDIGO DE INSUMO</td>
                                 <td width="20%">NOMBRE</td>
-                                <td width="20%">DESCRIPCIÓN</td>
                                 <td width="5%">NOMBRE DE LA PRESENTACIÓN</td>
                                 <td width="5%">CANTIDAD Y UNIDAD DE MEDIDA</td>
                                 <td width="5%">COD. PRESENTACIÓN</td>
@@ -109,13 +109,13 @@
                                         class="help-block ">No se ha agregado ningún artículo</span></td>
                             </tr>
                             <tr v-for="detalle in detalle_editable" class="">
+                                <td v-text="detalle.sub_producto ? detalle.sub_producto.texto : 'Sin subproducto'"></td>
                                 <td>
                                     <input type="number" v-model="detalle.cantidad" class="form-control form-control-sm" />
                                 </td>
                                 <td v-text="detalle.item.renglon ? detalle.item.renglon.numero : 'Sin renglon'"></td>
                                 <td v-text="detalle.item.codigo_insumo"></td>
-                                <td v-text="detalle.item.nombre"></td>
-                                <td v-html="detalle.item.descripcion"></td>
+                                <td v-text="detalle.item.texto_requisicion_compra"></td>
                                 <td v-text="detalle.item.presentacion ? detalle.item.presentacion.nombre : 'Sin unidad'"></td>
                                 <td v-text="detalle.item.unimed ? detalle.item.unimed.nombre : 'Sin unidad'"></td>
                                 <td v-text="detalle.item.codigo_presentacion"></td>
@@ -347,7 +347,6 @@
                     id: 0,
                     item_id: null,
                     cantidad: 1,
-                    precio_venta: 0,
                     precio_estimado: 0,
                     solicitud_id: @json($compraSolicitud->id ?? null),
                 },
@@ -355,7 +354,6 @@
                     id: 0,
                     item_id: null,
                     cantidad: 1,
-                    precio_venta: 0,
                     precio_estimado: 0,
                     solicitud_id: @json($compraSolicitud->id ?? null),
                 },
@@ -432,6 +430,7 @@
                     try {
 
                         this.editedItem.item_id = this.getId(this.itemSelect);
+                        this.editedItem.sub_producto_id = this.getId(this.sub_producto_seleccionado);
                         const data = this.editedItem;
 
                         if (this.editedItem.id === 0) {
@@ -478,7 +477,10 @@
                 abreSelectorItems() {
                     this.itemSelect = null;
                     this.$refs.multiselect.$refs.multiselect.$el.focus();
-
+                },
+                abreSelectorSubproductos() {
+                    this.sub_producto_seleccionado = null;
+                    this.$refs.selector_subproductos.$el.focus();
                 },
                 siguienteCampo: function (campo) {
 
@@ -548,17 +550,25 @@
 
                     if (item) {
 
-
-                        this.editedItem.precio_venta = item.precio_venta;
-                        this.editedItem.precio_estimado = item.precio_estimado;
+                        this.editedItem.precio_estimado = item.precio_compra;
                         this.editedItem.item_id = item.id;
-                        $(this.$refs.cantidad).focus().select();
+                        // $(this.$refs.cantidad).focus().select();
+                        this.abreSelectorSubproductos();
 
 
                     } else {
-                        this.editedItem = Object.assign({}, this.defaultItem);
+                        this.editedItem.item_id = null;
+                        this.editedItem.precio_estimado = 0;
                     }
                 },
+                sub_producto_seleccionado(subproducto) {
+                    if (subproducto) {
+                        this.editedItem.sub_producto_id = subproducto.id;
+                        $(this.$refs.cantidad).focus().select();
+                    } else {
+                        this.editedItem.sub_producto_id = null;
+                    }
+                }
             }
         });
 

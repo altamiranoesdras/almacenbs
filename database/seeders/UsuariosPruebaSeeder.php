@@ -105,40 +105,77 @@ class UsuariosPruebaSeeder extends Seeder
     {
 
 
-        $unidad = RrhhUnidad::areas()->solicitan()->whereHas('subProductos')->inRandomOrder()
+        $unidad1 = RrhhUnidad::areas()->solicitan()
+            ->whereHas('subProductos')
+            ->inRandomOrder()
+            ->first();
+
+        $unidad2 = RrhhUnidad::areas()->solicitan()
+            ->where('id', '!=', $unidad1->id)
+            ->whereHas('subProductos')
+            ->inRandomOrder()
             ->first();
 
 
         $usuarios = [
-            'solicitante1' => [
+
+            'solicitante_compra1' => [
                 'name' => 'Solicitante Requisición Compras',
                 'role' => Role::SOLICITANTE_REQUISICION_COMPRAS,
-                'unidad_id' => $unidad->id,
-                'bodega_id' => $unidad->bodega->id,
+                'unidad_id' => $unidad1->id,
+                'bodega_id' => $unidad1->bodega->id,
                 'options' => [
                     Option::NUEVA_SOLICITUD_DE_COMPRA,
                     Option::MIS_SOLICITUDES_DE_COMPRAS,
                 ],
             ],
-            'aprobador1' => [
+            'aprobador_compra1' => [
                 'name' => 'Aprobador Requisiciones Compras',
                 'role' => Role::APROBADOR_REQUISICION_COMPRAS,
-                'unidad_id' => $unidad->departamentoPadre()->id,
+                'unidad_id' => $unidad1->departamentoPadre()->id,
                 'options' => [
                     Option::APROBAR_REQUISICION_COMPRA,
                     Option::BUSCADOR_REQUISICIONES_COMPRA,
                 ],
             ],
-            'autorizador2' => [
+            'autorizador_compra1' => [
                 'name' => 'Autorizador Requisiciones Compras',
                 'role' => Role::AUTORIZADOR_REQUISICION_COMPRAS,
-                'unidad_id' => $unidad->direccionPadre()->id,
+                'unidad_id' => $unidad1->direccionPadre()->id,
                 'options' => [
                     Option::AUTORIZAR_REQUISICION_COMPRA,
                     Option::BUSCADOR_REQUISICIONES_COMPRA,
                 ],
             ],
-            'supervisor1' => [
+            'solicitante_compra2' => [
+                'name' => 'Solicitante Requisición Compras 2',
+                'role' => Role::SOLICITANTE_REQUISICION_COMPRAS,
+                'unidad_id' => $unidad2->id,
+                'bodega_id' => $unidad2->bodega->id,
+                'options' => [
+                    Option::NUEVA_SOLICITUD_DE_COMPRA,
+                    Option::MIS_SOLICITUDES_DE_COMPRAS,
+                ],
+            ],
+            'aprobador_compra2' => [
+                'name' => 'Aprobador Requisiciones Compras 2',
+                'role' => Role::APROBADOR_REQUISICION_COMPRAS,
+                'unidad_id' => $unidad2->departamentoPadre()->id,
+                'options' => [
+                    Option::APROBAR_REQUISICION_COMPRA,
+                    Option::BUSCADOR_REQUISICIONES_COMPRA,
+                ],
+            ],
+            'autorizador_compra2' => [
+                'name' => 'Autorizador Requisiciones Compras 2',
+                'role' => Role::AUTORIZADOR_REQUISICION_COMPRAS,
+                'unidad_id' => $unidad2->direccionPadre()->id,
+                'options' => [
+                    Option::AUTORIZAR_REQUISICION_COMPRA,
+                    Option::BUSCADOR_REQUISICIONES_COMPRA,
+                ],
+            ],
+            'supervisor_compra1' => [
                 'name' => 'Supervisor Requisiciones Compras',
                 'role' => Role::SUPERVISOR_COMPRAS,
                 'unidad_id' => RrhhUnidad::DEPTO_COMPRAS,
@@ -148,8 +185,8 @@ class UsuariosPruebaSeeder extends Seeder
                     Option::APROBAR_REQUISICION_COMPRA,
                 ],
             ],
-            'analista1' => [
-                'name' => 'Analista Requisiciones Compras',
+            'analista_compra1' => [
+                'name' => 'Analista Requisiciones Compras 1',
                 'role' => Role::ANALISTA_COMPRAS,
                 'unidad_id' => RrhhUnidad::DEPTO_COMPRAS,
                 'bodega_id' => RrhhUnidad::find(RrhhUnidad::DEPTO_COMPRAS)->bodega->id,
@@ -158,7 +195,17 @@ class UsuariosPruebaSeeder extends Seeder
                     Option::APROBAR_REQUISICION_COMPRA,
                 ],
             ],
-            'presupuesto1' => [
+            'analista_compra2' => [
+                'name' => 'Analista Requisiciones Compras 2',
+                'role' => Role::ANALISTA_COMPRAS,
+                'unidad_id' => RrhhUnidad::DEPTO_COMPRAS,
+                'bodega_id' => RrhhUnidad::find(RrhhUnidad::DEPTO_COMPRAS)->bodega->id,
+                'options' => [
+                    Option::BUSCADOR_REQUISICIONES_COMPRA,
+                    Option::APROBAR_REQUISICION_COMPRA,
+                ],
+            ],
+            'analista_presupuesto1' => [
                 'name' => 'Analista Presupuesto',
                 'role' => Role::ANALISTA_PRESUPUESTO,
                 'unidad_id' => RrhhUnidad::DEPTO_PRESUPUESTOS,

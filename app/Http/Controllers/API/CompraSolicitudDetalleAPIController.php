@@ -22,7 +22,7 @@ class CompraSolicitudDetalleAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $query = CompraSolicitudDetalle::with('item');
+        $query = CompraSolicitudDetalle::with(['item','subProducto']);
 
         if ($request->get('skip')) {
             $query->skip($request->get('skip'));
@@ -51,6 +51,7 @@ class CompraSolicitudDetalleAPIController extends AppBaseController
 //        if($item->categoria_id == null ){
 //            return $this->sendError('No se puede agregar insumos sin Catecoria');
 //        }
+
 
         $request->merge([
             'precio_venta' => $request->get('precio_venta') ?? 0,
