@@ -166,7 +166,7 @@
         </tr>
     @endforeach
 
-    @for ($i = count($compra->compra1h->detalles); $i < 20; $i++)
+    @for ($i = count($compra->compra1h->detalles); $i < 18; $i++)
         <tr class="border-0">
             <td >&nbsp;</td>
             <td >&nbsp;</td>
