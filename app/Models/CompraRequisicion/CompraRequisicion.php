@@ -616,4 +616,9 @@ class CompraRequisicion extends Model implements HasMedia
 
     }
 
+    public function pdfFirmado()
+    {
+        return $this->getLastMediaUrl(CompraRequisicion::COLLECTION_REQUISICION_COMPRA);
+    }
+
 }

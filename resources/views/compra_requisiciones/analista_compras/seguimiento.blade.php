@@ -176,17 +176,10 @@
 
                                 <div class="col-sm-4 text-center">
 
-                                    {{--                                    @if(!$requisicion->tiene_firma_autorizador)--}}
-                                    {{--                                        <button type="button" class="btn btn-outline-info round" @click="firmar()">--}}
-                                    {{--                                            Firmar--}}
-                                    {{--                                        </button>--}}
-                                    {{--                                    @else--}}
-
-                                    {{--                                        <button type="button" class="btn btn-outline-info round" data-bs-toggle="modal"--}}
-                                    {{--                                                data-bs-target="#modalImprimir">--}}
-                                    {{--                                            Ver PDF Firmado--}}
-                                    {{--                                        </button>--}}
-                                    {{--                                    @endif--}}
+                                    <button type="button" class="btn btn-outline-info round" data-bs-toggle="modal"
+                                            @click="verPdfFirmado()">
+                                        Ver PDF Firmado
+                                    </button>
 
                                 </div>
 
@@ -294,8 +287,7 @@
                     <div class="modal-body p-0">
                         <!-- Aquí va el visor PDF -->
                         <div class="ratio ratio-16x9">
-                            <iframe src="{{ session('rutaArchivoFirmado') }}"
-                                    frameborder="0"></iframe>
+                            <iframe :src="pdf_firmado" frameborder="0"></iframe>
 
                         </div>
                     </div>
@@ -350,117 +342,127 @@
                 </div>
             </div>
         </div>
-        @endsection
+    </div>
+@endsection
 
-        @push('scripts')
-            <script>
-                @if(session('rutaArchivoFirmado'))
-                var myModal = new bootstrap.Modal(document.getElementById('pdfModal'));
-                myModal.show();
-                @endif
+@push('scripts')
+    <script>
+        @if(session('rutaArchivoFirmado'))
+        var myModal = new bootstrap.Modal(document.getElementById('pdfModal'));
+        myModal.show();
+        @endif
 
-                new Vue({
-                    el: '#editarRequisicion',
-                    name: 'editarRequisicion',
-                    async mounted() {
-                        await this.getTipoProcesos()
-                        await this.getTipoConcursos()
-                        await this.getProveedores()
-                        await this.getTipoAdquisiciones()
-                        await this.obtenerDatos()
-                    },
-                    created() {
+        new Vue({
+            el: '#editarRequisicion',
+            name: 'editarRequisicion',
+            async mounted() {
+                await this.getTipoProcesos()
+                await this.getTipoConcursos()
+                await this.getProveedores()
+                await this.getTipoAdquisiciones()
+                await this.obtenerDatos()
+            },
+            created() {
 
-                    },
-                    data: {
-                        justificacion: @json($requisicion->justificacion ?? ''),
-                        tiposProcesos: [],
-                        tiposProcesoSeleccionado: null,
-                        tiposConcursos: [],
-                        tiposConcursoSeleccionado: null,
-                        proveedores: [],
-                        proveedorSeleccionado: null,
-                        tipoAdquisiciones: [],
-                        tipoAdquisicionSeleccionado: null,
-                        deshAbilitarCampos: @json($requisicion->estado_id != \App\Models\CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_COMPRAS),
+            },
+            data: {
+                justificacion: @json($requisicion->justificacion ?? ''),
+                tiposProcesos: [],
+                tiposProcesoSeleccionado: null,
+                tiposConcursos: [],
+                tiposConcursoSeleccionado: null,
+                proveedores: [],
+                proveedorSeleccionado: null,
+                tipoAdquisiciones: [],
+                tipoAdquisicionSeleccionado: null,
+                deshAbilitarCampos: @json($requisicion->estado_id != \App\Models\CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_COMPRAS),
+                pdf_firmado: @json($requisicion->pdfFirmado() ?? null),
 
-                    },
-                    methods: {
-                        firmar() {
+            },
+            methods: {
+                firmar() {
 
-                            var myModal = new bootstrap.Modal(document.getElementById('modalFirmar'));
-                            myModal.show();
-                        },
-                        async getTipoProcesos() {
-                            try {
-                                let response = await axios.get('{{ route('api.compra_requisicion_proceso_tipos.index') }}');
-                                this.tiposProcesos = response.data.data;
-                            } catch (error) {
-                                notifyErrorApi(error);
-                            }
-                        },
-                        async getTipoConcursos() {
-                            try {
-                                let response = await axios.get('{{ route('api.compra_requisicion_tipo_concursos.index') }}');
-                                this.tiposConcursos = response.data.data;
-                            } catch (error) {
-                                notifyErrorApi(error);
-                            }
-                        },
-                        async getProveedores() {
-                            try {
-                                let response = await axios.get('{{ route('api.proveedores.index') }}');
-                                this.proveedores = response.data.data;
-                            } catch (error) {
-                                notifyErrorApi(error);
-                            }
-                        },
-                        async getTipoAdquisiciones() {
-                            try {
-                                let response = await axios.get('{{ route('api.requisicion_tipo_adquisiciones.index') }}');
-                                this.tipoAdquisiciones = response.data.data;
-                            } catch (error) {
-                                notifyErrorApi(error);
-                            }
-                        },
-                        obtenerDatos() {
-                            let tipo_proceso_id = @json(old('tipo_proceso_id', $requisicion->tipo_proceso_id));
-                            let proveedorActualId = @json(old('proveedor_id', $requisicion->proveedor_adjudicado));
-                            let tipoConsursoId = @json(old('concurso_id', $requisicion->tipo_concurso_id));
-                            let tipoAdquisicionId = @json(old('tipo_adquisicion_id', $requisicion->tipo_adquisicion_id));
-
-                            if (tipo_proceso_id) {
-                                this.tiposProcesoSeleccionado = this.tiposProcesos.find(tipo => tipo.id === parseInt(tipo_proceso_id));
-                            }
-                            if (proveedorActualId != null) {
-                                this.proveedorSeleccionado = this.proveedores.find(proveedor => proveedor.id === parseInt(proveedorActualId));
-                            }
-                            if (tipoConsursoId) {
-                                this.tiposConcursoSeleccionado = this.tiposConcursos.find(tipo => tipo.id === parseInt(tipoConsursoId));
-                            }
-                            if (tipoAdquisicionId) {
-                                this.tipoAdquisicionSeleccionado = this.tipoAdquisiciones.find(tipo => tipo.id === parseInt(tipoAdquisicionId));
-                            }
-                        }
+                    var myModal = new bootstrap.Modal(document.getElementById('modalFirmar'));
+                    myModal.show();
+                },
+                async getTipoProcesos() {
+                    try {
+                        let response = await axios.get('{{ route('api.compra_requisicion_proceso_tipos.index') }}');
+                        this.tiposProcesos = response.data.data;
+                    } catch (error) {
+                        notifyErrorApi(error);
                     }
-                });
-                $(function () {
-                    $("#orden_compra").fileinput({
-                        language: "es",
-                        initialPreview: @json(($url = $requisicion->getFirstMediaUrl('Orden de Compra')) ? [$url] : []),
-                        dropZoneEnabled: true,
-                        maxFileCount: 1,
-                        maxFileSize: 2000,
-                        showUpload: false,
-                        initialPreviewAsData: true,
-                        showBrowse: true,
-                        showRemove: false,
-                        theme: "fa6",
-                        browseOnZoneClick: true,
-                        allowedPreviewTypes: ["pdf"],
-                        allowedFileTypes: ["pdf"],
-                        initialPreviewFileType: 'pdf',
-                    });
-                });
-            </script>
-    @endpush
+                },
+                async getTipoConcursos() {
+                    try {
+                        let response = await axios.get('{{ route('api.compra_requisicion_tipo_concursos.index') }}');
+                        this.tiposConcursos = response.data.data;
+                    } catch (error) {
+                        notifyErrorApi(error);
+                    }
+                },
+                async getProveedores() {
+                    try {
+                        let response = await axios.get('{{ route('api.proveedores.index') }}');
+                        this.proveedores = response.data.data;
+                    } catch (error) {
+                        notifyErrorApi(error);
+                    }
+                },
+                async getTipoAdquisiciones() {
+                    try {
+                        let response = await axios.get('{{ route('api.requisicion_tipo_adquisiciones.index') }}');
+                        this.tipoAdquisiciones = response.data.data;
+                    } catch (error) {
+                        notifyErrorApi(error);
+                    }
+                },
+                obtenerDatos() {
+                    let tipo_proceso_id = @json(old('tipo_proceso_id', $requisicion->tipo_proceso_id));
+                    let proveedorActualId = @json(old('proveedor_id', $requisicion->proveedor_adjudicado));
+                    let tipoConsursoId = @json(old('concurso_id', $requisicion->tipo_concurso_id));
+                    let tipoAdquisicionId = @json(old('tipo_adquisicion_id', $requisicion->tipo_adquisicion_id));
+
+                    if (tipo_proceso_id) {
+                        this.tiposProcesoSeleccionado = this.tiposProcesos.find(tipo => tipo.id === parseInt(tipo_proceso_id));
+                    }
+                    if (proveedorActualId != null) {
+                        this.proveedorSeleccionado = this.proveedores.find(proveedor => proveedor.id === parseInt(proveedorActualId));
+                    }
+                    if (tipoConsursoId) {
+                        this.tiposConcursoSeleccionado = this.tiposConcursos.find(tipo => tipo.id === parseInt(tipoConsursoId));
+                    }
+                    if (tipoAdquisicionId) {
+                        this.tipoAdquisicionSeleccionado = this.tipoAdquisiciones.find(tipo => tipo.id === parseInt(tipoAdquisicionId));
+                    }
+                },
+                verPdfFirmado() {
+                    if (this.pdf_firmado) {
+                        var myModal = new bootstrap.Modal(document.getElementById('pdfModal'));
+                        myModal.show();
+                    } else {
+                        alertWarning('No hay PDF firmado disponible para esta requisición.');
+                    }
+                },
+            }
+        });
+        $(function () {
+            $("#orden_compra").fileinput({
+                language: "es",
+                initialPreview: @json(($url = $requisicion->getFirstMediaUrl('Orden de Compra')) ? [$url] : []),
+                dropZoneEnabled: true,
+                maxFileCount: 1,
+                maxFileSize: 2000,
+                showUpload: false,
+                initialPreviewAsData: true,
+                showBrowse: true,
+                showRemove: false,
+                theme: "fa6",
+                browseOnZoneClick: true,
+                allowedPreviewTypes: ["pdf"],
+                allowedFileTypes: ["pdf"],
+                initialPreviewFileType: 'pdf',
+            });
+        });
+    </script>
+@endpush
