@@ -436,6 +436,19 @@ class CompraRequisicion extends Model implements HasMedia
      */
     public function generarPdfUpload(): UploadedFile
     {
+
+        if($this->pdfFirmado()) {
+            // Si ya tiene un PDF firmado, no lo vuelve a generar.
+            return new UploadedFile(
+                Storage::disk('public')->path($this->pdfFirmado()),
+                'Requisicion_' . $this->id . '_' . time() . '.pdf',
+                'application/pdf',
+                null,
+                true // test mode (no mueve/elimina el archivo fuente)
+            );
+        }
+
+
         // 1) Generar el PDF con Snappy (wkhtmltopdf)
         $pdf = App::make('snappy.pdf.wrapper');
 
@@ -476,10 +489,8 @@ class CompraRequisicion extends Model implements HasMedia
      * @throws FileDoesNotExist
      * @throws FileIsTooBig
      */
-    public function firmar(User $usuario, string $contrasenaFirma, UploadedFile $uploaded): Media
+    public function firmar(User $usuario, string $contrasenaFirma, UploadedFile $uploaded,$x=0,$y=280): Media
     {
-        $x = 0;
-        $y = 280;
 
         foreach ($this->detalles as $index => $detalle) {
             if($index > 15) {
@@ -568,7 +579,9 @@ class CompraRequisicion extends Model implements HasMedia
         return $this->firmar(
             usuarioAutenticado(),
             $contrasenaFirma,
-            $uploaded
+            $uploaded,
+            100,
+            280
         );
 
     }
@@ -598,6 +611,8 @@ class CompraRequisicion extends Model implements HasMedia
             usuarioAutenticado(),
             $contrasenaFirma,
             $uploaded
+            , 200
+            , 280
         );
 
     }
