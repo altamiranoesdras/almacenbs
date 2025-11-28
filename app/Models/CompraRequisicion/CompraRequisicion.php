@@ -36,6 +36,8 @@ use Throwable;
 /**
  * @property int $id
  * @property int|null $tipo_concurso_id
+ * @property int|null $tipo_proceso_id
+ * @property string|null $numero_orden_compra
  * @property int|null $tipo_adquisicion_id
  * @property int|null $correlativo
  * @property string|null $codigo ID interno de gestión, p.ej. G-2025-001
@@ -96,6 +98,7 @@ use Throwable;
  * @method static Builder|CompraRequisicion whereNog($value)
  * @method static Builder|CompraRequisicion whereNpg($value)
  * @method static Builder|CompraRequisicion whereNumeroAdjudicacion($value)
+ * @method static Builder|CompraRequisicion whereNumeroOrdenCompra($value)
  * @method static Builder|CompraRequisicion whereObservaciones($value)
  * @method static Builder|CompraRequisicion wherePartidas($value)
  * @method static Builder|CompraRequisicion whereProveedorAdjudicado($value)
@@ -105,6 +108,7 @@ use Throwable;
  * @method static Builder|CompraRequisicion whereTieneFirmaSolicitante($value)
  * @method static Builder|CompraRequisicion whereTipoAdquisicionId($value)
  * @method static Builder|CompraRequisicion whereTipoConcursoId($value)
+ * @method static Builder|CompraRequisicion whereTipoProcesoId($value)
  * @method static Builder|CompraRequisicion whereUnidadId($value)
  * @method static Builder|CompraRequisicion whereUpdatedAt($value)
  * @method static Builder|CompraRequisicion whereUsuarioAnalistaId($value)
