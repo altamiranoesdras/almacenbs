@@ -1,24 +1,20 @@
-@can('Ver Compra Requisicions')
-    <button
-        type="button"
-        data-bs-toggle="modal"
-        data-bs-target="#modal-detalles-{{ $requisicion->id }}"
-        data-toggle="tooltip"
-        title="Ver detalles"
-        class='btn btn-icon btn-outline-info rounded-circle'
-    >
-        <i class="fa fa-eye"></i>
-    </button>
-@endcan
+<button
+    type="button"
+    data-bs-toggle="modal"
+    data-bs-target="#modal-detalles-{{ $requisicion->id }}"
+    data-toggle="tooltip"
+    title="Ver detalles"
+    class='btn btn-icon btn-outline-info rounded-circle'
+>
+    <i class="fa fa-eye"></i>
+</button>
 
-@can('Editar Compra Requisicions')
-    <a href="{{ route('compra.requisiciones.analista.compras.seguimiento', $id) }}" data-toggle="tooltip" title="Editar"
-       class='btn btn-icon btn-outline-warning rounded-circle'>
-        <i class="fa fa-edit"></i>
-    </a>
-@endcan
+<a href="{{ route('compra.requisiciones.analista.compras.seguimiento', $id) }}" data-toggle="tooltip" title="Editar"
+   class='btn btn-icon btn-outline-warning rounded-circle'>
+    <i class="fa fa-edit"></i>
+</a>
 
-@can('Eliminar Compra Requisicions')
+@can('Anular Compra Requisiciones')
     <a href="#" onclick="deleteItemDt(this)" data-id="{{ $id }}" data-toggle="tooltip" title="Eliminar"
        class='btn btn-icon btn-outline-danger rounded-circle'>
         <i class="fa fa-trash-alt"></i>
