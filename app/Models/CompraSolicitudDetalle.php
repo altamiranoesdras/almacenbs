@@ -110,4 +110,15 @@ class CompraSolicitudDetalle extends Model
     {
         return $this->belongsTo(RedProduccionSubProducto::class, 'sub_producto_id');
     }
+
+    public function detalleRequisicion(): ?CompraRequisicionDetalle
+    {
+        return $this->belongsToMany(
+            CompraRequisicionDetalle::class,
+            'compra_solicitud_detalle_has_requisicion_detalle',
+            'compra_solicitud_detalle_id',
+            'requisicion_detalle_id'
+        )->first();
+
+    }
 }

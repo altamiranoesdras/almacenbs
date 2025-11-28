@@ -617,21 +617,39 @@ class CompraRequisicion extends Model implements HasMedia
 
     }
 
-    public function obtenerPartidas()
+    public function obtenerPartidas(): array
     {
         $partidas = [];
 
-        $solicitudes = $this->compraSolicitudes;
+
+        foreach ($this->detalles as $requisicionDetalle) {
 
 
-        foreach ($solicitudes as $solicitud) {
-            foreach ($solicitud->detalles as $detalle) {
-                $partidas[] = $detalle->subProducto->producto->partida_parcial ?? null;
+            foreach ($requisicionDetalle->solicitudDetalles as $solicitudDetalle) {
+                $partidaParcial = $solicitudDetalle->subProducto->partida_parcial;
+                $ubicacion = $solicitudDetalle->solicitud->unidad->municipio->codigo ?? 'Sin UBG';
+                $renglon = $requisicionDetalle->item->renglon->numero ?? 'Sin Renglón';
+                $codigoFuente = $requisicionDetalle->financiamientoFuente->codigo ?? 'Sin Fuente';
+
+                $partidas[] = $partidaParcial . '-' . $renglon . '-' . $ubicacion . '-' . $codigoFuente;
             }
         }
 
-
         return $partidas;
+
+    }
+
+    public function obtenerSubProductos(): array
+    {
+        $subProductos = [];
+
+        foreach ($this->detalles as $requisicionDetalle) {
+            foreach ($requisicionDetalle->solicitudDetalles as $solicitudDetalle) {
+                $subProductos[] = $solicitudDetalle->subProducto->codigo;
+            }
+        }
+
+        return $subProductos;
 
     }
 

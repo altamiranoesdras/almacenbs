@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -19,9 +20,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\FinanciamientoFuente|null $financiamientoFuente
  * @property-read mixed $sub_total
  * @property-read \App\Models\Item $item
- * @property-read \App\Models\CompraRequisicion\CompraRequisicion $requisicion
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraSolicitudDetalle> $solicitudDetalles
  * @property-read int|null $solicitud_detalles_count
  * @method static \Database\Factories\CompraRequisicionDetalleFactory factory($count = null, $state = [])
@@ -82,12 +83,12 @@ class CompraRequisicionDetalle extends Model
 
     ];
 
-    public function requisicion(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function requisicion(): BelongsTo
     {
         return $this->belongsTo(\App\Models\CompraRequisicion\CompraRequisicion::class, 'requisicion_id');
     }
 
-    public function item(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function item(): BelongsTo
     {
         return $this->belongsTo(\App\Models\Item::class, 'item_id');
     }
@@ -107,5 +108,10 @@ class CompraRequisicionDetalle extends Model
             'compra_solicitud_detalle_id'
         );
 
+    }
+
+    public function financiamientoFuente(): BelongsTo
+    {
+        return $this->belongsTo(FinanciamientoFuente::class, 'financiamiento_fuente_id');
     }
 }

@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read mixed $nombre_tipo
  * @property-read string $text
  * @property-read \App\Models\User|null $jefe
+ * @property-read \App\Models\Municipio|null $municipio
  * @property-read RrhhUnidad|null $parent
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RrhhPuesto> $puestos
  * @property-read int|null $puestos_count
@@ -372,6 +373,11 @@ class RrhhUnidad extends Model
     public function getNombreTipoAttribute()
     {
         return $this->nombre . ' (' . $this->tipo->nombre . ')';
+    }
+
+    public function municipio(): BelongsTo
+    {
+        return $this->belongsTo(Municipio::class, 'municipio_id', 'id');
     }
 
 }

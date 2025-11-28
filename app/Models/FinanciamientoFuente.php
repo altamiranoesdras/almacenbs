@@ -76,4 +76,10 @@ class FinanciamientoFuente extends Model
         return $this->codigo_fuente . ' - ' . $this->nombre;
     }
 
+    public function getCodigoAttribute()
+    {
+        return $this->codigo_fuente . '-' . $this->codigo_organismo . '-' . $this->correlativo;
+
+    }
+
 }
