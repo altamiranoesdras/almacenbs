@@ -111,7 +111,7 @@
                             <tr v-for="detalle in detalle_editable" class="">
                                 <td v-text="detalle.sub_producto ? detalle.sub_producto.texto : 'Sin subproducto'"></td>
                                 <td>
-                                    <input type="number" v-model="detalle.cantidad" class="form-control form-control-sm" />
+                                    <input type="number" v-model="detalle.cantidad" step="any" min="0" class="form-control form-control-sm" />
                                 </td>
                                 <td v-text="detalle.item.renglon ? detalle.item.renglon.numero : 'Sin renglon'"></td>
                                 <td v-text="detalle.item.codigo_insumo"></td>
@@ -120,7 +120,7 @@
                                 <td v-text="detalle.item.unimed ? detalle.item.unimed.nombre : 'Sin unidad'"></td>
                                 <td v-text="detalle.item.codigo_presentacion"></td>
                                 <td>
-                                    <input type="number" v-model="detalle.precio_estimado" class="form-control form-control-sm" />
+                                    <input type="number" v-model="detalle.precio_estimado" step="any" min="0" class="form-control form-control-sm" />
                                 </td>
                                 <td v-text="dvs + nfp(detalle.sub_total)"></td>
                                 <td width="10px">
