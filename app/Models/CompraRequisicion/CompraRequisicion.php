@@ -440,7 +440,7 @@ class CompraRequisicion extends Model implements HasMedia
         if($this->pdfFirmado()) {
             // Si ya tiene un PDF firmado, no lo vuelve a generar.
             return new UploadedFile(
-                Storage::disk('public')->path($this->pdfFirmado()),
+                $this->pdfFirmado(true),
                 'Requisicion_' . $this->id . '_' . time() . '.pdf',
                 'application/pdf',
                 null,
@@ -580,7 +580,7 @@ class CompraRequisicion extends Model implements HasMedia
             usuarioAutenticado(),
             $contrasenaFirma,
             $uploaded,
-            100,
+            180,
             280
         );
 
@@ -611,7 +611,7 @@ class CompraRequisicion extends Model implements HasMedia
             usuarioAutenticado(),
             $contrasenaFirma,
             $uploaded
-            , 200
+            , 350
             , 280
         );
 
@@ -653,9 +653,21 @@ class CompraRequisicion extends Model implements HasMedia
 
     }
 
-    public function pdfFirmado()
+    public function pdfFirmado($rutaAbsoluta = false): ?string
     {
-        return $this->getLastMediaUrl(CompraRequisicion::COLLECTION_REQUISICION_COMPRA);
+        $media = $this->getMedia(CompraRequisicion::COLLECTION_REQUISICION_COMPRA)
+            ->last(); // Obtiene el último archivo de la colección
+
+        if (!$media) {
+            return null;
+        }
+
+        if ($rutaAbsoluta) {
+            return $media->getPath();
+        }
+
+
+        return $media->getUrl(); // Retorna la URL relativa del archivo firmado
     }
 
 }

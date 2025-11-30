@@ -41,91 +41,6 @@
 
                     {!! Form::model($requisicion, ['url' => route('compra.requisiciones.autorizar.store', $requisicion->id), 'method' => 'patch','class' => 'esperar']) !!}
 
-                    <div class="card-body">
-                        <div class="row">
-{{--                            @include('compra_requisiciones.show_fields')--}}
-{{--                            @include('compra_requisiciones.tabla_detalles_requisicion')--}}
-                        </div>
-{{--                        <div class="row">--}}
-{{--                            <div class="col-12 mb-1">--}}
-{{--                                JUSTIFICACIÓN DE LA COMPRA--}}
-{{--                                <textarea--}}
-{{--                                    name="justificacion"--}}
-{{--                                    id="justificacion"--}}
-{{--                                    v-model="justificacion"--}}
-{{--                                    class="form-control"--}}
-{{--                                    rows="2"--}}
-{{--                                    placeholder="Justificación de la compra"--}}
-{{--                                ></textarea>--}}
-{{--                            </div>--}}
-
-{{--                            --}}{{--                        <div class="col-6 mb-1">--}}
-{{--                            --}}{{--                            subproductos--}}
-{{--                            --}}{{--                            <table class="table table-sm">--}}
-{{--                            --}}{{--                                <tbody >--}}
-{{--                            --}}{{--                                <tr>--}}
-{{--                            --}}{{--                                    <td>--}}
-{{--                            --}}{{--                                        <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"--}}
-{{--                            --}}{{--                                               value="{{explode('|',$compraSolicitud->subproductos)[0] ?? ''}}">--}}
-{{--                            --}}{{--                                    </td>--}}
-{{--                            --}}{{--                                </tr>--}}
-{{--                            --}}{{--                                <tr>--}}
-{{--                            --}}{{--                                    <td>--}}
-{{--                            --}}{{--                                        <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"--}}
-{{--                            --}}{{--                                               value="{{explode('|',$compraSolicitud->subproductos)[1] ?? ''}}">--}}
-{{--                            --}}{{--                                    </td>--}}
-{{--                            --}}{{--                                </tr>--}}
-{{--                            --}}{{--                                <tr>--}}
-{{--                            --}}{{--                                    <td>--}}
-{{--                            --}}{{--                                        <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"--}}
-{{--                            --}}{{--                                               value="{{explode('|',$compraSolicitud->subproductos)[2] ?? ''}}">--}}
-{{--                            --}}{{--                                    </td>--}}
-{{--                            --}}{{--                                </tr>--}}
-{{--                            --}}{{--                                <tr>--}}
-{{--                            --}}{{--                                    <td>--}}
-{{--                            --}}{{--                                        <input type="text" name="subproductos[]" id="subproductos[]" class="form-control"--}}
-{{--                            --}}{{--                                               value="{{explode('|',$compraSolicitud->subproductos)[3] ?? ''}}">--}}
-{{--                            --}}{{--                                    </td>--}}
-{{--                            --}}{{--                                </tr>--}}
-{{--                            --}}{{--                                </tbody>--}}
-{{--                            --}}{{--                            </table>--}}
-
-{{--                            --}}{{--                        </div>--}}
-{{--                            --}}{{--                        <div class="col-6 mb-1">--}}
-{{--                            --}}{{--                            PARTIDAS PRESUPUESTARIAS--}}
-{{--                            --}}{{--                            <table class="table table-sm">--}}
-{{--                            --}}{{--                                <tbody>--}}
-{{--                            --}}{{--                                <tr>--}}
-{{--                            --}}{{--                                    <td>--}}
-{{--                            --}}{{--                                        <input type="text" name="partidas[]" id="partidas[]" class="form-control"--}}
-{{--                            --}}{{--                                               value="{{explode('|',$compraSolicitud->partidas)[0] ?? ''}}">--}}
-{{--                            --}}{{--                                    </td>--}}
-{{--                            --}}{{--                                </tr>--}}
-{{--                            --}}{{--                                <tr>--}}
-{{--                            --}}{{--                                    <td>--}}
-{{--                            --}}{{--                                        <input type="text" name="partidas[]" id="partidas[]" class="form-control"--}}
-{{--                            --}}{{--                                               value="{{explode('|',$compraSolicitud->partidas)[1] ?? ''}}">--}}
-{{--                            --}}{{--                                    </td>--}}
-{{--                            --}}{{--                                </tr>--}}
-{{--                            --}}{{--                                <tr>--}}
-{{--                            --}}{{--                                    <td>--}}
-{{--                            --}}{{--                                        <input type="text" name="partidas[]" id="partidas[]" class="form-control"--}}
-{{--                            --}}{{--                                               value="{{explode('|',$compraSolicitud->partidas)[2] ?? ''}}">--}}
-{{--                            --}}{{--                                    </td>--}}
-{{--                            --}}{{--                                </tr>--}}
-{{--                            --}}{{--                                <tr>--}}
-{{--                            --}}{{--                                    <td>--}}
-{{--                            --}}{{--                                        <input type="text" name="partidas[]" id="partidas[]" class="form-control"--}}
-{{--                            --}}{{--                                               value="{{explode('|',$compraSolicitud->partidas)[3] ?? ''}}">--}}
-{{--                            --}}{{--                                    </td>--}}
-{{--                            --}}{{--                                </tr>--}}
-{{--                            --}}{{--                                </tbody>--}}
-{{--                            --}}{{--                            </table>--}}
-
-{{--                            --}}{{--                        </div>--}}
-{{--                        </div>--}}
-                    </div>
-
                     <div class="card-footer">
                         <div class="row mb1">
 
@@ -147,7 +62,7 @@
                                 @else
 
                                     <button type="button" class="btn btn-outline-info round" data-bs-toggle="modal"
-                                            data-bs-target="#modalImprimir">
+                                            @click="verPdfFirmado()">
                                         Ver PDF Firmado
                                     </button>
                                 @endif
@@ -292,53 +207,62 @@
             </div>
         </div>
 
-    </div>
+        <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl"> <!-- modal-xl para que sea grande -->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="pdfModalLabel">Vista previa del PDF</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body p-0">
+                        <!-- Aquí va el visor PDF -->
+                        <div class="ratio ratio-16x9">
+                            <iframe :src="pdf_firmado" frameborder="0"></iframe>
 
-    <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl"> <!-- modal-xl para que sea grande -->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="pdfModalLabel">Vista previa del PDF</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <div class="modal-body p-0">
-                    <!-- Aquí va el visor PDF -->
-                    <div class="ratio ratio-16x9">
-                        <iframe src="{{ session('rutaArchivoFirmado') }}"
-                                frameborder="0"></iframe>
-
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 @endsection
 
 @push('scripts')
     <script>
-        @if(session('rutaArchivoFirmado'))
-        var myModal = new bootstrap.Modal(document.getElementById('pdfModal'));
-        myModal.show();
-        @endif
 
         new Vue({
             el: '#editarRequisicion',
             name: 'editarRequisicion',
             mounted() {
                 console.log('Instancia vue montada');
+                if(this.flashPdfFirmado) {
+                    var myModal = new bootstrap.Modal(document.getElementById('pdfModal'));
+                    myModal.show();
+                }
             },
             created() {
                 console.log('Instancia vue creada');
             },
             data: {
                 justificacion: @json($requisicion->justificacion ?? ''),
+                pdf_firmado: @json($requisicion->pdfFirmado() ?? session('rutaArchivoFirmado') ?? ''),
+                flashPdfFirmado: @json(session('rutaArchivoFirmado') ?? false),
             },
             methods: {
                 firmar() {
 
                     var myModal = new bootstrap.Modal(document.getElementById('modalFirmar'));
                     myModal.show();
-                }
+                },
+                verPdfFirmado() {
+                    if (this.pdf_firmado) {
+                        var myModal = new bootstrap.Modal(document.getElementById('pdfModal'));
+                        myModal.show();
+                    } else {
+                        alertWarning('No hay PDF firmado disponible para esta requisición.');
+                    }
+                },
             }
         });
     </script>

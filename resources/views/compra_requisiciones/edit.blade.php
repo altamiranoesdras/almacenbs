@@ -250,24 +250,25 @@
 
 @push('scripts')
     <script>
-        @if(session('rutaArchivoFirmado'))
-        var myModal = new bootstrap.Modal(document.getElementById('pdfModal'));
-        myModal.show();
-        @endif
+
 
         new Vue({
             el: '#editarRequisicion',
             name: 'editarRequisicion',
             mounted() {
                 console.log('Instancia vue montada');
+                if(this.flashPdfFirmado) {
+                    var myModal = new bootstrap.Modal(document.getElementById('pdfModal'));
+                    myModal.show();
+                }
             },
             created() {
                 console.log('Instancia vue creada');
             },
             data: {
                 justificacion: @json($requisicion->justificacion ?? ''),
-                pdf_firmado: @json($requisicion->pdfFirmado() ?? null),
-                esta_firmada: @json($requisicion->tiene_firma_solicitante ?? false),
+                pdf_firmado: @json($requisicion->pdfFirmado() ?? session('rutaArchivoFirmado') ?? null),
+                flashPdfFirmado: @json(session('rutaArchivoFirmado') ?? false),
             },
             methods: {
                 verPdfFirmado() {
