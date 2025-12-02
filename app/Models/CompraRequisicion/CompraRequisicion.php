@@ -283,14 +283,14 @@ class CompraRequisicion extends Model implements HasMedia
         $this->addBitacora("REQUISICIÓN DE COMPRA ASIGNADA A ANALISTA DE PRESUPUESTO");
     }
 
-    public function solicitar(): void
+    public function enviarAAprobador(): void
     {
         $this->estado_id = CompraRequisicionEstado::REQUERIDA;
         $this->fecha_solicita = now();
         $this->usuario_solicita_id = usuarioAutenticado()->id;
         $this->save();
 
-        $this->addBitacora("REQUISICIÓN DE COMPRA SOLICITADA");
+        $this->addBitacora("REQUISICIÓN DE COMPRA REQUERIDA");
     }
 
     public function aprobar(): void
@@ -315,7 +315,8 @@ class CompraRequisicion extends Model implements HasMedia
 
     public function puedeEnviarseAAprobacion(): bool
     {
-        return $this->estado_id == CompraRequisicionEstado::CREADA && $this->tiene_firma_solicitante;
+        return $this->estado_id == CompraRequisicionEstado::FUENTES_FINANCIAMIENTO_ASIGNADAS
+            && $this->tiene_firma_solicitante;
     }
 
     public function puedeAprobarse(): bool

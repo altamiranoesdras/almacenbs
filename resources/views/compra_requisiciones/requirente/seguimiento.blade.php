@@ -38,7 +38,7 @@
                     @include('compra_requisiciones.componentes.tarjeta_compra_requisicion', ['requisicion' => $requisicion])
 
                     <div class="card">
-                        {!! Form::model($requisicion, ['url' => route('compra.requisiciones.requirente.seguimiento.procesar', $requisicion->id), 'method' => 'patch','class' => 'esperar', 'files' => true ]) !!}
+                        {!! Form::model($requisicion, ['url' => route('compra.requisiciones.requirente.seguimiento.procesar', $requisicion->id), 'method' => 'post','class' => 'esperar']) !!}
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-12 mb-1">
@@ -69,9 +69,8 @@
                                                 Firmar
                                             </button>
                                         @else
-
                                             <button type="button" class="btn btn-outline-info round" data-bs-toggle="modal"
-                                                    data-bs-target="#modalImprimir">
+                                                    @click="verPdfFirmado()">
                                                 Ver PDF Firmado
                                             </button>
                                         @endif
@@ -210,21 +209,18 @@
                 </div>
 
             </div>
-        </div>
-    </div>
-    <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl"> <!-- modal-xl para que sea grande -->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="pdfModalLabel">Vista previa del PDF</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <div class="modal-body p-0">
-                    <!-- Aquí va el visor PDF -->
-                    <div class="ratio ratio-16x9">
-                        <iframe src="{{ session('rutaArchivoFirmado') }}"
-                                frameborder="0"></iframe>
-
+            <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl"> <!-- modal-xl para que sea grande -->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="pdfModalLabel">Vista previa del PDF</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                        </div>
+                        <div class="modal-body p-0">
+                            <div class="ratio ratio-16x9">
+                                <iframe :src="pdf_firmado" frameborder="0"></iframe>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -243,37 +239,34 @@
             el: '#editarRequisicion',
             name: 'editarRequisicion',
             async mounted() {
+                if(this.flashPdfFirmado) {
+                    var myModal = new bootstrap.Modal(document.getElementById('pdfModal'));
+                    myModal.show();
+                }
+                console.log(this.pdf_firmado)
             },
             created() {
 
             },
             data: {
                 justificacion: @json($requisicion->justificacion ?? ''),
+                pdf_firmado: @json($requisicion->pdfFirmado() ?? session('rutaArchivoFirmado') ?? ''),
+                flashPdfFirmado: @json(session('rutaArchivoFirmado') ?? false),
             },
             methods: {
                 firmar() {
                     var myModal = new bootstrap.Modal(document.getElementById('modalFirmar'));
                     myModal.show();
                 },
+                verPdfFirmado() {
+                    if (this.pdf_firmado) {
+                        var myModal = new bootstrap.Modal(document.getElementById('pdfModal'));
+                        myModal.show();
+                    } else {
+                        alertWarning('No hay PDF firmado disponible para esta requisición.');
+                    }
+                },
             }
-        });
-        $(function () {
-            $("#orden_compra").fileinput({
-                language: "es",
-                initialPreview: @json(($url = $requisicion->getFirstMediaUrl('Orden de Compra')) ? [$url] : []),
-                dropZoneEnabled: true,
-                maxFileCount: 1,
-                maxFileSize: 2000,
-                showUpload: false,
-                initialPreviewAsData: true,
-                showBrowse: true,
-                showRemove: false,
-                theme: "fa6",
-                browseOnZoneClick: true,
-                allowedPreviewTypes: ["pdf"],
-                allowedFileTypes: ["pdf"],
-                initialPreviewFileType: 'pdf',
-            });
         });
     </script>
 @endpush

@@ -42,11 +42,11 @@ class CompraRequisicionRequirenteController extends Controller
                 ->with('error', 'La requisición no tiene la firma del solicitante, no se puede procesar.');
         }
 
-        $requisicion->autorizar();
+        $requisicion->enviarAAprobador();
 
         return redirect()
-            ->route('compra.requisiciones.autorizar')
-            ->with('success', 'La requisición ha sido autorizada con éxito.');
+            ->route('compra.requisiciones.mis.requisiciones')
+            ->with('success', 'La requisición ha sido enviada al aprobador correctamente.');
 
     }
 
