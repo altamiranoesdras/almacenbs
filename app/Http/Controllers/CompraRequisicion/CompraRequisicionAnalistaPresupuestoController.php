@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CompraBandeja;
 use App\Models\CompraRequisicion\CompraRequisicion;
 use DB;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Throwable;
@@ -80,5 +81,38 @@ class CompraRequisicionAnalistaPresupuestoController extends Controller
             ->route('compra.requisiciones.analista.presupuesto')
             ->with('success', 'La requisición ha sido retornada con éxito.');
 
+    }
+
+    public function firmarEImprimir(CompraRequisicion $requisicion, Request $request)
+    {
+
+        if ($requisicion->tiene_firma_analista_presupuesto) {
+            return redirect()
+                ->back()
+                ->with('error', 'La requisición ya tiene la firma del analista de presupuesto.')
+                ->with('rutaArchivoFirmado', $requisicion->getLastMediaUrl(CompraRequisicion::COLLECTION_REQUISICION_COMPRA));
+        }
+
+        $request->validate([
+            'usuario_firma'   => ['required','string'],
+            'password_firma'  => ['required','string'],
+        ]);
+
+
+        try {
+            DB::beginTransaction();
+
+            $media = $requisicion->firmaAnalistaPresupuesto($request->password_firma);
+
+            DB::commit();
+        } catch (Exception $exception) {
+            DB::rollBack();
+
+            throw new Exception($exception);
+        }
+
+        return redirect()->back()
+            ->with('success', 'PDF generado y firmado correctamente.')
+            ->with('rutaArchivoFirmado', $media->getUrl());
     }
 }

@@ -572,31 +572,31 @@ class CompraRequisicion extends Model implements HasMedia
      * @throws FileDoesNotExist
      * @throws FileIsTooBig
      */
-    public function firmaOperador($contrasenaFirma): Media
-    {
-
-        $this->tiene_firma_aprobador = true;
-        $this->save();
-
-        $this->addBitacora("REQUISICIÓN DE COMPRA FIRMADA POR APROBADOR");
-
-        $uploaded = $this->generarPdfUpload();
-
-        if (config('firma-electronica.simular_firma')) {
-            return $this
-                ->addMedia($uploaded)
-                ->toMediaCollection(CompraRequisicion::COLLECTION_REQUISICION_COMPRA);
-        }
-
-        return $this->firmar(
-            usuarioAutenticado(),
-            $contrasenaFirma,
-            $uploaded,
-            180,
-            280
-        );
-
-    }
+//    public function firmaOperador($contrasenaFirma): Media
+//    {
+//
+//        $this->tiene_firma_aprobador = true;
+//        $this->save();
+//
+//        $this->addBitacora("REQUISICIÓN DE COMPRA FIRMADA POR APROBADOR");
+//
+//        $uploaded = $this->generarPdfUpload();
+//
+//        if (config('firma-electronica.simular_firma')) {
+//            return $this
+//                ->addMedia($uploaded)
+//                ->toMediaCollection(CompraRequisicion::COLLECTION_REQUISICION_COMPRA);
+//        }
+//
+//        return $this->firmar(
+//            usuarioAutenticado(),
+//            $contrasenaFirma,
+//            $uploaded,
+//            180,
+//            280
+//        );
+//
+//    }
 
     /**
      * @throws Throwable
@@ -624,6 +624,32 @@ class CompraRequisicion extends Model implements HasMedia
             $contrasenaFirma,
             $uploaded
             , 180
+            , 280
+        );
+
+    }
+
+    public function firmaAnalistaPresupuesto($contrasenaFirma): Media
+    {
+
+        $this->tiene_firma_analista_presupuesto = true;
+        $this->save();
+
+        $this->addBitacora("REQUISICIÓN DE COMPRA FIRMADA POR ANALISTA DE PRESUPUESTO");
+
+        $uploaded = $this->generarPdfUpload();
+
+        if (config('firma-electronica.simular_firma')) {
+            return $this
+                ->addMedia($uploaded)
+                ->toMediaCollection(CompraRequisicion::COLLECTION_REQUISICION_COMPRA);
+        }
+
+        return $this->firmar(
+            usuarioAutenticado(),
+            $contrasenaFirma,
+            $uploaded
+            , 380
             , 280
         );
 

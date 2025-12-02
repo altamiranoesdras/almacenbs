@@ -243,7 +243,6 @@
                     var myModal = new bootstrap.Modal(document.getElementById('pdfModal'));
                     myModal.show();
                 }
-                console.log(this.pdf_firmado)
             },
             created() {
 

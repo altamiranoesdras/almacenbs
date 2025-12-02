@@ -169,7 +169,7 @@
                                     @endif
                                 </div>
 
-                                <div class="col-sm-8 text-end">
+                                <div class="col-sm-4 text-end">
                                     <button type="button" data-bs-toggle="modal"
                                             data-bs-target="#modal-confirma-procesar"
                                             class="btn btn-success round">
@@ -206,24 +206,6 @@
                 </div>
                 {!! Form::close() !!}
 
-            </div>
-        </div>
-
-        <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl"> <!-- modal-xl para que sea grande -->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="pdfModalLabel">Vista previa del PDF</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                    </div>
-                    <div class="modal-body p-0">
-                        <!-- Aquí va el visor PDF -->
-                        <div class="ratio ratio-16x9">
-                            <iframe src="{{ session('rutaArchivoFirmado') }}"
-                                    frameborder="0"></iframe>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -279,7 +261,7 @@
              aria-labelledby="modelTitleId" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <form
-                    action="{{ route('compra.requisiciones.requirente.firmar.imprimir',$requisicion->id ?? 0) }}"
+                    action="{{ route('compra.requisiciones.analista.presupuesto.seguimiento.firmar.imprimir',$requisicion->id ?? 0) }}"
                     method="POST" class="esperar">
                     @csrf
                     <div class="modal-content">
@@ -325,6 +307,22 @@
 
             </div>
         </div>
+
+        <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl"> <!-- modal-xl para que sea grande -->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="pdfModalLabel">Vista previa del PDF</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body p-0">
+                        <div class="ratio ratio-16x9">
+                            <iframe :src="pdf_firmado" frameborder="0"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -341,17 +339,33 @@
             created() {
                 this.getFuentesFinanciemiento();
             },
+            async mounted() {
+                if(this.flashPdfFirmado) {
+                    var myModal = new bootstrap.Modal(document.getElementById('pdfModal'));
+                    myModal.show();
+                }
+            },
             data: {
                 justificacion: @json($requisicion->justificacion ?? ''),
                 fuenteFinanciamientoSeleccionada: [],
                 fuentesFinanciamientos: [],
                 requisicionDetalles: @json($requisicion->detalles ?? []),
+                pdf_firmado: @json($requisicion->pdfFirmado() ?? session('rutaArchivoFirmado') ?? ''),
+                flashPdfFirmado: @json(session('rutaArchivoFirmado') ?? false),
             },
             methods: {
                 firmar() {
 
                     var myModal = new bootstrap.Modal(document.getElementById('modalFirmar'));
                     myModal.show();
+                },
+                verPdfFirmado() {
+                    if (this.pdf_firmado) {
+                        var myModal = new bootstrap.Modal(document.getElementById('pdfModal'));
+                        myModal.show();
+                    } else {
+                        alertWarning('No hay PDF firmado disponible para esta requisición.');
+                    }
                 },
                 async getFuentesFinanciemiento() {
                     try {

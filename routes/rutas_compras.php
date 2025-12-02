@@ -25,7 +25,7 @@ Route::prefix('compra')->name('compra.')->group(function () {
 
 
         Route::post('solicitante/firmar/imprimir{requisicion}', [CompraRequisicionController::class,'solicitanteFirmarEImprimir'])->name('solicitante.firmar.imprimir');
-        Route::post('aprobador/firmar/imprimir{requisicion}', [CompraRequisicionAprobarController::class,'aprobadorFirmarEImprimir'])->name('aprobador.firmar.imprimir');
+//        Route::post('aprobador/firmar/imprimir{requisicion}', [CompraRequisicionAprobarController::class,'aprobadorFirmarEImprimir'])->name('aprobador.firmar.imprimir');
         Route::post('autorizador/firmar/imprimir{requisicion}', [CompraRequisicionAutorizarController::class,'autorizadorFirmarEImprimir'])->name('autorizador.firmar.imprimir');
 
         Route::resource('estados', App\Http\Controllers\CompraRequisicionEstadoController::class);
@@ -59,6 +59,7 @@ Route::prefix('compra')->name('compra.')->group(function () {
         Route::get('analista/presupuesto/{requisicion}', [CompraRequisicionAnalistaPresupuestoController::class, 'seguimiento'])->name('analista.presupuesto.seguimiento');
         Route::patch('analista/presupuesto/procesar/{requisicion}', [CompraRequisicionAnalistaPresupuestoController::class, 'procesar'])->name('analista.presupuesto.seguimiento.procesar');
         Route::post('analista/presupuesto/retornar/{requisicion}', [CompraRequisicionAnalistaPresupuestoController::class, 'retornar'])->name('analista.presupuesto.seguimiento.retornar');
+        Route::post('analista/presupuesto/firmar/imprimir/{requisicion}', [CompraRequisicionAnalistaPresupuestoController::class, 'firmarEImprimir'])->name('analista.presupuesto.seguimiento.firmar.imprimir');
 
         Route::get('analista/compras', [CompraRequisicionAnalistaCompraController::class, 'index'])->name('analista.compras');
         Route::get('analista/compras/{requisicion}', [CompraRequisicionAnalistaCompraController::class, 'seguimiento'])->name('analista.compras.seguimiento');
