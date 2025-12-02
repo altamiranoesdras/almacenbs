@@ -273,6 +273,14 @@ class CompraRequisicion extends Model implements HasMedia
 
     }
 
+    public function enviarAAnalistaPresupuesto(): void
+    {
+        $this->estado_id = CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_PRESUPUESTOS;
+        $this->save();
+
+        $this->addBitacora("REQUISICIÓN DE COMPRA ASIGNADA A ANALISTA DE PRESUPUESTO");
+    }
+
     public function solicitar(): void
     {
         $this->estado_id = CompraRequisicionEstado::REQUERIDA;
@@ -369,10 +377,10 @@ class CompraRequisicion extends Model implements HasMedia
 
     public function analistaPresupuestoVistoBueno($comentario = ''): void
     {
-        $this->estado_id = CompraRequisicionEstado::ASIGNACION_REQUISICIONES;
+        $this->estado_id = CompraRequisicionEstado::FUENTES_FINANCIAMIENTO_ASIGNADAS;
         $this->save();
 
-        $this->addBitacora("REQUISICIÓN DE COMPRA APROBADA POR ANALISTA DE PRESUPUESTO", $comentario ?? '');
+        $this->addBitacora("FUENTES DE FINANCIAMIENTO ASIGNADAS POR ANALISTA DE PRESUPUESTO", $comentario);
 
     }
 

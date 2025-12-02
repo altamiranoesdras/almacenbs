@@ -53,6 +53,8 @@ class CompraBandejasTableSeeder extends Seeder
             CompraRequisicionEstado::ASIGNACION_REQUISICIONES,
             CompraRequisicionEstado::RETORNADA_POR_SUPERVISOR_A_AUTORIZADOR,
             CompraRequisicionEstado::RETORNADA_POR_SUPERVISOR_A_ANALISTA_DE_PRESUPUESTO,
+            CompraRequisicionEstado::RETORNADA_POR_ANALISTA_DE_PRESUPUESTO_A_SUPERVISOR,
+            CompraRequisicionEstado::FUENTES_FINANCIAMIENTO_ASIGNADAS,
         ]);
 
 //        Paso NO.2

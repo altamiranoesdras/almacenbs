@@ -4,18 +4,13 @@ namespace App\Http\Controllers\CompraRequisicion;
 
 use App\DataTables\CompraRequisicion\CompraRequisicionDataTable;
 use App\DataTables\Scopes\ScopeCompraRequisicion;
-use App\FirmaElectronica\FirmaElectronica;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\Create\CompraRequisicion\CreateCompraRequisicionRequest;
 use App\Http\Requests\Update\CompraRequisicion\UpdateCompraRequisicionRequest;
 use App\Models\CompraRequisicion\CompraRequisicion;
-use App\Models\CompraRequisicionEstado;
 use App\Models\CompraSolicitudEstado;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
@@ -117,19 +112,14 @@ class CompraRequisicionController extends AppBaseController
         $compraRequisicion->save();
 
         if($request->solicitar){
-            if($compraRequisicion->tiene_firma_solicitante){
-                $compraRequisicion->solicitar();
-                flash()->success('Requisición de compra solicitada.');
-                return redirect(route('compra.requisiciones.mis.requisiciones'));
-            }else{
-                flash()->error('Debe firmar la requisición para poder solicitarla.');
-                return redirect()->back();
-            }
+            $compraRequisicion->enviarAAnalistaPresupuesto();
+            flash()->success('Requisición de compra enviada para análisis de presupuesto.');
+            return redirect(route('compra.requisiciones.mis.requisiciones'));
         }
 
         flash()->success('Compra Requisición actualizado.');
 
-        return redirect(route('compra.requisiciones.mis.requisiciones'));
+        return redirect(route('compra.requisiciones.edit', [$compraRequisicion->id]));
     }
 
     /**
