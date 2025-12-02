@@ -78,7 +78,7 @@ class Compra1hAprobadorController extends Controller
 
         $compra->aprobar1h($request->observaciones ?? '');
 
-        $this->notificarCompraFueAprobada($compra);
+//        $this->notificarCompraFueAprobada($compra);
 
         flash('Formulario 1H aprobado!')->success();
 
