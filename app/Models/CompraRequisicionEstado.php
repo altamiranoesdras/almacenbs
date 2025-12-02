@@ -29,6 +29,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado withoutTrashed()
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, CompraRequisicion> $requisicion
+ * @property-read int|null $requisicion_count
  * @mixin \Eloquent
  */
 class CompraRequisicionEstado extends Model
@@ -62,6 +64,7 @@ class CompraRequisicionEstado extends Model
     const RETORNADA_POR_SUPERVISOR_A_ANALISTA_DE_PRESUPUESTO               = 20;
 
     const RETORNADA_POR_ANALISTA_DE_PRESUPUESTO_A_SUPERVISOR               = 21;
+    const FUENTES_FINANCIAMIENTO_ASIGNADAS               = 22;
 
 
 

@@ -6,8 +6,8 @@ use App\Http\Controllers\CompraRequisicion\CompraRequisicionAnalistaPresupuestoC
 use App\Http\Controllers\CompraRequisicion\CompraRequisicionAprobarController;
 use App\Http\Controllers\CompraRequisicion\CompraRequisicionAutorizarController;
 use App\Http\Controllers\CompraRequisicion\CompraRequisicionController;
+use App\Http\Controllers\CompraRequisicion\CompraRequisicionRequirenteController;
 use App\Http\Controllers\CompraRequisicion\CompraRequisicionSupervisorController;
-use App\Http\Controllers\CompraRequisicion\CompraRequisicionUsuarioController;
 use App\Http\Controllers\CompraSolicitudController;
 use App\Http\Controllers\CompraSolicitudEstadoController;
 use App\Http\Controllers\SolicitudesCompra\CompraSolicitudConsolidarController;
@@ -25,14 +25,22 @@ Route::prefix('compra')->name('compra.')->group(function () {
 
 
         Route::post('solicitante/firmar/imprimir{requisicion}', [CompraRequisicionController::class,'solicitanteFirmarEImprimir'])->name('solicitante.firmar.imprimir');
-        Route::post('aprobador/firmar/imprimir{requisicion}', [CompraRequisicionAprobarController::class,'aprobadorFirmarEImprimir'])->name('aprobador.firmar.imprimir');
+//        Route::post('aprobador/firmar/imprimir{requisicion}', [CompraRequisicionAprobarController::class,'aprobadorFirmarEImprimir'])->name('aprobador.firmar.imprimir');
         Route::post('autorizador/firmar/imprimir{requisicion}', [CompraRequisicionAutorizarController::class,'autorizadorFirmarEImprimir'])->name('autorizador.firmar.imprimir');
 
         Route::resource('estados', App\Http\Controllers\CompraRequisicionEstadoController::class);
         Route::resource('tipo-adquisiciones', App\Http\Controllers\CompraRequisicionTipoAdquisicionController::class);
         Route::resource('tipo-concursos', App\Http\Controllers\CompraRequisicionTipoConcursoController::class);
 
-        Route::get('mis/requisiciones', [CompraRequisicionUsuarioController::class, 'index'])->name('mis.requisiciones');
+        Route::get('mis/requisiciones', [CompraRequisicionRequirenteController::class, 'index'])->name('mis.requisiciones');
+
+        Route::get('requerir/seguimiento/{requisicion}', [CompraRequisicionRequirenteController::class, 'seguimiento'])->name('requirente.seguimiento');
+        Route::post('requerir/seguimiento/procesar/{requisicion}', [CompraRequisicionRequirenteController::class, 'procesar'])->name('requirente.seguimiento.procesar');
+        Route::post('requerir/firmar/imprimir/{requisicion}', [CompraRequisicionRequirenteController::class, 'firmarEImprimir'])->name('requirente.firmar.imprimir');
+
+//        Route::get('requirente/requerir', [CompraRequisicionUsuarioController::class, 'index'])->name('mis.requisiciones');
+
+
 
         Route::get('aprobar', [CompraRequisicionAprobarController::class, 'index'])->name('aprobar');
         Route::get('aprobar/seguimiento/{requisicion}', [CompraRequisicionAprobarController::class, 'seguimiento'])->name('aprobar.seguimiento');
@@ -51,6 +59,7 @@ Route::prefix('compra')->name('compra.')->group(function () {
         Route::get('analista/presupuesto/{requisicion}', [CompraRequisicionAnalistaPresupuestoController::class, 'seguimiento'])->name('analista.presupuesto.seguimiento');
         Route::patch('analista/presupuesto/procesar/{requisicion}', [CompraRequisicionAnalistaPresupuestoController::class, 'procesar'])->name('analista.presupuesto.seguimiento.procesar');
         Route::post('analista/presupuesto/retornar/{requisicion}', [CompraRequisicionAnalistaPresupuestoController::class, 'retornar'])->name('analista.presupuesto.seguimiento.retornar');
+        Route::post('analista/presupuesto/firmar/imprimir/{requisicion}', [CompraRequisicionAnalistaPresupuestoController::class, 'firmarEImprimir'])->name('analista.presupuesto.seguimiento.firmar.imprimir');
 
         Route::get('analista/compras', [CompraRequisicionAnalistaCompraController::class, 'index'])->name('analista.compras');
         Route::get('analista/compras/{requisicion}', [CompraRequisicionAnalistaCompraController::class, 'seguimiento'])->name('analista.compras.seguimiento');

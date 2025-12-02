@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\SoftDeletes;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int $id
@@ -31,6 +31,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|FinanciamientoFuente whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FinanciamientoFuente withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|FinanciamientoFuente withoutTrashed()
+ * @property-read mixed $codigo
  * @mixin \Eloquent
  */
 class FinanciamientoFuente extends Model

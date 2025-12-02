@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use App\Models\CompraRequisicion\CompraRequisicion;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\SoftDeletes;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int $id
@@ -27,6 +27,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoAdquisicion whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoAdquisicion withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoAdquisicion withoutTrashed()
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, CompraRequisicion> $compraRequisiciones
+ * @property-read int|null $compra_requisiciones_count
  * @mixin \Eloquent
  */
 class CompraRequisicionTipoAdquisicion extends Model

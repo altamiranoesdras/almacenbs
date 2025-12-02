@@ -119,6 +119,8 @@ use Throwable;
  * @method static Builder|CompraRequisicion whereUsuarioSolicitaId($value)
  * @method static Builder|CompraRequisicion withTrashed()
  * @method static Builder|CompraRequisicion withoutTrashed()
+ * @property bool|null $tiene_firma_analista_presupuesto
+ * @method static Builder|CompraRequisicion whereTieneFirmaAnalistaPresupuesto($value)
  * @mixin Eloquent
  */
 class CompraRequisicion extends Model implements HasMedia
@@ -161,6 +163,7 @@ class CompraRequisicion extends Model implements HasMedia
         'tiene_firma_solicitante',
         'tiene_firma_aprobador',
         'tiene_firma_autorizador',
+        'tiene_firma_analista_presupuesto',
     ];
 
     protected $casts = [
@@ -179,6 +182,7 @@ class CompraRequisicion extends Model implements HasMedia
         'tiene_firma_solicitante' => 'boolean',
         'tiene_firma_aprobador' => 'boolean',
         'tiene_firma_autorizador' => 'boolean',
+        'tiene_firma_analista_presupuesto' => 'boolean',
     ];
 
     public static array $rules = [
@@ -205,6 +209,7 @@ class CompraRequisicion extends Model implements HasMedia
         'tiene_firma_solicitante' => 'nullable|boolean',
         'tiene_firma_aprobador' => 'nullable|boolean',
         'tiene_firma_autorizador' => 'nullable|boolean',
+        'tiene_firma_analista_presupuesto' => 'nullable|boolean',
     ];
 
     public static array $messages = [
@@ -275,14 +280,22 @@ class CompraRequisicion extends Model implements HasMedia
 
     }
 
-    public function solicitar(): void
+    public function enviarAAnalistaPresupuesto(): void
+    {
+        $this->estado_id = CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_PRESUPUESTOS;
+        $this->save();
+
+        $this->addBitacora("REQUISICIÓN DE COMPRA ASIGNADA A ANALISTA DE PRESUPUESTO");
+    }
+
+    public function enviarAAprobador(): void
     {
         $this->estado_id = CompraRequisicionEstado::REQUERIDA;
         $this->fecha_solicita = now();
         $this->usuario_solicita_id = usuarioAutenticado()->id;
         $this->save();
 
-        $this->addBitacora("REQUISICIÓN DE COMPRA SOLICITADA");
+        $this->addBitacora("REQUISICIÓN DE COMPRA REQUERIDA");
     }
 
     public function aprobar(): void
@@ -305,14 +318,16 @@ class CompraRequisicion extends Model implements HasMedia
         $this->addBitacora("REQUISICIÓN DE COMPRA AUTORIZADA");
     }
 
-    public function puedeSolicitarse(): bool
+    public function puedeEnviarseAAprobacion(): bool
     {
-        return $this->estado_id == CompraRequisicionEstado::CREADA && $this->tiene_firma_solicitante;
+        return $this->estado_id == CompraRequisicionEstado::FUENTES_FINANCIAMIENTO_ASIGNADAS
+            && $this->tiene_firma_solicitante;
     }
 
     public function puedeAprobarse(): bool
     {
-        return $this->estado_id == CompraRequisicionEstado::REQUERIDA && $this->tiene_firma_aprobador;
+        return $this->estado_id == CompraRequisicionEstado::REQUERIDA;
+//            && $this->tiene_firma_aprobador;
     }
 
     public function puedeAutorizarse(): bool
@@ -369,12 +384,18 @@ class CompraRequisicion extends Model implements HasMedia
 
     }
 
-    public function analistaPresupuestoVistoBueno($comentario = ''): void
+    public function analistaPresupuestoVistoBueno($comentario = null): void
     {
-        $this->estado_id = CompraRequisicionEstado::ASIGNACION_REQUISICIONES;
+        $comentario = $comentario ?? '';
+        if($this->estado_id == CompraRequisicionEstado::AUTORIZADA){
+            $this->estado_id = CompraRequisicionEstado::ASIGNACION_REQUISICIONES;
+        } else {
+            $this->estado_id = CompraRequisicionEstado::FUENTES_FINANCIAMIENTO_ASIGNADAS;
+        }
+
         $this->save();
 
-        $this->addBitacora("REQUISICIÓN DE COMPRA APROBADA POR ANALISTA DE PRESUPUESTO", $comentario ?? '');
+        $this->addBitacora("FUENTES DE FINANCIAMIENTO ASIGNADAS POR ANALISTA DE PRESUPUESTO", $comentario);
 
     }
 
@@ -528,17 +549,14 @@ class CompraRequisicion extends Model implements HasMedia
      * @throws FileIsTooBig
      * @throws Throwable
      */
-    public function firmaSolicitante($contrasenaFirma): Media
+    public function firmaRequirente($contrasenaFirma): Media
     {
-
         $this->tiene_firma_solicitante = true;
         $this->save();
 
-        $this->addBitacora("REQUISICIÓN DE COMPRA FIRMADA POR SOLICITANTE");
-
+        $this->addBitacora("REQUISICIÓN DE COMPRA FIRMADA POR REQUIRIENTE");
 
         $uploaded = $this->generarPdfUpload();
-
 
         if (config('firma-electronica.simular_firma')) {
             return $this
@@ -560,31 +578,31 @@ class CompraRequisicion extends Model implements HasMedia
      * @throws FileDoesNotExist
      * @throws FileIsTooBig
      */
-    public function firmaOperador($contrasenaFirma): Media
-    {
-
-        $this->tiene_firma_aprobador = true;
-        $this->save();
-
-        $this->addBitacora("REQUISICIÓN DE COMPRA FIRMADA POR APROBADOR");
-
-        $uploaded = $this->generarPdfUpload();
-
-        if (config('firma-electronica.simular_firma')) {
-            return $this
-                ->addMedia($uploaded)
-                ->toMediaCollection(CompraRequisicion::COLLECTION_REQUISICION_COMPRA);
-        }
-
-        return $this->firmar(
-            usuarioAutenticado(),
-            $contrasenaFirma,
-            $uploaded,
-            180,
-            280
-        );
-
-    }
+//    public function firmaOperador($contrasenaFirma): Media
+//    {
+//
+//        $this->tiene_firma_aprobador = true;
+//        $this->save();
+//
+//        $this->addBitacora("REQUISICIÓN DE COMPRA FIRMADA POR APROBADOR");
+//
+//        $uploaded = $this->generarPdfUpload();
+//
+//        if (config('firma-electronica.simular_firma')) {
+//            return $this
+//                ->addMedia($uploaded)
+//                ->toMediaCollection(CompraRequisicion::COLLECTION_REQUISICION_COMPRA);
+//        }
+//
+//        return $this->firmar(
+//            usuarioAutenticado(),
+//            $contrasenaFirma,
+//            $uploaded,
+//            180,
+//            280
+//        );
+//
+//    }
 
     /**
      * @throws Throwable
@@ -611,7 +629,33 @@ class CompraRequisicion extends Model implements HasMedia
             usuarioAutenticado(),
             $contrasenaFirma,
             $uploaded
-            , 350
+            , 180
+            , 280
+        );
+
+    }
+
+    public function firmaAnalistaPresupuesto($contrasenaFirma): Media
+    {
+
+        $this->tiene_firma_analista_presupuesto = true;
+        $this->save();
+
+        $this->addBitacora("REQUISICIÓN DE COMPRA FIRMADA POR ANALISTA DE PRESUPUESTO");
+
+        $uploaded = $this->generarPdfUpload();
+
+        if (config('firma-electronica.simular_firma')) {
+            return $this
+                ->addMedia($uploaded)
+                ->toMediaCollection(CompraRequisicion::COLLECTION_REQUISICION_COMPRA);
+        }
+
+        return $this->firmar(
+            usuarioAutenticado(),
+            $contrasenaFirma,
+            $uploaded
+            , 380
             , 280
         );
 

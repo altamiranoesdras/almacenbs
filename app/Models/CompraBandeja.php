@@ -61,12 +61,11 @@ class CompraBandeja extends Model
         'deleted_at' => 'nullable'
     ];
 
-    const SOLICITANTE_COMPRAS = 1;
-    const APROBADOR_DE_COMPRAS = 2;
-    const AUTORIZADOR_DE_COMPRAS = 3;
-    const SUPERVISOR_COMPRAS = 4;
-
-    const ANALISTA_PRESUPUESTO = 5;
+    const REQUIRENTE_COMPRAS = 1;
+    const ANALISTA_PRESUPUESTO = 2;
+    const APROBADOR_DE_COMPRAS = 3;
+    const AUTORIZADOR_DE_COMPRAS = 4;
+    const SUPERVISOR_COMPRAS = 5;
     const ANALISTA_COMPRAS = 6;
 
 

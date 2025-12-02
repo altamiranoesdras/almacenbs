@@ -89,7 +89,7 @@
                                     @else
 
                                         <button type="button" class="btn btn-outline-info round" data-bs-toggle="modal"
-                                                data-bs-target="#modalImprimir">
+                                                @click="verPdfFirmado()">
                                             Ver PDF Firmado
                                         </button>
                                     @endif
@@ -239,11 +239,8 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                     </div>
                     <div class="modal-body p-0">
-                        <!-- Aquí va el visor PDF -->
                         <div class="ratio ratio-16x9">
-                            <iframe src="{{ session('rutaArchivoFirmado') }}"
-                                    frameborder="0"></iframe>
-
+                            <iframe :src="pdf_firmado" frameborder="0"></iframe>
                         </div>
                     </div>
                 </div>
@@ -308,21 +305,34 @@
                 new Vue({
                     el: '#editarRequisicion',
                     name: 'editarRequisicion',
-                    mounted() {
-                        console.log('Instancia vue montada');
+                    async mounted() {
+                        if(this.flashPdfFirmado) {
+                            var myModal = new bootstrap.Modal(document.getElementById('pdfModal'));
+                            myModal.show();
+                        }
                     },
                     created() {
                         console.log('Instancia vue creada');
                     },
                     data: {
                         justificacion: @json($requisicion->justificacion ?? ''),
+                        pdf_firmado: @json($requisicion->pdfFirmado() ?? session('rutaArchivoFirmado') ?? ''),
+                        flashPdfFirmado: @json(session('rutaArchivoFirmado') ?? false),
                     },
                     methods: {
                         firmar() {
 
                             var myModal = new bootstrap.Modal(document.getElementById('modalFirmar'));
                             myModal.show();
-                        }
+                        },
+                        verPdfFirmado() {
+                            if (this.pdf_firmado) {
+                                var myModal = new bootstrap.Modal(document.getElementById('pdfModal'));
+                                myModal.show();
+                            } else {
+                                alertWarning('No hay PDF firmado disponible para esta requisición.');
+                            }
+                        },
                     }
                 });
             </script>
