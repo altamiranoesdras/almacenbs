@@ -384,9 +384,15 @@ class CompraRequisicion extends Model implements HasMedia
 
     }
 
-    public function analistaPresupuestoVistoBueno($comentario = ''): void
+    public function analistaPresupuestoVistoBueno($comentario = null): void
     {
-        $this->estado_id = CompraRequisicionEstado::FUENTES_FINANCIAMIENTO_ASIGNADAS;
+        $comentario = $comentario ?? '';
+        if($this->estado_id == CompraRequisicionEstado::AUTORIZADA){
+            $this->estado_id = CompraRequisicionEstado::ASIGNACION_REQUISICIONES;
+        } else {
+            $this->estado_id = CompraRequisicionEstado::FUENTES_FINANCIAMIENTO_ASIGNADAS;
+        }
+
         $this->save();
 
         $this->addBitacora("FUENTES DE FINANCIAMIENTO ASIGNADAS POR ANALISTA DE PRESUPUESTO", $comentario);

@@ -157,15 +157,17 @@
                                     </button>
                                 </div>
                                 <div class="col-sm-4 text-center">
-                                    @if(!$requisicion->tiene_firma_analista_presupuesto)
-                                        <button type="button" class="btn btn-outline-info round" @click="firmar()">
-                                            Firmar
-                                        </button>
-                                    @else
-                                        <button type="button" class="btn btn-outline-info round" data-bs-toggle="modal"
-                                                @click="verPdfFirmado()">
-                                            Ver PDF Firmado
-                                        </button>
+                                    @if($requisicion->estado_id == \App\Models\CompraRequisicionEstado::AUTORIZADA)
+                                        @if(!$requisicion->tiene_firma_analista_presupuesto)
+                                            <button type="button" class="btn btn-outline-info round" @click="firmar()">
+                                                Firmar
+                                            </button>
+                                        @else
+                                            <button type="button" class="btn btn-outline-info round" data-bs-toggle="modal"
+                                                    @click="verPdfFirmado()">
+                                                Ver PDF Firmado
+                                            </button>
+                                        @endif
                                     @endif
                                 </div>
 
