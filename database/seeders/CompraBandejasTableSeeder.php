@@ -25,38 +25,69 @@ class CompraBandejasTableSeeder extends Seeder
 
         CompraBandeja::truncate();
 
-        $bandejaSolicitante = CompraBandeja::create([
-            'rol_id' => Role::SOLICITANTE_REQUISICION_COMPRAS,
-            'nombre' => 'Solicitante Compras',
+
+//        Paso NO.1
+        $bandejaRequirenteCompras = CompraBandeja::create([
+            'rol_id' => Role::REQUIRENTE_REQUISICION_COMPRAS,
+            'nombre' => 'Requirente Compras',
             'descripcion' => 'Verifica datos, consolida las solicitudes y genera la requisición de compra. Al generar la solicitud se traslada hacia una bandeja para ser aprobada.',
         ]);
-
-        $bandejaSolicitante->estados()->attach([
+        $bandejaRequirenteCompras->estados()->attach([
             CompraRequisicionEstado::CREADA,
             CompraRequisicionEstado::REQUERIDA,
+            CompraRequisicionEstado::APROBADA,
+            CompraRequisicionEstado::AUTORIZADA,
+            CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_PRESUPUESTOS,
+            CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_COMPRAS,
+            CompraRequisicionEstado::INICIO_DE_GESTION,
+            CompraRequisicionEstado::EN_PROCESO_DE_GESTION,
+            CompraRequisicionEstado::ENVIADA_A_PROVEEDORES,
+            CompraRequisicionEstado::EN_ESPERA_DE_RESPUESTA_DE_PROVEEDORES,
+            CompraRequisicionEstado::CUADRO_COMPARATIVO_GENERADO,
+            CompraRequisicionEstado::ACTA_NEGOCIACION_GENERADA,
+            CompraRequisicionEstado::ACTA_NEGOCIACION_AUTORIZADA,
+            CompraRequisicionEstado::ADJUDICADA,
+            CompraRequisicionEstado::ORDEN_DE_COMPRA_GENERADA,
+            CompraRequisicionEstado::FINALIZADA,
+            CompraRequisicionEstado::CANCELADA,
+            CompraRequisicionEstado::ASIGNACION_REQUISICIONES,
+            CompraRequisicionEstado::RETORNADA_POR_SUPERVISOR_A_AUTORIZADOR,
+            CompraRequisicionEstado::RETORNADA_POR_SUPERVISOR_A_ANALISTA_DE_PRESUPUESTO,
         ]);
 
+//        Paso NO.2
+        $bandejaAnalistaPresupuesto = CompraBandeja::create([
+            'rol_id' => Role::ANALISTA_PRESUPUESTO,
+            'nombre' => 'Analista de Presupuesto',
+            'descripcion' => 'Analiza la requisición de compra desde el punto de vista presupuestario.',
+        ]);
+        $bandejaAnalistaPresupuesto->estados()->attach([
+            CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_PRESUPUESTOS,
+            CompraRequisicionEstado::RETORNADA_POR_SUPERVISOR_A_ANALISTA_DE_PRESUPUESTO,
+        ]);
+
+//        Paso NO.3
         $bandejaAprobador = CompraBandeja::create([
             'rol_id' => Role::APROBADOR_REQUISICION_COMPRAS,
             'nombre' => 'Aprobador de Compras',
             'descripcion' => 'Aprueba la requisición de compra. Al generar la aprobación se traslada hacia una bandeja para ser autorizada.',
         ]);
-
         $bandejaAprobador->estados()->attach([
             CompraRequisicionEstado::REQUERIDA,
         ]);
 
+//        Paso NO.4
         $bandejaAutorizador = CompraBandeja::create([
             'rol_id' => Role::AUTORIZADOR_REQUISICION_COMPRAS,
             'nombre' => 'Autorizador de Compras',
             'descripcion' => 'Autoriza la requisición de compra. Al generar la autorización se traslada hacia una bandeja para que el Jefe del Departamento de Compras verifique los datos de la requisición.',
         ]);
-
         $bandejaAutorizador->estados()->attach([
             CompraRequisicionEstado::APROBADA,
             CompraRequisicionEstado::RETORNADA_POR_SUPERVISOR_A_AUTORIZADOR,
         ]);
 
+//        Paso NO.5
         $bandejaSupervisor = CompraBandeja::create([
             'rol_id' => Role::SUPERVISOR_COMPRAS,
             'nombre' => 'Supervisor de Compras',
@@ -69,17 +100,7 @@ class CompraBandejasTableSeeder extends Seeder
             CompraRequisicionEstado::RETORNADA_POR_ANALISTA_DE_PRESUPUESTO_A_SUPERVISOR,
         ]);
 
-        $bandejaAnalistaPresupuesto = CompraBandeja::create([
-            'rol_id' => Role::ANALISTA_PRESUPUESTO,
-            'nombre' => 'Analista de Presupuesto',
-            'descripcion' => 'Analiza la requisición de compra desde el punto de vista presupuestario.',
-        ]);
-
-        $bandejaAnalistaPresupuesto->estados()->attach([
-            CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_PRESUPUESTOS,
-            CompraRequisicionEstado::RETORNADA_POR_SUPERVISOR_A_ANALISTA_DE_PRESUPUESTO,
-        ]);
-
+//        Paso NO.6
         $bandejaAnalistaCompras = CompraBandeja::create([
             'rol_id' => Role::ANALISTA_COMPRAS,
             'nombre' => 'Analista de Compras',

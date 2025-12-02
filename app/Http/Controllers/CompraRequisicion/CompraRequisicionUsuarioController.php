@@ -13,7 +13,7 @@ class CompraRequisicionUsuarioController extends Controller
     public function index(CompraRequisicionUsuarioDataTable $dataTable)
     {
 
-        $bandeja = CompraBandeja::find(CompraBandeja::SOLICITANTE_COMPRAS);
+        $bandeja = CompraBandeja::find(CompraBandeja::REQUIRENTE_COMPRAS);
 
         $scope = new ScopeCompraRequisicion();
 

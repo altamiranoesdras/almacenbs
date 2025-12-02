@@ -6,8 +6,8 @@ use App\Http\Controllers\CompraRequisicion\CompraRequisicionAnalistaPresupuestoC
 use App\Http\Controllers\CompraRequisicion\CompraRequisicionAprobarController;
 use App\Http\Controllers\CompraRequisicion\CompraRequisicionAutorizarController;
 use App\Http\Controllers\CompraRequisicion\CompraRequisicionController;
+use App\Http\Controllers\CompraRequisicion\CompraRequisicionRequirenteController;
 use App\Http\Controllers\CompraRequisicion\CompraRequisicionSupervisorController;
-use App\Http\Controllers\CompraRequisicion\CompraRequisicionUsuarioController;
 use App\Http\Controllers\CompraSolicitudController;
 use App\Http\Controllers\CompraSolicitudEstadoController;
 use App\Http\Controllers\SolicitudesCompra\CompraSolicitudConsolidarController;
@@ -32,7 +32,13 @@ Route::prefix('compra')->name('compra.')->group(function () {
         Route::resource('tipo-adquisiciones', App\Http\Controllers\CompraRequisicionTipoAdquisicionController::class);
         Route::resource('tipo-concursos', App\Http\Controllers\CompraRequisicionTipoConcursoController::class);
 
-        Route::get('mis/requisiciones', [CompraRequisicionUsuarioController::class, 'index'])->name('mis.requisiciones');
+        Route::get('mis/requisiciones', [CompraRequisicionRequirenteController::class, 'index'])->name('mis.requisiciones');
+
+        Route::get('requerir/seguimiento', [CompraRequisicionRequirenteController::class, 'seguimiento'])->name('requirente.seguimiento');
+
+//        Route::get('requirente/requerir', [CompraRequisicionUsuarioController::class, 'index'])->name('mis.requisiciones');
+
+
 
         Route::get('aprobar', [CompraRequisicionAprobarController::class, 'index'])->name('aprobar');
         Route::get('aprobar/seguimiento/{requisicion}', [CompraRequisicionAprobarController::class, 'seguimiento'])->name('aprobar.seguimiento');
