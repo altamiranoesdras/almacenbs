@@ -33,8 +33,15 @@ class CompraRequisicionRequirenteController extends Controller
         return view('compra_requisiciones.requirente.seguimiento', compact('requisicion'));
     }
 
-    public function autorizar(CompraRequisicion $requisicion)
+    public function procesar(CompraRequisicion $requisicion)
     {
+
+        if(!$requisicion->tiene_firma_solicitante) {
+            return redirect()
+                ->back()
+                ->with('error', 'La requisición no tiene la firma del solicitante, no se puede procesar.');
+        }
+
         $requisicion->autorizar();
 
         return redirect()
@@ -43,7 +50,7 @@ class CompraRequisicionRequirenteController extends Controller
 
     }
 
-    public function autorizadorFirmarEImprimir(CompraRequisicion $requisicion, Request $request)
+    public function firmarEImprimir(CompraRequisicion $requisicion, Request $request)
     {
 
         if ($requisicion->tiene_firma_autorizador) {
@@ -58,10 +65,12 @@ class CompraRequisicionRequirenteController extends Controller
             'password_firma'  => ['required','string'],
         ]);
 
+
         try {
             DB::beginTransaction();
 
-            $media = $requisicion->firmaAutorizador($request->password_firma);
+            $media = $requisicion->firmaRequirente($request->password_firma);
+
             DB::commit();
         } catch (Exception $exception) {
             DB::rollBack();

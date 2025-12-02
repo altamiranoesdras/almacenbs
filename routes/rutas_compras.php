@@ -34,7 +34,9 @@ Route::prefix('compra')->name('compra.')->group(function () {
 
         Route::get('mis/requisiciones', [CompraRequisicionRequirenteController::class, 'index'])->name('mis.requisiciones');
 
-        Route::get('requerir/seguimiento', [CompraRequisicionRequirenteController::class, 'seguimiento'])->name('requirente.seguimiento');
+        Route::get('requerir/seguimiento/{requisicion}', [CompraRequisicionRequirenteController::class, 'seguimiento'])->name('requirente.seguimiento');
+        Route::post('requerir/seguimiento/procesar', [CompraRequisicionRequirenteController::class, 'procesar'])->name('requirente.seguimiento.procesar');
+        Route::post('requerir/firmar/imprimir/{requisicion}', [CompraRequisicionRequirenteController::class, 'firmarEImprimir'])->name('requirente.firmar.imprimir');
 
 //        Route::get('requirente/requerir', [CompraRequisicionUsuarioController::class, 'index'])->name('mis.requisiciones');
 

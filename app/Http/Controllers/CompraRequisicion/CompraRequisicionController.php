@@ -199,7 +199,7 @@ class CompraRequisicionController extends AppBaseController
         try {
             DB::beginTransaction();
 
-                $media = $requisicion->firmaSolicitante($request->password_firma);
+                $media = $requisicion->firmaRequirente($request->password_firma);
 
         } catch (Exception $exception) {
             DB::rollBack();

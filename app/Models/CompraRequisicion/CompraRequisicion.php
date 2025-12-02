@@ -311,7 +311,7 @@ class CompraRequisicion extends Model implements HasMedia
         $this->addBitacora("REQUISICIÓN DE COMPRA AUTORIZADA");
     }
 
-    public function puedeSolicitarse(): bool
+    public function puedeEnviarseAAprobacion(): bool
     {
         return $this->estado_id == CompraRequisicionEstado::CREADA && $this->tiene_firma_solicitante;
     }
@@ -523,17 +523,14 @@ class CompraRequisicion extends Model implements HasMedia
      * @throws FileIsTooBig
      * @throws Throwable
      */
-    public function firmaSolicitante($contrasenaFirma): Media
+    public function firmaRequirente($contrasenaFirma): Media
     {
-
         $this->tiene_firma_solicitante = true;
         $this->save();
 
-        $this->addBitacora("REQUISICIÓN DE COMPRA FIRMADA POR SOLICITANTE");
-
+        $this->addBitacora("REQUISICIÓN DE COMPRA FIRMADA POR REQUIRIENTE");
 
         $uploaded = $this->generarPdfUpload();
-
 
         if (config('firma-electronica.simular_firma')) {
             return $this
