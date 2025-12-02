@@ -32,6 +32,7 @@ class CompraSolicitudFactory extends Factory
         $area = RrhhUnidad::areas()
             ->with('usuarios')
             ->whereHas('usuarios')
+            ->whereHas('subProductos')
             ->get()
             ->random();
 

@@ -592,14 +592,15 @@ class CompraController extends AppBaseController
         }
 
         $pdf->loadHTML($contenido)
-//            ->setOption('footer-html', utf8_decode($footer))
             ->setOption('page-width', 217)
             ->setOption('page-height', 278)
             ->setOrientation('portrait')
             ->setOption('margin-top', 10)
-            ->setOption('margin-bottom', 10)
+            ->setOption('margin-bottom', 5)
             ->setOption('margin-left', 15)
-            ->setOption('margin-right', 15);
+            ->setOption('margin-right', 15)
+            ->setOption('enable-local-file-access', true)
+            ->setOption('no-background', false);
 
         return $pdf->inline('CompraH1-'.$compra->id. '_'. time().'.pdf');
     }

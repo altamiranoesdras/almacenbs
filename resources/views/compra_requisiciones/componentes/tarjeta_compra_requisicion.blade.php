@@ -56,6 +56,31 @@
                             <div class="col-12">
                                 @include('compra_requisiciones.componentes.show_fields')
                                 @include('compra_requisiciones.componentes.tabla_detalles_requisicion', ['campos' => $camposDeTabla ?? null])
+
+
+                                <div class="row">
+                                    <div class="col-6 text-center">
+                                        <h4>Sub Productos</h4>
+                                        <table class="table table-bordered table-sm">
+                                            @foreach($requisicion->obtenerSubProductos() as $subproducto)
+                                            <tr>
+                                                <td>{{$subproducto}}</td>
+                                            </tr>
+                                            @endforeach
+                                        </table>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                        <h4>Partidas</h4>
+                                        <table class="table table-bordered table-sm">
+                                            @foreach($requisicion->obtenerPartidas() as $partidas)
+                                            <tr>
+                                                <td>{{$partidas}}</td>
+                                            </tr>
+                                            @endforeach
+                                        </table>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>

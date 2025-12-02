@@ -36,6 +36,8 @@ use Throwable;
 /**
  * @property int $id
  * @property int|null $tipo_concurso_id
+ * @property int|null $tipo_proceso_id
+ * @property string|null $numero_orden_compra
  * @property int|null $tipo_adquisicion_id
  * @property int|null $correlativo
  * @property string|null $codigo ID interno de gestión, p.ej. G-2025-001
@@ -96,6 +98,7 @@ use Throwable;
  * @method static Builder|CompraRequisicion whereNog($value)
  * @method static Builder|CompraRequisicion whereNpg($value)
  * @method static Builder|CompraRequisicion whereNumeroAdjudicacion($value)
+ * @method static Builder|CompraRequisicion whereNumeroOrdenCompra($value)
  * @method static Builder|CompraRequisicion whereObservaciones($value)
  * @method static Builder|CompraRequisicion wherePartidas($value)
  * @method static Builder|CompraRequisicion whereProveedorAdjudicado($value)
@@ -105,6 +108,7 @@ use Throwable;
  * @method static Builder|CompraRequisicion whereTieneFirmaSolicitante($value)
  * @method static Builder|CompraRequisicion whereTipoAdquisicionId($value)
  * @method static Builder|CompraRequisicion whereTipoConcursoId($value)
+ * @method static Builder|CompraRequisicion whereTipoProcesoId($value)
  * @method static Builder|CompraRequisicion whereUnidadId($value)
  * @method static Builder|CompraRequisicion whereUpdatedAt($value)
  * @method static Builder|CompraRequisicion whereUsuarioAnalistaId($value)
@@ -115,8 +119,6 @@ use Throwable;
  * @method static Builder|CompraRequisicion whereUsuarioSolicitaId($value)
  * @method static Builder|CompraRequisicion withTrashed()
  * @method static Builder|CompraRequisicion withoutTrashed()
- * @property int|null $tipo_proceso_id
- * @method static Builder|CompraRequisicion whereTipoProcesoId($value)
  * @mixin Eloquent
  */
 class CompraRequisicion extends Model implements HasMedia
@@ -442,6 +444,19 @@ class CompraRequisicion extends Model implements HasMedia
      */
     public function generarPdfUpload(): UploadedFile
     {
+
+        if($this->pdfFirmado()) {
+            // Si ya tiene un PDF firmado, no lo vuelve a generar.
+            return new UploadedFile(
+                $this->pdfFirmado(true),
+                'Requisicion_' . $this->id . '_' . time() . '.pdf',
+                'application/pdf',
+                null,
+                true // test mode (no mueve/elimina el archivo fuente)
+            );
+        }
+
+
         // 1) Generar el PDF con Snappy (wkhtmltopdf)
         $pdf = App::make('snappy.pdf.wrapper');
 
@@ -482,10 +497,8 @@ class CompraRequisicion extends Model implements HasMedia
      * @throws FileDoesNotExist
      * @throws FileIsTooBig
      */
-    public function firmar(User $usuario, string $contrasenaFirma, UploadedFile $uploaded): Media
+    public function firmar(User $usuario, string $contrasenaFirma, UploadedFile $uploaded,$x=0,$y=280): Media
     {
-        $x = 0;
-        $y = 280;
 
         foreach ($this->detalles as $index => $detalle) {
             if($index > 15) {
@@ -571,7 +584,9 @@ class CompraRequisicion extends Model implements HasMedia
         return $this->firmar(
             usuarioAutenticado(),
             $contrasenaFirma,
-            $uploaded
+            $uploaded,
+            180,
+            280
         );
 
     }
@@ -601,8 +616,63 @@ class CompraRequisicion extends Model implements HasMedia
             usuarioAutenticado(),
             $contrasenaFirma,
             $uploaded
+            , 350
+            , 280
         );
 
+    }
+
+    public function obtenerPartidas(): array
+    {
+        $partidas = [];
+
+
+        foreach ($this->detalles as $requisicionDetalle) {
+
+
+            foreach ($requisicionDetalle->solicitudDetalles as $solicitudDetalle) {
+                $partidaParcial = $solicitudDetalle->subProducto->partida_parcial;
+                $ubicacion = $solicitudDetalle->solicitud->unidad->municipio->codigo ?? 'Sin UBG';
+                $renglon = $requisicionDetalle->item->renglon->numero ?? 'Sin Renglón';
+                $codigoFuente = $requisicionDetalle->financiamientoFuente->codigo ?? 'Sin Fuente';
+
+                $partidas[] = $partidaParcial . '-' . $renglon . '-' . $ubicacion . '-' . $codigoFuente;
+            }
+        }
+
+        return $partidas;
+
+    }
+
+    public function obtenerSubProductos(): array
+    {
+        $subProductos = [];
+
+        foreach ($this->detalles as $requisicionDetalle) {
+            foreach ($requisicionDetalle->solicitudDetalles as $solicitudDetalle) {
+                $subProductos[] = $solicitudDetalle->subProducto->codigo;
+            }
+        }
+
+        return $subProductos;
+
+    }
+
+    public function pdfFirmado($rutaAbsoluta = false): ?string
+    {
+        $media = $this->getMedia(CompraRequisicion::COLLECTION_REQUISICION_COMPRA)
+            ->last(); // Obtiene el último archivo de la colección
+
+        if (!$media) {
+            return null;
+        }
+
+        if ($rutaAbsoluta) {
+            return $media->getPath();
+        }
+
+
+        return $media->getUrl(); // Retorna la URL relativa del archivo firmado
     }
 
 }

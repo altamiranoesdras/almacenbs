@@ -77,7 +77,7 @@
                             @else
                                 @foreach($detalles as $detalle)
                                     <tr>
-                                        <td style="width: 200px">
+                                        <td style="width: 35%">
                                             <div>
                                                 <multiselect
                                                     v-model="fuenteFinanciamientoSeleccionada[{{$detalle->id}}]"
@@ -97,7 +97,7 @@
                                         <td>{{ number_format($detalle->cantidad ?? 0, 0) }}</td>
                                         <td>{{ $detalle->item?->renglon?->numero ?? 'Sin renglón' }}</td>
                                         <td>{{ $detalle->item?->codigo_insumo }}</td>
-                                        <td>{{ $detalle->item?->descripcion }}</td>
+                                        <td>{!! $detalle->item?->descripcion !!}</td>
                                         <td>{{ $detalle->item?->presentacion?->nombre ?? 'Sin presentación' }}</td>
                                         <td>{{ $detalle->item?->unimed?->nombre ?? 'Sin unidad' }}</td>
                                         <td>{{ $detalle->item?->codigo_presentacion }}</td>

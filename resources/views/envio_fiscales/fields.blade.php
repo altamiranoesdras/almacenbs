@@ -25,14 +25,8 @@
 <!-- Fecha Gestion Field -->
 <div class="col-sm-6 mb-1">
     {!! Form::label('fecha_gestion', 'Fecha Gestion:') !!}
-    {!! Form::text('fecha_gestion', null, ['class' => 'form-control','id'=>'fecha_gestion']) !!}
+    {!! Form::date('fecha_gestion', null, ['class' => 'form-control','id'=>'fecha_gestion']) !!}
 </div>
-
-@push('scripts')
-    <script type="text/javascript">
-        $('#fecha_gestion').datepicker()
-    </script>
-@endpush
 
 
 <!-- Correlativo Resolucion Field -->
@@ -45,14 +39,8 @@
 <!-- Fecha Correlativo Resolucion Field -->
 <div class="col-sm-6 mb-1">
     {!! Form::label('fecha_correlativo_resolucion', 'Fecha Correlativo Resolucion:') !!}
-    {!! Form::text('fecha_correlativo_resolucion', null, ['class' => 'form-control','id'=>'fecha_correlativo_resolucion']) !!}
+    {!! Form::date('fecha_correlativo_resolucion', null, ['class' => 'form-control','id'=>'fecha_correlativo_resolucion']) !!}
 </div>
-
-@push('scripts')
-    <script type="text/javascript">
-        $('#fecha_correlativo_resolucion').datepicker()
-    </script>
-@endpush
 
 
 <!-- Serie Envio Field -->
@@ -72,14 +60,8 @@
 <!-- Fecha Envio Field -->
 <div class="col-sm-6 mb-1">
     {!! Form::label('fecha_envio', 'Fecha Envio:') !!}
-    {!! Form::text('fecha_envio', null, ['class' => 'form-control','id'=>'fecha_envio']) !!}
+    {!! Form::date('fecha_envio', null, ['class' => 'form-control','id'=>'fecha_envio']) !!}
 </div>
-
-@push('scripts')
-    <script type="text/javascript">
-        $('#fecha_envio').datepicker()
-    </script>
-@endpush
 
 
 <!-- Correlativo Del Field -->
@@ -96,18 +78,18 @@
 </div>
 
 
-<!-- Correlativo Inicial Field -->
-<div class="col-sm-6 mb-1">
-    {!! Form::label('correlativo_inicial', 'Correlativo Inicial:') !!}
-    {!! Form::number('correlativo_inicial', null, ['class' => 'form-control', 'required']) !!}
-</div>
+{{--<!-- Correlativo Inicial Field -->--}}
+{{--<div class="col-sm-6 mb-1">--}}
+{{--    {!! Form::label('correlativo_inicial', 'Correlativo Inicial:') !!}--}}
+{{--    {!! Form::number('correlativo_inicial', null, ['class' => 'form-control', 'required']) !!}--}}
+{{--</div>--}}
 
 
-<!-- Correlativo Actual Field -->
-<div class="col-sm-6 mb-1">
-    {!! Form::label('correlativo_actual', 'Correlativo Actual:') !!}
-    {!! Form::number('correlativo_actual', null, ['class' => 'form-control', 'required']) !!}
-</div>
+{{--<!-- Correlativo Actual Field -->--}}
+{{--<div class="col-sm-6 mb-1">--}}
+{{--    {!! Form::label('correlativo_actual', 'Correlativo Actual:') !!}--}}
+{{--    {!! Form::number('correlativo_actual', null, ['class' => 'form-control', 'required']) !!}--}}
+{{--</div>--}}
 
 
 <!-- Libro Field -->

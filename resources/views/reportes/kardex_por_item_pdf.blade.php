@@ -85,9 +85,11 @@
         @foreach($datalles as  $il => $det )
 
             @php
-                $saldo += $det->ingreso -= $det->salida;
+//                $saldo += $det->ingreso -= $det->salida;
                 $totalIngreso += $det->precio * $det->ingreso;
                 $totalEgreso += $det->precio * $det->salida;
+                $valorEntrada = $det->ingreso ? nfp($det->precio * $det->ingreso, 2) : null;
+                $valorSalida = $det->salida ? nfp($det->precio * $det->salida, 2) : null;
             @endphp
 
             <tr style="font-size: 11px;  text-align: center; color: {{$det->impreso ? '' : 'white'}};">
@@ -96,11 +98,13 @@
                 <td style="padding-bottom: 5mm" class="text-left">{{ $det->concepto }}</td>
                 <td style="padding-bottom: 5mm">{{ $det->ingreso }}</td>
                 <td style="padding-bottom: 5mm">{{ $det->salida }}</td>
-                <td style="padding-bottom: 5mm">{{ $saldo }}</td>
-                <td style="padding-bottom: 5mm" class="text-bold">{{ $det->precio }}</td>
-                <td style="padding-bottom: 5mm">{{ $det->ingreso ? nfp($det->precio * $det->ingreso, 2) : '' }}</td>
-                <td style="padding-bottom: 5mm">{{ $det->salida ? nfp($det->precio * $det->salida, 2) : '' }}</td>
-                <td style="padding-bottom: 5mm">{{ nfp($saldo * $det->precio, 2) }}</td>
+                <td style="padding-bottom: 5mm">{{ $det->saldo }}</td>
+                <td style="padding-bottom: 5mm" class="text-bold">
+                    {{ dvs().$det->precio }}
+                </td>
+                <td style="padding-bottom: 5mm">{{ $valorEntrada ? dvs().$valorEntrada : '' }}</td>
+                <td style="padding-bottom: 5mm">{{ $valorSalida ? dvs().$valorSalida : '' }}</td>
+                <td style="padding-bottom: 5mm">{{ dvs().nfp($det->saldo * $det->precio, 2) }}</td>
 
             </tr>
 

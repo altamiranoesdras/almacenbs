@@ -212,7 +212,7 @@ class ReportesAlmacenController extends AppBaseController
                 $kardex->impreso = $impreso;
 //                $kardex->precio_existencia = $preciosExistencia[$kardex->id];
 //                $kardex->precio_movimiento = $preciosMovimientos[$kardex->id];
-//                $kardex->saldo = $saldos[$kardex->id];
+                $kardex->saldo = $saldos[$kardex->id];
 //                $kardex->codigo_insumo = $request->codigo_insumo;
 //                $kardex->del = $request->del;
 //                $kardex->al = $request->al;
@@ -255,7 +255,7 @@ class ReportesAlmacenController extends AppBaseController
          */
         $kardexs = Kardex::with(['item.unimed','item.marca'])
             ->where('cantidad','>',0)
-            ->delItem($primerKardex->item_id)
+            ->delItem($request->item)
             ->orderBy('created_at','asc')
             ->get();
 

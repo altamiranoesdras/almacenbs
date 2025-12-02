@@ -15,8 +15,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraRequisicionProcesoTipo> $compraRequisicionProcesoTipos
  * @property-read int|null $compra_requisicion_proceso_tipos_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, CompraRequisicion> $compraRequisiciones
- * @property-read int|null $compra_requisiciones_count
  * @method static \Database\Factories\CompraRequisicionTipoAdquisicionFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoAdquisicion newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoAdquisicion newQuery()

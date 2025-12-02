@@ -62,6 +62,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property-read mixed $texto_libro_almacen
  * @property-read mixed $texto_principal
  * @property-read mixed $texto_requisicion
+ * @property-read string $texto_requisicion_compra
  * @property-read mixed $thumb
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ItemTraslado> $itemsTraslado3s
  * @property-read int|null $items_traslado3s_count
@@ -143,6 +144,7 @@ class Item extends Model implements HasMedia
         'text',
         'texto_libro_almacen',
         "texto_principal",
+        'texto_requisicion_compra',
         'img',
         'thumb',
         'stock_total',
@@ -493,6 +495,12 @@ class Item extends Model implements HasMedia
 
 //        return $this->nombre."-".$presentacion." - ".$unidad;
         return $this->nombre;
+    }
+
+    public function getTextoRequisicionCompraAttribute(): string
+    {
+
+        return $this->nombre." - ".$this->descripcion;
     }
 
 

@@ -10,6 +10,12 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
+ * @property int $id
+ * @property string $titulo
+ * @property string|null $descripcion
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read mixed $video
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, Media> $media
  * @property-read int|null $media_count
@@ -18,20 +24,14 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @method static \Illuminate\Database\Eloquent\Builder|AyudaVideo newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|AyudaVideo onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|AyudaVideo query()
- * @method static \Illuminate\Database\Eloquent\Builder|AyudaVideo withTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|AyudaVideo withoutTrashed()
- * @property int $id
- * @property string $titulo
- * @property string|null $descripcion
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
  * @method static \Illuminate\Database\Eloquent\Builder|AyudaVideo whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|AyudaVideo whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|AyudaVideo whereDescripcion($value)
  * @method static \Illuminate\Database\Eloquent\Builder|AyudaVideo whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|AyudaVideo whereTitulo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|AyudaVideo whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AyudaVideo withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|AyudaVideo withoutTrashed()
  * @mixin \Eloquent
  */
 class AyudaVideo extends Model implements HasMedia

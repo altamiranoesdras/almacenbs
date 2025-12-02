@@ -32,8 +32,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read int|null $children_count
  * @property-read mixed $nombre_con_padre
  * @property-read mixed $nombre_con_padres
+ * @property-read mixed $nombre_tipo
  * @property-read string $text
  * @property-read \App\Models\User|null $jefe
+ * @property-read \App\Models\Municipio|null $municipio
  * @property-read RrhhUnidad|null $parent
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RrhhPuesto> $puestos
  * @property-read int|null $puestos_count
@@ -87,6 +89,10 @@ class RrhhUnidad extends Model
 
     const PRINCIPAL = 1;
     const ALMACEN = 31;
+
+    const DEPTO_COMPRAS = 27;
+
+    const DEPTO_PRESUPUESTOS = 37;
 
 
     protected static function booted(): void
@@ -296,6 +302,11 @@ class RrhhUnidad extends Model
         return $this->parent->buscarPadre($tipoId);
     }
 
+    public function departamentoPadre(): ?RrhhUnidad
+    {
+        return $this->buscarPadre(RrhhUnidadTipo::DEPARTAMENTO);
+    }
+
     public function direccionPadre(): ?RrhhUnidad
     {
         return $this->buscarPadre();
@@ -357,6 +368,16 @@ class RrhhUnidad extends Model
             ]);
         }
 
+    }
+
+    public function getNombreTipoAttribute()
+    {
+        return $this->nombre . ' (' . $this->tipo->nombre . ')';
+    }
+
+    public function municipio(): BelongsTo
+    {
+        return $this->belongsTo(Municipio::class, 'municipio_id', 'id');
     }
 
 }

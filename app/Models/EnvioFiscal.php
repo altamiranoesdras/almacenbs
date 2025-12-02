@@ -30,6 +30,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Compra1h> $compra1hs
  * @property-read int|null $compra1hs_count
  * @property-read mixed $nombre
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Solicitud> $solicitudes
+ * @property-read int|null $solicitudes_count
  * @method static \Database\Factories\EnvioFiscalFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|EnvioFiscal newQuery()
@@ -116,8 +118,8 @@ class EnvioFiscal extends Model
         'fecha_envio' => 'nullable',
         'correlativo_del' => 'required',
         'correlativo_al' => 'required',
-        'correlativo_inicial' => 'required',
-        'correlativo_actual' => 'required',
+//        'correlativo_inicial' => 'required',
+//        'correlativo_actual' => 'required',
         'libro' => 'nullable|string|max:255',
         'folio' => 'nullable',
         'activo' => 'nullable|string',
@@ -140,7 +142,7 @@ class EnvioFiscal extends Model
 
     public function solicitudes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(\App\Models\Solicitude::class, 'envio_fiscal_id');
+        return $this->hasMany(\App\Models\Solicitud::class, 'envio_fiscal_id');
     }
 
     public function desactivar()
@@ -177,4 +179,31 @@ class EnvioFiscal extends Model
         }
 
     }
+
+    /*
+     * Verifica que no tenga solicitudes o compras asociadas
+     */
+    public function puedeEditar(): bool
+    {
+        if ($this->compra1hs()->count() > 0 || $this->solicitudes()->count() > 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * si el correlativo_actual = correlativo_al
+     */
+    public function puedeDesactivar(): bool
+    {
+
+        if (($this->correlativo_actual == $this->correlativo_al) && ($this->activo == 'si')) {
+            return true;
+        }
+
+        return false;
+
+    }
+
 }

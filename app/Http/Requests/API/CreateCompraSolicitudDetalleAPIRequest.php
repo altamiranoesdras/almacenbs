@@ -26,4 +26,9 @@ class CreateCompraSolicitudDetalleAPIRequest extends APIRequest
     {
         return CompraSolicitudDetalle::$rules;
     }
+
+    public function messages()
+    {
+        return CompraSolicitudDetalle::$mensajes;
+    }
 }

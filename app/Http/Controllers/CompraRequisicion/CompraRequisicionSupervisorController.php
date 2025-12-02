@@ -31,6 +31,7 @@ class CompraRequisicionSupervisorController extends Controller
 
     public function seguimiento(CompraRequisicion $requisicion)
     {
+
         return view('compra_requisiciones.supervidor.seguimiento', compact('requisicion'));
     }
 

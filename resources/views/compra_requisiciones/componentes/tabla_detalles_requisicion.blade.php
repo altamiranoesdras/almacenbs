@@ -61,7 +61,7 @@
 
                             $claseAlineacion = $campo['align'] ?? '';
                         @endphp
-                        <td class="{{ $claseAlineacion }}">{{ $valor }}</td>
+                        <td class="{{ $claseAlineacion }}">{!! $valor !!}</td>
                     @endforeach
                 </tr>
             @endforeach

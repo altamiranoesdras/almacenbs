@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read mixed $partida_parcial
  * @property-read mixed $texto
  * @property-read \App\Models\RedProduccionProducto $producto
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RrhhUnidad> $rrhhUnidades
@@ -100,5 +101,10 @@ class RedProduccionSubProducto extends Model
             $query->where('rrhh_unidades.id', usuarioAutenticado()->unidad_id);
         });
 
+    }
+
+    public function getPartidaParcialAttribute()
+    {
+        return $this->producto->partida_parcial;
     }
 }

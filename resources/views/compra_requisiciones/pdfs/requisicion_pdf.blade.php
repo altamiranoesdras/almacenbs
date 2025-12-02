@@ -119,7 +119,7 @@
             <td>{{ $detalle->item->renglon->numero ?? '' }}</td>
             <td>{{ $detalle->item->unimed->nombre ?? '' }}</td>
             <td>{{ $detalle->cantidad }}</td>
-            <td class="left">{{ $detalle->item->descripcion === '<p>&nbsp;</p>' || !$detalle->item->descripcion ? 'Sin Descripción' : $detalle->item->descripcion }}</td>
+            <td class="left">{!! $detalle->item->texto_requisicion_compra   !!} </td>
         </tr>
     @endforeach
 

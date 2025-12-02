@@ -181,6 +181,9 @@
                                                                     <span class="{{$loop->last ? 'fw-bold' : ''}}">
                                                                         {{ nf($saldo, 0) }}
                                                                     </span>
+                                                                    <input type="hidden"
+                                                                        name="saldos[{{ $det->id }}]"
+                                                                        value="{{ $saldo }}">
                                                                 </td>
                                                                 <td>
                                                                     {{ $det->ingreso ? nf($det->precio * $det->ingreso) : '' }}

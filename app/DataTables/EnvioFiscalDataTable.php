@@ -122,6 +122,7 @@ class EnvioFiscalDataTable extends DataTable
             Column::make('numero_resolucion'),
             Column::make('correlativo_del'),
             Column::make('correlativo_al'),
+            Column::make('correlativo_actual'),
             Column::make('activo'),
             Column::computed('action')
                 ->exportable(false)

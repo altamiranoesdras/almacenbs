@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read mixed $sub_total
  * @property-read \App\Models\Item $item
  * @property-read \App\Models\CompraSolicitud $solicitud
+ * @property-read \App\Models\RedProduccionSubProducto|null $subProducto
  * @method static \Database\Factories\CompraSolicitudDetalleFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraSolicitudDetalle newQuery()
@@ -55,7 +56,8 @@ class CompraSolicitudDetalle extends Model
         'solicitud_id',
         'item_id',
         'cantidad',
-        'precio_estimado'
+        'precio_estimado',
+        'sub_producto_id',
     ];
 
     protected $casts = [
@@ -67,6 +69,7 @@ class CompraSolicitudDetalle extends Model
         'item_id' => 'required',
         'cantidad' => 'required',
         'precio_estimado' => 'required|numeric',
+        'sub_producto_id' => 'required|integer',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'
@@ -78,6 +81,8 @@ class CompraSolicitudDetalle extends Model
         'cantidad.integer' => 'La cantidad debe ser un entero',
         'precio_estimado.required' => 'El precio de compra es requerido',
         'precio_estimado.numeric' => 'El precio de compra debe ser un número',
+        'sub_producto_id.required' => 'El subproducto es requerido',
+        'sub_producto_id.integer' => 'El subproducto debe ser un entero',
     ];
 
     public function solicitud(): \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -98,6 +103,22 @@ class CompraSolicitudDetalle extends Model
     public function getSubTotalAttribute()
     {
         return $this->cantidad * $this->precio_estimado;
+
+    }
+
+    public function subProducto()
+    {
+        return $this->belongsTo(RedProduccionSubProducto::class, 'sub_producto_id');
+    }
+
+    public function detalleRequisicion(): ?CompraRequisicionDetalle
+    {
+        return $this->belongsToMany(
+            CompraRequisicionDetalle::class,
+            'compra_solicitud_detalle_has_requisicion_detalle',
+            'compra_solicitud_detalle_id',
+            'requisicion_detalle_id'
+        )->first();
 
     }
 }
