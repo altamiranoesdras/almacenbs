@@ -133,75 +133,73 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 mb-1">
-                                Comentario:
+                                Observaciones:
                                 <textarea
-                                    name="comentario"
+                                    name="observaciones"
                                     class="form-control"
                                     rows="2"
-                                    placeholder="Justificación de la compra"
+                                    placeholder="Observaciones (opcional)"
                                 ></textarea>
                             </div>
                         </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row mb1">
 
-                        <div class="card-footer">
-                            <div class="row mb1">
-
-                                <div class="col-sm-4">
-                                    <button type="button" class="btn btn-outline-secondary round me-1"
-                                            data-bs-toggle="modal" data-bs-target="#modalRetornar"
-                                    >
-                                        <i class="fa fa-undo"></i>
-                                        Retornar
-                                    </button>
-                                </div>
-                                <div class="col-sm-4 text-center">
-                                    @if($requisicion->estado_id == \App\Models\CompraRequisicionEstado::AUTORIZADA)
-                                        @if(!$requisicion->tiene_firma_analista_presupuesto)
-                                            <button type="button" class="btn btn-outline-info round" @click="firmar()">
-                                                Firmar
-                                            </button>
-                                        @else
-                                            <button type="button" class="btn btn-outline-info round" data-bs-toggle="modal"
-                                                    @click="verPdfFirmado()">
-                                                Ver PDF Firmado
-                                            </button>
-                                        @endif
+                            <div class="col-sm-4">
+                                <button type="button" class="btn btn-outline-secondary round me-1"
+                                        data-bs-toggle="modal" data-bs-target="#modalRetornar"
+                                >
+                                    <i class="fa fa-undo"></i>
+                                    Retornar
+                                </button>
+                            </div>
+                            <div class="col-sm-4 text-center">
+                                @if($requisicion->estado_id == \App\Models\CompraRequisicionEstado::AUTORIZADA)
+                                    @if(!$requisicion->tiene_firma_analista_presupuesto)
+                                        <button type="button" class="btn btn-outline-info round" @click="firmar()">
+                                            Firmar
+                                        </button>
+                                    @else
+                                        <button type="button" class="btn btn-outline-info round" data-bs-toggle="modal"
+                                                @click="verPdfFirmado()">
+                                            Ver PDF Firmado
+                                        </button>
                                     @endif
-                                </div>
-
-                                <div class="col-sm-4 text-end">
-                                    <button type="button" data-bs-toggle="modal"
-                                            data-bs-target="#modal-confirma-procesar"
-                                            class="btn btn-success round">
-                                        <i class="fa fa-paper-plane"></i>
-                                        Aprobar y Enviar
-                                    </button>
-                                </div>
-
+                                @endif
                             </div>
-                            <div class="modal fade modal-info" id="modal-confirma-procesar">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Autorizar Requisición!</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Seguro que desea continuar?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-outline-secondary"
-                                                    data-bs-dismiss="modal">NO
-                                            </button>
-                                            <button type="submit" class="btn btn-primary" name="solicitar" value="1">SI
-                                            </button>
-                                        </div>
-                                    </div><!-- /.modal-content -->
-                                </div><!-- /.modal-dialog -->
+
+                            <div class="col-sm-4 text-end">
+                                <button type="button" data-bs-toggle="modal"
+                                        data-bs-target="#modal-confirma-procesar"
+                                        class="btn btn-success round">
+                                    <i class="fa fa-paper-plane"></i>
+                                    Aprobar y Enviar
+                                </button>
                             </div>
+
                         </div>
-
+                        <div class="modal fade modal-info" id="modal-confirma-procesar">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Autorizar Requisición!</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Seguro que desea continuar?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-secondary"
+                                                data-bs-dismiss="modal">NO
+                                        </button>
+                                        <button type="submit" class="btn btn-primary" name="solicitar" value="1">SI
+                                        </button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div>
                     </div>
                 </div>
                 {!! Form::close() !!}
@@ -346,7 +344,6 @@
                 }
             },
             data: {
-                justificacion: @json($requisicion->justificacion ?? ''),
                 fuenteFinanciamientoSeleccionada: [],
                 fuentesFinanciamientos: [],
                 requisicionDetalles: @json($requisicion->detalles ?? []),

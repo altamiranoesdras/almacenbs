@@ -33,13 +33,32 @@ class CompraRequisicionAutorizarController extends Controller
         return view('compra_requisiciones.autorizar.seguimiento', compact('requisicion'));
     }
 
+    /**
+     * @throws \Throwable
+     */
     public function autorizar(CompraRequisicion $requisicion)
     {
-        $requisicion->autorizar();
+        try {
+            DB::beginTransaction();
 
-        return redirect()
-            ->route('compra.requisiciones.autorizar')
-            ->with('success', 'La requisición ha sido autorizada con éxito.');
+            $requisicion->autorizar();
+
+
+        } catch (Exception $exception) {
+            DB::rollBack();
+
+            $msj = manejarException($exception);
+
+            flash($msj)->error();
+
+            return redirect()->back()->withInput();
+        }
+
+        DB::commit();
+
+        flash('La requisición ha sido autorizada con éxito.')->success();
+
+        return redirect()->route('compra.requisiciones.autorizar');
 
     }
 

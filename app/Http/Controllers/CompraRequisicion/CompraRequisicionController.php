@@ -99,6 +99,10 @@ class CompraRequisicionController extends AppBaseController
      */
     public function update($id, UpdateCompraRequisicionRequest $request)
     {
+        $request->validate([
+            'justificacion' => 'required|string',
+        ]);
+
         /** @var CompraRequisicion $compraRequisicion */
         $compraRequisicion = CompraRequisicion::find($id);
 

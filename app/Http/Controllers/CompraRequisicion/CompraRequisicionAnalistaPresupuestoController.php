@@ -35,6 +35,9 @@ class CompraRequisicionAnalistaPresupuestoController extends Controller
         return view('compra_requisiciones.analista_presupuesto.seguimiento', compact('requisicion'));
     }
 
+    /**
+     * @throws Throwable
+     */
     public function procesar(CompraRequisicion $requisicion, Request $request)
     {
         $idsRequeridos = $requisicion->detalles->modelKeys();
@@ -53,7 +56,7 @@ class CompraRequisicionAnalistaPresupuestoController extends Controller
 
         try {
             DB::transaction(function () use ($requisicion, $request, $datosValidos) {
-                $requisicion->analistaPresupuestoVistoBueno($request->comentario);
+                $requisicion->analistaPresupuestoVistoBueno($request->observaciones);
                 foreach ($requisicion->detalles as $detalle) {
                     $detalle->update([
                         'financiamiento_fuente_id' => (int) $datosValidos[$detalle->id],
@@ -61,16 +64,21 @@ class CompraRequisicionAnalistaPresupuestoController extends Controller
                 }
             });
 
-        } catch (Throwable $e) {
+        } catch (Exception $e) {
+
+            $msj = manejarException($e);
+
+            flash($msj)->error();
+
             return redirect()
                 ->back()
                 ->withInput()
                 ->withErrors(['error' => 'Error al procesar: ' . $e->getMessage()]);
         }
 
-        return redirect()
-            ->route('compra.requisiciones.analista.presupuesto')
-            ->with('success', 'La requisición ha sido procesada con éxito.');
+        flash('Fuentes de financiamiento asignadas correctamente.')->success();
+
+        return redirect()->route('compra.requisiciones.analista.presupuesto');
     }
 
     public function retornar(CompraRequisicion $requisicion, Request $request)

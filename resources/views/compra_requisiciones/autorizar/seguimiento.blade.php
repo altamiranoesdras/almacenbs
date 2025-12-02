@@ -40,7 +40,19 @@
                 <div class="card">
 
                     {!! Form::model($requisicion, ['url' => route('compra.requisiciones.autorizar.store', $requisicion->id), 'method' => 'patch','class' => 'esperar']) !!}
-
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 mb-1">
+                                Observaciones:
+                                <textarea
+                                    name="observaciones"
+                                    class="form-control"
+                                    rows="2"
+                                    placeholder="Observaciones (opcional)"
+                                ></textarea>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card-footer">
                         <div class="row mb1">
 
