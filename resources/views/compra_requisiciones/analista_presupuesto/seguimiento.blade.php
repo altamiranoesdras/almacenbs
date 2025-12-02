@@ -75,13 +75,12 @@
                                 @foreach($detalles as $detalle)
                                     <tr>
                                         <td style="width: 35%">
-                                            <div>
                                                 <multiselect
                                                     v-model="fuenteFinanciamientoSeleccionada[{{$detalle->id}}]"
                                                     :options="fuentesFinanciamientos"
                                                     label="texto"
                                                     placeholder="Seleccione uno..."
-{{--                                                    :disabled="{{$requisicion->estado_id == \App\Models\CompraRequisicionEstado::AUTORIZADA}}"--}}
+                                                    :disabled="disabledSelectFuente"
                                                 ></multiselect>
                                             <input
                                                 type="hidden"
@@ -89,7 +88,7 @@
                                                 :value="fuenteFinanciamientoSeleccionada[{{$detalle->id}}]?.id"/>
                                         </td>
                                         <td>{{ $detalle->item?->nombre }}</td>
-                                        <td>{{ number_format($detalle->cantidad ?? 0, 0) }}</td>
+                                        <td>{{ nf($detalle->cantidad ?? 0) }}</td>
                                         <td>{{ $detalle->item?->renglon?->numero ?? 'Sin renglón' }}</td>
                                         <td>{{ $detalle->item?->codigo_insumo }}</td>
                                         <td>{!! $detalle->item?->descripcion !!}</td>
@@ -97,10 +96,10 @@
                                         <td>{{ $detalle->item?->unimed?->nombre ?? 'Sin unidad' }}</td>
                                         <td>{{ $detalle->item?->codigo_presentacion }}</td>
                                         <td class="text-end">
-                                            {{ $Q }} {{ number_format($detalle->precio_estimado ?? 0, 2) }}
+                                            {{ $Q }} {{ nfp($detalle->precio_estimado ?? 0) }}
                                         </td>
                                         <td class="text-end">
-                                            {{ $Q }} {{ number_format($detalle->sub_total ?? 0, 2) }}
+                                            {{ $Q }} {{ nfp($detalle->sub_total ?? 0) }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -207,104 +206,13 @@
             </div>
         </div>
 
-        <div class="modal fade" id="modalRetornar" tabindex="-1" role="dialog"
-             aria-labelledby="modelTitleId" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="modelTitleId">
-                            Retornar Requisición
-                        </h4>
-                        <button type="button" class="btn-close"
-                                data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form
-                        action="{{route('compra.requisiciones.analista.presupuesto.seguimiento.retornar',$requisicion->id)}}"
-                        method="post" class="esperar">
-                        @csrf
-                        <div class="modal-body">
+        @include('compra_requisiciones.componentes.modal_retornar', [
+            'rutaAccion' => route('compra.requisiciones.analista.presupuesto.seguimiento.retornar',$requisicion->id)
+        ])
 
-                            <div class="row">
-                                <!--campo motivo-->
-
-                                <div class="col">
-                                    <label for="motivo">Motivo:</label>
-                                    <textarea
-                                        name="comentario"
-                                        id="motivo"
-                                        class="form-control"
-                                        rows="3"
-                                        required
-                                    >
-                                    </textarea>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-secondary"
-                                    data-bs-dismiss="modal">
-                                Cancelar
-                            </button>
-                            <button type="submit" class="btn btn-outline-success">
-                                Retornar
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="modalFirmar" tabindex="-1" role="dialog"
-             aria-labelledby="modelTitleId" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <form
-                    action="{{ route('compra.requisiciones.analista.presupuesto.seguimiento.firmar.imprimir',$requisicion->id ?? 0) }}"
-                    method="POST" class="esperar">
-                    @csrf
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title" id="modelTitleId">
-                                Credenciales de firma
-                            </h4>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                {{-- Usuario --}}
-                                <div class="col-12 mb-1">
-                                    <label for="usuario_firma" class="form-label">Usuario</label>
-                                    <input class="form-control" type="text" name="usuario_firma"
-                                           id="usuario_firma"
-                                           value="{{ auth()->user()->email }}">
-                                </div>
-
-                                {{-- Contraseña de firma --}}
-                                <div class="col-12 mb-1">
-                                    <label for="password_firma" class="form-label">Contraseña Firma</label>
-                                    <input class="form-control" type="password" name="password_firma"
-                                           id="password_firma"
-                                           placeholder="******" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                Cerrar
-                            </button>
-                            <button
-                                type="submit"
-                                class="btn btn-outline-primary round" target="_blank">
-                                <i class="fa fa-print"></i> Firmar e imprimir
-                            </button>
-                        </div>
-                    </div>
-
-                </form>
-
-            </div>
-        </div>
+        @include('compra_requisiciones.componentes.modal_firmar', [
+            'rutaFirmar' => route('compra.requisiciones.analista.presupuesto.seguimiento.firmar.imprimir',$requisicion->id ?? 0)
+        ])
 
         <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl"> <!-- modal-xl para que sea grande -->
@@ -349,6 +257,7 @@
                 requisicionDetalles: @json($requisicion->detalles ?? []),
                 pdf_firmado: @json($requisicion->pdfFirmado() ?? session('rutaArchivoFirmado') ?? ''),
                 flashPdfFirmado: @json(session('rutaArchivoFirmado') ?? false),
+                disabledSelectFuente: @json($requisicion->estado_id != \App\Models\CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_PRESUPUESTOS),
             },
             methods: {
                 firmar() {

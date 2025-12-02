@@ -58,6 +58,7 @@
                                     @include('compra_requisiciones.componentes.show_fields')
                                     @include('compra_requisiciones.componentes.tabla_detalles_requisicion', ['campos' => $camposDeTabla ?? null])
                                 @else
+                                    @include('compra_requisiciones.componentes.show_fields')
                                     {{ $slot }}
                                 @endif
                             </div>

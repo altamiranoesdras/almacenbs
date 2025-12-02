@@ -98,7 +98,7 @@ class CompraBandejasTableSeeder extends Seeder
         ]);
 
         $bandejaSupervisor->estados()->attach([
-            CompraRequisicionEstado::AUTORIZADA,
+//            CompraRequisicionEstado::AUTORIZADA,
             CompraRequisicionEstado::ASIGNACION_REQUISICIONES,
             CompraRequisicionEstado::RETORNADA_POR_ANALISTA_DE_PRESUPUESTO_A_SUPERVISOR,
         ]);

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('titulo_pagina', 'Autorizar Compra Requisición' )
+@section('titulo_pagina', 'Requisición de Compra (Supervisor compras)' )
 
 @section('content')
 
@@ -9,7 +9,7 @@
             <div class="row breadcrumbs-top">
                 <div class="col-12">
                     <h2 class="content-header-title float-start mb-0">
-                        Gestionar Requisición de Compra
+                        Requisición de Compra (Supervisor compras)
                     </h2>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                     {!! Form::model($requisicion, ['url' => route('compra.requisiciones.supervisor.seguimiento.procesar', $requisicion->id), 'method' => 'patch','class' => 'esperar']) !!}
                     <div class="card-body">
                         <div class="row">
-                            @if($requisicion->estado_id == \App\Models\CompraRequisicionEstado::ASIGNACION_REQUISICIONES)
+                            @if($requisicion->puedeAsignarAnalistaCompras())
                                 <div class="form-group col-sm-6 mb-2">
                                     {!! Form::label('usuario_analista_id','Analista de Compras:') !!}
                                     {!!
@@ -56,12 +56,12 @@
                             @endif
 
                             <div class="col-12 mb-1 form-group">
-                                Comentario:
+                                Observaciones:
                                 <textarea
-                                    name="comentario"
+                                    name="observaciones"
                                     class="form-control"
                                     rows="2"
-                                    placeholder="Justificación de la compra"
+                                    placeholder="Observaciones (opcional)"
                                 ></textarea>
                             </div>
                         </div>

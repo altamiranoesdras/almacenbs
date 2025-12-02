@@ -351,23 +351,25 @@ class CompraRequisicion extends Model implements HasMedia
      * @param  int  $usuario_analista_id
      * @return void
      */
-    public function supervisorVistoBueno($comentario = null, int $usuario_analista_id = null): void
+    public function supervisorVistoBueno($comentario = null): void
     {
         $comentario = $comentario ?? '';
 
-        if ($this->estado_id == CompraRequisicionEstado::AUTORIZADA ||
-            $this->estado_id == CompraRequisicionEstado::RETORNADA_POR_ANALISTA_DE_PRESUPUESTO_A_SUPERVISOR)
-        {
-            $this->estado_id = CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_PRESUPUESTOS;
-        } else {
-            $this->estado_id = CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_COMPRAS;
-            $this->usuario_analista_id = $usuario_analista_id;
-            $this->usuario_asigna_id = usuarioAutenticado()->id;
-        }
-
+        $this->estado_id = CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_PRESUPUESTOS;
         $this->save();
 
-        $this->addBitacora("REQUISICIÓN DE COMPRA APROBADA POR SUPERVISOR", $comentario);
+        $this->addBitacora("REQUISICIÓN DE COMPRA APROBADA POR SUPERVISOR DE COMPRAS", $comentario);
+    }
+
+    public function supervisorAsignaAnalista(int $usuario_analista_id=null, $comentario = ''): void
+    {
+        $this->estado_id = CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_COMPRAS;
+        $this->usuario_analista_id = $usuario_analista_id;
+        $this->usuario_asigna_id = usuarioAutenticado()->id;
+        $this->save();
+
+        $this->addBitacora("REQUISICIÓN DE COMPRA ASIGNADA A ANALISTA DE COMPRAS",$comentario);
+
     }
 
     public function supervisorRetornar($comentario = ''): void
@@ -712,6 +714,11 @@ class CompraRequisicion extends Model implements HasMedia
 
 
         return $media->getUrl(); // Retorna la URL relativa del archivo firmado
+    }
+
+    public function puedeAsignarAnalistaCompras(): bool
+    {
+        return $this->estado_id == CompraRequisicionEstado::ASIGNACION_REQUISICIONES;
     }
 
 }
