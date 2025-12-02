@@ -35,13 +35,10 @@
 
                 @include('layouts.partials.request_errors')
                 {!! Form::model($requisicion, ['url' => route('compra.requisiciones.analista.presupuesto.seguimiento.procesar', $requisicion->id), 'method' => 'patch','class' => 'esperar']) !!}
-
-                {{--                @include('compra_requisiciones.componentes.tarjeta_compra_requisicion', ['requisicion' => $requisicion])--}}
                 <x-compra_requisicion.tarjeta_compra_requisicion
                     :requisicion="$requisicion"
                 >
                     @php
-
                         $detalles = $requisicion->detalles ?? collect();
                         $Q = $Q ?? 'Q';
                         $total = $detalles->sum('sub_total');
@@ -84,9 +81,9 @@
                                                     :options="fuentesFinanciamientos"
                                                     label="texto"
                                                     placeholder="Seleccione uno..."
+                                                    :disabled="{{$requisicion->estado_id == \App\Models\CompraRequisicionEstado::AUTORIZADA}}"
                                                 />
                                             </div>
-
                                             <input
                                                 type="hidden"
                                                 name="fuentes_financiamiento[{{$detalle->id}}]"
@@ -132,7 +129,6 @@
                             </tfoot>
                         </table>
                     </div>
-                    {{--                    </x-slot>--}}
                 </x-compra_requisicion.tarjeta_compra_requisicion>
 
                 <div class="card">
@@ -159,6 +155,18 @@
                                         <i class="fa fa-undo"></i>
                                         Retornar
                                     </button>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    @if(!$requisicion->tiene_firma_analista_presupuesto)
+                                        <button type="button" class="btn btn-outline-info round" @click="firmar()">
+                                            Firmar
+                                        </button>
+                                    @else
+                                        <button type="button" class="btn btn-outline-info round" data-bs-toggle="modal"
+                                                @click="verPdfFirmado()">
+                                            Ver PDF Firmado
+                                        </button>
+                                    @endif
                                 </div>
 
                                 <div class="col-sm-8 text-end">
@@ -213,7 +221,6 @@
                         <div class="ratio ratio-16x9">
                             <iframe src="{{ session('rutaArchivoFirmado') }}"
                                     frameborder="0"></iframe>
-
                         </div>
                     </div>
                 </div>
@@ -267,6 +274,57 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="modalFirmar" tabindex="-1" role="dialog"
+             aria-labelledby="modelTitleId" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form
+                    action="{{ route('compra.requisiciones.requirente.firmar.imprimir',$requisicion->id ?? 0) }}"
+                    method="POST" class="esperar">
+                    @csrf
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="modelTitleId">
+                                Credenciales de firma
+                            </h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                {{-- Usuario --}}
+                                <div class="col-12 mb-1">
+                                    <label for="usuario_firma" class="form-label">Usuario</label>
+                                    <input class="form-control" type="text" name="usuario_firma"
+                                           id="usuario_firma"
+                                           value="{{ auth()->user()->email }}">
+                                </div>
+
+                                {{-- Contraseña de firma --}}
+                                <div class="col-12 mb-1">
+                                    <label for="password_firma" class="form-label">Contraseña Firma</label>
+                                    <input class="form-control" type="password" name="password_firma"
+                                           id="password_firma"
+                                           placeholder="******" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                Cerrar
+                            </button>
+                            <button
+                                type="submit"
+                                class="btn btn-outline-primary round" target="_blank">
+                                <i class="fa fa-print"></i> Firmar e imprimir
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -304,14 +362,6 @@
                         notifyErrorApi(error);
                     }
                 },
-                {{--obtenerFuenteFinanciamiento() {--}}
-                {{--    let olds = @json(old('fuentes_financiamiento'));--}}
-                {{--    this.requisicionDetalles.forEach(detalle => {--}}
-                {{--        let fuenteId = detalle.financiamiento_fuente_id;--}}
-                {{--        let fuente = this.fuentesFinanciamientos.find(f => f.id === fuenteId);--}}
-                {{--        this.fuenteFinanciamientoSeleccionada[detalle.id] = fuente || null;--}}
-                {{--    });--}}
-                {{--}--}}
                 obtenerFuenteFinanciamiento() {
                     let olds = @json(old('fuentes_financiamiento', []));
                     let estamosCorrigiendo = olds && Object.keys(olds).length > 0;

@@ -43,6 +43,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle withoutTrashed()
+ * @property-read \App\Models\CompraRequisicion\CompraRequisicion $requisicion
  * @mixin \Eloquent
  */
 class CompraRequisicionDetalle extends Model

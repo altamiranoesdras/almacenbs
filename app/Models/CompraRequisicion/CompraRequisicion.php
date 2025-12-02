@@ -119,6 +119,8 @@ use Throwable;
  * @method static Builder|CompraRequisicion whereUsuarioSolicitaId($value)
  * @method static Builder|CompraRequisicion withTrashed()
  * @method static Builder|CompraRequisicion withoutTrashed()
+ * @property bool|null $tiene_firma_analista_presupuesto
+ * @method static Builder|CompraRequisicion whereTieneFirmaAnalistaPresupuesto($value)
  * @mixin Eloquent
  */
 class CompraRequisicion extends Model implements HasMedia
@@ -161,6 +163,7 @@ class CompraRequisicion extends Model implements HasMedia
         'tiene_firma_solicitante',
         'tiene_firma_aprobador',
         'tiene_firma_autorizador',
+        'tiene_firma_analista_presupuesto',
     ];
 
     protected $casts = [
@@ -179,6 +182,7 @@ class CompraRequisicion extends Model implements HasMedia
         'tiene_firma_solicitante' => 'boolean',
         'tiene_firma_aprobador' => 'boolean',
         'tiene_firma_autorizador' => 'boolean',
+        'tiene_firma_analista_presupuesto' => 'boolean',
     ];
 
     public static array $rules = [
@@ -205,6 +209,7 @@ class CompraRequisicion extends Model implements HasMedia
         'tiene_firma_solicitante' => 'nullable|boolean',
         'tiene_firma_aprobador' => 'nullable|boolean',
         'tiene_firma_autorizador' => 'nullable|boolean',
+        'tiene_firma_analista_presupuesto' => 'nullable|boolean',
     ];
 
     public static array $messages = [
@@ -618,7 +623,7 @@ class CompraRequisicion extends Model implements HasMedia
             usuarioAutenticado(),
             $contrasenaFirma,
             $uploaded
-            , 350
+            , 180
             , 280
         );
 

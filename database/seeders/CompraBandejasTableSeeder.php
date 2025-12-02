@@ -66,6 +66,7 @@ class CompraBandejasTableSeeder extends Seeder
         $bandejaAnalistaPresupuesto->estados()->attach([
             CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_PRESUPUESTOS,
             CompraRequisicionEstado::RETORNADA_POR_SUPERVISOR_A_ANALISTA_DE_PRESUPUESTO,
+            CompraRequisicionEstado::AUTORIZADA,
         ]);
 
 //        Paso NO.3
