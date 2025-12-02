@@ -44,7 +44,7 @@
                     <div class="card-footer">
                         <div class="row mb1">
 
-                            <div class="col-sm-3">
+                            <div class="col-sm-4">
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-outline-danger round" data-bs-toggle="modal"
                                         data-target="#modalAnular">
@@ -53,31 +53,24 @@
                             </div>
 
 
-                            <div class="col-sm-3 text-center">
+                            <div class="col-sm-4">
 
-                                @if(!$requisicion->tiene_firma_aprobador)
-                                    <button type="button" class="btn btn-outline-info round" @click="firmar()">
-                                        Firmar
-                                    </button>
-                                @else
+{{--                                @if(!$requisicion->tiene_firma_aprobador)--}}
+{{--                                    <button type="button" class="btn btn-outline-info round" @click="firmar()">--}}
+{{--                                        Firmar--}}
+{{--                                    </button>--}}
+{{--                                @else--}}
 
                                     <button type="button" class="btn btn-outline-info round" data-bs-toggle="modal"
                                             @click="verPdfFirmado()">
                                         Ver PDF Firmado
                                     </button>
-                                @endif
+{{--                                @endif--}}
 
-                            </div>
-
-                            <div class="col-sm-3 text-center">
-
-                                <button type="submit" class="btn btn-outline-success round">
-                                    <i class="fa fa-save"></i> Guardar
-                                </button>
                             </div>
 
                             @if($requisicion->puedeAprobarse())
-                                <div class="col-sm-3 text-end">
+                                <div class="col-sm-4 text-end">
                                     <button type="button" data-bs-toggle="modal"
                                             data-bs-target="#modal-confirma-procesar"
                                             class="btn btn-outline-primary round">
@@ -111,97 +104,97 @@
 
                     {!! Form::close() !!}
 
-                    <div class="modal fade" id="modalFirmar" tabindex="-1" role="dialog"
-                         aria-labelledby="modelTitleId" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <form
-                                action="{{ route('compra.requisiciones.aprobador.firmar.imprimir',$requisicion->id ?? 0) }}"
-                                method="POST" class="esperar">
-                                @csrf
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title" id="modelTitleId">
-                                            Credenciales de firma
-                                        </h4>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            {{-- Usuario --}}
-                                            <div class="col-12 mb-1">
-                                                <label for="usuario_firma" class="form-label">Usuario</label>
-                                                <input class="form-control" type="text" name="usuario_firma"
-                                                       id="usuario_firma"
-                                                       value="{{ auth()->user()->email }}">
-                                            </div>
+{{--                    <div class="modal fade" id="modalFirmar" tabindex="-1" role="dialog"--}}
+{{--                         aria-labelledby="modelTitleId" aria-hidden="true">--}}
+{{--                        <div class="modal-dialog" role="document">--}}
+{{--                            <form--}}
+{{--                                action="{{ route('compra.requisiciones.aprobador.firmar.imprimir',$requisicion->id ?? 0) }}"--}}
+{{--                                method="POST" class="esperar">--}}
+{{--                                @csrf--}}
+{{--                                <div class="modal-content">--}}
+{{--                                    <div class="modal-header">--}}
+{{--                                        <h4 class="modal-title" id="modelTitleId">--}}
+{{--                                            Credenciales de firma--}}
+{{--                                        </h4>--}}
+{{--                                        <button type="button" class="btn-close" data-bs-dismiss="modal"--}}
+{{--                                                aria-label="Close"></button>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="modal-body">--}}
+{{--                                        <div class="row">--}}
+{{--                                            --}}{{-- Usuario --}}
+{{--                                            <div class="col-12 mb-1">--}}
+{{--                                                <label for="usuario_firma" class="form-label">Usuario</label>--}}
+{{--                                                <input class="form-control" type="text" name="usuario_firma"--}}
+{{--                                                       id="usuario_firma"--}}
+{{--                                                       value="{{ auth()->user()->email }}">--}}
+{{--                                            </div>--}}
 
-                                            {{-- Contraseña de firma --}}
-                                            <div class="col-12 mb-1">
-                                                <label for="password_firma" class="form-label">Contraseña Firma</label>
-                                                <input class="form-control" type="password" name="password_firma"
-                                                       id="password_firma"
-                                                       placeholder="******" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                            Cerrar
-                                        </button>
-                                        <button
-                                            type="submit"
-                                            class="btn btn-outline-primary round" target="_blank">
-                                            <i class="fa fa-print"></i> Firmar e imprimir
-                                        </button>
-                                    </div>
-                                </div>
+{{--                                            --}}{{-- Contraseña de firma --}}
+{{--                                            <div class="col-12 mb-1">--}}
+{{--                                                <label for="password_firma" class="form-label">Contraseña Firma</label>--}}
+{{--                                                <input class="form-control" type="password" name="password_firma"--}}
+{{--                                                       id="password_firma"--}}
+{{--                                                       placeholder="******" required>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="modal-footer">--}}
+{{--                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">--}}
+{{--                                            Cerrar--}}
+{{--                                        </button>--}}
+{{--                                        <button--}}
+{{--                                            type="submit"--}}
+{{--                                            class="btn btn-outline-primary round" target="_blank">--}}
+{{--                                            <i class="fa fa-print"></i> Firmar e imprimir--}}
+{{--                                        </button>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
-                            </form>
+{{--                            </form>--}}
 
-                        </div>
-                    </div>
+{{--                        </div>--}}
+{{--                    </div>--}}
 
                     <!-- Modal -->
-                    <div class="modal fade" id="modalImprimir" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-                         aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <form
-                                action="{{ route('compra.requisiciones.aprobador.firmar.imprimir',$requisicion->id ?? 0) }}"
-                                method="POST" class="esperar">
-                                @csrf
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title" id="modelTitleId">
-                                            Imprimir Requisición Firmada
-                                        </h4>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-12 mb-1">
-                                                La requisición ya fue firmada por el solicitante.
-                                                <br>
-                                                Puede imprimir el documento firmado.
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                            Cerrar
-                                        </button>
-                                        <button
-                                            type="submit"
-                                            class="btn btn-outline-primary round" target="_blank">
-                                            <i class="fa fa-print"></i> Imprimir
-                                        </button>
-                                    </div>
-                                </div>
+{{--                    <div class="modal fade" id="modalImprimir" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"--}}
+{{--                         aria-hidden="true">--}}
+{{--                        <div class="modal-dialog" role="document">--}}
+{{--                            <form--}}
+{{--                                action="{{ route('compra.requisiciones.aprobador.firmar.imprimir',$requisicion->id ?? 0) }}"--}}
+{{--                                method="POST" class="esperar">--}}
+{{--                                @csrf--}}
+{{--                                <div class="modal-content">--}}
+{{--                                    <div class="modal-header">--}}
+{{--                                        <h4 class="modal-title" id="modelTitleId">--}}
+{{--                                            Imprimir Requisición Firmada--}}
+{{--                                        </h4>--}}
+{{--                                        <button type="button" class="btn-close" data-bs-dismiss="modal"--}}
+{{--                                                aria-label="Close"></button>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="modal-body">--}}
+{{--                                        <div class="row">--}}
+{{--                                            <div class="col-12 mb-1">--}}
+{{--                                                La requisición ya fue firmada por el solicitante.--}}
+{{--                                                <br>--}}
+{{--                                                Puede imprimir el documento firmado.--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="modal-footer">--}}
+{{--                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">--}}
+{{--                                            Cerrar--}}
+{{--                                        </button>--}}
+{{--                                        <button--}}
+{{--                                            type="submit"--}}
+{{--                                            class="btn btn-outline-primary round" target="_blank">--}}
+{{--                                            <i class="fa fa-print"></i> Imprimir--}}
+{{--                                        </button>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
-                            </form>
-                        </div>
-                    </div>
+{{--                            </form>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
                 </div>
             </div>
