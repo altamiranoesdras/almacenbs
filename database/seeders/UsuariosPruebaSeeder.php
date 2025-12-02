@@ -107,12 +107,14 @@ class UsuariosPruebaSeeder extends Seeder
 
         $unidad1 = RrhhUnidad::areas()->solicitan()
             ->whereHas('subProductos')
+            ->whereHas('padre')
             ->inRandomOrder()
             ->first();
 
         $unidad2 = RrhhUnidad::areas()->solicitan()
             ->where('id', '!=', $unidad1->id)
             ->whereHas('subProductos')
+            ->whereHas('padre')
             ->inRandomOrder()
             ->first();
 

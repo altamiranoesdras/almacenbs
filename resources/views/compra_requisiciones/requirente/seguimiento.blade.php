@@ -42,12 +42,12 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-12 mb-1">
-                                    Comentario:
+                                    Observaciones:
                                     <textarea
-                                        name="comentario"
+                                        name="Observaciones"
                                         class="form-control"
                                         rows="2"
-                                        placeholder="Justificación de la compra"
+                                        placeholder="Observaciones (opcional)"
                                     ></textarea>
                                 </div>
                             </div>
@@ -163,52 +163,13 @@
                                 </div>
                             </div>
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="modalImprimir" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-                                 aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <form
-                                        action="{{ route('compra.requisiciones.aprobador.firmar.imprimir',$requisicion->id ?? 0) }}"
-                                        method="POST" class="esperar">
-                                        @csrf
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title" id="modelTitleId">
-                                                    Imprimir Requisición Firmada
-                                                </h4>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="row">
-                                                    <div class="col-12 mb-1">
-                                                        La requisición ya fue firmada por el solicitante.
-                                                        <br>
-                                                        Puede imprimir el documento firmado.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                    Cerrar
-                                                </button>
-                                                <button
-                                                    type="submit"
-                                                    class="btn btn-outline-primary round" target="_blank">
-                                                    <i class="fa fa-print"></i> Imprimir
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                    </form>
-                                </div>
-                            </div>
 
                         </div>
                     </div>
                 </div>
 
             </div>
+
             <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl"> <!-- modal-xl para que sea grande -->
                     <div class="modal-content">
@@ -224,6 +185,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 @endsection

@@ -36,6 +36,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read string $text
  * @property-read \App\Models\User|null $jefe
  * @property-read \App\Models\Municipio|null $municipio
+ * @property-read RrhhUnidad|null $padre
  * @property-read RrhhUnidad|null $parent
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RrhhPuesto> $puestos
  * @property-read int|null $puestos_count
@@ -213,6 +214,11 @@ class RrhhUnidad extends Model
     {
         return $this->belongsTo(RrhhUnidad::class, 'unidad_padre_id', 'id')
             ->with('parent');
+    }
+
+    public function padre(): BelongsTo
+    {
+        return $this->parent();
     }
 
     public function children(): HasMany

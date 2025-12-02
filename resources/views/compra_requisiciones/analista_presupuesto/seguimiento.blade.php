@@ -81,14 +81,12 @@
                                                     :options="fuentesFinanciamientos"
                                                     label="texto"
                                                     placeholder="Seleccione uno..."
-                                                    :disabled="{{$requisicion->estado_id == \App\Models\CompraRequisicionEstado::AUTORIZADA}}"
-                                                />
-                                            </div>
+{{--                                                    :disabled="{{$requisicion->estado_id == \App\Models\CompraRequisicionEstado::AUTORIZADA}}"--}}
+                                                ></multiselect>
                                             <input
                                                 type="hidden"
                                                 name="fuentes_financiamiento[{{$detalle->id}}]"
-                                                :value="fuenteFinanciamientoSeleccionada[{{$detalle->id}}]?.id"
-                                            >
+                                                :value="fuenteFinanciamientoSeleccionada[{{$detalle->id}}]?.id"/>
                                         </td>
                                         <td>{{ $detalle->item?->nombre }}</td>
                                         <td>{{ number_format($detalle->cantidad ?? 0, 0) }}</td>

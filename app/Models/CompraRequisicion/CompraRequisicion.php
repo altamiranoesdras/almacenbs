@@ -64,6 +64,7 @@ use Throwable;
  * @property bool|null $tiene_firma_solicitante
  * @property bool|null $tiene_firma_aprobador
  * @property bool|null $tiene_firma_autorizador
+ * @property bool|null $tiene_firma_analista_presupuesto
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
@@ -103,6 +104,7 @@ use Throwable;
  * @method static Builder|CompraRequisicion wherePartidas($value)
  * @method static Builder|CompraRequisicion whereProveedorAdjudicado($value)
  * @method static Builder|CompraRequisicion whereSubproductos($value)
+ * @method static Builder|CompraRequisicion whereTieneFirmaAnalistaPresupuesto($value)
  * @method static Builder|CompraRequisicion whereTieneFirmaAprobador($value)
  * @method static Builder|CompraRequisicion whereTieneFirmaAutorizador($value)
  * @method static Builder|CompraRequisicion whereTieneFirmaSolicitante($value)
@@ -119,8 +121,6 @@ use Throwable;
  * @method static Builder|CompraRequisicion whereUsuarioSolicitaId($value)
  * @method static Builder|CompraRequisicion withTrashed()
  * @method static Builder|CompraRequisicion withoutTrashed()
- * @property bool|null $tiene_firma_analista_presupuesto
- * @method static Builder|CompraRequisicion whereTieneFirmaAnalistaPresupuesto($value)
  * @mixin Eloquent
  */
 class CompraRequisicion extends Model implements HasMedia

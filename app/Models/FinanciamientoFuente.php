@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read mixed $codigo
  * @property-read string $texto
  * @method static \Database\Factories\FinanciamientoFuenteFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|FinanciamientoFuente newModelQuery()
@@ -31,7 +32,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|FinanciamientoFuente whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FinanciamientoFuente withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|FinanciamientoFuente withoutTrashed()
- * @property-read mixed $codigo
  * @mixin \Eloquent
  */
 class FinanciamientoFuente extends Model

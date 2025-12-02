@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraRequisicionProcesoTipo> $compraRequisicionProcesoTipos
  * @property-read int|null $compra_requisicion_proceso_tipos_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, CompraRequisicion> $compraRequisiciones
+ * @property-read int|null $compra_requisiciones_count
  * @method static \Database\Factories\CompraRequisicionTipoAdquisicionFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoAdquisicion newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoAdquisicion newQuery()
@@ -27,8 +29,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoAdquisicion whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoAdquisicion withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionTipoAdquisicion withoutTrashed()
- * @property-read \Illuminate\Database\Eloquent\Collection<int, CompraRequisicion> $compraRequisiciones
- * @property-read int|null $compra_requisiciones_count
  * @mixin \Eloquent
  */
 class CompraRequisicionTipoAdquisicion extends Model

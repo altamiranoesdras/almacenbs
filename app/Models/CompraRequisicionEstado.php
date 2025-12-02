@@ -17,6 +17,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraBandeja> $compraBandejas
  * @property-read int|null $compra_bandejas_count
  * @property-read string $color
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, CompraRequisicion> $requisicion
+ * @property-read int|null $requisicion_count
  * @method static \Database\Factories\CompraRequisicionEstadoFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado newQuery()
@@ -29,8 +31,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionEstado withoutTrashed()
- * @property-read \Illuminate\Database\Eloquent\Collection<int, CompraRequisicion> $requisicion
- * @property-read int|null $requisicion_count
  * @mixin \Eloquent
  */
 class CompraRequisicionEstado extends Model

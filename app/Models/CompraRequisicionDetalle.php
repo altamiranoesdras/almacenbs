@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read \App\Models\FinanciamientoFuente|null $financiamientoFuente
  * @property-read mixed $sub_total
  * @property-read \App\Models\Item $item
+ * @property-read \App\Models\CompraRequisicion\CompraRequisicion $requisicion
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CompraSolicitudDetalle> $solicitudDetalles
  * @property-read int|null $solicitud_detalles_count
  * @method static \Database\Factories\CompraRequisicionDetalleFactory factory($count = null, $state = [])
@@ -43,7 +44,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|CompraRequisicionDetalle withoutTrashed()
- * @property-read \App\Models\CompraRequisicion\CompraRequisicion $requisicion
  * @mixin \Eloquent
  */
 class CompraRequisicionDetalle extends Model
