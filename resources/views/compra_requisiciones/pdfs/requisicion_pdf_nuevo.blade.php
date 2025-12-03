@@ -52,7 +52,6 @@
         .tamanio-texto-general {
             font-size: 11px;
         }
-
     </style>
 </head>
 <body>
@@ -68,7 +67,7 @@
                     <span style="font-weight: bold"><strong>NIT:</strong> 3377881</span>
                 </div>
                 <div style="display: table-cell; width: 60%; text-align: center; vertical-align: middle;">
-                    <h2 style="font-weight: bold;">REQUISICIÓN DE COMPRA</h2>
+                    <h1 style="font-weight: bold;">REQUISICIÓN DE COMPRA</h1>
                 </div>
                 <div style="display: table-cell; width: 20%; text-align: start; vertical-align: middle;">
                     <label style="font-weight: bold; font-size: 15px">Numero: </label><span>{{$requisicion->codigo}}</span><br><br>
@@ -80,7 +79,7 @@
 </table>
 
 <!-- Unidad solicitante -->
-<table style="margin-top: 15px; margin-bottom: 20px; width: 100%">
+<table style="margin-top: 15px; margin-bottom: 20px; width: 100%;">
     <tr>
         <td style="border: none; width: 20%">
             <h3>UNIDAD REQUIRENTE:</h3>
@@ -163,10 +162,14 @@
                 </tr>
                 <tr>
                     <td class="left" style="border: none;">
-                        <span>PARTIDAS PRESUPUESTARIAS ASIGNADAS AL GASTO</span>
+                        @foreach($requisicion->obtenerPartidas() as $partida)
+                            <span class="texto-negrita tamanio-texto-general">{{ $partida  }}</span> <br>
+                        @endforeach
                     </td>
                     <td class="right" style="border: none;">
-                        <span>FIRMA Y SELLO JEFE DE PRESUPUESTO</span>
+                        @foreach($requisicion->obtenerSubProductos() as $subProducto)
+                            <span class="texto-negrita tamanio-texto-general">{{ $subProducto  }}</span> <br>
+                        @endforeach
                     </td>
                 </tr>
             </table>
