@@ -704,7 +704,7 @@ class CompraRequisicion extends Model implements HasMedia
 
         $requisicion = $this;
 
-        $view = view('compra_requisiciones.pdfs.requisicion_pdf', compact('requisicion'))->render();
+        $view = view('compra_requisiciones.pdfs.requisicion_pdf_nuevo', compact('requisicion'))->render();
 
         $pdf->loadHTML($view)
             ->setOption('page-width', 279)   // mm
