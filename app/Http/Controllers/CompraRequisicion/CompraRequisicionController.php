@@ -183,8 +183,7 @@ class CompraRequisicionController extends AppBaseController
         $rutaArchivoFirmado = $requisicion->pdfFirmado(true);
 
         if (!$rutaArchivoFirmado) {
-            flash()->error('La requisición de compra no tiene firma del solicitante.');
-            return redirect(route('compra.requisiciones.index'));
+            return null;
         }
 
         return response()->file($rutaArchivoFirmado, [

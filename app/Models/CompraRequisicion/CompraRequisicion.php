@@ -680,6 +680,12 @@ class CompraRequisicion extends Model implements HasMedia
         return $media->getUrl(); // Retorna la URL relativa del archivo firmado
     }
 
+    public function tienePdfFirmado(): bool
+    {
+        return $this->getMedia(CompraRequisicion::COLLECTION_REQUISICION_COMPRA)->isNotEmpty();
+
+    }
+
     public function puedeAsignarAnalistaCompras(): bool
     {
         return $this->estado_id == CompraRequisicionEstado::ASIGNACION_REQUISICIONES;
