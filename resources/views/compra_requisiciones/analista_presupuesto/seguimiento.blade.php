@@ -154,7 +154,7 @@
                                 </button>
                             </div>
 
-                            <div class="col-sm-4 text-end">
+                            <div class="col-sm-8 text-end">
                                 <button
                                     type="button"
                                     data-bs-toggle="modal"

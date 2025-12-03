@@ -661,7 +661,7 @@ class CompraRequisicion extends Model implements HasMedia
             usuarioAutenticado(),
             $contrasenaFirma,
             $uploaded
-            , 380
+            , 360
             , 280
         );
 

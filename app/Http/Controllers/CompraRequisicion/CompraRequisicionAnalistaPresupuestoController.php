@@ -81,7 +81,7 @@ class CompraRequisicionAnalistaPresupuestoController extends Controller
                 ->withErrors(['error' => 'Error al procesar: ' . $e->getMessage()]);
         }
 
-        if($requisicion->estado_id = CompraRequisicionEstado::AUTORIZADA){
+        if($requisicion->estado_id == CompraRequisicionEstado::AUTORIZADA){
             flash('Requisición enviada a Supervisor.')->success();
         } else {
             flash('Requisición enviada a Requirente.')->success();
