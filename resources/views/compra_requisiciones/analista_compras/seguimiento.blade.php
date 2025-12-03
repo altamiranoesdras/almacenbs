@@ -139,12 +139,12 @@
 
 
                             <div class="col-12 mb-1">
-                                Comentario:
+                                <label for="comentario" class="form-label">Observaciones:</label>
                                 <textarea
                                     name="comentario"
                                     class="form-control"
                                     rows="2"
-                                    placeholder="Justificación de la compra"
+                                    placeholder="Observaciones (opcional)"
                                 ></textarea>
                             </div>
 

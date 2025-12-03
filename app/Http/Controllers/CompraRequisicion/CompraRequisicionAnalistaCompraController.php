@@ -37,11 +37,13 @@ class CompraRequisicionAnalistaCompraController extends Controller
     public function procesar(CompraRequisicion $requisicion, CompraRequisicionAnalistaCompraRequest $request)
     {
         if ($requisicion->estado_id == CompraRequisicionEstado::INICIO_DE_GESTION) {
+            $mensaje = 'Orden Generada para la Requisición N° ' . $requisicion->codigo;
             $request->validate([
                 'numero_orden_compra'       => 'required|string',
                 'orden_compra'              => 'required|file',
             ]);
-
+        } else {
+            $mensaje = 'El proceso ha iniciado correctamente para la Requisición N° ' . $requisicion->codigo;
         }
 
         try {
@@ -51,8 +53,17 @@ class CompraRequisicionAnalistaCompraController extends Controller
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
+            $msj = manejarException($e);
+
+            flash($msj)->error();
+
+            return redirect()
+                ->back()
+                ->withErrors(['error' => $msj])
+                ->withInput();
         }
+
+        flash($mensaje)->success();
 
         return redirect()->route('compra.requisiciones.analista.compras')->with('success', 'La requisición ha sido procesada correctamente.');
     }

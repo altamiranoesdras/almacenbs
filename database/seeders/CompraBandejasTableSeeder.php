@@ -13,7 +13,7 @@ class CompraBandejasTableSeeder extends Seeder
 
     /**
      * Auto generated seed file
-     *
+     * php artisan db:seed --class="Database\Seeders\CompraBandejasTableSeeder"
      * @return void
      */
     public function run()
@@ -65,8 +65,8 @@ class CompraBandejasTableSeeder extends Seeder
         ]);
         $bandejaAnalistaPresupuesto->estados()->attach([
             CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_PRESUPUESTOS,
-            CompraRequisicionEstado::RETORNADA_POR_SUPERVISOR_A_ANALISTA_DE_PRESUPUESTO,
-            CompraRequisicionEstado::AUTORIZADA,
+//            CompraRequisicionEstado::RETORNADA_POR_SUPERVISOR_A_ANALISTA_DE_PRESUPUESTO,
+//            CompraRequisicionEstado::AUTORIZADA_POR_SUPERVISOR,
         ]);
 
 //        Paso NO.3
@@ -98,9 +98,8 @@ class CompraBandejasTableSeeder extends Seeder
         ]);
 
         $bandejaSupervisor->estados()->attach([
-//            CompraRequisicionEstado::AUTORIZADA,
-            CompraRequisicionEstado::ASIGNACION_REQUISICIONES,
-            CompraRequisicionEstado::RETORNADA_POR_ANALISTA_DE_PRESUPUESTO_A_SUPERVISOR,
+            CompraRequisicionEstado::AUTORIZADA,
+//            CompraRequisicionEstado::ASIGNACION_REQUISICIONES,
         ]);
 
 //        Paso NO.6

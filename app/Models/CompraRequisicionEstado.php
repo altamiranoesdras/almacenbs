@@ -65,6 +65,7 @@ class CompraRequisicionEstado extends Model
 
     const RETORNADA_POR_ANALISTA_DE_PRESUPUESTO_A_SUPERVISOR               = 21;
     const FUENTES_FINANCIAMIENTO_ASIGNADAS               = 22;
+    const AUTORIZADA_POR_SUPERVISOR               = 23;
 
 
 

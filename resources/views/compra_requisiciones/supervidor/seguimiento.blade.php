@@ -101,7 +101,7 @@
                                                 data-bs-target="#modal-confirma-procesar"
                                                 class="btn btn-success round">
                                             <i class="fa fa-paper-plane"></i>
-                                            Aprobar y Enviar
+                                            Enviar a analista de compras
                                         </button>
                                     </div>
 

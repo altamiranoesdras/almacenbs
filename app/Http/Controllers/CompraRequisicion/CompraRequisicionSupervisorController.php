@@ -7,7 +7,6 @@ use App\DataTables\Scopes\ScopeCompraRequisicion;
 use App\Http\Controllers\Controller;
 use App\Models\CompraBandeja;
 use App\Models\CompraRequisicion\CompraRequisicion;
-use App\Models\CompraRequisicionEstado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Throwable;
@@ -68,7 +67,7 @@ class CompraRequisicionSupervisorController extends Controller
 
         DB::commit();
 
-        flash('La requisición ha sido procesada con éxito.')->success();
+        flash('Requisición enviada a Analista de compras.')->success();
 
         return redirect()->route('compra.requisiciones.supervisor');
     }

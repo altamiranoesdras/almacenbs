@@ -42,6 +42,7 @@ class CompraRequisicionEstadosTableSeeder extends Seeder
             ['nombre' => 'RETORNADA POR SUPERVISOR A ANALISTA DE PRESUPUESTO'],
             ['nombre' => 'RETORNADA POR ANALISTA DE PRESUPUESTO A SUPERVISOR'],
             ['nombre' => 'FUENTES FINANCIAMIENTO ASIGNADAS'],
+            ['nombre' => 'AUTORIZADA POR SUPERVISOR'],
         ];
 
         foreach ($estados as $estado) {

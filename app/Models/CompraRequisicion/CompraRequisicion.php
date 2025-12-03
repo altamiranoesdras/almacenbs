@@ -361,8 +361,10 @@ class CompraRequisicion extends Model implements HasMedia
         $this->addBitacora("REQUISICIÓN DE COMPRA APROBADA POR SUPERVISOR DE COMPRAS", $comentario);
     }
 
-    public function supervisorAsignaAnalista(int $usuario_analista_id=null, $comentario = ''): void
+    public function supervisorAsignaAnalista(int $usuario_analista_id =  null, $comentario = null): void
     {
+        $comentario = $comentario ?? '';
+
         $this->estado_id = CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_COMPRAS;
         $this->usuario_analista_id = $usuario_analista_id;
         $this->usuario_asigna_id = usuarioAutenticado()->id;
@@ -718,7 +720,7 @@ class CompraRequisicion extends Model implements HasMedia
 
     public function puedeAsignarAnalistaCompras(): bool
     {
-        return $this->estado_id == CompraRequisicionEstado::ASIGNACION_REQUISICIONES;
+        return $this->estado_id == CompraRequisicionEstado::AUTORIZADA;
     }
 
 }

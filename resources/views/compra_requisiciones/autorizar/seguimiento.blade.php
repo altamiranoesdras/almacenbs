@@ -56,7 +56,7 @@
                     <div class="card-footer">
                         <div class="row mb1">
 
-                            <div class="col-sm-3">
+                            <div class="col-sm-4">
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-outline-danger round" data-bs-toggle="modal"
                                         data-target="#modalAnular">
@@ -65,7 +65,7 @@
                             </div>
 
 
-                            <div class="col-sm-3 text-center">
+                            <div class="col-sm-4 text-center">
 
                                 @if(!$requisicion->tiene_firma_autorizador)
                                     <button type="button" class="btn btn-outline-info round" @click="firmar()">
@@ -81,15 +81,8 @@
 
                             </div>
 
-                            <div class="col-sm-3 text-center">
-
-                                <button type="submit" class="btn btn-outline-success round">
-                                    <i class="fa fa-save"></i> Guardar
-                                </button>
-                            </div>
-
                             @if($requisicion->puedeAutorizarse())
-                                <div class="col-sm-3 text-end">
+                                <div class="col-sm-4 text-end">
                                     <button type="button" data-bs-toggle="modal"
                                             data-bs-target="#modal-confirma-procesar"
                                             class="btn btn-outline-primary round">
