@@ -153,18 +153,35 @@
                                     Retornar
                                 </button>
                             </div>
-
-                            <div class="col-sm-4 text-end">
-                                <button
-                                    type="button"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#modal-confirma-procesar"
-                                    class="btn btn-outline-success round"
-                                >
-                                    <i class="fa fa-paper-plane"></i>
-                                    Enviar a requirente
-                                </button>
+                            <div class="col-sm-4 text-center">
+                                @if($requisicion->estado_id == \App\Models\CompraRequisicionEstado::AUTORIZADA)
+                                    @if(!$requisicion->tiene_firma_analista_presupuesto)
+                                        <button type="button" class="btn btn-outline-info round" @click="firmar()">
+                                            Firmar
+                                        </button>
+                                    @else
+                                        <button type="button" class="btn btn-outline-info round" data-bs-toggle="modal"
+                                                @click="verPdfFirmado()">
+                                            Ver PDF Firmado
+                                        </button>
+                                    @endif
+                                @endif
                             </div>
+
+                            @if($requisicion->tiene_firma_analista_presupuesto)
+                                <div class="col-sm-4 text-end">
+                                    <button
+                                        type="button"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modal-confirma-procesar"
+                                        class="btn btn-outline-success round"
+                                    >
+                                        <i class="fa fa-paper-plane"></i>
+                                        Enviar a supervisor
+                                    </button>
+                                </div>
+                            @endif
+
                         </div>
                         <div class="modal fade modal-info" id="modal-confirma-procesar">
                             <div class="modal-dialog">

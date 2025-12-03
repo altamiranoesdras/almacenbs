@@ -57,6 +57,7 @@ Route::prefix('compra')->name('compra.')->group(function () {
 
         Route::get('analista/presupuesto', [CompraRequisicionAnalistaPresupuestoController::class, 'index'])->name('analista.presupuesto');
         Route::get('analista/presupuesto/{requisicion}', [CompraRequisicionAnalistaPresupuestoController::class, 'seguimiento'])->name('analista.presupuesto.seguimiento');
+        Route::get('analista/presupuesto/firmar/{requisicion}', [CompraRequisicionAnalistaPresupuestoController::class, 'seguimientoConFirma'])->name('analista.presupuesto.seguimiento.con.firma');
         Route::patch('analista/presupuesto/procesar/{requisicion}', [CompraRequisicionAnalistaPresupuestoController::class, 'procesar'])->name('analista.presupuesto.seguimiento.procesar');
         Route::post('analista/presupuesto/retornar/{requisicion}', [CompraRequisicionAnalistaPresupuestoController::class, 'retornar'])->name('analista.presupuesto.seguimiento.retornar');
         Route::post('analista/presupuesto/firmar/imprimir/{requisicion}', [CompraRequisicionAnalistaPresupuestoController::class, 'firmarEImprimir'])->name('analista.presupuesto.seguimiento.firmar.imprimir');

@@ -7,6 +7,7 @@ use App\DataTables\Scopes\ScopeCompraRequisicion;
 use App\Http\Controllers\Controller;
 use App\Models\CompraBandeja;
 use App\Models\CompraRequisicion\CompraRequisicion;
+use App\Models\CompraRequisicionEstado;
 use DB;
 use Exception;
 use Illuminate\Http\Request;
@@ -33,6 +34,10 @@ class CompraRequisicionAnalistaPresupuestoController extends Controller
     public function seguimiento(CompraRequisicion $requisicion)
     {
         return view('compra_requisiciones.analista_presupuesto.seguimiento', compact('requisicion'));
+    }
+    public function seguimientoConFirma(CompraRequisicion $requisicion)
+    {
+        return view('compra_requisiciones.analista_presupuesto.seguimiento_con_firma', compact('requisicion'));
     }
 
     /**
@@ -76,7 +81,11 @@ class CompraRequisicionAnalistaPresupuestoController extends Controller
                 ->withErrors(['error' => 'Error al procesar: ' . $e->getMessage()]);
         }
 
-        flash('Fuentes de financiamiento asignadas correctamente.')->success();
+        if($requisicion->estado_id = CompraRequisicionEstado::AUTORIZADA){
+            flash('Requisición enviada a Supervisor.')->success();
+        } else {
+            flash('Requisición enviada a Requirente.')->success();
+        }
 
         return redirect()->route('compra.requisiciones.analista.presupuesto');
     }

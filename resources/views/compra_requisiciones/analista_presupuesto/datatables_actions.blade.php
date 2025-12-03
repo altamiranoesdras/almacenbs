@@ -12,10 +12,19 @@
 @endcan
 
 @can('Editar Compra Requisicions')
-    <a href="{{ route('compra.requisiciones.analista.presupuesto.seguimiento', $id) }}" data-toggle="tooltip" title="Editar"
-       class='btn btn-icon btn-outline-warning rounded-circle'>
-        <i class="fa fa-edit"></i>
-    </a>
+    @if($requisicion->estado_id == \App\Models\CompraRequisicionEstado::AUTORIZADA)
+        <a href="{{ route('compra.requisiciones.analista.presupuesto.seguimiento.con.firma', $id) }}"
+           data-toggle="tooltip" title="Editar"
+           class='btn btn-icon btn-outline-warning rounded-circle'>
+            <i class="fa fa-edit"></i>
+        </a>
+    @else
+        <a href="{{ route('compra.requisiciones.analista.presupuesto.seguimiento', $id) }}" data-toggle="tooltip"
+           title="Editar"
+           class='btn btn-icon btn-outline-warning rounded-circle'>
+            <i class="fa fa-edit"></i>
+        </a>
+    @endif
 @endcan
 
 @can('Eliminar Compra Requisicions')

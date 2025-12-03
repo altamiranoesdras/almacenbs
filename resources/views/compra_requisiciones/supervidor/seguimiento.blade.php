@@ -89,7 +89,7 @@
                                 <div class="col-sm-4 text-end">
                                     <button type="button" data-bs-toggle="modal"
                                             data-bs-target="#modal-confirma-procesar"
-                                            class="btn btn-success round">
+                                            class="btn btn-outline-success round">
                                         <i class="fa fa-paper-plane"></i>
                                         Enviar a analista de compras
                                     </button>
