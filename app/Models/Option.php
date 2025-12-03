@@ -129,6 +129,8 @@ class Option extends Model
     public const COMPRA_TIPO_PROCESO = 75;
     public const ENVIOS_FISCALES = 77;
 
+    public const BANDEJA_SUPERVISOR_COMPRAS = 91;
+    public const BANDEJA_ANALISTA_PRESUPUESTO = 92;
     public const BANDEJA_ANALISTA_COMPRAS = 93;
 
 

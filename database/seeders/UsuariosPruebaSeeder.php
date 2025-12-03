@@ -184,7 +184,7 @@ class UsuariosPruebaSeeder extends Seeder
                 'bodega_id' => RrhhUnidad::find(RrhhUnidad::DEPTO_COMPRAS)->bodega->id,
                 'options' => [
                     Option::BUSCADOR_REQUISICIONES_COMPRA,
-                    Option::APROBAR_REQUISICION_COMPRA,
+                    Option::BANDEJA_SUPERVISOR_COMPRAS,
                 ],
             ],
             'analista_compra1' => [
@@ -214,7 +214,7 @@ class UsuariosPruebaSeeder extends Seeder
                 'bodega_id' => RrhhUnidad::find(RrhhUnidad::DEPTO_PRESUPUESTOS)->bodega->id,
                 'options' => [
                     Option::BUSCADOR_REQUISICIONES_COMPRA,
-                    Option::APROBAR_REQUISICION_COMPRA,
+                    Option::BANDEJA_ANALISTA_PRESUPUESTO,
                 ],
             ],
 

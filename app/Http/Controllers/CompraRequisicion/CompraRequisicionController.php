@@ -19,10 +19,10 @@ class CompraRequisicionController extends AppBaseController
 
     public function __construct()
     {
-        $this->middleware('permission:Ver Compra Requisicions')->only('show');
-        $this->middleware('permission:Crear Compra Requisicions')->only(['create','store']);
-        $this->middleware('permission:Editar Compra Requisicions')->only(['edit','update']);
-        $this->middleware('permission:Eliminar Compra Requisicions')->only('destroy');
+//        $this->middleware('permission:Ver Compra Requisicions')->only('show');
+//        $this->middleware('permission:Crear Compra Requisicions')->only(['create','store']);
+//        $this->middleware('permission:Editar Compra Requisicions')->only(['edit','update']);
+//        $this->middleware('permission:Eliminar Compra Requisicions')->only('destroy');
     }
     /**
      * Display a listing of the CompraRequisicion.

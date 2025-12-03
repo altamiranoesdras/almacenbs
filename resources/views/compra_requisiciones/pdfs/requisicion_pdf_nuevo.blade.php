@@ -108,7 +108,7 @@
             <td class="text-center texto-negrita tamanio-texto-general">{{ $detalle->item->renglon->numero ?? '' }}</td>
             <td class="text-center texto-negrita tamanio-texto-general">{{ $detalle->item->unimed->nombre ?? '' }}</td>
             <td class="text-center texto-negrita tamanio-texto-general">{{ $detalle->cantidad ?? '' }}</td>
-            <td class="text-center texto-negrita tamanio-texto-general">{{ $detalle->item->descripcion ?? '' }}</td>
+            <td class="text-center texto-negrita tamanio-texto-general">{{ $detalle->item->texto_requisicion_compra ?? '' }}</td>
         </tr>
     @endforeach
 
