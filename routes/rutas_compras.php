@@ -75,7 +75,8 @@ Route::prefix('compra')->name('compra.')->group(function () {
         Route::patch('requisiciones/{requisicion}', [CompraRequisicionController::class, 'update']);
         Route::delete('requisiciones/{requisicion}', [CompraRequisicionController::class, 'destroy'])->name('destroy');
 
-
+        Route::get('pdf/vista/{requisicion}', [CompraRequisicionController::class, 'pdfVista'])->name('pdf.vista');
+        Route::get('pdf/firmado/{requisicion}', [CompraRequisicionController::class, 'pdfFirmado'])->name('pdf.firmado');
     });
 
 

@@ -160,24 +160,39 @@ class CompraRequisicionController extends AppBaseController
     }
 
 
-//    public function pdf(CompraRequisicion $requisicion)
-//    {
-//
-//        $pdf = App::make('snappy.pdf.wrapper');
-//
-//        $view = view('compra_requisiciones.pdfs.requisicion_pdf', compact('requisicion'))->render();
-//
-//        $pdf->loadHTML($view)
-//            ->setOption('page-width', 279)
-//            ->setOption('page-height', 216)
-//            ->setOrientation('landscape')
-//            ->setOption('margin-top', 8)
-//            ->setOption('margin-bottom',10)
-//            ->setOption('margin-left',10)
-//            ->setOption('margin-right',15);
-//
-//        return $pdf->inline('Despacho '.$requisicion->id. '_'. time().'.pdf');
-//    }
+    /**
+     * @throws Throwable
+     */
+    public function pdfVista(CompraRequisicion $requisicion)
+    {
+        if (empty($requisicion)) {
+            flash()->error('Requisición de compra no encontrada');
+            return redirect(route('compra.requisiciones.index'));
+        }
+
+        return $requisicion->generaPdf();
+    }
+
+    public function pdfFirmado(CompraRequisicion $requisicion)
+    {
+        if (empty($requisicion)) {
+            flash()->error('Requisición de compra no encontrada');
+            return redirect(route('compra.requisiciones.index'));
+        }
+
+        $rutaArchivoFirmado = $requisicion->pdfFirmado(true);
+
+        if (!$rutaArchivoFirmado) {
+            flash()->error('La requisición de compra no tiene firma del solicitante.');
+            return redirect(route('compra.requisiciones.index'));
+        }
+
+        return response()->file($rutaArchivoFirmado, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="requisicion_firmada.pdf"',
+        ]);
+
+    }
 
 
 
