@@ -12,6 +12,7 @@ use App\Models\Proveedor;
 use App\Models\RrhhUnidad;
 use App\Models\User;
 use App\Traits\HasBitacora;
+use Barryvdh\Snappy\PdfWrapper;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -473,20 +474,7 @@ class CompraRequisicion extends Model implements HasMedia
 
 
         // 1) Generar el PDF con Snappy (wkhtmltopdf)
-        $pdf = App::make('snappy.pdf.wrapper');
-
-        $requisicion = $this;
-
-        $view = view('compra_requisiciones.pdfs.requisicion_pdf', compact('requisicion'))->render();
-
-        $pdf->loadHTML($view)
-            ->setOption('page-width', 279)   // mm
-            ->setOption('page-height', 216)  // mm
-            ->setOrientation('landscape')
-            ->setOption('margin-top', 8)
-            ->setOption('margin-bottom', 10)
-            ->setOption('margin-left', 10)
-            ->setOption('margin-right', 15);
+        $pdf = $this->getPdf();
 
         // 2) Guardar el PDF en storage/app/public/firmas/pdfs
         $disk = 'public';
@@ -575,36 +563,6 @@ class CompraRequisicion extends Model implements HasMedia
 
     }
 
-    /**
-     * @throws Throwable
-     * @throws FileDoesNotExist
-     * @throws FileIsTooBig
-     */
-//    public function firmaOperador($contrasenaFirma): Media
-//    {
-//
-//        $this->tiene_firma_aprobador = true;
-//        $this->save();
-//
-//        $this->addBitacora("REQUISICIÓN DE COMPRA FIRMADA POR APROBADOR");
-//
-//        $uploaded = $this->generarPdfUpload();
-//
-//        if (config('firma-electronica.simular_firma')) {
-//            return $this
-//                ->addMedia($uploaded)
-//                ->toMediaCollection(CompraRequisicion::COLLECTION_REQUISICION_COMPRA);
-//        }
-//
-//        return $this->firmar(
-//            usuarioAutenticado(),
-//            $contrasenaFirma,
-//            $uploaded,
-//            180,
-//            280
-//        );
-//
-//    }
 
     /**
      * @throws Throwable
@@ -719,6 +677,41 @@ class CompraRequisicion extends Model implements HasMedia
     public function puedeAsignarAnalistaCompras(): bool
     {
         return $this->estado_id == CompraRequisicionEstado::ASIGNACION_REQUISICIONES;
+    }
+
+    /**
+     * @throws Throwable
+     */
+    public function generaPdf(): string
+    {
+        $pdf = $this->getPdf();
+
+        return $pdf->output(); // Retorna el contenido del PDF generado
+
+    }
+
+    /**
+     * @return PdfWrapper|mixed
+     * @throws Throwable
+     */
+    public function getPdf(): mixed
+    {
+        $pdf = App::make('snappy.pdf.wrapper');
+
+        $requisicion = $this;
+
+        $view = view('compra_requisiciones.pdfs.requisicion_pdf', compact('requisicion'))->render();
+
+        $pdf->loadHTML($view)
+            ->setOption('page-width', 279)   // mm
+            ->setOption('page-height', 216)  // mm
+            ->setOrientation('landscape')
+            ->setOption('margin-top', 8)
+            ->setOption('margin-bottom', 10)
+            ->setOption('margin-left', 10)
+            ->setOption('margin-right', 15);
+
+        return $pdf;
     }
 
 }
