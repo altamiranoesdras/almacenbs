@@ -117,7 +117,7 @@ class CompraRequisicionController extends AppBaseController
 
         if($request->solicitar){
             $compraRequisicion->enviarAAnalistaPresupuesto();
-            flash()->success('Requisición de compra enviada a analista de presupuesto.');
+            flash()->success('Requisición de compra enviada a analista de presupuestos.');
             return redirect(route('compra.requisiciones.mis.requisiciones'));
         }
 
