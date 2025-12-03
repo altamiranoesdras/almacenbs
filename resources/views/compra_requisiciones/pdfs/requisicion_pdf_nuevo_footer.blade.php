@@ -16,7 +16,7 @@
                     <td></td>
                     <td class="right" style="border: none; text-align: center; padding: 50px;">
                         _________________________________<br><BR>
-                        <span class="texto-negrita tamanio-texto-general">VERIFICACION PRESUPUESTARIA</span>
+                        <span class="texto-negrita tamanio-texto-general">VERIFICACIÓN PRESUPUESTARIA</span>
                     </td>
                 </tr>
             </table>

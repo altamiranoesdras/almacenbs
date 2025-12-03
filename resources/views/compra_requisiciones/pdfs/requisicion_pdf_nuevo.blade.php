@@ -103,7 +103,7 @@
     <tbody>
     @foreach ($requisicion->detalles as $detalle)
         <tr class="p-0 border-0 " style="font-size: 8px">
-            <td class="text-center texto-negrita tamanio-texto-general">{{ $detalle->item->codigo ?? '' }}</td>
+            <td class="text-center texto-negrita tamanio-texto-general">{{ $detalle->item->codigo_insumo ?? '' }}</td>
             <td class="text-center texto-negrita tamanio-texto-general">{{ $detalle->item->codigo_presentacion ?? '' }}</td>
             <td class="text-center texto-negrita tamanio-texto-general">{{ $detalle->item->renglon->numero ?? '' }}</td>
             <td class="text-center texto-negrita tamanio-texto-general">{{ $detalle->item->unimed->nombre ?? '' }}</td>
@@ -131,10 +131,10 @@
 <!-- Justificación -->
 <table style="margin-top: 15px; width: 100%">
     <tr>
-        <td class="left" colspan="4" style="border: none">JUSTIFICACIÓN:</td>
+        <td class="left" style="border: none">JUSTIFICACIÓN:</td>
     </tr>
     <tr>
-        <td class="left" colspan="4" style="height: 50px; width: 100%" class="texto-negrita tamanio-texto-general">
+        <td style="height: 80px; width: 100%; vertical-align: top;" class="texto-negrita tamanio-texto-general left">
             {{$requisicion->justificacion ?? ''}}
         </td>
     </tr>
