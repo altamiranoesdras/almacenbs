@@ -562,7 +562,9 @@ class CompraRequisicion extends Model implements HasMedia
         return $this->firmar(
             usuarioAutenticado(),
             $contrasenaFirma,
-            $uploaded
+            $uploaded,
+            30,
+            210
         );
 
     }
@@ -706,14 +708,18 @@ class CompraRequisicion extends Model implements HasMedia
 
         $view = view('compra_requisiciones.pdfs.requisicion_pdf_nuevo', compact('requisicion'))->render();
 
+        $footer = view('compra_requisiciones.pdfs.requisicion_pdf_nuevo_footer', compact('requisicion'))->render();
+
         $pdf->loadHTML($view)
+            ->setOption('footer-html', $footer)
             ->setOption('page-width', 279)   // mm
             ->setOption('page-height', 216)  // mm
             ->setOrientation('landscape')
             ->setOption('margin-top', 8)
-            ->setOption('margin-bottom', 10)
+            ->setOption('margin-bottom', 90)
             ->setOption('margin-left', 10)
             ->setOption('margin-right', 15);
+
 
         return $pdf;
     }
