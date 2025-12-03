@@ -720,7 +720,7 @@ class CompraRequisicion extends Model implements HasMedia
 
     public function puedeAsignarAnalistaCompras(): bool
     {
-        return $this->estado_id == CompraRequisicionEstado::AUTORIZADA;
+        return $this->estado_id == CompraRequisicionEstado::ASIGNACION_REQUISICIONES;
     }
 
 }

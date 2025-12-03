@@ -65,8 +65,7 @@ class CompraBandejasTableSeeder extends Seeder
         ]);
         $bandejaAnalistaPresupuesto->estados()->attach([
             CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_PRESUPUESTOS,
-//            CompraRequisicionEstado::RETORNADA_POR_SUPERVISOR_A_ANALISTA_DE_PRESUPUESTO,
-//            CompraRequisicionEstado::AUTORIZADA_POR_SUPERVISOR,
+            CompraRequisicionEstado::AUTORIZADA,
         ]);
 
 //        Paso NO.3
@@ -98,8 +97,7 @@ class CompraBandejasTableSeeder extends Seeder
         ]);
 
         $bandejaSupervisor->estados()->attach([
-            CompraRequisicionEstado::AUTORIZADA,
-//            CompraRequisicionEstado::ASIGNACION_REQUISICIONES,
+            CompraRequisicionEstado::ASIGNACION_REQUISICIONES,
         ]);
 
 //        Paso NO.6

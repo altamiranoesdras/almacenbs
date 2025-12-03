@@ -132,7 +132,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 mb-1">
-                                Observaciones:
+                                <label for="comentario" class="form-label">Observaciones:</label>
                                 <textarea
                                     name="observaciones"
                                     class="form-control"
@@ -173,7 +173,9 @@
                                         data-bs-target="#modal-confirma-procesar"
                                         class="btn btn-success round">
                                     <i class="fa fa-paper-plane"></i>
-                                    Aprobar y Enviar
+                                    {{ $requisicion->estado_id == \App\Models\CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_PRESUPUESTOS ?
+                                        'Enviar a requirente' :
+                                        'Enviar a supervisor' }}
                                 </button>
                             </div>
 

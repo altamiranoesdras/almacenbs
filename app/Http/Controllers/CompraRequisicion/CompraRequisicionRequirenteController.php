@@ -44,6 +44,8 @@ class CompraRequisicionRequirenteController extends Controller
 
         $requisicion->enviarAAprobador();
 
+        flash('Requisición enviada a Aprobador.')->success();
+
         return redirect()
             ->route('compra.requisiciones.mis.requisiciones')
             ->with('success', 'La requisición ha sido enviada al aprobador correctamente.');

@@ -206,9 +206,6 @@
                     myModal.show();
                 }
             },
-            created() {
-
-            },
             data: {
                 justificacion: @json($requisicion->justificacion ?? ''),
                 pdf_firmado: @json($requisicion->pdfFirmado() ?? session('rutaArchivoFirmado') ?? ''),
