@@ -298,14 +298,16 @@ class CompraRequisicion extends Model implements HasMedia
         $this->addBitacora("REQUISICIÓN DE COMPRA REQUERIDA");
     }
 
-    public function aprobar(): void
+    public function aprobar($observacion = null): void
     {
+        $observacion = $observacion ?? '';
+
         $this->estado_id = CompraRequisicionEstado::APROBADA;
         $this->fecha_aprueba = now();
         $this->usuario_aprueba_id = usuarioAutenticado()->id;
         $this->save();
 
-        $this->addBitacora("REQUISICIÓN DE COMPRA APROBADA");
+        $this->addBitacora("REQUISICIÓN DE COMPRA APROBADA", $observacion);
     }
 
     public function autorizar(): void

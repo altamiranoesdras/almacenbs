@@ -43,7 +43,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 mb-1">
-                                Observaciones:
+                                <label for="comentario" class="form-label">Observaciones:</label>
                                 <textarea
                                     name="observaciones"
                                     class="form-control"
@@ -85,9 +85,9 @@
                                 <div class="col-sm-4 text-end">
                                     <button type="button" data-bs-toggle="modal"
                                             data-bs-target="#modal-confirma-procesar"
-                                            class="btn btn-outline-primary round">
+                                            class="btn btn-outline-success round">
                                         <i class="fa fa-paper-plane"></i>
-                                        Autorizar y Enviar
+                                        Enviar a analista de presupuesto
                                     </button>
                                 </div>
                             @endif

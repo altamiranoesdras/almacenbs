@@ -79,31 +79,21 @@
                                     </button>
                                 </div>
 
-
-                                <div class="col-sm-4 text-center">
-
-                                    @if(!$requisicion->tiene_firma_autorizador)
-                                        <button type="button" class="btn btn-outline-info round" @click="firmar()">
-                                            Firmar
-                                        </button>
-                                    @else
-
-                                        <button type="button" class="btn btn-outline-info round" data-bs-toggle="modal"
-                                                @click="verPdfFirmado()">
-                                            Ver PDF Firmado
-                                        </button>
-                                    @endif
-
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-outline-info round" data-bs-toggle="modal"
+                                            @click="verPdfFirmado()">
+                                        Ver PDF Firmado
+                                    </button>
                                 </div>
 
-                                    <div class="col-sm-4 text-end">
-                                        <button type="button" data-bs-toggle="modal"
-                                                data-bs-target="#modal-confirma-procesar"
-                                                class="btn btn-success round">
-                                            <i class="fa fa-paper-plane"></i>
-                                            Enviar a analista de compras
-                                        </button>
-                                    </div>
+                                <div class="col-sm-4 text-end">
+                                    <button type="button" data-bs-toggle="modal"
+                                            data-bs-target="#modal-confirma-procesar"
+                                            class="btn btn-success round">
+                                        <i class="fa fa-paper-plane"></i>
+                                        Enviar a analista de compras
+                                    </button>
+                                </div>
 
                             </div>
                             <div class="modal fade modal-info" id="modal-confirma-procesar">
@@ -306,7 +296,7 @@
                     el: '#editarRequisicion',
                     name: 'editarRequisicion',
                     async mounted() {
-                        if(this.flashPdfFirmado) {
+                        if (this.flashPdfFirmado) {
                             var myModal = new bootstrap.Modal(document.getElementById('pdfModal'));
                             myModal.show();
                         }

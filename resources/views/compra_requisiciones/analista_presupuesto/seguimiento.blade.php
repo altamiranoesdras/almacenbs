@@ -168,16 +168,19 @@
                                 @endif
                             </div>
 
-                            <div class="col-sm-4 text-end">
-                                <button type="button" data-bs-toggle="modal"
-                                        data-bs-target="#modal-confirma-procesar"
-                                        class="btn btn-success round">
-                                    <i class="fa fa-paper-plane"></i>
-                                    {{ $requisicion->estado_id == \App\Models\CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_PRESUPUESTOS ?
-                                        'Enviar a requirente' :
-                                        'Enviar a supervisor' }}
-                                </button>
-                            </div>
+                            @if($requisicion->tiene_firma_analista_presupuesto)
+                                <div class="col-sm-4 text-end">
+                                    <button type="button" data-bs-toggle="modal"
+                                            data-bs-target="#modal-confirma-procesar"
+                                            class="btn btn-success round">
+                                        <i class="fa fa-paper-plane"></i>
+                                        {{ $requisicion->estado_id == \App\Models\CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_PRESUPUESTOS ?
+                                            'Enviar a requirente' :
+                                            'Enviar a supervisor' }}
+                                    </button>
+                                </div>
+                            @endif
+
 
                         </div>
                         <div class="modal fade modal-info" id="modal-confirma-procesar">

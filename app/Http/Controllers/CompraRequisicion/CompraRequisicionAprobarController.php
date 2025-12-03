@@ -65,11 +65,11 @@ class CompraRequisicionAprobarController extends Controller
             ->with('rutaArchivoFirmado', $media->getUrl());
     }
 
-    public function aprobar(CompraRequisicion $requisicion)
+    public function aprobar(CompraRequisicion $requisicion, Request $request)
     {
-        $requisicion->aprobar();
+        $requisicion->aprobar($request->observaciones);
 
-        flash('La requisición ha sido aprobada correctamente.')->success();
+        flash('Requisición enviada a Autorizador.')->success();
         return redirect()->route('compra.requisiciones.aprobar');
 
     }

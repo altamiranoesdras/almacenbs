@@ -43,7 +43,15 @@
 
                     <div class="card-footer">
                         <div class="row mb1">
-
+                            <div class="col-12 mb-1">
+                                Observaciones:
+                                <textarea
+                                    name="observaciones"
+                                    class="form-control"
+                                    rows="2"
+                                    placeholder="Observaciones (opcional)"
+                                ></textarea>
+                            </div>
                             <div class="col-sm-4">
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-outline-danger round" data-bs-toggle="modal"
@@ -73,9 +81,9 @@
                                 <div class="col-sm-4 text-end">
                                     <button type="button" data-bs-toggle="modal"
                                             data-bs-target="#modal-confirma-procesar"
-                                            class="btn btn-outline-primary round">
+                                            class="btn btn-outline-success round">
                                         <i class="fa fa-paper-plane"></i>
-                                        Aprobar y Enviar
+                                        Enviar a autorizador
                                     </button>
                                 </div>
                             @endif
