@@ -594,9 +594,9 @@ class CompraRequisicion extends Model implements HasMedia
         return $this->firmar(
             usuarioAutenticado(),
             $contrasenaFirma,
-            $uploaded
-            , 180
-            , 280
+            $uploaded,
+            300,
+            210
         );
 
     }
@@ -621,8 +621,8 @@ class CompraRequisicion extends Model implements HasMedia
             usuarioAutenticado(),
             $contrasenaFirma,
             $uploaded
-            , 360
-            , 280
+            , 300
+            , 110
         );
 
     }
