@@ -43,7 +43,7 @@ class NuevoIngresoParaUnidadNotification extends Notification
     {
 
         return (new MailMessage)
-            ->from('sistemasbs@sbs.gob.gt', 'SIGUA - Secretaría de Bienestar Social')
+//            ->from('sistemasbs@sbs.gob.gt', 'Secretaría de Bienestar Social')
             ->subject('Nuevo ingreso para la unidad')
             ->view('compras.correos.nuevo_ingreso', [
                 'compra' => $this->compra,

@@ -8,7 +8,7 @@
 
 <!-- Encabezado institucional -->
 <div style="background:#1b3a57; color:white; text-align:center; padding:20px 0; font-size:20px; font-weight:bold;">
-    Secretaría de Bienestar Social – SIGUA
+    {{ config('app.name') }}
 </div>
 
 <!-- Contenedor principal -->
