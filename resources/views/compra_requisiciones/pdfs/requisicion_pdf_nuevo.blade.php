@@ -4,16 +4,26 @@
     <meta charset="UTF-8">
     <title>REQUISICIÓN DE COMPRA</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
+
+
         body {
-            font-family: DejaVu Sans, sans-serif;
+            font-family: "Roboto Condensed", "Bahnschrift", sans-serif;
+            /*font-family: DejaVu Sans, sans-serif;*/
             font-size: 11px;
         }
+
+        /* COLOR DE FUENTE GLOBAL */
+        body, table, td, th, span, label, h1, h3, h5, div {
+            color: #24325d !important;
+        }
+
         table {
             border-collapse: collapse;
             width: 100%;
         }
         td, th {
-            border: 1px solid #000;
+            border: 1px solid #24325d;
             padding: 4px;
             vertical-align: middle;
             text-align: center;
@@ -26,15 +36,15 @@
             text-align: left;
         }
         #tablaDetalles tr td {
-            border-left: 1px solid #000;
-            border-right: 1px solid #000;
+            border-left: 1px solid #24325d;
+            border-right: 1px solid #24325d;
             border-bottom: none;
             border-top: none;
         }
         #tablaDetalles thead tr th {
             font-weight: bold;
             background: #1B244B;
-            color: white;
+            color: white !important;
             padding: 10px 2px;
         }
         #tablaDetalles tfoot tr th {
@@ -43,83 +53,241 @@
             border-left: none;
             border-right: none;
         }
+
+        .celda-codigo {
+            width: 8%;
+        }
+        .celda-presentacion {
+            width: 8%;
+        }
+        .celda-renglon {
+            width: 8%;
+        }
+        .celda-unidad-medida {
+            width: 8%;
+        }
+        .celda-cantidad {
+            width: 8%;
+        }
+        .celda-descripcion {
+            width: 60%;
+            text-align: left;
+        }
         .texto-negrita {
             font-weight: bold;
         }
         .tamanio-texto-general {
             font-size: 11px;
         }
+
+        .titulo-afectacion {
+            margin-top: 15px;
+            margin-bottom: 3px;
+            font-size: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #24325d;
+        }
+
+        /* Contenedor con borde y esquinas redondeadas */
+        .tabla-afectacion {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid #24325d;
+            border-radius: 4px;
+            font-size: 10px;
+        }
+
+        .tabla-afectacion td {
+            border: none;
+            padding: 6px 10px;
+            vertical-align: top;
+        }
+
+        /* Alineaciones */
+        .afectacion-izquierda {
+            text-align: left;
+        }
+
+        .afectacion-derecha {
+            text-align: right;
+        }
+
+        /* Texto de PR SP PY… y SUBPRODUCTO con línea inferior */
+        .afectacion-encabezado {
+            font-weight: bold;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #24325d;
+            padding-bottom: 2px;
+            display: inline-block;
+        }
+
+        /* Texto de partidas / subproductos */
+        .afectacion-texto {
+            font-weight: bold;
+            font-size: 11px;
+        }
+
+        /* ===== Encabezado institucional ===== */
+        .encabezado-tabla {
+            width: 100%;
+            border: 1px solid #24325d;
+        }
+
+        .encabezado-tabla .celda-logo {
+            width: 20%;
+            text-align: center;
+            vertical-align: top;
+            padding: 0px;
+            font-size: 9px;
+            font-weight: bold;
+        }
+
+        .encabezado-tabla .celda-titulo {
+            width: 55%;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 18px !important;
+            font-weight: bold;
+        }
+
+        .encabezado-tabla .celda-numero-fecha {
+            width: 25%;
+            text-align: left;
+            vertical-align: middle;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .encabezado-numero {
+            font-weight: bold;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        .encabezado-fecha {
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+
+        /* Quita bordes a la tabla del encabezado */
+        .no-border {
+            border: none !important;
+        }
+        .no-border td,
+        .no-border th {
+            border: none !important;
+            padding: 0;
+        }
+
+        /* ===== UNIDAD REQUERIENTE ===== */
+        .tabla-unidad {
+            width: 100%;
+            border: none !important;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .tabla-unidad  td {
+            padding-top: 15px;
+            padding-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .celda-label-unidad {
+            width: 22%;
+            font-weight: bold;
+            text-align: left;
+            padding-left: 10px;
+            border: none !important;
+        }
+
+        .celda-nombre-unidad {
+            width: 78%;
+            text-align: left;
+            font-weight: bold;
+            padding-left: 10px;
+            border-radius: 5px;
+            border: 1px solid #24325d;
+        }
+
+
+
+
+
     </style>
 </head>
 <body>
 
 <!-- Encabezado institucional -->
-<table class="no-border">
+<table class="encabezado-tabla no-border">
     <tr>
-        <td style="width: 100%; padding: 0;">
-            <div style="display: table; width: 100%; border-collapse: collapse;">
-                <div style="display: table-cell; width: 25%; vertical-align: middle;">
-                    <img src="{{ asset('img/logos/Logo_Secretaria_BS.png') }}" alt="Logo" style="width: 100%;">
-                    <span style="font-weight: bold; margin-top: 10px">32 Calle 9-34 Zona 11, Las Charcas</span><br>
-                    <span style="font-weight: bold"><strong>NIT:</strong> 3377881</span>
-                </div>
-                <div style="display: table-cell; width: 60%; text-align: center; vertical-align: middle;">
-                    <h1 style="font-weight: bold;">REQUISICIÓN DE COMPRA</h1>
-                </div>
-                <div style="display: table-cell; width: 20%; text-align: start; vertical-align: middle;">
-                    <label style="font-weight: bold; font-size: 15px">Numero: </label><span>{{$requisicion->codigo}}</span><br><br>
-                    <label style="font-weight: bold; font-size: 15px">Fecha: </label><span>{{fechaLtn($requisicion->created_at)}}</span>
-                </div>
-            </div>
+        <td class="celda-logo">
+            <img src="{{ asset('img/logos/Logo_Secretaria_BS.png') }}" style="width: 200px" alt="Logo" class="logo-secretaria">
+            <br>
+            <span class="direccion-secretaria">32 Calle 9-34 Zona 11, Las Charcas</span><br>
+            <span class="nit-secretaria">NIT: 3377881</span>
+        </td>
+        <td class="celda-titulo">
+            REQUISICIÓN DE COMPRA
+        </td>
+        <td class="celda-numero-fecha">
+            <div class="encabezado-numero">Número: {{ $requisicion->codigo }}</div>
+            <div class="encabezado-fecha">Fecha: {{ fechaLtn($requisicion->created_at) }}</div>
         </td>
     </tr>
 </table>
 
-<!-- Unidad solicitante -->
-<table style="margin-top: 15px; margin-bottom: 15px; width: 100%;">
+<!-- Unidad requirente -->
+<table class="tabla-unidad">
     <tr>
-        <td style="border: none; width: 20%">
-            <h3>UNIDAD REQUIRENTE:</h3>
+        <td class="celda-label-unidad">
+            UNIDAD REQUERIENTE
         </td>
 
-        <td class="left" style="text-align: center; width: 80%">
-            <h3 class="texto-negrita">{{ $requisicion->unidad->nombre ?? '' }}</h3>
+        <td class="celda-nombre-unidad">
+            {{ $requisicion->unidad->nombre ?? '' }}
         </td>
     </tr>
+
 </table>
+
 
 <table class="table table-sm" id="tablaDetalles">
     <thead>
     <tr style="border-right: 1px black solid ">
-        <th width="5%">CODIGO INSUMO</th>
-        <th width="5%">CODIGO DE PRESENTACION</th>
-        <th width="5%">RENGLÓN</th>
-        <th width="5%">UNIDAD DE MEDIDA</th>
-        <th width="10%">CANTIDAD</th>
-        <th width="65%">DESCRIPCION DEL PRODUCTO (Espesificar color, tamaño, talla, grosor, material, entre otros)</th>
+        <th class="encabezado-codigo">CÓDIGO DE INSUMO</th>
+        <th class="encabezado-presentacion">CODIGO DE PRESENTACION</th>
+        <th class="encabezado-renglon">RENGLÓN</th>
+        <th class="encabezado-unidad-medida">UNIDAD DE MEDIDA</th>
+        <th class="encabezado-cantidad">CANTIDAD</th>
+        <th class="encabezado-descripcion">DESCRIPCION DEL PRODUCTO (Espesificar color, tamaño, talla, grosor, material, entre otros)</th>
     </tr>
     </thead>
 
     <tbody>
     @foreach ($requisicion->detalles as $detalle)
-        <tr class="p-0 border-0 " style="font-size: 8px">
-            <td class="text-center texto-negrita tamanio-texto-general">{{ $detalle->item->codigo_insumo ?? '' }}</td>
-            <td class="text-center texto-negrita tamanio-texto-general">{{ $detalle->item->codigo_presentacion ?? '' }}</td>
-            <td class="text-center texto-negrita tamanio-texto-general">{{ $detalle->item->renglon->numero ?? '' }}</td>
-            <td class="text-center texto-negrita tamanio-texto-general">{{ $detalle->item->unimed->nombre ?? '' }}</td>
-            <td class="text-center texto-negrita tamanio-texto-general">{{ $detalle->cantidad ?? '' }}</td>
-            <td class="text-center texto-negrita tamanio-texto-general">{{ $detalle->item->texto_requisicion_compra ?? '' }}</td>
+        <tr class="p-0 border-0 " style="font-size: 10px">
+            <td class="celda-codigo">{{ $detalle->item->codigo_insumo ?? '' }}</td>
+            <td class="celda-presentacion">{{ $detalle->item->codigo_presentacion ?? '' }}</td>
+            <td class="celda-renglon">{{ $detalle->item->renglon->numero ?? '' }}</td>
+            <td class="celda-unidad-medida">{{ $detalle->item->unimed->nombre ?? '' }}</td>
+            <td class="celda-cantidad">{{ $detalle->cantidad ?? '' }}</td>
+            <td class="celda-descripcion">{!! limpiarHtml($detalle->item->texto_requisicion_compra ?? '') !!} </td>
         </tr>
     @endforeach
 
-    @for ($i = count($requisicion->detalles); $i < 20; $i++)
+    @for ($i = count($requisicion->detalles); $i < 18; $i++)
         <tr class="border-0 p-0">
-            <td class="text-center" >&nbsp;</td>
-            <td >&nbsp;</td>
-            <td >&nbsp;</td>
-            <td >&nbsp;</td>
-            <td >&nbsp;</td>
-            <td >&nbsp;</td>
+            <td class="text-center">&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
         </tr>
     @endfor
     <tr style="border: 1px black solid">
@@ -134,44 +302,45 @@
         <td class="left" style="border: none">JUSTIFICACIÓN:</td>
     </tr>
     <tr>
-        <td style="height: 80px; width: 100%; vertical-align: top;" class="texto-negrita tamanio-texto-general left">
+        <td style="height: 50px; width: 100%; vertical-align: top;" class="texto-negrita tamanio-texto-general left">
             {{$requisicion->justificacion ?? ''}}
         </td>
     </tr>
 </table>
 
-<table style="margin-top: 15px; width: 100%">
+
+<h5 class="titulo-afectacion">
+    AFECTACIÓN PRESUPUESTARIA
+</h5>
+
+<table class="tabla-afectacion">
     <tr>
-        <td class="left" colspan="4" style="border: none">AFECTACIÓN PRESUPUESTARIA:</td>
+        <td class="afectacion-izquierda">
+            <span class="afectacion-encabezado">
+                PR&nbsp;&nbsp;SP&nbsp;&nbsp;PY&nbsp;&nbsp;AC&nbsp;&nbsp;OB&nbsp;&nbsp;REN&nbsp;&nbsp;UBG&nbsp;&nbsp;FTE
+            </span>
+        </td>
+        <td class="afectacion-derecha">
+            <span class="afectacion-encabezado">
+                SUBPRODUCTO
+            </span>
+        </td>
     </tr>
+
     <tr>
-        <td class="left" colspan="4" style="height: 50px; width: 100%">
-            <table style="width: 100%">
-                <tr>
-                    <td class="left" style="border: none;">
-                        <span style="border-bottom: 1px solid black" class="texto-negrita">
-                            PR  SP  PY  AC  OB  REN  UBG  FTE
-                        </span>
-                    </td>
-                    <td class="right" style="border: none;">
-                        <span style="border-bottom: 1px solid black" class="texto-negrita">SUB PRODUCTO</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="left" style="border: none;">
-                        @foreach($requisicion->obtenerPartidas() as $partida)
-                            <span class="texto-negrita tamanio-texto-general">{{ $partida  }}</span> <br>
-                        @endforeach
-                    </td>
-                    <td class="right" style="border: none;">
-                        @foreach($requisicion->obtenerSubProductos() as $subProducto)
-                            <span class="texto-negrita tamanio-texto-general">{{ $subProducto  }}</span> <br>
-                        @endforeach
-                    </td>
-                </tr>
-            </table>
+        <td class="afectacion-izquierda">
+            @foreach($requisicion->obtenerPartidas() as $partida)
+                <div class="afectacion-texto">{{ $partida }}</div>
+            @endforeach
+        </td>
+        <td class="afectacion-derecha">
+            @foreach($requisicion->obtenerSubProductos() as $subProducto)
+                <div class="afectacion-texto">{{ $subProducto }}</div>
+            @endforeach
         </td>
     </tr>
 </table>
+
+
 </body>
 </html>

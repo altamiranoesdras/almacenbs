@@ -1019,3 +1019,11 @@ if (!function_exists('aNombreDeClase')) {
     }
 }
 
+//funcion para quitar html de un texto
+if (!function_exists('limpiarHtml')) {
+    function limpiarHtml($texto): string
+    {
+        $sinTags = strip_tags($texto);
+        return html_entity_decode($sinTags, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    }
+}

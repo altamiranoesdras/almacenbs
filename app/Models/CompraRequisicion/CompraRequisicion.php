@@ -694,11 +694,11 @@ class CompraRequisicion extends Model implements HasMedia
     /**
      * @throws Throwable
      */
-    public function generaPdf(): string
+    public function generaPdf(): \Illuminate\Http\Response
     {
         $pdf = $this->getPdf();
 
-        return $pdf->output(); // Retorna el contenido del PDF generado
+        return $pdf->inline();
 
     }
 
@@ -718,11 +718,12 @@ class CompraRequisicion extends Model implements HasMedia
 
         $pdf->loadHTML($view)
             ->setOption('footer-html', $footer)
+            ->setOption('encoding', 'UTF-8')   // 👈 importante
             ->setOption('page-width', 279)   // mm
             ->setOption('page-height', 216)  // mm
             ->setOrientation('landscape')
             ->setOption('margin-top', 8)
-            ->setOption('margin-bottom', 90)
+            ->setOption('margin-bottom', 20)
             ->setOption('margin-left', 10)
             ->setOption('margin-right', 15);
 
