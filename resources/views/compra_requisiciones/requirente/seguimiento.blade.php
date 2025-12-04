@@ -192,10 +192,7 @@
 
 @push('scripts')
     <script>
-        @if(session('rutaArchivoFirmado'))
-        var myModal = new bootstrap.Modal(document.getElementById('pdfModal'));
-        myModal.show();
-        @endif
+
 
         new Vue({
             el: '#editarRequisicion',

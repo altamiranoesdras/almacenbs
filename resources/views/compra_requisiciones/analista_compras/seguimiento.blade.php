@@ -347,10 +347,6 @@
 
 @push('scripts')
     <script>
-        @if(session('rutaArchivoFirmado'))
-        var myModal = new bootstrap.Modal(document.getElementById('pdfModal'));
-        myModal.show();
-        @endif
 
         new Vue({
             el: '#editarRequisicion',
@@ -361,6 +357,10 @@
                 await this.getProveedores()
                 await this.getTipoAdquisiciones()
                 await this.obtenerDatos()
+                if (this.flashPdfFirmado) {
+                    var myModal = new bootstrap.Modal(document.getElementById('pdfModal'));
+                    myModal.show();
+                }
             },
             created() {
 
@@ -377,6 +377,7 @@
                 tipoAdquisicionSeleccionado: null,
                 deshAbilitarCampos: @json($requisicion->estado_id != \App\Models\CompraRequisicionEstado::ASIGNADA_A_ANALISTA_DE_COMPRAS),
                 pdf_firmado: @json($requisicion->pdfFirmado() ?? null),
+                flashPdfFirmado: @json(session('rutaArchivoFirmado') ?? false),
 
             },
             methods: {
