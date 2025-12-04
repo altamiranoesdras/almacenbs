@@ -563,8 +563,8 @@ class CompraRequisicion extends Model implements HasMedia
             usuarioAutenticado(),
             $contrasenaFirma,
             $uploaded,
-            30,
-            210
+            0,
+            60
         );
 
     }
@@ -595,8 +595,8 @@ class CompraRequisicion extends Model implements HasMedia
             usuarioAutenticado(),
             $contrasenaFirma,
             $uploaded,
-            300,
-            210
+            190,
+            60
         );
 
     }
@@ -621,8 +621,8 @@ class CompraRequisicion extends Model implements HasMedia
             usuarioAutenticado(),
             $contrasenaFirma,
             $uploaded
-            , 300
-            , 110
+            , 360
+            , 60
         );
 
     }
