@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Exceptions\InsumosSinCategriaException;
+use App\Notifications\NuevoIngresoParaUnidadNotification;
 use App\Traits\HasBitacora;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -765,6 +766,30 @@ class Compra extends Model
 
         $this->procesaIngreso();
         $this->procesarKardex();
+        $this->nontificarUsuarios();
+
+    }
+
+    public function nontificarUsuarios(): void
+    {
+
+        $unidades = $this->detalles->pluck('unidad_solicita_id')->unique();
+
+        $usuarios = User::role(Role::SOLICITANTE_REQUISICION_ALMACEN)
+            ->whereIn('unidad_id', $unidades)
+            ->get();
+
+
+        try {
+
+            $usuarios->each(function ($usuario) {
+                $usuario->notify(new NuevoIngresoParaUnidadNotification($this));
+            });
+
+        }catch (\Exception $e) {
+            // Si ocurre un error al enviar las notificaciones, lo registramos en la bitácora
+            $this->addBitacora("Error al notificar usuarios: " . $e->getMessage());
+        }
 
     }
 
