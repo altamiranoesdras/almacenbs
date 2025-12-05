@@ -214,68 +214,68 @@
                                                                         Trx
                                                                     </button>
 
-                                                                    <!-- Modal -->
-                                                                    <div class="modal fade" id="modalTransaciones{{$det->id}}" tabindex="-1" aria-labelledby="modelTitleId{{$det->id}}" aria-hidden="true">
-                                                                        <div class="modal-dialog modal-xl modal-dialog-scrollable">
-                                                                            <div class="modal-content shadow rounded-3">
+{{--                                                                    <!-- Modal -->--}}
+{{--                                                                    <div class="modal fade" id="modalTransaciones{{$det->id}}" tabindex="-1" aria-labelledby="modelTitleId{{$det->id}}" aria-hidden="true">--}}
+{{--                                                                        <div class="modal-dialog modal-xl modal-dialog-scrollable">--}}
+{{--                                                                            <div class="modal-content shadow rounded-3">--}}
 
-                                                                                <!-- Header -->
-                                                                                <div class="modal-header">
-                                                                                    <h4 class="modal-title" id="modelTitleId">Transacciones de Existencia</h4>
-                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                                                                                </div>
+{{--                                                                                <!-- Header -->--}}
+{{--                                                                                <div class="modal-header">--}}
+{{--                                                                                    <h4 class="modal-title" id="modelTitleId">Transacciones de Existencia</h4>--}}
+{{--                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>--}}
+{{--                                                                                </div>--}}
 
-                                                                                <!-- Body -->
-                                                                                <div class="modal-body">
-                                                                                    <div class="table-responsive">
-                                                                                        <table class="table table-bordered table-hover table-striped align-middle">
-                                                                                            <thead class="table-light">
-                                                                                            <tr class="text-sm">
-                                                                                                <th>No</th>
-                                                                                                <th>ID</th>
-                                                                                                <th>Tipo</th>
-                                                                                                <th>Cantidad</th>
-                                                                                                <th>Precio</th>
-                                                                                                <th>Referencia</th>
-                                                                                            </tr>
-                                                                                            </thead>
-                                                                                            <tbody>
-                                                                                            @foreach($det->transcciones as $i => $trx)
-                                                                                                <tr class="text-sm">
-                                                                                                    <td>{{ $i+1 }}</td>
-                                                                                                    <td>{{ $trx->id }}</td>
-                                                                                                    <td>{{ $trx->tipo }}</td>
-                                                                                                    <td>{{ nf($trx->cantidad,0) }}</td>
-                                                                                                    <td>{{ dvs().nfp($trx->stock->precio_compra) }}</td>
-                                                                                                    <td>{{ $trx->referencia }}</td>
-                                                                                                </tr>
-                                                                                            @endforeach
-                                                                                            </tbody>
-                                                                                            <tfoot>
-                                                                                            <tr class="text-sm">
-                                                                                                <th colspan="3">Total</th>
-                                                                                                <th>{{ nf($det->transcciones->sum('cantidad'),0) }}</th>
-                                                                                                <th>{{ dvs().nfp($det->transcciones->sum('stock.precio_compra')) }}</th>
-                                                                                                <th colspan="1"></th>
-                                                                                            </tr>
-                                                                                            </tfoot>
-                                                                                        </table>
-                                                                                    </div>
-                                                                                </div>
+{{--                                                                                <!-- Body -->--}}
+{{--                                                                                <div class="modal-body">--}}
+{{--                                                                                    <div class="table-responsive">--}}
+{{--                                                                                        <table class="table table-bordered table-hover table-striped align-middle">--}}
+{{--                                                                                            <thead class="table-light">--}}
+{{--                                                                                            <tr class="text-sm">--}}
+{{--                                                                                                <th>No</th>--}}
+{{--                                                                                                <th>ID</th>--}}
+{{--                                                                                                <th>Tipo</th>--}}
+{{--                                                                                                <th>Cantidad</th>--}}
+{{--                                                                                                <th>Precio</th>--}}
+{{--                                                                                                <th>Referencia</th>--}}
+{{--                                                                                            </tr>--}}
+{{--                                                                                            </thead>--}}
+{{--                                                                                            <tbody>--}}
+{{--                                                                                            @foreach($det->transcciones as $i => $trx)--}}
+{{--                                                                                                <tr class="text-sm">--}}
+{{--                                                                                                    <td>{{ $i+1 }}</td>--}}
+{{--                                                                                                    <td>{{ $trx->id }}</td>--}}
+{{--                                                                                                    <td>{{ $trx->tipo }}</td>--}}
+{{--                                                                                                    <td>{{ nf($trx->cantidad,0) }}</td>--}}
+{{--                                                                                                    <td>{{ dvs().nfp($trx->stock->precio_compra) }}</td>--}}
+{{--                                                                                                    <td>{{ $trx->referencia }}</td>--}}
+{{--                                                                                                </tr>--}}
+{{--                                                                                            @endforeach--}}
+{{--                                                                                            </tbody>--}}
+{{--                                                                                            <tfoot>--}}
+{{--                                                                                            <tr class="text-sm">--}}
+{{--                                                                                                <th colspan="3">Total</th>--}}
+{{--                                                                                                <th>{{ nf($det->transcciones->sum('cantidad'),0) }}</th>--}}
+{{--                                                                                                <th>{{ dvs().nfp($det->transcciones->sum('stock.precio_compra')) }}</th>--}}
+{{--                                                                                                <th colspan="1"></th>--}}
+{{--                                                                                            </tr>--}}
+{{--                                                                                            </tfoot>--}}
+{{--                                                                                        </table>--}}
+{{--                                                                                    </div>--}}
+{{--                                                                                </div>--}}
 
-                                                                                <!-- Footer -->
-                                                                                <div class="modal-footer">
-                                                                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                                                                                        Cerrar
-                                                                                    </button>
-                                                                                    <button type="button" class="btn btn-primary">
-                                                                                        Guardar
-                                                                                    </button>
-                                                                                </div>
+{{--                                                                                <!-- Footer -->--}}
+{{--                                                                                <div class="modal-footer">--}}
+{{--                                                                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">--}}
+{{--                                                                                        Cerrar--}}
+{{--                                                                                    </button>--}}
+{{--                                                                                    <button type="button" class="btn btn-primary">--}}
+{{--                                                                                        Guardar--}}
+{{--                                                                                    </button>--}}
+{{--                                                                                </div>--}}
 
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+{{--                                                                            </div>--}}
+{{--                                                                        </div>--}}
+{{--                                                                    </div>--}}
 
                                                                 </td>
                                                             @endcan

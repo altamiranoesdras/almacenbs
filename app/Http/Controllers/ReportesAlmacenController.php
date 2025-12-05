@@ -309,15 +309,28 @@ class ReportesAlmacenController extends AppBaseController
         $stocks = null;
         $items = null;
 
-        $query = Stock::with(['item','bodega','rrhhUnidad' => function ($q) {
-            $q->withoutAppends();
-        }])->whereHas('item');
-
-        $queryItmes = Item::with(['stocks' => function ($q) {
-                $q->with(['rrhhUnidad' => function ($q) {
-                    $q->withoutAppends();
-                },'bodega']);
+        $query = Stock::with([
+            'item' => function ($query) {
+                $query->withOutAppends()
+                    ->with(['unimed', 'presentacion', 'marca']);
+            },
+            'bodega',
+            'rrhhUnidad' => function ($q) {
+                $q->withoutAppends();
             }])
+            ->whereHas('item');
+
+        $queryItmes = Item::with([
+            'stocks' => function ($q) {
+                $q->with([
+                    'rrhhUnidad' => function ($q) {
+                        $q->with(['tipo']);
+                    },
+                    'bodega'
+                ]);
+            }])
+            ->with(['unimed', 'presentacion', 'marca'])
+            ->withOutAppends()
             ->whereHas('stocks');
 
 
@@ -381,7 +394,9 @@ class ReportesAlmacenController extends AppBaseController
 //            ->conIngresos()
                 ->get();
 
+
             $items = $queryItmes->get();
+//            $items = collect();
         }
 
         return view('reportes.stock.index_old',compact('stocks','items','renglon','bodega_id','stock','buscar'));
