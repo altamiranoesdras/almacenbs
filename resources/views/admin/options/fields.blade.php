@@ -45,7 +45,21 @@
             :options="colores"
             placeholder="Selecciona un color"
             name="color">
+
+            {{-- cómo se ve cada opción en el desplegable --}}
+            <template slot="option" slot-scope="{ option }">
+                <span class="color-dot" :style="{ backgroundColor: getColorHex(option) }"></span>
+                <span>@{{ option }}</span>
+            </template>
+
+            {{-- cómo se ve el valor seleccionado --}}
+            <template slot="singleLabel" slot-scope="{ option }">
+                <span class="color-dot" :style="{ backgroundColor: getColorHex(option) }"></span>
+                <span>@{{ option }}</span>
+            </template>
         </multiselect>
+
+        {{-- lo que realmente se envía en el form --}}
         <input type="hidden" name="color" :value="color_seleccionado">
     </div>
 
@@ -92,11 +106,35 @@
         },
         data: {
             colores : ['info', 'primary', 'success', 'warning', 'danger', 'secondary', 'dark'],
-            color_seleccionado: '',
+            color_seleccionado: @json($option->color ?? '')
         },
         methods: {
-
+            getColorHex(name) {
+                switch (name) {
+                    case 'info':      return '#0dcaf0';
+                    case 'primary':   return '#0d6efd';
+                    case 'success':   return '#198754';
+                    case 'warning':   return '#ffc107';
+                    case 'danger':    return '#dc3545';
+                    case 'secondary': return '#6c757d';
+                    case 'dark':      return '#343a40';
+                    default:          return '#6c757d';
+                }
+            }
         }
     });
 </script>
+@endpush
+
+@push('estilos')
+    <style>
+        .color-dot {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            margin-right: 6px;
+            border: 1px solid #ccc;
+        }
+    </style>
 @endpush
