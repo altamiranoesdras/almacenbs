@@ -25,6 +25,7 @@ use App\Http\Controllers\API\EstructuraPresupuestariaActividadAPIController;
 use App\Http\Controllers\API\EstructuraPresupuestariaProgramaAPIController;
 use App\Http\Controllers\API\EstructuraPresupuestariaProyectoAPIController;
 use App\Http\Controllers\API\EstructuraPresupuestariaSubprogramaAPIController;
+use App\Http\Controllers\API\IconSearchController;
 use App\Http\Controllers\API\ItemAPIController;
 use App\Http\Controllers\API\ItemCategoriaAPIController;
 use App\Http\Controllers\API\ItemTipoAPIController;
@@ -60,6 +61,9 @@ Route::group(['as'=>'api.'], function () {
 
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
+
+        Route::post('iconos/buscar', [IconSearchController::class, 'buscar'])
+            ->name('icons.buscar');
 
         Route::resource('permissions', PermissionAPIController::class);
 
