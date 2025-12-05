@@ -23,7 +23,7 @@
         @if($hasChildren)
                     <i class="fa fa-folder-open"></i>
                 @else
-                    <i class="fa {{ $option->icono_l ?: 'fa-file' }}"></i>
+                    <i class="fa {{ $option->icono_l ?: 'fa-file' }} text-{{$option->color}}"></i>
                 @endif
       </span>
 

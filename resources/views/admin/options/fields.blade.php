@@ -46,6 +46,7 @@
             placeholder="Selecciona un color"
             name="color">
         </multiselect>
+        <input type="hidden" name="color" :value="color_seleccionado">
     </div>
 
     <!--switch para dev -->

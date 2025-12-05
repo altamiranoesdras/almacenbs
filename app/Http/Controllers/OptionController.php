@@ -140,6 +140,7 @@ class OptionController extends AppBaseController
             'recursos' => $request->has('recursos') ? 1 : 0,
         ]);
 
+
         if (empty($option)) {
             Flash::error('Option not found');
 
