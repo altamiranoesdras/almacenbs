@@ -97,7 +97,7 @@
                                 </div>
                                 {!! Form::label('buscar','&nbsp;') !!}
                                 <div>
-                                    <button class="btn btn-success" id="buscar" type="submit" name="buscar"
+                                    <button class="btn btn-success" id="buscar" type="submit" name="buscar" onclick="esperar()"
                                             value="1">
                                         <i class="fa fa-search"></i> Consultar
                                     </button>
